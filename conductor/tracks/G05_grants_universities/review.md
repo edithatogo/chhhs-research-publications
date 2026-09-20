@@ -34,7 +34,7 @@ unknown lead times as `null`. A focused regression test covers invalid data.
 - [x] **Style Compliance**: Pass - unknown lead times remain unknown and are not inferred.
 - [x] **New Tests**: Yes - malformed known lead-time rejection is covered.
 - [x] **Test Coverage**: Partial - catalogue and bounded probe contracts are covered; institutional access and feed acceptance are not.
-- [x] **Test Results**: Passed - focused university tests (3), project validation (438 checks) and canonical-clone full suite (332 tests, 8 skipped).
+- [x] **Test Results**: Passed - focused university tests (3), project validation (438 checks) and canonical-clone full suite (333 tests, 8 skipped).
 
 ## Findings
 
