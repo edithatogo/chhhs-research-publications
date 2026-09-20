@@ -101,6 +101,10 @@ As additional academic sources (Scopus, Web of Science, Dimensions, Crossref, Op
 
 The publication list remains publication-centred. Author analysis must use a separate derived registry or view described in [Author-centred registry and attribution design](AUTHOR_REGISTRY_DESIGN.md). At minimum it must preserve `AuthorKey`, display name and variants, stable external identifiers, identity status/confidence, affiliation history, publication/source keys, author order, affiliation evidence, evidence URL, observation time, and review state.
 
+### 2.1.2 DORA Activity Registry
+
+The linked Queensland Open Data DoRA dataset is a separate project/activity register and must not be forced into the publication list. The source-preserving target is a separate SharePoint list named `DORA Activity Registry`, described by `config/dora-activity-registry.schema.json` and read by `config/DoraActivityRegistry.m`. It contains seven provenance fields and all 20 current source columns, including ethics/review references, project/contact fields, sponsor, dates, disease category, site structure, DORA authority and consent. The source `_id` is the row identity; `Project ID` may repeat and is not a deduplication key. Native list creation, import and readback remain acceptance gates.
+
 ### 2.1.3 Organisational hierarchy enrichment
 
 The local reference registry in `config/organisation-hierarchy.json` provides a versioned HHS → service group → facility group hierarchy. `scripts/organisation_enrichment.py` matches only explicit affiliation aliases and preserves the evidence, confidence, reference version, and effective dates. It does not infer an organisation from a person name, title, locality, journal, or collection location. The live list should add these fields only after a schema readback confirms the internal names and a controlled backfill proves key-set and review-state preservation.
@@ -109,7 +113,7 @@ Organisation, author, facility, and publication relationships are many-to-many. 
 
 Name-only or ResearchGate-only matches are candidates, not included publications. Author-derived candidate sets must reconcile to the canonical publication key set before reporting or release.
 
-### 2.1.2 DORA metadata extensions and limitations
+### 2.1.4 DORA metadata extensions and limitations
 
 Where exposed by the historical DORA source, retain repository collection/community, item type, handle, version, deposit/update timestamp, raw date, DOI/PMID, and exact description/attribution text. Do not interpret a repository date as a formal publication date without source evidence. DORA coverage, document type, version relationships, and author-to-affiliation linkage remain explicit review fields rather than silent assumptions.
 

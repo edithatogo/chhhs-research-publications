@@ -7,6 +7,7 @@ Checked 11 September 2026. This records references and implementation use; it is
 | https://www.cairns-hinterland.health.qld.gov.au/hospitals-and-health-centres | Facility coverage. Search aliases and reporting groups are project decisions, not an official author registry. |
 | https://www.ncbi.nlm.nih.gov/books/NBK25499/ | NCBI E-utilities parameters, contact/tool attribution, result limits and batching. |
 | https://dora.health.qld.gov.au/qldresearchjspui/feed/rss_2.0/1/849 | Live DORA RSS source for the CHHHS collection. The supplied XML was used only to establish structure and attribution fields; its historic rows are not embedded in production data or fixtures. |
+| https://www.data.qld.gov.au/dataset/database-of-research-activity-dora | Queensland Open Data DoRA project/activity resource and CKAN package/datastore API. Its source columns are preserved in the separate DORA Activity Registry; it is not treated as a publication feed. |
 | https://learn.microsoft.com/en-us/power-bi/developer/projects/projects-overview | PBIP source-control architecture. |
 | https://learn.microsoft.com/en-us/fabric/cicd/git-integration/source-code-format | Fabric Git item structure, `.platform` metadata and source-code formats. |
 | https://learn.microsoft.com/en-us/fabric/cicd/git-integration/git-get-started | Browser Git integration workflow and capacity prerequisites. |

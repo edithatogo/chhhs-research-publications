@@ -11,6 +11,7 @@ T10_isolated_baseline
 - No conflicting identifier is automatically merged; ambiguous matches remain auditable.
 - DORA date precision and missing metadata are explicit, not invented.
 - RSS persistence/coverage is either verified or labelled incomplete; no complete institutional census claim.
+- The Queensland Open Data DoRA activity resource is treated as a separate project/activity entity. Its current source columns and provenance are retained without being collapsed into publication rows.
 - Historical attachment contents and synthetic examples are absent from the release model.
 
 ## Evidence boundary

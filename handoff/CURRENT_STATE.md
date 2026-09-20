@@ -17,7 +17,7 @@ One person owns this repository and the existing CHHHS RIMS report. Add funding 
 
 ## Remaining implementation
 
-Current tranche: S01.2 evidence-preserving attribution, S01.3.1–S01.3.5 local flow/field contracts and the fail-closed paged-batch contract are implemented and tested. S01.1 local baseline/scope comparison is recorded, but native page inventory and native paged-flow readback remain open. Next executable task: S01.4 contract migration, while native inventory can proceed independently. Follow `conductor/PUBLICATION_STABILISATION.md`; complete publication stabilisation and accepted release before resuming G01 grants implementation. Planning or local completion is not remote/platform completion.
+Current tranche: S01.2 evidence-preserving attribution, S01.3.1–S01.3.5 local flow/field contracts and the fail-closed paged-batch contract are implemented and tested. S01.1 local baseline/scope comparison is recorded, but native page inventory and native paged-flow readback remain open. T11 now also preserves the linked Queensland Open Data DoRA activity resource as a separate local RIMS registry; native list creation/readback remains open. Next executable task: S01.4 contract migration, while native inventory and T11 activity-list preparation can proceed independently. Follow `conductor/PUBLICATION_STABILISATION.md`; complete publication stabilisation and accepted release before resuming G01 grants implementation. Planning or local completion is not remote/platform completion.
 
 S03 remote status: the existing GitHub repository is private and now contains
 only the reviewed source-only `main` history. A fresh clone with the pinned
