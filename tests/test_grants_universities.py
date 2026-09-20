@@ -37,6 +37,15 @@ class GrantsUniversityTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "invalid lead-time value"):
                 load_universities(handle.name)
 
+    def test_fractional_lead_time_is_rejected(self):
+        rows = json.loads((Path(__file__).parents[1] / "config/grants-universities.json").read_text())
+        rows[0]["internal_lead_time"]["major_schemes"] = 2.5
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json") as handle:
+            json.dump(rows, handle)
+            handle.flush()
+            with self.assertRaisesRegex(ValueError, "non-integral lead-time"):
+                load_universities(handle.name)
+
     def test_authority_url_and_verification_date_are_validated(self):
         rows = json.loads((Path(__file__).parents[1] / "config/grants-universities.json").read_text())
         rows[0]["authority_url"] = "not-a-url"

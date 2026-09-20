@@ -23,6 +23,8 @@ def _validate_lead_time(value, key):
     numeric_values = [item for item in raw_values if isinstance(item, (int, float))]
     if not numeric_values:
         raise ValueError(f"institution {key!r} needs a numeric lead-time value")
+    if any(not isinstance(item, int) for item in numeric_values):
+        raise ValueError(f"institution {key!r} has a non-integral lead-time value")
     if any(not math.isfinite(item) or item < 0 or item > 3660 for item in numeric_values):
         raise ValueError(f"institution {key!r} has an invalid lead-time value")
 
