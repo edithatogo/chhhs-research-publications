@@ -1,6 +1,6 @@
 # G03 review
 
-Review status: in progress; the isolated DEV list/schema/create-update-duplicate-readback gate is evidenced, while organisation-wide target acceptance and grants-flow binding remain open.
+Review status: in progress; the isolated DEV list/schema/create-update-duplicate-readback and reviewed-import flow import/readback gates are evidenced, while organisation-wide target acceptance, execution and unattended acceptance remain open.
 
 The completed local G01 prerequisite is archived at `conductor/archive/G01_grants_contracts`; G03 has no unresolved active-track dependency.
 
@@ -11,16 +11,25 @@ The completed local G01 prerequisite is archived at `conductor/archive/G01_grant
 - Added schema/mapping parity tests; the local map and schema contain the same 22 persisted fields.
 - Added `config/flows/grants-registry-reviewed-import.definition.json`, a
   SharePoint-only manual reviewed-row JSON upsert definition with serial
-  processing, duplicate-key guard and review-field preservation. Its target
-  site/list remain placeholders until the native flow is intentionally
-  imported.
+  processing, duplicate-key guard and review-field preservation. The private
+  package builder injects the isolated DEV target without storing tenant IDs in
+  tracked files.
+- Added `scripts/build_grants_flow_package.py` and package-contract tests. The
+  package was imported successfully as `CHHHS Research Grants - Reviewed Import
+  Upsert` in the isolated DEV environment and read back with the SharePoint
+  connection selected. Power Automate Flow Checker reported 0 errors and 0
+  warnings in the editor; the details page reports one warning solely because
+  the flow is intentionally Off.
 
 ## Remaining acceptance
 
-The isolated DEV route is now implemented and read back. The remaining gate is
-to decide and approve the organisation-wide target, then bind the grants flow
-to this canonical list or its approved successor. Do not use OneDrive actions
-for registry writes.
+The isolated DEV route is now implemented and read back. The remaining gates
+are to decide and approve the organisation-wide target, bind the grants flow
+to this canonical list or its approved successor, and obtain explicit approval
+for a controlled run/replay test. The imported flow has not been enabled or
+run, so native row-level create/update execution, unattended operation and
+production acceptance remain unproved. Do not use OneDrive actions for registry
+writes.
 
 ## Native list inventory — 2026-09-20
 
@@ -44,3 +53,15 @@ guard for this isolated DEV target, not production concurrency acceptance.
 This closes the isolated DEV list/schema gate only. The list is not an
 organisation-wide production registry, and no grants flow or report was bound
 to it in this step.
+
+## Native reviewed-import flow readback — 2026-09-20
+
+The reviewed-import package was accepted by the Power Automate import wizard
+after correcting the SharePoint URL, choice-object and required-key payload
+contracts. The created flow is an Instant/manual flow, is Off, has no run
+history, uses the selected SharePoint Online connection, and exposes the
+expected trigger, JSON parse, serial Apply to each, SharePoint Get items,
+duplicate guard and create/update branches. The native editor Flow Checker
+reported no errors or warnings; the details-page warning is the expected
+inactive-flow warning. Full private receipt:
+`private/ops/2026-09-20-grants-flow-import-readback.json`.
