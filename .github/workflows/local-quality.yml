@@ -46,3 +46,8 @@ jobs:
 
       - name: Validate visual standards
         run: python scripts/validate_visual_standards.py
+
+      - name: Validate canonical flow contracts
+        run: |
+          python scripts/validate_publication_platform_contract.py
+          python scripts/validate_grants_flow_contract.py

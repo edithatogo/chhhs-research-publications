@@ -2,6 +2,8 @@ import json
 import unittest
 from pathlib import Path
 
+from scripts.validate_grants_flow_contract import validate
+
 
 class GrantsFlowContractTests(unittest.TestCase):
     @classmethod
@@ -57,6 +59,14 @@ class GrantsFlowContractTests(unittest.TestCase):
         text = json.dumps(self.definition)
         self.assertIn("{{SHAREPOINT_SITE_URL}}", text)
         self.assertIn("{{SHAREPOINT_LIST_ID}}", text)
+
+    def test_shared_validator_accepts_tracked_definition(self):
+        self.assertEqual([], validate(self.definition["properties"]["definition"]))
+
+    def test_shared_validator_rejects_onedrive_registry_persistence(self):
+        definition = json.loads(json.dumps(self.definition))
+        definition["properties"]["definition"]["actions"]["Apply_to_each_Reviewed_Row"]["actions"]["SharePoint_Get_items"]["inputs"]["host"]["apiId"] = "/providers/Microsoft.PowerApps/apis/shared_onedriveforbusiness"
+        self.assertIn("grants lookup must use the SharePoint Online connector", validate(definition["properties"]["definition"]))
 
 
 if __name__ == "__main__":
