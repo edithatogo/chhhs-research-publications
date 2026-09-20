@@ -408,3 +408,34 @@ commit: `538977e2b3aebc0bb6ef46f5d8cf7e45887d3a3b`.
 - **Residual acceptance:** the tenant SharePoint list schema, complete row
   readback, report integration, flow execution and unattended delivery remain
   unproven. No tenant mutation was made.
+
+## Conductor review — DoRA flow/schema identity coupling — 2026-09-21
+
+### Summary
+
+The DoRA flow validator now loads the canonical registry schema and fails closed
+unless `DORAActivityKey` is explicitly unique. This prevents a structurally
+valid SharePoint upsert definition from being packaged against a registry
+schema that cannot enforce the flow's duplicate-key invariant. Code commit:
+`5af36f6c7b7ee194a7d3cf5fd0a16d0540a2bd53`.
+
+### Verification Checks
+
+- **Plan Compliance:** Partial — local flow/schema coupling is enforced; native
+  target import, list readback and report integration remain open.
+- **Style Compliance:** Pass — schema loading is explicit and failures are
+  reported without coercion or tenant access.
+- **New Tests:** Yes — five focused flow-contract tests now include rejection of
+  a non-unique registry schema.
+- **Test Results:** Passed — full suite (405 passed, 8 skipped), 438 project
+  checks, Conductor validation (0 errors), web-first `PASS_LOCAL_ONLY`, Power
+  Platform tooling preflight, visual standards, canonical flow validation and
+  `git diff --check`.
+
+### Findings
+
+- **Fixed:** flow validation previously checked the lookup key but did not
+  verify that the canonical registry schema enforced uniqueness for that key.
+- **Residual acceptance:** native SharePoint schema/row readback, report
+  integration, execution and unattended delivery remain unproven. No tenant
+  mutation was made.
