@@ -19,7 +19,11 @@ One person owns this repository and the existing CHHHS RIMS report. Add funding 
 
 Current tranche: S01.2 evidence-preserving attribution and S01.3.1–S01.3.4 flow action-graph repairs are locally implemented and tested. S01.1 local baseline/scope comparison is recorded, but native page inventory remains open. Next executable task: S01.3.5 pagination/completeness and manual-field preservation, while native inventory can proceed independently. Follow `conductor/PUBLICATION_STABILISATION.md`; complete publication stabilisation and accepted release before resuming G01 grants implementation. Planning or local completion is not remote/platform completion.
 
-S03 remote status: the existing GitHub repository is confirmed private and empty. No push has occurred because the reachable local history contains tenant/runtime artefacts; a sanitised source-only candidate is required first.
+S03 remote status: the existing GitHub repository is private and now contains
+only the reviewed source-only `main` history at remote commit
+`e1ab9ff97bfd32c68c53f6dee8dcf94fee2b745b`. A fresh clone with the pinned
+Conductor submodule passed 319 checks and 258 tests. The dirty original local
+history remains private and was not pushed.
 
 S02 local status: the release packager now produces only a source archive after a clean-tree gate, with independent software/schema/batch identities and fresh-extraction checks. It has not produced an accepted release because the current checkout contains intentional uncommitted work.
 
