@@ -24,6 +24,35 @@ FLOW_ID = "{{FLOW_ID}}"
 FLOW_DISPLAY_NAME = "CHHHS Research Publications - Daily Ingestion & Enrichment"
 DEFAULT_TARGET = ROOT / "private" / "config" / "sharepoint-publication-target.json"
 
+PUBLICATION_ROWS_QUERY = '''EVALUATE
+VAR Ready =
+    COALESCE(COUNTROWS(PubMedPublications), 0) > 0
+        && COALESCE(COUNTROWS(DoraPublications), 0) > 0
+        && COALESCE(COUNTROWS(PubMedIngestionAudit), 0) = 9
+        && COALESCE(COUNTROWS(DoraIngestionAudit), 0) = 5
+        && COALESCE(COUNTROWS(FILTER(PubMedIngestionAudit, NOT(PubMedIngestionAudit[Passed] == TRUE()))), 0) = 0
+        && COALESCE(COUNTROWS(FILTER(DoraIngestionAudit, NOT(DoraIngestionAudit[Passed] == TRUE()))), 0) = 0
+VAR Rows =
+    SELECTCOLUMNS(
+        FILTER(Publication, NOT ISBLANK(Publication[CanonicalKey])),
+        "SourceKey", IF(NOT ISBLANK(Publication[PMID]), "pubmed:" & Publication[PMID], "dora:" & Publication[CanonicalKey]),
+        "CanonicalKey", Publication[CanonicalKey],
+        "Title", Publication[Title],
+        "Authors", Publication[Authors],
+        "Journal", Publication[Journal],
+        "PublicationYear", Publication[PublicationYear],
+        "PublicationMonth", Publication[PublicationMonth],
+        "PublicationDateRaw", Publication[PublicationDateRaw],
+        "PublicationDatePrecision", Publication[PublicationDatePrecision],
+        "SourceSet", Publication[SourceSet],
+        "PMID", Publication[PMID],
+        "DOI", Publication[DOI],
+        "MatchedFacilities", Publication[MatchedFacilities],
+        "AttributionEvidence", Publication[AttributionEvidence]
+    )
+RETURN FILTER(Rows, Ready)
+'''
+
 
 def load_target(path: Path) -> tuple[str, str, dict[str, str]]:
     payload = json.loads(path.read_text(encoding="utf-8"))
@@ -186,10 +215,28 @@ def build_package(baseline_path: Path, output_path: Path, target_path: Path = DE
         },
     }
 
-    definition["actions"]["Apply_to_each_Publication"] = {
+    definition["actions"]["Run_publication_rows_query"] = {
         "runAfter": {"Run_a_query_against_a_dataset": ["Succeeded"]},
+        "type": "OpenApiConnection",
+        "inputs": {
+            "parameters": {
+                "groupid": "myworkspace",
+                "datasetid": "{{ISOLATED_MODEL_ID}}",
+                "specification/query": PUBLICATION_ROWS_QUERY,
+                "specification/serializerSettings/includeNulls": True,
+            },
+            "host": {
+                "apiId": "/providers/Microsoft.PowerBI/apis/shared_powerbi",
+                "connectionName": "shared_powerbi",
+                "operationId": "ExecuteDatasetQuery",
+            },
+            "authentication": {"type": "Raw", "value": "@parameters('$authentication')"},
+        },
+    }
+    definition["actions"]["Apply_to_each_Publication"] = {
+        "runAfter": {"Run_publication_rows_query": ["Succeeded"]},
         "type": "Foreach",
-        "foreach": "@coalesce(body('Run_a_query_against_a_dataset')?['results'][0]?['tables'][0]?['rows'], createArray())",
+        "foreach": "@coalesce(body('Run_publication_rows_query')?['results'][0]?['tables'][0]?['rows'], createArray())",
         "runtimeConfiguration": {"concurrency": {"repetitions": 1}},
         "actions": record_actions,
     }

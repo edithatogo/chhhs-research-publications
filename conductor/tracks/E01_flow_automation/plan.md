@@ -19,3 +19,7 @@ Earlier checked tasks describe historical implementation. They do not close curr
 
 - [ ] Verify remaining native execution, replay/readback and reconciliation against current private receipts.
 - [ ] Record release and schedule status separately from local test/package completion.
+
+## Phase 4: Local flow defect remediation
+- [x] Separate the Power BI readiness summary query from the publication-row query consumed by the SharePoint upsert loop; add a nonblank `SourceKey` contract and regression test.
+- [ ] Re-deploy the corrected definition only to the approved isolated/manual route and capture create, replay/update, duplicate and failed-batch readback.
