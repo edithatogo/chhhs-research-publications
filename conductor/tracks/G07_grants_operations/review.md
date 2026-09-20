@@ -1,5 +1,7 @@
 # G07 review
 
+## Summary
+
 Review status: in progress; local operational guardrails are implemented.
 
 `scripts/grants_operations.py` rejects empty batches, missing or duplicate opportunity keys, and any failed source. On rejection it returns the prior accepted records instead of replacing them. Tests cover source failure preservation. Native monitoring, concurrency and schedule/delivery evidence remains open. A controlled authenticated Power Automate replay now proves one synthetic create and one same-key update, with the flow restored Off; see the G03 review and the ignored receipt `private/ops/2026-09-20-grants-flow-import-readback.json`. No unattended schedule, notification or production path was touched.
@@ -14,7 +16,7 @@ cover both boundaries; prior accepted records remain preserved on rejection.
 - [x] **Style Compliance**: Pass - the evaluator preserves prior accepted records and fails closed on missing evidence.
 - [x] **New Tests**: Yes - missing health and unreported-source cases are covered.
 - [x] **Test Coverage**: Partial - local run evaluation is covered; native monitoring and unattended delivery are not.
-- [x] **Test Results**: Passed - focused G07 tests (7), project validation (438 checks) and canonical-clone full suite (325 tests, 8 skipped).
+- [x] **Test Results**: Passed - focused G07 tests (7), project validation (438 checks) and canonical-clone full suite (326 tests, 8 skipped).
 
 ## Findings
 

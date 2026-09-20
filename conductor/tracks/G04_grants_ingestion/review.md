@@ -1,5 +1,7 @@
 # G04 review
 
+## Summary
+
 Review status: in progress; local ingestion is implemented and tested, while live source and platform execution remain open.
 
 Conductor review fix applied: calendar candidate identity now hashes the full

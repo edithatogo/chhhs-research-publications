@@ -1,5 +1,7 @@
 # G08 review
 
+## Summary
+
 Review status: in progress; local planning and idempotency contracts are implemented.
 
 - `validate_policy` requires a version, organisation, anchor, lead time, holiday-calendar version and effective dates.
@@ -51,7 +53,7 @@ before date projection. Unknown source dates remain omitted.
 - [x] **Style Compliance**: Pass - uncertain dates remain omitted and event identity is deterministic.
 - [x] **New Tests**: Yes - duplicate UID and malformed policy rejection are covered.
 - [x] **Test Coverage**: Partial - local calendar semantics are covered; native report persistence, personal access and delivery are not.
-- [x] **Test Results**: Passed - focused calendar tests (4), project validation (438 checks) and canonical-clone full suite (325 tests, 8 skipped).
+- [x] **Test Results**: Passed - focused calendar tests (4), project validation (438 checks) and canonical-clone full suite (326 tests, 8 skipped).
 
 ## Findings
 

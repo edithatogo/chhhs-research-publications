@@ -1,5 +1,7 @@
 # G02 review
 
+## Summary
+
 Review status: in progress; the source catalogue is implemented and the ARC public awards API is now verified, while the opportunity-source and Queensland endpoint gates remain open.
 
 ## Changes
@@ -104,7 +106,7 @@ Verify each remaining permitted opportunity feed/API or produce a reviewed impor
 - [x] **Style Compliance**: Pass - source uncertainty is retained explicitly and no HTML candidate is promoted to an accepted opportunity.
 - [x] **New Tests**: Yes - the focused HTML calendar tests cover `SourceColumns` and ordered `SourceCells` preservation.
 - [x] **Test Coverage**: Partial - local adapters and admission rules are covered; native source/feed, eligibility and unattended acceptance are outside local tests.
-- [x] **Test Results**: Passed - focused tests (5), full suite (318 tests, 8 private-runtime skips), project validation (438 checks), and Conductor validation (0 errors).
+- [x] **Test Results**: Passed - focused tests (5), canonical-clone full suite (326 tests, 8 private-runtime skips), project validation (438 checks), and Conductor validation (0 errors).
 
 ## Findings
 

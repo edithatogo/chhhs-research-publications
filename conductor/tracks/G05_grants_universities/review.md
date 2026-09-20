@@ -1,5 +1,7 @@
 # G05 review
 
+## Summary
+
 Review status: in progress; university source and institutional-date discovery is recorded without promoting private portals to feeds.
 
 - `config/grants-universities.json` covers JCU, UQ, QUT and Griffith with authority page, format, access boundary, eligibility scope, policy note and last verification.
@@ -32,7 +34,7 @@ unknown lead times as `null`. A focused regression test covers invalid data.
 - [x] **Style Compliance**: Pass - unknown lead times remain unknown and are not inferred.
 - [x] **New Tests**: Yes - malformed known lead-time rejection is covered.
 - [x] **Test Coverage**: Partial - catalogue and bounded probe contracts are covered; institutional access and feed acceptance are not.
-- [x] **Test Results**: Passed - focused university tests (3), project validation (438 checks) and canonical-clone full suite (325 tests, 8 skipped).
+- [x] **Test Results**: Passed - focused university tests (3), project validation (438 checks) and canonical-clone full suite (326 tests, 8 skipped).
 
 ## Findings
 
