@@ -25,6 +25,14 @@ class GrantsSourceTests(unittest.TestCase):
         self.assertEqual(arc["record_kind"], "awards_only")
         self.assertIn("not an open-opportunity calendar", arc["coverage"])
 
+    def test_queensland_grants_finder_api_is_metadata_only(self):
+        rows = load_catalogue(Path(__file__).parents[1] / "config/grants-sources.json")
+        finder = next(row for row in rows if row["source_id"] == "queensland-grants-finder")
+        self.assertEqual(finder["intake"], "api")
+        self.assertEqual(finder["health_status"], "verified_sample")
+        self.assertEqual(finder["record_kind"], "metadata_only")
+        self.assertIn("does not expose opportunity rows", finder["coverage"])
+
     def test_atom_and_rss_shapes_are_preserved_as_canonical_records(self):
         rss = """<rss><channel><item><guid>r1</guid><title>Call</title><link>https://example.org/call/</link><description>Summary</description><deadline>2027-04</deadline></item></channel></rss>"""
         atom = """<feed xmlns='http://www.w3.org/2005/Atom'><entry><id>a1</id><title>Call</title><link href='https://example.org/call'/><summary>Summary</summary></entry></feed>"""

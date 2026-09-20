@@ -69,6 +69,12 @@ evidence that any source can be collected unattended.
   row links, exact dates, eligibility or current status. Receipt: ignored
   `private/ops/2026-09-20-grants-html-calendar-readback.json`.
 
+- The Queensland Government Grants Finder CKAN `package_show` API returned
+  HTTP 200 and valid JSON, but the package exposes only contribution-resource
+  metadata rather than opportunity rows. It is therefore catalogued as
+  `verified_sample`/`metadata_only`, not as an opportunity feed. Receipt:
+  ignored `private/ops/2026-09-20-queensland-grants-finder-api-readback.json`.
+
 ## Remaining gate
 
 Verify each remaining permitted opportunity feed/API or produce a reviewed import sample, beginning with NHMRC, MRFF and Queensland sources. The ARC public API sample is complete for awards-only context; it must remain separate from open-opportunity intake. Remaining work needs source readback and remains separate from local catalogue validation.
