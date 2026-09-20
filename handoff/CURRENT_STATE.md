@@ -208,6 +208,14 @@ report integration and unattended execution remain open. The browser bridge
 still exposes Microsoft sign-in rather than an attachable authenticated
 Power Automate session, so no tenant mutation was made.
 
+Latest G03 flow/schema coupling (2026-09-21): code commit `192c53e` makes the
+grants flow validator load the canonical registry schema and reject any
+definition whose `OpportunityKey` is not unique. Focused grants flow coverage is
+now 9 tests; the full suite passes 406 tests with 8 skips, 438 project checks
+pass, and Conductor, web-first, Power Platform, visual and both canonical flow
+validators remain green locally. The approved organisation-wide target, native
+readback and unattended operation remain open; no tenant mutation was made.
+
 Inspect `git status --short` at entry. Preserve unrelated report/manifest and other existing edits; do not mass-stage. Use the active track's spec and plan for tasks. Follow AGENTS.md approval boundaries for deployment/sharing/schedules. Current user direction defines scope; historical observations supply evidence only for their dates. Live contradictions require readback, not a convenient choice of document.
 
 Update this checkpoint with outcome, next executable task, test command/result and exact blocker after work. Keep credentials, actual tenant identifiers and screenshots under ignored private storage. Do not paste raw private output into a context bundle.

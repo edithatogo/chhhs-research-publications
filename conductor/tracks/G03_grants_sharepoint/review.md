@@ -179,3 +179,34 @@ The canonical reviewed-import mapping now persists `SourceRowURL` on both
 create and update, so the row-level evidence required by G02 is not discarded
 at the SharePoint boundary. The tracked definition and local validator pass;
 this local change still requires isolated native re-import/readback.
+
+## Conductor review — grants flow/schema identity coupling — 2026-09-21
+
+### Summary
+
+The grants flow validator now loads the canonical `Grants Registry` schema and
+fails closed unless `OpportunityKey` is explicitly unique. The reviewed-import
+flow's duplicate guard is therefore coupled to the registry identity contract
+before any generated package can be accepted locally. Code commit:
+`192c53e0c294771c86a1a96e3bfe495780aa0f91`.
+
+### Verification Checks
+
+- **Plan Compliance:** Partial — local flow/schema coupling is enforced; native
+  organisation-wide target binding and unattended acceptance remain open.
+- **Style Compliance:** Pass — SharePoint-only writes and source evidence
+  preservation remain unchanged.
+- **New Tests:** Yes — nine focused grants flow-contract tests include rejection
+  of a non-unique registry schema.
+- **Test Results:** Passed — full suite (406 passed, 8 skipped), 438 project
+  checks, Conductor validation (0 errors), web-first `PASS_LOCAL_ONLY`, Power
+  Platform tooling preflight, visual standards and both canonical flow
+  validators.
+
+### Findings
+
+- **Fixed:** flow validation previously checked `OpportunityKey` in the lookup
+  filter but did not verify that the canonical schema enforced uniqueness.
+- **Residual acceptance:** approved organisation-wide target, native schema and
+  row readback, canonical binding, unattended execution and delivery remain
+  unproven. No tenant mutation was made.
