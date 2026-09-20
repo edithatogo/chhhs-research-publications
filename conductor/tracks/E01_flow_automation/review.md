@@ -74,3 +74,25 @@ No edit, enable, run, list write or schedule activation was performed during
 this readback. The evidence is recorded in the ignored private receipt
 `private/ops/2026-09-20-powerautomate-publication-flow-tests.json`. Native
 execution, replay/update and reconciliation gates therefore remain open.
+
+## Current live retest correction — 2026-09-21
+
+The authenticated Power Automate UI was used to run the retained canonical
+scheduled DEV flow after isolating the prior failure. The original
+`Run publication rows query` returned HTTP 400 `DatasetExecuteQueriesError`,
+so the SharePoint loop was skipped. `EVALUATE TOPN(1, Publication)` succeeded,
+proving the dataset and `Publication` table were reachable. The rows query was
+then changed to a bounded `TOPN(100)` plus `SELECTCOLUMNS` projection, removing
+the redundant nested readiness filter.
+
+The corrected run read back `Succeeded` for the recurrence, readiness query,
+publication rows query and 100-record `Apply to each Publication` loop. The
+inspected `SharePoint Get items` action also succeeded against the
+`Publication Registry` list. Flow Checker read back 0 errors and 0 warnings;
+the flow was left On, matching its prior scheduled state. Run IDs and the
+private list readback are recorded in
+`private/ops/2026-09-20-powerautomate-publication-flow-tests.json`.
+
+This closes the current DEV flow execution blocker. It does not prove
+organisation-wide target ownership, unattended consecutive cycles, complete
+registry reconciliation, or production acceptance; those gates remain open.

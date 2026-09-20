@@ -69,6 +69,13 @@ class PublicationPlatformContractTests(unittest.TestCase):
         )
         self.assertIn("record loop must depend on the publication rows query", validate(definition))
 
+    def test_publication_rows_query_is_a_bounded_projection(self):
+        definition = _tracked_definition()
+        query = definition["actions"]["Run_publication_rows_query"]["inputs"]["parameters"]["specification/query"]
+        self.assertIn("TOPN(100", query)
+        self.assertIn('"SourceKey"', query)
+        self.assertNotIn("RETURN FILTER(Rows, Ready)", query)
+
 
 if __name__ == "__main__":
     unittest.main()

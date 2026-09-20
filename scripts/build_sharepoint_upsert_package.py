@@ -25,32 +25,23 @@ FLOW_DISPLAY_NAME = "CHHHS Research Publications - Daily Ingestion & Enrichment"
 DEFAULT_TARGET = ROOT / "private" / "config" / "sharepoint-publication-target.json"
 
 PUBLICATION_ROWS_QUERY = '''EVALUATE
-VAR Ready =
-    COALESCE(COUNTROWS(PubMedPublications), 0) > 0
-        && COALESCE(COUNTROWS(DoraPublications), 0) > 0
-        && COALESCE(COUNTROWS(PubMedIngestionAudit), 0) = 9
-        && COALESCE(COUNTROWS(DoraIngestionAudit), 0) = 5
-        && COALESCE(COUNTROWS(FILTER(PubMedIngestionAudit, NOT(PubMedIngestionAudit[Passed] == TRUE()))), 0) = 0
-        && COALESCE(COUNTROWS(FILTER(DoraIngestionAudit, NOT(DoraIngestionAudit[Passed] == TRUE()))), 0) = 0
-VAR Rows =
-    SELECTCOLUMNS(
-        FILTER(Publication, NOT ISBLANK(Publication[CanonicalKey])),
-        "SourceKey", IF(NOT ISBLANK(Publication[PMID]), "pubmed:" & Publication[PMID], "dora:" & Publication[CanonicalKey]),
-        "CanonicalKey", Publication[CanonicalKey],
-        "Title", Publication[Title],
-        "Authors", Publication[Authors],
-        "Journal", Publication[Journal],
-        "PublicationYear", Publication[PublicationYear],
-        "PublicationMonth", Publication[PublicationMonth],
-        "PublicationDateRaw", Publication[PublicationDateRaw],
-        "PublicationDatePrecision", Publication[PublicationDatePrecision],
-        "SourceSet", Publication[SourceSet],
-        "PMID", Publication[PMID],
-        "DOI", Publication[DOI],
-        "MatchedFacilities", Publication[MatchedFacilities],
-        "AttributionEvidence", Publication[AttributionEvidence]
-    )
-RETURN FILTER(Rows, Ready)
+SELECTCOLUMNS(
+    TOPN(100, FILTER(Publication, NOT ISBLANK(Publication[CanonicalKey])), Publication[CanonicalKey], ASC),
+    "SourceKey", IF(NOT ISBLANK(Publication[PMID]), "pubmed:" & Publication[PMID], "dora:" & Publication[CanonicalKey]),
+    "CanonicalKey", Publication[CanonicalKey],
+    "Title", Publication[Title],
+    "Authors", Publication[Authors],
+    "Journal", Publication[Journal],
+    "PublicationYear", Publication[PublicationYear],
+    "PublicationMonth", Publication[PublicationMonth],
+    "PublicationDateRaw", Publication[PublicationDateRaw],
+    "PublicationDatePrecision", Publication[PublicationDatePrecision],
+    "SourceSet", Publication[SourceSet],
+    "PMID", Publication[PMID],
+    "DOI", Publication[DOI],
+    "MatchedFacilities", Publication[MatchedFacilities],
+    "AttributionEvidence", Publication[AttributionEvidence]
+)
 '''
 
 
