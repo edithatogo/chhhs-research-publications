@@ -93,6 +93,13 @@ Native report version/batch display and recovery remain unaccepted; the
 source-only CI implementation above is locally tested but does not close those
 native gates.
 
+## Conductor review — source archive fallback hygiene — 2026-09-21
+
+- **Finding:** the non-Git source-path fallback walked arbitrary files and could include Python or test-tool caches in a reproducible source archive.
+- **Fix:** commit `f77d3ec` excludes `__pycache__`, `.pytest_cache` and `.mypy_cache` directories and adds a temporary-tree regression test.
+- **Verification:** focused package tests pass (6); the full suite passes 387 tests with 8 skips; project validation passes 438 checks; web-first, Conductor, Power Platform tooling and visual standards checks pass locally.
+- **Residual gate:** native report version/batch display, model recovery and tenant version-history evidence remain open.
+
 ## Conductor review — version input type hardening — 2026-09-21
 
 - **Finding:** `validate_version` passed non-string values directly to the regular-expression matcher, leaking a `TypeError` rather than the packager's declared validation error.

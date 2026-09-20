@@ -30,4 +30,5 @@ Status: in_progress. Source packaging is locally verified; native recovery/versi
 - [x] Review correction: record the reproducible canonical source-package verification and preserve S02.3.4 as a native acceptance gate.
 - [x] S02.3.5: Run full checks; demonstrate source-package verification and private snapshot restoration in an isolated target before claiming platform recovery. Source-package verification is complete; private/native snapshot restoration remains separately unaccepted.
 - [x] S02.4.1: Add a canonical source-only GitHub Actions workflow for the required local quality gates and read-only Power Platform preflight; no tenant deployment is implied.
+- [x] Review fix: exclude Python and test-tool caches from the non-Git source-path fallback and cover the temporary-tree route (`f77d3ec`).
 - [x] Checkpoint: write commands/results, changed paths and remaining blockers in review.md; update CURRENT_STATE. Stop dependent work on failure.
