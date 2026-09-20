@@ -10,4 +10,10 @@ Review status: in progress; local typed relationship safeguards are implemented.
   The projection keeps relationship type, evidence, confidence and review
   state explicit; it does not flatten relationships into publication rows.
 
-Native relationship storage, exact award readback and unchanged publication totals remain open. An isolated DEV creation attempt for `Grant Relationships` returned SharePoint `E_ACCESSDENIED`; a direct list URL then returned 404, so no relationship list was created and no synthetic relationship row was written. The local schema/M definition remains ready for a permitted target.
+The earlier `E_ACCESSDENIED`/404 observation is superseded by a later authenticated, isolated DEV action on 2026-09-21. The Microsoft Lists UI created `Grant Relationships` at the personal DEV site:
+
+`https://healthqld-my.sharepoint.com/personal/dylan_mordaunt_health_qld_gov_au/Lists/Grant%20Relationships/AllItems.aspx`
+
+Native list readback confirmed the list exists and is empty. The additive schema work created the text columns `RelationshipKey`, `FromKey`, `ToKey`, and `AwardID`; a `RelationshipType` choice column was also submitted through the native editor. No production relationship row, synthetic relationship row, publication backfill, or report/model binding change was made.
+
+The native gate remains open: read back the complete eight-field schema including `EvidenceURL`, `Confidence`, and `ReviewStatus`; confirm required/indexed constraints for `RelationshipKey`; then prove an approved evidence-bearing relationship round-trip and reconcile publication totals unchanged. The list is an isolated DEV object, not an approved organisation-wide target or unattended flow binding.
