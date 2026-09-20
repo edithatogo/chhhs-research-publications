@@ -115,6 +115,17 @@ class GrantsRelationshipTests(unittest.TestCase):
         self.assertIn('invalid_record_source', result['errors'])
         self.assertIn('invalid_health_source', result['errors'])
 
+    def test_run_rejects_non_object_rows_without_incidental_errors(self):
+        result = evaluate_run(
+            [None],
+            [None],
+            [{'OpportunityKey': 'GRANT:old'}],
+        )
+        self.assertEqual(result['status'], 'rejected')
+        self.assertIn('invalid_record_object', result['errors'])
+        self.assertIn('invalid_health_object', result['errors'])
+        self.assertEqual(result['records'], [{'OpportunityKey': 'GRANT:old'}])
+
     def test_policy_and_delivery_keys_are_versioned(self):
         policy = {'PolicyKey':'CHHHS-DEFAULT','Version':'1.0','OrganisationKey':'CHHHS','AnchorKind':'final','LeadDays':10,'CalendarOrBusinessDays':'business','HolidayCalendarVersion':'qld-2026','EffectiveFrom':'2026-01-01'}
         self.assertTrue(validate_policy(policy))
