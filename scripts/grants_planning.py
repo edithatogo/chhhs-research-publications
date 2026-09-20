@@ -54,6 +54,22 @@ def validate_policy(policy):
         return False
     if policy.get('EffectiveTo') and not re.fullmatch(r'\d{4}-\d{2}-\d{2}', str(policy['EffectiveTo'])):
         return False
+    try:
+        effective_from = date.fromisoformat(str(policy['EffectiveFrom']))
+        effective_to = date.fromisoformat(str(policy['EffectiveTo'])) if policy.get('EffectiveTo') else None
+    except ValueError:
+        return False
+    if effective_to and effective_to < effective_from:
+        return False
+    holidays = policy.get('HolidayDates', ())
+    if not isinstance(holidays, (list, tuple, set)):
+        return False
+    try:
+        parsed_holidays = [date.fromisoformat(str(day)) for day in holidays]
+    except ValueError:
+        return False
+    if len(parsed_holidays) != len(set(parsed_holidays)):
+        return False
     return True
 
 

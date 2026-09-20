@@ -1,5 +1,5 @@
 import unittest
-from scripts.grants_planning import institutional_deadline, subscribers
+from scripts.grants_planning import institutional_deadline, subscribers, validate_policy
 from scripts.grants_registry import normalize_opportunity
 
 
@@ -13,6 +13,18 @@ class PlanningTests(unittest.TestCase):
     def test_invalid_policy_rejected(self):
         with self.assertRaises(ValueError):
             institutional_deadline('2026-09-28', -1)
+
+    def test_policy_rejects_reversed_effective_range_and_bad_holiday(self):
+        policy = {
+            'PolicyKey': 'CHHHS-DEFAULT', 'Version': '1.0', 'OrganisationKey': 'CHHHS',
+            'AnchorKind': 'application_close', 'LeadDays': 10,
+            'CalendarOrBusinessDays': 'business', 'HolidayCalendarVersion': 'qld-2026',
+            'EffectiveFrom': '2026-01-01', 'EffectiveTo': '2026-12-31',
+        }
+        reversed_policy = {**policy, 'EffectiveTo': '2025-12-31'}
+        self.assertFalse(validate_policy(reversed_policy))
+        bad_holiday = {**policy, 'HolidayDates': ['2026-02-30']}
+        self.assertFalse(validate_policy(bad_holiday))
 
     def test_overlapping_subscriptions_deduplicate_and_respect_pause(self):
         grant = {'OpportunityKey': 'g1', 'CategoryKeys': ['health']}
