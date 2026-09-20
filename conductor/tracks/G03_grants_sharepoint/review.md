@@ -30,6 +30,12 @@ then deleted. The duplicate attempt was rejected by the unique key constraint;
 the final matching-row count was zero. Full private receipt:
 `private/ops/2026-09-20-grants-native-g03-receipt.json`.
 
+The concurrency case was subsequently exercised with two simultaneous creates
+for one key. Native SharePoint returned one `201` and one `500`
+`SPDuplicateValuesFoundException`; one matching row was read back and then
+removed, leaving zero matching rows. This proves the list-level uniqueness
+guard for this isolated DEV target, not production concurrency acceptance.
+
 This closes the isolated DEV list/schema gate only. The list is not an
 organisation-wide production registry, and no grants flow or report was bound
 to it in this step.
