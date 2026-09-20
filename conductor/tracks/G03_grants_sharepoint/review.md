@@ -155,7 +155,9 @@ boundaries, not defects; G03 remains active.
 import definition as an executable source contract. It checks the manual JSON
 input, serial loop, SharePoint-only lookup/create/update operations, exact-zero
 and exact-one guards, duplicate-key fail-closed branch, manual-review field
-preservation and absence of OneDrive persistence. The validator is wired into
+preservation and absence of OneDrive persistence. It also validates any
+generated private grants package found under the ignored flow-package folder,
+preventing template/package drift before import. The validator is wired into
 the source-only GitHub workflow and has regression coverage. This is structural
 evidence only; the organisation-wide target and unattended native acceptance
 remain open.

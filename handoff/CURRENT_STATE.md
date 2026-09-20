@@ -101,6 +101,7 @@ Institutional lead times, holiday coverage and reminder delivery policies are no
 - The isolated Power BI authoring route was rechecked for E04 using the recoverable development report/model evidence. The report route returned “Failed to get access request info for this artifact” and redirected home; the workspace model-view entry then bootstrapped the original model ID inside its iframe and failed with module MIME errors/`NG04002`. No model/report mutation was attempted. This is an isolated-route access/readback blocker, not permission to edit the original report/model.
 - E04 local visual validation now also audits PBIR `Column`/`Measure` references against the local semantic-model TMDL and fails closed for unresolved bindings. All current local bindings resolve; this is a preventive package check only and does not overturn the native Clinical Analytics field-binding errors.
 - Canonical flow validation now has standalone publication and grants validators (`scripts/validate_publication_platform_contract.py` and `scripts/validate_grants_flow_contract.py`) wired into source-only CI. Both tracked definitions pass locally; this proves structural contracts only, not connector permissions, native import, live runs or scheduling.
+- The grants validator also inspects generated private grants packages when present, so a package cannot drift from its tracked SharePoint-only contract before import (`0bb59fb`).
 
 ## Working rules
 
