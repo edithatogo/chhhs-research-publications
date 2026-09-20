@@ -18,3 +18,4 @@
 - [x] Task: Reject malformed non-object source batches explicitly before source-health processing (`9d09f30`).
 - [x] Task: Reject non-string source identities, URLs and opportunity keys without coercion before ingestion admission.
 - [x] Task: Validate API-shaped source fields before normalization so booleans/numbers cannot be stringified into accepted records (`5fa0467`).
+- [x] Task: Add a shared typed-input boundary to the canonical grants normalizer (`f6e33e4`).

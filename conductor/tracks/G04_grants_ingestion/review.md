@@ -93,6 +93,13 @@ Run a controlled live cycle only after G02 endpoint/access verification and G03 
 - **Finding/fix:** `ingest_batches` previously called `.get()` on a malformed non-object batch before it could fail through the contract. Commit `9d09f30ed154609515474d34ec0087d0a9b4649d` adds an explicit object check and regression coverage.
 - **Residual gate:** permitted live source access, SharePoint/flow execution, reconciliation and unattended operation remain open.
 
+## Conductor review — shared normalizer typing — 2026-09-21
+
+- **Finding:** direct callers of `normalize_opportunity` could bypass adapter-level checks and have identity or display fields stringified implicitly.
+- **Fix:** commit `f6e33e4` adds a shared typed-input boundary and regression coverage for malformed identity/display fields.
+- **Verification:** focused registry tests pass (8); the full suite passes 388 tests with 8 skips; project validation passes 438 checks; web-first, Conductor, Power Platform tooling and visual standards checks pass locally.
+- **Residual gate:** permitted live source access, SharePoint/flow execution, reconciliation and unattended operation remain open.
+
 ## Conductor review — pre-normalization source typing — 2026-09-21
 
 - **Finding:** API-shaped records were normalized before raw field types were checked, allowing malformed title or identity values to be stringified when the URL was valid.
