@@ -162,6 +162,12 @@ projection. Focused planning coverage is 12 tests; the full suite remains 397
 tests with 8 skips and 438 project checks remain green. Native policy
 persistence, grants pages, calendar delivery and notifications remain open.
 
+Latest grants-planning hardening (2026-09-21): code commit `a0c8d06` rejects
+malformed subscription containers before matching rules. Focused planning
+coverage remains 12 tests; the full suite remains 397 tests with 8 skips and
+438 project checks remain green. Native preference persistence, grants pages,
+calendar delivery and notifications remain open.
+
 Inspect `git status --short` at entry. Preserve unrelated report/manifest and other existing edits; do not mass-stage. Use the active track's spec and plan for tasks. Follow AGENTS.md approval boundaries for deployment/sharing/schedules. Current user direction defines scope; historical observations supply evidence only for their dates. Live contradictions require readback, not a convenient choice of document.
 
 Update this checkpoint with outcome, next executable task, test command/result and exact blocker after work. Keep credentials, actual tenant identifiers and screenshots under ignored private storage. Do not paste raw private output into a context bundle.

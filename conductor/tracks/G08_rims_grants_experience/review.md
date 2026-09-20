@@ -191,6 +191,33 @@ as `None` or a mapping. Code commit: `6ca91b0c1983d157b86821aefe995efbbfdf7762`.
 - **Residual acceptance:** native policy persistence, funding pages,
   calendar delivery and notifications remain unproven.
 
+## Conductor review — subscription container boundary — 2026-09-21
+
+### Summary
+
+Subscription matching now rejects malformed top-level subscription containers
+before iteration, producing the explicit contract error for `None`, scalar or
+otherwise unsupported shapes. Code commit:
+`a0c8d0636e99a7bc23d789671e75a73e04365ae2`.
+
+### Verification Checks
+
+- **Plan Compliance:** Partial — local watchlist validation is implemented;
+  native preference persistence and delivery remain open.
+- **Style Compliance:** Pass.
+- **New Tests:** Yes — malformed container shapes are covered.
+- **Test Coverage:** Partial — local planning semantics are covered; native
+  access and delivery are not.
+- **Test Results:** Passed — focused planning suite (12 tests), full suite (397
+  passed, 8 skipped), 438 project checks, Conductor validation, web-first and
+  Power Platform checks.
+
+### Findings
+
+- **Fixed:** malformed subscription containers could leak a raw iteration error.
+- **Residual acceptance:** native preferences, per-user access, calendar
+  delivery and notifications remain unproven.
+
 ## Conductor review — funder identity hardening — 2026-09-21
 
 - **Finding:** a false-valued `FunderKey` could be treated as absent because the matcher tested truthiness before type validation.

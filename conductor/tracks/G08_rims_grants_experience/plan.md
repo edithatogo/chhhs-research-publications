@@ -44,3 +44,9 @@
   deadline projection (`6ca91b0`).
 - [ ] Native policy persistence, calendar delivery and notification acceptance
   remain open.
+
+## Phase: Subscription container boundary review — 2026-09-21
+
+- [x] Task: Reject malformed subscription containers before rule iteration
+  (`a0c8d06`).
+- [ ] Native preference persistence, access isolation and delivery remain open.
