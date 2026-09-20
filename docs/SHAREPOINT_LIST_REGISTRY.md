@@ -103,7 +103,7 @@ The publication list remains publication-centred. Author analysis must use a sep
 
 ### 2.1.2 DORA Activity Registry
 
-The linked Queensland Open Data DoRA dataset is a separate project/activity register and must not be forced into the publication list. The source-preserving target is a separate SharePoint list named `DORA Activity Registry`, described by `config/dora-activity-registry.schema.json` and read by `config/DoraActivityRegistry.m`. It contains seven provenance fields and all 20 current source columns, including ethics/review references, project/contact fields, sponsor, dates, disease category, site structure, DORA authority and consent. The source `_id` is the row identity; `Project ID` may repeat and is not a deduplication key. Native list creation, import and readback remain acceptance gates.
+The linked Queensland Open Data DoRA dataset is a separate project/activity register and must not be forced into the publication list. The source-preserving target is a separate SharePoint list named `DORA Activity Registry`, described by `config/dora-activity-registry.schema.json` and read by `config/DoraActivityRegistry.m`. It contains seven provenance fields and all 19 current source columns, plus the datastore `_id` key, including ethics/review references, project/contact fields, sponsor, dates, disease category, site structure, DORA authority and consent. The source `_id` is the row identity; `Project ID` may repeat and is not a deduplication key. Native list creation, import and readback remain acceptance gates.
 
 ### 2.1.3 Organisational hierarchy enrichment
 

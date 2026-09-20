@@ -2,7 +2,7 @@
 
 The Queensland Open Data [Database of Research Activity (DoRA)](https://www.data.qld.gov.au/dataset/database-of-research-activity-dora) is a project/activity dataset, not the same entity as a DORA publication record. It is therefore stored as a separate RIMS registry and joined to publications or grants only through explicit reviewed relationships.
 
-The current published datastore resource observed on 20 September 2026 exposed 20 source columns and 442 rows. The collector discovers the latest active CSV datastore resource from CKAN `package_show`, pages through `datastore_search`, verifies the complete field set and count, and retains every source field unchanged. The source `_id` is the activity-row identity; `Project ID` is retained as source data but is not assumed unique. It does not convert a missing value into a claim or infer a publication from a project.
+The current published datastore resource observed on 20 September 2026 exposed 19 source columns plus the datastore `_id` key and 442 rows. The collector discovers the latest active CSV datastore resource from CKAN `package_show`, pages through `datastore_search`, verifies the complete field set and count, and retains every source field unchanged. The source `_id` is the activity-row identity; `Project ID` is retained as source data but is not assumed unique. It does not convert a missing value into a claim or infer a publication from a project.
 
 ## Local implementation
 
