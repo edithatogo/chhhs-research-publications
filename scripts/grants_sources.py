@@ -6,10 +6,11 @@ claims that a page is a working feed merely because an official URL exists.
 from __future__ import annotations
 
 import json
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlsplit
+from zoneinfo import ZoneInfo
 
 REQUIRED_SOURCE_IDS = {
     "nhmrc", "mrff", "arc", "queensland-health", "emf-queensland",
@@ -17,6 +18,7 @@ REQUIRED_SOURCE_IDS = {
 }
 ALLOWED_INTAKE = {"rss", "atom", "api", "reviewed_import", "manual_review"}
 ALLOWED_HEALTH = {"unverified", "research_only", "reviewed_import", "verified_sample"}
+CATALOGUE_TIMEZONE = ZoneInfo("Australia/Brisbane")
 
 
 def _valid_http_url(value: Any) -> bool:
@@ -56,7 +58,7 @@ def load_catalogue(path: str | Path) -> list[dict[str, Any]]:
             verified = date.fromisoformat(row["last_verified"])
         except ValueError:
             raise ValueError(f"source {source_id!r} has an invalid last_verified date") from None
-        if verified > date.today():
+        if verified > datetime.now(CATALOGUE_TIMEZONE).date():
             raise ValueError(f"source {source_id!r} has a future last_verified date")
     missing = REQUIRED_SOURCE_IDS - seen
     if missing:

@@ -51,6 +51,11 @@ class GrantsSourceTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "source_id must be a non-empty string"):
                 load_catalogue(handle.name)
 
+    def test_catalogue_freshness_uses_brisbane_date(self):
+        rows = json.loads((Path(__file__).parents[1] / "config/grants-sources.json").read_text())
+        self.assertTrue(all(row["last_verified"] <= "2026-09-21" for row in rows))
+        self.assertTrue(load_catalogue(Path(__file__).parents[1] / "config/grants-sources.json"))
+
     def test_api_catalogue_requires_valid_api_url(self):
         rows = json.loads((Path(__file__).parents[1] / "config/grants-sources.json").read_text())
         arc = next(row for row in rows if row["source_id"] == "arc")
