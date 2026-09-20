@@ -114,41 +114,48 @@
               },
               "else": {
                 "actions": {
-                  "SharePoint_Update_item": {
-                    "type": "OpenApiConnection",
-                    "inputs": {
-                      "host": {
-                        "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
-                        "connectionName": "shared_sharepointonline",
-                        "operationId": "PatchItem"
-                      },
-                      "parameters": {
-                        "dataset": "{{SHAREPOINT_SITE_URL}}",
-                        "table": "{{SHAREPOINT_LIST_ID}}",
-                        "id": "@first(body('SharePoint_Get_items')?['value'])?['Id']",
-                        "item/Title": "@{item()?['Title']}",
-                        "item/OpportunityKey": "@{item()?['OpportunityKey']}",
-                        "item/Funder": "@{item()?['Funder']}",
-                        "item/Source": "@{item()?['Source']}",
-                        "item/SourceID": "@{item()?['SourceID']}",
-                        "item/RoundID": "@{item()?['RoundID']}",
-                        "item/URL": "@{item()?['URL']}",
-                        "item/Description": "@{item()?['Description']}",
-                        "item/Eligibility": "@{item()?['Eligibility']}",
-                        "item/Geography": "@{item()?['Geography']}",
-                        "item/Amount": "@{item()?['Amount']}",
-                        "item/Deadline": "@{item()?['Deadline']}",
-                        "item/DeadlineRaw": "@{item()?['DeadlineRaw']}",
-                        "item/DeadlinePrecision": {"Value": "@{item()?['DeadlinePrecision']}"},
-                        "item/Status": {"Value": "@{item()?['Status']}"},
-                        "item/Contact": "@{item()?['Contact']}",
-                        "item/CHHHSRelevance": {"Value": "@{item()?['CHHHSRelevance']}"},
-                        "item/RetrievedUTC": "@{item()?['RetrievedUTC']}",
-                        "item/RetrievedTimestampStatus": {"Value": "@{item()?['RetrievedTimestampStatus']}"},
-                        "item/EvidenceHash": "@{item()?['EvidenceHash']}"
-                      },
-                      "authentication": {"type": "Raw", "value": "@parameters('$authentication')"}
-                    }
+                  "Condition_Exactly_One_Opportunity": {
+                    "type": "If",
+                    "expression": {"equals": ["@length(body('SharePoint_Get_items')?['value'])", 1]},
+                    "actions": {
+                      "SharePoint_Update_item": {
+                        "type": "OpenApiConnection",
+                        "inputs": {
+                          "host": {
+                            "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                            "connectionName": "shared_sharepointonline",
+                            "operationId": "PatchItem"
+                          },
+                          "parameters": {
+                            "dataset": "{{SHAREPOINT_SITE_URL}}",
+                            "table": "{{SHAREPOINT_LIST_ID}}",
+                            "id": "@first(body('SharePoint_Get_items')?['value'])?['Id']",
+                            "item/Title": "@{item()?['Title']}",
+                            "item/OpportunityKey": "@{item()?['OpportunityKey']}",
+                            "item/Funder": "@{item()?['Funder']}",
+                            "item/Source": "@{item()?['Source']}",
+                            "item/SourceID": "@{item()?['SourceID']}",
+                            "item/RoundID": "@{item()?['RoundID']}",
+                            "item/URL": "@{item()?['URL']}",
+                            "item/Description": "@{item()?['Description']}",
+                            "item/Eligibility": "@{item()?['Eligibility']}",
+                            "item/Geography": "@{item()?['Geography']}",
+                            "item/Amount": "@{item()?['Amount']}",
+                            "item/Deadline": "@{item()?['Deadline']}",
+                            "item/DeadlineRaw": "@{item()?['DeadlineRaw']}",
+                            "item/DeadlinePrecision": {"Value": "@{item()?['DeadlinePrecision']}"},
+                            "item/Status": {"Value": "@{item()?['Status']}"},
+                            "item/Contact": "@{item()?['Contact']}",
+                            "item/CHHHSRelevance": {"Value": "@{item()?['CHHHSRelevance']}"},
+                            "item/RetrievedUTC": "@{item()?['RetrievedUTC']}",
+                            "item/RetrievedTimestampStatus": {"Value": "@{item()?['RetrievedTimestampStatus']}"},
+                            "item/EvidenceHash": "@{item()?['EvidenceHash']}"
+                          },
+                          "authentication": {"type": "Raw", "value": "@parameters('$authentication')"}
+                        }
+                      }
+                    },
+                    "else": {"actions": {}}
                   }
                 }
               }

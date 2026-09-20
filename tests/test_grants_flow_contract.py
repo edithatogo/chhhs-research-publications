@@ -30,11 +30,14 @@ class GrantsFlowContractTests(unittest.TestCase):
         diagnostic = failure_actions["Compose_Duplicate_OpportunityKey_Failure"]
         self.assertEqual(diagnostic["type"], "Compose")
         self.assertIn("DUPLICATE_OPPORTUNITY_KEY", diagnostic["inputs"])
+        self.assertEqual(duplicate["else"]["actions"], {})
         is_new = nested["Condition_Is_New_Opportunity"]
         self.assertEqual(is_new["expression"]["equals"][1], 0)
+        exactly_one = is_new["else"]["actions"]["Condition_Exactly_One_Opportunity"]
+        self.assertEqual(exactly_one["expression"]["equals"][1], 1)
 
     def test_update_does_not_overwrite_manual_review_fields(self):
-        update = self.actions["Apply_to_each_Reviewed_Row"]["actions"]["Condition_Is_New_Opportunity"]["else"]["actions"]["SharePoint_Update_item"]
+        update = self.actions["Apply_to_each_Reviewed_Row"]["actions"]["Condition_Is_New_Opportunity"]["else"]["actions"]["Condition_Exactly_One_Opportunity"]["actions"]["SharePoint_Update_item"]
         params = update["inputs"]["parameters"]
         self.assertNotIn("item/ReviewStatus", params)
         self.assertNotIn("item/ReviewNotes", params)
@@ -42,8 +45,9 @@ class GrantsFlowContractTests(unittest.TestCase):
     def test_sharepoint_operation_ids_and_authentication_are_explicit(self):
         nested = self.actions["Apply_to_each_Reviewed_Row"]["actions"]
         self.assertEqual(nested["SharePoint_Get_items"]["inputs"]["host"]["operationId"], "GetItems")
-        create = nested["Condition_Is_New_Opportunity"]["actions"]["SharePoint_Create_item"]
-        update = nested["Condition_Is_New_Opportunity"]["else"]["actions"]["SharePoint_Update_item"]
+        guarded = nested["Condition_Is_New_Opportunity"]
+        create = guarded["actions"]["SharePoint_Create_item"]
+        update = guarded["else"]["actions"]["Condition_Exactly_One_Opportunity"]["actions"]["SharePoint_Update_item"]
         self.assertEqual(create["inputs"]["host"]["operationId"], "PostItem")
         self.assertEqual(update["inputs"]["host"]["operationId"], "PatchItem")
         self.assertTrue(create["inputs"].get("authentication"))

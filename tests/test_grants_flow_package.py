@@ -31,7 +31,7 @@ class GrantsFlowPackageTests(unittest.TestCase):
                 self.assertIn("shared_sharepointonline", text)
                 self.assertNotIn("shared_onedriveforbusiness", text)
                 create = definition["properties"]["definition"]["actions"]["Apply_to_each_Reviewed_Row"]["actions"]["Condition_Is_New_Opportunity"]["actions"]["SharePoint_Create_item"]["inputs"]["parameters"]
-                update = definition["properties"]["definition"]["actions"]["Apply_to_each_Reviewed_Row"]["actions"]["Condition_Is_New_Opportunity"]["else"]["actions"]["SharePoint_Update_item"]["inputs"]["parameters"]
+                update = definition["properties"]["definition"]["actions"]["Apply_to_each_Reviewed_Row"]["actions"]["Condition_Is_New_Opportunity"]["else"]["actions"]["Condition_Exactly_One_Opportunity"]["actions"]["SharePoint_Update_item"]["inputs"]["parameters"]
                 self.assertIsInstance(create["item/DeadlinePrecision"], dict)
                 self.assertEqual(create["item/DeadlinePrecision"]["Value"], "@{item()?['DeadlinePrecision']}")
                 self.assertIsInstance(create["item/Status"], dict)
