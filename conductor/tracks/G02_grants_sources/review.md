@@ -97,3 +97,25 @@ evidence that any source can be collected unattended.
 ## Remaining gate
 
 Verify each remaining permitted opportunity feed/API or produce a reviewed import sample, beginning with NHMRC, MRFF and Queensland sources. The ARC public API sample is complete for awards-only context; it must remain separate from open-opportunity intake. Remaining work needs source readback and remains separate from local catalogue validation.
+
+## Verification Checks
+
+- [x] **Plan Compliance**: Partial - the local catalogue, fail-closed reviewed import, bounded calendar adapter and source-context preservation are implemented; permitted opportunity-feed/API evidence and row-level reviewed samples remain open.
+- [x] **Style Compliance**: Pass - source uncertainty is retained explicitly and no HTML candidate is promoted to an accepted opportunity.
+- [x] **New Tests**: Yes - the focused HTML calendar tests cover `SourceColumns` and ordered `SourceCells` preservation.
+- [x] **Test Coverage**: Partial - local adapters and admission rules are covered; native source/feed, eligibility and unattended acceptance are outside local tests.
+- [x] **Test Results**: Passed - focused tests (5), full suite (318 tests, 8 private-runtime skips), project validation (438 checks), and Conductor validation (0 errors).
+
+## Findings
+
+### Medium - permitted opportunity intake remains unproven
+
+- **File**: `config/grants-sources.json`, `conductor/tracks/G02_grants_sources/plan.md`
+- **Context**: Authority-page reachability, an ARC awards-only API sample, and HTML candidate extraction do not prove a permitted opportunity feed/API, reviewed eligibility, row-level source links or unattended collection.
+- **Suggestion**: Keep the track active and complete the source-specific evidence gate through an approved export/feed or an actual human-reviewed import sample. Do not archive or mark the track complete based on local adapter tests.
+
+### Low - native delivery remains outside this review
+
+- **File**: `conductor/tracks/G02_grants_sources/plan.md`
+- **Context**: No SharePoint write, Power Automate run, schedule, notification or organisation-wide target has been accepted for this source track.
+- **Suggestion**: Close the local review phase, then hand the accepted source rows to G03/G04/G07 for native storage, ingestion and operational acceptance.
