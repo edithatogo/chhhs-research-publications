@@ -47,6 +47,10 @@ def validate_paged_batch(
     expected = [str(key) for key in expected_keys]
     expected_set = set(expected)
     errors: list[str] = []
+    if type(expected_count) is not int or expected_count < 0:
+        errors.append("expected count must be a non-negative integer")
+    if any(not key.strip() for key in expected):
+        errors.append(f"independent expected {key_field} set contains a blank key")
     seen: list[str] = []
     previous_cursor: object = None
     for index, page in enumerate(page_list):

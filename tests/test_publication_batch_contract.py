@@ -36,6 +36,14 @@ class PublicationBatchContractTests(unittest.TestCase):
         self.assertTrue(any("manual fields" in error for error in errors))
         self.assertTrue(any("outside" in error for error in errors))
 
+    def test_independent_reconciliation_inputs_are_explicit(self):
+        errors = validate_paged_batch([], expected_count=True, expected_keys=[""])
+        self.assertTrue(any("expected count" in error for error in errors))
+        self.assertTrue(any("blank key" in error for error in errors))
+
+        errors = validate_paged_batch([], expected_count=-1, expected_keys=[])
+        self.assertTrue(any("expected count" in error for error in errors))
+
 
 if __name__ == "__main__":
     unittest.main()
