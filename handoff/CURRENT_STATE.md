@@ -225,6 +225,12 @@ tests with 8 skips and 438 project checks remain green. Native uniqueness/schema
 readback, replay/update, reconciliation and unattended scheduling remain open;
 no tenant mutation was made.
 
+The publication SharePoint architecture documentation was aligned with that
+contract: `SourceKey` is now described as both indexed and unique, with
+duplicate rejection required at the list boundary. This is documentation
+alignment, not native schema evidence; the S02 report version/batch display and
+all remaining native publication acceptance gates remain open.
+
 Inspect `git status --short` at entry. Preserve unrelated report/manifest and other existing edits; do not mass-stage. Use the active track's spec and plan for tasks. Follow AGENTS.md approval boundaries for deployment/sharing/schedules. Current user direction defines scope; historical observations supply evidence only for their dates. Live contradictions require readback, not a convenient choice of document.
 
 Update this checkpoint with outcome, next executable task, test command/result and exact blocker after work. Keep credentials, actual tenant identifiers and screenshots under ignored private storage. Do not paste raw private output into a context bundle.

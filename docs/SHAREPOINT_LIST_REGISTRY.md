@@ -45,7 +45,7 @@ The architecture separates data ingestion, persistence/review, and presentation 
 | Field Internal Name | Display Name | Type | Indexed | Description / Allowed Values |
 | :--- | :--- | :--- | :---: | :--- |
 | `Title` | Title | Single line of text | **Yes** | Publication Title. Standard SharePoint mandatory title field. |
-| `SourceKey` | Source Key | Single line of text | **Yes** | Stable unique source identifier (e.g. `pubmed:24711477` or `dora:10037.1/12345`). Used for idempotent upserts. |
+| `SourceKey` | Source Key | Single line of text | **Yes; unique** | Stable unique source identifier (e.g. `pubmed:24711477` or `dora:10037.1/12345`). Used for idempotent upserts; duplicate values must be rejected at the list boundary. |
 | `CanonicalKey` | Canonical Key | Single line of text | **Yes** | Stable deduplicated publication key (e.g. `PUB:0034379c5548...`). |
 | `Authors` | Authors | Multiple lines of text | No | Semicolon-delimited formatted author list. Plain text. |
 | `Journal` | Journal | Single line of text | No | Journal title or publishing venue. |
@@ -141,7 +141,7 @@ When multiple data sources report differing values for the same canonical public
 Because the publication collection already contains ~1,970 baseline entries and continues to expand, the list is designed to safely bypass the SharePoint 5,000 List View Threshold:
 
 1. **Mandatory Column Indexes:**  
-   `SourceKey`, `CanonicalKey`, `PublicationYear`, `PublicationMonth`, `ReviewStatus`, `PMID`, `DOI`, `Title`, and `FirstObservedUTC` are configured as indexed columns.
+   `SourceKey`, `CanonicalKey`, `PublicationYear`, `PublicationMonth`, `ReviewStatus`, `PMID`, `DOI`, `Title`, and `FirstObservedUTC` are configured as indexed columns. `SourceKey` is also configured as the unique list identity.
 2. **Standard & Specialized List Views:**
    - **`All Included Publications` (Default Operational View):**  
      Filter: `ReviewStatus` is equal to `Included`. Sorted by `PublicationYear` (descending) and `PublicationMonth` (descending).

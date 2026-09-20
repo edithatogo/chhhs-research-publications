@@ -169,3 +169,7 @@ commit: `71912c7a41bfd05084ef75eedb4cf4dd4bd4db8e`.
 - **Residual acceptance:** native SharePoint uniqueness/schema readback,
   organisation-wide target ownership, replay/update, reconciliation and
   unattended scheduling remain unproven. No tenant mutation was made.
+
+The companion architecture documentation now states the same `SourceKey`
+uniqueness requirement as the machine-readable target contract; this is a
+documentation alignment only and does not constitute native schema readback.
