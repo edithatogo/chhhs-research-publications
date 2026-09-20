@@ -107,7 +107,7 @@ Summary: the local DoRA activity implementation is source-preserving and fail-cl
 - Style compliance: **Pass** — standard-library implementation, explicit errors, no credentials or live rows in source.
 - New tests: **Yes** — five focused tests cover pagination, exact schema, schema drift, repeated Project IDs, source-key uniqueness, provenance and schema declaration.
 - Test coverage: **Pass for local tranche** — live CKAN retrieval also returned 442/442 records and the complete 19-source-field-plus-`_id` contract.
-- Test results: **Passed** — current canonical-clone full suite (361 tests, 8 skipped), 438 project checks, Conductor validation, and `PASS_LOCAL_ONLY` web-first contracts.
+- Test results: **Passed** — current canonical-clone full suite (362 tests, 8 skipped), 438 project checks, Conductor validation, and `PASS_LOCAL_ONLY` web-first contracts.
 
 ## Conductor review — identity hardening — 2026-09-21
 

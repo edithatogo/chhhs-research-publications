@@ -24,7 +24,7 @@ batch and fail closed.
 - [x] **Style Compliance**: Pass - the evaluator preserves prior accepted records and fails closed on missing evidence.
 - [x] **New Tests**: Yes - missing health, unreported-source, duplicate-health and missing-record-source cases are covered.
 - [x] **Test Coverage**: Partial - local run evaluation is covered; native monitoring and unattended delivery are not.
-- [x] **Test Results**: Passed - focused G07 tests (13), project validation (438 checks) and canonical-clone full suite (361 tests, 8 skipped).
+- [x] **Test Results**: Passed - focused G07 tests (13), project validation (438 checks) and canonical-clone full suite (362 tests, 8 skipped).
 
 ## Findings
 
@@ -38,5 +38,5 @@ batch and fail closed.
 
 - **Finding:** `evaluate_run` string-coerced malformed source identities and could raise on an unhashable `OpportunityKey`, weakening the operational quarantine boundary.
 - **Fix:** non-string source and opportunity identities are now rejected explicitly; duplicate checks only run over validated string keys. Regression coverage proves the malformed batch is rejected without coercion or an incidental exception.
-- **Verification:** commit `42833c6` passes the focused relationship/operations suite (13 tests), the full local suite (361 tests, 8 skips), project validation (438 checks), web-first contracts and Conductor validation. Remote source-only CI remains to be recorded against the synchronized documentation commit.
+- **Verification:** commit `42833c6` passes the focused relationship/operations suite (13 tests), the full local suite (362 tests, 8 skips), project validation (438 checks), web-first contracts and Conductor validation. Remote source-only CI remains to be recorded against the synchronized documentation commit.
 - **Residual gate:** native monitoring, exact-key reconciliation, scheduling and delivery remain open.
