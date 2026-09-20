@@ -50,13 +50,19 @@ before date projection. Unknown source dates remain omitted.
 Review fix applied: exact-date calendar events now fail closed unless the
 opportunity has a stable `OpportunityKey` and authoritative HTTP(S) URL.
 
+Additional review fix applied in `b45b4e1`: subscription matching now fails
+closed for missing opportunity identity, unsupported scopes, blank user/target
+keys and non-boolean `Active` values instead of silently dropping malformed
+rules. This protects the future personal watchlist from unreported
+subscription loss; it does not authorize or send delivery.
+
 ## Verification Checks
 
 - [x] **Plan Compliance**: Partial - local date-policy, subscription and calendar contracts are implemented; native pages, access isolation, reminders and delivery remain open.
 - [x] **Style Compliance**: Pass - uncertain dates remain omitted and event identity is deterministic.
 - [x] **New Tests**: Yes - duplicate UID, malformed policy, missing-key and invalid-URL rejection are covered.
 - [x] **Test Coverage**: Partial - local calendar semantics are covered; native report persistence, personal access and delivery are not.
-- [x] **Test Results**: Passed - focused calendar tests (5), project validation (438 checks) and canonical-clone full suite (344 tests, 8 skipped).
+- [x] **Test Results**: Passed - focused calendar tests (5), planning/subscription tests (10), project validation (438 checks) and canonical-clone full suite (346 tests, 8 skipped).
 
 ## Findings
 
