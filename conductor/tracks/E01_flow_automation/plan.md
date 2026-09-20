@@ -32,3 +32,8 @@ Earlier checked tasks describe historical implementation. They do not close curr
 ## Phase: Conductor review — 2026-09-21
 
 - [x] Review the corrected flow definition, builder, live retest evidence and local regression results; retain E01 as in progress because native operational acceptance is incomplete.
+
+## Phase: Target-package hardening — 2026-09-21
+
+- [x] Harden `load_target` to reject non-HTTPS site targets and empty or unresolved field mappings before package generation (`b6cc2e9`).
+- [x] Add regression coverage for malformed site URLs and empty mappings; full local verification now reports 342 tests with 8 skips.

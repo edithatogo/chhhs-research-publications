@@ -46,7 +46,7 @@ and builder now share the corrected graph: readiness, a dedicated canonical
 handling, and the protected update allowlist.
 
 Local verification: `python3 scripts/validate_publication_platform_contract.py`,
-JSON parsing, and the full unittest suite (283 tests) pass. This is still
+JSON parsing, and the full unittest suite pass. This is still
 source-only evidence. The isolated tenant deployment and create/replay/update,
 duplicate, failed-batch, recurrence and reconciliation readback tasks remain
 open, so the track remains in progress and must not be archived yet.
@@ -109,8 +109,8 @@ The corrected publication rows query is consistent between the tracked flow defi
 - [x] Style Compliance: Pass — the definition remains SharePoint-list-backed and preserves the existing serial, fail-closed graph.
 - [x] New Tests: Yes — bounded-projection contract coverage was added.
 - [x] Test Coverage: Partial — local contracts and live DEV execution are covered; full native operational acceptance is not.
-- [x] Test Results: Passed — canonical-clone full suite (340 tests, 8 skipped), 438 project checks and Conductor validation passed; the prior live corrected run succeeded.
+- [x] Test Results: Passed — canonical-clone full suite (342 tests, 8 skipped), 438 project checks and Conductor validation passed; the prior live corrected run succeeded.
 
 ### Findings
 
-No new implementation findings. The documented open acceptance gates are substantive, not review defects, so E01 is not eligible for archive.
+One local packaging defect was found and fixed in commit `b6cc2e9`: the private publication target loader now requires a concrete HTTPS site URL and non-empty, placeholder-free field mappings before a package can be built. Two regression tests cover those fail-closed cases. The documented native acceptance gates remain substantive, not review defects, so E01 is not eligible for archive.
