@@ -136,3 +136,36 @@ future workflow drift from silently dropping flow-contract coverage.
 - **Finding:** the publication flow diagnosed duplicate `SourceKey` matches but its update branch could still be reached for a lookup result larger than one row.
 - **Fix:** commit `22b5df1` adds an exact-one-match update condition; duplicate matches cannot reach the SharePoint update action. The validator and regression tests enforce the guard.
 - **Verification:** focused publication-contract tests pass (17, with 8 private-package cases skipped); the full local suite remains 374 tests with 8 skips. The corrected definition requires isolated native re-import/readback before E01 acceptance can advance.
+
+## Conductor review — publication target uniqueness contract — 2026-09-21
+
+### Summary
+
+The publication target template now declares `source_key` as its sole unique
+field, and the private package builder rejects concrete targets that omit or
+alter that contract. This aligns package admission with the flow's duplicate
+`SourceKey` lookup and protects the idempotent registry identity locally. Code
+commit: `71912c7a41bfd05084ef75eedb4cf4dd4bd4db8e`.
+
+### Verification Checks
+
+- **Plan Compliance:** Partial — local target/flow identity coupling is
+  implemented; native target readback, replay/update and unattended acceptance
+  remain open.
+- **Style Compliance:** Pass — the existing SharePoint field mapping and
+  canonical list design are preserved.
+- **New Tests:** Yes — 18 focused publication-contract tests, including missing
+  unique-target metadata; 8 private-package tests remain correctly skipped when
+  the ignored live package is absent.
+- **Test Results:** Passed — full suite (407 passed, 8 skipped), 438 project
+  checks, Conductor validation (0 errors), web-first `PASS_LOCAL_ONLY`, Power
+  Platform tooling preflight, visual standards, both canonical flow validators
+  and `git diff --check`.
+
+### Findings
+
+- **Fixed:** the target template and loader did not machine-check that
+  `SourceKey` was unique, despite the flow relying on that invariant.
+- **Residual acceptance:** native SharePoint uniqueness/schema readback,
+  organisation-wide target ownership, replay/update, reconciliation and
+  unattended scheduling remain unproven. No tenant mutation was made.

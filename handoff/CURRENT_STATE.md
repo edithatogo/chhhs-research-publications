@@ -216,6 +216,15 @@ pass, and Conductor, web-first, Power Platform, visual and both canonical flow
 validators remain green locally. The approved organisation-wide target, native
 readback and unattended operation remain open; no tenant mutation was made.
 
+Latest E01 publication target coupling (2026-09-21): code commit `71912c7`
+declares `source_key` as the sole unique field in the publication target
+template and makes the private package builder reject targets without that
+invariant. Focused publication-platform coverage is 18 tests (8 private-package
+tests skipped when ignored live artefacts are absent); the full suite passes 407
+tests with 8 skips and 438 project checks remain green. Native uniqueness/schema
+readback, replay/update, reconciliation and unattended scheduling remain open;
+no tenant mutation was made.
+
 Inspect `git status --short` at entry. Preserve unrelated report/manifest and other existing edits; do not mass-stage. Use the active track's spec and plan for tasks. Follow AGENTS.md approval boundaries for deployment/sharing/schedules. Current user direction defines scope; historical observations supply evidence only for their dates. Live contradictions require readback, not a convenient choice of document.
 
 Update this checkpoint with outcome, next executable task, test command/result and exact blocker after work. Keep credentials, actual tenant identifiers and screenshots under ignored private storage. Do not paste raw private output into a context bundle.
