@@ -9,6 +9,11 @@ The completed local G01 prerequisite is archived at `conductor/archive/G01_grant
 - Added `config/grants-registry.schema.json` for one canonical `Grants Registry` list with `OpportunityKey` as the indexed identity.
 - Added `config/GrantsRegistry.m` using the SharePoint Online connector and preserving partial/unknown deadlines as text plus raw source values.
 - Added schema/mapping parity tests; the local map and schema contain the same 22 persisted fields.
+- Added `config/flows/grants-registry-reviewed-import.definition.json`, a
+  SharePoint-only manual reviewed-row JSON upsert definition with serial
+  processing, duplicate-key guard and review-field preservation. Its target
+  site/list remain placeholders until the native flow is intentionally
+  imported.
 
 ## Remaining acceptance
 
