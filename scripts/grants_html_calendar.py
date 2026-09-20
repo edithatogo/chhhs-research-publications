@@ -81,6 +81,7 @@ def parse_calendar_html(
         }
     positions = {header: headers.index(header) for header in headers}
     records: list[dict[str, Any]] = []
+    seen_source_ids: set[str] = set()
     for row in selected[1:]:
         if len(row) < len(headers) or not any(row):
             continue
@@ -92,7 +93,19 @@ def parse_calendar_html(
         deadline_raw = row[close_index].strip()
         if not title:
             continue
-        source_id = hashlib.sha256(f"{source}|{title}|{deadline_raw}".encode()).hexdigest()[:24]
+        source_id = hashlib.sha256(
+            f"{source}|{json.dumps(row, ensure_ascii=False, separators=(',', ':'))}".encode("utf-8")
+        ).hexdigest()[:24]
+        if source_id in seen_source_ids:
+            return {
+                "status": "duplicate_source_identity",
+                "source": source,
+                "source_url": source_url,
+                "retrieved_utc": retrieved_utc,
+                "table_headers": headers,
+                "records": [],
+            }
+        seen_source_ids.add(source_id)
         records.append({
             "Source": source,
             "SourceID": source_id,

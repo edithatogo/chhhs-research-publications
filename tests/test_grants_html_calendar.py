@@ -38,6 +38,19 @@ class GrantsHtmlCalendarTests(unittest.TestCase):
                 retrieved_utc="2026-09-20T04:00:00",
             )
 
+    def test_duplicate_source_rows_fail_closed(self):
+        html = """<table><tr><th>Title</th><th>Close</th></tr>
+        <tr><td>Same</td><td>2026-11-01</td></tr>
+        <tr><td>Same</td><td>2026-11-01</td></tr></table>"""
+        result = parse_calendar_html(
+            html,
+            source="NHMRC",
+            source_url="https://example.gov.au/calendar",
+            retrieved_utc="2026-09-20T04:00:00Z",
+        )
+        self.assertEqual(result["status"], "duplicate_source_identity")
+        self.assertEqual(result["records"], [])
+
 
 if __name__ == "__main__":
     unittest.main()
