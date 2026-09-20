@@ -1,4 +1,6 @@
 import unittest
+import json
+import tempfile
 from pathlib import Path
 
 from scripts.grants_universities import load_universities
@@ -16,6 +18,15 @@ class GrantsUniversityTests(unittest.TestCase):
         self.assertIsNone(by_id["qut"]["internal_lead_time"])
         self.assertIsNone(by_id["griffith"]["internal_lead_time"])
         self.assertEqual(by_id["jcu"]["internal_lead_time"]["major_schemes"], 20)
+
+    def test_invalid_known_lead_time_is_rejected(self):
+        rows = json.loads((Path(__file__).parents[1] / "config/grants-universities.json").read_text())
+        rows[0]["internal_lead_time"]["major_schemes"] = -1
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json") as handle:
+            json.dump(rows, handle)
+            handle.flush()
+            with self.assertRaisesRegex(ValueError, "invalid lead-time value"):
+                load_universities(handle.name)
 
 
 if __name__ == "__main__":
