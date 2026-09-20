@@ -22,4 +22,9 @@ Earlier checked tasks describe historical implementation. They do not close curr
 
 ## Phase 4: Local flow defect remediation
 - [x] Separate the Power BI readiness summary query from the publication-row query consumed by the SharePoint upsert loop; add a nonblank `SourceKey` contract and regression test.
-- [ ] Re-deploy the corrected definition only to the approved isolated/manual route and capture create, replay/update, duplicate and failed-batch readback.
+- [~] Re-deploy the corrected definition only to the approved isolated/manual route and capture create, replay/update, duplicate and failed-batch readback. The 2026-09-21 live retest proves corrected readiness/query/loop execution and SharePoint lookup; create/replay/update, duplicate, failed-batch, reconciliation and unattended-cycle evidence remain open.
+
+## Phase: Live query retest evidence — 2026-09-21
+
+- [x] Re-test the retained canonical DEV scheduled flow after the `DatasetExecuteQueriesError`; bounded `TOPN(100)`/`SELECTCOLUMNS` publication projection succeeded through the serial loop and SharePoint `Get items`.
+- [x] Record the current run IDs and connector/list boundary in the ignored private receipt; retain the organisation-wide target, replay/update, duplicate, failed-batch, reconciliation and unattended-schedule gates as open.

@@ -15,6 +15,6 @@
     "scripts/build_sharepoint_upsert_package.py",
     "private/ops/flow-packages/sharepoint-upsert.zip"
   ],
-  "updated_at": "2026-09-20T00:00:00Z",
-  "acceptance_note": "Reopened during Conductor audit: incomplete native or operational acceptance; prior artefacts retained as historical evidence."
+  "updated_at": "2026-09-21T15:00:00Z",
+  "acceptance_note": "Live 2026-09-21 DEV retest proves the corrected publication rows query, serial loop and SharePoint lookup. Replay/update, duplicate, failed-batch, reconciliation, organisation-wide target and unattended schedule acceptance remain open."
 }
