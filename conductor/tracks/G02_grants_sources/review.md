@@ -176,3 +176,10 @@ Implemented in `da0b657`, with regression coverage in `tests/test_grants_registr
 - **Fix:** `SourceRowURL` is now required as an actionable HTTP(S) value and is preserved through normalization, the schema, semantic model, SharePoint create/update mapping and field-map export. `Eligibility` is required as a typed, non-empty reviewer input; no eligibility decision is inferred.
 - **Verification:** focused reviewed-import, registry and flow-contract suites pass; the full suite passes 381 tests with 8 skips, project validation passes 438 checks, and the frozen runtime hash was intentionally refreshed for the model field change.
 - **Residual gate:** these are local fail-closed controls; a human-reviewed current row or permitted opportunity feed/API and native list/flow acceptance remain required.
+
+## Conductor review — distinct row evidence — 2026-09-21
+
+- **Finding:** the reviewed-import gate required a row URL but did not reject a value identical to the general opportunity URL, weakening the documented row-level evidence boundary.
+- **Fix:** commit `ffdc5a8` rejects identical `SourceRowURL` and `URL` values and adds regression coverage.
+- **Verification:** focused reviewed-import tests pass (7); the full suite passes 384 tests with 8 skips; project validation passes 438 checks; web-first, Conductor, Power Platform tooling and visual standards checks pass locally.
+- **Residual gate:** this strengthens local evidence validation only; a real human-reviewed current row or permitted opportunity feed/API and native intake remain required.

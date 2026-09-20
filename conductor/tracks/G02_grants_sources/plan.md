@@ -19,3 +19,4 @@
 - [x] Task: Reject malformed ARC award identities, links and descriptive fields without coercion (03568d7).
 - [x] Task: Preserve row-level HTTP(S) provenance for review-only HTML calendar candidates (e62b6f5).
 - [x] Task: Require distinct row-level evidence URL and explicit eligibility statement before reviewed import (working-tree review fix).
+- [x] Task: Reject reviewed rows whose `SourceRowURL` is identical to the general opportunity URL (`ffdc5a8`).
