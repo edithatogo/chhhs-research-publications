@@ -36,6 +36,22 @@ class GrantsRelationshipTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'unsupported review status'):
             normalize_relationship({'RelationshipType':'relevant_to_opportunity','FromKey':'PUB:1','ToKey':'GRANT:1','EvidenceURL':'https://evidence','Confidence':'candidate','ReviewStatus':'Reviewed'})
 
+    def test_relationship_inputs_are_not_coerced(self):
+        invalid_rows = [
+            {'RelationshipType': 7, 'FromKey': 'PUB:1', 'ToKey': 'GRANT:1', 'EvidenceURL': 'https://evidence'},
+            {'RelationshipType': 'relevant_to_opportunity', 'FromKey': ['PUB:1'], 'ToKey': 'GRANT:1', 'EvidenceURL': 'https://evidence'},
+            {'RelationshipType': 'relevant_to_opportunity', 'FromKey': 'PUB:1', 'ToKey': 'GRANT:1', 'EvidenceURL': 9},
+            {'RelationshipType': 'relevant_to_opportunity', 'FromKey': 'PUB:1', 'ToKey': 'GRANT:1', 'EvidenceURL': 'https://evidence', 'Confidence': 1},
+            {'RelationshipType': 'relevant_to_opportunity', 'FromKey': 'PUB:1', 'ToKey': 'GRANT:1', 'EvidenceURL': 'https://evidence', 'AwardID': 1},
+            {'RelationshipType': 'relevant_to_opportunity', 'FromKey': 'PUB:1', 'ToKey': 'GRANT:1', 'EvidenceURL': 'https://evidence', 'ReviewStatus': False},
+        ]
+        for row in invalid_rows:
+            with self.subTest(row=row):
+                with self.assertRaises(ValueError):
+                    normalize_relationship(row)
+        with self.assertRaisesRegex(ValueError, 'relationship record'):
+            normalize_relationship([])
+
     def test_run_rejects_failed_source_and_preserves_last_batch(self):
         result = evaluate_run([{'OpportunityKey':'GRANT:1'}], [{'source':'nhmrc','status':'failed','count':0}], [{'OpportunityKey':'GRANT:old'}])
         self.assertEqual(result['status'], 'rejected')

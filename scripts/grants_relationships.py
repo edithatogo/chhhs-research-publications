@@ -13,26 +13,42 @@ REVIEW_STATUSES = {'Needs Review', 'Included', 'Excluded'}
 
 
 def _valid_http_url(value: Any) -> bool:
-    parsed = urlsplit(str(value or '').strip())
+    if not isinstance(value, str):
+        return False
+    parsed = urlsplit(value.strip())
     return parsed.scheme in {'http', 'https'} and bool(parsed.netloc)
 
 
 def normalize_relationship(record: dict[str, Any]) -> dict[str, Any]:
-    relation = str(record.get('RelationshipType', '')).strip()
-    source_key = str(record.get('FromKey', '')).strip()
-    target_key = str(record.get('ToKey', '')).strip()
-    evidence = str(record.get('EvidenceURL', '')).strip()
-    confidence = str(record.get('Confidence', 'review')).strip().lower()
+    if not isinstance(record, dict):
+        raise ValueError('relationship record must be an object')
+    required = ('RelationshipType', 'FromKey', 'ToKey', 'EvidenceURL')
+    if any(not isinstance(record.get(field), str) for field in required):
+        raise ValueError('relationship fields must be strings')
+    relation = record['RelationshipType'].strip()
+    source_key = record['FromKey'].strip()
+    target_key = record['ToKey'].strip()
+    evidence = record['EvidenceURL'].strip()
+    confidence_value = record.get('Confidence', 'review')
+    if not isinstance(confidence_value, str):
+        raise ValueError('confidence must be a string')
+    confidence = confidence_value.strip().lower()
     if relation not in RELATION_TYPES:
         raise ValueError('unsupported relationship type')
     if not source_key or not target_key or not _valid_http_url(evidence):
         raise ValueError('relationship requires from/to keys and evidence')
     if confidence not in CONFIDENCE:
         raise ValueError('unsupported confidence')
-    award_id = str(record.get('AwardID', '')).strip()
+    award_value = record.get('AwardID', '')
+    if not isinstance(award_value, str):
+        raise ValueError('AwardID must be a string')
+    award_id = award_value.strip()
     if confidence == 'confirmed' and relation == 'funded_by_award' and not award_id:
         raise ValueError('confirmed award relationship requires AwardID')
-    review_status = str(record.get('ReviewStatus', 'Needs Review')).strip() or 'Needs Review'
+    review_value = record.get('ReviewStatus', 'Needs Review')
+    if not isinstance(review_value, str):
+        raise ValueError('ReviewStatus must be a string')
+    review_status = review_value.strip() or 'Needs Review'
     if review_status not in REVIEW_STATUSES:
         raise ValueError('unsupported review status')
     basis = '|'.join((relation, source_key, target_key, award_id, evidence))
