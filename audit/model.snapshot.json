@@ -886,6 +886,14 @@
             "dataCategory": "WebUrl"
           },
           {
+            "name": "SourceRowURL",
+            "dataType": "string",
+            "sourceColumn": "SourceRowURL",
+            "summarizeBy": "none",
+            "lineageTag": "c2cac2ac-a79f-55e0-a79a-d912b78192de",
+            "dataCategory": "WebUrl"
+          },
+          {
             "name": "Description",
             "dataType": "string",
             "sourceColumn": "Description",

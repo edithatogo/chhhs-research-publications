@@ -44,6 +44,13 @@ table GrantsRegistry
 		summarizeBy: none
 		sourceColumn: URL
 
+	column SourceRowURL
+		dataType: string
+		dataCategory: WebUrl
+		lineageTag: 83848586-8788-4989-8a8b-8c8d8e8f9093
+		summarizeBy: none
+		sourceColumn: SourceRowURL
+
 	column Description
 		dataType: string
 		lineageTag: 92939495-9697-4899-8a9b-9c9d9e9fa0a1

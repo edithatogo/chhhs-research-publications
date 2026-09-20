@@ -107,7 +107,7 @@
     "powerbi/CHHHS Research Publications.SemanticModel/definition/relationships.tmdl": "68f632964ada97d40111af819d85cc0131953e69786b3dd783fb3d62bb73f322",
     "powerbi/CHHHS Research Publications.SemanticModel/definition/tables/Date.tmdl": "8c3dda9b0ed1318c40475109079ce243ba1d967d2a2112d9b7d16864779a39f7",
     "powerbi/CHHHS Research Publications.SemanticModel/definition/tables/Facility.tmdl": "8a1f8851cf3530aff6964c0f84fe1703d9f5931e3c084ecdc83b09785739fe43",
-    "powerbi/CHHHS Research Publications.SemanticModel/definition/tables/GrantsRegistry.tmdl": "23cc55c9801f20f3c139029b8f10d8428b100e5789a4a3ca747a46e8364042d9",
+    "powerbi/CHHHS Research Publications.SemanticModel/definition/tables/GrantsRegistry.tmdl": "744a2fd8e4cd965643f9581ac1f6768ca571284f8cdf62226cd6b0c1d744683f",
     "powerbi/CHHHS Research Publications.SemanticModel/definition/tables/Publication.tmdl": "ed0728b3f418aa492557bbe15adca70d3ac4751f40b502073935c678acf7edfe",
     "powerbi/CHHHS Research Publications.SemanticModel/definition/tables/PublicationFacility.tmdl": "2cecb0cee5e6fc6cfc76dae9d090a862ec3208f473f71cf4ca9b9b03ae82a471",
     "powerbi/CHHHS Research Publications.SemanticModel/definition/tables/ReleaseMetadata.tmdl": "71a04c32b0a9eae3b968f3dcd388f613bc40a40b08e65b44d6a42dd178359cfc",

@@ -36,7 +36,7 @@ def review_errors(row: dict[str, Any], *, expected_source: str | None = None) ->
         errors.append("invalid_Source")
     if expected_source and source != expected_source:
         errors.append("source_mismatch")
-    for field in ("Source", "Title", "RetrievedUTC"):
+    for field in ("Source", "Title", "RetrievedUTC", "Eligibility"):
         value = row.get(field)
         if not isinstance(value, str):
             errors.append(f"invalid_{field}")
@@ -44,6 +44,8 @@ def review_errors(row: dict[str, Any], *, expected_source: str | None = None) ->
             errors.append(f"missing_{field}")
     if not _valid_http_url(row.get("URL")):
         errors.append("invalid_URL")
+    if not _valid_http_url(row.get("SourceRowURL")):
+        errors.append("invalid_SourceRowURL")
     review_status = row.get("ReviewStatus")
     if not isinstance(review_status, str):
         errors.append("invalid_ReviewStatus")
@@ -81,6 +83,7 @@ def import_reviewed_rows(
             failures.append((index, errors))
             continue
         normalized = normalize_opportunity(row, retrieved_at=row["RetrievedUTC"])
+        normalized["SourceRowURL"] = row["SourceRowURL"].strip()
         if normalized["RetrievedTimestampStatus"] != "valid":
             failures.append((index, ["RetrievedUTC_not_timezone_aware"]))
             continue

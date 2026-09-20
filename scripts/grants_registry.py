@@ -107,6 +107,7 @@ def normalize_opportunity(record: dict[str, Any], retrieved_at: str | None = Non
         "SourceID": _text(record.get("SourceID") or record.get("ExternalID")),
         "RoundID": _text(record.get('RoundID')),
         "URL": normalize_url(record.get("URL") or record.get("Link") or record.get("link")),
+        "SourceRowURL": normalize_url(record.get("SourceRowURL")),
         "Description": _text(record.get("Description") or record.get("Summary") or record.get("summary")),
         "Eligibility": _text(record.get("Eligibility")),
         "Geography": _text(record.get("Geography")),
@@ -159,7 +160,7 @@ def merge_observations(records: Iterable[dict[str, Any]]) -> list[dict[str, Any]
 def sharepoint_field_map(record: dict[str, Any]) -> dict[str, Any]:
     """Map the canonical record to stable display names for a future list."""
     return {field: record.get(field) for field in (
-        "OpportunityKey", "Title", "Funder", "Source", "SourceID", "RoundID", "URL", "Description",
+        "OpportunityKey", "Title", "Funder", "Source", "SourceID", "RoundID", "URL", "SourceRowURL", "Description",
         "Eligibility", "Geography", "Amount", "Deadline", "DeadlineRaw", "DeadlinePrecision",
         "Status", "Contact", "CHHHSRelevance", "ReviewStatus", "ReviewNotes", "RetrievedUTC",
         "RetrievedTimestampStatus", "EvidenceHash",

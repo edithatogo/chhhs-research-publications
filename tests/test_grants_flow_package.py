@@ -37,6 +37,7 @@ class GrantsFlowPackageTests(unittest.TestCase):
                 self.assertIsInstance(create["item/Status"], dict)
                 self.assertIsInstance(create["item/CHHHSRelevance"], dict)
                 self.assertEqual(create["item/URL"], "@{item()?['URL']}")
+                self.assertEqual(create["item/SourceRowURL"], "@{item()?['SourceRowURL']}")
                 self.assertEqual(update["item/OpportunityKey"], "@{item()?['OpportunityKey']}")
 
     def test_rejects_non_guid_list(self):

@@ -10,6 +10,8 @@ class ReviewedImportTests(unittest.TestCase):
             "SourceID": "GO-123",
             "Title": "Reviewed opportunity",
             "URL": "https://example.org/opportunity/123",
+            "SourceRowURL": "https://example.org/opportunity/123#row",
+            "Eligibility": "Australian public health researchers; reviewer confirmed source wording.",
             "Deadline": "2027-04",
             "RetrievedUTC": "2026-09-20T02:00:00Z",
             "ReviewStatus": "Reviewed",
@@ -31,6 +33,12 @@ class ReviewedImportTests(unittest.TestCase):
     def test_missing_row_identity_and_notes_are_rejected(self):
         with self.assertRaisesRegex(ValueError, "missing_SourceID_or_RoundID"):
             import_reviewed_rows([self._row(SourceID="", RoundID="", ReviewNotes="")])
+
+    def test_missing_row_evidence_and_eligibility_are_rejected(self):
+        with self.assertRaisesRegex(ValueError, "invalid_SourceRowURL"):
+            import_reviewed_rows([self._row(SourceRowURL="", Eligibility="eligible")])
+        with self.assertRaisesRegex(ValueError, "missing_Eligibility"):
+            import_reviewed_rows([self._row(Eligibility="")])
 
     def test_one_bad_row_rejects_the_complete_batch(self):
         with self.assertRaisesRegex(ValueError, "row 1"):

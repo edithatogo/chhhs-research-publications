@@ -44,6 +44,13 @@ class GrantsFlowContractTests(unittest.TestCase):
         self.assertNotIn("item/ReviewStatus", params)
         self.assertNotIn("item/ReviewNotes", params)
 
+    def test_create_and_update_persist_source_row_evidence(self):
+        nested = self.actions["Apply_to_each_Reviewed_Row"]["actions"]
+        create = nested["Condition_Is_New_Opportunity"]["actions"]["SharePoint_Create_item"]
+        update = nested["Condition_Is_New_Opportunity"]["else"]["actions"]["Condition_Exactly_One_Opportunity"]["actions"]["SharePoint_Update_item"]
+        self.assertIn("item/SourceRowURL", create["inputs"]["parameters"])
+        self.assertIn("item/SourceRowURL", update["inputs"]["parameters"])
+
     def test_sharepoint_operation_ids_and_authentication_are_explicit(self):
         nested = self.actions["Apply_to_each_Reviewed_Row"]["actions"]
         self.assertEqual(nested["SharePoint_Get_items"]["inputs"]["host"]["operationId"], "GetItems")

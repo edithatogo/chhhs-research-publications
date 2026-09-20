@@ -160,13 +160,13 @@ in #table(type table [ReportMonthStart=date,ReportMonthEndExclusive=date,Refresh
     release_table['description']='One-row source release identity surface. NativeAcceptance remains false until isolated tenant/report readback proves it.'
     grant_fields = [
         ('OpportunityKey','string'),('Title','string'),('Funder','string'),('Source','string'),
-        ('SourceID','string'),('RoundID','string'),('URL','string'),('Description','string'),
+        ('SourceID','string'),('RoundID','string'),('URL','string'),('SourceRowURL','string'),('Description','string'),
         ('Eligibility','string'),('Geography','string'),('Amount','string'),('Deadline','string'),
         ('DeadlineRaw','string'),('DeadlinePrecision','string'),('Status','string'),('Contact','string'),
         ('CHHHSRelevance','string'),('ReviewStatus','string'),('ReviewNotes','string'),
         ('RetrievedUTC','string'),('RetrievedTimestampStatus','string'),('EvidenceHash','string'),
     ]
-    grants=table('GrantsRegistry',[column('GrantsRegistry',name,dt,**({'dataCategory':'WebUrl'} if name=='URL' else {})) for name,dt in grant_fields], 'GrantsRegistry')
+    grants=table('GrantsRegistry',[column('GrantsRegistry',name,dt,**({'dataCategory':'WebUrl'} if name in {'URL','SourceRowURL'} else {})) for name,dt in grant_fields], 'GrantsRegistry')
     grants['description']='Canonical opportunity registry projection. Empty or unaccepted source batches remain empty; deadlines retain raw text and precision.'
     grants['measures']=[
         measure('Grant Opportunities','COUNTROWS(GrantsRegistry)'),

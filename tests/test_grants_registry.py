@@ -51,6 +51,14 @@ class GrantsRegistryTests(unittest.TestCase):
         self.assertEqual(item["URL"], "")
         self.assertEqual(item["ReviewStatus"], "Needs Review")
 
+    def test_source_row_url_is_preserved_as_distinct_evidence(self):
+        item = normalize_opportunity({
+            "Source": "X", "SourceID": "1", "Title": "Call",
+            "URL": "https://example.org/calendar", "SourceRowURL": "https://example.org/call/1",
+        })
+        self.assertEqual(item["SourceRowURL"], "https://example.org/call/1")
+        self.assertEqual(sharepoint_field_map(item)["SourceRowURL"], "https://example.org/call/1")
+
 
 if __name__ == "__main__":
     unittest.main()

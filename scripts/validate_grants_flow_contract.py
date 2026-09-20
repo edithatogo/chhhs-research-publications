@@ -106,6 +106,8 @@ def validate(definition: dict[str, Any]) -> list[str]:
             errors.append(f"{label} action must target the same SharePoint site and list as lookup")
         if not action.get("inputs", {}).get("authentication"):
             errors.append(f"{label} action must declare connector authentication")
+        if "item/SourceRowURL" not in parameters:
+            errors.append(f"{label} action must persist SourceRowURL evidence")
 
     update_parameters = update.get("inputs", {}).get("parameters", {})
     if any(key in update_parameters for key in ("item/ReviewStatus", "item/ReviewNotes")):

@@ -11,6 +11,7 @@
     {"display_name":"SourceID","type":"text"},
     {"display_name":"RoundID","type":"text"},
     {"display_name":"URL","type":"url"},
+    {"display_name":"SourceRowURL","type":"url"},
     {"display_name":"Description","type":"multiline_text"},
     {"display_name":"Eligibility","type":"multiline_text"},
     {"display_name":"Geography","type":"text"},
