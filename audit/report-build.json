@@ -1,6 +1,6 @@
 {
   "pages": 4,
-  "visuals": 55,
+  "visuals": 56,
   "manifest": [
     {
       "page": "PublicationRegister",
@@ -172,13 +172,25 @@
     },
     {
       "page": "PublicationRegister",
-      "visual": "footer",
+      "visual": "release-version",
       "type": "card",
-      "title": "Last model refresh (UTC); source coverage may differ",
+      "title": "Software version",
       "position": [
         32,
         960,
-        1856,
+        912,
+        80
+      ]
+    },
+    {
+      "page": "PublicationRegister",
+      "visual": "release-batch",
+      "type": "card",
+      "title": "Accepted batch identity",
+      "position": [
+        976,
+        960,
+        912,
         80
       ]
     },

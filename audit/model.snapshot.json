@@ -781,6 +781,54 @@
             }
           }
         ]
+      },
+      {
+        "name": "ReleaseMetadata",
+        "isHidden": false,
+        "lineageTag": "75ef6c59-44d5-59b2-9c31-2c3573b0a52a",
+        "columns": [
+          {
+            "name": "SoftwareVersion",
+            "dataType": "string",
+            "sourceColumn": "SoftwareVersion",
+            "summarizeBy": "none",
+            "lineageTag": "cbfc54eb-302c-52b3-bb58-8f75a948d405"
+          },
+          {
+            "name": "SchemaVersion",
+            "dataType": "string",
+            "sourceColumn": "SchemaVersion",
+            "summarizeBy": "none",
+            "lineageTag": "402e408b-a7fd-5d94-97e7-8302abff269c"
+          },
+          {
+            "name": "AcceptedBatchID",
+            "dataType": "string",
+            "sourceColumn": "AcceptedBatchID",
+            "summarizeBy": "none",
+            "lineageTag": "d93fdad4-ee87-5cda-9ef1-27f1190875d4"
+          },
+          {
+            "name": "NativeAcceptance",
+            "dataType": "boolean",
+            "sourceColumn": "NativeAcceptance",
+            "summarizeBy": "none",
+            "lineageTag": "0a370b66-d262-573e-a4e1-aa58c1e3af7f"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "ReleaseMetadata",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "#table(type table [SoftwareVersion=text, SchemaVersion=text, AcceptedBatchID=text, NativeAcceptance=logical], {{\"0.3.0-rc1\", \"publication-platform-v1\", \"local-source\", false}})"
+              ]
+            }
+          }
+        ],
+        "description": "One-row source release identity surface. NativeAcceptance remains false until isolated tenant/report readback proves it."
       }
     ],
     "relationships": [
@@ -1491,7 +1539,7 @@
     "annotations": [
       {
         "name": "PBI_QueryOrder",
-        "value": "[\"pNCBIEmail\", \"FacilityDefinitions\", \"fnParsePubDate\", \"fnNCBIJson\", \"fnPubMedXML\", \"PubMedHarvest\", \"PubMedFullMetadata\", \"PubMedPublications\", \"PubMedAuthorEvidence\", \"PubMedMetadataChunks\", \"PubMedIngestionAudit\", \"DoraSourceObservations\", \"DoraHistoricalMetadata\", \"DoraMetadataChunks\", \"DoraIngestionAudit\", \"DoraHarvest\", \"CanonicalPublications\", \"Publication\", \"Facility\", \"PublicationFacility\", \"Date\", \"SearchAudit\", \"ReportingWindow\"]"
+        "value": "[\"pNCBIEmail\", \"FacilityDefinitions\", \"fnParsePubDate\", \"fnNCBIJson\", \"fnPubMedXML\", \"PubMedHarvest\", \"PubMedFullMetadata\", \"PubMedPublications\", \"PubMedAuthorEvidence\", \"PubMedMetadataChunks\", \"PubMedIngestionAudit\", \"DoraSourceObservations\", \"DoraHistoricalMetadata\", \"DoraMetadataChunks\", \"DoraIngestionAudit\", \"DoraHarvest\", \"CanonicalPublications\", \"Publication\", \"Facility\", \"PublicationFacility\", \"Date\", \"SearchAudit\", \"ReportingWindow\", \"ReleaseMetadata\"]"
       },
       {
         "name": "PBI_TimeIntelligenceEnabled",

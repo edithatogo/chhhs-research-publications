@@ -64,8 +64,23 @@ def table(name: str, cols: list[dict], source: str, hidden: bool=False) -> dict:
 def measure(name: str, dax: str, fmt: str='#,0') -> dict:
     return {'name':name,'expression':dax,'formatString':fmt,'lineageTag':uid('measure/'+name)}
 
+def release_metadata() -> tuple[dict, str]:
+    metadata = json.loads((ROOT/'config/release-metadata.json').read_text(encoding='utf-8'))
+    required = ('SoftwareVersion', 'SchemaVersion', 'AcceptedBatchID', 'NativeAcceptance')
+    if any(not str(metadata.get(key, '')).strip() for key in required):
+        raise ValueError('release metadata must contain all display fields')
+    value = '{' + ', '.join([
+        m_text(metadata['SoftwareVersion']),
+        m_text(metadata['SchemaVersion']),
+        m_text(metadata['AcceptedBatchID']),
+        'true' if metadata['NativeAcceptance'] is True else 'false',
+    ]) + '}'
+    source = '#table(type table [SoftwareVersion=text, SchemaVersion=text, AcceptedBatchID=text, NativeAcceptance=logical], {' + value + '})'
+    return metadata, source
+
 def build() -> None:
     rows=definitions()
+    release, release_m = release_metadata()
     save_json(ROOT/'config/facilities.json',{'version':'2026-09-11-v2','source':SOURCE,'rows':rows})
     with (ROOT/'config/facility-queries.csv').open('w',newline='',encoding='utf-8') as file:
         writer=csv.DictWriter(file,fieldnames=list(rows[0]));writer.writeheader();writer.writerows(rows)
@@ -135,14 +150,21 @@ in G'''
     StartDate = Date.AddMonths(EndExclusive,-1)
 in #table(type table [ReportMonthStart=date,ReportMonthEndExclusive=date,RefreshedAtUTC=datetime],{{StartDate,EndExclusive,DateTimeZone.RemoveZone(NowUTC)}})'''
     window=table('ReportingWindow',[column('ReportingWindow',n,'dateTime') for n in ['ReportMonthStart','ReportMonthEndExclusive','RefreshedAtUTC']],window_m)
+    release_table=table('ReleaseMetadata', [
+        column('ReleaseMetadata', 'SoftwareVersion'),
+        column('ReleaseMetadata', 'SchemaVersion'),
+        column('ReleaseMetadata', 'AcceptedBatchID'),
+        column('ReleaseMetadata', 'NativeAcceptance', 'boolean'),
+    ], release_m)
+    release_table['description']='One-row source release identity surface. NativeAcceptance remains false until isolated tenant/report readback proves it.'
     relationships=[]
     for ft,fc,tt,tc in [('Publication','PublicationDate','Date','Date'),('PublicationFacility','CanonicalKey','Publication','CanonicalKey'),('PublicationFacility','FacilityKey','Facility','FacilityKey'),('SearchAudit','FacilityKey','Facility','FacilityKey')]:
         relationships.append({'name':uid(f'{ft}.{fc}->{tt}.{tc}'),'fromTable':ft,'fromColumn':fc,'toTable':tt,'toColumn':tc,'fromCardinality':'many','toCardinality':'one','crossFilteringBehavior':'oneDirection','isActive':True})
-    model={'name':'CHHHS Research Publications','compatibilityLevel':1600,'model':{'culture':'en-AU','defaultPowerBIDataSourceVersion':'powerBI_V3','sourceQueryCulture':'en-AU','tables':[publication,facility,bridge,dates,audit,window],'relationships':relationships,'expressions':exprs,'annotations':[{'name':'PBI_QueryOrder','value':json.dumps(['pNCBIEmail','FacilityDefinitions','fnParsePubDate','fnNCBIJson','fnPubMedXML','PubMedHarvest','PubMedFullMetadata','PubMedPublications','PubMedAuthorEvidence','PubMedMetadataChunks','PubMedIngestionAudit','DoraSourceObservations','DoraHistoricalMetadata','DoraMetadataChunks','DoraIngestionAudit','DoraHarvest','CanonicalPublications','Publication','Facility','PublicationFacility','Date','SearchAudit','ReportingWindow'])},{'name':'PBI_TimeIntelligenceEnabled','value':'0'}]}}
+    model={'name':'CHHHS Research Publications','compatibilityLevel':1600,'model':{'culture':'en-AU','defaultPowerBIDataSourceVersion':'powerBI_V3','sourceQueryCulture':'en-AU','tables':[publication,facility,bridge,dates,audit,window,release_table],'relationships':relationships,'expressions':exprs,'annotations':[{'name':'PBI_QueryOrder','value':json.dumps(['pNCBIEmail','FacilityDefinitions','fnParsePubDate','fnNCBIJson','fnPubMedXML','PubMedHarvest','PubMedFullMetadata','PubMedPublications','PubMedAuthorEvidence','PubMedMetadataChunks','PubMedIngestionAudit','DoraSourceObservations','DoraHistoricalMetadata','DoraMetadataChunks','DoraIngestionAudit','DoraHarvest','CanonicalPublications','Publication','Facility','PublicationFacility','Date','SearchAudit','ReportingWindow','ReleaseMetadata'])},{'name':'PBI_TimeIntelligenceEnabled','value':'0'}]}}
     target=ROOT/'powerbi/CHHHS Research Publications.SemanticModel'
     save_json(ROOT/'audit/model.snapshot.json',model)
     save_json(target/'definition.pbism',{'$schema':'https://developer.microsoft.com/json-schemas/fabric/item/semanticModel/definitionProperties/1.0.0/schema.json','version':'5.0','settings':{'qnaEnabled':False}})
-    save_json(ROOT/'audit/model-build.json',{'table_count':len(model['model']['tables']),'measure_count':len(publication['measures']),'facility_queries':len(rows),'cached_data_included':False,'native_engine_tested':False})
+    save_json(ROOT/'audit/model-build.json',{'table_count':len(model['model']['tables']),'measure_count':len(publication['measures']),'facility_queries':len(rows),'release_metadata':release,'cached_data_included':False,'native_engine_tested':False})
     (ROOT/'docs/MEASURES.md').write_text('# Measures\n\n'+ '\n\n'.join('## '+m['name']+'\n\n```dax\n'+m['expression']+'\n```' for m in publication['measures'])+'\n')
     print(f'Built {len(rows)} facility searches, {len(model["model"]["tables"])} tables and {len(publication["measures"])} measures.')
 

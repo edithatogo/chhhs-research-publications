@@ -23,6 +23,9 @@ def col(table: str, name: str, label: str|None=None) -> dict:
 def met(name: str, label: str|None=None) -> dict:
     return {'field':field('Publication',name,'Measure'),'queryRef':'Publication.'+name,'nativeQueryRef':name,'displayName':label or name}
 
+def release_col(name: str, label: str|None=None) -> dict:
+    return {'field':field('ReleaseMetadata',name),'queryRef':f'ReleaseMetadata.{name}','nativeQueryRef':name,'displayName':label or name}
+
 def visual(page: str, name: str, kind: str, title: str, xywh: tuple, roles: dict|None=None, text: str|None=None, sort_field: dict|None=None, descending: bool=False) -> None:
     x,y,w,h=xywh
     order=sum(m['page']==page for m in MANIFEST)
@@ -133,7 +136,8 @@ def build(source_pbix: Path | None = None) -> None:
         'Y':[met('Publications','Publications')]
     })
     
-    visual(p,'footer','card','Last model refresh (UTC); source coverage may differ',(32,960,1856,80),{'Values':[met('Refresh Timestamp UTC')]})
+    visual(p,'release-version','card','Software version',(32,960,912,80),{'Values':[release_col('SoftwareVersion')]})
+    visual(p,'release-batch','card','Accepted batch identity',(976,960,912,80),{'Values':[release_col('AcceptedBatchID')]})
 
     # Page 2: Monthly Publications (MonthlyPublications)
     p='MonthlyPublications'

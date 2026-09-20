@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "basis_commit": "92c1d0e0ddfe5ee3400b054d50ad3abeb11a8665",
+  "basis_commit": "local-release-metadata-surface-2026-09-20",
   "purpose": "Frozen drift-detection baseline, NOT certification of native correctness.",
   "native_verified": false,
   "known_defects_open": true,
@@ -44,11 +44,12 @@
     "powerbi/CHHHS Research Publications.Report/definition/pages/PublicationRegister/visuals/dora/visual.json": "857304e30937825bb36931dad3a5031b40c7315f2d7002d4a57370a09ecc487d",
     "powerbi/CHHHS Research Publications.Report/definition/pages/PublicationRegister/visuals/facility-breakdown/visual.json": "68fa8323f75f18fd4a55395040f85cbf166283548513937ea93035b4c0ee95fc",
     "powerbi/CHHHS Research Publications.Report/definition/pages/PublicationRegister/visuals/facility-filter/visual.json": "484ff2117a5ca5614f2774373f05c0443ef0a871917c8a424f447e86b65d720a",
-    "powerbi/CHHHS Research Publications.Report/definition/pages/PublicationRegister/visuals/footer/visual.json": "2d7e8c55ede9fd773744466e8bb1e6302fd6af02ca37646b565d494a93f2ea17",
     "powerbi/CHHHS Research Publications.Report/definition/pages/PublicationRegister/visuals/heading/visual.json": "d0a0a8b949f97017a8a905dc61551e1a1564be00f7b7469feadde6c02b79dbd7",
     "powerbi/CHHHS Research Publications.Report/definition/pages/PublicationRegister/visuals/overlap/visual.json": "04a4a88c78532c4247fb76b08dfe4b638d46a9262e2f48a87e9ceae775c57edb",
     "powerbi/CHHHS Research Publications.Report/definition/pages/PublicationRegister/visuals/provenance-breakdown/visual.json": "68dda519757174c9c2828112868e6353fb7c36a8fbbb194ad993e288df41bc47",
     "powerbi/CHHHS Research Publications.Report/definition/pages/PublicationRegister/visuals/pubmed/visual.json": "2c8186ce4de946d18703b7973002423e249b98ff359996f5b2dcacdc7d10b303",
+    "powerbi/CHHHS Research Publications.Report/definition/pages/PublicationRegister/visuals/release-batch/visual.json": "c5d9740a201e713a4f83d5eeb19affc745077a322f168e176100d052005b8f5c",
+    "powerbi/CHHHS Research Publications.Report/definition/pages/PublicationRegister/visuals/release-version/visual.json": "096a2f86bf44e344ebd3f0da06276d26d2c6377d60955208066e24ec198c4675",
     "powerbi/CHHHS Research Publications.Report/definition/pages/PublicationRegister/visuals/review-filter/visual.json": "72b8cf58ebdfe57f18a14900ed345af12de1314e98294c2873a8404bace8ffe4",
     "powerbi/CHHHS Research Publications.Report/definition/pages/PublicationRegister/visuals/source-filter/visual.json": "44b8e4afd06a02940e0e5e8b85ecf44182034bb14bf675afc365f75a9aad5a37",
     "powerbi/CHHHS Research Publications.Report/definition/pages/PublicationRegister/visuals/year-filter/visual.json": "53bda5871454cf78652c1ad7f1e77cb1b58022411a25896cfcfe9283121044f8",
@@ -73,12 +74,13 @@
     "powerbi/CHHHS Research Publications.Report/definition.pbir": "0795f42e4cd9563a5643636914dc602ec0daec42dfa6872162e2c129913ea0d8",
     "powerbi/CHHHS Research Publications.SemanticModel/.platform": "dc4239343c70555601e7f1adab960be92bfef880fada71fb17da0cedfe731bff",
     "powerbi/CHHHS Research Publications.SemanticModel/definition/database.tmdl": "4e8e171bc7c64afc76aba0ed7751dce42367c02f9e9490dfa1ca364c4deb4b79",
-    "powerbi/CHHHS Research Publications.SemanticModel/definition/model.tmdl": "264d7f43fee484ef467858e6438987d18fc1635411b1c24360f01ec4e36918d0",
+    "powerbi/CHHHS Research Publications.SemanticModel/definition/model.tmdl": "d217f894da5ef27a81e97c08044c6dc5dca9b2f5019e4d8807ec47dfd196e8b1",
     "powerbi/CHHHS Research Publications.SemanticModel/definition/relationships.tmdl": "68f632964ada97d40111af819d85cc0131953e69786b3dd783fb3d62bb73f322",
     "powerbi/CHHHS Research Publications.SemanticModel/definition/tables/Date.tmdl": "8c3dda9b0ed1318c40475109079ce243ba1d967d2a2112d9b7d16864779a39f7",
     "powerbi/CHHHS Research Publications.SemanticModel/definition/tables/Facility.tmdl": "8a1f8851cf3530aff6964c0f84fe1703d9f5931e3c084ecdc83b09785739fe43",
     "powerbi/CHHHS Research Publications.SemanticModel/definition/tables/Publication.tmdl": "ed0728b3f418aa492557bbe15adca70d3ac4751f40b502073935c678acf7edfe",
     "powerbi/CHHHS Research Publications.SemanticModel/definition/tables/PublicationFacility.tmdl": "2cecb0cee5e6fc6cfc76dae9d090a862ec3208f473f71cf4ca9b9b03ae82a471",
+    "powerbi/CHHHS Research Publications.SemanticModel/definition/tables/ReleaseMetadata.tmdl": "71a04c32b0a9eae3b968f3dcd388f613bc40a40b08e65b44d6a42dd178359cfc",
     "powerbi/CHHHS Research Publications.SemanticModel/definition/tables/ReportingWindow.tmdl": "077b17a757830108e354eba99cff718bfbcde4908c275371f97c7b8016ca49be",
     "powerbi/CHHHS Research Publications.SemanticModel/definition/tables/SearchAudit.tmdl": "5db9a2fec1259e14d735990e90b4f5b4bb0ae691f7941e6ffaae4642c527f3f5",
     "powerbi/CHHHS Research Publications.SemanticModel/definition.pbism": "226d58dfda9e4824fd1425f626c07c4d2640085090ac5ed2a27c0739ea46e618",
@@ -111,6 +113,6 @@
     "powerquery/fnRetainSourceObservations.m": "98dc21b33ec8d45501ff4a8a502bf3863d4edbb7e8c4dd8cc773c5c1cf1d2a2a",
     "powerquery/fnValidateStoredMetadata.m": "c6b8c28fba0309012274e702c0e9c22b4b10d5db85d23e3ad8a6fb076f0d369a"
   },
-  "reviewed_revision": "2026-09-18-T12-T15-multi-source-research-model-and-exports",
-  "review_reference": "conductor/tracks/T12_research_model/review.md"
+  "reviewed_revision": "S02.3.4-local-release-metadata-surface",
+  "review_reference": "conductor/tracks/S02_release_versioning/review.md"
 }

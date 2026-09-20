@@ -1,7 +1,13 @@
 {
-  "table_count": 6,
+  "table_count": 7,
   "measure_count": 25,
   "facility_queries": 28,
+  "release_metadata": {
+    "SoftwareVersion": "0.3.0-rc1",
+    "SchemaVersion": "publication-platform-v1",
+    "AcceptedBatchID": "local-source",
+    "NativeAcceptance": false
+  },
   "cached_data_included": false,
   "native_engine_tested": false
 }

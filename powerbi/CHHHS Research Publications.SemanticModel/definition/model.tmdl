@@ -2,7 +2,7 @@ model Model
 	culture: en-AU
 	defaultPowerBIDataSourceVersion: powerBI_V3
 	sourceQueryCulture: en-AU
-	annotation PBI_QueryOrder = ["pNCBIEmail", "FacilityDefinitions", "fnParsePubDate", "fnNCBIJson", "fnPubMedXML", "PubMedHarvest", "PubMedFullMetadata", "PubMedPublications", "PubMedAuthorEvidence", "PubMedMetadataChunks", "PubMedIngestionAudit", "DoraSourceObservations", "DoraHistoricalMetadata", "DoraMetadataChunks", "DoraIngestionAudit", "DoraHarvest", "CanonicalPublications", "Publication", "Facility", "PublicationFacility", "Date", "SearchAudit", "ReportingWindow"]
+	annotation PBI_QueryOrder = ["pNCBIEmail", "FacilityDefinitions", "fnParsePubDate", "fnNCBIJson", "fnPubMedXML", "PubMedHarvest", "PubMedFullMetadata", "PubMedPublications", "PubMedAuthorEvidence", "PubMedMetadataChunks", "PubMedIngestionAudit", "DoraSourceObservations", "DoraHistoricalMetadata", "DoraMetadataChunks", "DoraIngestionAudit", "DoraHarvest", "CanonicalPublications", "Publication", "Facility", "PublicationFacility", "Date", "SearchAudit", "ReportingWindow", "ReleaseMetadata"]
 	annotation PBI_TimeIntelligenceEnabled = 0
 
 expression pNCBIEmail = "" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=false]

@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
-  "name": "footer",
+  "name": "release-batch",
   "position": {
-    "x": 32,
+    "x": 976,
     "y": 960,
-    "z": 14,
-    "width": 1856,
+    "z": 15,
+    "width": 912,
     "height": 80,
-    "tabOrder": 14
+    "tabOrder": 15
   },
   "visual": {
     "visualType": "card",
@@ -18,18 +18,18 @@
           "projections": [
             {
               "field": {
-                "Measure": {
+                "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Publication"
+                      "Entity": "ReleaseMetadata"
                     }
                   },
-                  "Property": "Refresh Timestamp UTC"
+                  "Property": "AcceptedBatchID"
                 }
               },
-              "queryRef": "Publication.Refresh Timestamp UTC",
-              "nativeQueryRef": "Refresh Timestamp UTC",
-              "displayName": "Refresh Timestamp UTC"
+              "queryRef": "ReleaseMetadata.AcceptedBatchID",
+              "nativeQueryRef": "AcceptedBatchID",
+              "displayName": "AcceptedBatchID"
             }
           ]
         }
@@ -49,7 +49,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Last model refresh (UTC); source coverage may differ'"
+                  "Value": "'Accepted batch identity'"
                 }
               }
             },
@@ -71,7 +71,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "16D"
+                  "Value": "30D"
                 }
               }
             }
