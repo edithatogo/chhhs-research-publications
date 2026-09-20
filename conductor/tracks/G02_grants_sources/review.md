@@ -64,8 +64,9 @@ evidence that any source can be collected unattended.
 
 - The new review-only HTML calendar adapter (`scripts/grants_html_calendar.py`)
   was exercised against bounded HTTP 200 responses from the official NHMRC and
-  MRFF calendars. It produced 13 and 180 candidate rows respectively,
-  preserving raw deadline text and forcing `Needs Review`. It does not invent
+  MRFF calendars. It produced 13 and 179 candidate rows respectively after
+  suppressing a repeated MRFF header row, preserving raw deadline text and
+  forcing `Needs Review`. It does not invent
   row links, exact dates, eligibility or current status. Receipt: ignored
   `private/ops/2026-09-20-grants-html-calendar-readback.json`.
 

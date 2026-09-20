@@ -51,6 +51,19 @@ class GrantsHtmlCalendarTests(unittest.TestCase):
         self.assertEqual(result["status"], "duplicate_source_identity")
         self.assertEqual(result["records"], [])
 
+    def test_repeated_headers_are_not_candidates(self):
+        html = """<table><tr><th>Title</th><th>Close</th></tr>
+        <tr><td>First</td><td>2026-11-01</td></tr>
+        <tr><th>Title</th><th>Close</th></tr>
+        <tr><td>Second</td><td>2026-12-01</td></tr></table>"""
+        result = parse_calendar_html(
+            html,
+            source="NHMRC",
+            source_url="https://example.gov.au/calendar",
+            retrieved_utc="2026-09-20T04:00:00Z",
+        )
+        self.assertEqual([row["Title"] for row in result["records"]], ["First", "Second"])
+
 
 if __name__ == "__main__":
     unittest.main()

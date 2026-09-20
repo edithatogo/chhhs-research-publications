@@ -85,6 +85,8 @@ def parse_calendar_html(
     for row in selected[1:]:
         if len(row) < len(headers) or not any(row):
             continue
+        if [cell.casefold() for cell in row] == headers:
+            continue
         title_index = positions.get("title", positions.get("funding scheme", positions.get("grant opportunity")))
         close_index = positions.get("close", positions.get("applications close"))
         if title_index is None or close_index is None:

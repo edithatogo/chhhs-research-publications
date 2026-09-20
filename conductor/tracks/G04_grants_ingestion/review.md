@@ -18,7 +18,8 @@ emitted. The focused adapter tests cover this failure path.
   covers page bounds, metadata preservation and fail-closed malformed input.
 - Added `scripts/grants_html_calendar.py` for review-only extraction from
   official NHMRC and MRFF calendar tables. A live bounded probe produced 13 and
-  180 candidate rows, all with raw deadline text and `Needs Review`; no row was
+  179 candidate rows after suppressing a repeated MRFF header row, all with raw
+  deadline text and `Needs Review`; no row was
   admitted to the accepted registry.
 
 ## Evidence
