@@ -440,6 +440,36 @@ collector, schema and SharePoint flow identity contracts. Code commit:
   integration and unattended execution remain unproven. No tenant mutation was
   made.
 
+## Conductor review — DoRA projection schema parity — 2026-09-21
+
+### Summary
+
+The DoRA registry regression suite now compares the Power Query
+`Table.SelectColumns` projection with every field in the canonical registry
+schema, preventing a future model edit from silently dropping source or
+provenance columns. Code commit: `1bacdea7f3a1f3ed093a72191c37a63e78a374a3`.
+
+### Verification Checks
+
+- **Plan Compliance:** Partial — local source-preserving model parity is now
+  checked; native list/readback and report integration remain open.
+- **Style Compliance:** Pass — the test is derived from the schema and does not
+  introduce a second field list.
+- **New Tests:** Yes — the focused DoRA suite now has 13 tests, including exact
+  schema/projection set equality.
+- **Test Results:** Passed — full suite (409 passed, 8 skipped), 438 project
+  checks, Conductor validation (0 errors), web-first `PASS_LOCAL_ONLY`, Power
+  Platform tooling preflight, visual standards, canonical flow validators and
+  `git diff --check`.
+
+### Findings
+
+- **Fixed:** schema and Power Query projection could previously drift while
+  both local checks continued to pass independently.
+- **Residual acceptance:** native SharePoint schema/row readback, report-page
+  integration and unattended execution remain unproven. No tenant mutation was
+  made.
+
 ## Conductor review — DoRA flow/schema identity coupling — 2026-09-21
 
 ### Summary
