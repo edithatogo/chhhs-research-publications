@@ -25,6 +25,12 @@ def _valid_http_url(value: Any) -> bool:
     return parsed.scheme in {"http", "https"} and bool(parsed.netloc)
 
 
+_OPTIONAL_STRING_FIELDS = (
+    "Funder", "Description", "Geography", "Amount", "Deadline", "Status",
+    "Contact", "CHHHSRelevance",
+)
+
+
 def review_errors(row: dict[str, Any], *, expected_source: str | None = None) -> list[str]:
     """Return all admission errors without silently repairing reviewer input."""
     errors: list[str] = []
@@ -36,6 +42,9 @@ def review_errors(row: dict[str, Any], *, expected_source: str | None = None) ->
         errors.append("invalid_Source")
     if expected_source and source != expected_source:
         errors.append("source_mismatch")
+    for field in _OPTIONAL_STRING_FIELDS:
+        if field in row and row[field] is not None and not isinstance(row[field], str):
+            errors.append(f"invalid_{field}")
     for field in ("Source", "Title", "RetrievedUTC", "Eligibility"):
         value = row.get(field)
         if not isinstance(value, str):

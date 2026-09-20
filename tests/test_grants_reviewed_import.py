@@ -56,6 +56,10 @@ class ReviewedImportTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "invalid_SourceID_or_RoundID"):
             import_reviewed_rows([self._row(SourceID=123)])
 
+    def test_optional_descriptive_fields_are_not_coerced(self):
+        with self.assertRaisesRegex(ValueError, "invalid_Amount"):
+            import_reviewed_rows([self._row(Amount=False)])
+
 
 if __name__ == "__main__":
     unittest.main()
