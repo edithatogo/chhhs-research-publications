@@ -52,6 +52,14 @@ class GrantsSourceTests(unittest.TestCase):
         self.assertEqual([item["status"] for item in result["health"]], ["succeeded", "failed"])
         self.assertFalse(result["accepted"])
 
+    def test_duplicate_feed_identity_fails_closed(self):
+        xml = """<rss><channel>
+        <item><guid>same</guid><title>One</title><link>https://example.org/1</link></item>
+        <item><guid>same</guid><title>Two</title><link>https://example.org/2</link></item>
+        </channel></rss>"""
+        with self.assertRaisesRegex(ValueError, "duplicate source identity"):
+            parse_feed(xml, source="R", retrieved_at="2026-09-20T00:00:00Z")
+
     def test_current_record_uses_newest_observation_but_preserves_review(self):
         from scripts.grants_registry import merge_observations
         rows = merge_observations([

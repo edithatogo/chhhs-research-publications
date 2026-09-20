@@ -31,6 +31,7 @@ def parse_feed(xml_payload: str | bytes, *, source: str, retrieved_at: str) -> l
     if not entries:
         raise ValueError("feed contains no RSS items or Atom entries")
     result: list[dict[str, Any]] = []
+    seen_source_ids: set[str] = set()
     for entry in entries:
         link = _child_text(entry, "link", "url")
         if not link:
@@ -38,9 +39,14 @@ def parse_feed(xml_payload: str | bytes, *, source: str, retrieved_at: str) -> l
                 if _local(child.tag) == "link" and child.attrib.get("href"):
                     link = child.attrib["href"]
                     break
+        source_id = _child_text(entry, "guid", "id", "identifier")
+        if source_id:
+            if source_id in seen_source_ids:
+                raise ValueError(f"duplicate source identity: {source_id}")
+            seen_source_ids.add(source_id)
         result.append(normalize_opportunity({
             "Source": source,
-            "SourceID": _child_text(entry, "guid", "id", "identifier"),
+            "SourceID": source_id,
             "Title": _child_text(entry, "title"),
             "URL": link,
             "Description": _child_text(entry, "description", "summary", "content"),

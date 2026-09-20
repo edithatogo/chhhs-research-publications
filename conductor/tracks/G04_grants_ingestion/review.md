@@ -6,6 +6,10 @@ Conductor review fix applied: calendar candidate identity now hashes the full
 source row and duplicate identities fail closed before any candidate rows are
 emitted. The focused adapter tests cover this failure path.
 
+Additional review fix applied: duplicate non-empty RSS/Atom source identities
+now fail closed in `parse_feed` rather than being silently deferred to a later
+merge. The ingestion test suite covers this boundary.
+
 ## Changes
 
 - Added `scripts/grants_ingestion.py` with namespace-tolerant RSS/Atom parsing and API-shaped batch normalization.
