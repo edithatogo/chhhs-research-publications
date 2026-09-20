@@ -53,6 +53,12 @@ Follow [the executable sequence and acceptance gates](../../../docs/DYNAMIC_UPDA
 - [x] 13. Implement a source-preserving RIMS export and machine-readable `DORA Activity Registry` schema. Keep contact/ethics fields in private or approved tenant storage only; do not add live rows to Git or publication fixtures.
 - [ ] 14. Create or update the isolated SharePoint target and read back every column and row key before any report-page or unattended-flow change. Native tenant acceptance remains open.
 
+## Local identity hardening — 2026-09-21
+
+- [x] Reject boolean, structured and blank DoRA datastore `_id` values, and reject invalid expected record counts before reconciliation. Source identities are now limited to scalar string/integer values while the original source value remains preserved in the accepted row.
+- [x] Add regression coverage for the scalar identity contract. Code commit: `12798092b64de6d420904c7cd77d589829076f1c`.
+- [ ] Native SharePoint schema/row readback and report integration remain open; this local fix does not certify tenant acceptance.
+
 ### Retained reporting projection in progress
 Local parsers now reconstruct PubMed XML-shaped JSON and DORA field arrays without calling the live sources. A summary reader selects each retained source key from its latest committed batch, with exact page/key reconciliation. The first manifest must include PublicationTable and PublicationPageCount. Native parser parity, durable facility mappings, long-text export completeness and switching canonical consumers remain pending; these files are not yet deployed.
 

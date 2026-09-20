@@ -107,7 +107,16 @@ Summary: the local DoRA activity implementation is source-preserving and fail-cl
 - Style compliance: **Pass** — standard-library implementation, explicit errors, no credentials or live rows in source.
 - New tests: **Yes** — five focused tests cover pagination, exact schema, schema drift, repeated Project IDs, source-key uniqueness, provenance and schema declaration.
 - Test coverage: **Pass for local tranche** — live CKAN retrieval also returned 442/442 records and the complete 19-source-field-plus-`_id` contract.
-- Test results: **Passed** — current canonical-clone full suite (354 tests, 8 skipped), 438 project checks, Conductor validation, and `PASS_LOCAL_ONLY` web-first contracts.
+- Test results: **Passed** — current canonical-clone full suite (355 tests, 8 skipped), 438 project checks, Conductor validation, and `PASS_LOCAL_ONLY` web-first contracts.
+
+## Conductor review — identity hardening — 2026-09-21
+
+Summary: the DoRA activity collector now fails closed when a datastore `_id` is boolean or structured, instead of coercing arbitrary values to strings and treating them as row identities. Invalid expected record counts are also rejected before count reconciliation. The original scalar source value remains preserved in the accepted record.
+
+- **Plan compliance:** Partial — local source discovery, preservation and validation remain implemented; isolated SharePoint list creation/readback and report integration remain open.
+- **Verification checks:** Focused DoRA tests passed; full canonical-clone suite passed (355 tests, 8 skipped); project validation passed (438 checks); web-first contracts returned `PASS_LOCAL_ONLY`; `git diff --check` passed.
+- **Finding and fix:** `validate_records` previously accepted values such as `True`, `{"row": 7}` and `[7]` after `str()` coercion. Commit `12798092b64de6d420904c7cd77d589829076f1c` restricts source identities to non-boolean scalar string/integer values and adds regression coverage.
+- **Residual acceptance:** native SharePoint target/schema/row-key readback and RIMS report integration remain unproven. No tenant mutation was made.
 
 Review fix applied: `tests/test_webfirst.py` now asserts that
 `config/native-canonical-retained-partitions.tmdl` is reference-only and
