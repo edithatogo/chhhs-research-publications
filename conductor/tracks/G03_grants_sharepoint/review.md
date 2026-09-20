@@ -26,11 +26,22 @@ The completed local G01 prerequisite is archived at `conductor/archive/G01_grant
 
 The isolated DEV route is now implemented and read back. The remaining gates
 are to decide and approve the organisation-wide target, bind the grants flow
-to this canonical list or its approved successor, and obtain explicit approval
-for a controlled run/replay test. The imported flow has not been enabled or
-run, so native row-level create/update execution, unattended operation and
-production acceptance remain unproved. Do not use OneDrive actions for registry
-writes.
+to this canonical list or its approved successor, and obtain native execution
+evidence. The imported flow has not been enabled or run, so native row-level
+create/update execution, unattended operation and production acceptance remain
+unproved. Do not use OneDrive actions for registry writes.
+
+## Replay attempt — 2026-09-20
+
+The requested controlled synthetic replay could not be started in this
+checkpoint. The authenticated Chrome automation surface dropped while loading
+the Power Automate details page, and a fresh headless `playwright-cli` session
+redirected to Microsoft sign-in rather than inheriting the existing login.
+No flow toggle, run, list write, or deletion was attempted after that point;
+the flow therefore remains safely Off. This is an automation/authentication
+bridge blocker, not evidence that the flow works or fails. Re-open the
+authenticated session and repeat the create/readback/update/readback/delete
+sequence before native execution can be accepted.
 
 ## Native list inventory — 2026-09-20
 
