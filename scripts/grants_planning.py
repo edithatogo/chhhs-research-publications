@@ -22,7 +22,12 @@ def institutional_deadline(external_date, lead_days, *, business_days=True, holi
         target = date.fromisoformat(external_date)
     except ValueError:
         return None
-    excluded = {date.fromisoformat(day) for day in holidays}
+    try:
+        if any(not isinstance(day, str) for day in holidays):
+            raise ValueError
+        excluded = {date.fromisoformat(day) for day in holidays}
+    except (TypeError, ValueError):
+        raise ValueError('holidays must contain unique ISO date strings') from None
     remaining = lead_days
     while remaining:
         target -= timedelta(days=1)
@@ -72,6 +77,8 @@ def subscribers(opportunity, subscriptions):
 
 def validate_policy(policy):
     """Validate a versioned institutional date policy without approving it."""
+    if not isinstance(policy, dict):
+        return False
     required = ('PolicyKey', 'Version', 'OrganisationKey', 'AnchorKind', 'LeadDays',
                 'HolidayCalendarVersion', 'EffectiveFrom')
     if not all(policy.get(key) not in (None, '') for key in required):
@@ -94,9 +101,11 @@ def validate_policy(policy):
     holidays = policy.get('HolidayDates', ())
     if not isinstance(holidays, (list, tuple, set)):
         return False
+    if any(not isinstance(day, str) for day in holidays):
+        return False
     try:
-        parsed_holidays = [date.fromisoformat(str(day)) for day in holidays]
-    except ValueError:
+        parsed_holidays = [date.fromisoformat(day) for day in holidays]
+    except (TypeError, ValueError):
         return False
     if len(parsed_holidays) != len(set(parsed_holidays)):
         return False

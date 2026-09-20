@@ -13,6 +13,9 @@ class PlanningTests(unittest.TestCase):
     def test_invalid_policy_rejected(self):
         with self.assertRaises(ValueError):
             institutional_deadline('2026-09-28', -1)
+        with self.assertRaisesRegex(ValueError, 'holidays'):
+            institutional_deadline('2026-09-28', 1, holidays=[20260925])
+        self.assertFalse(validate_policy(None))
 
     def test_policy_rejects_reversed_effective_range_and_bad_holiday(self):
         policy = {
@@ -25,6 +28,8 @@ class PlanningTests(unittest.TestCase):
         self.assertFalse(validate_policy(reversed_policy))
         bad_holiday = {**policy, 'HolidayDates': ['2026-02-30']}
         self.assertFalse(validate_policy(bad_holiday))
+        non_string_holiday = {**policy, 'HolidayDates': [20260228]}
+        self.assertFalse(validate_policy(non_string_holiday))
 
     def test_overlapping_subscriptions_deduplicate_and_respect_pause(self):
         grant = {'OpportunityKey': 'g1', 'CategoryKeys': ['health']}

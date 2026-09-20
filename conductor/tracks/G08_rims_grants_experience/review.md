@@ -89,3 +89,9 @@ malformed watchlist inputs from matching by string coercion.
 - **Fix:** identity fields now require non-empty strings and reminder offsets require bounded integers; regression tests cover coercible values, booleans and out-of-range offsets.
 - **Verification:** commit `b84cae8` passes the focused grant relationship/planning suite (14 tests), the full local suite (362 tests, 8 skips), project validation (438 checks), web-first contracts and Conductor validation; native delivery remains unproven.
 - **Residual gate:** native page persistence, per-user access, calendar change/cancellation and notification delivery remain open.
+
+## Conductor review — policy input hardening — 2026-09-21
+
+- **Finding:** institutional policy validation assumed a mapping and coerced holiday values before parsing; malformed input could therefore escape the intended false/explicit-error boundary.
+- **Fix:** policy validation now rejects non-object and non-string holiday inputs, while date projection raises an explicit validation error for malformed holiday collections.
+- **Verification:** regression tests cover non-object policies and non-string/invalid holidays; native policy persistence and delivery remain unproven.

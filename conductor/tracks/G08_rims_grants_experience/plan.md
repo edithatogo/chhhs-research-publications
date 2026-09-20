@@ -7,6 +7,7 @@
 - [~] Verify: Local policy/subscription tests pass; native page persistence, per-user access, reminder ledger and calendar change/cancellation remain open.
 - [x] Record local and live evidence separately before closure; no report page, subscription, notification or calendar was created.
 - [x] Harden future delivery idempotency keys to reject coercible identities and out-of-range offsets without creating ambiguous keys.
+- [x] Make institutional policy and holiday validation reject non-object and non-string inputs without incidental type errors.
 
 ## Local review extension — 2026-09-20
 
