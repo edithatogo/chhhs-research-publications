@@ -9,6 +9,7 @@ Status: in_progress. Source packaging is locally verified; native recovery/versi
 - [x] S02.1.3: Write tests for missing/invalid version, dirty accepted release, changed file hash, missing required artefact, private file exclusion and repeatable manifests.
 - [x] S02.1.4: Use independent fields for SoftwareVersion, SchemaVersion and AcceptedBatchID. A daily harvest changes batch identity, not software version.
 - [x] Checkpoint: write commands/results, changed paths and remaining blockers in review.md; update CURRENT_STATE. Stop dependent work on failure.
+- [x] Review fix: reject empty schema and batch identities before release-manifest creation (38c416f).
 
 ## S02.2 Packaging and reproducibility
 
