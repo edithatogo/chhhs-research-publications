@@ -51,6 +51,25 @@ class GrantsSourceTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "source_id must be a non-empty string"):
                 load_catalogue(handle.name)
 
+    def test_catalogue_rejects_non_string_urls(self):
+        rows = json.loads((Path(__file__).parents[1] / "config/grants-sources.json").read_text())
+        rows[0]["authority_url"] = True
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json") as handle:
+            json.dump(rows, handle)
+            handle.flush()
+            with self.assertRaisesRegex(ValueError, "valid authority_url"):
+                load_catalogue(handle.name)
+
+        rows[0]["authority_url"] = "https://example.org/authority"
+        arc = next(row for row in rows if row["source_id"] == "arc")
+        arc["authority_url"] = "https://example.org/authority"
+        arc["api_url"] = 7
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json") as handle:
+            json.dump(rows, handle)
+            handle.flush()
+            with self.assertRaisesRegex(ValueError, "valid api_url"):
+                load_catalogue(handle.name)
+
     def test_catalogue_freshness_uses_brisbane_date(self):
         rows = json.loads((Path(__file__).parents[1] / "config/grants-sources.json").read_text())
         self.assertTrue(all(row["last_verified"] <= "2026-09-21" for row in rows))

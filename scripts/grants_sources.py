@@ -22,7 +22,9 @@ CATALOGUE_TIMEZONE = ZoneInfo("Australia/Brisbane")
 
 
 def _valid_http_url(value: Any) -> bool:
-    parsed = urlsplit(str(value or "").strip())
+    if not isinstance(value, str):
+        return False
+    parsed = urlsplit(value.strip())
     return parsed.scheme in {"http", "https"} and bool(parsed.netloc)
 
 
