@@ -1,7 +1,7 @@
 # Implementation plan
 
 - [x] Record scope and acceptance requirements.
-- [ ] Inspect current inputs, dependencies and relevant platform objects.
-- [ ] Implement: Discover and reuse existing grants objects; generate explicit internal-name mappings and additive schemas.
-- [ ] Verify: Create/replay/update, unique-key concurrency, review preservation and private readback receipts.
-- [ ] Record local and live evidence separately before closure.
+- [x] Inspect current inputs, dependencies and relevant platform objects. The canonical G01 mapping and existing publication SharePoint conventions were inspected; no live grants object was found/read back in this tranche.
+- [x] Implement: Generate the explicit additive `Grants Registry` schema and Power Query read definition with `OpportunityKey` as the only local identity.
+- [~] Verify: Local schema/mapping parity is tested; create/replay/update, unique-key concurrency and private tenant readback remain open.
+- [x] Record local and live evidence separately before closure; no tenant write was performed.

@@ -35,6 +35,14 @@ class GrantsRegistryTests(unittest.TestCase):
         self.assertIn("EvidenceHash", mapped)
         self.assertEqual(normalize_url("HTTPS://B.EXAMPLE/2/"), "https://b.example/2")
 
+    def test_naive_or_invalid_observation_timestamp_is_reviewed(self):
+        naive = normalize_opportunity({"Title": "Call", "URL": "https://example.org/call", "RetrievedUTC": "2026-09-20T12:00:00"})
+        invalid = normalize_opportunity({"Title": "Call", "URL": "https://example.org/call", "RetrievedUTC": "not-a-timestamp"})
+        self.assertEqual(naive["RetrievedTimestampStatus"], "missing_timezone")
+        self.assertEqual(invalid["RetrievedTimestampStatus"], "invalid")
+        self.assertEqual(naive["ReviewStatus"], "Needs Review")
+        self.assertEqual(invalid["ReviewStatus"], "Needs Review")
+
 
 if __name__ == "__main__":
     unittest.main()

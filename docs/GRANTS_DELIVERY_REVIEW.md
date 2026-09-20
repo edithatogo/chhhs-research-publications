@@ -45,6 +45,8 @@ flowchart LR
 
 ## Source catalogue: discovery evidence and intake proposals
 
+The reviewed source catalogue is now machine-readable at `config/grants-sources.json` and validated by `scripts/grants_sources.py`. It records authority URL, proposed intake route, eligibility scope, last verification date and explicit health state. These are source-discovery/configuration assertions; they do not prove that the listed pages expose a permitted RSS/Atom/API endpoint.
+
 Unless specifically stated, RSS/Atom/API availability is unverified. Automated adapters require endpoint, format, update behaviour and access checks. None of these rows claims an installed collector.
 
 | Source | Official reference | Proposed intake and scope |

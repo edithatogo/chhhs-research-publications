@@ -10,14 +10,13 @@ Execution order and boundaries: [detailed handoff](PUBLICATION_STABILISATION.md)
 
 ## Grants extension of CHHHS RIMS
 
-- [ ] [G01_grants_contracts: Grant identities and temporal contracts](tracks/G01_grants_contracts/plan.md) — planned; local foundation work exists, platform acceptance pending.
-- [ ] [G02_grants_sources: Verified federal and Queensland sources](tracks/G02_grants_sources/plan.md) — planned; local foundation work exists, platform acceptance pending.
-- [ ] [G03_grants_sharepoint: Canonical grants storage](tracks/G03_grants_sharepoint/plan.md) — planned; local foundation work exists, platform acceptance pending.
-- [ ] [G04_grants_ingestion: Grant source ingestion](tracks/G04_grants_ingestion/plan.md) — planned; local foundation work exists, platform acceptance pending.
+- [~] [G02_grants_sources: Verified federal and Queensland sources](tracks/G02_grants_sources/plan.md) — catalogue implemented; endpoint/feed verification remains open.
+- [~] [G03_grants_sharepoint: Canonical grants storage](tracks/G03_grants_sharepoint/plan.md) — local schema/read definition implemented; isolated SharePoint creation/readback remains open.
+- [~] [G04_grants_ingestion: Grant source ingestion](tracks/G04_grants_ingestion/plan.md) — local adapters and fail-closed batch handling implemented; live source/list/flow acceptance remains open.
 - [ ] [G05_grants_universities: University and specialist coverage](tracks/G05_grants_universities/plan.md) — planned; local foundation work exists, platform acceptance pending.
-- [ ] [G06_grants_relationships: Publication and funding relationships](tracks/G06_grants_relationships/plan.md) — planned; local foundation work exists, platform acceptance pending.
-- [ ] [G07_grants_operations: Grant operational acceptance](tracks/G07_grants_operations/plan.md) — planned; local foundation work exists, platform acceptance pending.
-- [ ] [G08_rims_grants_experience: RIMS grant pages, dates and subscriptions](tracks/G08_rims_grants_experience/plan.md) — planned; local foundation work exists, platform acceptance pending.
+- [~] [G06_grants_relationships: Publication and funding relationships](tracks/G06_grants_relationships/plan.md) — typed local relationship contract implemented; native evidence/readback remains open.
+- [~] [G07_grants_operations: Grant operational acceptance](tracks/G07_grants_operations/plan.md) — local fail-closed run evaluator implemented; native cycles/readback remain open.
+- [~] [G08_rims_grants_experience: RIMS grant pages, dates and subscriptions](tracks/G08_rims_grants_experience/plan.md) — local policy and subscription contracts implemented; native pages/access/delivery remain open.
 
 ## Current web-first implementation
 

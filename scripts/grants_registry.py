@@ -61,6 +61,34 @@ def _date(value: Any) -> tuple[str | None, str]:
     return year, "year"
 
 
+def _retrieved_utc(value: Any) -> tuple[str, str]:
+    """Validate an observation timestamp without silently assuming a timezone."""
+    raw = _text(value)
+    if not raw:
+        return datetime.now(timezone.utc).isoformat(), "generated"
+    candidate = raw[:-1] + "+00:00" if raw.endswith("Z") else raw
+    try:
+        parsed = datetime.fromisoformat(candidate)
+    except ValueError:
+        return raw, "invalid"
+    if parsed.tzinfo is None:
+        return raw, "missing_timezone"
+    return parsed.astimezone(timezone.utc).isoformat(), "valid"
+
+
+def _timestamp_sort_key(value: Any) -> datetime:
+    candidate = _text(value)
+    if candidate.endswith("Z"):
+        candidate = candidate[:-1] + "+00:00"
+    try:
+        parsed = datetime.fromisoformat(candidate)
+        if parsed.tzinfo is None:
+            return datetime.min.replace(tzinfo=timezone.utc)
+        return parsed.astimezone(timezone.utc)
+    except ValueError:
+        return datetime.min.replace(tzinfo=timezone.utc)
+
+
 def normalize_opportunity(record: dict[str, Any], retrieved_at: str | None = None) -> dict[str, Any]:
     """Normalize RSS/Atom/API-shaped records without inventing missing values."""
     record = dict(record)
@@ -68,7 +96,7 @@ def normalize_opportunity(record: dict[str, Any], retrieved_at: str | None = Non
     record['URL'] = record.get('URL') or record.get('Link') or record.get('link') or ''
     record['Funder'] = record.get('Funder') or record.get('Organization') or record.get('funder') or ''
     deadline, precision = _date(record.get("Deadline") or record.get("ClosingDate") or record.get("deadline"))
-    retrieved = retrieved_at or _text(record.get("RetrievedUTC")) or datetime.now(timezone.utc).isoformat()
+    retrieved, retrieved_status = _retrieved_utc(retrieved_at or record.get("RetrievedUTC"))
     result = {
         "OpportunityKey": stable_key(record),
         "Title": _text(record.get("Title") or record.get("title")),
@@ -88,10 +116,12 @@ def normalize_opportunity(record: dict[str, Any], retrieved_at: str | None = Non
         "Contact": _text(record.get("Contact")),
         "CHHHSRelevance": _text(record.get("CHHHSRelevance")) or "Unknown",
         "ReviewStatus": _text(record.get("ReviewStatus")) or "Needs Review",
+        "ReviewNotes": _text(record.get("ReviewNotes")),
         "RetrievedUTC": retrieved,
+        "RetrievedTimestampStatus": retrieved_status,
         "EvidenceHash": hashlib.sha256(repr(sorted(record.items())).encode("utf-8")).hexdigest(),
     }
-    if not result["Title"] or not result["URL"]:
+    if not result["Title"] or not result["URL"] or retrieved_status != "valid":
         result["ReviewStatus"] = "Needs Review"
     return result
 
@@ -104,6 +134,15 @@ def merge_observations(records: Iterable[dict[str, Any]]) -> list[dict[str, Any]
         key = normalized["OpportunityKey"]
         if key not in grouped:
             grouped[key] = {**normalized, "SourceObservations": []}
+        elif _timestamp_sort_key(normalized["RetrievedUTC"]) >= _timestamp_sort_key(grouped[key]["RetrievedUTC"]):
+            prior = grouped[key]
+            preserved_review = prior.get("ReviewStatus") not in (None, "", "Needs Review")
+            grouped[key] = {
+                **normalized,
+                "ReviewStatus": prior.get("ReviewStatus") if preserved_review else normalized["ReviewStatus"],
+                "ReviewNotes": prior.get("ReviewNotes") if preserved_review else normalized["ReviewNotes"],
+                "SourceObservations": prior["SourceObservations"],
+            }
         grouped[key]["SourceObservations"].append({
             "Source": normalized["Source"], "SourceID": normalized["SourceID"],
             "URL": normalized["URL"], "RetrievedUTC": normalized["RetrievedUTC"],
@@ -120,5 +159,6 @@ def sharepoint_field_map(record: dict[str, Any]) -> dict[str, Any]:
     return {field: record.get(field) for field in (
         "OpportunityKey", "Title", "Funder", "Source", "SourceID", "RoundID", "URL", "Description",
         "Eligibility", "Geography", "Amount", "Deadline", "DeadlineRaw", "DeadlinePrecision",
-        "Status", "Contact", "CHHHSRelevance", "ReviewStatus", "RetrievedUTC", "EvidenceHash",
+        "Status", "Contact", "CHHHSRelevance", "ReviewStatus", "ReviewNotes", "RetrievedUTC",
+        "RetrievedTimestampStatus", "EvidenceHash",
     )}

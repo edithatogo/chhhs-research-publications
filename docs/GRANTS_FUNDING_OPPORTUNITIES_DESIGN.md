@@ -40,7 +40,7 @@ Status: **Local MVP implemented; platform deployment not yet authorised or perfo
 
 The local implementation is `scripts/grants_registry.py`. Its canonical fields are:
 
-`OpportunityKey`, `Title`, `Funder`, `Source`, `SourceID`, `URL`, `Description`, `Eligibility`, `Geography`, `Amount`, `Deadline`, `DeadlineRaw`, `DeadlinePrecision`, `Status`, `Contact`, `CHHHSRelevance`, `ReviewStatus`, `RetrievedUTC`, `EvidenceHash`, and `SourceObservations`.
+`OpportunityKey`, `Title`, `Funder`, `Source`, `SourceID`, `RoundID`, `URL`, `Description`, `Eligibility`, `Geography`, `Amount`, `Deadline`, `DeadlineRaw`, `DeadlinePrecision`, `Status`, `Contact`, `CHHHSRelevance`, `ReviewStatus`, `ReviewNotes`, `RetrievedUTC`, `RetrievedTimestampStatus`, `EvidenceHash`, and `SourceObservations`. Observation timestamps without an explicit timezone remain `Needs Review`; source deadlines retain raw values and precision.
 
 ## Mermaid architecture
 
