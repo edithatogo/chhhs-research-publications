@@ -26,16 +26,20 @@ def _child_text(element: ET.Element, *names: str) -> str:
 
 
 def _valid_http_url(value: Any) -> bool:
-    parsed = urlsplit(str(value or "").strip())
+    if not isinstance(value, str):
+        return False
+    parsed = urlsplit(value.strip())
     return parsed.scheme in {"http", "https"} and bool(parsed.netloc)
 
 
 def _validate_emitted_record(record: dict[str, Any]) -> dict[str, Any]:
-    if not record.get("Title"):
+    if not isinstance(record, dict):
+        raise ValueError("ingestion record must be an object")
+    if not isinstance(record.get("Title"), str) or not record["Title"].strip():
         raise ValueError("ingestion record missing title")
     if not _valid_http_url(record.get("URL")):
         raise ValueError("ingestion record requires an HTTP(S) URL")
-    if not record.get("OpportunityKey"):
+    if not isinstance(record.get("OpportunityKey"), str) or not record["OpportunityKey"].strip():
         raise ValueError("ingestion record missing OpportunityKey")
     if record.get("RetrievedTimestampStatus") != "valid":
         raise ValueError("ingestion record requires timezone-aware retrieval")
@@ -43,7 +47,7 @@ def _validate_emitted_record(record: dict[str, Any]) -> dict[str, Any]:
 
 
 def _validate_unique_batch(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    keys = [str(record.get("OpportunityKey", "")).strip() for record in records]
+    keys = [record.get("OpportunityKey", "").strip() for record in records]
     if len(keys) != len(set(keys)):
         raise ValueError("duplicate OpportunityKey within source batch")
     return records
@@ -51,6 +55,8 @@ def _validate_unique_batch(records: list[dict[str, Any]]) -> list[dict[str, Any]
 
 def parse_feed(xml_payload: str | bytes, *, source: str, retrieved_at: str) -> list[dict[str, Any]]:
     """Parse RSS/Atom entries while retaining raw deadline text for review."""
+    if not isinstance(source, str) or not source.strip():
+        raise ValueError("feed source must be a non-empty string")
     root = ET.fromstring(xml_payload)
     entries = [node for node in root.iter() if _local(node.tag) in {"item", "entry"}]
     if not entries:
@@ -93,8 +99,11 @@ def ingest_batches(batches: Iterable[dict[str, Any]]) -> dict[str, Any]:
     for batch in batches:
         if not isinstance(batch, dict):
             raise ValueError("grant source batch must be an object")
-        source = str(batch.get("source", "unknown"))
+        source_value = batch.get("source")
+        source = source_value.strip() if isinstance(source_value, str) else ""
         try:
+            if not source:
+                raise ValueError("source must be a non-empty string")
             if "xml" in batch:
                 parsed = parse_feed(batch["xml"], source=source, retrieved_at=batch["retrieved_at"])
             else:

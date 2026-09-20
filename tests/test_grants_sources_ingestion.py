@@ -154,6 +154,17 @@ class GrantsSourceTests(unittest.TestCase):
         self.assertEqual(result["health"][0]["status"], "failed")
         self.assertFalse(result["accepted"])
 
+    def test_ingestion_identities_and_urls_are_not_coerced(self):
+        with self.assertRaisesRegex(ValueError, "source must be a non-empty string"):
+            parse_feed("<rss><channel><item><title>Call</title><link>https://example.org/1</link></item></channel></rss>", source=True, retrieved_at="2026-09-20T00:00:00Z")
+        result = ingest_batches([{
+            "source": True,
+            "retrieved_at": "2026-09-20T00:00:00Z",
+            "records": [{"Title": "Call", "URL": 7}],
+        }])
+        self.assertFalse(result["accepted"])
+        self.assertEqual(result["health"][0]["status"], "failed")
+
     def test_current_record_uses_newest_observation_but_preserves_review(self):
         from scripts.grants_registry import merge_observations
         rows = merge_observations([
