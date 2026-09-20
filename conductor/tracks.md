@@ -12,7 +12,7 @@ Execution order and boundaries: [detailed handoff](PUBLICATION_STABILISATION.md)
 - [~] [G03_grants_sharepoint: Canonical grants storage](tracks/G03_grants_sharepoint/plan.md) — isolated schema/list and reviewed-import flow readback complete; controlled DEV create/update replay proven; native diagnostic-expression edit, approved organisation-wide target, flow binding and unattended acceptance remain open.
 - [~] [G04_grants_ingestion: Grant source ingestion](tracks/G04_grants_ingestion/plan.md) — local adapters and fail-closed batch handling implemented; live source/list/flow acceptance remains open.
 - [~] [G05_grants_universities: University and specialist coverage](tracks/G05_grants_universities/plan.md) — JCU/UQ/QUT/Griffith source/access catalogue implemented; portal/feed verification remains open.
-- [~] [G06_grants_relationships: Publication and funding relationships](tracks/G06_grants_relationships/plan.md) — typed local relationship contract implemented; native evidence/readback remains open.
+- [~] [G06_grants_relationships: Publication and funding relationships](tracks/G06_grants_relationships/plan.md) — typed local relationship contract and isolated DEV eight-field native schema implemented; remaining required-field readback, round-trip and approved target gates remain open.
 - [~] [G07_grants_operations: Grant operational acceptance](tracks/G07_grants_operations/plan.md) — local fail-closed evaluator and controlled DEV create/update replay implemented; monitoring, operational reconciliation and delivery remain open.
 - [~] [G08_rims_grants_experience: RIMS grant pages, dates and subscriptions](tracks/G08_rims_grants_experience/plan.md) — local policy and subscription contracts implemented; native pages/access/delivery remain open.
 
