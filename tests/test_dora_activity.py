@@ -135,6 +135,23 @@ class DoraActivityTests(unittest.TestCase):
             with self.subTest(resource_id=resource_id), self.assertRaisesRegex(ValueError, "resource id"):
                 activity_key(resource_id, record())
 
+    def test_export_rejects_unusable_url_or_timestamp_provenance(self):
+        envelope = {
+            "schema_version": "dora-activity-v1",
+            "source_payload": {"resource": {"id": "resource-1", "url": "https://example.invalid/current.csv"}},
+            "observed_at": "2026-09-20T00:00:00+00:00",
+            "retrieved_count": 1,
+            "records": [record()],
+        }
+        malformed_url = dict(envelope)
+        malformed_url["source_payload"] = {"resource": {"id": "resource-1", "url": "not-a-url"}}
+        with self.assertRaisesRegex(ValueError, r"HTTP\(S\)"):
+            build_rows(malformed_url)
+        malformed_timestamp = dict(envelope)
+        malformed_timestamp["observed_at"] = "2026-09-20T00:00:00"
+        with self.assertRaisesRegex(ValueError, "timezone"):
+            build_rows(malformed_timestamp)
+
 
 if __name__ == "__main__":
     unittest.main()

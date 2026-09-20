@@ -3,9 +3,11 @@ from __future__ import annotations
 
 import argparse
 import csv
+import datetime as dt
 import json
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlsplit
 
 from dora_activity import IDENTITY_FIELD, SOURCE_FIELDS, validate_records
 from export_publication_register import safe_cell
@@ -26,6 +28,25 @@ def _required_scalar_text(value: Any, label: str) -> str:
     if isinstance(value, bool) or not isinstance(value, str) or not value.strip():
         raise ValueError(f"DoRA activity {label} must be a non-empty string")
     return value.strip()
+
+
+def _required_http_url(value: Any, label: str) -> str:
+    text = _required_scalar_text(value, label)
+    parsed = urlsplit(text)
+    if parsed.scheme not in {"http", "https"} or not parsed.netloc:
+        raise ValueError(f"DoRA activity {label} must be an HTTP(S) URL")
+    return text
+
+
+def _required_timestamp(value: Any) -> str:
+    text = _required_scalar_text(value, "observation time")
+    try:
+        parsed = dt.datetime.fromisoformat(text.replace("Z", "+00:00"))
+    except ValueError as exc:
+        raise ValueError("DoRA activity observation time must be ISO-8601") from exc
+    if parsed.tzinfo is None or parsed.utcoffset() is None:
+        raise ValueError("DoRA activity observation time must include a timezone")
+    return text
 
 
 def activity_key(resource_id: str, record: dict[str, Any]) -> str:
@@ -54,8 +75,8 @@ def build_rows(envelope: dict[str, Any]) -> list[dict[str, Any]]:
         raise ValueError("DoRA activity retrieved count is invalid")
     validate_records(records, retrieved_count)
     resource_id = _required_scalar_text(resource.get("id"), "resource id")
-    resource_url = _required_scalar_text(resource.get("url"), "resource URL")
-    observed_at = _required_scalar_text(envelope.get("observed_at"), "observation time")
+    resource_url = _required_http_url(resource.get("url"), "resource URL")
+    observed_at = _required_timestamp(envelope.get("observed_at"))
     rows = []
     for record in records:
         row = {name: record.get(name) for name in SOURCE_FIELDS}
