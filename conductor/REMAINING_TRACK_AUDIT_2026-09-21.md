@@ -18,7 +18,7 @@ and its required native acceptance evidence are both complete.
 | T14 | Complete local exports, monthly generator and failure contracts | Manual native cycle, consecutive-cycle replay and delivery decision | Keep active |
 | T15 | Local handover/package and current four-page report audit | Native release/readback; Clinical Analytics model bindings are broken | Keep active |
 | E01 | Corrected publication query and successful DEV flow readback | Replay/update, duplicate/failure safety, reconciliation and unattended cycle | Keep active |
-| E04 | Local Fluent/grid/contrast tests pass; native Clinical Analytics has nine field errors; isolated model view bootstraps the original model and fails in the modeling iframe | Restore a correctly bound isolated authoring route, then repair/read back model/report bindings | Keep active |
+| E04 | Local Fluent/grid/contrast and PBIR-to-TMDL field-binding tests pass; native Clinical Analytics has nine field errors; isolated model view bootstraps the original model and fails in the modeling iframe | Restore a correctly bound isolated authoring route, then repair/read back model/report bindings | Keep active |
 | E07 | Local platform acceptance contract and isolated evidence | End-to-end tenant acceptance and release evidence | Keep active |
 
 ## Canonical-source invariant
