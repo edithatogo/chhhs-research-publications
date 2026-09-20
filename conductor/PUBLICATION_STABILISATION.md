@@ -12,7 +12,7 @@ python3 scripts/agent_harness.py context --task publications
 python3 scripts/validate_conductor.py
 ```
 
-Start [S01](archive/S01_publication_stabilisation/plan.md), task S01.1.1. Read-only baseline work may run in parallel with [S03](tracks/S03_private_github_sync/plan.md) privacy inventory. Do not run the current release packager before its privacy defects are fixed: it embeds .git and bundles all history.
+Start [S01](archive/S01_publication_stabilisation/plan.md), task S01.1.1. Read-only baseline work may run in parallel with [S03](archive/S03_private_github_sync/plan.md) privacy inventory. Do not run the current release packager before its privacy defects are fixed: it embeds .git and bundles all history.
 
 ## Ownership and order
 

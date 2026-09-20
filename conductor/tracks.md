@@ -5,7 +5,6 @@
 Execution order and boundaries: [detailed handoff](PUBLICATION_STABILISATION.md). Existing T11, T14, T15, E01 and E07 own live acceptance; their execution runbooks refine the existing plans.
 
 - [~] [S02_release_versioning: reproducible versions and recovery](tracks/S02_release_versioning/plan.md) — source versioning is verified; isolated native version/batch display remains gated.
-- [x] [S03_private_github_sync: sanitised private source synchronisation](tracks/S03_private_github_sync/plan.md) — clean source-only `main` published; native/platform acceptance remains separate.
 
 ## Grants extension of CHHHS RIMS
 

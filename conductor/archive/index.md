@@ -6,3 +6,4 @@
 - [E06_grants_funding_opportunities](E06_grants_funding_opportunities/plan.md) — local grants MVP, source adapters, conservative registry contracts, tests, and documentation complete; live platform deployment remains owned by G02–G08.
 - [E02_clinical_analytics](E02_clinical_analytics/plan.md) — local clinical attribution, FoR taxonomy, specifications, and tests complete; native projection remains outside this local track.
 - [E03_open_access_trials](E03_open_access_trials/plan.md) — local open-access and trial-linkage rules, specifications, and tests complete; live enrichment remains outside this local track.
+- [S03_private_github_sync](S03_private_github_sync/plan.md) — private source-only `main` synchronization, remote privacy/readback, clean extraction, and local verification complete; native/platform acceptance remains separate.
