@@ -8,6 +8,11 @@ import json
 from pathlib import Path
 import zipfile
 
+try:
+    from publication_batch_contract import validate_update_allowlist
+except ModuleNotFoundError:
+    from scripts.publication_batch_contract import validate_update_allowlist
+
 
 ROOT = Path(__file__).resolve().parent.parent
 PACKAGE = ROOT / "private" / "ops" / "flow-packages" / "sharepoint-upsert.zip"
@@ -72,6 +77,9 @@ def validate(definition: dict) -> list[str]:
     update_text = json.dumps(update)
     if "item/field_20" not in update_text or "item/field_19" in update_text:
         errors.append("existing records must update last observed without overwriting first observed")
+    update_parameters = update.get("inputs", {}).get("parameters", {})
+    update_fields = [key.removeprefix("item/") for key in update_parameters if key.startswith("item/")]
+    errors.extend(validate_update_allowlist(update_fields, internal_allowed={"field_20"}))
 
     duplicate = record_actions.get("Condition_Duplicate_SourceKey", {})
     if "greater" not in json.dumps(duplicate) or "DUPLICATE_SOURCE_KEY" not in json.dumps(duplicate):

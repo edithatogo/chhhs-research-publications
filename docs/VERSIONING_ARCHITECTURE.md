@@ -1,6 +1,6 @@
 # Architecture and Operations: Publication Registry Versioning Systems
 
-This document clarifies the versioning capabilities across the CHHHS Research Publication Registry platform, covering SharePoint Online, Power Automate, Power BI semantic models, and local Git repositories.
+This document clarifies the versioning capabilities across the CHHHS Research Publication Registry platform, covering SharePoint Online, Power Automate, Power BI semantic models, and local Git repositories. Local definitions and package receipts are not evidence that a tenant feature is enabled or that rollback has been tested.
 
 ---
 
@@ -8,9 +8,9 @@ This document clarifies the versioning capabilities across the CHHHS Research Pu
 
 | Layer | Native Versioning Mechanism | Repository / Git Integration | Disaster Recovery / Rollback |
 | :--- | :--- | :--- | :--- |
-| **SharePoint List** | Native item-level major version history (configured for 500 versions). | Seed datasets (`publication-registry-seed.csv`, `.json`) and deployment scripts in Git. | Revert individual fields or entire publication records via SharePoint UI or PnP PowerShell. |
-| **Power Automate Flow** | Platform Version History (every save creates an immutable version snapshot). | Declarative workflow definitions (`config/flows/*.definition.json`) and Solution ZIP packages. | Revert to previous version via Flow portal "Version History" or re-import repo ZIP package into flow `{{FLOW_ID}}`. |
-| **Power BI Semantic Model** | Fabric/Workspace version history & isolated development clones. | Declarative TMDL (`config/SharePointPublicationRegistry.m`, `tmdl/`) and DAX measure scripts. | Isolated canary model (`{{ISOLATED_MODEL_ID}}`) verified with clean rollback path. |
+| **SharePoint List** | Must be read back from the target list; version settings are not assumed from a script. | Seed datasets (`publication-registry-seed.csv`, `.json`) and deployment scripts in Git. | Restore only after item-level version history and an isolated recovery test are evidenced. |
+| **Power Automate Flow** | Platform Version History and solution-aware drafts are conditional on the actual environment/flow capability. | Declarative workflow definitions (`config/flows/*.definition.json`) and private package exports. | Revert only after native version-history or isolated re-import/readback is verified; local ZIPs are not native rollback evidence. |
+| **Power BI Semantic Model** | Depends on the existing workspace/report capabilities and must be read back; TMDL is not a service snapshot. | Declarative TMDL and DAX measure scripts. | Use an isolated model/report with an approved recovery path; no shared-model rollback is claimed locally. |
 | **Publication Data & Lineage** | Persistent observation timestamps (`first_observed_utc`, `last_observed_utc`, `CitationMetricsObservedUTC`). | SQLite database (`Registry` table + `SourceRecord` table) with immutable raw ingestion batches. | Idempotent replay from raw feeds; deterministic deduplication ensures zero data loss or ghost deletions. |
 
 ---
@@ -35,8 +35,10 @@ Set-PnPList -Identity "Publication Registry" -EnableVersioning $true -MajorVersi
 
 ## 3. Power Automate Flow Versioning & Platform Deduplication
 
-### Platform Version History
-Power Automate provides built-in version control on every cloud flow:
+### Platform Version History (conditional)
+Power Automate may expose version history for a cloud flow, but this repository
+does not assume that capability, solution-awareness, or rollback semantics until
+the exact flow/environment is inspected and a native readback is recorded:
 - Navigate to flow details: `Flow Details -> Version History`.
 - Shows timestamp, author, save comments, and allows instant rollback to any previously saved revision.
 
@@ -44,7 +46,24 @@ Power Automate provides built-in version control on every cloud flow:
 To ensure engineering rigor and compliance:
 1. **Flow Definitions in Code:** The workflow is authored and maintained declaratively in `config/flows/publication-registry-upsert.definition.json`.
 2. **Package Generator:** `scripts/build_sharepoint_upsert_package.py` packages the definition and metadata into `private/ops/flow-packages/sharepoint-upsert.zip`.
-3. **Platform Deduplication:** To prevent multiple duplicate flows from accumulating on the Power Automate platform, new imports explicitly update the existing flow ID (`{{FLOW_ID}}`) using the "Update" action rather than "Create as new".
+3. **Platform Deduplication:** When the approved native route is available, an
+   import must explicitly update the existing flow (`{{FLOW_ID}}`) rather than
+   create a second flow. This is a deployment rule, not evidence that the
+   update has occurred.
+
+## 6. One-owner release routine
+
+1. Work from a focused change and keep tenant/runtime material in ignored
+   private storage.
+2. Run `python3 scripts/agent_harness.py check --task all` and record the
+   `PASS_LOCAL_ONLY` result.
+3. Build a clean source candidate, verify the pinned Conductor submodule and
+   generate a reproducible source receipt with `scripts/package_release.py`.
+4. Only after a separately approved native candidate/readback, apply the
+   platform change and record its target identity, rollback path and receipt.
+5. Create a release tag/manifest and optionally a GitHub Release. Conductor is
+   the backlog and evidence index; no duplicate Projects/Jira/Planner system is
+   required.
 
 ---
 
