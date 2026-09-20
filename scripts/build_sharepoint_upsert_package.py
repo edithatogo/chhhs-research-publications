@@ -17,6 +17,7 @@ import json
 from pathlib import Path
 import zipfile
 from uuid import UUID
+from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -55,14 +56,28 @@ def load_target(path: Path) -> tuple[str, str, str, dict[str, str]]:
                 "publication_month", "publication_date_raw", "publication_date_precision", "source_set",
                 "pmid", "doi", "matched_facilities", "attribution_evidence", "review_status",
                 "first_observed", "last_observed"}
-    if not site_url or not list_id or not model_id or "{{" in site_url or "{{" in list_id or "{{" in model_id or not required.issubset(fields):
+    parsed_site = urlsplit(site_url)
+    if (
+        parsed_site.scheme != "https"
+        or not parsed_site.netloc
+        or not site_url
+        or not list_id
+        or not model_id
+        or "{{" in site_url
+        or "{{" in list_id
+        or "{{" in model_id
+        or not required.issubset(fields)
+    ):
         raise ValueError("validated private SharePoint target, model and complete field mapping are required")
     try:
         UUID(list_id)
         UUID(model_id)
     except ValueError as exc:
         raise ValueError("SharePoint list_id must be a GUID") from exc
-    return site_url, list_id, model_id, {key: str(fields[key]) for key in required}
+    mapped_fields = {key: str(fields[key]).strip() for key in required}
+    if any(not value or "{{" in value for value in mapped_fields.values()):
+        raise ValueError("validated private SharePoint target requires non-empty field mappings")
+    return site_url, list_id, model_id, mapped_fields
 
 
 def build_package(baseline_path: Path, output_path: Path, target_path: Path = DEFAULT_TARGET) -> Path:

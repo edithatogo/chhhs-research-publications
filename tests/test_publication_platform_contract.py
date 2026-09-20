@@ -1,5 +1,8 @@
 import unittest
 import copy
+import json
+import tempfile
+import uuid
 from pathlib import Path
 
 from scripts.validate_publication_platform_contract import PACKAGE, _definition, _tracked_definition, validate
@@ -67,6 +70,43 @@ class PublicationPlatformContractTests(unittest.TestCase):
     def test_native_target_requires_model_id(self):
         self.require_private_package()
         self.assertEqual(len(load_target(Path("private/config/sharepoint-publication-target.json"))), 4)
+
+    def test_native_target_requires_https_site_url(self):
+        with tempfile.TemporaryDirectory() as folder:
+            target = Path(folder) / "target.json"
+            payload = {
+                "site_url": "http://example.sharepoint.com/sites/dev",
+                "list_id": str(uuid.uuid4()),
+                "model_id": str(uuid.uuid4()),
+                "fields": {name: "field_1" for name in {
+                    "title", "source_key", "canonical_key", "authors", "journal", "publication_year",
+                    "publication_month", "publication_date_raw", "publication_date_precision", "source_set",
+                    "pmid", "doi", "matched_facilities", "attribution_evidence", "review_status",
+                    "first_observed", "last_observed",
+                }},
+            }
+            target.write_text(json.dumps(payload), encoding="utf-8")
+            with self.assertRaises(ValueError):
+                load_target(target)
+
+    def test_native_target_requires_nonempty_field_mappings(self):
+        with tempfile.TemporaryDirectory() as folder:
+            target = Path(folder) / "target.json"
+            fields = {name: "field_1" for name in {
+                "title", "source_key", "canonical_key", "authors", "journal", "publication_year",
+                "publication_month", "publication_date_raw", "publication_date_precision", "source_set",
+                "pmid", "doi", "matched_facilities", "attribution_evidence", "review_status",
+                "first_observed", "last_observed",
+            }}
+            fields["source_key"] = ""
+            target.write_text(json.dumps({
+                "site_url": "https://example.sharepoint.com/sites/dev",
+                "list_id": str(uuid.uuid4()),
+                "model_id": str(uuid.uuid4()),
+                "fields": fields,
+            }), encoding="utf-8")
+            with self.assertRaises(ValueError):
+                load_target(target)
 
     def test_unknown_run_after_dependency_is_rejected(self):
         self.require_private_package()
