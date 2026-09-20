@@ -20,13 +20,17 @@ Native list readback confirmed the list exists and is empty. The additive schema
 
 The native gate remains open: configure/read back the remaining required fields, prove an approved evidence-bearing relationship round-trip, and reconcile publication totals unchanged. A subsequent browser navigation replaced the authenticated session with a sign-in page before the remaining column settings could be read back; those constraints are therefore not inferred. The list is an isolated DEV object, not an approved organisation-wide target or unattended flow binding.
 
+Review fix applied: relationship normalization now requires a valid HTTP(S)
+evidence URL and one of the native review-status choices (`Needs Review`,
+`Included`, `Excluded`). Invalid values fail closed before projection.
+
 ## Verification Checks
 
 - [x] Plan compliance: local schema, validation rules and additive native object are aligned.
 - [x] Style compliance: relationship types, confidence and review state remain explicit; publication rows are not mutated.
 - [x] New tests: `tests/test_grants_relationships_operations.py` covers evidence and confidence boundaries.
 - [x] Test coverage: local relationship schema and Power Query contract are covered.
-- [x] Test results: canonical-clone full suite passed at the current checkpoint (326 tests, 8 skipped; project validation 438 checks).
+- [x] Test results: canonical-clone full suite passed at the current checkpoint (327 tests, 8 skipped; project validation 438 checks).
 
 ## Findings
 

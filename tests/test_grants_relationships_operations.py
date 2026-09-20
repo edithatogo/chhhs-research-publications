@@ -26,6 +26,14 @@ class GrantsRelationshipTests(unittest.TestCase):
         self.assertEqual(row['RelationshipType'], 'relevant_to_opportunity')
         self.assertEqual(row['Confidence'], 'candidate')
 
+    def test_relationship_requires_http_evidence_url(self):
+        with self.assertRaisesRegex(ValueError, 'requires from/to keys and evidence'):
+            normalize_relationship({'RelationshipType':'relevant_to_opportunity','FromKey':'PUB:1','ToKey':'GRANT:1','EvidenceURL':'evidence','Confidence':'candidate'})
+
+    def test_relationship_review_status_is_constrained(self):
+        with self.assertRaisesRegex(ValueError, 'unsupported review status'):
+            normalize_relationship({'RelationshipType':'relevant_to_opportunity','FromKey':'PUB:1','ToKey':'GRANT:1','EvidenceURL':'https://evidence','Confidence':'candidate','ReviewStatus':'Reviewed'})
+
     def test_run_rejects_failed_source_and_preserves_last_batch(self):
         result = evaluate_run([{'OpportunityKey':'GRANT:1'}], [{'source':'nhmrc','status':'failed'}], [{'OpportunityKey':'GRANT:old'}])
         self.assertEqual(result['status'], 'rejected')
