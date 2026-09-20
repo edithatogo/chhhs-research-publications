@@ -107,6 +107,35 @@ unknown deadlines are still omitted before event identity is evaluated.
 - **Fix:** commit `e03f17d` requires typed calendar inputs and preserves omission of uncertain dates.
 - **Verification:** focused calendar suite passes (6 tests); the full local suite remains 374 tests with 8 skips, with native page persistence, calendar update/cancellation and delivery still open.
 
+## Conductor review — calendar omission boundary — 2026-09-21
+
+### Summary
+
+The calendar projection now validates optional descriptive field types before
+omitting an opportunity with an uncertain or partial deadline. Unknown dates
+remain intentionally excluded from event output, but malformed typed metadata
+cannot be hidden by that omission path. Code commit: `29d97cf82f956e1ff0ae35c1b74834c653996207`.
+
+### Verification Checks
+
+- **Plan Compliance:** Partial — local calendar safeguards are implemented;
+  native pages, private access and delivery remain open.
+- **Style Compliance:** Pass.
+- **New Tests:** Yes — malformed display fields with uncertain dates are
+  rejected explicitly.
+- **Test Coverage:** Partial — local calendar semantics are covered; native
+  persistence and delivery are not.
+- **Test Results:** Passed — focused calendar suite (7 tests), full suite (396
+  passed, 8 skipped), 438 project checks, Conductor validation, web-first and
+  Power Platform checks.
+
+### Findings
+
+- **Fixed:** malformed `Title`, `Source` or `Status` values could be silently
+  omitted when deadline precision was not an exact day.
+- **Residual acceptance:** native funding pages, subscription persistence,
+  calendar change/cancellation and notification delivery remain unproven.
+
 ## Conductor review — funder identity hardening — 2026-09-21
 
 - **Finding:** a false-valued `FunderKey` could be treated as absent because the matcher tested truthiness before type validation.

@@ -23,3 +23,10 @@
 - [x] Task: Reject non-string funder identities, including boolean false, before subscription matching (`cfc57b4`).
 - [x] Task: Reject duplicate holiday dates during institutional-date projection (`d7019e0`).
 - [x] Task: Require typed policy identity/version and effective-date fields before validation (`09adbe2`).
+
+## Phase: Calendar omission-boundary review — 2026-09-21
+
+- [x] Task: Validate optional calendar display fields before omitting uncertain
+  dates, so malformed typed data cannot disappear silently (`29d97cf`).
+- [ ] Native pages, personal access, calendar change ledger and delivery remain
+  open; local omission semantics do not certify tenant acceptance.

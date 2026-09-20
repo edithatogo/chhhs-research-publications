@@ -143,6 +143,13 @@ tests with 8 skips, with 438 project checks and structural/native-boundary
 checks passing locally. Native SharePoint, report and unattended-flow gates
 remain open.
 
+Latest grants-calendar hardening (2026-09-21): code commit `29d97cf` validates
+descriptive field types before uncertain-date omission, preventing malformed
+calendar inputs from disappearing silently. Focused calendar coverage is 7
+tests; the full suite is 396 tests with 8 skips and the 438 project checks
+remain green. Native grants pages, watchlist persistence, calendar delivery and
+notification gates remain open.
+
 Inspect `git status --short` at entry. Preserve unrelated report/manifest and other existing edits; do not mass-stage. Use the active track's spec and plan for tasks. Follow AGENTS.md approval boundaries for deployment/sharing/schedules. Current user direction defines scope; historical observations supply evidence only for their dates. Live contradictions require readback, not a convenient choice of document.
 
 Update this checkpoint with outcome, next executable task, test command/result and exact blocker after work. Keep credentials, actual tenant identifiers and screenshots under ignored private storage. Do not paste raw private output into a context bundle.
