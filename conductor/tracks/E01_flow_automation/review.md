@@ -173,3 +173,33 @@ commit: `71912c7a41bfd05084ef75eedb4cf4dd4bd4db8e`.
 The companion architecture documentation now states the same `SourceKey`
 uniqueness requirement as the machine-readable target contract; this is a
 documentation alignment only and does not constitute native schema readback.
+
+## Conductor review — publication projection fail-closed columns — 2026-09-21
+
+### Summary
+
+The SharePoint-backed publication projection now uses `MissingField.Error`
+instead of `MissingField.UseNull`, preventing missing registry columns from
+being silently converted to nulls during bibliography ingestion. Code commit:
+`a1d33051c2a31c2dc47a5cd44ee1ee0da659a5fc`.
+
+### Verification Checks
+
+- **Plan Compliance:** Partial — local publication schema-drift handling is
+  hardened; native list/readback and complete reconciliation remain open.
+- **Style Compliance:** Pass — the existing publication field projection and
+  review-state semantics are unchanged.
+- **New Tests:** Yes — a Power Query contract test asserts fail-closed missing
+  column behavior.
+- **Test Results:** Passed — full suite (413 passed, 8 skipped), 438 project
+  checks, Conductor validation (0 errors), web-first `PASS_LOCAL_ONLY`, Power
+  Platform tooling preflight, visual standards, canonical flow validators and
+  `git diff --check`.
+
+### Findings
+
+- **Fixed:** missing publication columns could previously appear as valid null
+  values, weakening complete registry reconciliation.
+- **Residual acceptance:** native SharePoint schema/row readback, replay,
+  complete key-set reconciliation and unattended scheduling remain unproven.
+  No tenant mutation was made.
