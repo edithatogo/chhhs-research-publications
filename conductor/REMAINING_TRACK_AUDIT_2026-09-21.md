@@ -35,3 +35,13 @@ Conductor review was applied to the active changes, stale completion claims
 were corrected, and review SHAs were recorded in the relevant plans. No track
 is archived in this audit because each active track has at least one explicit
 native, source-access or operational gate still open.
+
+## Native access recheck — 2026-09-21
+
+Read-only PAC/Azure discovery was attempted after the browser debugger route
+remained unavailable. PAC is authenticated to an unrelated Power Platform
+environment and its environment query returns an Entra account-deleted
+directory error; Azure is authenticated to a different tenant. No credentials
+were changed and no tenant mutation was attempted. This confirms the remaining
+native gates are externally blocked by tenant/account scope, while local source
+and contract work remains synchronised and CI-green.
