@@ -75,9 +75,9 @@ Run a controlled live cycle only after G02 endpoint/access verification and G03 
 
 - [x] **Plan Compliance**: Partial - RSS/Atom/API-shaped adapters, source isolation, calendar candidate handling and duplicate-identity fail-closed behaviour are implemented; live source/list/flow acceptance remains open.
 - [x] **Style Compliance**: Pass - raw source values and uncertainty are retained; no source is promoted solely from page reachability.
-- [x] **New Tests**: Yes - the ingestion suite now covers duplicate RSS/Atom source identity, titleless-entry, unbound-entry and incomplete API-record rejection.
+- [x] **New Tests**: Yes - the ingestion suite now covers duplicate RSS/Atom source identity, titleless-entry, unbound-entry, incomplete API-record and non-coercible identity rejection.
 - [x] **Test Coverage**: Partial - local parser and batch contracts are covered; live feed permissions, source changes and platform writes are not.
-- [x] **Test Results**: Passed - focused ingestion tests (15) and canonical-clone full suite (366 tests, 8 skipped).
+- [x] **Test Results**: Passed - focused ingestion tests (18) and canonical-clone full suite (366 tests, 8 skipped).
 
 ## Findings
 
@@ -97,10 +97,3 @@ Run a controlled live cycle only after G02 endpoint/access verification and G03 
 
 - **Verification:** commit `213a704` passes the focused ingestion suite (18 tests), the full local suite (366 tests, 8 skips), project validation (438 checks), web-first contracts and Conductor validation.
 - **Boundary:** source, URL, title and opportunity-key admission is now type-safe and fail-closed; live feed permissions, source changes, SharePoint writes and unattended operation remain open.
-
-## Conductor review — ingestion identity type hardening — 2026-09-21
-
-- **Finding:** the ingestion adapter string-coerced source identities, URLs and opportunity keys, allowing malformed upstream values to look admissible.
-- **Fix:** source, URL, title and opportunity-key boundaries now require explicit string types; malformed source batches remain failed and cannot be accepted.
-- **Verification:** focused ingestion tests and the full local gates will be recorded against the implementation commit.
-- **Residual gate:** permitted live source access, SharePoint/flow execution, reconciliation and unattended operation remain open.
