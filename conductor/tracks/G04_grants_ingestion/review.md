@@ -56,9 +56,9 @@ Run a controlled live cycle only after G02 endpoint/access verification and G03 
 
 - [x] **Plan Compliance**: Partial - RSS/Atom/API-shaped adapters, source isolation, calendar candidate handling and duplicate-identity fail-closed behaviour are implemented; live source/list/flow acceptance remains open.
 - [x] **Style Compliance**: Pass - raw source values and uncertainty are retained; no source is promoted solely from page reachability.
-- [x] **New Tests**: Yes - the ingestion suite now covers duplicate RSS/Atom source identity rejection.
+- [x] **New Tests**: Yes - the ingestion suite now covers duplicate RSS/Atom source identity rejection and titleless-entry rejection.
 - [x] **Test Coverage**: Partial - local parser and batch contracts are covered; live feed permissions, source changes and platform writes are not.
-- [x] **Test Results**: Passed - focused ingestion tests (7); full-suite rerun required after this review update.
+- [x] **Test Results**: Passed - focused ingestion tests (8) and canonical-clone full suite (325 tests, 8 skipped).
 
 ## Findings
 
