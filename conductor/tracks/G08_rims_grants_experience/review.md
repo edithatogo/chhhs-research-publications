@@ -106,3 +106,10 @@ unknown deadlines are still omitted before event identity is evaluated.
 - **Finding:** the local calendar projection previously string-coerced opportunity identities, URLs and display fields; malformed values could therefore enter a future calendar artifact.
 - **Fix:** commit `e03f17d` requires typed calendar inputs and preserves omission of uncertain dates.
 - **Verification:** focused calendar suite passes (6 tests); the full local suite remains 374 tests with 8 skips, with native page persistence, calendar update/cancellation and delivery still open.
+
+## Conductor review — funder identity hardening — 2026-09-21
+
+- **Finding:** a false-valued `FunderKey` could be treated as absent because the matcher tested truthiness before type validation.
+- **Fix:** commit `cfc57b4` requires `FunderKey` to be a string whenever supplied, including boolean values; the planning regression suite covers the boundary.
+- **Verification:** focused planning tests pass (11); the full suite passes 384 tests with 8 skips; project validation passes 438 checks; web-first, Conductor, Power Platform tooling and visual standards checks pass locally.
+- **Residual gate:** native funding pages, preference isolation, calendar change/cancellation and notification delivery remain open.
