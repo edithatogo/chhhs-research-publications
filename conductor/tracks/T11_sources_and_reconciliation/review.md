@@ -145,9 +145,11 @@ failure branches; the live readback showed no Flow Checker errors or warnings.
 
 The manual-ingestion flow was temporarily enabled only for its instant/manual
 test, then restored to Off. Its current run completed the Power BI query,
-SharePoint `Get items`, and `Condition Is New Publication` successfully. The
-SharePoint action read back HTTP 200 from the configured `Publication Registry`
-list and the visible list UI exposed the publication schema and populated rows.
+SharePoint `Get items`, `Condition Is New Publication` and the True-branch
+`SharePoint Create item` successfully; the False-branch update was skipped for
+the new row. The SharePoint action read back HTTP 200 from the configured
+`Publication Registry` list and the visible list UI exposed the publication
+schema and populated rows.
 The private receipt is `private/ops/2026-09-20-powerautomate-publication-flow-tests.json`.
 
 This proves current DEV/manual flow execution and list readback, not unattended

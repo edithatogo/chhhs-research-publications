@@ -20,10 +20,11 @@ The current Power Automate environment was inspected through authenticated
 Playwright UI readback. The active history-commit DEV flow completed all six
 actions successfully after changing both text failure markers from `int(...)` to
 plain text. Flow Checker returned zero errors and zero warnings. The manual
-ingestion DEV flow completed its Power BI query, SharePoint `Get items`, and
-new-publication condition successfully; its list action read back HTTP 200 from
-the configured `Publication Registry` list. That flow was restored to Off after
-the manual test. The private run evidence is
+ingestion DEV flow completed its Power BI query, SharePoint `Get items`,
+new-publication condition and the True-branch `SharePoint Create item`
+successfully; the False-branch update was skipped for the new row. Its list
+action read back HTTP 200 from the configured `Publication Registry` list. That
+flow was restored to Off after the manual test. The private run evidence is
 `private/ops/2026-09-20-powerautomate-publication-flow-tests.json`.
 
 This closes current DEV/manual execution evidence only. It does not close the
