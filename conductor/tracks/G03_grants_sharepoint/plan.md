@@ -13,3 +13,4 @@
 
 - [x] Review the schema, flow contract, controlled replay receipt and native diagnostic-expression correction; retain G03 as in progress because target and operational acceptance are incomplete.
 - [x] Task: Reconcile superseded historical replay statements and the current cleanup boundary (12574e7).
+- [x] Task: Fail closed on malformed SharePoint targets and unresolved flow-package placeholders (007259d).
