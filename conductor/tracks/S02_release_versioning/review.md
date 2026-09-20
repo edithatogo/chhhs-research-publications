@@ -93,4 +93,10 @@ Native report version/batch display and recovery remain unaccepted; the
 source-only CI implementation above is locally tested but does not close those
 native gates.
 
+## Conductor review — version input type hardening — 2026-09-21
+
+- **Finding:** `validate_version` passed non-string values directly to the regular-expression matcher, leaking a `TypeError` rather than the packager's declared validation error.
+- **Fix:** commit `42b3c91` rejects non-string versions through the same explicit `ValueError` boundary; regression coverage now exercises `None` and numeric inputs.
+- **Verification:** focused package tests pass (5); full local suite remains 374 tests with 8 skips. Native report version/batch display and rollback evidence remain open.
+
 For each task record: task ID, outcome, changed paths, command and exit status, fixture/live distinction, evidence path and capture time, remaining limitations, rollback reference. Do not include credentials or tenant IDs here.
