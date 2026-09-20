@@ -12,6 +12,8 @@ class GrantsRelationshipTests(unittest.TestCase):
         schema = json.loads((Path(__file__).parents[1] / 'config/grant-relationships.schema.json').read_text())
         row = normalize_relationship({'RelationshipType':'funded_by_award','FromKey':'GRANT:1','ToKey':'PUB:1','AwardID':'MRFF-1','EvidenceURL':'https://evidence','Confidence':'confirmed'})
         self.assertEqual(schema['identity_field'], 'RelationshipKey')
+        identity = next(field for field in schema['fields'] if field['display_name'] == 'RelationshipKey')
+        self.assertTrue(identity['required'] and identity['indexed'] and identity['unique'])
         self.assertEqual({f['display_name'] for f in schema['fields']}, set(row))
         self.assertEqual(schema['list_name'], 'Grant Relationships')
 
