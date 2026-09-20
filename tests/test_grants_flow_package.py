@@ -47,6 +47,14 @@ class GrantsFlowPackageTests(unittest.TestCase):
                 build_package(Path(folder) / "x.zip", site_url="https://example.org", list_id="bad",
                               flow_id=str(uuid.uuid4()), connection_display_name="DEV")
 
+    def test_rejects_malformed_site_url(self):
+        private_root = Path(__file__).parents[1] / "private"
+        private_root.mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=private_root) as folder:
+            with self.assertRaisesRegex(ValueError, "concrete HTTPS SharePoint site URL"):
+                build_package(Path(folder) / "x.zip", site_url="https://", list_id=str(uuid.uuid4()),
+                              flow_id=str(uuid.uuid4()), connection_display_name="DEV")
+
 
 if __name__ == "__main__":
     unittest.main()

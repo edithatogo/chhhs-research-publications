@@ -7,6 +7,7 @@ import zipfile
 from pathlib import Path
 from typing import Any
 from uuid import UUID
+from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_DEFINITION = ROOT / "config/flows/grants-registry-reviewed-import.definition.json"
@@ -35,7 +36,8 @@ def build_package(
 ) -> Path:
     if not output.resolve().is_relative_to((ROOT / "private").resolve()):
         raise ValueError("tenant-specific package must be written under ignored private/")
-    if not site_url.startswith("https://") or "{{" in site_url:
+    parsed_site = urlsplit(str(site_url).strip())
+    if parsed_site.scheme != "https" or not parsed_site.netloc or "{{" in site_url:
         raise ValueError("a concrete HTTPS SharePoint site URL is required")
     for value, label in ((list_id, "list_id"), (flow_id, "flow_id")):
         try:
@@ -51,6 +53,8 @@ def build_package(
         "{{SHAREPOINT_SITE_URL}}": site_url,
         "{{SHAREPOINT_LIST_ID}}": list_id,
     })
+    if "{{" in json.dumps(document):
+        raise ValueError("flow definition contains unresolved package placeholders")
     manifest = {
         "schema": "1.0",
         "details": {
