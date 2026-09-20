@@ -1,5 +1,6 @@
 import json
 import hashlib
+import re
 import tempfile
 import unittest
 from pathlib import Path
@@ -121,6 +122,13 @@ class DoraActivityTests(unittest.TestCase):
         query = (ROOT / "config/DoraActivityRegistry.m").read_text()
         self.assertIn('List.Distinct(Keys)', query)
         self.assertIn('DORAActivityKey values are not unique', query)
+
+    def test_rims_query_projects_every_schema_field(self):
+        schema = json.loads((ROOT / "config/dora-activity-registry.schema.json").read_text())
+        query = (ROOT / "config/DoraActivityRegistry.m").read_text()
+        selected = query.split("Selected = Table.SelectColumns(Registry, {", 1)[1].split("}, MissingField.UseNull)", 1)[0]
+        projected = set(re.findall(r'"([^"]+)"', selected))
+        self.assertEqual(projected, {field["name"] for field in schema["fields"]})
 
     def test_export_rejects_coerced_provenance_types(self):
         envelope = {
