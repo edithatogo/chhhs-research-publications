@@ -39,6 +39,16 @@ must reconcile the deployed semantic-model fields and report bindings through
 the isolated authoring route before any shared/native write. E04 remains in
 progress and is not eligible for archive.
 
+## Isolated authoring-route check — 2026-09-21
+
+The recoverable isolated report/model IDs are present in the private evidence,
+and the model canary rollback is previously verified. A fresh authenticated
+browser navigation to the isolated report route returned Power BI's
+“Failed to get access request info for this artifact” dialog and redirected to
+the Power BI home surface. No model or report mutation was attempted. This is
+an access/readback blocker for the isolated repair route, not permission to
+edit the original report/model; the native binding repair remains open.
+
 ## Review Report: E04 Fluent Visual Polish — 2026-09-21
 
 ### Summary
