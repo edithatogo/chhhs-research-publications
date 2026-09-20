@@ -188,6 +188,16 @@ definition drift. The full suite now passes 404 tests with 8 skips; native
 target, import, list/readback, report integration and unattended execution
 remain open.
 
+Latest T11 identity hardening (2026-09-21): code commit `538977e` declares
+`DORAActivityKey` unique in the canonical DoRA Activity Registry schema and adds
+a regression assertion. Focused DoRA tests pass (11); the full suite passes 404
+tests with 8 skips, 438 project checks pass, and Conductor, web-first,
+Power Platform and visual checks remain green locally. This is a schema-level
+contract improvement only: native list uniqueness/readback, report integration
+and unattended flow acceptance remain open. The next executable task is to use
+an approved target identity for native list import/readback; no tenant mutation
+was made in this checkpoint.
+
 Inspect `git status --short` at entry. Preserve unrelated report/manifest and other existing edits; do not mass-stage. Use the active track's spec and plan for tasks. Follow AGENTS.md approval boundaries for deployment/sharing/schedules. Current user direction defines scope; historical observations supply evidence only for their dates. Live contradictions require readback, not a convenient choice of document.
 
 Update this checkpoint with outcome, next executable task, test command/result and exact blocker after work. Keep credentials, actual tenant identifiers and screenshots under ignored private storage. Do not paste raw private output into a context bundle.

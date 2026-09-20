@@ -377,3 +377,34 @@ production scheduling, organisation-wide site migration, or full canonical
 registry reconciliation. A controlled replay again took Create rather than
 Update; the blank SourceKey filter observed in action readback leaves duplicate
 prevention/idempotency open.
+
+## Conductor review — DoRA activity identity uniqueness — 2026-09-21
+
+### Summary
+
+The tracked DoRA Activity Registry schema now declares `DORAActivityKey` as
+required, indexed and unique. This makes the source-resource-plus-datastore-ID
+identity invariant explicit in the local registry contract and prevents a
+SharePoint target from silently accepting duplicate activity identities. Code
+commit: `538977e2b3aebc0bb6ef46f5d8cf7e45887d3a3b`.
+
+### Verification Checks
+
+- **Plan Compliance:** Partial — the local identity contract is hardened; native
+  list creation/readback and report integration remain open.
+- **Style Compliance:** Pass — the change is limited to the canonical schema and
+  its regression test.
+- **New Tests:** Yes — the schema regression now asserts the identity field's
+  `unique` invariant.
+- **Test Results:** Passed — focused DoRA suite (11 passed); full suite (404
+  passed, 8 skipped); 438 project checks; Conductor validation (0 errors);
+  web-first `PASS_LOCAL_ONLY`; Power Platform tooling preflight; visual
+  standards; and `git diff --check`.
+
+### Findings
+
+- **Fixed:** `DORAActivityKey` was required and indexed but the tracked schema
+  did not declare uniqueness.
+- **Residual acceptance:** the tenant SharePoint list schema, complete row
+  readback, report integration, flow execution and unattended delivery remain
+  unproven. No tenant mutation was made.
