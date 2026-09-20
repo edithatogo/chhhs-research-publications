@@ -9,12 +9,14 @@ from __future__ import annotations
 
 import json
 import math
+import re
 from numbers import Real
 from pathlib import Path
 from typing import Any
 
 ROOT = Path(__file__).resolve().parent.parent
 REPORT_PAGES_DIR = ROOT / "powerbi/CHHHS Research Publications.Report/definition/pages"
+SEMANTIC_TABLES_DIR = ROOT / "powerbi/CHHHS Research Publications.SemanticModel/definition/tables"
 
 
 def calculate_relative_luminance(rgb_hex: str) -> float:
@@ -100,6 +102,66 @@ def audit_all_report_visuals(pages_dir: Path | None = None) -> list[dict[str, An
     return results
 
 
+def _semantic_fields(tables_dir: Path) -> dict[str, set[str]]:
+    """Return locally declared columns and measures by semantic-model table."""
+    fields: dict[str, set[str]] = {}
+    for table_path in tables_dir.glob("*.tmdl"):
+        table_text = table_path.read_text(encoding="utf-8")
+        table_match = re.search(r"^table (.+)$", table_text, re.MULTILINE)
+        if not table_match:
+            continue
+        table_name = table_match.group(1).strip()
+        fields[table_name] = set(re.findall(r"^\tcolumn ([^\n]+)$", table_text, re.MULTILINE))
+        fields[table_name].update(
+            quoted or bare
+            for quoted, bare in re.findall(
+                r"^\tmeasure (?:'([^']+)'|([^ =\n]+))\s*=", table_text, re.MULTILINE
+            )
+        )
+    return fields
+
+
+def audit_report_field_bindings(
+    pages_dir: Path | None = None, tables_dir: Path | None = None
+) -> list[dict[str, Any]]:
+    """Fail closed when a PBIR visual references a field absent from the local model.
+
+    This catches a common native-authoring failure early: a page can render in the
+    PBIP package while the tenant report still has stale or unresolved bindings.
+    """
+    page_root = pages_dir or REPORT_PAGES_DIR
+    model_fields = _semantic_fields(tables_dir or SEMANTIC_TABLES_DIR)
+    failures: list[dict[str, Any]] = []
+
+    def walk(value: Any, path: str, visual_file: Path) -> None:
+        if isinstance(value, dict):
+            for kind in ("Column", "Measure"):
+                binding = value.get(kind)
+                if isinstance(binding, dict):
+                    expression = binding.get("Expression", {})
+                    source = expression.get("SourceRef", {}) if isinstance(expression, dict) else {}
+                    entity = source.get("Entity") if isinstance(source, dict) else None
+                    property_name = binding.get("Property")
+                    if isinstance(entity, str) and isinstance(property_name, str):
+                        if property_name not in model_fields.get(entity, set()):
+                            failures.append({
+                                "file": str(visual_file.relative_to(ROOT)),
+                                "entity": entity,
+                                "property": property_name,
+                                "kind": kind,
+                                "path": path,
+                            })
+            for key, child in value.items():
+                walk(child, f"{path}.{key}", visual_file)
+        elif isinstance(value, list):
+            for index, child in enumerate(value):
+                walk(child, f"{path}[{index}]", visual_file)
+
+    for visual_file in page_root.rglob("visual.json"):
+        walk(json.loads(visual_file.read_text(encoding="utf-8")), "$", visual_file)
+    return failures
+
+
 def main():
     print("Auditing PBIR visual geometries for 8px base grid compliance...")
     audits = audit_all_report_visuals()
@@ -112,6 +174,18 @@ def main():
             print(f"  - {f['name']} ({f['file']}): {', '.join(f['violations'])}")
     else:
         print("SUCCESS: 100% of visuals conform to the 8px base grid!")
+
+    print("\nAuditing PBIR field bindings against the local semantic model...")
+    binding_failures = audit_report_field_bindings()
+    if binding_failures:
+        print(f"FAILED: {len(binding_failures)} unresolved field binding(s):")
+        for failure in binding_failures:
+            print(
+                f"  - {failure['file']}: {failure['kind']} "
+                f"{failure['entity']}.{failure['property']}"
+            )
+    else:
+        print("SUCCESS: all PBIR field bindings resolve locally!")
 
     print("\nAuditing WCAG 2.1 AA Theme Contrast...")
     tokens = [
@@ -126,6 +200,8 @@ def main():
         status = "PASS" if passed else "FAIL"
         print(f"  [{status}] {name}: Ratio = {ratio}:1")
 
+    return 1 if failures or binding_failures else 0
+
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

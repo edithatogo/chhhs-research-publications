@@ -13,6 +13,7 @@ from validate_visual_standards import (
     check_wcag_compliance,
     audit_visual_geometry,
     audit_all_report_visuals,
+    audit_report_field_bindings,
 )
 
 
@@ -48,6 +49,26 @@ class TestVisualStandards(unittest.TestCase):
             audit = audit_visual_geometry(path)
         self.assertFalse(audit["valid_grid_8px"])
         self.assertTrue(any("finite number" in violation for violation in audit["violations"]))
+
+    def test_report_field_bindings_resolve_against_local_model(self):
+        failures = audit_report_field_bindings()
+        self.assertEqual([], failures, f"Unresolved PBIR bindings: {failures}")
+
+    def test_missing_report_field_binding_fails_closed(self):
+        with tempfile.TemporaryDirectory(dir=ROOT) as folder:
+            pages = Path(folder) / "pages"
+            pages.mkdir()
+            visual_dir = pages / "Example" / "visuals" / "broken"
+            visual_dir.mkdir(parents=True)
+            (visual_dir / "visual.json").write_text(json.dumps({
+                "name": "broken",
+                "visual": {"query": {"queryState": {"Values": [{
+                    "field": {"Column": {"Expression": {"SourceRef": {"Entity": "Publication"}}, "Property": "NotARealField"}}
+                }]}}}
+            }), encoding="utf-8")
+            failures = audit_report_field_bindings(pages, ROOT / "powerbi/CHHHS Research Publications.SemanticModel/definition/tables")
+        self.assertEqual(1, len(failures))
+        self.assertEqual("NotARealField", failures[0]["property"])
 
 
 if __name__ == "__main__":
