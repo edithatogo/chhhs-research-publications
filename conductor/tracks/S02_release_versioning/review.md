@@ -15,7 +15,7 @@ The current checkout is intentionally dirty, so the package command refuses to c
 
 - Clean candidate `/tmp/chhhs-source-candidate-release.g0VSzp` was bootstrapped
   with Conductor `6e8f9a860bcdd6a2c423473c12e745200688c633`.
-- Candidate checks: `validate_project.py` 319/319 and unit tests 258/258.
+- Earlier candidate checks were `validate_project.py` 319/319 and unit tests 258/258; the current canonical clone now passes 319/319 and 280 tests.
 - `scripts/package_release.py --version 0.3.0-rc1` passed fresh extraction,
   manifest equality, no Git/private runtime content and source tests. The
   receipt records `NativeAcceptance=false`; it is not a live export.
@@ -38,6 +38,24 @@ The current checkout is intentionally dirty, so the package command refuses to c
 - Changed paths: `docs/POWER_PLATFORM_CI_CD.md`,
   `scripts/powerplatform_tooling.py`, `scripts/agent_harness.py`, and this
   track plan/review. Fixture/local-tool evidence only; no tenant acceptance.
+
+## Current canonical verification — 2026-09-20
+
+- A clean clone of the canonical remote at `bb2ec04` was bootstrapped with the
+  grants context and ran `scripts/package_release.py --version 0.3.0-rc1
+  --schema-version rims-grants-publications-v1 --accepted-batch-id
+  source-only-canonical`.
+- Fresh extraction passed source validation and the full unit suite. The
+  receipt reported `FreshExtractionVerified=true`, `ContainsGitHistory=false`,
+  `ContainsPrivateRuntime=false`, and `NativeAcceptance=false`.
+- Current archive SHA-256 was recorded only in the temporary verification
+  output; no archive or live data was added to the repository.
+
+## Remaining S02 gates
+
+S02.3.2 still needs private observed SharePoint/model/report version-history
+evidence. S02.3.4 still needs isolated native report readback for a
+version/batch display. These cannot be closed by a source archive.
 
 Planning created 2026-09-20. Implementation has not run for this track.
 

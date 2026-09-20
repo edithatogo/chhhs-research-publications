@@ -24,7 +24,7 @@ only the reviewed source-only `main` history. A fresh clone with the pinned
 Conductor submodule passed 319 checks and 267 tests. The dirty original local
 history remains private and was not pushed.
 
-S02 local status: the release packager now produces only a source archive after a clean-tree gate, with independent software/schema/batch identities and fresh-extraction checks. It has not produced an accepted release because the current checkout contains intentional uncommitted work.
+S02 local status: the release packager now produces only a source archive after a clean-tree gate, with independent software/schema/batch identities and fresh-extraction checks. A clean canonical clone at `bb2ec04` produced and verified a source-only `0.3.0-rc1` preview with no Git history/private runtime and `NativeAcceptance=false`; the dirty authoring checkout has not produced an accepted release. Native SharePoint/model/report version-history and report version/batch readback remain open.
 
 Power Platform tooling decision: the local preflight detects PAC 2.12.2, Azure
 CLI/Azure DevOps, PowerShell and GitHub CLI, but no Dataverse solution project.

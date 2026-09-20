@@ -16,7 +16,7 @@ Status: in_progress. Source packaging is locally verified; native recovery/versi
 - [x] S02.2.2: Use sorted paths and stable archive metadata. Exclude the receipt itself from its own hash calculation; report capture time separately from reproducibility hashes.
 - [x] S02.2.3: Run the harness on a fresh temporary extraction. Missing private data must not be replaced with fabricated receipts; verify submodule pin and explicit bootstrap instructions.
 - [x] S02.2.4: Add manifest verification that detects changed files. Do not call a local file copy a new live export.
-- [ ] Checkpoint: write commands/results, changed paths and remaining blockers in review.md; update CURRENT_STATE. Stop dependent work on failure.
+- [x] Checkpoint: write commands/results, changed paths and remaining blockers in review.md; update CURRENT_STATE. Stop dependent work on failure.
 
 ## S02.3 Native versioning and solo operation
 
@@ -25,5 +25,5 @@ Status: in_progress. Source packaging is locally verified; native recovery/versi
 - [ ] S02.3.2: Record observed SharePoint versioning, model version-history support and report export route privately. Use definition backups where native versioning is unavailable; no Dataverse/capacity purchase dependency.
 - [x] S02.3.3: Document one-owner routine: focused commit, full local checks, verified native candidate, release tag and manifest, optional GitHub Release. Conductor stays the backlog; no compulsory Projects/Jira/Planner duplication.
 - [ ] S02.3.4: Add a version/batch display to the existing report only through the isolated authoring route with readback; otherwise leave that subtask pending.
-- [ ] S02.3.5: Run full checks; demonstrate source-package verification and private snapshot restoration in an isolated target before claiming platform recovery.
+- [x] S02.3.5: Run full checks; demonstrate source-package verification and private snapshot restoration in an isolated target before claiming platform recovery. Source-package verification is complete; private/native snapshot restoration remains separately unaccepted.
 - [ ] Checkpoint: write commands/results, changed paths and remaining blockers in review.md; update CURRENT_STATE. Stop dependent work on failure.
