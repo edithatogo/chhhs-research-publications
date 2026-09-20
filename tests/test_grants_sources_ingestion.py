@@ -8,8 +8,13 @@ from scripts.grants_sources import load_catalogue
 class GrantsSourceTests(unittest.TestCase):
     def test_catalogue_has_required_sources_and_explicit_health(self):
         rows = load_catalogue(Path(__file__).parents[1] / "config/grants-sources.json")
-        self.assertGreaterEqual(len(rows), 7)
+        self.assertGreaterEqual(len(rows), 13)
         self.assertTrue(all(row["last_verified"] for row in rows))
+        ids = {row["source_id"] for row in rows}
+        self.assertTrue({
+            "qh-health-practitioner-research", "metro-south-research-support",
+            "metro-north-research-grants", "torres-cape-research-support",
+        } <= ids)
 
     def test_atom_and_rss_shapes_are_preserved_as_canonical_records(self):
         rss = """<rss><channel><item><guid>r1</guid><title>Call</title><link>https://example.org/call/</link><description>Summary</description><deadline>2027-04</deadline></item></channel></rss>"""
