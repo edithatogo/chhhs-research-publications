@@ -53,7 +53,7 @@ non-negative-integer violations and blank keys before a batch can reconcile.
 - [x] Style Compliance: Pass — the change is fail-closed and preserves the canonical-key contract.
 - [x] New Tests: Yes — explicit invalid-count and blank-key regression cases.
 - [x] Test Coverage: Partial — local batch validation is covered; native refresh/export/SharePoint readback is not.
-- [x] Test Results: Passed — canonical-clone full suite (357 tests, 8 skipped) and 438 project checks.
+- [x] Test Results: Passed — canonical-clone full suite (358 tests, 8 skipped) and 438 project checks.
 
 ### Findings
 

@@ -56,13 +56,18 @@ keys and non-boolean `Active` values instead of silently dropping malformed
 rules. This protects the future personal watchlist from unreported
 subscription loss; it does not authorize or send delivery.
 
+Additional review fix applied in `53d2419`: subscription and opportunity
+identities must be strings, category/funder keys are not coerced from other
+types, and non-object subscription rules fail closed explicitly. This prevents
+malformed watchlist inputs from matching by string coercion.
+
 ## Verification Checks
 
 - [x] **Plan Compliance**: Partial - local date-policy, subscription and calendar contracts are implemented; native pages, access isolation, reminders and delivery remain open.
 - [x] **Style Compliance**: Pass - uncertain dates remain omitted and event identity is deterministic.
 - [x] **New Tests**: Yes - duplicate UID, malformed policy, missing-key and invalid-URL rejection are covered.
 - [x] **Test Coverage**: Partial - local calendar semantics are covered; native report persistence, personal access and delivery are not.
-- [x] **Test Results**: Passed - focused calendar tests (5), planning/subscription tests (10), project validation (438 checks) and canonical-clone full suite (357 tests, 8 skipped).
+- [x] **Test Results**: Passed - focused calendar tests (5), planning/subscription tests (11), project validation (438 checks) and canonical-clone full suite (358 tests, 8 skipped).
 
 ## Findings
 
@@ -71,3 +76,9 @@ subscription loss; it does not authorize or send delivery.
 - **File**: `conductor/tracks/G08_rims_grants_experience/plan.md`
 - **Context**: The local seven-page PBIP and iCalendar contract do not prove native funding pages, authenticated subscription persistence, reminder ledger, calendar update/cancellation or notification delivery.
 - **Suggestion**: Keep G08 active until an approved isolated authoring route and native readback prove those behaviours; do not archive from local artefacts alone.
+
+## Conductor review — subscription identity hardening — 2026-09-21
+
+- **Verification:** focused planning tests passed (11); full suite passed (358 tests, 8 skipped); project validation passed (438 checks); web-first contracts passed locally.
+- **Finding/fix:** `subscribers` previously string-coerced opportunity, category and funder keys and leaked an incidental exception for non-object rules. Commit `53d2419eccb664e9a61043096d8e208bea8ed7f1` requires string identities and explicit object validation.
+- **Residual gate:** native funding pages, preference isolation, calendar update/cancellation and notification delivery remain open.

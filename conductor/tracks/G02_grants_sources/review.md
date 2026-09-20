@@ -114,7 +114,7 @@ Verify each remaining permitted opportunity feed/API or produce a reviewed impor
 - [x] **Style Compliance**: Pass - source uncertainty is retained explicitly and no HTML candidate is promoted to an accepted opportunity.
 - [x] **New Tests**: Yes - the focused source tests cover URL/date metadata rejection as well as `SourceColumns` and ordered `SourceCells` preservation.
 - [x] **Test Coverage**: Partial - local adapters and admission rules are covered; native source/feed, eligibility and unattended acceptance are outside local tests.
-- [x] **Test Results**: Passed - focused tests (14), canonical-clone full suite (357 tests, 8 private-runtime skips), project validation (438 checks), and Conductor validation (0 errors).
+- [x] **Test Results**: Passed - focused tests (14), canonical-clone full suite (358 tests, 8 private-runtime skips), project validation (438 checks), and Conductor validation (0 errors).
 
 ## Findings
 
@@ -140,6 +140,6 @@ Implemented in `da0b657`, with regression coverage in `tests/test_grants_registr
 
 ## Conductor review — catalogue evidence hardening — 2026-09-21
 
-- **Verification:** focused G02 source tests passed (14); full suite passed (357 tests, 8 skipped); project validation passed (438 checks); web-first contracts passed locally.
+- **Verification:** focused G02 source tests passed (14); full suite passed (358 tests, 8 skipped); project validation passed (438 checks); web-first contracts passed locally.
 - **Finding/fix:** catalogue validation previously string-coerced `source_id` values and accepted future `last_verified` dates. Commit `e4985b2bda7c2cf78b2b1fdf0a411f21f8c7c40a` requires a non-empty string identity and rejects dates later than the current date.
 - **Residual gate:** source-page/API reachability is still not equivalent to permitted opportunity intake; reviewed rows or approved feeds remain required before G02 can close.

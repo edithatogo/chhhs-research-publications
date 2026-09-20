@@ -38,7 +38,7 @@ must declare connector authentication. Native tenant acceptance remains open.
 - [x] Style Compliance: Pass — the validator remains fail-closed and preserves the SharePoint-list-only boundary.
 - [x] New Tests: Yes — regression coverage rejects an incorrect lookup operation and missing write authentication.
 - [x] Test Coverage: Partial — local definition coverage is present; private package and tenant execution are not available in the canonical clone.
-- [x] Test Results: Passed — full canonical-clone suite 357 tests, 8 skipped; publication contract validation passed.
+- [x] Test Results: Passed — full canonical-clone suite 358 tests, 8 skipped; publication contract validation passed.
 
 ### Findings
 
