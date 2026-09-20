@@ -11,12 +11,6 @@ Review status: in progress; local planning and idempotency contracts are impleme
   marks unreviewed events `TENTATIVE`, and represents cancellations explicitly.
   Unknown or partial deadlines are omitted; no calendar or notification is
   created.
-- Added `scripts/grants_calendar.py` as a local iCalendar projection contract.
-  It derives institutional all-day dates from exact source deadlines and a
-  versioned policy, preserves the external deadline, emits stable event IDs,
-  marks unreviewed events `TENTATIVE`, and represents cancellations explicitly.
-  Unknown or partial deadlines are omitted; no calendar or notification is
-  created.
 
 ## Local report/model surface — 2026-09-20
 
