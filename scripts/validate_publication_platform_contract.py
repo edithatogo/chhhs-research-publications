@@ -64,6 +64,8 @@ def validate(definition: dict) -> list[str]:
 
     if host.get("apiId") != "/providers/Microsoft.PowerApps/apis/shared_sharepointonline":
         errors.append("registry lookup must use the SharePoint Online connector")
+    if host.get("operationId") != "GetItems":
+        errors.append("registry lookup must use the SharePoint GetItems operation")
     if not parameters.get("dataset") or not parameters.get("table"):
         errors.append("registry lookup must specify site and list identifiers")
     if "SourceKey" not in str(parameters.get("$filter", "")):
@@ -96,8 +98,16 @@ def validate(definition: dict) -> list[str]:
         action_parameters = action.get("inputs", {}).get("parameters", {})
         if action_host.get("apiId") != "/providers/Microsoft.PowerApps/apis/shared_sharepointonline":
             errors.append(f"{action_name} must use the SharePoint Online connector")
+        expected_operation = {
+            "SharePoint_Create_item": "PostItem",
+            "SharePoint_Update_item": "PatchItem",
+        }[action_name]
+        if action_host.get("operationId") != expected_operation:
+            errors.append(f"{action_name} must use the SharePoint {expected_operation} operation")
         if action_parameters.get("dataset") != parameters.get("dataset") or action_parameters.get("table") != parameters.get("table"):
             errors.append(f"{action_name} must target the same SharePoint site and list as lookup")
+        if not action.get("inputs", {}).get("authentication"):
+            errors.append(f"{action_name} must declare connector authentication")
     if "item/field_19" not in create_text or "item/field_20" not in create_text:
         errors.append("new records must set first and last observed timestamps")
 

@@ -52,6 +52,17 @@ class PublicationPlatformContractTests(unittest.TestCase):
         condition["else"]["actions"]["SharePoint_Update_item"]["inputs"]["parameters"]["table"] = "different-list"
         self.assertIn("SharePoint_Update_item must target the same SharePoint site and list as lookup", validate(definition))
 
+    def test_sharepoint_operations_and_authentication_are_explicit(self):
+        definition = copy.deepcopy(_tracked_definition())
+        nested = definition["actions"]["Apply_to_each_Publication"]["actions"]
+        nested["SharePoint_Get_items"]["inputs"]["host"]["operationId"] = "PostItem"
+        self.assertIn("registry lookup must use the SharePoint GetItems operation", validate(definition))
+
+        definition = copy.deepcopy(_tracked_definition())
+        create = definition["actions"]["Apply_to_each_Publication"]["actions"]["Condition_Is_New_Publication"]["actions"]["SharePoint_Create_item"]
+        create["inputs"].pop("authentication")
+        self.assertIn("SharePoint_Create_item must declare connector authentication", validate(definition))
+
     def test_nested_terminate_is_not_used_for_duplicate_failure(self):
         self.assertNotIn("Terminate_Duplicate_SourceKey", str(_tracked_definition()))
 
