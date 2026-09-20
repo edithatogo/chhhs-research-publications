@@ -1,8 +1,8 @@
 # Keyless & Token-Free Enrichment Plan: CHHHS Research Publications
 
 Status: **Approved Architecture & Implementation Plan** (2026-09-18)  
-Target Environment: **Queensland Health M365 Tenant (`{{TENANT_ID}}`)**  
-Primary User: **RIMS maintainer (configured privately)**  
+Target Environment: **Queensland Health M365 Tenant (`{{TENANT_ID}}`)**
+Primary User: **RIMS maintainer (configured privately)**
 Governing Constraint: **Zero API Key / Token / Subscription Dependency**
 
 ---
