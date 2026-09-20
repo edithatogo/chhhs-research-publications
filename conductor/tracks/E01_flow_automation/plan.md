@@ -28,3 +28,7 @@ Earlier checked tasks describe historical implementation. They do not close curr
 
 - [x] Re-test the retained canonical DEV scheduled flow after the `DatasetExecuteQueriesError`; bounded `TOPN(100)`/`SELECTCOLUMNS` publication projection succeeded through the serial loop and SharePoint `Get items`.
 - [x] Record the current run IDs and connector/list boundary in the ignored private receipt; retain the organisation-wide target, replay/update, duplicate, failed-batch, reconciliation and unattended-schedule gates as open.
+
+## Phase: Conductor review — 2026-09-21
+
+- [x] Review the corrected flow definition, builder, live retest evidence and local regression results; retain E01 as in progress because native operational acceptance is incomplete.
