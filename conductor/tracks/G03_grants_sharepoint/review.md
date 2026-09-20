@@ -13,3 +13,14 @@ The completed local G01 prerequisite is archived at `conductor/archive/G01_grant
 ## Remaining acceptance
 
 Resolve the authenticated SharePoint site, inspect whether `Grants Registry` exists, create it only if absent, then prove isolated create/replay/update/readback and serial unique-key handling. Do not use OneDrive actions for registry writes.
+
+## Native list inventory — 2026-09-20
+
+Authenticated Playwright Site Contents readback of the current personal DEV
+SharePoint site showed `Publication Registry` only; no `Grants Registry` or
+`DORA Activity Registry` was present. Receipt:
+`private/ops/2026-09-20-grants-list-inventory.json`.
+
+This is a discovery result, not permission to create a list. G03 remains open
+until the approved isolated RIMS site identity and schema/readback path are
+confirmed.
