@@ -10,6 +10,9 @@ Additional review fix applied: duplicate non-empty RSS/Atom source identities
 now fail closed in `parse_feed` rather than being silently deferred to a later
 merge. The ingestion test suite covers this boundary.
 
+Additional review fix applied: RSS/Atom entries without a title now fail closed
+before normalization, matching the required SharePoint registry field.
+
 ## Changes
 
 - Added `scripts/grants_ingestion.py` with namespace-tolerant RSS/Atom parsing and API-shaped batch normalization.

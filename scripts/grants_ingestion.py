@@ -44,10 +44,13 @@ def parse_feed(xml_payload: str | bytes, *, source: str, retrieved_at: str) -> l
             if source_id in seen_source_ids:
                 raise ValueError(f"duplicate source identity: {source_id}")
             seen_source_ids.add(source_id)
+        title = _child_text(entry, "title")
+        if not title:
+            raise ValueError("feed entry missing title")
         result.append(normalize_opportunity({
             "Source": source,
             "SourceID": source_id,
-            "Title": _child_text(entry, "title"),
+            "Title": title,
             "URL": link,
             "Description": _child_text(entry, "description", "summary", "content"),
             "Deadline": _child_text(entry, "deadline", "closingdate", "closing-date"),
