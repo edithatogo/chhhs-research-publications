@@ -38,6 +38,14 @@ class GrantsCalendarTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "missing OpportunityKey"):
             project_event({"Title": "No key", "URL": "https://example.org/no-key", "Deadline": "2026-10-01", "DeadlinePrecision": "day"}, POLICY)
 
+    def test_calendar_inputs_are_not_coerced(self):
+        with self.assertRaisesRegex(ValueError, "must be a string"):
+            project_event({"OpportunityKey": 5, "Title": "Call", "URL": "https://example.org/call", "Deadline": "2026-10-01", "DeadlinePrecision": "day"}, POLICY)
+        with self.assertRaisesRegex(ValueError, "URL"):
+            project_event({"OpportunityKey": "GRANT:6", "Title": "Call", "URL": 5, "Deadline": "2026-10-01", "DeadlinePrecision": "day"}, POLICY)
+        with self.assertRaisesRegex(ValueError, "Status"):
+            project_event({"OpportunityKey": "GRANT:6", "Title": "Call", "URL": "https://example.org/call", "Status": False, "Deadline": "2026-10-01", "DeadlinePrecision": "day"}, POLICY)
+
 
 if __name__ == "__main__":
     unittest.main()

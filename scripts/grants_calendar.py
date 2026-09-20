@@ -24,12 +24,16 @@ def _escape(value: Any) -> str:
 
 
 def _date(value: Any) -> str | None:
-    raw = str(value or "")
+    if not isinstance(value, str):
+        return None
+    raw = value
     return raw if re.fullmatch(r"\d{4}-\d{2}-\d{2}", raw) else None
 
 
 def _valid_http_url(value: Any) -> bool:
-    parsed = urlsplit(str(value or "").strip())
+    if not isinstance(value, str):
+        return False
+    parsed = urlsplit(value.strip())
     return parsed.scheme in {"http", "https"} and bool(parsed.netloc)
 
 
@@ -42,7 +46,22 @@ def project_event(opportunity: dict[str, Any], policy: dict[str, Any]) -> dict[s
     """Project one opportunity to an all-day event, or return None if uncertain."""
     if not validate_policy(policy):
         raise ValueError("invalid institutional policy")
-    source_date = _date(opportunity.get("Deadline")) if opportunity.get("DeadlinePrecision") == "day" else None
+    if not isinstance(opportunity, dict):
+        raise ValueError("calendar opportunity must be an object")
+    precision = opportunity.get("DeadlinePrecision")
+    if precision is not None and not isinstance(precision, str):
+        raise ValueError("calendar opportunity DeadlinePrecision must be a string")
+    source_date = _date(opportunity.get("Deadline")) if precision == "day" else None
+    if source_date is None:
+        return None
+    for field in ("OpportunityKey", "URL"):
+        if field not in opportunity or opportunity[field] is None or opportunity[field] == "":
+            raise ValueError(f"calendar opportunity missing {field}")
+        if not isinstance(opportunity[field], str) or not opportunity[field].strip():
+            raise ValueError(f"calendar opportunity {field} must be a string")
+    for field in ("Title", "Source", "Status"):
+        if field in opportunity and not isinstance(opportunity[field], str):
+            raise ValueError(f"calendar opportunity {field} must be a string")
     anchor = "institutional"
     event_date = institutional_deadline(
         source_date,
@@ -52,16 +71,14 @@ def project_event(opportunity: dict[str, Any], policy: dict[str, Any]) -> dict[s
     ) if source_date is not None else None
     if event_date is None:
         return None
-    opportunity_key = str(opportunity.get("OpportunityKey") or "").strip()
-    if not opportunity_key:
-        raise ValueError("calendar opportunity missing OpportunityKey")
-    url = str(opportunity.get("URL") or "").strip()
+    opportunity_key = opportunity["OpportunityKey"].strip()
+    url = opportunity["URL"].strip()
     if not _valid_http_url(url):
         raise ValueError("calendar opportunity requires an HTTP(S) URL")
     status = str(opportunity.get("Status") or "Unknown")
     event_status = "CANCELLED" if status.casefold() in {"cancelled", "canceled"} else "TENTATIVE"
     return {
-        "UID": event_uid(str(opportunity["OpportunityKey"]), anchor, str(policy["PolicyKey"]), str(policy["Version"])),
+        "UID": event_uid(opportunity_key, anchor, policy["PolicyKey"], policy["Version"]),
         "Date": event_date, "Status": event_status, "Anchor": anchor,
         "Title": str(opportunity.get("Title") or "Grant opportunity"),
         "URL": url, "Source": str(opportunity.get("Source") or ""),
