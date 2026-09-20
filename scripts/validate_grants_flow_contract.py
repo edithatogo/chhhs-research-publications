@@ -108,6 +108,10 @@ def validate(definition: dict[str, Any]) -> list[str]:
 
     create = is_new.get("actions", {}).get("SharePoint_Create_item", {})
     update = exactly_one.get("actions", {}).get("SharePoint_Update_item", {})
+    create_parameters = create.get("inputs", {}).get("parameters", {})
+    mapped_create_fields = {key.removeprefix("item/") for key in create_parameters if key.startswith("item/")}
+    if mapped_create_fields != set(identity_fields):
+        errors.append("grants create mappings must match the canonical registry schema fields")
     for label, action, operation in (("create", create, "PostItem"), ("update", update, "PatchItem")):
         host = action.get("inputs", {}).get("host", {})
         parameters = action.get("inputs", {}).get("parameters", {})

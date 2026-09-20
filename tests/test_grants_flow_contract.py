@@ -92,6 +92,20 @@ class GrantsFlowContractTests(unittest.TestCase):
             finally:
                 contract.SCHEMA_PATH = original_path
 
+    def test_schema_field_addition_requires_create_mapping(self):
+        schema_path = Path(__file__).parents[1] / "config/grants-registry.schema.json"
+        schema = json.loads(schema_path.read_text(encoding="utf-8"))
+        schema["fields"].append({"display_name": "Future field", "type": "text"})
+        with tempfile.TemporaryDirectory() as folder:
+            replacement = Path(folder) / schema_path.name
+            replacement.write_text(json.dumps(schema), encoding="utf-8")
+            original_path = contract.SCHEMA_PATH
+            contract.SCHEMA_PATH = replacement
+            try:
+                self.assertIn("grants create mappings must match the canonical registry schema fields", validate(self.definition["properties"]["definition"]))
+            finally:
+                contract.SCHEMA_PATH = original_path
+
 
 if __name__ == "__main__":
     unittest.main()
