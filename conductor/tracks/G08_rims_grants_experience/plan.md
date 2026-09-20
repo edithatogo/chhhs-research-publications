@@ -19,3 +19,4 @@
 - [x] Task: Reject reversed policy ranges, malformed holiday dates and duplicate holidays (efd3abd).
 - [x] Task: Require an authoritative HTTP(S) URL and stable opportunity key for exact-date calendar events (ba4f5b4).
 - [x] Task: Reject malformed subscription rules and missing opportunity identity before candidate matching (b45b4e1).
+- [x] Task: Reject non-string calendar opportunity identities, URLs and display fields without coercion (e03f17d).

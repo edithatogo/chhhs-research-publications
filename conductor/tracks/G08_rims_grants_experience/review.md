@@ -61,13 +61,18 @@ identities must be strings, category/funder keys are not coerced from other
 types, and non-object subscription rules fail closed explicitly. This prevents
 malformed watchlist inputs from matching by string coercion.
 
+Additional review fix applied in `e03f17d`: calendar opportunities, URLs,
+titles, sources, statuses and deadline precision now require the expected
+types; malformed values fail closed without string coercion. Partial or
+unknown deadlines are still omitted before event identity is evaluated.
+
 ## Verification Checks
 
 - [x] **Plan Compliance**: Partial - local date-policy, subscription and calendar contracts are implemented; native pages, access isolation, reminders and delivery remain open.
 - [x] **Style Compliance**: Pass - uncertain dates remain omitted and event identity is deterministic.
-- [x] **New Tests**: Yes - duplicate UID, malformed policy, missing-key and invalid-URL rejection are covered.
+- [x] **New Tests**: Yes - duplicate UID, malformed policy, missing-key, invalid-URL and calendar input-type rejection are covered.
 - [x] **Test Coverage**: Partial - local calendar semantics are covered; native report persistence, personal access and delivery are not.
-- [x] **Test Results**: Passed - focused calendar tests (5), planning/relationship tests (14), project validation (438 checks) and canonical-clone full suite (366 tests, 8 skipped).
+- [x] **Test Results**: Passed - focused calendar tests (6), planning/relationship tests (14), project validation (438 checks) and canonical-clone full suite (366 tests, 8 skipped).
 
 ## Findings
 
@@ -95,3 +100,9 @@ malformed watchlist inputs from matching by string coercion.
 - **Finding:** institutional policy validation assumed a mapping and coerced holiday values before parsing; malformed input could therefore escape the intended false/explicit-error boundary.
 - **Fix:** policy validation now rejects non-object and non-string holiday inputs, while date projection raises an explicit validation error for malformed holiday collections.
 - **Verification:** regression tests cover non-object policies and non-string/invalid holidays; native policy persistence and delivery remain unproven.
+
+## Conductor review — calendar input hardening — 2026-09-21
+
+- **Finding:** the local calendar projection previously string-coerced opportunity identities, URLs and display fields; malformed values could therefore enter a future calendar artifact.
+- **Fix:** commit `e03f17d` requires typed calendar inputs and preserves omission of uncertain dates.
+- **Verification:** focused calendar suite passes (6 tests); the full local suite remains 366 tests with 8 skips, with native page persistence, calendar update/cancellation and delivery still open.
