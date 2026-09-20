@@ -65,6 +65,9 @@ class PlanningTests(unittest.TestCase):
             subscribers({'OpportunityKey': 'g1'}, [{'UserKey': 'u1', 'Active': 'yes', 'Scope': 'opportunity', 'TargetKey': 'g1'}])
         with self.assertRaisesRegex(ValueError, 'rule must be an object'):
             subscribers({'OpportunityKey': 'g1'}, [None])
+        for malformed in (None, 'not-a-rule'):
+            with self.subTest(malformed=malformed), self.assertRaisesRegex(ValueError, 'subscriptions must be a collection'):
+                subscribers({'OpportunityKey': 'g1'}, malformed)
 
     def test_subscription_identity_types_are_not_coerced(self):
         with self.assertRaisesRegex(ValueError, 'OpportunityKey'):

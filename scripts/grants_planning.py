@@ -45,6 +45,8 @@ def subscribers(opportunity, subscriptions):
     """Unique candidate user keys; identity/access/consent checked by delivery."""
     if not isinstance(opportunity, dict):
         raise ValueError('opportunity must be an object')
+    if not isinstance(subscriptions, (list, tuple, set)):
+        raise ValueError('subscriptions must be a collection of rules')
     opportunity_key = opportunity.get('OpportunityKey')
     if not isinstance(opportunity_key, str) or not opportunity_key.strip():
         raise ValueError('opportunity requires OpportunityKey for subscription matching')
