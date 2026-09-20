@@ -120,3 +120,10 @@ unknown deadlines are still omitted before event identity is evaluated.
 - **Fix:** commit `d7019e0` parses and validates holiday dates for uniqueness before date projection; regression coverage now rejects duplicate dates.
 - **Verification:** focused planning tests pass (11); the full suite passes 384 tests with 8 skips; project validation passes 438 checks; web-first, Conductor, Power Platform tooling and visual standards checks pass locally.
 - **Residual gate:** native policy persistence, funding pages, calendar change/cancellation and notification delivery remain open.
+
+## Conductor review — institutional policy field typing — 2026-09-21
+
+- **Finding:** policy validation checked field presence and formatted dates but allowed non-string identity/version/date values through coercive parsing.
+- **Fix:** commit `09adbe2` requires typed policy identity/version/effective-date fields and adds regression coverage for malformed values.
+- **Verification:** focused planning tests pass (12); the full suite passes 390 tests with 8 skips; project validation passes 438 checks; web-first, Conductor, Power Platform tooling and visual standards checks pass locally.
+- **Residual gate:** native policy persistence, funding pages, calendar change/cancellation and notification delivery remain open.

@@ -22,3 +22,4 @@
 - [x] Task: Reject non-string calendar opportunity identities, URLs and display fields without coercion (e03f17d).
 - [x] Task: Reject non-string funder identities, including boolean false, before subscription matching (`cfc57b4`).
 - [x] Task: Reject duplicate holiday dates during institutional-date projection (`d7019e0`).
+- [x] Task: Require typed policy identity/version and effective-date fields before validation (`09adbe2`).
