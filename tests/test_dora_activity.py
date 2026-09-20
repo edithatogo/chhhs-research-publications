@@ -8,7 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from dora_activity import DATASTORE_SEARCH, PACKAGE_SHOW, SOURCE_FIELDS, collect
-from export_dora_activity import EXPORT_FIELDS, build_rows
+from export_dora_activity import EXPORT_FIELDS, activity_key, build_rows
 
 
 def record(project_id="1001", record_id=7):
@@ -111,6 +111,29 @@ class DoraActivityTests(unittest.TestCase):
         self.assertTrue(set(SOURCE_FIELDS).issubset(names))
         self.assertIn("DORAActivityKey", names)
         self.assertIn("DORARecordID", names)
+
+    def test_export_rejects_coerced_provenance_types(self):
+        envelope = {
+            "schema_version": "dora-activity-v1",
+            "source_payload": {"resource": {"id": "resource-1", "url": "https://example.invalid/current.csv"}},
+            "observed_at": "2026-09-20T00:00:00+00:00",
+            "retrieved_count": 1,
+            "records": [record()],
+        }
+        for field, value in (("retrieved_count", "1"), ("observed_at", 123),):
+            malformed = dict(envelope)
+            malformed[field] = value
+            with self.subTest(field=field), self.assertRaisesRegex(ValueError, "invalid|observation time"):
+                build_rows(malformed)
+        malformed = dict(envelope)
+        malformed["source_payload"] = {"resource": {"id": {"id": 1}, "url": "https://example.invalid/current.csv"}}
+        with self.assertRaisesRegex(ValueError, "resource id"):
+            build_rows(malformed)
+
+    def test_activity_key_rejects_boolean_or_structured_resource_ids(self):
+        for resource_id in (True, {"id": "resource-1"}, ""):
+            with self.subTest(resource_id=resource_id), self.assertRaisesRegex(ValueError, "resource id"):
+                activity_key(resource_id, record())
 
 
 if __name__ == "__main__":

@@ -22,10 +22,18 @@ PROVENANCE_FIELDS = [
 EXPORT_FIELDS = PROVENANCE_FIELDS + SOURCE_FIELDS
 
 
+def _required_scalar_text(value: Any, label: str) -> str:
+    if isinstance(value, bool) or not isinstance(value, str) or not value.strip():
+        raise ValueError(f"DoRA activity {label} must be a non-empty string")
+    return value.strip()
+
+
 def activity_key(resource_id: str, record: dict[str, Any]) -> str:
-    record_id = str(record.get(IDENTITY_FIELD) or "").strip()
-    if not record_id:
+    resource_id = _required_scalar_text(resource_id, "resource id")
+    source_id = record.get(IDENTITY_FIELD)
+    if isinstance(source_id, bool) or not isinstance(source_id, (int, str)) or not str(source_id).strip():
         raise ValueError("source _id is required for a DORA activity key")
+    record_id = str(source_id).strip()
     return f"dora-activity:{resource_id}:{record_id}"
 
 
@@ -36,17 +44,18 @@ def build_rows(envelope: dict[str, Any]) -> list[dict[str, Any]]:
     if not isinstance(source_payload, dict):
         raise ValueError("DoRA activity source provenance is required")
     resource = source_payload.get("resource")
-    if not isinstance(resource, dict) or not resource.get("id"):
+    if not isinstance(resource, dict):
         raise ValueError("DoRA activity resource provenance is required")
     records = envelope.get("records")
     if not isinstance(records, list):
         raise ValueError("DoRA activity records are required")
-    validate_records(records, int(envelope.get("retrieved_count", -1)))
-    resource_id = str(resource["id"])
-    resource_url = str(resource.get("url") or "")
-    observed_at = str(envelope.get("observed_at") or "")
-    if not observed_at:
-        raise ValueError("DoRA activity observation time is required")
+    retrieved_count = envelope.get("retrieved_count")
+    if type(retrieved_count) is not int or retrieved_count < 0:
+        raise ValueError("DoRA activity retrieved count is invalid")
+    validate_records(records, retrieved_count)
+    resource_id = _required_scalar_text(resource.get("id"), "resource id")
+    resource_url = _required_scalar_text(resource.get("url"), "resource URL")
+    observed_at = _required_scalar_text(envelope.get("observed_at"), "observation time")
     rows = []
     for record in records:
         row = {name: record.get(name) for name in SOURCE_FIELDS}
