@@ -164,6 +164,33 @@ calculation or failing later during iCalendar rendering. Code commit:
 - **Residual acceptance:** native funding pages, subscriptions, calendar
   change/cancellation and notification delivery remain unproven.
 
+## Conductor review — holiday collection boundary — 2026-09-21
+
+### Summary
+
+Institutional deadline projection now rejects malformed holiday collections as
+an explicit policy error instead of leaking a raw type exception for values such
+as `None` or a mapping. Code commit: `6ca91b0c1983d157b86821aefe995efbbfdf7762`.
+
+### Verification Checks
+
+- **Plan Compliance:** Partial — local policy validation is implemented; native
+  policy persistence and delivery remain open.
+- **Style Compliance:** Pass.
+- **New Tests:** Yes — malformed collection shapes are covered.
+- **Test Coverage:** Partial — local planning/calendar semantics are covered;
+  native persistence and delivery are not.
+- **Test Results:** Passed — focused planning suite (12 tests), full suite (397
+  passed, 8 skipped), 438 project checks, Conductor validation, web-first and
+  Power Platform checks.
+
+### Findings
+
+- **Fixed:** malformed holiday collection shapes could escape the explicit
+  `ValueError` contract.
+- **Residual acceptance:** native policy persistence, funding pages,
+  calendar delivery and notifications remain unproven.
+
 ## Conductor review — funder identity hardening — 2026-09-21
 
 - **Finding:** a false-valued `FunderKey` could be treated as absent because the matcher tested truthiness before type validation.

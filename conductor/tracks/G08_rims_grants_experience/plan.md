@@ -37,3 +37,10 @@
   marked day-precision (`01231b6`).
 - [ ] Native pages, personal access, calendar change ledger and delivery remain
   open.
+
+## Phase: Holiday collection boundary review — 2026-09-21
+
+- [x] Task: Reject malformed holiday collections explicitly in institutional
+  deadline projection (`6ca91b0`).
+- [ ] Native policy persistence, calendar delivery and notification acceptance
+  remain open.
