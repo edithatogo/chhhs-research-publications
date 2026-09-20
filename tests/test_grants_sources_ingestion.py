@@ -81,6 +81,10 @@ class GrantsSourceTests(unittest.TestCase):
         self.assertEqual([item["status"] for item in result["health"]], ["succeeded", "failed"])
         self.assertFalse(result["accepted"])
 
+    def test_malformed_batch_object_fails_closed_explicitly(self):
+        with self.assertRaisesRegex(ValueError, "batch must be an object"):
+            ingest_batches([None])
+
     def test_api_shaped_records_require_link_and_timezone(self):
         result = ingest_batches([
             {"source": "bad", "retrieved_at": "2026-09-20T00:00:00Z", "records": [{"Title": "No link"}]},

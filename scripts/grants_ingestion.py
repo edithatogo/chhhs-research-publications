@@ -91,6 +91,8 @@ def ingest_batches(batches: Iterable[dict[str, Any]]) -> dict[str, Any]:
     records: list[dict[str, Any]] = []
     health: list[dict[str, Any]] = []
     for batch in batches:
+        if not isinstance(batch, dict):
+            raise ValueError("grant source batch must be an object")
         source = str(batch.get("source", "unknown"))
         try:
             if "xml" in batch:
