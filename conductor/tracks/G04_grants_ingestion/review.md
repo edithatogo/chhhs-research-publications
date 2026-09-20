@@ -28,6 +28,10 @@ source IDs could still normalise to the same URL-based `OpportunityKey` within
 one source batch. RSS/Atom and API-shaped batches now fail closed before
 records are emitted; cross-source observation merging is unchanged.
 
+Additional review fix applied on 2026-09-21: a non-object batch now fails
+closed with an explicit `ValueError` before source-health processing, rather
+than leaking an incidental attribute error.
+
 ## Changes
 
 - Added `scripts/grants_ingestion.py` with namespace-tolerant RSS/Atom parsing and API-shaped batch normalization.
@@ -73,7 +77,7 @@ Run a controlled live cycle only after G02 endpoint/access verification and G03 
 - [x] **Style Compliance**: Pass - raw source values and uncertainty are retained; no source is promoted solely from page reachability.
 - [x] **New Tests**: Yes - the ingestion suite now covers duplicate RSS/Atom source identity, titleless-entry, unbound-entry and incomplete API-record rejection.
 - [x] **Test Coverage**: Partial - local parser and batch contracts are covered; live feed permissions, source changes and platform writes are not.
-- [x] **Test Results**: Passed - focused ingestion tests (14) and canonical-clone full suite (355 tests, 8 skipped).
+- [x] **Test Results**: Passed - focused ingestion tests (15) and canonical-clone full suite (356 tests, 8 skipped).
 
 ## Findings
 
@@ -82,3 +86,9 @@ Run a controlled live cycle only after G02 endpoint/access verification and G03 
 - **File**: `conductor/tracks/G04_grants_ingestion/plan.md`
 - **Context**: Local adapters do not prove a permitted source feed/API, SharePoint write, Power Automate execution, schedule or reconciliation against live rows.
 - **Suggestion**: Keep G04 active until G02 source evidence and G03 target/binding gates are satisfied, then run a controlled source-to-list cycle and reconcile keys, deadline changes and archived rounds.
+
+## Conductor review — malformed batch hardening — 2026-09-21
+
+- **Verification:** focused G04 ingestion tests passed (15); full suite passed (356 tests, 8 skipped); project validation passed (438 checks); web-first contracts passed locally.
+- **Finding/fix:** `ingest_batches` previously called `.get()` on a malformed non-object batch before it could fail through the contract. Commit `9d09f30ed154609515474d34ec0087d0a9b4649d` adds an explicit object check and regression coverage.
+- **Residual gate:** permitted live source access, SharePoint/flow execution, reconciliation and unattended operation remain open.

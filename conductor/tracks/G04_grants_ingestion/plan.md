@@ -15,3 +15,4 @@
 - [x] Task: Reject RSS/Atom entries without a source identifier or URL before registry emission (5cb8aab).
 - [x] Task: Apply the same title, URL, key and timezone contract to API-shaped records before batch acceptance (c25b03e).
 - [x] Task: Reject duplicate normalized `OpportunityKey` values within a single RSS/Atom or API source batch (8817e21).
+- [x] Task: Reject malformed non-object source batches explicitly before source-health processing (`9d09f30`).
