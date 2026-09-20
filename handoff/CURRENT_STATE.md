@@ -43,7 +43,7 @@ Institutional lead times, holiday coverage and reminder delivery policies are no
 - Organisation matching includes generic aliases and inferred validity dates; do not use it as confirmed institutional evidence until corrected.
 - Organisation matching and leadership attribution corrections from S01.2 are local-only until a native schema/readback confirms the corresponding fields and any backfill is reviewed.
 - Native grants pages, list/schema changes, subscriptions, calendar feeds and notification delivery have not been proved.
-- Native DoRA Activity Registry continuation was rechecked on 2026-09-20: Chrome still exposes the public DoRA dataset and an existing OneDrive tab, but the authenticated SharePoint tab remains owned by another CUA session; a new authenticated Chrome tab timed out and the separate Playwright session is unauthenticated. No tenant list write or sensitive-row upload was attempted.
+- Native DoRA Activity Registry continuation was rechecked on 2026-09-20: Chrome exposed an authenticated-looking SharePoint/Loop tab, but binding it timed out; a subsequent browser inventory returned no available browser surfaces. The earlier SharePoint tab remains owned by another CUA session, the separate Playwright session is unauthenticated, and no tenant list write or sensitive-row upload was attempted.
 
 ## Working rules
 
