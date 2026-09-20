@@ -46,6 +46,23 @@ def _validate_emitted_record(record: dict[str, Any]) -> dict[str, Any]:
     return record
 
 
+_STRING_INPUT_FIELDS = (
+    "Title", "title", "URL", "Link", "link", "SourceID", "ExternalID",
+    "Deadline", "ClosingDate", "Description", "Summary", "summary",
+    "Funder", "Organization", "Eligibility", "RoundID",
+)
+
+
+def _validate_source_record_input(record: Any) -> dict[str, Any]:
+    """Reject typed source fields before normalization can stringify them."""
+    if not isinstance(record, dict):
+        raise ValueError("ingestion source record must be an object")
+    for field in _STRING_INPUT_FIELDS:
+        if field in record and record[field] is not None and not isinstance(record[field], str):
+            raise ValueError(f"ingestion source field {field} must be a string")
+    return record
+
+
 def _validate_unique_batch(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
     keys = [record.get("OpportunityKey", "").strip() for record in records]
     if len(keys) != len(set(keys)):
@@ -108,7 +125,7 @@ def ingest_batches(batches: Iterable[dict[str, Any]]) -> dict[str, Any]:
                 parsed = parse_feed(batch["xml"], source=source, retrieved_at=batch["retrieved_at"])
             else:
                 parsed = _validate_unique_batch([
-                    _validate_emitted_record(normalize_opportunity({**row, "Source": source}, retrieved_at=batch["retrieved_at"]))
+                    _validate_emitted_record(normalize_opportunity({**_validate_source_record_input(row), "Source": source}, retrieved_at=batch["retrieved_at"]))
                     for row in batch.get("records", [])
                 ])
             records.extend(parsed)

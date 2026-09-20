@@ -165,6 +165,16 @@ class GrantsSourceTests(unittest.TestCase):
         self.assertFalse(result["accepted"])
         self.assertEqual(result["health"][0]["status"], "failed")
 
+    def test_api_source_fields_are_not_stringified_before_validation(self):
+        result = ingest_batches([{
+            "source": "api",
+            "retrieved_at": "2026-09-20T00:00:00Z",
+            "records": [{"Title": True, "SourceID": 7, "URL": "https://example.org/1"}],
+        }])
+        self.assertEqual(result["records"], [])
+        self.assertEqual(result["health"][0]["status"], "failed")
+        self.assertIn("must be a string", result["health"][0]["error"])
+
     def test_current_record_uses_newest_observation_but_preserves_review(self):
         from scripts.grants_registry import merge_observations
         rows = merge_observations([
