@@ -63,6 +63,7 @@ Follow [the executable sequence and acceptance gates](../../../docs/DYNAMIC_UPDA
 Local parsers now reconstruct PubMed XML-shaped JSON and DORA field arrays without calling the live sources. A summary reader selects each retained source key from its latest committed batch, with exact page/key reconciliation. The first manifest must include PublicationTable and PublicationPageCount. Native parser parity, durable facility mappings, long-text export completeness and switching canonical consumers remain pending; these files are not yet deployed.
 
 - [x] Add a local contract test preventing the isolated retained-history canonical partition patch from drifting into shared-model table creation (dd68606).
+- [x] Add generator-level coverage for paged retention readback, exact keysets and staging-only output (4c33b40).
 
 Seven isolated retained-summary reader cases are also prepared in tests/native/retained-summary-cases.m: smaller-batch retention, latest-version replacement, interrupted-batch exclusion, stable replay, and rejection of missing pages, wrong keys and duplicate files. Native execution remains pending alongside the eight parser cases.
 

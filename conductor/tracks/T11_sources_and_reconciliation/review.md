@@ -107,7 +107,7 @@ Summary: the local DoRA activity implementation is source-preserving and fail-cl
 - Style compliance: **Pass** — standard-library implementation, explicit errors, no credentials or live rows in source.
 - New tests: **Yes** — five focused tests cover pagination, exact schema, schema drift, repeated Project IDs, source-key uniqueness, provenance and schema declaration.
 - Test coverage: **Pass for local tranche** — live CKAN retrieval also returned 442/442 records and the complete 19-source-field-plus-`_id` contract.
-- Test results: **Passed** — current canonical-clone full suite (373 tests, 8 skipped), 438 project checks, Conductor validation, and `PASS_LOCAL_ONLY` web-first contracts.
+- Test results: **Passed** — current canonical-clone full suite (374 tests, 8 skipped), 438 project checks, Conductor validation, and `PASS_LOCAL_ONLY` web-first contracts.
 
 ## Conductor review — identity hardening — 2026-09-21
 
@@ -124,6 +124,12 @@ explicitly scoped to the isolated development model; it cannot silently drift
 into shared-model table creation. Native application and readback remain open.
 
 Review finding applied: the first draft treated `Project ID` as unique. Live readback disproved that assumption (375 distinct values across 442 rows), so identity now uses the resource-scoped source `_id` and preserves `Project ID` unchanged. No unresolved local findings remain. Native list creation/import, complete row/column readback and report integration remain the next acceptance gate.
+
+## Conductor review — retention package contract coverage — 2026-09-21
+
+- **Finding:** the generated native retention package had no direct unit contract proving that every paged source graph performed exact readback and keyset checks before staging completion.
+- **Fix:** commit `4c33b40` adds generator-level coverage for all configured sources, including expected/final key actions, readback verification, intersection checks, mismatch markers and staging-only output with no promotion action.
+- **Verification:** the focused retention-package test passes; the full local suite passes (374 tests, 8 skips). Native application, processed-model readback and committed-history/report integration remain open.
 
 ## Native continuation check — 2026-09-20
 

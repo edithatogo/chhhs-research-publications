@@ -109,7 +109,7 @@ The corrected publication rows query is consistent between the tracked flow defi
 - [x] Style Compliance: Pass — the definition remains SharePoint-list-backed and preserves the existing serial, fail-closed graph.
 - [x] New Tests: Yes — bounded-projection contract coverage was added.
 - [x] Test Coverage: Partial — local contracts and live DEV execution are covered; full native operational acceptance is not.
-- [x] Test Results: Passed — canonical-clone full suite (373 tests, 8 skipped), 438 project checks and Conductor validation passed; the prior live corrected run succeeded.
+- [x] Test Results: Passed — canonical-clone full suite (374 tests, 8 skipped), 438 project checks and Conductor validation passed; the prior live corrected run succeeded.
 
 ### Findings
 
@@ -124,4 +124,4 @@ One local packaging defect was found and fixed in commit `b6cc2e9`: the private 
 
 - **Finding:** the publication flow diagnosed duplicate `SourceKey` matches but its update branch could still be reached for a lookup result larger than one row.
 - **Fix:** commit `22b5df1` adds an exact-one-match update condition; duplicate matches cannot reach the SharePoint update action. The validator and regression tests enforce the guard.
-- **Verification:** focused publication-contract tests pass (17, with 8 private-package cases skipped); the full local suite remains 373 tests with 8 skips. The corrected definition requires isolated native re-import/readback before E01 acceptance can advance.
+- **Verification:** focused publication-contract tests pass (17, with 8 private-package cases skipped); the full local suite remains 374 tests with 8 skips. The corrected definition requires isolated native re-import/readback before E01 acceptance can advance.

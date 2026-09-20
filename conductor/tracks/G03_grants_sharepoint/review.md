@@ -138,7 +138,7 @@ The canonical isolated grants list and reviewed-import flow remain structurally 
 - [x] Style Compliance: Pass — SharePoint Online remains the registry connector and OneDrive is not used for registry writes.
 - [x] New Tests: Existing contract and schema tests remain green; the native correction is covered by private UI evidence.
 - [x] Test Coverage: Partial — local structure and isolated DEV behavior are covered; production/organisation-wide behavior is not.
-- [x] Test Results: Passed — canonical-clone full suite (373 tests, 8 skipped), project validation (438 checks) and Conductor validation passed; Flow Checker read back 0 errors and 0 warnings after saving the correction.
+- [x] Test Results: Passed — canonical-clone full suite (374 tests, 8 skipped), project validation (438 checks) and Conductor validation passed; Flow Checker read back 0 errors and 0 warnings after saving the correction.
 
 ### Findings
 
@@ -151,4 +151,4 @@ boundaries, not defects; G03 remains active.
 
 - **Finding:** the reviewed-import definition had a duplicate diagnostic, but its update branch could still be reached whenever `Get items` returned more than one row.
 - **Fix:** commit `054aa2e` adds an exact-one-match update condition; duplicate matches now produce diagnostics and no create/update action. Contract and package tests cover the nested guard.
-- **Verification:** focused flow/package tests pass (8); full local suite remains 373 tests with 8 skips. The corrected definition requires re-import/readback in isolated DEV before native acceptance can advance.
+- **Verification:** focused flow/package tests pass (8); full local suite remains 374 tests with 8 skips. The corrected definition requires re-import/readback in isolated DEV before native acceptance can advance.
