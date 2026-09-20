@@ -31,6 +31,19 @@ class GrantsRelationshipTests(unittest.TestCase):
         self.assertEqual(result['status'], 'rejected')
         self.assertEqual(result['records'], [{'OpportunityKey':'GRANT:old'}])
 
+    def test_run_rejects_missing_source_health(self):
+        result = evaluate_run([{'OpportunityKey':'GRANT:1', 'Source':'nhmrc'}], [], [{'OpportunityKey':'GRANT:old'}])
+        self.assertEqual(result['status'], 'rejected')
+        self.assertIn('missing_source_health', result['errors'])
+
+    def test_run_rejects_record_from_unreported_source(self):
+        result = evaluate_run(
+            [{'OpportunityKey':'GRANT:1', 'Source':'mrff'}],
+            [{'source':'nhmrc', 'status':'succeeded'}],
+        )
+        self.assertEqual(result['status'], 'rejected')
+        self.assertIn('unreported_source', result['errors'])
+
     def test_policy_and_delivery_keys_are_versioned(self):
         policy = {'PolicyKey':'CHHHS-DEFAULT','Version':'1.0','OrganisationKey':'CHHHS','AnchorKind':'final','LeadDays':10,'CalendarOrBusinessDays':'business','HolidayCalendarVersion':'qld-2026','EffectiveFrom':'2026-01-01'}
         self.assertTrue(validate_policy(policy))
