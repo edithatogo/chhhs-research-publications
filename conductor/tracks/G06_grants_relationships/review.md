@@ -10,4 +10,4 @@ Review status: in progress; local typed relationship safeguards are implemented.
   The projection keeps relationship type, evidence, confidence and review
   state explicit; it does not flatten relationships into publication rows.
 
-Native relationship storage, exact award readback and unchanged publication totals remain open.
+Native relationship storage, exact award readback and unchanged publication totals remain open. An isolated DEV creation attempt for `Grant Relationships` returned SharePoint `E_ACCESSDENIED`; a direct list URL then returned 404, so no relationship list was created and no synthetic relationship row was written. The local schema/M definition remains ready for a permitted target.
