@@ -36,6 +36,9 @@ class PublicationPlatformContractTests(unittest.TestCase):
         definition["actions"]["Apply_to_each_Publication"]["actions"].pop("Condition_Duplicate_SourceKey")
         self.assertIn("duplicate SourceKey results must fail closed", validate(definition))
 
+    def test_nested_terminate_is_not_used_for_duplicate_failure(self):
+        self.assertNotIn("Terminate_Duplicate_SourceKey", str(_tracked_definition()))
+
     def test_record_actions_cannot_be_top_level(self):
         self.require_private_package()
         definition = copy.deepcopy(_definition())

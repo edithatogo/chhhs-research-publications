@@ -32,7 +32,7 @@ scripts/build_sharepoint_upsert_package.py; config/flows/publication-registry-up
 
 ## Local defect found and corrected
 
-The 2026-09-20 manual-flow replay showed a blank `SourceKey` filter. The packaged definition explained why: the loop consumed the single-row readiness result (`SourceReadiness`, counts and audit status) as if it were a publication row. The local package now has a separate `Run_publication_rows_query` action that projects the canonical `Publication` table and derives a nonblank `SourceKey`; the loop depends on that action. This correction is source-only until an isolated tenant deployment and readback are captured.
+The 2026-09-20 manual-flow replay showed a blank `SourceKey` filter. The packaged definition explained why: the loop consumed the single-row readiness result (`SourceReadiness`, counts and audit status) as if it were a publication row. The local package now has a separate `Run_publication_rows_query` action that projects the canonical `Publication` table and derives a nonblank `SourceKey`; the loop depends on that action. The package was imported successfully into the existing DEV route; Flow Checker returned zero errors and zero warnings, and the route remains Disabled. Do not enable the recurrence until activation approval is present; the run/replay/update evidence gate remains open.
 
 ## Checkpoint
 

@@ -97,8 +97,11 @@ def validate(definition: dict) -> list[str]:
     errors.extend(validate_update_allowlist(update_fields, internal_allowed={"field_20"}))
 
     duplicate = record_actions.get("Condition_Duplicate_SourceKey", {})
-    if "greater" not in json.dumps(duplicate) or "DUPLICATE_SOURCE_KEY" not in json.dumps(duplicate):
+    duplicate_text = json.dumps(duplicate)
+    if "greater" not in duplicate_text or "DUPLICATE_SOURCE_KEY" not in duplicate_text:
         errors.append("duplicate SourceKey results must fail closed")
+    if "Compose_Duplicate_SourceKey_Failure" not in duplicate_text or "int('DUPLICATE_SOURCE_KEY')" not in duplicate_text:
+        errors.append("duplicate SourceKey failure must use a foreach-compatible failing action")
     if "replace(" not in str(parameters.get("$filter", "")):
         errors.append("SourceKey filter must escape apostrophes")
     if any(name in actions for name in {"SharePoint_Get_items", "Condition_Is_New_Publication", "SharePoint_Create_item", "SharePoint_Update_item"}):

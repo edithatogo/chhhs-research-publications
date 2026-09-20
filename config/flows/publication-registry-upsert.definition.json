@@ -152,15 +152,9 @@
                 ]
               },
               "actions": {
-                "Terminate_Duplicate_SourceKey": {
-                  "type": "Terminate",
-                  "inputs": {
-                    "runStatus": "Failed",
-                    "runError": {
-                      "code": "DUPLICATE_SOURCE_KEY",
-                      "message": "SourceKey lookup returned more than one registry item."
-                    }
-                  }
+                "Compose_Duplicate_SourceKey_Failure": {
+                  "type": "Compose",
+                  "inputs": "@int('DUPLICATE_SOURCE_KEY')"
                 }
               },
               "else": {

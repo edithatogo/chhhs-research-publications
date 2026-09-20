@@ -138,9 +138,9 @@ def build_package(baseline_path: Path, output_path: Path, target_path: Path = DE
             "type": "If",
             "expression": {"greater": ["@length(body('SharePoint_Get_items')?['value'])", 1]},
             "actions": {
-                "Terminate_Duplicate_SourceKey": {
-                    "type": "Terminate",
-                    "inputs": {"runStatus": "Failed", "runError": {"code": "DUPLICATE_SOURCE_KEY", "message": "SourceKey lookup returned more than one registry item."}},
+                "Compose_Duplicate_SourceKey_Failure": {
+                    "type": "Compose",
+                    "inputs": "@int('DUPLICATE_SOURCE_KEY')",
                 }
             },
             "else": {"actions": {}},
