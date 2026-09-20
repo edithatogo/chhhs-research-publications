@@ -14,6 +14,6 @@ The earlier `E_ACCESSDENIED`/404 observation is superseded by a later authentica
 
 `https://healthqld-my.sharepoint.com/personal/dylan_mordaunt_health_qld_gov_au/Lists/Grant%20Relationships/AllItems.aspx`
 
-Native list readback confirmed the list exists and is empty. The additive schema work created the text columns `RelationshipKey`, `FromKey`, `ToKey`, and `AwardID`; a `RelationshipType` choice column was also submitted through the native editor. No production relationship row, synthetic relationship row, publication backfill, or report/model binding change was made.
+Native list readback confirmed the list exists and is empty. The additive schema work created and read back the text columns `RelationshipKey`, `FromKey`, `ToKey`, and `AwardID`, plus the `RelationshipType` choice column. No `EvidenceURL`, `Confidence`, or `ReviewStatus` column was found in the current readback. No production relationship row, synthetic relationship row, publication backfill, or report/model binding change was made.
 
 The native gate remains open: read back the complete eight-field schema including `EvidenceURL`, `Confidence`, and `ReviewStatus`; confirm required/indexed constraints for `RelationshipKey`; then prove an approved evidence-bearing relationship round-trip and reconcile publication totals unchanged. The list is an isolated DEV object, not an approved organisation-wide target or unattended flow binding.
