@@ -45,9 +45,12 @@ The recoverable isolated report/model IDs are present in the private evidence,
 and the model canary rollback is previously verified. A fresh authenticated
 browser navigation to the isolated report route returned Power BI's
 “Failed to get access request info for this artifact” dialog and redirected to
-the Power BI home surface. No model or report mutation was attempted. This is
-an access/readback blocker for the isolated repair route, not permission to
-edit the original report/model; the native binding repair remains open.
+the Power BI home surface. The workspace list still exposes a semantic-model
+entry, but opening its model view bootstrapped the original model ID inside
+the modeling iframe and then failed with module MIME errors and `NG04002`.
+No model or report mutation was attempted. This is an access/readback blocker
+for the isolated repair route, not permission to edit the original
+report/model; the native binding repair remains open.
 
 ## Review Report: E04 Fluent Visual Polish — 2026-09-21
 
