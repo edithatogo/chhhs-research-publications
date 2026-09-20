@@ -60,3 +60,8 @@ non-negative-integer violations and blank keys before a batch can reconcile.
 The local reconciliation issue is fixed. T14 remains in progress because its
 manual native cycle, consecutive-cycle history, refresh correlation and
 delivery decisions are not currently evidenced.
+
+## Conductor review — local export-fidelity execution evidence — 2026-09-21
+
+- **Verification:** 64 web-first export-policy tests and 5 publication-batch contract tests passed. Coverage includes multi-page scope, long/Unicode fields, DORA-only/no PMID, formula-safe CSV, duplicate/missing keys, uncertain months and date-boundary behaviour.
+- **Boundary:** this closes the local execution checklist item only. Correlated native refresh, complete file readback, consecutive replay and delivery remain open.

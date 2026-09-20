@@ -12,7 +12,7 @@ contracts/publication-export.contract.json; scripts/export_publication_register.
 
 ## 2. Test export fidelity
 
-- [ ] Add failing local cases for more than one export page, long/Unicode authors and titles, DORA-only/no PMID, formula-safe CSV, duplicate/missing keys, uncertain month and December/January boundary before changing implementation.
+- [x] Add and run local cases for more than one export page, long/Unicode authors and titles, DORA-only/no PMID, formula-safe CSV, duplicate/missing keys, uncertain month and December/January boundary. Evidence: `python3 -m unittest discover -s tests -p 'test_webfirst.py' -v` (64 passed) and `python3 -m unittest discover -s tests -p 'test_publication_batch_contract.py' -v` (5 passed). These are local contract checks, not native export acceptance.
 
 ## 3. Native dry run
 
