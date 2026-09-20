@@ -44,6 +44,8 @@ def parse_feed(xml_payload: str | bytes, *, source: str, retrieved_at: str) -> l
             if source_id in seen_source_ids:
                 raise ValueError(f"duplicate source identity: {source_id}")
             seen_source_ids.add(source_id)
+        if not source_id and not link:
+            raise ValueError("feed entry missing source identity")
         title = _child_text(entry, "title")
         if not title:
             raise ValueError("feed entry missing title")

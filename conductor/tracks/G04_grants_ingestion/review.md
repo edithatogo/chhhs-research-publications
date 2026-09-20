@@ -13,6 +13,10 @@ merge. The ingestion test suite covers this boundary.
 Additional review fix applied: RSS/Atom entries without a title now fail closed
 before normalization, matching the required SharePoint registry field.
 
+Additional review fix applied: entries without either a source identifier or URL
+now fail closed, preventing weak title/funder fallback identities from entering
+the registry path.
+
 ## Changes
 
 - Added `scripts/grants_ingestion.py` with namespace-tolerant RSS/Atom parsing and API-shaped batch normalization.
@@ -56,9 +60,9 @@ Run a controlled live cycle only after G02 endpoint/access verification and G03 
 
 - [x] **Plan Compliance**: Partial - RSS/Atom/API-shaped adapters, source isolation, calendar candidate handling and duplicate-identity fail-closed behaviour are implemented; live source/list/flow acceptance remains open.
 - [x] **Style Compliance**: Pass - raw source values and uncertainty are retained; no source is promoted solely from page reachability.
-- [x] **New Tests**: Yes - the ingestion suite now covers duplicate RSS/Atom source identity rejection and titleless-entry rejection.
+- [x] **New Tests**: Yes - the ingestion suite now covers duplicate RSS/Atom source identity, titleless-entry and unbound-entry rejection.
 - [x] **Test Coverage**: Partial - local parser and batch contracts are covered; live feed permissions, source changes and platform writes are not.
-- [x] **Test Results**: Passed - focused ingestion tests (8) and canonical-clone full suite (325 tests, 8 skipped).
+- [x] **Test Results**: Passed - focused ingestion tests (9) and canonical-clone full suite (326 tests, 8 skipped).
 
 ## Findings
 
