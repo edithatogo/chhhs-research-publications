@@ -49,7 +49,7 @@ class PublicationPlatformContractTests(unittest.TestCase):
 
         definition = copy.deepcopy(_tracked_definition())
         condition = definition["actions"]["Apply_to_each_Publication"]["actions"]["Condition_Is_New_Publication"]
-        condition["else"]["actions"]["SharePoint_Update_item"]["inputs"]["parameters"]["table"] = "different-list"
+        condition["else"]["actions"]["Condition_Exactly_One_Publication"]["actions"]["SharePoint_Update_item"]["inputs"]["parameters"]["table"] = "different-list"
         self.assertIn("SharePoint_Update_item must target the same SharePoint site and list as lookup", validate(definition))
 
     def test_sharepoint_operations_and_authentication_are_explicit(self):
@@ -65,6 +65,12 @@ class PublicationPlatformContractTests(unittest.TestCase):
 
     def test_nested_terminate_is_not_used_for_duplicate_failure(self):
         self.assertNotIn("Terminate_Duplicate_SourceKey", str(_tracked_definition()))
+
+    def test_duplicate_lookup_cannot_reach_update(self):
+        condition = _tracked_definition()["actions"]["Apply_to_each_Publication"]["actions"]["Condition_Is_New_Publication"]
+        guard = condition["else"]["actions"]["Condition_Exactly_One_Publication"]
+        self.assertEqual(guard["expression"]["equals"][1], 1)
+        self.assertIn("SharePoint_Update_item", guard["actions"])
 
     def test_record_actions_cannot_be_top_level(self):
         self.require_private_package()

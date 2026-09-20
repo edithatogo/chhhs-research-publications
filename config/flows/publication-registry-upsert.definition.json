@@ -213,25 +213,37 @@
               },
               "else": {
                 "actions": {
-                  "SharePoint_Update_item": {
-                    "type": "OpenApiConnection",
-                    "inputs": {
-                      "host": {
-                        "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
-                        "connectionName": "shared_sharepointonline",
-                        "operationId": "PatchItem"
-                      },
-                      "parameters": {
-                        "dataset": "{{SHAREPOINT_SITE_URL}}",
-                        "table": "{{SHAREPOINT_LIST_ID}}",
-                        "id": "@first(body('SharePoint_Get_items')?['value'])?['Id']",
-                        "item/field_20": "@{utcNow()}"
-                      },
-                      "authentication": {
-                        "type": "Raw",
-                        "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                  "Condition_Exactly_One_Publication": {
+                    "type": "If",
+                    "expression": {
+                      "equals": [
+                        "@length(body('SharePoint_Get_items')?['value'])",
+                        1
+                      ]
+                    },
+                    "actions": {
+                      "SharePoint_Update_item": {
+                        "type": "OpenApiConnection",
+                        "inputs": {
+                          "host": {
+                            "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                            "connectionName": "shared_sharepointonline",
+                            "operationId": "PatchItem"
+                          },
+                          "parameters": {
+                            "dataset": "{{SHAREPOINT_SITE_URL}}",
+                            "table": "{{SHAREPOINT_LIST_ID}}",
+                            "id": "@first(body('SharePoint_Get_items')?['value'])?['Id']",
+                            "item/field_20": "@{utcNow()}"
+                          },
+                          "authentication": {
+                            "type": "Raw",
+                            "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                          }
+                        }
                       }
-                    }
+                    },
+                    "else": {"actions": {}}
                   }
                 }
               }
