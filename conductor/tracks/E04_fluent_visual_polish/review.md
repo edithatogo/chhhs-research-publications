@@ -26,6 +26,18 @@ missing, non-numeric or non-finite positions, negative coordinates and
 non-positive dimensions. Previously, missing fields defaulted to zero and
 could pass the 8px-grid check. Regression coverage was added.
 
+## Local PBIR binding guard — 2026-09-21
+
+The local visual contract, implemented in `75c3646`, now audits every `Column` and
+`Measure` reference in
+PBIR `visual.json` files against the fields declared in the local semantic
+model TMDL. Missing model fields fail closed, with the visual file, entity,
+property and binding path reported. The current package resolves all local
+bindings and the regression suite includes a deliberately missing-field case.
+This closes a local authoring gap but does not replace native semantic-model
+readback; the nine errors observed on the deployed `Clinical Analytics` page
+still require isolated native reconciliation.
+
 ## Current native report audit — 2026-09-21
 
 Authenticated Power BI readback confirms the current report has four pages:
@@ -67,9 +79,9 @@ Local grid, contrast and theme evidence remains sound, but the current native re
 
 - [x] Plan Compliance: Partial — local visual standards are implemented; current native four-page acceptance is not.
 - [x] Style Compliance: Pass — no local standards defect was identified.
-- [x] New Tests: Existing geometry and contrast tests pass.
-- [x] Test Coverage: Partial — local visual contracts and native page rendering are both inspected; field-binding repair remains open.
-- [x] Test Results: Passed locally — 374 tests (8 skipped), 438 project checks and 82 visual geometries audited; native audit failed the fourth-page field-binding gate.
+- [x] New Tests: Geometry, contrast and local PBIR field-binding tests pass, including fail-closed missing-field coverage.
+- [x] Test Coverage: Partial — local visual contracts now include field bindings, while native page rendering and deployed model reconciliation remain open.
+- [x] Test Results: Passed locally — 376 tests (8 skipped), 438 project checks and 82 visual geometries audited; native audit failed the fourth-page field-binding gate.
 
 ### Findings
 
