@@ -60,6 +60,16 @@ and Download but no version-history control and the attempted semantic-model
 route is unavailable. These cannot be closed by a source archive or by editing
 the original report.
 
+## Current canonical release verification — 2026-09-21
+
+A fresh clean clone at source commit `f234f12bc443af7fc10917b0802ae4710343d582`
+produced `CHHHS-Research-Publications-v0.3.0-rc1-Source.zip` with
+`FreshExtractionVerified=true`, no Git history, no private runtime content and
+`NativeAcceptance=false`. The archive SHA-256 was
+`5aabcbf932ad5ebb3b52e7e32e20de12648ad643c10f00ad8bb79de3f28ed04e`.
+This confirms the source-only release remains reproducible and is not evidence
+of native report/model version readback.
+
 ## S02.3.2 capability observation — 2026-09-20
 
 Receipt: `private/ops/2026-09-20-versioning-capability-observation.json`.
