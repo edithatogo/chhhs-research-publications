@@ -21,3 +21,23 @@ QUT and Griffith HTTP 403. The receipt is ignored at
 `private/ops/2026-09-20-grants-university-probe-current.json`. This confirms
 the current public-page/access boundary only; it does not prove a permitted
 institutional feed, portal export or calendar route.
+
+Review fix applied: `load_universities` now validates known lead-time objects
+for an allowed day unit and bounded non-negative numeric values, while keeping
+unknown lead times as `null`. A focused regression test covers invalid data.
+
+## Verification Checks
+
+- [x] **Plan Compliance**: Partial - JCU/UQ/QUT/Griffith source and access contracts are implemented; permitted institutional exports, feeds and authenticated portal routes remain open.
+- [x] **Style Compliance**: Pass - unknown lead times remain unknown and are not inferred.
+- [x] **New Tests**: Yes - malformed known lead-time rejection is covered.
+- [x] **Test Coverage**: Partial - catalogue and bounded probe contracts are covered; institutional access and feed acceptance are not.
+- [x] **Test Results**: Passed - focused university tests (3) and project validation (438 checks); full-suite rerun required after this review fix.
+
+## Findings
+
+### Medium - university access and feed acceptance remains open
+
+- **File**: `config/grants-universities.json`, `conductor/tracks/G05_grants_universities/plan.md`
+- **Context**: Public-page probes and catalogue validation do not prove permitted portal exports, institutional feeds, authenticated access, or current specialist/foundation coverage.
+- **Suggestion**: Keep G05 active until source-specific access evidence is captured; do not promote institutional pages to unattended intake or claim internal lead times where the catalogue retains `null`.
