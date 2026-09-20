@@ -21,3 +21,12 @@ Review status: in progress; local planning and idempotency contracts are impleme
 
 Native funding pages, SharePoint list persistence, authenticated preference
 isolation, calendar update/cancellation and notification delivery remain open.
+
+## Native boundary readback — 2026-09-20
+
+Authenticated Power BI read-only readback still shows four native pages:
+CHHHS Publications, Monthly Publications, Source Reconciliation and Clinical
+Analytics. No native funding page is present. Receipt:
+ignored `private/ops/2026-09-20-powerbi-report-page-inventory.json`.
+The local seven-page definition therefore remains a candidate for an isolated
+authoring route, not a tenant deployment claim.
