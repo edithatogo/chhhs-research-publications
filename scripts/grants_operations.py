@@ -64,7 +64,9 @@ def reconcile_registry_records(
     contract checks an explicit field allowlist and preserves the prior
     accepted batch if any value is missing or differs.
     """
-    selected_fields = list(fields)
+    if isinstance(fields, (str, bytes)):
+        raise ValueError('reconciliation fields must be a collection, not a string')
+    selected_fields = [field.strip() if isinstance(field, str) else field for field in fields]
     if (
         not selected_fields
         or any(not isinstance(field, str) or not field.strip() for field in selected_fields)

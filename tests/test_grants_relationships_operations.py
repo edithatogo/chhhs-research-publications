@@ -174,6 +174,14 @@ class GrantsRelationshipTests(unittest.TestCase):
     def test_registry_reconciliation_requires_explicit_unique_fields(self):
         with self.assertRaisesRegex(ValueError, 'unique'):
             reconcile_registry_records([], [], ['Title', 'Title'])
+        with self.assertRaisesRegex(ValueError, 'collection'):
+            reconcile_registry_records([], [], 'Title')
+        result = reconcile_registry_records(
+            [{'OpportunityKey': 'g1', 'Title': 'Call'}],
+            [{'OpportunityKey': 'g1', 'Title': 'Call'}],
+            [' Title '],
+        )
+        self.assertEqual(result['status'], 'reconciled')
 
     def test_policy_and_delivery_keys_are_versioned(self):
         policy = {'PolicyKey':'CHHHS-DEFAULT','Version':'1.0','OrganisationKey':'CHHHS','AnchorKind':'final','LeadDays':10,'CalendarOrBusinessDays':'business','HolidayCalendarVersion':'qld-2026','EffectiveFrom':'2026-01-01'}
