@@ -27,6 +27,14 @@ Review status: in progress; the source catalogue is implemented, but official-pa
   the 14 catalogue rows. Receipt: ignored
   `private/ops/2026-09-20-grants-source-probe.json`.
 
+- Added `scripts/grants_reviewed_import.py` as the explicit fallback route for
+  sources without a permitted feed/API. It admits only rows with source and
+  row identity, a valid HTTP(S) row URL, timezone-aware observation time,
+  non-empty review notes and `ReviewStatus=Reviewed`; a single invalid row
+  rejects the complete batch. `tests/test_grants_reviewed_import.py` covers
+  admission, quarantine and fail-closed batch behaviour. This is a local
+  import contract, not evidence that a current source row has been reviewed.
+
 - The probe confirms current authority-page reachability for NHMRC, MRFF, ARC,
   EMF Queensland, FNQ Hospital Foundation, CHHHS, the Health Practitioner
   Research Scheme, Metro North and Cancer Council Queensland. It also records
