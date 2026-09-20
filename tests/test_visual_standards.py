@@ -1,5 +1,7 @@
 """Unit tests for visual geometry validation and WCAG AA contrast standards."""
 import unittest
+import json
+import tempfile
 from pathlib import Path
 import sys
 
@@ -38,6 +40,14 @@ class TestVisualStandards(unittest.TestCase):
                 visual["valid_grid_8px"],
                 f"Visual {visual['name']} ({visual['file']}) failed 8px grid: {visual['violations']}"
             )
+
+    def test_incomplete_geometry_fails_closed(self):
+        with tempfile.TemporaryDirectory(dir=ROOT) as folder:
+            path = Path(folder) / "visual.json"
+            path.write_text(json.dumps({"name": "incomplete", "position": {"x": 0}}), encoding="utf-8")
+            audit = audit_visual_geometry(path)
+        self.assertFalse(audit["valid_grid_8px"])
+        self.assertTrue(any("finite number" in violation for violation in audit["violations"]))
 
 
 if __name__ == "__main__":

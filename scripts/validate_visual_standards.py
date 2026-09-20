@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import json
 import math
+from numbers import Real
 from pathlib import Path
 from typing import Any
 
@@ -53,21 +54,30 @@ def audit_visual_geometry(visual_json_path: Path) -> dict[str, Any]:
     with open(visual_json_path, "r", encoding="utf-8") as f:
         data = json.load(f)
 
-    pos = data.get("position", {})
-    x = pos.get("x", 0)
-    y = pos.get("y", 0)
-    w = pos.get("width", 0)
-    h = pos.get("height", 0)
-
+    pos = data.get("position")
     violations = []
-    if x % 8 != 0:
-        violations.append(f"x={x} not divisible by 8")
-    if y % 8 != 0:
-        violations.append(f"y={y} not divisible by 8")
-    if w % 8 != 0:
-        violations.append(f"width={w} not divisible by 8")
-    if h % 8 != 0:
-        violations.append(f"height={h} not divisible by 8")
+    if not isinstance(pos, dict):
+        pos = {}
+        violations.append("position must be an object")
+    values = {name: pos.get(name) for name in ("x", "y", "width", "height")}
+    for name, value in values.items():
+        if isinstance(value, bool) or not isinstance(value, Real) or not math.isfinite(float(value)):
+            violations.append(f"{name} must be a finite number")
+    x, y, w, h = (values[name] for name in ("x", "y", "width", "height"))
+    if all(isinstance(value, Real) and not isinstance(value, bool) and math.isfinite(float(value))
+           for value in (x, y, w, h)):
+        if x < 0 or y < 0:
+            violations.append("x and y must be non-negative")
+        if w <= 0 or h <= 0:
+            violations.append("width and height must be positive")
+        if x % 8 != 0:
+            violations.append(f"x={x} not divisible by 8")
+        if y % 8 != 0:
+            violations.append(f"y={y} not divisible by 8")
+        if w % 8 != 0:
+            violations.append(f"width={w} not divisible by 8")
+        if h % 8 != 0:
+            violations.append(f"height={h} not divisible by 8")
 
     return {
         "file": str(visual_json_path.relative_to(ROOT)),
