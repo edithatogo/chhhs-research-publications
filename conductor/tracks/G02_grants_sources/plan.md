@@ -17,3 +17,4 @@
 - [x] Task: Require scalar source IDs and reject future catalogue verification dates (`e4985b2`).
 - [x] Task: Require typed reviewed-import identities, URLs, review status and notes without coercion.
 - [x] Task: Reject malformed ARC award identities, links and descriptive fields without coercion (03568d7).
+- [x] Task: Preserve row-level HTTP(S) provenance for review-only HTML calendar candidates (e62b6f5).
