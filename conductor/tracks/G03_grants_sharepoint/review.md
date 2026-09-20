@@ -136,7 +136,7 @@ The canonical isolated grants list and reviewed-import flow remain structurally 
 - [x] Style Compliance: Pass — SharePoint Online remains the registry connector and OneDrive is not used for registry writes.
 - [x] New Tests: Existing contract and schema tests remain green; the native correction is covered by private UI evidence.
 - [x] Test Coverage: Partial — local structure and isolated DEV behavior are covered; production/organisation-wide behavior is not.
-- [x] Test Results: Passed — canonical-clone full suite (352 tests, 8 skipped), project validation (438 checks) and Conductor validation passed; Flow Checker read back 0 errors and 0 warnings after saving the correction.
+- [x] Test Results: Passed — canonical-clone full suite (353 tests, 8 skipped), project validation (438 checks) and Conductor validation passed; Flow Checker read back 0 errors and 0 warnings after saving the correction.
 
 ### Findings
 

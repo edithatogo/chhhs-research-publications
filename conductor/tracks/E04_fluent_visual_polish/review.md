@@ -21,6 +21,11 @@ visual audit was performed against the current tenant report. E04 therefore
 remains active until the current native report scope and visual readback are
 verified. No code defect was found in the local standards tests.
 
+Local review fix applied in `b747011`: geometry auditing now fails closed for
+missing, non-numeric or non-finite positions, negative coordinates and
+non-positive dimensions. Previously, missing fields defaulted to zero and
+could pass the 8px-grid check. Regression coverage was added.
+
 ## Current native report audit — 2026-09-21
 
 Authenticated Power BI readback confirms the current report has four pages:
@@ -64,7 +69,7 @@ Local grid, contrast and theme evidence remains sound, but the current native re
 - [x] Style Compliance: Pass — no local standards defect was identified.
 - [x] New Tests: Existing geometry and contrast tests pass.
 - [x] Test Coverage: Partial — local visual contracts and native page rendering are both inspected; field-binding repair remains open.
-- [x] Test Results: Passed locally; native audit failed the fourth-page field-binding gate.
+- [x] Test Results: Passed locally — 353 tests (8 skipped), 438 project checks and 82 visual geometries audited; native audit failed the fourth-page field-binding gate.
 
 ### Findings
 
