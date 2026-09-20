@@ -261,6 +261,35 @@ create/update only for exact zero/one lookup matches. Code commit:
   readback, report integration, flow execution and unattended delivery remain
   unproven. No tenant mutation was made.
 
+## Conductor review — DoRA private package bootstrap — 2026-09-21
+
+### Summary
+
+T11 now has a private target-injection package builder for the canonical DoRA
+flow. It requires concrete HTTPS SharePoint site and GUID targets, rejects
+unresolved placeholders, emits SharePoint API/connection maps, and keeps
+tenant-specific output under ignored `private/`. Code commit:
+`3c8edd17f30cce20c43e0cbc84eb38deb568e5c3`.
+
+### Verification Checks
+
+- **Plan Compliance:** Partial — safe package bootstrap is implemented; target
+  approval, import and native readback remain open.
+- **Style Compliance:** Pass.
+- **New Tests:** Yes — 2 focused package-builder tests.
+- **Test Coverage:** Partial — target injection and rejection paths are local;
+  Power Automate import/execution is not proven.
+- **Test Results:** Passed — full suite (403 passed, 8 skipped), 438 project
+  checks, Conductor validation, web-first, Power Platform and visual checks;
+  all three flow validators pass.
+
+### Findings
+
+- **Fixed:** the new DoRA flow had no canonical private package/bootstrap path.
+- **Residual acceptance:** no tenant-specific package was generated or
+  imported; native list/readback, report integration and unattended execution
+  remain unproven. No tenant mutation was made.
+
 Review fix applied: `tests/test_webfirst.py` now asserts that
 `config/native-canonical-retained-partitions.tmdl` is reference-only and
 explicitly scoped to the isolated development model; it cannot silently drift

@@ -107,6 +107,15 @@ Follow [the executable sequence and acceptance gates](../../../docs/DYNAMIC_UPDA
   row key, and then prove native report/flow integration. No tenant acceptance
   is claimed by the local contract.
 
+## DoRA private package bootstrap — 2026-09-21
+
+- [x] Add a target-injecting private package builder that requires a concrete
+  HTTPS site, GUID list/flow IDs and a named SharePoint connection.
+- [x] Add package extraction/placeholder/connector regression tests. Code
+  commit: `3c8edd17f30cce20c43e0cbc84eb38deb568e5c3`.
+- [ ] Generate/import only after the approved isolated target is identified;
+  package generation is not tenant import or acceptance evidence.
+
 ### Retained reporting projection in progress
 Local parsers now reconstruct PubMed XML-shaped JSON and DORA field arrays without calling the live sources. A summary reader selects each retained source key from its latest committed batch, with exact page/key reconciliation. The first manifest must include PublicationTable and PublicationPageCount. Native parser parity, durable facility mappings, long-text export completeness and switching canonical consumers remain pending; these files are not yet deployed.
 
