@@ -17,6 +17,7 @@ from webfirst_contracts import (CAPABILITIES, choose_route, fallback_errors, iso
                                live_evidence_errors, local_validate, runtime_hashes)
 from export_publication_register import (EXPORT_FIELDS, export_errors, key_hash,
                                          render_exports, safe_cell, safe_link, verify_written_exports)
+from deploy_canonical_report import validate_deployment_target
 
 
 def good_capabilities():
@@ -82,6 +83,12 @@ class RoutePolicyTests(unittest.TestCase):
     def test_unknown_provider_does_not_pass(self):
         d=good_capabilities();d['capabilities'][0]['provider']='imagined_api'
         self.assertEqual(choose_route(d)['route'],'needs_capability_verification')
+
+    def test_canonical_report_deployment_route_is_fail_closed(self):
+        with self.assertRaisesRegex(ValueError, 'canonical/shared report deployment is disabled'):
+            validate_deployment_target(str(uuid5(NAMESPACE_URL, 'workspace')), str(uuid5(NAMESPACE_URL, 'report')), 'canonical')
+        with self.assertRaisesRegex(ValueError, 'concrete isolated'):
+            validate_deployment_target('{{WORKSPACE_ID}}', '{{REPORT_ID}}', 'isolated')
 
 
 class IsolationPolicyTests(unittest.TestCase):
