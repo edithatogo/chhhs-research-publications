@@ -51,6 +51,12 @@ class GrantsRegistryTests(unittest.TestCase):
         self.assertEqual(item["URL"], "")
         self.assertEqual(item["ReviewStatus"], "Needs Review")
 
+    def test_identity_and_display_fields_are_not_stringified(self):
+        for field, value in (("SourceID", True), ("Title", 7), ("URL", ["https://example.org"]), ("ReviewStatus", False)):
+            with self.subTest(field=field):
+                with self.assertRaisesRegex(ValueError, f"field {field}"):
+                    normalize_opportunity({field: value})
+
     def test_source_row_url_is_preserved_as_distinct_evidence(self):
         item = normalize_opportunity({
             "Source": "X", "SourceID": "1", "Title": "Call",

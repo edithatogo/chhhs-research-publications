@@ -93,6 +93,17 @@ def _timestamp_sort_key(value: Any) -> datetime:
 
 def normalize_opportunity(record: dict[str, Any], retrieved_at: str | None = None) -> dict[str, Any]:
     """Normalize RSS/Atom/API-shaped records without inventing missing values."""
+    if not isinstance(record, dict):
+        raise ValueError("opportunity record must be an object")
+    string_fields = (
+        "Source", "SourceID", "ExternalID", "Title", "title", "URL", "Link", "link",
+        "Funder", "Organization", "funder", "RoundID", "Deadline", "ClosingDate", "deadline",
+        "Status", "Description", "Summary", "summary", "Eligibility", "Geography", "Contact",
+        "CHHHSRelevance", "SourceRowURL", "ReviewStatus", "ReviewNotes", "RetrievedUTC",
+    )
+    for field in string_fields:
+        if field in record and record[field] is not None and not isinstance(record[field], str):
+            raise ValueError(f"opportunity field {field} must be a string")
     record = dict(record)
     record['Title'] = record.get('Title') or record.get('title') or ''
     record['URL'] = record.get('URL') or record.get('Link') or record.get('link') or ''
