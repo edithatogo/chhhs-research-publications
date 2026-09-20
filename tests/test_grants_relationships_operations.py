@@ -1,4 +1,6 @@
 import unittest
+import json
+from pathlib import Path
 
 from scripts.grants_operations import evaluate_run
 from scripts.grants_planning import delivery_event_key, validate_policy
@@ -6,6 +8,13 @@ from scripts.grants_relationships import normalize_relationship
 
 
 class GrantsRelationshipTests(unittest.TestCase):
+    def test_relationship_schema_matches_normalized_projection(self):
+        schema = json.loads((Path(__file__).parents[1] / 'config/grant-relationships.schema.json').read_text())
+        row = normalize_relationship({'RelationshipType':'funded_by_award','FromKey':'GRANT:1','ToKey':'PUB:1','AwardID':'MRFF-1','EvidenceURL':'https://evidence','Confidence':'confirmed'})
+        self.assertEqual(schema['identity_field'], 'RelationshipKey')
+        self.assertEqual({f['display_name'] for f in schema['fields']}, set(row))
+        self.assertEqual(schema['list_name'], 'Grant Relationships')
+
     def test_confirmed_award_requires_exact_award_id(self):
         with self.assertRaises(ValueError):
             normalize_relationship({'RelationshipType':'funded_by_award','FromKey':'GRANT:1','ToKey':'PUB:1','EvidenceURL':'https://evidence','Confidence':'confirmed'})

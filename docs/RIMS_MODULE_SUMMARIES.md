@@ -81,7 +81,8 @@ Design: the registry is a derived view over canonical publications, author
 evidence and organisation-reference data. Exact source statements and
 confidence/review fields are retained. A later list or model projection may
 materialise statistics, but the publication registry remains the source of
-truth.
+truth. Grant/publication links use a separate typed relationship bridge and
+must not inflate publication rows.
 
 ```mermaid
 flowchart LR
