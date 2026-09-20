@@ -197,3 +197,10 @@ Implemented in `da0b657`, with regression coverage in `tests/test_grants_registr
 - **Fix:** commit `04642b1` validates optional descriptive fields before normalization and adds an adversarial regression test.
 - **Verification:** focused reviewed-import tests pass (8); the full suite passes 386 tests with 8 skips; project validation passes 438 checks; web-first, Conductor, Power Platform tooling and visual standards checks pass locally.
 - **Residual gate:** a real human-reviewed current row or permitted opportunity feed/API and native intake remain required.
+
+## Conductor review — catalogue URL typing — 2026-09-21
+
+- **Finding:** source-catalogue URL validation stringified non-string authority or API values before parsing, weakening the explicit input-type boundary.
+- **Fix:** commit `18dd567` requires URL values to be strings before structural HTTP(S) validation and adds regression coverage.
+- **Verification:** focused source-ingestion tests pass (20); the full suite passes 389 tests with 8 skips; project validation passes 438 checks; web-first, Conductor, Power Platform tooling and visual standards checks pass locally.
+- **Residual gate:** permitted opportunity intake, human-reviewed eligibility and native intake remain open.
