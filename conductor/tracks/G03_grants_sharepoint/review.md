@@ -210,3 +210,33 @@ before any generated package can be accepted locally. Code commit:
 - **Residual acceptance:** approved organisation-wide target, native schema and
   row readback, canonical binding, unattended execution and delivery remain
   unproven. No tenant mutation was made.
+
+## Conductor review — grants projection mapping/schema lock — 2026-09-21
+
+### Summary
+
+The grants flow validator now compares the SharePoint create mapping with every
+field in `config/grants-registry.schema.json`. A schema addition cannot pass
+local validation until the reviewed-import create branch maps it explicitly.
+Code commit: `bdf17b2e70313d5b34fcd2ee5270d4d7d0d6f9ec`.
+
+### Verification Checks
+
+- **Plan Compliance:** Partial — local grants schema/flow drift protection is
+  complete; native target binding and unattended acceptance remain open.
+- **Style Compliance:** Pass — all existing manual-review and evidence fields
+  remain preserved.
+- **New Tests:** Yes — ten focused grants flow-contract tests include rejection
+  of schema additions without create mappings.
+- **Test Results:** Passed — full suite (411 passed, 8 skipped), 438 project
+  checks, Conductor validation (0 errors), web-first `PASS_LOCAL_ONLY`, Power
+  Platform tooling preflight, visual standards, canonical flow validators and
+  `git diff --check`.
+
+### Findings
+
+- **Fixed:** a new grants schema field could previously be added without
+  requiring the SharePoint create action to persist it.
+- **Residual acceptance:** approved organisation-wide target, native schema/row
+  readback, canonical binding, unattended execution and delivery remain
+  unproven. No tenant mutation was made.
