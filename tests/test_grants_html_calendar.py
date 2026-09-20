@@ -1,0 +1,43 @@
+import unittest
+
+from scripts.grants_html_calendar import parse_calendar_html
+
+
+class GrantsHtmlCalendarTests(unittest.TestCase):
+    def test_extracts_candidates_without_inventing_exact_deadline_or_review(self):
+        html = """<table><tr><th>Grant opportunity</th><th>Applications close</th><th>Status</th></tr>
+        <tr><td>Example call</td><td>11 Nov 2026 - 5:00pm</td><td>Open</td></tr></table>"""
+        result = parse_calendar_html(
+            html,
+            source="MRFF",
+            source_url="https://example.gov.au/calendar",
+            retrieved_utc="2026-09-20T04:00:00Z",
+        )
+        self.assertEqual(result["status"], "candidate_rows")
+        self.assertEqual(len(result["records"]), 1)
+        self.assertIsNone(result["records"][0]["Deadline"])
+        self.assertEqual(result["records"][0]["DeadlineRaw"], "11 Nov 2026 - 5:00pm")
+        self.assertEqual(result["records"][0]["ReviewStatus"], "Needs Review")
+
+    def test_no_matching_table_is_explicit(self):
+        result = parse_calendar_html(
+            "<table><tr><th>Name</th><th>Date</th></tr><tr><td>x</td><td>y</td></tr></table>",
+            source="NHMRC",
+            source_url="https://example.gov.au/calendar",
+            retrieved_utc="2026-09-20T04:00:00Z",
+        )
+        self.assertEqual(result["status"], "no_matching_table")
+        self.assertEqual(result["records"], [])
+
+    def test_requires_explicit_utc(self):
+        with self.assertRaises(ValueError):
+            parse_calendar_html(
+                "<table><tr><th>Title</th><th>Close</th></tr></table>",
+                source="X",
+                source_url="https://example.gov.au",
+                retrieved_utc="2026-09-20T04:00:00",
+            )
+
+
+if __name__ == "__main__":
+    unittest.main()

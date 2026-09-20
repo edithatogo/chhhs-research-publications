@@ -52,8 +52,8 @@ Unless specifically stated, RSS/Atom/API availability is unverified. Automated a
 | Source | Official reference | Proposed intake and scope |
 |---|---|---|
 | GrantConnect | https://www.grants.gov.au/ | Federal opportunity authority; registered notifications candidate. Research fetch returned 403; inspect ordinary authenticated access. Do not confuse with US Grants.gov. |
-| NHMRC | https://www.nhmrc.gov.au/funding/calendar | Official calendar; retain minimum-data and final deadlines; reviewed import/calendar adapter, Tracker notifications candidate. |
-| MRFF | https://www.health.gov.au/our-work/mrff/grant-opportunities-calendar | Open/forecast/closed calendar; GrantConnect IDs deduplicate across administrators; forecast quarters remain approximate. |
+| NHMRC | https://www.nhmrc.gov.au/funding/calendar | Official calendar; retain minimum-data and final deadlines; bounded HTML candidate adapter now read back 13 rows, all `Needs Review`; reviewed import remains required. |
+| MRFF | https://www.health.gov.au/our-work/mrff/grant-opportunities-calendar | Open/forecast/closed calendar; bounded HTML candidate adapter now read back 180 rows, all `Needs Review`; GrantConnect IDs deduplicate across administrators and forecast quarters remain approximate. |
 | ARC | https://www.arc.gov.au/funding-research/funding-outcomes/grants-dataset | Public paginated JSON API is verified for awards context; keep it `awards_only` and do not treat it as an open-opportunity calendar. Scheme calendar and administering-organisation eligibility still require assessment. |
 | Queensland Health ORI | https://www.health.qld.gov.au/research-reports/research/researchers/grants-support | Clinical research fellowships, capacity building and foundation links; first-release Queensland coverage. |
 | QH Health Practitioner Research Scheme | https://www.health.qld.gov.au/hpresearch/html/grants | Separate clinician/health-practitioner eligibility and round records. |

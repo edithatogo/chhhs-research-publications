@@ -12,11 +12,17 @@ Review status: in progress; local ingestion is implemented and tested, while liv
   emits `RecordKind=Award` without an `OpportunityKey`, preventing award rows
   from entering the open-opportunity upsert path. `tests/test_grants_arc_api.py`
   covers page bounds, metadata preservation and fail-closed malformed input.
+- Added `scripts/grants_html_calendar.py` for review-only extraction from
+  official NHMRC and MRFF calendar tables. A live bounded probe produced 13 and
+  180 candidate rows, all with raw deadline text and `Needs Review`; no row was
+  admitted to the accepted registry.
 
 ## Evidence
 
 - `tests/test_grants_sources_ingestion.py` covers RSS, Atom, source failure isolation, catalogue validation and newest-observation/review preservation.
-- No network fetch, SharePoint write, flow import, recurrence or notification was performed.
+- No SharePoint write, flow import, recurrence or notification was performed.
+  The HTML probe was read-only and its private receipt is
+  `private/ops/2026-09-20-grants-html-calendar-readback.json`.
 
 ## Remaining gate
 

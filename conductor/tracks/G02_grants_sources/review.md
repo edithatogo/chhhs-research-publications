@@ -62,6 +62,13 @@ Queensland. Queensland Health, Advance Queensland, GrantConnect and CHHHS
 returned 403 in this bounded run. These outcomes are access observations, not
 evidence that any source can be collected unattended.
 
+- The new review-only HTML calendar adapter (`scripts/grants_html_calendar.py`)
+  was exercised against bounded HTTP 200 responses from the official NHMRC and
+  MRFF calendars. It produced 13 and 180 candidate rows respectively,
+  preserving raw deadline text and forcing `Needs Review`. It does not invent
+  row links, exact dates, eligibility or current status. Receipt: ignored
+  `private/ops/2026-09-20-grants-html-calendar-readback.json`.
+
 ## Remaining gate
 
 Verify each remaining permitted opportunity feed/API or produce a reviewed import sample, beginning with NHMRC, MRFF and Queensland sources. The ARC public API sample is complete for awards-only context; it must remain separate from open-opportunity intake. Remaining work needs source readback and remains separate from local catalogue validation.
