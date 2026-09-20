@@ -7,6 +7,8 @@ from datetime import date, timedelta
 import hashlib
 import re
 
+SUBSCRIPTION_SCOPES = {'opportunity', 'category', 'funder'}
+
 
 def institutional_deadline(external_date, lead_days, *, business_days=True, holidays=()):
     """Return a proposed date; partial/unknown source dates remain unknown."""
@@ -31,13 +33,27 @@ def institutional_deadline(external_date, lead_days, *, business_days=True, holi
 
 def subscribers(opportunity, subscriptions):
     """Unique candidate user keys; identity/access/consent checked by delivery."""
-    targets = {'opportunity': {opportunity['OpportunityKey']},
-               'category': set(opportunity.get('CategoryKeys', [])),
-               'funder': {opportunity.get('FunderKey')}}
-    return sorted({rule['UserKey'] for rule in subscriptions
-                   if rule.get('Active') is True and rule.get('UserKey')
-                   and rule.get('TargetKey')
-                   and rule.get('TargetKey') in targets.get(rule.get('Scope'), set())})
+    opportunity_key = str(opportunity.get('OpportunityKey', '')).strip()
+    if not opportunity_key:
+        raise ValueError('opportunity requires OpportunityKey for subscription matching')
+    category_keys = opportunity.get('CategoryKeys', [])
+    if not isinstance(category_keys, (list, tuple, set)) or any(not str(key).strip() for key in category_keys):
+        raise ValueError('opportunity CategoryKeys must be a collection of non-empty keys')
+    targets = {'opportunity': {opportunity_key},
+               'category': {str(key).strip() for key in category_keys},
+               'funder': {str(opportunity.get('FunderKey', '')).strip()}}
+    matched = set()
+    for rule in subscriptions:
+        scope = str(rule.get('Scope', '')).strip()
+        user_key = str(rule.get('UserKey', '')).strip()
+        target_key = str(rule.get('TargetKey', '')).strip()
+        if scope not in SUBSCRIPTION_SCOPES or not user_key or not target_key:
+            raise ValueError('subscription requires a supported scope, user key and target key')
+        if rule.get('Active') is not True and rule.get('Active') is not False:
+            raise ValueError('subscription Active must be boolean')
+        if rule.get('Active') is True and target_key in targets[scope]:
+            matched.add(user_key)
+    return sorted(matched)
 
 
 def validate_policy(policy):

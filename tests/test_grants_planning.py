@@ -35,6 +35,16 @@ class PlanningTests(unittest.TestCase):
         ]
         self.assertEqual(subscribers(grant, rules), ['u1'])
 
+    def test_malformed_subscription_rule_fails_closed(self):
+        with self.assertRaises(ValueError):
+            subscribers({'OpportunityKey': 'g1'}, [{'UserKey': 'u1', 'Active': True, 'Scope': 'unknown', 'TargetKey': 'g1'}])
+        with self.assertRaises(ValueError):
+            subscribers({'OpportunityKey': 'g1'}, [{'UserKey': 'u1', 'Active': 'yes', 'Scope': 'opportunity', 'TargetKey': 'g1'}])
+
+    def test_subscription_matching_requires_opportunity_identity(self):
+        with self.assertRaises(ValueError):
+            subscribers({}, [])
+
     def test_alias_input_has_same_identity(self):
         a = normalize_opportunity({'title': 'Call', 'link': 'https://example.org/call'})
         b = normalize_opportunity({'Title': 'Call', 'URL': 'https://example.org/call'})
