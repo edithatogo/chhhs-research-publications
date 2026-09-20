@@ -76,6 +76,14 @@ evidence that any source can be collected unattended.
   `verified_sample`/`metadata_only`, not as an opportunity feed. Receipt:
   ignored `private/ops/2026-09-20-queensland-grants-finder-api-readback.json`.
 
+- A fresh official-source verification snapshot on 2026-09-21 confirms that
+  NHMRC and MRFF continue to publish HTML calendar tables with planning-date
+  caveats, ARC continues to document a public JSON grants API for funded
+  projects, and the Queensland Grants Finder remains a CKAN metadata catalogue
+  rather than an opportunity-row feed. The snapshot is recorded in
+  `docs/GRANTS_SOURCE_VERIFICATION_2026-09-21.md`; it refreshes source-page
+  evidence only and does not promote any route to unattended intake.
+
 ## Remaining gate
 
 Verify each remaining permitted opportunity feed/API or produce a reviewed import sample, beginning with NHMRC, MRFF and Queensland sources. The ARC public API sample is complete for awards-only context; it must remain separate from open-opportunity intake. Remaining work needs source readback and remains separate from local catalogue validation.
