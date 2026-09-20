@@ -1,6 +1,7 @@
 {
   "site_url": "{{SHAREPOINT_SITE_URL}}",
   "list_id": "{{PUBLICATION_REGISTRY_LIST_ID}}",
+  "unique_fields": ["source_key"],
   "fields": {
     "title": "Title",
     "source_key": "field_1",

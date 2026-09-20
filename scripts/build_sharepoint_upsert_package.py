@@ -52,6 +52,7 @@ def load_target(path: Path) -> tuple[str, str, str, dict[str, str]]:
     list_id = str(payload.get("list_id") or "").strip()
     model_id = str(payload.get("model_id") or "").strip()
     fields = payload.get("fields") or {}
+    unique_fields = payload.get("unique_fields")
     required = {"title", "source_key", "canonical_key", "authors", "journal", "publication_year",
                 "publication_month", "publication_date_raw", "publication_date_precision", "source_set",
                 "pmid", "doi", "matched_facilities", "attribution_evidence", "review_status",
@@ -66,9 +67,11 @@ def load_target(path: Path) -> tuple[str, str, str, dict[str, str]]:
         or "{{" in site_url
         or "{{" in list_id
         or "{{" in model_id
+        or not isinstance(unique_fields, list)
+        or unique_fields != ["source_key"]
         or not required.issubset(fields)
     ):
-        raise ValueError("validated private SharePoint target, model and complete field mapping are required")
+        raise ValueError("validated private SharePoint target, model, unique SourceKey contract and complete field mapping are required")
     try:
         UUID(list_id)
         UUID(model_id)
