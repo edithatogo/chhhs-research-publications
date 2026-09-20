@@ -24,6 +24,10 @@ Review fix applied: relationship normalization now requires a valid HTTP(S)
 evidence URL and one of the native review-status choices (`Needs Review`,
 `Included`, `Excluded`). Invalid values fail closed before projection.
 
+Additional review fix applied in `e329641`: confirmed `funded_by_award`
+relationships now require a nonblank, trimmed `AwardID`; whitespace-only
+values no longer pass the prior truthiness check.
+
 ## Verification Checks
 
 - [x] Plan compliance: local schema, validation rules and additive native object are aligned.
