@@ -8,3 +8,4 @@
 - [ ] Phase 6: Add monitoring evidence and close the track only after terminal platform proof
 - [x] Phase 7: Add versioned organisational hierarchy enrichment locally with evidence/confidence fields
 - [ ] Phase 8: Read back additive organisational columns in SharePoint and run a controlled backfill
+- [x] Review fix: require SharePoint connector and lookup-target parity for create/update writes (9001654).

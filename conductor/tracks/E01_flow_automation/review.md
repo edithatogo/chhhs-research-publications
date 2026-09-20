@@ -109,7 +109,7 @@ The corrected publication rows query is consistent between the tracked flow defi
 - [x] Style Compliance: Pass — the definition remains SharePoint-list-backed and preserves the existing serial, fail-closed graph.
 - [x] New Tests: Yes — bounded-projection contract coverage was added.
 - [x] Test Coverage: Partial — local contracts and live DEV execution are covered; full native operational acceptance is not.
-- [x] Test Results: Passed — canonical-clone full suite (339 tests, 8 skipped), 438 project checks and Conductor validation passed; the prior live corrected run succeeded.
+- [x] Test Results: Passed — canonical-clone full suite (340 tests, 8 skipped), 438 project checks and Conductor validation passed; the prior live corrected run succeeded.
 
 ### Findings
 

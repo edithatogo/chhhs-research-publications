@@ -56,7 +56,7 @@ opportunity has a stable `OpportunityKey` and authoritative HTTP(S) URL.
 - [x] **Style Compliance**: Pass - uncertain dates remain omitted and event identity is deterministic.
 - [x] **New Tests**: Yes - duplicate UID, malformed policy, missing-key and invalid-URL rejection are covered.
 - [x] **Test Coverage**: Partial - local calendar semantics are covered; native report persistence, personal access and delivery are not.
-- [x] **Test Results**: Passed - focused calendar tests (5), project validation (438 checks) and canonical-clone full suite (339 tests, 8 skipped).
+- [x] **Test Results**: Passed - focused calendar tests (5), project validation (438 checks) and canonical-clone full suite (340 tests, 8 skipped).
 
 ## Findings
 
