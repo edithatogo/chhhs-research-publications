@@ -19,26 +19,46 @@ except ImportError:  # direct script execution with scripts/ on sys.path
 
 
 def _valid_http_url(value: Any) -> bool:
-    parsed = urlsplit(str(value or "").strip())
+    if not isinstance(value, str):
+        return False
+    parsed = urlsplit(value.strip())
     return parsed.scheme in {"http", "https"} and bool(parsed.netloc)
 
 
 def review_errors(row: dict[str, Any], *, expected_source: str | None = None) -> list[str]:
     """Return all admission errors without silently repairing reviewer input."""
     errors: list[str] = []
-    source = str(row.get("Source", "")).strip()
+    if not isinstance(row, dict):
+        return ["row_not_object"]
+    source_value = row.get("Source")
+    source = source_value.strip() if isinstance(source_value, str) else ""
+    if source_value is not None and not isinstance(source_value, str):
+        errors.append("invalid_Source")
     if expected_source and source != expected_source:
         errors.append("source_mismatch")
     for field in ("Source", "Title", "RetrievedUTC"):
-        if not str(row.get(field, "")).strip():
+        value = row.get(field)
+        if not isinstance(value, str):
+            errors.append(f"invalid_{field}")
+        elif not value.strip():
             errors.append(f"missing_{field}")
     if not _valid_http_url(row.get("URL")):
         errors.append("invalid_URL")
-    if str(row.get("ReviewStatus", "")).strip().casefold() != "reviewed":
+    review_status = row.get("ReviewStatus")
+    if not isinstance(review_status, str):
+        errors.append("invalid_ReviewStatus")
+    elif review_status.strip().casefold() != "reviewed":
         errors.append("ReviewStatus_not_Reviewed")
-    if not str(row.get("ReviewNotes", "")).strip():
+    notes = row.get("ReviewNotes")
+    if not isinstance(notes, str):
+        errors.append("invalid_ReviewNotes")
+    elif not notes.strip():
         errors.append("missing_ReviewNotes")
-    if not (str(row.get("SourceID", "")).strip() or str(row.get("RoundID", "")).strip()):
+    source_id = row.get("SourceID", "")
+    round_id = row.get("RoundID", "")
+    if not isinstance(source_id, str) or not isinstance(round_id, str):
+        errors.append("invalid_SourceID_or_RoundID")
+    elif not (source_id.strip() or round_id.strip()):
         errors.append("missing_SourceID_or_RoundID")
     return errors
 

@@ -36,6 +36,14 @@ class ReviewedImportTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "row 1"):
             import_reviewed_rows([self._row(), self._row(URL="not-a-url")])
 
+    def test_reviewer_fields_are_not_coerced(self):
+        with self.assertRaisesRegex(ValueError, "invalid_Source"):
+            import_reviewed_rows([self._row(Source=True)])
+        with self.assertRaisesRegex(ValueError, "invalid_ReviewStatus"):
+            import_reviewed_rows([self._row(ReviewStatus=True)])
+        with self.assertRaisesRegex(ValueError, "invalid_SourceID_or_RoundID"):
+            import_reviewed_rows([self._row(SourceID=123)])
+
 
 if __name__ == "__main__":
     unittest.main()
