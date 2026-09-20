@@ -130,6 +130,9 @@ validators on every push and pull request. This closes the local CI coverage
 gap for tracked flow definitions; it does not replace native replay, list
 readback, reconciliation or schedule evidence.
 
+The CI test now asserts that both validator commands remain present, preventing
+future workflow drift from silently dropping flow-contract coverage.
+
 - **Finding:** the publication flow diagnosed duplicate `SourceKey` matches but its update branch could still be reached for a lookup result larger than one row.
 - **Fix:** commit `22b5df1` adds an exact-one-match update condition; duplicate matches cannot reach the SharePoint update action. The validator and regression tests enforce the guard.
 - **Verification:** focused publication-contract tests pass (17, with 8 private-package cases skipped); the full local suite remains 374 tests with 8 skips. The corrected definition requires isolated native re-import/readback before E01 acceptance can advance.
