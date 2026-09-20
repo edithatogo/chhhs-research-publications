@@ -177,6 +177,31 @@ silently accepting ambiguous metadata. Code commit:
   integration, flow execution and unattended delivery remain unproven. No
   tenant mutation was made.
 
+## Conductor review — export receipt reconciliation — 2026-09-21
+
+### Summary
+
+The DoRA exporter now requires the source receipt's expected and retrieved
+counts to be typed, non-negative and equal before rendering. This prevents a
+partial but internally self-consistent receipt from being presented as a
+complete RIMS activity export. Code commit:
+`df9abebf530567b9e0c5c058c3a09d11c8da5154`.
+
+### Verification Checks
+
+- Focused DoRA suite: **10 passed**.
+- Full local suite: **394 passed, 8 skipped**.
+- `git diff --check`: **passed**.
+- Native SharePoint/report/flow acceptance: **not claimed**.
+
+### Findings
+
+- **Fixed:** export admission previously reconciled only the retrieved list
+  length, not the receipt's expected source count.
+- **Residual acceptance:** native SharePoint schema/row readback, report
+  integration, flow execution and unattended delivery remain unproven. No
+  tenant mutation was made.
+
 Review fix applied: `tests/test_webfirst.py` now asserts that
 `config/native-canonical-retained-partitions.tmdl` is reference-only and
 explicitly scoped to the isolated development model; it cannot silently drift
