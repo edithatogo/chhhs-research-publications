@@ -67,7 +67,7 @@ malformed watchlist inputs from matching by string coercion.
 - [x] **Style Compliance**: Pass - uncertain dates remain omitted and event identity is deterministic.
 - [x] **New Tests**: Yes - duplicate UID, malformed policy, missing-key and invalid-URL rejection are covered.
 - [x] **Test Coverage**: Partial - local calendar semantics are covered; native report persistence, personal access and delivery are not.
-- [x] **Test Results**: Passed - focused calendar tests (5), planning/subscription tests (11), project validation (438 checks) and canonical-clone full suite (358 tests, 8 skipped).
+- [x] **Test Results**: Passed - focused calendar tests (5), planning/subscription tests (11), project validation (438 checks) and canonical-clone full suite (359 tests, 8 skipped).
 
 ## Findings
 
@@ -79,6 +79,6 @@ malformed watchlist inputs from matching by string coercion.
 
 ## Conductor review — subscription identity hardening — 2026-09-21
 
-- **Verification:** focused planning tests passed (11); full suite passed (358 tests, 8 skipped); project validation passed (438 checks); web-first contracts passed locally.
+- **Verification:** focused planning tests passed (11); full suite passed (359 tests, 8 skipped); project validation passed (438 checks); web-first contracts passed locally.
 - **Finding/fix:** `subscribers` previously string-coerced opportunity, category and funder keys and leaked an incidental exception for non-object rules. Commit `53d2419eccb664e9a61043096d8e208bea8ed7f1` requires string identities and explicit object validation.
 - **Residual gate:** native funding pages, preference isolation, calendar update/cancellation and notification delivery remain open.

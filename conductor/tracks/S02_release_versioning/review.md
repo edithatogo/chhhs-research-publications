@@ -16,7 +16,7 @@ The current checkout is intentionally dirty, so the package command refuses to c
 
 - Clean candidate `/tmp/chhhs-source-candidate-release.g0VSzp` was bootstrapped
   with Conductor `6e8f9a860bcdd6a2c423473c12e745200688c633`.
-- Earlier candidate checks were `validate_project.py` 319/319 and unit tests 258/258; the current canonical clone now passes 438 project checks and 358 tests (8 skipped).
+- Earlier candidate checks were `validate_project.py` 319/319 and unit tests 258/258; the current canonical clone now passes 438 project checks and 359 tests (8 skipped).
 - `scripts/package_release.py --version 0.3.0-rc1` passed fresh extraction,
   manifest equality, no Git/private runtime content and source tests. The
   receipt records `NativeAcceptance=false`; it is not a live export.
@@ -79,6 +79,18 @@ report/model rollback was not evidenced, so definition backups, source manifests
 and Git remain the recovery contract. The report/model observation was read-only;
 no platform mutation was attempted.
 
-Planning created 2026-09-20. Implementation has not run for this track.
+## Source-only CI gate — 2026-09-21
+
+Added `.github/workflows/local-quality.yml`, which runs on `main` pushes, pull
+requests and manual dispatch. It checks the unit suite, project contracts,
+web-first contracts, Conductor structure, visual standards and the read-only
+Power Platform tooling preflight. `tests/test_ci_workflow.py` verifies the
+required commands and prevents accidental solution-import commands from being
+introduced into this workflow. This strengthens source-branch quality but is
+not native tenant acceptance or report/model version-history evidence.
+
+Native report version/batch display and recovery remain unaccepted; the
+source-only CI implementation above is locally tested but does not close those
+native gates.
 
 For each task record: task ID, outcome, changed paths, command and exit status, fixture/live distinction, evidence path and capture time, remaining limitations, rollback reference. Do not include credentials or tenant IDs here.

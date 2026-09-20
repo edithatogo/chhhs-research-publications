@@ -77,7 +77,7 @@ Run a controlled live cycle only after G02 endpoint/access verification and G03 
 - [x] **Style Compliance**: Pass - raw source values and uncertainty are retained; no source is promoted solely from page reachability.
 - [x] **New Tests**: Yes - the ingestion suite now covers duplicate RSS/Atom source identity, titleless-entry, unbound-entry and incomplete API-record rejection.
 - [x] **Test Coverage**: Partial - local parser and batch contracts are covered; live feed permissions, source changes and platform writes are not.
-- [x] **Test Results**: Passed - focused ingestion tests (15) and canonical-clone full suite (358 tests, 8 skipped).
+- [x] **Test Results**: Passed - focused ingestion tests (15) and canonical-clone full suite (359 tests, 8 skipped).
 
 ## Findings
 
@@ -89,6 +89,6 @@ Run a controlled live cycle only after G02 endpoint/access verification and G03 
 
 ## Conductor review — malformed batch hardening — 2026-09-21
 
-- **Verification:** focused G04 ingestion tests passed (15); full suite passed (358 tests, 8 skipped); project validation passed (438 checks); web-first contracts passed locally.
+- **Verification:** focused G04 ingestion tests passed (15); full suite passed (359 tests, 8 skipped); project validation passed (438 checks); web-first contracts passed locally.
 - **Finding/fix:** `ingest_batches` previously called `.get()` on a malformed non-object batch before it could fail through the contract. Commit `9d09f30ed154609515474d34ec0087d0a9b4649d` adds an explicit object check and regression coverage.
 - **Residual gate:** permitted live source access, SharePoint/flow execution, reconciliation and unattended operation remain open.
