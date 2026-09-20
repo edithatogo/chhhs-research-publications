@@ -11,3 +11,4 @@
 ## Phase: Review Fixes
 
 - [x] Task: Preserve positional source cells alongside the convenience header map in the review-only HTML adapter (review fix `24e880c`).
+- [x] Task: Fail closed on malformed authority/API URLs and source verification dates (bb8ed64).

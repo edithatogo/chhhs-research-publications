@@ -107,7 +107,7 @@ Verify each remaining permitted opportunity feed/API or produce a reviewed impor
 - [x] **Style Compliance**: Pass - source uncertainty is retained explicitly and no HTML candidate is promoted to an accepted opportunity.
 - [x] **New Tests**: Yes - the focused source tests cover URL/date metadata rejection as well as `SourceColumns` and ordered `SourceCells` preservation.
 - [x] **Test Coverage**: Partial - local adapters and admission rules are covered; native source/feed, eligibility and unattended acceptance are outside local tests.
-- [x] **Test Results**: Passed - focused tests (7), canonical-clone full suite (337 tests, 8 private-runtime skips), project validation (438 checks), and Conductor validation (0 errors).
+- [x] **Test Results**: Passed - focused tests (12), canonical-clone full suite (337 tests, 8 private-runtime skips), project validation (438 checks), and Conductor validation (0 errors).
 
 ## Findings
 
