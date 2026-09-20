@@ -59,3 +59,10 @@ batch and fail closed.
 - **Fix:** `reconcile_registry_records` now requires an explicit unique field allowlist, checks every emitted key’s selected field values against registry readback, and preserves the prior accepted batch on any mismatch.
 - **Verification:** focused relationship/operations tests pass (20); the full suite passes 383 tests with 8 skips and project validation passes 438 checks.
 - **Residual gate:** this is a local reconciliation contract; native list readback, monitoring, scheduling and delivery remain open.
+
+## Conductor review — reconciliation field allowlist hardening — 2026-09-21
+
+- **Finding:** a single string field allowlist was iterated character-by-character, and surrounding whitespace was not canonicalized before selected-field comparison.
+- **Fix:** commit `0eef31a` requires a collection-shaped allowlist, trims field names before uniqueness checks, and adds regression coverage.
+- **Verification:** focused relationship/operations tests pass (20); the full suite passes 387 tests with 8 skips; project validation passes 438 checks; web-first, Conductor, Power Platform tooling and visual standards checks pass locally.
+- **Residual gate:** native list readback, monitoring, scheduling and delivery remain open.

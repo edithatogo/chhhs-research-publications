@@ -15,3 +15,4 @@
 - [x] Task: Reject non-object run records and health rows without incidental exceptions (c174a3a).
 - [x] Task: Add exact emitted-to-registry key-set reconciliation with fail-closed preservation (994dc05).
 - [x] Task: Add selected-field registry readback reconciliation with fail-closed prior-batch preservation (`1b0c91b`).
+- [x] Task: Reject string-shaped reconciliation field allowlists and canonicalize whitespace before comparison (`0eef31a`).
