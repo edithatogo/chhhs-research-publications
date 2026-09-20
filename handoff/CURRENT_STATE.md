@@ -21,7 +21,7 @@ Current tranche: S01.2 evidence-preserving attribution and S01.3.1–S01.3.4 flo
 
 S03 remote status: the existing GitHub repository is private and now contains
 only the reviewed source-only `main` history at remote commit
-`e1ab9ff97bfd32c68c53f6dee8dcf94fee2b745b`. A fresh clone with the pinned
+`1c29ba070b61239542b39d4d2aba474da2137736`. A fresh clone with the pinned
 Conductor submodule passed 319 checks and 258 tests. The dirty original local
 history remains private and was not pushed.
 
