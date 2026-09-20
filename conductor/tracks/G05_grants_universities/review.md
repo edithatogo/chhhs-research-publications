@@ -31,13 +31,17 @@ unknown lead times as `null`. A focused regression test covers invalid data.
 Review fix applied: boolean lead times, malformed authority URLs and invalid
 `last_verified` dates now fail closed before a university source can be used.
 
+Additional review fix applied in `ae2a630`: fractional lead-time values now
+fail closed because institutional planning requires whole days. Unknown lead
+times remain `null`.
+
 ## Verification Checks
 
 - [x] **Plan Compliance**: Partial - JCU/UQ/QUT/Griffith source and access contracts are implemented; permitted institutional exports, feeds and authenticated portal routes remain open.
 - [x] **Style Compliance**: Pass - unknown lead times remain unknown and are not inferred.
 - [x] **New Tests**: Yes - malformed and boolean lead-time, authority URL and verification-date rejection are covered.
 - [x] **Test Coverage**: Partial - catalogue and bounded probe contracts are covered; institutional access and feed acceptance are not.
-- [x] **Test Results**: Passed - focused university tests (5), project validation (438 checks) and canonical-clone full suite (350 tests, 8 skipped).
+- [x] **Test Results**: Passed - focused university tests (6), project validation (438 checks) and canonical-clone full suite (351 tests, 8 skipped).
 
 ## Findings
 
