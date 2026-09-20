@@ -39,3 +39,4 @@ Earlier checked tasks describe historical implementation. They do not close curr
 - [x] Add regression coverage for malformed site URLs and empty mappings; the latest local verification reports 374 tests with 8 skips.
 - [x] Review fix: record the local builder/flow-contract execution evidence; native run/replay/schedule acceptance remains separately gated.
 - [x] Add an exact-one-match update guard so duplicate publication keys cannot write (`22b5df1`).
+- [x] Add a standalone publication-flow validator and CI gate alongside the grants-flow validator; retain native replay and schedule gates as open (`bcbee3f`).
