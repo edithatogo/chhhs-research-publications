@@ -42,10 +42,14 @@ def review_errors(row: dict[str, Any], *, expected_source: str | None = None) ->
             errors.append(f"invalid_{field}")
         elif not value.strip():
             errors.append(f"missing_{field}")
-    if not _valid_http_url(row.get("URL")):
+    opportunity_url = row.get("URL")
+    row_url = row.get("SourceRowURL")
+    if not _valid_http_url(opportunity_url):
         errors.append("invalid_URL")
-    if not _valid_http_url(row.get("SourceRowURL")):
+    if not _valid_http_url(row_url):
         errors.append("invalid_SourceRowURL")
+    elif isinstance(opportunity_url, str) and row_url.strip() == opportunity_url.strip():
+        errors.append("SourceRowURL_not_distinct")
     review_status = row.get("ReviewStatus")
     if not isinstance(review_status, str):
         errors.append("invalid_ReviewStatus")

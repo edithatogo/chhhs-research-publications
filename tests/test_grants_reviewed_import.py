@@ -40,6 +40,10 @@ class ReviewedImportTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "missing_Eligibility"):
             import_reviewed_rows([self._row(Eligibility="")])
 
+    def test_row_evidence_must_be_distinct_from_opportunity_url(self):
+        with self.assertRaisesRegex(ValueError, "SourceRowURL_not_distinct"):
+            import_reviewed_rows([self._row(SourceRowURL=self._row()["URL"])])
+
     def test_one_bad_row_rejects_the_complete_batch(self):
         with self.assertRaisesRegex(ValueError, "row 1"):
             import_reviewed_rows([self._row(), self._row(URL="not-a-url")])
