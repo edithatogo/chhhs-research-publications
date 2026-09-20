@@ -13,3 +13,4 @@
 ## Phase: Review fixes
 
 - [x] Task: Reject duplicate projected calendar event UIDs before iCalendar emission (ecf3d43).
+- [x] Task: Reject reversed policy ranges, malformed holiday dates and duplicate holidays (efd3abd).

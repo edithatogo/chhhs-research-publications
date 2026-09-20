@@ -41,11 +41,15 @@ Review fix applied: the iCalendar projection now rejects duplicate event UIDs
 before emission, preventing duplicate opportunity inputs from generating an
 ambiguous calendar artifact. A focused regression test covers this boundary.
 
+Additional review fix applied: versioned institutional policies now reject
+reversed effective ranges, malformed holiday dates and duplicate holiday dates
+before date projection. Unknown source dates remain omitted.
+
 ## Verification Checks
 
 - [x] **Plan Compliance**: Partial - local date-policy, subscription and calendar contracts are implemented; native pages, access isolation, reminders and delivery remain open.
 - [x] **Style Compliance**: Pass - uncertain dates remain omitted and event identity is deterministic.
-- [x] **New Tests**: Yes - duplicate UID rejection is covered.
+- [x] **New Tests**: Yes - duplicate UID and malformed policy rejection are covered.
 - [x] **Test Coverage**: Partial - local calendar semantics are covered; native report persistence, personal access and delivery are not.
 - [x] **Test Results**: Passed - focused calendar tests (4) and project validation (438 checks); full-suite rerun required after this review fix.
 
