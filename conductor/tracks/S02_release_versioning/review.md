@@ -62,11 +62,11 @@ the original report.
 
 ## Current canonical release verification — 2026-09-21
 
-A fresh clean clone at source commit `f234f12bc443af7fc10917b0802ae4710343d582`
+A fresh clean clone at source commit `cfd0383445bb273d603cbf66670bc2b83c3c3d7d`
 produced `CHHHS-Research-Publications-v0.3.0-rc1-Source.zip` with
 `FreshExtractionVerified=true`, no Git history, no private runtime content and
 `NativeAcceptance=false`. The archive SHA-256 was
-`5aabcbf932ad5ebb3b52e7e32e20de12648ad643c10f00ad8bb79de3f28ed04e`.
+`4bc587c04136abcfde1a80df03e80f0b8351b5df923ca8f931d5d1295d0c990e`.
 This confirms the source-only release remains reproducible and is not evidence
 of native report/model version readback.
 
