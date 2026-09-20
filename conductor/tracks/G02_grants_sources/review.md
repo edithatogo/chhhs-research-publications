@@ -20,6 +20,20 @@ Review status: in progress; the source catalogue is implemented, but official-pa
   Queensland. They remain `manual_review`/`research_only` because the authority
   pages and application portals do not prove an unattended feed.
 
+- Added `scripts/grants_source_probe.py`, a bounded read-only authority URL
+  probe. It records status, redirect/content type, bounded-body hash and title
+  without promoting an HTML page to RSS/Atom/API health. The 2026-09-20 local
+  probe observed 9 HTTP 200 pages, 4 HTTP 403 responses and 1 HTTP 410 across
+  the 14 catalogue rows. Receipt: ignored
+  `private/ops/2026-09-20-grants-source-probe.json`.
+
+- The probe confirms current authority-page reachability for NHMRC, MRFF, ARC,
+  EMF Queensland, FNQ Hospital Foundation, CHHHS, the Health Practitioner
+  Research Scheme, Metro North and Cancer Council Queensland. It also records
+  access or stale-link evidence for Queensland Health, GrantConnect, Metro
+  South, Torres and Cape and Advance Queensland. None of these observations
+  proves a permitted unattended feed or API.
+
 ## Remaining gate
 
 Verify each permitted feed/API or produce a reviewed import sample, beginning with NHMRC, MRFF, ARC and Queensland sources. This needs source readback and remains separate from local catalogue validation.
