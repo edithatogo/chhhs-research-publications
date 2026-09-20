@@ -55,6 +55,8 @@ class PlanningTests(unittest.TestCase):
             subscribers({'OpportunityKey': 'g1', 'CategoryKeys': [7]}, [])
         with self.assertRaisesRegex(ValueError, 'FunderKey'):
             subscribers({'OpportunityKey': 'g1', 'FunderKey': 7}, [])
+        with self.assertRaisesRegex(ValueError, 'FunderKey'):
+            subscribers({'OpportunityKey': 'g1', 'FunderKey': False}, [])
 
     def test_subscription_matching_requires_opportunity_identity(self):
         with self.assertRaises(ValueError):

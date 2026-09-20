@@ -49,7 +49,9 @@ def subscribers(opportunity, subscriptions):
     ):
         raise ValueError('opportunity CategoryKeys must be a collection of non-empty keys')
     funder_key = opportunity.get('FunderKey', '')
-    if funder_key and (not isinstance(funder_key, str) or not funder_key.strip()):
+    if not isinstance(funder_key, str):
+        raise ValueError('opportunity FunderKey must be a string when supplied')
+    if funder_key and not funder_key.strip():
         raise ValueError('opportunity FunderKey must be a string when supplied')
     targets = {'opportunity': {opportunity_key.strip()},
                'category': {key.strip() for key in category_keys},
