@@ -21,3 +21,4 @@
 - [x] Task: Preserve row-level HTTP(S) provenance for review-only HTML calendar candidates (e62b6f5).
 - [x] Task: Require distinct row-level evidence URL and explicit eligibility statement before reviewed import (working-tree review fix).
 - [x] Task: Reject reviewed rows whose `SourceRowURL` is identical to the general opportunity URL (`ffdc5a8`).
+- [x] Task: Reject malformed optional descriptive fields before reviewed-row normalization (`04642b1`).

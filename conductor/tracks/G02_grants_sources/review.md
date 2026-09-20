@@ -190,3 +190,10 @@ Implemented in `da0b657`, with regression coverage in `tests/test_grants_registr
 - **Fix:** commit `96079a0` applies structural URL parsing and adds regression coverage while retaining the awards-only boundary.
 - **Verification:** focused ARC tests pass (4); the full suite passes 385 tests with 8 skips; project validation passes 438 checks; web-first, Conductor, Power Platform tooling and visual standards checks pass locally.
 - **Residual gate:** ARC remains awards-only; permitted opportunity intake, human-reviewed eligibility and native intake remain open.
+
+## Conductor review — reviewed descriptive-field typing — 2026-09-21
+
+- **Finding:** optional reviewed-row fields such as amount or status could be stringified by normalization, weakening the fail-closed import boundary.
+- **Fix:** commit `04642b1` validates optional descriptive fields before normalization and adds an adversarial regression test.
+- **Verification:** focused reviewed-import tests pass (8); the full suite passes 386 tests with 8 skips; project validation passes 438 checks; web-first, Conductor, Power Platform tooling and visual standards checks pass locally.
+- **Residual gate:** a real human-reviewed current row or permitted opportunity feed/API and native intake remain required.
