@@ -23,6 +23,8 @@ def institutional_deadline(external_date, lead_days, *, business_days=True, holi
     except ValueError:
         return None
     try:
+        if not isinstance(holidays, (list, tuple, set)):
+            raise ValueError
         if any(not isinstance(day, str) for day in holidays):
             raise ValueError
         parsed_holidays = [date.fromisoformat(day) for day in holidays]

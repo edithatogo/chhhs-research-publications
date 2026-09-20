@@ -17,6 +17,9 @@ class PlanningTests(unittest.TestCase):
             institutional_deadline('2026-09-28', 1, holidays=[20260925])
         with self.assertRaisesRegex(ValueError, 'holidays'):
             institutional_deadline('2026-09-28', 1, holidays=['2026-09-25', '2026-09-25'])
+        for malformed in (None, {'2026-09-25': True}):
+            with self.subTest(malformed=malformed), self.assertRaisesRegex(ValueError, 'holidays'):
+                institutional_deadline('2026-09-28', 1, holidays=malformed)
         self.assertFalse(validate_policy(None))
 
     def test_policy_rejects_reversed_effective_range_and_bad_holiday(self):
