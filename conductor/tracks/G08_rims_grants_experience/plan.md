@@ -14,3 +14,4 @@
 
 - [x] Task: Reject duplicate projected calendar event UIDs before iCalendar emission (ecf3d43).
 - [x] Task: Reject reversed policy ranges, malformed holiday dates and duplicate holidays (efd3abd).
+- [x] Task: Require an authoritative HTTP(S) URL and stable opportunity key for exact-date calendar events (ba4f5b4).

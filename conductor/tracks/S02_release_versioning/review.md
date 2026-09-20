@@ -15,7 +15,7 @@ The current checkout is intentionally dirty, so the package command refuses to c
 
 - Clean candidate `/tmp/chhhs-source-candidate-release.g0VSzp` was bootstrapped
   with Conductor `6e8f9a860bcdd6a2c423473c12e745200688c633`.
-- Earlier candidate checks were `validate_project.py` 319/319 and unit tests 258/258; the current canonical clone now passes 438 project checks and 331 tests (8 skipped).
+- Earlier candidate checks were `validate_project.py` 319/319 and unit tests 258/258; the current canonical clone now passes 438 project checks and 332 tests (8 skipped).
 - `scripts/package_release.py --version 0.3.0-rc1` passed fresh extraction,
   manifest equality, no Git/private runtime content and source tests. The
   receipt records `NativeAcceptance=false`; it is not a live export.
