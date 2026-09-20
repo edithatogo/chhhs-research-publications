@@ -20,3 +20,4 @@
 - [x] Task: Extend the validator to inspect generated private grants packages when present (0bb59fb).
 - [x] Task: Persist reviewed `SourceRowURL` evidence in the canonical create/update mapping (working-tree review fix).
 - [x] Task: Add regression coverage requiring the grants validator to remain in source-only CI (`35ef830`).
+- [x] Task: Declare `OpportunityKey` required, indexed and unique in the tracked schema (`b8ee2a6`).

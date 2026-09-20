@@ -162,6 +162,13 @@ the source-only GitHub workflow and has regression coverage. This is structural
 evidence only; the organisation-wide target and unattended native acceptance
 remain open.
 
+## Conductor review — grants identity schema parity — 2026-09-21
+
+- **Finding:** the isolated DEV list is documented and read back as uniquely constrained on `OpportunityKey`, but the tracked schema declared only required and indexed.
+- **Fix:** commit `b8ee2a6` adds the explicit `unique` identity invariant and regression coverage.
+- **Verification:** focused schema tests pass (2); the full suite passes 384 tests with 8 skips; project validation passes 438 checks; web-first, Conductor, Power Platform tooling and visual standards checks pass locally.
+- **Residual gate:** approved organisation-wide target, canonical binding, unattended acceptance and production flow operation remain open.
+
 - **Finding:** the reviewed-import definition had a duplicate diagnostic, but its update branch could still be reached whenever `Get items` returned more than one row.
 - **Fix:** commit `054aa2e` adds an exact-one-match update condition; duplicate matches now produce diagnostics and no create/update action. Contract and package tests cover the nested guard.
 - **Verification:** focused flow/package tests pass (8); full local suite remains 374 tests with 8 skips. The corrected definition requires re-import/readback in isolated DEV before native acceptance can advance.
