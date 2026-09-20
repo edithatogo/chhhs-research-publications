@@ -4,6 +4,12 @@ The local toolchain includes Microsoft Power Platform CLI (`pac`), Azure CLI
 with the Azure DevOps extension, PowerShell and GitHub CLI. The repository
 harness runs a read-only tooling preflight on every full local check.
 
+The canonical repository also runs the source-only workflow at
+`.github/workflows/local-quality.yml` on pushes to `main`, pull requests and
+manual dispatch. It executes the unit suite, project/web-first/Conductor
+validators, visual checks and the read-only Power Platform preflight. It does
+not authenticate to or mutate the tenant.
+
 Microsoft Power Platform Build Tools 2.0 are the preferred Azure DevOps task
 family when this project has a Dataverse-backed, solution-aware deployment
 path. PAC-based tasks should be kept on one Build Tools major version within a
