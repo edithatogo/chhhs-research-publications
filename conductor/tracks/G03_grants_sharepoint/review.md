@@ -11,7 +11,8 @@ The completed local G01 prerequisite is archived at `conductor/archive/G01_grant
 - Added schema/mapping parity tests; the local map and schema contain the same 22 persisted fields.
 - Added `config/flows/grants-registry-reviewed-import.definition.json`, a
   SharePoint-only manual reviewed-row JSON upsert definition with serial
-  processing, duplicate-key guard and review-field preservation. The private
+  processing, duplicate-key diagnostic and an exact-zero-match write guard,
+  plus review-field preservation. The private
   package builder injects the isolated DEV target without storing tenant IDs in
   tracked files.
 - Added `scripts/build_grants_flow_package.py` and package-contract tests. The
@@ -65,3 +66,11 @@ duplicate guard and create/update branches. The native editor Flow Checker
 reported no errors or warnings; the details-page warning is the expected
 inactive-flow warning. Full private receipt:
 `private/ops/2026-09-20-grants-flow-import-readback.json`.
+
+The duplicate branch is intentionally diagnostic rather than a nested
+`Terminate` action: Power Automate rejects `Terminate` inside this
+`Apply to each` scope. The following create/update condition is independently
+guarded by `length(Get items.value) == 0`, so duplicate matches cannot write.
+The local definition uses a non-throwing diagnostic string; the current native
+readback still shows the earlier integer diagnostic expression and therefore
+requires a later controlled native edit before this track can close.

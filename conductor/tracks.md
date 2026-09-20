@@ -10,7 +10,7 @@ Execution order and boundaries: [detailed handoff](PUBLICATION_STABILISATION.md)
 ## Grants extension of CHHHS RIMS
 
 - [~] [G02_grants_sources: Verified federal and Queensland sources](tracks/G02_grants_sources/plan.md) — catalogue implemented; endpoint/feed verification remains open.
-- [~] [G03_grants_sharepoint: Canonical grants storage](tracks/G03_grants_sharepoint/plan.md) — local schema/read definition implemented; isolated SharePoint creation/readback remains open.
+- [~] [G03_grants_sharepoint: Canonical grants storage](tracks/G03_grants_sharepoint/plan.md) — isolated schema/list and reviewed-import flow readback complete; native diagnostic-expression edit, approved organisation-wide target, controlled execution and unattended acceptance remain open.
 - [~] [G04_grants_ingestion: Grant source ingestion](tracks/G04_grants_ingestion/plan.md) — local adapters and fail-closed batch handling implemented; live source/list/flow acceptance remains open.
 - [~] [G05_grants_universities: University and specialist coverage](tracks/G05_grants_universities/plan.md) — JCU/UQ/QUT/Griffith source/access catalogue implemented; portal/feed verification remains open.
 - [~] [G06_grants_relationships: Publication and funding relationships](tracks/G06_grants_relationships/plan.md) — typed local relationship contract implemented; native evidence/readback remains open.

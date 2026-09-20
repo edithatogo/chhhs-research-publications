@@ -24,6 +24,14 @@ class GrantsFlowContractTests(unittest.TestCase):
         self.assertIn("SharePoint_Get_items", nested)
         self.assertIn("Condition_Duplicate_OpportunityKey", nested)
         self.assertIn("Condition_Is_New_Opportunity", nested)
+        duplicate = nested["Condition_Duplicate_OpportunityKey"]
+        failure_actions = duplicate["actions"]
+        self.assertEqual(list(failure_actions), ["Compose_Duplicate_OpportunityKey_Failure"])
+        diagnostic = failure_actions["Compose_Duplicate_OpportunityKey_Failure"]
+        self.assertEqual(diagnostic["type"], "Compose")
+        self.assertIn("DUPLICATE_OPPORTUNITY_KEY", diagnostic["inputs"])
+        is_new = nested["Condition_Is_New_Opportunity"]
+        self.assertEqual(is_new["expression"]["equals"][1], 0)
 
     def test_update_does_not_overwrite_manual_review_fields(self):
         update = self.actions["Apply_to_each_Reviewed_Row"]["actions"]["Condition_Is_New_Opportunity"]["else"]["actions"]["SharePoint_Update_item"]

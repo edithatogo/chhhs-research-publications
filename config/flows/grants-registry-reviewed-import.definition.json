@@ -61,7 +61,12 @@
               "runAfter": {"SharePoint_Get_items": ["Succeeded"]},
               "type": "If",
               "expression": {"greater": ["@length(body('SharePoint_Get_items')?['value'])", 1]},
-              "actions": {"Compose_Duplicate_OpportunityKey_Failure": {"type": "Compose", "inputs": "@int('DUPLICATE_OPPORTUNITY_KEY')"}},
+              "actions": {
+                "Compose_Duplicate_OpportunityKey_Failure": {
+                  "type": "Compose",
+                  "inputs": "@concat('DUPLICATE_OPPORTUNITY_KEY: ', string(item()?['OpportunityKey']))"
+                }
+              },
               "else": {"actions": {}}
             },
             "Condition_Is_New_Opportunity": {
