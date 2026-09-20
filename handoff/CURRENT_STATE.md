@@ -13,15 +13,15 @@ One person owns this repository and the existing CHHHS RIMS report. Add funding 
 - Grants normalisation, round identity, invalid-date handling and observation snapshots exist in `scripts/grants_registry.py`.
 - Institutional date offsets and subscription candidate matching exist in `scripts/grants_planning.py`. These are reference logic, not hosted services.
 - G01–G08 specification/plan files exist. They are not completed deployments.
-- Last pre-harness run: 237 tests, 319 project checks, web-first local validation passed. Re-run checks for current results; counts are not release evidence.
+- Latest local harness: 267 tests, 319 project checks, Conductor validation and web-first local validation passed. The live CKAN DoRA activity collector retrieved 442/442 rows with all 20 source fields and 442 unique source `_id` values; this is source/readback evidence, not tenant acceptance.
 
 ## Remaining implementation
 
-Current tranche: S01.2 evidence-preserving attribution, S01.3.1–S01.3.5 local flow/field contracts and the fail-closed paged-batch contract are implemented and tested. S01.1 local baseline/scope comparison is recorded, but native page inventory and native paged-flow readback remain open. T11 now also preserves the linked Queensland Open Data DoRA activity resource as a separate local RIMS registry; native list creation/readback remains open. Next executable task: S01.4 contract migration, while native inventory and T11 activity-list preparation can proceed independently. Follow `conductor/PUBLICATION_STABILISATION.md`; complete publication stabilisation and accepted release before resuming G01 grants implementation. Planning or local completion is not remote/platform completion.
+Current tranche: S01.2 evidence-preserving attribution, S01.3.1–S01.3.5 local flow/field contracts and the fail-closed paged-batch contract are implemented and tested. S01.1 local baseline/scope comparison is recorded, but native page inventory and native paged-flow readback remain open. T11 now also preserves the linked Queensland Open Data DoRA activity resource as a separate local RIMS registry; its source `_id` identity, all 20 source fields and provenance are locally verified, while native list creation/readback remains open. Next executable task: S01.4 contract migration, while native inventory and T11 activity-list preparation can proceed independently. Follow `conductor/PUBLICATION_STABILISATION.md`; complete publication stabilisation and accepted release before resuming G01 grants implementation. Planning or local completion is not remote/platform completion.
 
 S03 remote status: the existing GitHub repository is private and now contains
 only the reviewed source-only `main` history. A fresh clone with the pinned
-Conductor submodule passed 319 checks and 258 tests. The dirty original local
+Conductor submodule passed 319 checks and 267 tests. The dirty original local
 history remains private and was not pushed.
 
 S02 local status: the release packager now produces only a source archive after a clean-tree gate, with independent software/schema/batch identities and fresh-extraction checks. It has not produced an accepted release because the current checkout contains intentional uncommitted work.
