@@ -118,6 +118,36 @@ Summary: the DoRA activity collector now fails closed when a datastore `_id` is 
 - **Finding and fix:** `validate_records` previously accepted values such as `True`, `{"row": 7}` and `[7]` after `str()` coercion. Commit `12798092b64de6d420904c7cd77d589829076f1c` restricts source identities to non-boolean scalar string/integer values and adds regression coverage.
 - **Residual acceptance:** native SharePoint target/schema/row-key readback and RIMS report integration remain unproven. No tenant mutation was made.
 
+## Conductor review — export provenance hardening — 2026-09-21
+
+### Summary
+
+The DoRA activity export boundary now fails closed on malformed receipt
+provenance instead of coercing values into apparently valid identifiers. Resource
+IDs, source URLs, observation timestamps and retrieved counts are type-checked;
+activity keys reject boolean or structured resource IDs. Code commit:
+`93d2ac6b39914f8a91b4b8048862b7d88a2d5dd5`.
+
+### Verification Checks
+
+- Focused DoRA suite: **8 passed**.
+- Full local suite: **392 passed, 8 skipped**.
+- Project validation: **438 checks passed, 0 failed**.
+- Web-first contracts: **PASS_LOCAL_ONLY**.
+- Conductor validation: **0 errors**.
+- Power Platform tooling preflight: **PASS_LOCAL_ONLY**.
+- Visual standards: **82 visuals audited; geometry, bindings and contrast passed**.
+- `git diff --check`: **passed**.
+
+### Findings
+
+- **Fixed:** `build_rows` previously used `int()` and `str()` coercion for
+  receipt provenance, allowing malformed counts or structured resource IDs to
+  cross the export boundary.
+- **Residual acceptance:** native SharePoint schema/row readback, report
+  integration, flow execution and unattended delivery remain unproven. No
+  tenant mutation was made.
+
 Review fix applied: `tests/test_webfirst.py` now asserts that
 `config/native-canonical-retained-partitions.tmdl` is reference-only and
 explicitly scoped to the isolated development model; it cannot silently drift

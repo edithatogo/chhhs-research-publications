@@ -112,6 +112,16 @@ Current replay correction (2026-09-21): authenticated `playwright-cli -s=login` 
 
 Remaining-track audit (2026-09-21): `conductor/REMAINING_TRACK_AUDIT_2026-09-21.md` records each active track, evidence, remaining gate and non-archive decision. No active track is represented as complete while its native/source/operational acceptance gate remains open.
 
+Latest local checkpoint (2026-09-21): DoRA activity export provenance was
+hardened in code commit `93d2ac6`; malformed retrieved counts, observation
+timestamps, resource IDs/URLs and structured activity-key inputs now fail closed.
+Focused DoRA tests pass. The full canonical-clone harness passes with 392 tests
+(8 skipped), 438 project checks, Conductor validation with 0 errors, web-first
+`PASS_LOCAL_ONLY`, Power Platform tooling preflight, visual standards and
+`git diff --check`. Documentation records the review separately. Native DoRA
+SharePoint schema/row readback, report integration and unattended flow
+acceptance remain open; this is not a tenant acceptance claim.
+
 Inspect `git status --short` at entry. Preserve unrelated report/manifest and other existing edits; do not mass-stage. Use the active track's spec and plan for tasks. Follow AGENTS.md approval boundaries for deployment/sharing/schedules. Current user direction defines scope; historical observations supply evidence only for their dates. Live contradictions require readback, not a convenient choice of document.
 
 Update this checkpoint with outcome, next executable task, test command/result and exact blocker after work. Keep credentials, actual tenant identifiers and screenshots under ignored private storage. Do not paste raw private output into a context bundle.

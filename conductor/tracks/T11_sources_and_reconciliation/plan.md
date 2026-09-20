@@ -59,6 +59,16 @@ Follow [the executable sequence and acceptance gates](../../../docs/DYNAMIC_UPDA
 - [x] Add regression coverage for the scalar identity contract. Code commit: `12798092b64de6d420904c7cd77d589829076f1c`.
 - [ ] Native SharePoint schema/row readback and report integration remain open; this local fix does not certify tenant acceptance.
 
+## Export provenance hardening — 2026-09-21
+
+- [x] Reject coerced DoRA export provenance: `retrieved_count`, observation time,
+  resource ID and resource URL must have the expected non-empty string/integer
+  types; activity keys reject boolean or structured resource IDs.
+- [x] Add regression coverage for malformed receipt provenance and resource IDs.
+  Code commit: `93d2ac6b39914f8a91b4b8048862b7d88a2d5dd5`.
+- [ ] Native SharePoint schema/row readback and report integration remain open;
+  the local exporter contract does not certify tenant acceptance.
+
 ### Retained reporting projection in progress
 Local parsers now reconstruct PubMed XML-shaped JSON and DORA field arrays without calling the live sources. A summary reader selects each retained source key from its latest committed batch, with exact page/key reconciliation. The first manifest must include PublicationTable and PublicationPageCount. Native parser parity, durable facility mappings, long-text export completeness and switching canonical consumers remain pending; these files are not yet deployed.
 
