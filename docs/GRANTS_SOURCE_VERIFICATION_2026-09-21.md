@@ -30,3 +30,12 @@ Official references:
 - https://www.health.gov.au/our-work/mrff/grant-opportunities-calendar
 - https://www.arc.gov.au/funding-research/funding-outcomes/grants-dataset
 - https://www.data.qld.gov.au/dataset/grants-finder
+
+## First-party route decision refresh — 2026-09-21
+
+- The [NHMRC funding schemes and calendar](https://www.nhmrc.gov.au/funding/calendar) remains a first-party HTML calendar and search surface; it is not promoted as RSS/Atom or an unattended API.
+- The [MRFF grant opportunities calendar](https://www.health.gov.au/our-work/mrff/grant-opportunities-calendar) publishes open, forecast and closed tables, while the page directs users to GrantConnect for current opportunities and notifications. Forecast dates remain indicative.
+- The [ARC GrantConnect guidance](https://www.arc.gov.au/funding-research/grantconnect) identifies GrantConnect as the authoritative opportunity/guidelines source; the separate public ARC JSON route remains an awards/project context source, not an open-opportunity feed.
+- The [Queensland Grants Finder catalogue](https://www.data.qld.gov.au/dataset/grants-finder) remains a contribution-resource dataset. Its public CKAN presence does not establish a row-level opportunity API.
+
+Decision: retain `reviewed_import`/`manual_review` for these opportunity routes until an approved export, permitted feed/API, or human-reviewed row package supplies stable row identity, source URL, observation timestamp, eligibility/review notes and explicit admission status. No unattended source route is inferred from page reachability or search indexing.

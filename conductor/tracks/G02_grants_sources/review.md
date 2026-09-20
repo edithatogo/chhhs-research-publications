@@ -97,6 +97,13 @@ evidence that any source can be collected unattended.
   `docs/GRANTS_SOURCE_VERIFICATION_2026-09-21.md`; it refreshes source-page
   evidence only and does not promote any route to unattended intake.
 
+- The first-party route decision was refreshed against the current NHMRC,
+  MRFF, ARC and Queensland Grants Finder pages. NHMRC/MRFF remain HTML
+  calendar surfaces with GrantConnect notification dependence; ARC’s public
+  route remains awards/project context; and Queensland Grants Finder remains
+  contribution metadata. The decision and source links are recorded in the
+  verification snapshot; no unattended route was promoted.
+
 ## Remaining gate
 
 Verify each remaining permitted opportunity feed/API or produce a reviewed import sample, beginning with NHMRC, MRFF and Queensland sources. The ARC public API sample is complete for awards-only context; it must remain separate from open-opportunity intake. Remaining work needs source readback and remains separate from local catalogue validation.
