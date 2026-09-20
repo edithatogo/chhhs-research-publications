@@ -17,3 +17,4 @@
 - [x] Task: Reject duplicate normalized `OpportunityKey` values within a single RSS/Atom or API source batch (8817e21).
 - [x] Task: Reject malformed non-object source batches explicitly before source-health processing (`9d09f30`).
 - [x] Task: Reject non-string source identities, URLs and opportunity keys without coercion before ingestion admission.
+- [x] Task: Validate API-shaped source fields before normalization so booleans/numbers cannot be stringified into accepted records (`5fa0467`).

@@ -93,6 +93,13 @@ Run a controlled live cycle only after G02 endpoint/access verification and G03 
 - **Finding/fix:** `ingest_batches` previously called `.get()` on a malformed non-object batch before it could fail through the contract. Commit `9d09f30ed154609515474d34ec0087d0a9b4649d` adds an explicit object check and regression coverage.
 - **Residual gate:** permitted live source access, SharePoint/flow execution, reconciliation and unattended operation remain open.
 
+## Conductor review — pre-normalization source typing — 2026-09-21
+
+- **Finding:** API-shaped records were normalized before raw field types were checked, allowing malformed title or identity values to be stringified when the URL was valid.
+- **Fix:** commit `5fa0467` validates declared source fields before normalization and adds an adversarial regression case.
+- **Verification:** focused ingestion tests pass (19); the full suite passes 385 tests with 8 skips; project validation passes 438 checks; web-first, Conductor, Power Platform tooling and visual standards checks pass locally.
+- **Residual gate:** permitted live source access, SharePoint/flow execution, reconciliation and unattended operation remain open.
+
 ## Conductor review — ingestion identity type hardening — 2026-09-21
 
 - **Verification:** commit `213a704` passes the focused ingestion suite (18 tests), the full local suite (374 tests, 8 skips), project validation (438 checks), web-first contracts and Conductor validation.
