@@ -52,6 +52,15 @@ class GrantsSourceTests(unittest.TestCase):
         self.assertEqual([item["status"] for item in result["health"]], ["succeeded", "failed"])
         self.assertFalse(result["accepted"])
 
+    def test_api_shaped_records_require_link_and_timezone(self):
+        result = ingest_batches([
+            {"source": "bad", "retrieved_at": "2026-09-20T00:00:00Z", "records": [{"Title": "No link"}]},
+            {"source": "also-bad", "retrieved_at": "2026-09-20T00:00:00", "records": [{"Title": "No timezone", "URL": "https://example.org/1"}]},
+        ])
+        self.assertEqual(result["records"], [])
+        self.assertEqual([item["status"] for item in result["health"]], ["failed", "failed"])
+        self.assertFalse(result["accepted"])
+
     def test_duplicate_feed_identity_fails_closed(self):
         xml = """<rss><channel>
         <item><guid>same</guid><title>One</title><link>https://example.org/1</link></item>

@@ -19,6 +19,10 @@ Additional review fix applied: entries without either a source identifier or URL
 now fail closed, preventing weak title/funder fallback identities from entering
 the registry path.
 
+Review fix applied: API-shaped records now use the same required title, URL,
+stable-key and timezone-aware retrieval contract as RSS/Atom records before a
+source batch can be accepted.
+
 ## Changes
 
 - Added `scripts/grants_ingestion.py` with namespace-tolerant RSS/Atom parsing and API-shaped batch normalization.
@@ -62,9 +66,9 @@ Run a controlled live cycle only after G02 endpoint/access verification and G03 
 
 - [x] **Plan Compliance**: Partial - RSS/Atom/API-shaped adapters, source isolation, calendar candidate handling and duplicate-identity fail-closed behaviour are implemented; live source/list/flow acceptance remains open.
 - [x] **Style Compliance**: Pass - raw source values and uncertainty are retained; no source is promoted solely from page reachability.
-- [x] **New Tests**: Yes - the ingestion suite now covers duplicate RSS/Atom source identity, titleless-entry and unbound-entry rejection.
+- [x] **New Tests**: Yes - the ingestion suite now covers duplicate RSS/Atom source identity, titleless-entry, unbound-entry and incomplete API-record rejection.
 - [x] **Test Coverage**: Partial - local parser and batch contracts are covered; live feed permissions, source changes and platform writes are not.
-- [x] **Test Results**: Passed - focused ingestion tests (9) and canonical-clone full suite (332 tests, 8 skipped).
+- [x] **Test Results**: Passed - focused ingestion tests (10) and canonical-clone full suite (333 tests, 8 skipped).
 
 ## Findings
 

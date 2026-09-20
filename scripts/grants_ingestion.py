@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import xml.etree.ElementTree as ET
 from typing import Any, Iterable
+from urllib.parse import urlsplit
 
 try:
     from .grants_registry import normalize_opportunity
@@ -22,6 +23,23 @@ def _child_text(element: ET.Element, *names: str) -> str:
         if _local(child.tag) in wanted and (child.text or "").strip():
             return " ".join((child.text or "").split())
     return ""
+
+
+def _valid_http_url(value: Any) -> bool:
+    parsed = urlsplit(str(value or "").strip())
+    return parsed.scheme in {"http", "https"} and bool(parsed.netloc)
+
+
+def _validate_emitted_record(record: dict[str, Any]) -> dict[str, Any]:
+    if not record.get("Title"):
+        raise ValueError("ingestion record missing title")
+    if not _valid_http_url(record.get("URL")):
+        raise ValueError("ingestion record requires an HTTP(S) URL")
+    if not record.get("OpportunityKey"):
+        raise ValueError("ingestion record missing OpportunityKey")
+    if record.get("RetrievedTimestampStatus") != "valid":
+        raise ValueError("ingestion record requires timezone-aware retrieval")
+    return record
 
 
 def parse_feed(xml_payload: str | bytes, *, source: str, retrieved_at: str) -> list[dict[str, Any]]:
@@ -49,7 +67,7 @@ def parse_feed(xml_payload: str | bytes, *, source: str, retrieved_at: str) -> l
         title = _child_text(entry, "title")
         if not title:
             raise ValueError("feed entry missing title")
-        result.append(normalize_opportunity({
+        result.append(_validate_emitted_record(normalize_opportunity({
             "Source": source,
             "SourceID": source_id,
             "Title": title,
@@ -57,7 +75,7 @@ def parse_feed(xml_payload: str | bytes, *, source: str, retrieved_at: str) -> l
             "Description": _child_text(entry, "description", "summary", "content"),
             "Deadline": _child_text(entry, "deadline", "closingdate", "closing-date"),
             "RetrievedUTC": retrieved_at,
-        }, retrieved_at=retrieved_at))
+        }, retrieved_at=retrieved_at)))
     return result
 
 
@@ -71,7 +89,7 @@ def ingest_batches(batches: Iterable[dict[str, Any]]) -> dict[str, Any]:
             if "xml" in batch:
                 parsed = parse_feed(batch["xml"], source=source, retrieved_at=batch["retrieved_at"])
             else:
-                parsed = [normalize_opportunity({**row, "Source": source}, retrieved_at=batch["retrieved_at"])
+                parsed = [_validate_emitted_record(normalize_opportunity({**row, "Source": source}, retrieved_at=batch["retrieved_at"]))
                           for row in batch.get("records", [])]
             records.extend(parsed)
             health.append({"source": source, "status": "succeeded", "count": len(parsed)})
