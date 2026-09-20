@@ -136,6 +136,34 @@ cannot be hidden by that omission path. Code commit: `29d97cf82f956e1ff0ae35c1b7
 - **Residual acceptance:** native funding pages, subscription persistence,
   calendar change/cancellation and notification delivery remain unproven.
 
+## Conductor review — exact-date validation — 2026-09-21
+
+### Summary
+
+The calendar projection now rejects impossible dates when a source row declares
+day precision, instead of allowing an invalid date to reach institutional-date
+calculation or failing later during iCalendar rendering. Code commit:
+`01231b6e9d3532f10cf5b4f1e182a6dd22ac1cf6`.
+
+### Verification Checks
+
+- **Plan Compliance:** Partial — local exact-date validation is implemented;
+  native pages and delivery remain open.
+- **Style Compliance:** Pass.
+- **New Tests:** Yes — impossible ISO date regression covered.
+- **Test Coverage:** Partial — local calendar semantics are covered; native
+  persistence and delivery are not.
+- **Test Results:** Passed — focused calendar suite (8 tests), full suite (397
+  passed, 8 skipped), 438 project checks, Conductor validation, web-first and
+  Power Platform checks.
+
+### Findings
+
+- **Fixed:** an impossible day-precision date was not rejected at the calendar
+  boundary.
+- **Residual acceptance:** native funding pages, subscriptions, calendar
+  change/cancellation and notification delivery remain unproven.
+
 ## Conductor review — funder identity hardening — 2026-09-21
 
 - **Finding:** a false-valued `FunderKey` could be treated as absent because the matcher tested truthiness before type validation.

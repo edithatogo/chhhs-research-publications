@@ -30,3 +30,10 @@
   dates, so malformed typed data cannot disappear silently (`29d97cf`).
 - [ ] Native pages, personal access, calendar change ledger and delivery remain
   open; local omission semantics do not certify tenant acceptance.
+
+## Phase: Exact-date validation review — 2026-09-21
+
+- [x] Task: Reject impossible ISO dates when a grant deadline is explicitly
+  marked day-precision (`01231b6`).
+- [ ] Native pages, personal access, calendar change ledger and delivery remain
+  open.
