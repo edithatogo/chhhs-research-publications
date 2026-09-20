@@ -12,3 +12,4 @@
 - [x] Task: Apply review suggestion: suppress repeated calendar headers before candidate emission (f16c297).
 - [x] Task: Apply review suggestion: reject duplicate non-empty RSS/Atom source identities before emission (7cd7e47).
 - [x] Task: Reject RSS/Atom entries without a required title before registry emission (697cdcd).
+- [x] Task: Reject RSS/Atom entries without a source identifier or URL before registry emission (5cb8aab).
