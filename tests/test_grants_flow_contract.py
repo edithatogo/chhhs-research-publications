@@ -1,7 +1,9 @@
 import json
+import tempfile
 import unittest
 from pathlib import Path
 
+from scripts import validate_grants_flow_contract as contract
 from scripts.validate_grants_flow_contract import validate
 
 
@@ -74,6 +76,21 @@ class GrantsFlowContractTests(unittest.TestCase):
         definition = json.loads(json.dumps(self.definition))
         definition["properties"]["definition"]["actions"]["Apply_to_each_Reviewed_Row"]["actions"]["SharePoint_Get_items"]["inputs"]["host"]["apiId"] = "/providers/Microsoft.PowerApps/apis/shared_onedriveforbusiness"
         self.assertIn("grants lookup must use the SharePoint Online connector", validate(definition["properties"]["definition"]))
+
+    def test_non_unique_registry_schema_is_rejected(self):
+        schema_path = Path(__file__).parents[1] / "config/grants-registry.schema.json"
+        schema = json.loads(schema_path.read_text(encoding="utf-8"))
+        identity = next(field for field in schema["fields"] if field["display_name"] == "OpportunityKey")
+        identity["unique"] = False
+        with tempfile.TemporaryDirectory() as folder:
+            replacement = Path(folder) / schema_path.name
+            replacement.write_text(json.dumps(schema), encoding="utf-8")
+            original_path = contract.SCHEMA_PATH
+            contract.SCHEMA_PATH = replacement
+            try:
+                self.assertIn("grants registry schema must declare OpportunityKey unique", validate(self.definition["properties"]["definition"]))
+            finally:
+                contract.SCHEMA_PATH = original_path
 
 
 if __name__ == "__main__":

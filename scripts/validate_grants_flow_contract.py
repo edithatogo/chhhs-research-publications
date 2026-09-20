@@ -12,6 +12,7 @@ import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
 TRACKED_DEFINITION = ROOT / "config/flows/grants-registry-reviewed-import.definition.json"
+SCHEMA_PATH = ROOT / "config/grants-registry.schema.json"
 PRIVATE_PACKAGE_DIR = ROOT / "private" / "ops" / "flow-packages"
 
 
@@ -51,6 +52,18 @@ def _package_definitions() -> list[tuple[Path, dict[str, Any]]]:
 
 def validate(definition: dict[str, Any]) -> list[str]:
     errors: list[str] = []
+    try:
+        registry_schema = json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        errors.append(f"grants registry schema cannot be loaded: {exc}")
+        registry_schema = {}
+    identity_fields = {
+        field.get("display_name"): field
+        for field in registry_schema.get("fields", [])
+        if isinstance(field, dict)
+    }
+    if identity_fields.get("OpportunityKey", {}).get("unique") is not True:
+        errors.append("grants registry schema must declare OpportunityKey unique")
     actions = definition.get("actions", {})
     errors.extend(_graph_errors(actions))
 
