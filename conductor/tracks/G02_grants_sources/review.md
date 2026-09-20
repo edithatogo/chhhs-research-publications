@@ -41,6 +41,19 @@ Review status: in progress; the source catalogue is implemented, but official-pa
   completed: ignored
   `private/ops/2026-09-20-grants-reviewed-table-discovery.json`.
 
+- A fresh bounded probe on 2026-09-20 observed 10 HTTP 200 authority pages and
+  4 HTTP 403 responses across the 14 configured federal and Queensland rows.
+  The probe remains explicitly `not_proven_by_authority_probe`; it is not a
+  feed/API test and does not change intake status. Receipt: ignored
+  `private/ops/2026-09-20-grants-source-probe-current.json`.
+
+The probe gives stronger current reachability evidence for NHMRC, MRFF, ARC,
+EMF Queensland, FNQ Hospital Foundation, the Health Practitioner Research
+Scheme, Metro South, Metro North, Torres and Cape and Cancer Council
+Queensland. Queensland Health, Advance Queensland, GrantConnect and CHHHS
+returned 403 in this bounded run. These outcomes are access observations, not
+evidence that any source can be collected unattended.
+
 ## Remaining gate
 
 Verify each permitted feed/API or produce a reviewed import sample, beginning with NHMRC, MRFF, ARC and Queensland sources. This needs source readback and remains separate from local catalogue validation.

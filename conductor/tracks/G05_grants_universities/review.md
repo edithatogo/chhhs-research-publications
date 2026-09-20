@@ -15,3 +15,9 @@ Review status: in progress; university source and institutional-date discovery i
   ignored `private/ops/2026-09-20-grants-university-probe.json`.
 
 Portal exports, authenticated institutional feeds and specialist/foundation expansion remain open.
+
+Fresh bounded probe evidence on 2026-09-20 observed UQ HTTP 200 and JCU,
+QUT and Griffith HTTP 403. The receipt is ignored at
+`private/ops/2026-09-20-grants-university-probe-current.json`. This confirms
+the current public-page/access boundary only; it does not prove a permitted
+institutional feed, portal export or calendar route.
