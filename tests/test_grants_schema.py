@@ -13,6 +13,8 @@ class GrantsSchemaTests(unittest.TestCase):
         mapped = set(sharepoint_field_map(normalize_opportunity({"Title": "T", "URL": "https://x"})))
         self.assertEqual(schema["list_name"], "Grants Registry")
         self.assertEqual(schema["identity_field"], "OpportunityKey")
+        identity = next(field for field in schema["fields"] if field["display_name"] == "OpportunityKey")
+        self.assertTrue(identity["required"] and identity["indexed"] and identity["unique"])
         self.assertEqual(set(names), mapped)
         self.assertEqual(names.count("OpportunityKey"), 1)
 

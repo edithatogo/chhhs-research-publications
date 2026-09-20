@@ -4,7 +4,7 @@
   "identity_field": "OpportunityKey",
   "source_observation_archive": "approved_private_archive",
   "fields": [
-    {"display_name":"OpportunityKey","type":"text","required":true,"indexed":true},
+    {"display_name":"OpportunityKey","type":"text","required":true,"indexed":true,"unique":true},
     {"display_name":"Title","type":"text","required":true},
     {"display_name":"Funder","type":"text"},
     {"display_name":"Source","type":"text"},
