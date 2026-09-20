@@ -134,6 +134,25 @@ identity, then create or locate the isolated list and read back its schema and
 source-key coverage.
 
 The second flow listed in the same environment, `CHHHS Publications - DEV manual
-ingestion validation`, is currently Off. Its native details expose only a Power BI
-connection; it is not a SharePoint registry writer. Its historical successful runs
-therefore do not establish current list persistence.
+ingestion validation`, was initially observed Off and its details page exposed only
+the owner-facing Power BI connection summary. Its action-level run readback was
+required to determine the actual SharePoint target.
+
+## Current platform flow test — 2026-09-20
+
+The two listed publication DEV flows were tested through the authenticated
+Power Automate UI. The active history-commit flow now completed Power BI read,
+manifest parse, validation, OneDrive archive write, archive readback and final
+verification successfully. The prior failure was corrected in both text-valued
+failure branches; the live readback showed no Flow Checker errors or warnings.
+
+The manual-ingestion flow was temporarily enabled only for its instant/manual
+test, then restored to Off. Its current run completed the Power BI query,
+SharePoint `Get items`, and `Condition Is New Publication` successfully. The
+SharePoint action read back HTTP 200 from the configured `Publication Registry`
+list and the visible list UI exposed the publication schema and populated rows.
+The private receipt is `private/ops/2026-09-20-powerautomate-publication-flow-tests.json`.
+
+This proves current DEV/manual flow execution and list readback, not unattended
+production scheduling, organisation-wide site migration, or full canonical
+registry reconciliation.

@@ -63,7 +63,10 @@ StoredMetadataValidation[KeysMatch] == TRUE() && StoredMetadataValidation[Metada
                    f"equals({s}['ChunkTable'],'{chunk_table}')", f"equals({s}['KeyColumn'],'{key}')",
                    f"equals({s}['PageCount'],{pages})", f"equals(length({s}['ExpectedKeys']),{count})",
                    f"equals(length(union({s}['ExpectedKeys'],{s}['ExpectedKeys'])),{count})"]
-    actions['Require_validation'] = compose("@if(and(" + ','.join(checks) + "),'VERIFIED',int('COMMIT_VALIDATION_FAILED'))", 'Manifest')
+    # Power Automate expressions are dynamically typed here.  Failure markers
+    # are deliberately text; wrapping them in int() causes the flow to fail
+    # while evaluating the failure branch instead of returning a diagnostic.
+    actions['Require_validation'] = compose("@if(and(" + ','.join(checks) + "),'VERIFIED','COMMIT_VALIDATION_FAILED')", 'Manifest')
     write = copy.deepcopy(old['Create_file'])
     write['runAfter'] = after('Require_validation')
     write['inputs']['parameters'] = {'folderPath': '/CHHHS Research System - DEV/01 Source archive',
@@ -71,7 +74,7 @@ StoredMetadataValidation[KeysMatch] == TRUE() && StoredMetadataValidation[Metada
     actions['Create_file'] = write
     actions['Get_file_content_using_path'] = copy.deepcopy(old['Get_file_content_using_path'])
     actions['Verify_commit_readback'] = compose(
-        "@if(equals(base64ToString(body('Get_file_content_using_path')['$content']),string(outputs('Manifest'))),'COMMIT_READBACK_VERIFIED',int('COMMIT_READBACK_FAILED'))",
+        "@if(equals(base64ToString(body('Get_file_content_using_path')['$content']),string(outputs('Manifest'))),'COMMIT_READBACK_VERIFIED','COMMIT_READBACK_FAILED')",
         'Get_file_content_using_path')
     definition['actions'] = actions
     title = 'CHHHS Publications - DEV validated first history commit'
