@@ -78,6 +78,24 @@ Follow [the executable sequence and acceptance gates](../../../docs/DYNAMIC_UPDA
 - [ ] Native SharePoint schema/row readback and report integration remain open;
   local provenance validation does not certify tenant acceptance.
 
+## Export receipt reconciliation — 2026-09-21
+
+- [x] Require `expected_count` and `retrieved_count` to be non-negative integers
+  and equal before a DoRA export can be rendered.
+- [x] Add regression coverage proving a partial receipt cannot cross the export
+  boundary. Code commit: `df9abebf530567b9e0c5c058c3a09d11c8da5154`.
+- [ ] Native SharePoint schema/row readback and report integration remain open;
+  local receipt reconciliation does not certify tenant acceptance.
+
+## Export receipt hash verification — 2026-09-21
+
+- [x] Verify present `records_sha256` and `record_id_sha256` values against the
+  canonical accepted records before rendering a DoRA export.
+- [x] Add regression coverage for a valid receipt hash and a tampered record
+  hash. Code commit: `bdb13036fec28d9f40f0d71725fb123a59297e04`.
+- [ ] Native SharePoint schema/row readback and report integration remain open;
+  local hash verification does not certify tenant acceptance.
+
 ### Retained reporting projection in progress
 Local parsers now reconstruct PubMed XML-shaped JSON and DORA field arrays without calling the live sources. A summary reader selects each retained source key from its latest committed batch, with exact page/key reconciliation. The first manifest must include PublicationTable and PublicationPageCount. Native parser parity, durable facility mappings, long-text export completeness and switching canonical consumers remain pending; these files are not yet deployed.
 

@@ -136,6 +136,13 @@ coverage is now 10 tests. The next full checkpoint must re-run the repository
 harness before the review documentation is finalized. Native SharePoint,
 report and unattended-flow gates remain open.
 
+Latest local DoRA hardening (2026-09-21): code commit `bdb1303` verifies
+present receipt hashes for the canonical activity records and source identity
+set before export. Focused DoRA coverage is now 11 tests; the full suite is 395
+tests with 8 skips, with 438 project checks and structural/native-boundary
+checks passing locally. Native SharePoint, report and unattended-flow gates
+remain open.
+
 Inspect `git status --short` at entry. Preserve unrelated report/manifest and other existing edits; do not mass-stage. Use the active track's spec and plan for tasks. Follow AGENTS.md approval boundaries for deployment/sharing/schedules. Current user direction defines scope; historical observations supply evidence only for their dates. Live contradictions require readback, not a convenient choice of document.
 
 Update this checkpoint with outcome, next executable task, test command/result and exact blocker after work. Keep credentials, actual tenant identifiers and screenshots under ignored private storage. Do not paste raw private output into a context bundle.

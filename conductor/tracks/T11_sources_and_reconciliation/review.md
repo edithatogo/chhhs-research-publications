@@ -202,6 +202,34 @@ complete RIMS activity export. Code commit:
   integration, flow execution and unattended delivery remain unproven. No
   tenant mutation was made.
 
+## Conductor review — export receipt hash verification — 2026-09-21
+
+### Summary
+
+The DoRA exporter now verifies receipt hashes when present, covering both the
+canonical record payload and sorted source-row identity set. A tampered receipt
+cannot silently render as an accepted registry export. Code commit:
+`bdb13036fec28d9f40f0d71725fb123a59297e04`.
+
+### Verification Checks
+
+- Focused DoRA suite: **11 passed**.
+- Full local suite: **395 passed, 8 skipped**.
+- Project validation: **438 checks passed, 0 failed**.
+- Web-first contracts: **PASS_LOCAL_ONLY**.
+- Conductor validation: **0 errors**.
+- Power Platform tooling preflight: **PASS_LOCAL_ONLY**.
+- Visual standards: **PBIR bindings and WCAG contrast passed**.
+- `git diff --check`: **passed**.
+
+### Findings
+
+- **Fixed:** receipt hash fields were previously carried through without being
+  checked at export admission.
+- **Residual acceptance:** native SharePoint schema/row readback, report
+  integration, flow execution and unattended delivery remain unproven. No
+  tenant mutation was made.
+
 Review fix applied: `tests/test_webfirst.py` now asserts that
 `config/native-canonical-retained-partitions.tmdl` is reference-only and
 explicitly scoped to the isolated development model; it cannot silently drift
