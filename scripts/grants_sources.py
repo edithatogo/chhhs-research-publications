@@ -35,6 +35,8 @@ def load_catalogue(path: str | Path) -> list[dict[str, Any]]:
             raise ValueError(f"source {source_id!r} has unsupported intake")
         if row.get("health_status") not in ALLOWED_HEALTH:
             raise ValueError(f"source {source_id!r} has unsupported health_status")
+        if row.get("intake") == "api" and not row.get("api_url"):
+            raise ValueError(f"source {source_id!r} with api intake needs api_url")
         for field in ("eligibility_scope", "format", "access", "coverage"):
             if not isinstance(row.get(field), str) or not row[field].strip():
                 raise ValueError(f"source {source_id!r} needs {field}")

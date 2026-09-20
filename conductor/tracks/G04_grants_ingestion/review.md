@@ -7,6 +7,11 @@ Review status: in progress; local ingestion is implemented and tested, while liv
 - Added `scripts/grants_ingestion.py` with namespace-tolerant RSS/Atom parsing and API-shaped batch normalization.
 - Added per-source health results and failure isolation: a malformed source cannot erase successful records from another source, and a mixed batch is not accepted as complete.
 - Retained raw deadline text and canonical deadline precision through the existing normalizer.
+- Added `scripts/grants_arc_api.py` for the bounded ARC NCGP JSON API route. It
+  preserves the public award identifier, evidence URL, status and amount but
+  emits `RecordKind=Award` without an `OpportunityKey`, preventing award rows
+  from entering the open-opportunity upsert path. `tests/test_grants_arc_api.py`
+  covers page bounds, metadata preservation and fail-closed malformed input.
 
 ## Evidence
 

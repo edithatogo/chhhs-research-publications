@@ -16,6 +16,15 @@ class GrantsSourceTests(unittest.TestCase):
             "metro-north-research-grants", "torres-cape-research-support",
         } <= ids)
 
+    def test_arc_public_api_is_verified_as_awards_only(self):
+        rows = load_catalogue(Path(__file__).parents[1] / "config/grants-sources.json")
+        arc = next(row for row in rows if row["source_id"] == "arc")
+        self.assertEqual(arc["intake"], "api")
+        self.assertEqual(arc["health_status"], "verified_sample")
+        self.assertTrue(arc["api_url"].startswith("https://dataportal.arc.gov.au/NCGP/API/grants"))
+        self.assertEqual(arc["record_kind"], "awards_only")
+        self.assertIn("not an open-opportunity calendar", arc["coverage"])
+
     def test_atom_and_rss_shapes_are_preserved_as_canonical_records(self):
         rss = """<rss><channel><item><guid>r1</guid><title>Call</title><link>https://example.org/call/</link><description>Summary</description><deadline>2027-04</deadline></item></channel></rss>"""
         atom = """<feed xmlns='http://www.w3.org/2005/Atom'><entry><id>a1</id><title>Call</title><link href='https://example.org/call'/><summary>Summary</summary></entry></feed>"""

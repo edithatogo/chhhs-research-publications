@@ -108,8 +108,9 @@ individual-grant subscriptions; preserve revisions, cancellations and source
 health.
 
 Design: one canonical `Grants Registry` SharePoint list uses `OpportunityKey`
-as its only identity. RSS/Atom/API-shaped adapters and reviewed imports feed a
-fail-closed normaliser. The local PBIP now includes additive Funding
+as its only opportunity identity. RSS/Atom/API-shaped adapters and reviewed
+imports feed a fail-closed normaliser; the ARC public API is retained as an
+explicit awards-only route and cannot be promoted to an opportunity row. The local PBIP now includes additive Funding
 Opportunities, Funding Calendar and My Funding Watchlist pages over an
 empty-safe model table. Institutional deadline policies, subscription
 preferences and delivery events are separate typed entities; they do not
