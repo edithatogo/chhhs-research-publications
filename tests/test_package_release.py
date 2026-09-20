@@ -1,6 +1,8 @@
 import unittest
 import io
+import tempfile
 import zipfile
+from pathlib import Path
 
 from scripts.package_release import build_manifest, source_paths, validate_version, write_stable_entry
 
@@ -41,6 +43,19 @@ class PackageReleaseTests(unittest.TestCase):
             with zipfile.ZipFile(stream, "w") as archive:
                 write_stable_entry(archive, "example.txt", b"content")
         self.assertEqual(first.getvalue(), second.getvalue())
+
+    def test_source_path_fallback_excludes_tool_caches(self):
+        from scripts.package_release import source_paths
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "scripts").mkdir()
+            (root / "scripts" / "main.py").write_text("pass\n", encoding="utf-8")
+            (root / "scripts" / "__pycache__").mkdir()
+            (root / "scripts" / "__pycache__" / "main.cpython-314.pyc").write_bytes(b"cache")
+            (root / ".pytest_cache").mkdir()
+            (root / ".pytest_cache" / "state").write_text("cache\n", encoding="utf-8")
+            names = {path.relative_to(root).as_posix() for path in source_paths(root)}
+            self.assertEqual(names, {"scripts/main.py"})
 
 
 if __name__ == "__main__":

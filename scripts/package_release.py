@@ -24,6 +24,7 @@ except ModuleNotFoundError:  # import through the repository package during test
 VERSION_RE = re.compile(r"^\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?$")
 EXCLUDED_PREFIXES = ("private/", "downloads/canonical_live_artifacts/")
 EXCLUDED_SUFFIXES = (".zip", ".bundle")
+EXCLUDED_DIRS = {"__pycache__", ".pytest_cache", ".mypy_cache"}
 
 
 def run(args: list[str], cwd: Path = ROOT) -> str:
@@ -65,7 +66,8 @@ def source_paths(root: Path = ROOT) -> list[Path]:
         # A source archive intentionally has no .git directory.  Walk the
         # extracted tree so its local validation can still be self-contained.
         names = [path.relative_to(root).as_posix() for path in root.rglob("*")
-                 if path.is_file() and ".git" not in path.parts]
+                 if path.is_file() and not (set(path.relative_to(root).parts) & EXCLUDED_DIRS)
+                 and ".git" not in path.parts]
     paths = []
     for name in names:
         if not name:
