@@ -20,6 +20,8 @@ class GrantsHtmlCalendarTests(unittest.TestCase):
         self.assertEqual(result["records"][0]["ReviewStatus"], "Needs Review")
         self.assertEqual(result["records"][0]["SourceColumns"]["grant opportunity"], "Example call")
         self.assertEqual(result["records"][0]["SourceColumns"]["status"], "Open")
+        self.assertEqual(len(result["records"][0]["SourceCells"]), 3)
+        self.assertEqual(result["records"][0]["SourceCells"][0], {"header": "grant opportunity", "value": "Example call"})
 
     def test_no_matching_table_is_explicit(self):
         result = parse_calendar_html(

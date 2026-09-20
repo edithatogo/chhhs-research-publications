@@ -116,6 +116,12 @@ def parse_calendar_html(
             # Preserve the complete observed table row so reviewers retain
             # source context beyond the normalised title and date fields.
             "SourceColumns": dict(zip(headers, row)),
+            # Keep positional cells too: duplicate source headers must not
+            # cause evidence loss through dictionary key collision.
+            "SourceCells": [
+                {"header": header, "value": value}
+                for header, value in zip(headers, row)
+            ],
             "Deadline": None,
             "DeadlineRaw": deadline_raw,
             "Status": "Needs Review",

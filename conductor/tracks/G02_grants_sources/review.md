@@ -41,6 +41,10 @@ Review status: in progress; the source catalogue is implemented and the ARC publ
   `Deadline` unknown and `ReviewStatus=Needs Review` until row-level evidence
   is supplied.
 
+- Review finding addressed: `SourceColumns` is convenient for lookup but cannot
+  represent duplicate source headers without collision. The adapter now also
+  emits ordered `SourceCells`, and the focused test asserts both forms.
+
 - The probe confirms current authority-page reachability for NHMRC, MRFF, ARC,
   EMF Queensland, FNQ Hospital Foundation, CHHHS, the Health Practitioner
   Research Scheme, Metro North and Cancer Council Queensland. It also records
