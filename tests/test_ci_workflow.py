@@ -14,6 +14,7 @@ class CIWorkflowTests(unittest.TestCase):
             "python scripts/validate_visual_standards.py",
             "python scripts/validate_publication_platform_contract.py",
             "python scripts/validate_grants_flow_contract.py",
+            "python scripts/validate_dora_activity_flow_contract.py",
         ):
             self.assertIn(command, workflow)
         self.assertNotIn("pac solution import", workflow)
