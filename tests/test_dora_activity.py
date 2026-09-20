@@ -1,4 +1,5 @@
 import json
+import hashlib
 import tempfile
 import unittest
 from pathlib import Path
@@ -8,6 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from dora_activity import DATASTORE_SEARCH, PACKAGE_SHOW, SOURCE_FIELDS, collect
+from collect_pubmed import canonical_json
 from export_dora_activity import EXPORT_FIELDS, activity_key, build_rows
 
 
@@ -165,6 +167,23 @@ class DoraActivityTests(unittest.TestCase):
             "records": [record()],
         }
         with self.assertRaisesRegex(ValueError, "do not reconcile"):
+            build_rows(envelope)
+
+    def test_export_verifies_present_receipt_hashes(self):
+        records = [record()]
+        envelope = {
+            "schema_version": "dora-activity-v1",
+            "source_payload": {"resource": {"id": "resource-1", "url": "https://example.invalid/current.csv"}},
+            "observed_at": "2026-09-20T00:00:00+00:00",
+            "expected_count": 1,
+            "retrieved_count": 1,
+            "records": records,
+            "records_sha256": hashlib.sha256(canonical_json(records).encode("utf-8")).hexdigest(),
+            "record_id_sha256": hashlib.sha256(canonical_json(["7"]).encode("utf-8")).hexdigest(),
+        }
+        self.assertEqual(len(build_rows(envelope)), 1)
+        envelope["records_sha256"] = "0" * 64
+        with self.assertRaisesRegex(ValueError, "records_sha256"):
             build_rows(envelope)
 
 

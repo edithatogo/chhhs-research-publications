@@ -4,11 +4,13 @@ from __future__ import annotations
 import argparse
 import csv
 import datetime as dt
+import hashlib
 import json
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlsplit
 
+from collect_pubmed import canonical_json
 from dora_activity import IDENTITY_FIELD, SOURCE_FIELDS, validate_records
 from export_publication_register import safe_cell
 
@@ -49,6 +51,14 @@ def _required_timestamp(value: Any) -> str:
     return text
 
 
+def _verify_optional_hash(envelope: dict[str, Any], field: str, expected: str) -> None:
+    supplied = envelope.get(field)
+    if supplied is None:
+        return
+    if not isinstance(supplied, str) or supplied != expected:
+        raise ValueError(f"DoRA activity {field} does not match the records")
+
+
 def activity_key(resource_id: str, record: dict[str, Any]) -> str:
     resource_id = _required_scalar_text(resource_id, "resource id")
     source_id = record.get(IDENTITY_FIELD)
@@ -79,6 +89,10 @@ def build_rows(envelope: dict[str, Any]) -> list[dict[str, Any]]:
     if expected_count != retrieved_count:
         raise ValueError("DoRA activity expected and retrieved counts do not reconcile")
     validate_records(records, retrieved_count)
+    records_bytes = canonical_json(records).encode("utf-8")
+    _verify_optional_hash(envelope, "records_sha256", hashlib.sha256(records_bytes).hexdigest())
+    record_id_bytes = canonical_json(sorted(str(record[IDENTITY_FIELD]).strip() for record in records)).encode("utf-8")
+    _verify_optional_hash(envelope, "record_id_sha256", hashlib.sha256(record_id_bytes).hexdigest())
     resource_id = _required_scalar_text(resource.get("id"), "resource id")
     resource_url = _required_http_url(resource.get("url"), "resource URL")
     observed_at = _required_timestamp(envelope.get("observed_at"))
