@@ -52,6 +52,28 @@ class GrantsRelationshipTests(unittest.TestCase):
         self.assertEqual(result['status'], 'rejected')
         self.assertIn('unreported_source', result['errors'])
 
+    def test_run_rejects_incomplete_or_duplicate_health_rows(self):
+        result = evaluate_run(
+            [{'OpportunityKey':'GRANT:1', 'Source':'nhmrc'}],
+            [{'source':'nhmrc','status':'succeeded'}, {'source':'nhmrc','status':'succeeded'}],
+        )
+        self.assertEqual(result['status'], 'rejected')
+        self.assertIn('duplicate_health_source', result['errors'])
+
+        result = evaluate_run(
+            [{'OpportunityKey':'GRANT:1', 'Source':'nhmrc'}],
+            [{'source':'','status':'succeeded'}],
+        )
+        self.assertIn('missing_health_source', result['errors'])
+
+    def test_run_rejects_records_without_source(self):
+        result = evaluate_run(
+            [{'OpportunityKey':'GRANT:1'}],
+            [{'source':'nhmrc','status':'succeeded'}],
+        )
+        self.assertEqual(result['status'], 'rejected')
+        self.assertIn('missing_record_source', result['errors'])
+
     def test_policy_and_delivery_keys_are_versioned(self):
         policy = {'PolicyKey':'CHHHS-DEFAULT','Version':'1.0','OrganisationKey':'CHHHS','AnchorKind':'final','LeadDays':10,'CalendarOrBusinessDays':'business','HolidayCalendarVersion':'qld-2026','EffectiveFrom':'2026-01-01'}
         self.assertTrue(validate_policy(policy))
