@@ -4,10 +4,12 @@ from __future__ import annotations
 import json
 import math
 from pathlib import Path
-from datetime import date
+from datetime import date, datetime
 from urllib.parse import urlsplit
+from zoneinfo import ZoneInfo
 
 REQUIRED_INSTITUTIONS = {"jcu", "uq", "qut", "griffith"}
+CATALOGUE_TIMEZONE = ZoneInfo("Australia/Brisbane")
 
 
 def _validate_lead_time(value, key):
@@ -40,7 +42,12 @@ def load_universities(path):
         raise ValueError("university catalogue must be a list")
     seen = set()
     for row in rows:
-        key = str(row.get("institution_id", "")).strip()
+        if not isinstance(row, dict):
+            raise ValueError("university catalogue rows must be objects")
+        raw_key = row.get("institution_id")
+        if not isinstance(raw_key, str):
+            raise ValueError("institution_id must be a non-empty string")
+        key = raw_key.strip()
         if not key or key in seen:
             raise ValueError(f"duplicate or missing institution_id: {key!r}")
         seen.add(key)
@@ -50,9 +57,11 @@ def load_universities(path):
         if not _valid_http_url(row["authority_url"]):
             raise ValueError(f"institution {key!r} needs a valid authority URL")
         try:
-            date.fromisoformat(row["last_verified"])
+            verified = date.fromisoformat(row["last_verified"])
         except ValueError:
             raise ValueError(f"institution {key!r} has an invalid last_verified date") from None
+        if verified > datetime.now(CATALOGUE_TIMEZONE).date():
+            raise ValueError(f"institution {key!r} has a future last_verified date")
         _validate_lead_time(row.get("internal_lead_time"), key)
         if row["intake"] != "manual_review":
             raise ValueError(f"institution {key!r} must remain manual_review until access is proven")

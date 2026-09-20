@@ -63,6 +63,23 @@ class GrantsUniversityTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "invalid last_verified date"):
                 load_universities(handle.name)
 
+    def test_identity_rows_and_future_dates_fail_closed(self):
+        rows = json.loads((Path(__file__).parents[1] / "config/grants-universities.json").read_text())
+        rows[0]["institution_id"] = True
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json") as handle:
+            json.dump(rows, handle)
+            handle.flush()
+            with self.assertRaisesRegex(ValueError, "institution_id must be"):
+                load_universities(handle.name)
+
+        rows[0]["institution_id"] = "jcu"
+        rows[0]["last_verified"] = "2999-01-01"
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json") as handle:
+            json.dump(rows, handle)
+            handle.flush()
+            with self.assertRaisesRegex(ValueError, "future last_verified date"):
+                load_universities(handle.name)
+
 
 if __name__ == "__main__":
     unittest.main()
