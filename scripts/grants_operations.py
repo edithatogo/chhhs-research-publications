@@ -8,11 +8,11 @@ def evaluate_run(records: Iterable[dict[str, Any]], health: Iterable[dict[str, A
     records = list(records)
     health = list(health)
     keys = [row.get('OpportunityKey') for row in records]
-    record_source_values = [str(row.get('Source', '')).strip() for row in records]
+    record_source_values = [row.get('Source').strip() if isinstance(row.get('Source'), str) else '' for row in records]
     record_sources = {
         source for source in record_source_values if source
     }
-    health_source_values = [str(item.get('source', '')).strip() for item in health]
+    health_source_values = [item.get('source').strip() if isinstance(item.get('source'), str) else '' for item in health]
     health_sources = {
         source for source in health_source_values if source
     }
@@ -22,22 +22,29 @@ def evaluate_run(records: Iterable[dict[str, Any]], health: Iterable[dict[str, A
         errors.append('empty_batch')
     if not health:
         errors.append('missing_source_health')
+    if any(not isinstance(item.get('source'), str) for item in health):
+        errors.append('invalid_health_source')
     if any(not source for source in health_source_values):
         errors.append('missing_health_source')
     if len(health_source_values) != len(set(health_source_values)):
         errors.append('duplicate_health_source')
     for item in health:
-        source = str(item.get('source', '')).strip()
+        source = item.get('source').strip() if isinstance(item.get('source'), str) else ''
         count = item.get('count')
         if type(count) is not int or count < 0:
             errors.append('invalid_health_count')
         elif source:
             health_counts[source] = count
-    if any(not source for source in record_source_values):
+    if any(not isinstance(row.get('Source'), str) for row in records):
+        errors.append('invalid_record_source')
+    if any(not source.strip() for source in record_source_values):
         errors.append('missing_record_source')
-    if any(not key for key in keys):
+    if any(not isinstance(key, str) for key in keys):
+        errors.append('invalid_opportunity_key')
+    if any(isinstance(key, str) and not key.strip() for key in keys):
         errors.append('missing_opportunity_key')
-    if len(keys) != len(set(keys)):
+    comparable_keys = [key for key in keys if isinstance(key, str)]
+    if len(comparable_keys) != len(set(comparable_keys)):
         errors.append('duplicate_opportunity_key')
     if any(item.get('status') != 'succeeded' for item in health):
         errors.append('source_failure')

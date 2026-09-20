@@ -89,6 +89,16 @@ class GrantsRelationshipTests(unittest.TestCase):
         )
         self.assertIn('invalid_health_count', result['errors'])
 
+    def test_run_rejects_non_string_identities_without_coercion(self):
+        result = evaluate_run(
+            [{'OpportunityKey': ['not-a-key'], 'Source': 7}],
+            [{'source': True, 'status': 'succeeded', 'count': 1}],
+        )
+        self.assertEqual(result['status'], 'rejected')
+        self.assertIn('invalid_opportunity_key', result['errors'])
+        self.assertIn('invalid_record_source', result['errors'])
+        self.assertIn('invalid_health_source', result['errors'])
+
     def test_policy_and_delivery_keys_are_versioned(self):
         policy = {'PolicyKey':'CHHHS-DEFAULT','Version':'1.0','OrganisationKey':'CHHHS','AnchorKind':'final','LeadDays':10,'CalendarOrBusinessDays':'business','HolidayCalendarVersion':'qld-2026','EffectiveFrom':'2026-01-01'}
         self.assertTrue(validate_policy(policy))
