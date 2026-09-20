@@ -409,6 +409,37 @@ commit: `538977e2b3aebc0bb6ef46f5d8cf7e45887d3a3b`.
   readback, report integration, flow execution and unattended delivery remain
   unproven. No tenant mutation was made.
 
+## Conductor review — DoRA model duplicate-key guard — 2026-09-21
+
+### Summary
+
+The additive `DoraActivityRegistry.m` projection now fails closed when two
+nonblank rows share a `DORAActivityKey`, aligning model ingestion with the
+collector, schema and SharePoint flow identity contracts. Code commit:
+`e77be2f1a50bc9b93e08baf1ac32f98604830b72`.
+
+### Verification Checks
+
+- **Plan Compliance:** Partial — local DoRA collection/export/model identity
+  safeguards are complete; native list/readback and report integration remain
+  open.
+- **Style Compliance:** Pass — the query remains additive and does not join
+  activity rows into publication identity data.
+- **New Tests:** Yes — the DoRA suite now asserts the model query contains the
+  duplicate-key rejection.
+- **Test Results:** Passed — full suite (408 passed, 8 skipped), 438 project
+  checks, Conductor validation (0 errors), web-first `PASS_LOCAL_ONLY`, Power
+  Platform tooling preflight, visual standards, both canonical flow validators
+  and `git diff --check`.
+
+### Findings
+
+- **Fixed:** the DoRA model projection previously removed blank keys but could
+  silently retain duplicate nonblank activity identities.
+- **Residual acceptance:** native SharePoint schema/row readback, report-page
+  integration and unattended execution remain unproven. No tenant mutation was
+  made.
+
 ## Conductor review — DoRA flow/schema identity coupling — 2026-09-21
 
 ### Summary
