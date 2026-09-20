@@ -36,6 +36,19 @@ class PublicationPlatformContractTests(unittest.TestCase):
         definition["actions"]["Apply_to_each_Publication"]["actions"].pop("Condition_Duplicate_SourceKey")
         self.assertIn("duplicate SourceKey results must fail closed", validate(definition))
 
+    def test_create_and_update_writes_use_sharepoint_and_same_target(self):
+        definition = copy.deepcopy(_tracked_definition())
+        condition = definition["actions"]["Apply_to_each_Publication"]["actions"]["Condition_Is_New_Publication"]
+        condition["actions"]["SharePoint_Create_item"]["inputs"]["host"]["apiId"] = (
+            "/providers/Microsoft.PowerApps/apis/shared_onedriveforbusiness"
+        )
+        self.assertIn("SharePoint_Create_item must use the SharePoint Online connector", validate(definition))
+
+        definition = copy.deepcopy(_tracked_definition())
+        condition = definition["actions"]["Apply_to_each_Publication"]["actions"]["Condition_Is_New_Publication"]
+        condition["else"]["actions"]["SharePoint_Update_item"]["inputs"]["parameters"]["table"] = "different-list"
+        self.assertIn("SharePoint_Update_item must target the same SharePoint site and list as lookup", validate(definition))
+
     def test_nested_terminate_is_not_used_for_duplicate_failure(self):
         self.assertNotIn("Terminate_Duplicate_SourceKey", str(_tracked_definition()))
 

@@ -21,6 +21,9 @@ migrating a registry, and no list was created there. The earlier private DEV
 flow receipt records a personal DEV `Publication Registry`; it does not prove
 an organisation-wide target or grants-list availability.
 
+Review fix applied: the local validator now requires create and update actions
+to use SharePoint Online and target the same site/list as the lookup action.
+
 ## Remaining gates
 
 - [ ] Approved isolated SharePoint target and list schema/readback.

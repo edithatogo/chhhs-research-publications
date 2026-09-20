@@ -90,6 +90,14 @@ def validate(definition: dict) -> list[str]:
 
     create = condition.get("actions", {}).get("SharePoint_Create_item", {})
     create_text = json.dumps(create)
+    update_for_connector = condition.get("else", {}).get("actions", {}).get("SharePoint_Update_item", {})
+    for action_name, action in (("SharePoint_Create_item", create), ("SharePoint_Update_item", update_for_connector)):
+        action_host = action.get("inputs", {}).get("host", {})
+        action_parameters = action.get("inputs", {}).get("parameters", {})
+        if action_host.get("apiId") != "/providers/Microsoft.PowerApps/apis/shared_sharepointonline":
+            errors.append(f"{action_name} must use the SharePoint Online connector")
+        if action_parameters.get("dataset") != parameters.get("dataset") or action_parameters.get("table") != parameters.get("table"):
+            errors.append(f"{action_name} must target the same SharePoint site and list as lookup")
     if "item/field_19" not in create_text or "item/field_20" not in create_text:
         errors.append("new records must set first and last observed timestamps")
 
