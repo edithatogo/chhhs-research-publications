@@ -51,6 +51,12 @@ def validate_version(version: str) -> str:
     return version
 
 
+def validate_identity(value: str, label: str) -> str:
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError(f"{label} must be a non-empty string")
+    return value.strip()
+
+
 def source_paths(root: Path = ROOT) -> list[Path]:
     """Return tracked source files eligible for a source archive."""
     try:
@@ -78,6 +84,8 @@ def source_paths(root: Path = ROOT) -> list[Path]:
 def build_manifest(paths: list[Path], version: str, schema_version: str, batch_id: str,
                    root: Path = ROOT) -> dict:
     validate_version(version)
+    schema_version = validate_identity(schema_version, "schema_version")
+    batch_id = validate_identity(batch_id, "batch_id")
     try:
         head = run(["git", "rev-parse", "HEAD"], root)
         dirty = bool(run(["git", "status", "--porcelain"], root))

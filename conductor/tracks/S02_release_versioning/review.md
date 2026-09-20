@@ -8,6 +8,7 @@
 - Archive paths are sorted and the fresh extraction verifies the manifest, absence of Git/private runtime and local validation/tests.
 - Added `tests/test_package_release.py`; focused result: 3 tests passed.
 - Review fix: ZIP members now use a fixed timestamp and the focused result is 4 tests passed, including byte-stable member output.
+- Review fix applied: release manifests now reject empty schema and accepted-batch identities before packaging.
 
 The current checkout is intentionally dirty, so the package command refuses to create a reproducible release. This is a safety gate, not a packaging failure. S02.2.3 and S02.2.4 were verified against a separate clean candidate; native recovery/versioning evidence remains open.
 
@@ -15,7 +16,7 @@ The current checkout is intentionally dirty, so the package command refuses to c
 
 - Clean candidate `/tmp/chhhs-source-candidate-release.g0VSzp` was bootstrapped
   with Conductor `6e8f9a860bcdd6a2c423473c12e745200688c633`.
-- Earlier candidate checks were `validate_project.py` 319/319 and unit tests 258/258; the current canonical clone now passes 438 project checks and 338 tests (8 skipped).
+- Earlier candidate checks were `validate_project.py` 319/319 and unit tests 258/258; the current canonical clone now passes 438 project checks and 339 tests (8 skipped).
 - `scripts/package_release.py --version 0.3.0-rc1` passed fresh extraction,
   manifest equality, no Git/private runtime content and source tests. The
   receipt records `NativeAcceptance=false`; it is not a live export.

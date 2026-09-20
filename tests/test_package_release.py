@@ -24,6 +24,12 @@ class PackageReleaseTests(unittest.TestCase):
         self.assertIn("DirtyBuild", manifest)
         self.assertFalse(manifest["NativeAcceptance"])
 
+    def test_manifest_rejects_empty_schema_or_batch_identity(self):
+        with self.assertRaisesRegex(ValueError, "schema_version"):
+            build_manifest([], "0.3.0-rc1", "", "batch-local")
+        with self.assertRaisesRegex(ValueError, "batch_id"):
+            build_manifest([], "0.3.0-rc1", "publication-platform-v1", "")
+
     def test_zip_member_timestamp_is_stable(self):
         first = io.BytesIO()
         second = io.BytesIO()
