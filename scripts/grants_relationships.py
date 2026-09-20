@@ -29,18 +29,19 @@ def normalize_relationship(record: dict[str, Any]) -> dict[str, Any]:
         raise ValueError('relationship requires from/to keys and evidence')
     if confidence not in CONFIDENCE:
         raise ValueError('unsupported confidence')
-    if confidence == 'confirmed' and relation == 'funded_by_award' and not record.get('AwardID'):
+    award_id = str(record.get('AwardID', '')).strip()
+    if confidence == 'confirmed' and relation == 'funded_by_award' and not award_id:
         raise ValueError('confirmed award relationship requires AwardID')
     review_status = str(record.get('ReviewStatus', 'Needs Review')).strip() or 'Needs Review'
     if review_status not in REVIEW_STATUSES:
         raise ValueError('unsupported review status')
-    basis = '|'.join((relation, source_key, target_key, str(record.get('AwardID', '')), evidence))
+    basis = '|'.join((relation, source_key, target_key, award_id, evidence))
     return {
         'RelationshipKey': 'REL:' + hashlib.sha256(basis.encode('utf-8')).hexdigest()[:24],
         'RelationshipType': relation,
         'FromKey': source_key,
         'ToKey': target_key,
-        'AwardID': str(record.get('AwardID', '')).strip(),
+        'AwardID': award_id,
         'EvidenceURL': evidence,
         'Confidence': confidence,
         'ReviewStatus': review_status,

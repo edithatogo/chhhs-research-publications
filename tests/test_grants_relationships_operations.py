@@ -18,6 +18,8 @@ class GrantsRelationshipTests(unittest.TestCase):
     def test_confirmed_award_requires_exact_award_id(self):
         with self.assertRaises(ValueError):
             normalize_relationship({'RelationshipType':'funded_by_award','FromKey':'GRANT:1','ToKey':'PUB:1','EvidenceURL':'https://evidence','Confidence':'confirmed'})
+        with self.assertRaises(ValueError):
+            normalize_relationship({'RelationshipType':'funded_by_award','FromKey':'GRANT:1','ToKey':'PUB:1','AwardID':'   ','EvidenceURL':'https://evidence','Confidence':'confirmed'})
         row = normalize_relationship({'RelationshipType':'funded_by_award','FromKey':'GRANT:1','ToKey':'PUB:1','AwardID':'MRFF-1','EvidenceURL':'https://evidence','Confidence':'confirmed'})
         self.assertTrue(row['RelationshipKey'].startswith('REL:'))
 
