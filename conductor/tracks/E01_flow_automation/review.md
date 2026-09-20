@@ -122,6 +122,14 @@ One local packaging defect was found and fixed in commit `b6cc2e9`: the private 
 
 ## Conductor review — duplicate-write fail-closed correction — 2026-09-21
 
+## Local flow validator coverage — 2026-09-21
+
+The publication definition continues to pass its standalone structural
+validator, and the source-only workflow now runs both canonical flow
+validators on every push and pull request. This closes the local CI coverage
+gap for tracked flow definitions; it does not replace native replay, list
+readback, reconciliation or schedule evidence.
+
 - **Finding:** the publication flow diagnosed duplicate `SourceKey` matches but its update branch could still be reached for a lookup result larger than one row.
 - **Fix:** commit `22b5df1` adds an exact-one-match update condition; duplicate matches cannot reach the SharePoint update action. The validator and regression tests enforce the guard.
 - **Verification:** focused publication-contract tests pass (17, with 8 private-package cases skipped); the full local suite remains 374 tests with 8 skips. The corrected definition requires isolated native re-import/readback before E01 acceptance can advance.

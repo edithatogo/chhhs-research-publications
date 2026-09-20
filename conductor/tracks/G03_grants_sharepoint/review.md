@@ -149,6 +149,17 @@ boundaries, not defects; G03 remains active.
 
 ## Conductor review — duplicate-write fail-closed correction — 2026-09-21
 
+## Local flow validator coverage — 2026-09-21
+
+`scripts/validate_grants_flow_contract.py` now validates the tracked reviewed-
+import definition as an executable source contract. It checks the manual JSON
+input, serial loop, SharePoint-only lookup/create/update operations, exact-zero
+and exact-one guards, duplicate-key fail-closed branch, manual-review field
+preservation and absence of OneDrive persistence. The validator is wired into
+the source-only GitHub workflow and has regression coverage. This is structural
+evidence only; the organisation-wide target and unattended native acceptance
+remain open.
+
 - **Finding:** the reviewed-import definition had a duplicate diagnostic, but its update branch could still be reached whenever `Get items` returned more than one row.
 - **Fix:** commit `054aa2e` adds an exact-one-match update condition; duplicate matches now produce diagnostics and no create/update action. Contract and package tests cover the nested guard.
 - **Verification:** focused flow/package tests pass (8); full local suite remains 374 tests with 8 skips. The corrected definition requires re-import/readback in isolated DEV before native acceptance can advance.
