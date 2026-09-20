@@ -51,9 +51,12 @@ source-only evidence. The isolated tenant deployment and create/replay/update,
 duplicate, failed-batch, recurrence and reconciliation readback tasks remain
 open, so the track remains in progress and must not be archived yet.
 
-The corrected package was subsequently imported into the existing DEV manual-flow
-identity. Power Automate readback showed the canonical flow name, the
+The corrected package was subsequently imported and read back on the retained
+canonical DEV scheduled-flow identity. Both Power BI actions use the same
+isolated model. Power Automate readback showed the canonical flow name, the
 `Recurrence -> readiness -> publication rows -> Apply to each Publication`
-chain, Flow Checker `Errors (0)` and `Warnings (0)`, and the flow Disabled.
+chain, Flow Checker `Errors (0)` and `Warnings (0)`, and the flow Disabled. The
+redundant disabled manual duplicate was removed, leaving one canonical flow
+identity.
 The actual recurrence run remains gated because activation requires explicit
 approval.
