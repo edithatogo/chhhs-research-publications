@@ -72,7 +72,7 @@ unknown deadlines are still omitted before event identity is evaluated.
 - [x] **Style Compliance**: Pass - uncertain dates remain omitted and event identity is deterministic.
 - [x] **New Tests**: Yes - duplicate UID, malformed policy, missing-key, invalid-URL and calendar input-type rejection are covered.
 - [x] **Test Coverage**: Partial - local calendar semantics are covered; native report persistence, personal access and delivery are not.
-- [x] **Test Results**: Passed - focused calendar tests (6), planning/relationship tests (14), project validation (438 checks) and canonical-clone full suite (372 tests, 8 skipped).
+- [x] **Test Results**: Passed - focused calendar tests (6), planning/relationship tests (14), project validation (438 checks) and canonical-clone full suite (373 tests, 8 skipped).
 
 ## Findings
 
@@ -84,7 +84,7 @@ unknown deadlines are still omitted before event identity is evaluated.
 
 ## Conductor review — subscription identity hardening — 2026-09-21
 
-- **Verification:** focused planning tests passed (11); full suite passed (372 tests, 8 skipped); project validation passed (438 checks); web-first contracts passed locally.
+- **Verification:** focused planning tests passed (11); full suite passed (373 tests, 8 skipped); project validation passed (438 checks); web-first contracts passed locally.
 - **Finding/fix:** `subscribers` previously string-coerced opportunity, category and funder keys and leaked an incidental exception for non-object rules. Commit `53d2419eccb664e9a61043096d8e208bea8ed7f1` requires string identities and explicit object validation.
 - **Residual gate:** native funding pages, preference isolation, calendar update/cancellation and notification delivery remain open.
 
@@ -92,7 +92,7 @@ unknown deadlines are still omitted before event identity is evaluated.
 
 - **Finding:** the local delivery-event key helper string-coerced arbitrary values, allowing malformed or empty identity fields to enter a future delivery ledger.
 - **Fix:** identity fields now require non-empty strings and reminder offsets require bounded integers; regression tests cover coercible values, booleans and out-of-range offsets.
-- **Verification:** commit `b84cae8` and policy hardening commit `1a5fed0` pass the focused planning/relationship suite (25 tests combined), the full local suite (372 tests, 8 skips), project validation (438 checks), web-first contracts and Conductor validation; native delivery remains unproven.
+- **Verification:** commit `b84cae8` and policy hardening commit `1a5fed0` pass the focused planning/relationship suite (25 tests combined), the full local suite (373 tests, 8 skips), project validation (438 checks), web-first contracts and Conductor validation; native delivery remains unproven.
 - **Residual gate:** native page persistence, per-user access, calendar change/cancellation and notification delivery remain open.
 
 ## Conductor review — policy input hardening — 2026-09-21
@@ -105,4 +105,4 @@ unknown deadlines are still omitted before event identity is evaluated.
 
 - **Finding:** the local calendar projection previously string-coerced opportunity identities, URLs and display fields; malformed values could therefore enter a future calendar artifact.
 - **Fix:** commit `e03f17d` requires typed calendar inputs and preserves omission of uncertain dates.
-- **Verification:** focused calendar suite passes (6 tests); the full local suite remains 372 tests with 8 skips, with native page persistence, calendar update/cancellation and delivery still open.
+- **Verification:** focused calendar suite passes (6 tests); the full local suite remains 373 tests with 8 skips, with native page persistence, calendar update/cancellation and delivery still open.
