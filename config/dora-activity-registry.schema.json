@@ -5,7 +5,7 @@
   "identity": "DORAActivityKey (resource ID + source _id)",
   "source": "https://www.data.qld.gov.au/dataset/database-of-research-activity-dora",
   "fields": [
-    {"name": "DORAActivityKey", "type": "text", "required": true, "indexed": true},
+    {"name": "DORAActivityKey", "type": "text", "required": true, "indexed": true, "unique": true},
     {"name": "DORARecordID", "type": "number", "required": true, "indexed": true},
     {"name": "DORAResourceID", "type": "text", "required": true, "indexed": true},
     {"name": "DORAResourceName", "type": "text", "required": true},

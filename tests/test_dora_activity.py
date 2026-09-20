@@ -114,6 +114,8 @@ class DoraActivityTests(unittest.TestCase):
         self.assertTrue(set(SOURCE_FIELDS).issubset(names))
         self.assertIn("DORAActivityKey", names)
         self.assertIn("DORARecordID", names)
+        fields = {field["name"]: field for field in schema["fields"]}
+        self.assertTrue(fields["DORAActivityKey"]["unique"])
 
     def test_export_rejects_coerced_provenance_types(self):
         envelope = {
