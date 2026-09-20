@@ -108,6 +108,27 @@ class GrantsSourceTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "missing source identity"):
             parse_feed(xml, source="R", retrieved_at="2026-09-20T00:00:00Z")
 
+    def test_duplicate_normalized_identity_within_source_batch_fails_closed(self):
+        xml = """<rss><channel>
+        <item><title>Same call</title><link>https://example.org/same</link></item>
+        <item><title>Same call revised</title><link>https://example.org/same</link></item>
+        </channel></rss>"""
+        with self.assertRaisesRegex(ValueError, "duplicate OpportunityKey"):
+            parse_feed(xml, source="R", retrieved_at="2026-09-20T00:00:00Z")
+
+    def test_duplicate_api_identity_within_source_batch_fails_closed(self):
+        result = ingest_batches([{
+            "source": "api",
+            "retrieved_at": "2026-09-20T00:00:00Z",
+            "records": [
+                {"Title": "One", "URL": "https://example.org/same"},
+                {"Title": "Two", "URL": "https://example.org/same"},
+            ],
+        }])
+        self.assertEqual(result["records"], [])
+        self.assertEqual(result["health"][0]["status"], "failed")
+        self.assertFalse(result["accepted"])
+
     def test_current_record_uses_newest_observation_but_preserves_review(self):
         from scripts.grants_registry import merge_observations
         rows = merge_observations([

@@ -42,6 +42,13 @@ def _validate_emitted_record(record: dict[str, Any]) -> dict[str, Any]:
     return record
 
 
+def _validate_unique_batch(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    keys = [str(record.get("OpportunityKey", "")).strip() for record in records]
+    if len(keys) != len(set(keys)):
+        raise ValueError("duplicate OpportunityKey within source batch")
+    return records
+
+
 def parse_feed(xml_payload: str | bytes, *, source: str, retrieved_at: str) -> list[dict[str, Any]]:
     """Parse RSS/Atom entries while retaining raw deadline text for review."""
     root = ET.fromstring(xml_payload)
@@ -76,7 +83,7 @@ def parse_feed(xml_payload: str | bytes, *, source: str, retrieved_at: str) -> l
             "Deadline": _child_text(entry, "deadline", "closingdate", "closing-date"),
             "RetrievedUTC": retrieved_at,
         }, retrieved_at=retrieved_at)))
-    return result
+    return _validate_unique_batch(result)
 
 
 def ingest_batches(batches: Iterable[dict[str, Any]]) -> dict[str, Any]:
@@ -89,8 +96,10 @@ def ingest_batches(batches: Iterable[dict[str, Any]]) -> dict[str, Any]:
             if "xml" in batch:
                 parsed = parse_feed(batch["xml"], source=source, retrieved_at=batch["retrieved_at"])
             else:
-                parsed = [_validate_emitted_record(normalize_opportunity({**row, "Source": source}, retrieved_at=batch["retrieved_at"]))
-                          for row in batch.get("records", [])]
+                parsed = _validate_unique_batch([
+                    _validate_emitted_record(normalize_opportunity({**row, "Source": source}, retrieved_at=batch["retrieved_at"]))
+                    for row in batch.get("records", [])
+                ])
             records.extend(parsed)
             health.append({"source": source, "status": "succeeded", "count": len(parsed)})
         except (ET.ParseError, TypeError, ValueError, KeyError) as exc:
