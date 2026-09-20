@@ -105,6 +105,10 @@ def validate_policy(policy):
 
 def delivery_event_key(user_key, opportunity_key, event_type, revision, offset_days, channel):
     """Stable idempotency key for a future delivery ledger; no delivery occurs here."""
-    basis = '|'.join(str(value or '') for value in (
-        user_key, opportunity_key, event_type, revision, offset_days, channel))
+    fields = (user_key, opportunity_key, event_type, revision, channel)
+    if any(not isinstance(value, str) or not value.strip() for value in fields):
+        raise ValueError('delivery event identity fields must be non-empty strings')
+    if type(offset_days) is not int or not -3660 <= offset_days <= 3660:
+        raise ValueError('delivery event offset_days must be an integer from -3660 to 3660')
+    basis = '|'.join(value.strip() for value in fields[:4]) + f'|{offset_days}|' + fields[4].strip()
     return 'EVENT:' + hashlib.sha256(basis.encode('utf-8')).hexdigest()[:24]
