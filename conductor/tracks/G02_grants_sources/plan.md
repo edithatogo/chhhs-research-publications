@@ -7,6 +7,7 @@
 - [x] Preserve review context: the bounded HTML calendar adapter retains the complete observed source row under `SourceColumns`, alongside the normalised title and raw deadline, without promoting candidates.
 - [~] Verify: Verify NHMRC, MRFF, ARC, QH, EMF, Advance Queensland and local foundation intake; use reviewed import where feeds are unavailable. Authority-page/configuration evidence is complete, including additional Queensland Health, Metro North, Metro South, Torres and Cape and Cancer Council sources. The ARC public JSON awards API has a bounded HTTP-200 sample and is explicitly `awards_only`; NHMRC and MRFF now have bounded HTTP-200 HTML calendar candidate extraction, while unattended feeds/APIs, row-level review, source links and eligibility verification remain open.
 - [x] Record local and live evidence separately before closure; the catalogue marks unverified intake explicitly and does not promote it to a working feed.
+- [x] Review fix: make catalogue freshness validation use the declared Australia/Brisbane business date so UTC-based CI cannot reject a same-day verification date (commit `c00560f`).
 
 ## Phase: Review Fixes
 
