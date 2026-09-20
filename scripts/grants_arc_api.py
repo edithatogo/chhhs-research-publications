@@ -24,6 +24,22 @@ def _request_url(page_number: int, page_size: int) -> str:
     )
 
 
+def _text(value: Any, *, field: str, default: str = "") -> str:
+    if value is None:
+        return default
+    if not isinstance(value, str):
+        raise ValueError(f"ARC API {field} must be a string")
+    return value.strip()
+
+
+def _amount(value: Any) -> str:
+    if value is None:
+        return ""
+    if isinstance(value, bool) or not isinstance(value, (str, int, float)):
+        raise ValueError("ARC API current-funding-amount must be scalar")
+    return str(value).strip()
+
+
 def _read_json(url: str, opener: Callable[..., Any]) -> dict[str, Any]:
     request = urllib.request.Request(
         url,
@@ -53,22 +69,30 @@ def parse_award_page(payload: dict[str, Any], *, retrieved_at: str) -> list[dict
         attrs = item.get("attributes")
         if not isinstance(attrs, dict):
             raise ValueError("ARC API item must contain attributes")
-        source_id = str(attrs.get("code") or item.get("id") or "").strip()
+        source_value = attrs.get("code") if attrs.get("code") not in (None, "") else item.get("id")
+        source_id = _text(source_value, field="award code/id")
         if not source_id:
             raise ValueError("ARC API award is missing code/id")
-        link = str((item.get("links") or {}).get("self") or "").strip()
+        links = item.get("links", {})
+        if not isinstance(links, dict):
+            raise ValueError("ARC API award links must be an object")
+        link = _text(links.get("self"), field="evidence URL")
         if not link.startswith(("http://", "https://")):
             raise ValueError("ARC API award is missing an evidence URL")
+        summary = _text(attrs.get("grant-summary"), field="grant-summary")
+        scheme = _text(attrs.get("scheme-name"), field="scheme-name")
+        amount = _amount(attrs.get("current-funding-amount"))
+        status = _text(attrs.get("grant-status"), field="grant-status", default="Unknown") or "Unknown"
         records.append({
             "RecordKind": "Award",
             "Source": "arc",
             "SourceID": source_id,
-            "Title": str(attrs.get("grant-summary") or attrs.get("scheme-name") or "").strip(),
+            "Title": summary or scheme,
             "Funder": "Australian Research Council",
             "URL": link,
-            "Description": str(attrs.get("grant-summary") or "").strip(),
-            "Amount": str(attrs.get("current-funding-amount") or "").strip(),
-            "Status": str(attrs.get("grant-status") or "Unknown").strip(),
+            "Description": summary,
+            "Amount": amount,
+            "Status": status,
             "RetrievedUTC": retrieved_at,
             "EvidenceHash": "",
         })

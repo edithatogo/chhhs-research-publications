@@ -45,6 +45,25 @@ class GrantsArcApiTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             fetch_award_page(page_size=1001, opener=lambda *_args, **_kwargs: None)
 
+    def test_malformed_award_fields_are_not_coerced(self):
+        payload = {"data": [{
+            "id": "FT260100002",
+            "attributes": {"code": ["bad"], "grant-summary": "Summary"},
+            "links": {"self": "https://dataportal.arc.gov.au/award/2"},
+        }]}
+        with self.assertRaisesRegex(ValueError, "award code/id"):
+            parse_award_page(payload, retrieved_at="2026-09-20T03:36:00+00:00")
+
+        payload["data"][0]["attributes"]["code"] = "FT260100002"
+        payload["data"][0]["links"] = {"self": 7}
+        with self.assertRaisesRegex(ValueError, "evidence URL"):
+            parse_award_page(payload, retrieved_at="2026-09-20T03:36:00+00:00")
+
+        payload["data"][0]["links"] = {"self": "https://dataportal.arc.gov.au/award/2"}
+        payload["data"][0]["attributes"]["current-funding-amount"] = [100]
+        with self.assertRaisesRegex(ValueError, "current-funding-amount"):
+            parse_award_page(payload, retrieved_at="2026-09-20T03:36:00+00:00")
+
 
 if __name__ == "__main__":
     unittest.main()
