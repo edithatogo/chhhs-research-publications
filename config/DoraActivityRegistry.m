@@ -14,7 +14,7 @@ let
         "Contact Person Email", "Site Name", "Sponsor Name", "Start Date",
         "Finish Date", "Disease Category", "Multi/Single site",
         "DORA Authority (Yes/No)", "DORA Consent (Yes/No)"
-    }, MissingField.UseNull),
+    }, MissingField.Error),
     Typed = Table.TransformColumnTypes(Selected, {
         {"DORAActivityKey", type text}, {"DORARecordID", Int64.Type},
         {"DORAResourceID", type text}, {"DORAResourceName", type text},

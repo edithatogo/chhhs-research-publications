@@ -126,9 +126,14 @@ class DoraActivityTests(unittest.TestCase):
     def test_rims_query_projects_every_schema_field(self):
         schema = json.loads((ROOT / "config/dora-activity-registry.schema.json").read_text())
         query = (ROOT / "config/DoraActivityRegistry.m").read_text()
-        selected = query.split("Selected = Table.SelectColumns(Registry, {", 1)[1].split("}, MissingField.UseNull)", 1)[0]
+        selected = query.split("Selected = Table.SelectColumns(Registry, {", 1)[1].split("}, MissingField.Error)", 1)[0]
         projected = set(re.findall(r'"([^"]+)"', selected))
         self.assertEqual(projected, {field["name"] for field in schema["fields"]})
+
+    def test_rims_query_fails_closed_on_missing_columns(self):
+        query = (ROOT / "config/DoraActivityRegistry.m").read_text()
+        self.assertIn("MissingField.Error", query)
+        self.assertNotIn("MissingField.UseNull", query)
 
     def test_export_rejects_coerced_provenance_types(self):
         envelope = {
