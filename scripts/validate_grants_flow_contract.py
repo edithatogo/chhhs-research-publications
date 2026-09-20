@@ -8,9 +8,11 @@ from __future__ import annotations
 import json
 from pathlib import Path
 from typing import Any
+import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
 TRACKED_DEFINITION = ROOT / "config/flows/grants-registry-reviewed-import.definition.json"
+PRIVATE_PACKAGE_DIR = ROOT / "private" / "ops" / "flow-packages"
 
 
 def _graph_errors(actions: dict[str, Any], scope: str = "root") -> list[str]:
@@ -31,6 +33,20 @@ def _graph_errors(actions: dict[str, Any], scope: str = "root") -> list[str]:
 
 def _definition() -> dict[str, Any]:
     return json.loads(TRACKED_DEFINITION.read_text(encoding="utf-8"))["properties"]["definition"]
+
+
+def _package_definitions() -> list[tuple[Path, dict[str, Any]]]:
+    """Load generated grants packages when ignored private artefacts exist."""
+    definitions: list[tuple[Path, dict[str, Any]]] = []
+    if not PRIVATE_PACKAGE_DIR.exists():
+        return definitions
+    for package in sorted(PRIVATE_PACKAGE_DIR.glob("*grant*.zip")):
+        with zipfile.ZipFile(package) as archive:
+            members = [name for name in archive.namelist() if name.endswith("/definition.json")]
+            if len(members) != 1:
+                raise ValueError(f"{package}: expected exactly one flow definition")
+            definitions.append((package, json.loads(archive.read(members[0]))["properties"]["definition"]))
+    return definitions
 
 
 def validate(definition: dict[str, Any]) -> list[str]:
@@ -102,7 +118,9 @@ def validate(definition: dict[str, Any]) -> list[str]:
 
 
 def main() -> int:
-    errors = validate(_definition())
+    errors = [f"tracked definition: {error}" for error in validate(_definition())]
+    for package, definition in _package_definitions():
+        errors.extend(f"{package.name}: {error}" for error in validate(definition))
     if errors:
         for error in errors:
             print(f"FAIL: {error}")
