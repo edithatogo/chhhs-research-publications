@@ -86,19 +86,25 @@ def validate_policy(policy):
         return False
     required = ('PolicyKey', 'Version', 'OrganisationKey', 'AnchorKind', 'LeadDays',
                 'HolidayCalendarVersion', 'EffectiveFrom')
-    if not all(policy.get(key) not in (None, '') for key in required):
+    string_required = ('PolicyKey', 'Version', 'OrganisationKey', 'AnchorKind',
+                       'HolidayCalendarVersion', 'EffectiveFrom')
+    if any(not isinstance(policy.get(key), str) or not policy[key].strip() for key in string_required):
+        return False
+    if policy.get('LeadDays') in (None, ''):
+        return False
+    if 'EffectiveTo' in policy and policy['EffectiveTo'] is not None and not isinstance(policy['EffectiveTo'], str):
         return False
     if type(policy['LeadDays']) is not int or not 0 <= policy['LeadDays'] <= 3660:
         return False
     if policy.get('CalendarOrBusinessDays') not in ('calendar', 'business'):
         return False
-    if not re.fullmatch(r'\d{4}-\d{2}-\d{2}', str(policy['EffectiveFrom'])):
+    if not re.fullmatch(r'\d{4}-\d{2}-\d{2}', policy['EffectiveFrom']):
         return False
-    if policy.get('EffectiveTo') and not re.fullmatch(r'\d{4}-\d{2}-\d{2}', str(policy['EffectiveTo'])):
+    if policy.get('EffectiveTo') and not re.fullmatch(r'\d{4}-\d{2}-\d{2}', policy['EffectiveTo']):
         return False
     try:
-        effective_from = date.fromisoformat(str(policy['EffectiveFrom']))
-        effective_to = date.fromisoformat(str(policy['EffectiveTo'])) if policy.get('EffectiveTo') else None
+        effective_from = date.fromisoformat(policy['EffectiveFrom'])
+        effective_to = date.fromisoformat(policy['EffectiveTo']) if policy.get('EffectiveTo') else None
     except ValueError:
         return False
     if effective_to and effective_to < effective_from:

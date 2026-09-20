@@ -33,6 +33,19 @@ class PlanningTests(unittest.TestCase):
         non_string_holiday = {**policy, 'HolidayDates': [20260228]}
         self.assertFalse(validate_policy(non_string_holiday))
 
+    def test_policy_identity_and_effective_dates_are_strings(self):
+        policy = {
+            'PolicyKey': 'CHHHS-DEFAULT', 'Version': '1.0', 'OrganisationKey': 'CHHHS',
+            'AnchorKind': 'application_close', 'LeadDays': 10,
+            'CalendarOrBusinessDays': 'business', 'HolidayCalendarVersion': 'qld-2026',
+            'EffectiveFrom': '2026-01-01',
+        }
+        for field in ('PolicyKey', 'Version', 'OrganisationKey', 'AnchorKind', 'HolidayCalendarVersion', 'EffectiveFrom'):
+            with self.subTest(field=field):
+                invalid = {**policy, field: 7}
+                self.assertFalse(validate_policy(invalid))
+        self.assertFalse(validate_policy({**policy, 'EffectiveTo': False}))
+
     def test_overlapping_subscriptions_deduplicate_and_respect_pause(self):
         grant = {'OpportunityKey': 'g1', 'CategoryKeys': ['health']}
         rules = [
