@@ -440,6 +440,36 @@ collector, schema and SharePoint flow identity contracts. Code commit:
   integration and unattended execution remain unproven. No tenant mutation was
   made.
 
+## Conductor review — DoRA flow mapping/schema lock — 2026-09-21
+
+### Summary
+
+The DoRA flow validator now requires the handwritten SharePoint mapping set to
+match the canonical registry schema exactly. A newly added schema field cannot
+pass local validation until the flow's create/update mapping is updated. Code
+commit: `d82a19d4f2d1f040715a9f3bfd0344702b5ff9f1`.
+
+### Verification Checks
+
+- **Plan Compliance:** Partial — local schema, model and flow drift protection
+  is implemented; native import/readback and report integration remain open.
+- **Style Compliance:** Pass — the validator remains fail-closed and preserves
+  the separate activity/publication entity boundary.
+- **New Tests:** Yes — six focused flow-contract tests include schema-addition
+  rejection.
+- **Test Results:** Passed — full suite (410 passed, 8 skipped), 438 project
+  checks, Conductor validation (0 errors), web-first `PASS_LOCAL_ONLY`, Power
+  Platform tooling preflight, visual standards, canonical flow validators and
+  `git diff --check`.
+
+### Findings
+
+- **Fixed:** a new DoRA schema field could previously be added without forcing
+  the flow mapping to be updated.
+- **Residual acceptance:** native SharePoint schema/row readback, report-page
+  integration and unattended execution remain unproven. No tenant mutation was
+  made.
+
 ## Conductor review — DoRA projection schema parity — 2026-09-21
 
 ### Summary

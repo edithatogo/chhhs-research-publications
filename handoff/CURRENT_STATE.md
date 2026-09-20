@@ -246,6 +246,14 @@ is now 13 tests; the full suite passes 409 tests with 8 skips and 438 project
 checks remain green. Native list/readback, report integration and unattended
 flow acceptance remain open; no tenant mutation was made.
 
+Latest T11 DoRA flow mapping lock (2026-09-21): code commit `d82a19d` makes the
+flow validator require an exact match between canonical schema fields and the
+SharePoint create/update mapping set. Focused flow-contract coverage is now 6
+tests; the full suite passes 410 tests with 8 skips, 438 project checks pass,
+and Conductor, web-first, Power Platform, visual and canonical flow checks are
+green locally. Native list/readback, report integration and unattended flow
+acceptance remain open; no tenant mutation was made.
+
 Inspect `git status --short` at entry. Preserve unrelated report/manifest and other existing edits; do not mass-stage. Use the active track's spec and plan for tasks. Follow AGENTS.md approval boundaries for deployment/sharing/schedules. Current user direction defines scope; historical observations supply evidence only for their dates. Live contradictions require readback, not a convenient choice of document.
 
 Update this checkpoint with outcome, next executable task, test command/result and exact blocker after work. Keep credentials, actual tenant identifiers and screenshots under ignored private storage. Do not paste raw private output into a context bundle.
