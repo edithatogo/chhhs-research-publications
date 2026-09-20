@@ -138,10 +138,11 @@ The calendar projection derives institutional all-day dates only from exact
 source deadlines, preserves the external deadline, and emits stable tentative
 or cancelled events without creating subscriptions. An isolated personal DEV
 `Grants Registry` list and the SharePoint-only reviewed-import flow have been
-created and read back; the flow is Off, has no run history, and has not been
-executed. The organisation-wide target, native report pages, subscriptions
-and notifications remain unaccepted; the three local grants page definitions
-are not tenant readback.
+created and read back. A controlled authenticated replay proved one synthetic
+create and one same-key update, with the flow restored Off; the synthetic row
+still requires cleanup confirmation. The organisation-wide target, native report
+pages, subscriptions and notifications remain unaccepted; the three local
+grants page definitions are not tenant readback.
 
 ## 5. RIMS dashboard and user experience
 

@@ -2,6 +2,22 @@
 
 Review status: in progress; the isolated DEV list/schema/create-update-duplicate-readback and reviewed-import flow import/readback gates are evidenced, while organisation-wide target acceptance, execution and unattended acceptance remain open.
 
+## Controlled native replay — 2026-09-21
+
+Using the authenticated Power Automate web UI, the imported instant flow was
+temporarily enabled, run with one synthetic `OpportunityKey`, and restored to
+`Off`. Flow Checker reported zero editor errors. Run
+`08584116923018304855211342755CU17` succeeded for the create path. The
+SharePoint `Grants Registry` readback showed the expected synthetic row and
+key fields.
+
+Run `08584116920125684835586408484CU25` succeeded for a same-key replay. The
+SharePoint readback showed the same unique key with updated title, funder,
+amount, retrieval timestamp and evidence hash, proving the update path. The
+synthetic row remains in the private DEV list pending explicit confirmation
+immediately before cloud deletion. No production or organisation-wide target
+was touched.
+
 The completed local G01 prerequisite is archived at `conductor/archive/G01_grants_contracts`; G03 has no unresolved active-track dependency.
 
 ## Changes
@@ -33,7 +49,7 @@ unproved. Do not use OneDrive actions for registry writes.
 
 ## Replay attempt — 2026-09-20
 
-The requested controlled synthetic replay could not be started in this
+The requested controlled synthetic replay could not be started in that
 checkpoint. The authenticated Chrome automation surface dropped while loading
 the Power Automate details page, and a fresh headless `playwright-cli` session
 redirected to Microsoft sign-in rather than inheriting the existing login.
@@ -70,8 +86,8 @@ to it in this step.
 
 The reviewed-import package was accepted by the Power Automate import wizard
 after correcting the SharePoint URL, choice-object and required-key payload
-contracts. The created flow is an Instant/manual flow, is Off, has no run
-history, uses the selected SharePoint Online connection, and exposes the
+contracts. The created flow is an Instant/manual flow, was Off before the
+controlled replay, uses the selected SharePoint Online connection, and exposes the
 expected trigger, JSON parse, serial Apply to each, SharePoint Get items,
 duplicate guard and create/update branches. The native editor Flow Checker
 reported no errors or warnings; the details-page warning is the expected
