@@ -7,6 +7,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFINITION_PATH = ROOT / "config/flows/dora-activity-registry-upsert.definition.json"
+SCHEMA_PATH = ROOT / "config/dora-activity-registry.schema.json"
 KEY = "DORAActivityKey"
 MAPPED_FIELDS = [
     "DORAActivityKey", "DORARecordID", "DORAResourceID", "DORAResourceName",
@@ -41,6 +42,19 @@ def _graph_errors(actions: dict[str, Any], scope: str = "root") -> list[str]:
 
 def validate(definition: dict[str, Any]) -> list[str]:
     errors = _graph_errors(definition.get("actions", {}))
+    try:
+        registry_schema = json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        errors.append(f"DoRA registry schema cannot be loaded: {exc}")
+        registry_schema = {}
+    schema_fields = {
+        field.get("name"): field
+        for field in registry_schema.get("fields", [])
+        if isinstance(field, dict)
+    }
+    identity_field = schema_fields.get(KEY)
+    if not isinstance(identity_field, dict) or identity_field.get("unique") is not True:
+        errors.append("DoRA registry schema must declare DORAActivityKey unique")
     trigger = definition.get("triggers", {}).get("manual", {})
     schema = trigger.get("inputs", {}).get("schema", {})
     if trigger.get("type") != "Request" or "ActivityRowsJson" not in schema.get("required", []):

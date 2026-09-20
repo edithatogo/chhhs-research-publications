@@ -1,8 +1,10 @@
 import copy
 import json
+import tempfile
 import unittest
 from pathlib import Path
 
+from scripts import validate_dora_activity_flow_contract as contract
 from scripts.validate_dora_activity_flow_contract import validate
 
 
@@ -37,6 +39,21 @@ class DoraActivityFlowContractTests(unittest.TestCase):
         lookup = definition["actions"]["Apply_to_each_DORA_Activity"]["actions"]["SharePoint_Get_items"]
         lookup["inputs"]["host"]["apiId"] = "/providers/Microsoft.PowerApps/apis/shared_onedriveforbusiness"
         self.assertTrue(any("SharePoint Online" in error for error in validate(definition)))
+
+    def test_non_unique_registry_schema_is_rejected(self):
+        schema_path = Path(__file__).parents[1] / "config/dora-activity-registry.schema.json"
+        schema = json.loads(schema_path.read_text(encoding="utf-8"))
+        identity = next(field for field in schema["fields"] if field["name"] == "DORAActivityKey")
+        identity["unique"] = False
+        with tempfile.TemporaryDirectory() as folder:
+            replacement = Path(folder) / schema_path.name
+            replacement.write_text(json.dumps(schema), encoding="utf-8")
+            original_path = contract.SCHEMA_PATH
+            contract.SCHEMA_PATH = replacement
+            try:
+                self.assertTrue(any("must declare DORAActivityKey unique" in error for error in validate(self.definition["properties"]["definition"])))
+            finally:
+                contract.SCHEMA_PATH = original_path
 
 
 if __name__ == "__main__":
