@@ -30,6 +30,8 @@ let
         {"Disease Category", type text}, {"Multi/Single site", type text},
         {"DORA Authority (Yes/No)", type text}, {"DORA Consent (Yes/No)", type text}
     }),
-    ValidKeys = Table.SelectRows(Typed, each [DORAActivityKey] <> null and [DORAActivityKey] <> "")
+    ValidKeys = Table.SelectRows(Typed, each [DORAActivityKey] <> null and [DORAActivityKey] <> ""),
+    Keys = Table.Column(ValidKeys, "DORAActivityKey"),
+    Unique = if List.Count(Keys) <> List.Count(List.Distinct(Keys)) then error "DORAActivityKey values are not unique" else ValidKeys
 in
-    ValidKeys
+    Unique

@@ -117,6 +117,11 @@ class DoraActivityTests(unittest.TestCase):
         fields = {field["name"]: field for field in schema["fields"]}
         self.assertTrue(fields["DORAActivityKey"]["unique"])
 
+    def test_rims_query_rejects_duplicate_activity_keys(self):
+        query = (ROOT / "config/DoraActivityRegistry.m").read_text()
+        self.assertIn('List.Distinct(Keys)', query)
+        self.assertIn('DORAActivityKey values are not unique', query)
+
     def test_export_rejects_coerced_provenance_types(self):
         envelope = {
             "schema_version": "dora-activity-v1",
