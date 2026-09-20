@@ -16,7 +16,8 @@
   "required_pages": [
     "CHHHS Publications",
     "Monthly Publications",
-    "Source Reconciliation"
+    "Source Reconciliation",
+    "Clinical Analytics"
   ],
   "headline_identity": "CanonicalKey",
   "sources": [

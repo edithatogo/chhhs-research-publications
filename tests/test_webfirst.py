@@ -352,9 +352,11 @@ class LocalManifestTests(unittest.TestCase):
             p=target/'powerbi/unexpected-page.json';p.write_text('{}')
             self.assertTrue(local_validate(target)['errors'])
 
-    def test_contract_still_requires_only_three_pages(self):
+    def test_contract_requires_native_four_page_scope(self):
         d=json.loads((ROOT/'contracts/web-first-execution.contract.json').read_text())
-        self.assertEqual(len(d['required_pages']),3)
+        self.assertEqual(d['required_pages'], [
+            'CHHHS Publications', 'Monthly Publications',
+            'Source Reconciliation', 'Clinical Analytics'])
         self.assertFalse(d['local_validation_is_native_acceptance'])
 
 

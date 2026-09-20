@@ -29,7 +29,11 @@ The staging command verifies the successful collector receipt and response/candi
 
 Power BI browser access currently fails because its admin-enforced security policy cannot be verified. A bounded retry returned the same denial. No alternate route was used to bypass it. Once supported access returns: finish discovery, recover the original baseline, establish approved independent model isolation, prove canary write/rollback, and then apply/read back source/model/report changes.
 
-Full DoRA history, attribution review, native M/DAX, the exactly-three-page report, live refresh, native canonical/month key-set reconciliation, accepted release promotion and scheduled delivery remain open. Direct-M runtime assets have not been replaced by this candidate collector. T16/T17 remain conditional; no VM, sharing, publication or schedule was changed.
+Full DoRA history, attribution review, native M/DAX, the four-page report scope,
+live refresh, native canonical/month key-set reconciliation, accepted release
+promotion and scheduled delivery remain open. Direct-M runtime assets have not
+been replaced by this candidate collector. T16/T17 remain conditional; no VM,
+sharing, publication or schedule was changed.
 
 ## Derived author registry
 

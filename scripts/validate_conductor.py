@@ -13,26 +13,34 @@ def validate(root=ROOT):
         if not (base / name).is_file():
             errors.append('Missing conductor/' + name)
     tracks = {}
-    for folder in sorted((base / 'tracks').iterdir()):
-        if not folder.is_dir():
+    archived_ids = set()
+    for collection in (base / 'tracks', base / 'archive'):
+        if not collection.is_dir():
             continue
-        for name in ['index.md', 'spec.md', 'plan.md', 'metadata.json']:
-            if not (folder / name).is_file():
-                errors.append(f'Missing {folder.name}/{name}')
-        try:
-            metadata = json.loads((folder / 'metadata.json').read_text())
-        except (ValueError, OSError) as exc:
-            errors.append(f'{folder.name}: invalid metadata: {exc}')
-            continue
-        tracks[folder.name] = metadata
-        if metadata.get('id', metadata.get('track_id')) != folder.name:
-            errors.append(f'{folder.name}: metadata identity mismatch')
-        if metadata.get('status') in {'complete', 'completed'} and (folder / 'plan.md').is_file():
-            if re.search(r'^\s*- \[ \]', (folder / 'plan.md').read_text(), re.M):
-                errors.append(f'{folder.name}: complete with unfinished tasks')
+        for folder in sorted(collection.iterdir()):
+            if not folder.is_dir() or folder.name == 'index.md':
+                continue
+            archived = collection.name == 'archive'
+            if archived:
+                archived_ids.add(folder.name)
+            required = ['index.md', 'spec.md', 'plan.md', 'metadata.json']
+            for name in required:
+                if not (folder / name).is_file():
+                    errors.append(f'Missing {folder}/{name}')
+            try:
+                metadata = json.loads((folder / 'metadata.json').read_text())
+            except (ValueError, OSError) as exc:
+                errors.append(f'{folder.name}: invalid metadata: {exc}')
+                continue
+            tracks[folder.name] = metadata
+            if metadata.get('id', metadata.get('track_id')) != folder.name:
+                errors.append(f'{folder.name}: metadata identity mismatch')
+            if metadata.get('status') in {'complete', 'completed'} and (folder / 'plan.md').is_file():
+                if re.search(r'^\s*- \[ \]', (folder / 'plan.md').read_text(), re.M):
+                    errors.append(f'{folder.name}: complete with unfinished tasks')
     register = (base / 'tracks.md').read_text()
     for name, meta in tracks.items():
-        if f'tracks/{name}/' not in register:
+        if name not in archived_ids and f'tracks/{name}/' not in register:
             errors.append(f'{name}: absent from track register')
         for dep in meta.get('depends_on', []):
             if dep not in tracks:

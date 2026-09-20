@@ -7,7 +7,7 @@
       "test_patterns": ["test_grants*.py"]
     },
     "publications": {
-      "context": ["conductor/PUBLICATION_STABILISATION.md", "conductor/tracks/S01_publication_stabilisation/spec.md", "conductor/tracks/S01_publication_stabilisation/plan.md", "docs/PUBLICATION_PLATFORM_ACCEPTANCE.md", "conductor/tracks/E07_publication_platform_acceptance/execution.md", "docs/PROTECTED_DEVELOPMENT_BASELINE.md"],
+      "context": ["conductor/PUBLICATION_STABILISATION.md", "conductor/archive/S01_publication_stabilisation/spec.md", "conductor/archive/S01_publication_stabilisation/plan.md", "docs/PUBLICATION_PLATFORM_ACCEPTANCE.md", "conductor/tracks/E07_publication_platform_acceptance/execution.md", "docs/PROTECTED_DEVELOPMENT_BASELINE.md"],
       "test_patterns": ["test_publication*.py", "test_canonical_identity.py"]
     },
     "organisation": {

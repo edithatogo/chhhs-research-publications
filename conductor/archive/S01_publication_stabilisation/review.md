@@ -8,7 +8,7 @@ not a native Power BI, SharePoint or Power Automate acceptance certificate.
 | Surface | Observed locally | Generated locally | Contracted | Result |
 |---|---|---|---|---|
 | Canonical report artifact | `ReportSection3` CHHHS Publications; `ReportSection2` Monthly Publications; `ReportSection` Source Reconciliation; `ReportSection4` Clinical Analytics | `PublicationRegister`, `MonthlyPublications`, `SourceReconciliation`, `ClinicalAnalytics` | `dashboard.contract.json` contains the same four logical pages | Local definitions align after name/display-name translation | 
-| Web-first contract | Three pages: CHHHS Publications, Monthly Publications, Source Reconciliation | Four pages in current builders | `contracts/web-first-execution.contract.json` still requires three | Scope migration is deferred until native page inventory/readback; do not delete Clinical Analytics locally |
+| Web-first contract | Four pages: CHHHS Publications, Monthly Publications, Source Reconciliation, Clinical Analytics | Four pages in current builders | `contracts/web-first-execution.contract.json` now requires four | Native inventory and contract migration align; Clinical Analytics is retained |
 | Frozen runtime manifest | Four-page runtime hashes, including ClinicalAnalytics | Current generated report is a separate local artifact | Frozen manifest remains protected | No manifest regeneration performed |
 
 Commands/results:
@@ -16,6 +16,17 @@ Commands/results:
 - `git status --short` and `git diff --stat`: existing user/runtime and documentation edits were present; no report or manifest paths were staged or overwritten.
 - `python3 scripts/agent_harness.py check --task all`: initial baseline was `FAIL_LOCAL` because the dependency validator did not recognise the new non-T tracks; after the validator fix and subsequent repairs, final result is recorded below.
 - Local JSON inspection of `downloads/canonical_live_artifacts/report/report.json`: four observed report sections. Native UI/plugin page inventory was not available in this tranche, so native scope remains open.
+
+### Native read-only page inventory — 2026-09-20
+
+Authenticated `playwright-cli` readback of the existing Power BI report confirmed
+four rendered research pages: `ReportSection3` CHHHS Publications,
+`ReportSection2` Monthly Publications, `ReportSection` Source Reconciliation and
+`ReportSection4` Clinical Analytics. The private receipt is
+`private/ops/2026-09-20-powerbi-report-page-inventory.json`.
+
+This resolves the scope decision: retain Clinical Analytics and migrate the
+web-first contract to four required pages. No report/model write was performed.
 
 ## S01.2 evidence-preserving attribution
 
@@ -47,14 +58,35 @@ Review outcome: no unresolved critical/high findings in the completed local tran
 - required valid SharePoint list GUIDs and ISO-formatted organisation reference dates;
 - added regression coverage for invalid target/reference metadata.
 
-Focused S01.3.5 result: 11 contract tests passed. This closes the local pagination/allowlist task; native paged-flow execution/readback, native page inventory and contract migration remain open and are not claimed here.
+Focused S01.3.5 result: 11 contract tests passed. This closes the local pagination/allowlist task; native paged-flow execution/readback remains outside this local track.
+
+## Conductor review — 2026-09-20
+
+Review scope covered the S01 plan, the four-page native inventory, the contract
+migration diff and the focused/full local gates. The initial review finding was
+stale three-page wording in the active web-first validator/test and scope table;
+it was corrected before closure. No unresolved critical, high or medium findings
+remain. The frozen runtime manifest was intentionally not regenerated because
+the existing manifest already records four pages and its native_verified flag is
+false.
+
+Verification:
+
+- `python3 -m unittest discover -s tests -p 'test_webfirst.py' -v`: 62 passed.
+- `python3 -m unittest discover -s tests -v`: 281 passed.
+- `python3 scripts/validate_project.py`: 319 checks passed.
+- `python3 scripts/agent_harness.py check --task all`: PASS_LOCAL_ONLY.
+- `python3 scripts/webfirst_contracts.py validate`: PASS_LOCAL_ONLY.
+
+The private page-inventory receipt is the native read-only evidence; no report,
+model, refresh, export, schedule or production mutation was performed.
 
 ## Remaining blockers
 
-- Native read-only report page inventory and page IDs have not been captured.
-- S01.3 native paged-flow execution/readback and S01.4 contract migration remain outstanding.
+- S01.3 native paged-flow execution/readback remains an E01/T15 acceptance gate;
+  the local structure and pagination contract are complete.
+- Native refresh/export/release evidence remains outside S01 and is owned by
+  T11, T14, E01, E07 and T15.
 - Existing private runtime evidence remains ignored and was not copied into tracked artefacts.
-
-For each task record: task ID, outcome, changed paths, command and exit status, fixture/live distinction, evidence path and capture time, remaining limitations, rollback reference. Do not include credentials or tenant IDs here.
 
 For each task record: task ID, outcome, changed paths, command and exit status, fixture/live distinction, evidence path and capture time, remaining limitations, rollback reference. Do not include credentials or tenant IDs here.

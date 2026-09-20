@@ -169,8 +169,9 @@ def local_validate(root: Path = ROOT) -> dict[str, Any]:
 
     try:
         contract = load(root/'contracts/web-first-execution.contract.json')
-        check('exact three-page scope', contract['required_pages'] == [
-            'CHHHS Publications', 'Monthly Publications', 'Source Reconciliation'])
+        check('exact four-page scope', contract['required_pages'] == [
+            'CHHHS Publications', 'Monthly Publications',
+            'Source Reconciliation', 'Clinical Analytics'])
         check('canonical-key headline', contract['headline_identity'] == 'CanonicalKey')
         check('both source contracts', contract['sources'] == ['PubMed', 'DORA'])
         check('local tests are not native acceptance', contract['local_validation_is_native_acceptance'] is False)
@@ -184,9 +185,11 @@ def local_validate(root: Path = ROOT) -> dict[str, Any]:
         # Dependencies span publication, extension, grant and stabilisation tracks.
         # Keep the original T08-T17 asset checks below, but validate the whole graph.
         graph = {}
-        for path in sorted((root/'conductor/tracks').glob('*/metadata.json')):
-            metadata = load(path)
-            graph[metadata.get('id', metadata.get('track_id'))] = metadata.get('depends_on', [])
+        for collection in (root/'conductor/tracks', root/'conductor/archive'):
+            if collection.is_dir():
+                for path in sorted(collection.glob('*/metadata.json')):
+                    metadata = load(path)
+                    graph[metadata.get('id', metadata.get('track_id'))] = metadata.get('depends_on', [])
         for path in sorted((root/'conductor/tracks').glob('T*/metadata.json')):
             metadata = load(path); tid = metadata['id']
             number = int(tid.split('_')[0][1:])

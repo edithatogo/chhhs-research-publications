@@ -4,7 +4,6 @@
 
 Execution order and boundaries: [detailed handoff](PUBLICATION_STABILISATION.md). Existing T11, T14, T15, E01 and E07 own live acceptance; their execution runbooks refine the existing plans.
 
-- [ ] [S01_publication_stabilisation: local defects and report scope](tracks/S01_publication_stabilisation/plan.md) — detailed plan; start here.
 - [ ] [S02_release_versioning: reproducible versions and recovery](tracks/S02_release_versioning/plan.md) — detailed plan; requires S01.
 - [x] [S03_private_github_sync: sanitised private source synchronisation](tracks/S03_private_github_sync/plan.md) — clean source-only `main` published; native/platform acceptance remains separate.
 
@@ -25,7 +24,7 @@ Execution order and boundaries: [detailed handoff](PUBLICATION_STABILISATION.md)
 - [x] [T10_isolated_baseline: Protect the existing report and prove an isolated write](tracks/T10_isolated_baseline/plan.md) — complete (isolated canary write and rollback verified)
 - [~] [T11_sources_and_reconciliation: Repair and prove PubMed plus DORA ingestion](tracks/T11_sources_and_reconciliation/plan.md) — implementation exists; native/operational acceptance remains open (2026-09-20 audit).
 - [x] [T12_research_model: Replace the underlying model, not just its labels](tracks/T12_research_model/plan.md) — complete (canonical reporting model, DAX readback, multi-source integration)
-- [x] [T13_web_visuals: Implement the three-page publication report](tracks/T13_web_visuals/plan.md) — complete (36 research-only visuals, three-page scope, legacy cleanup)
+- [x] [T13_web_visuals: Implement the three-page publication report](tracks/T13_web_visuals/plan.md) — historical three-page implementation; current native scope is four pages after S01 reconciliation
 - [~] [T14_complete_exports_monthly: Export every citation and stage the monthly workflow](tracks/T14_complete_exports_monthly/plan.md) — implementation exists; native/operational acceptance remains open (2026-09-20 audit).
 - [~] [T15_web_acceptance_release: Verify the live web implementation and hand over](tracks/T15_web_acceptance_release/plan.md) — implementation exists; native/operational acceptance remains open (2026-09-20 audit).
 - [ ] [T16_utm_windows_fallback: Finish the existing UTM Windows VM only if needed](tracks/T16_utm_windows_fallback/plan.md) — gated (conditional fallback)
