@@ -101,3 +101,18 @@ guarded by `length(Get items.value) == 0`, so duplicate matches cannot write.
 The local definition uses a non-throwing diagnostic string; the current native
 readback still shows the earlier integer diagnostic expression and therefore
 requires a later controlled native edit before this track can close.
+
+## Native diagnostic-expression correction — 2026-09-21
+
+The isolated DEV flow was opened in the authenticated Power Automate editor.
+`Compose Duplicate OpportunityKey Failure` was read back with the legacy
+`int('DUPLICATE_OPPORTUNITY_KEY')` expression. It was changed to the plain
+diagnostic string `DUPLICATE_OPPORTUNITY_KEY`, saved, and rechecked. Flow
+Checker read back 0 errors and 0 warnings. The correction is recorded in the
+ignored private receipt
+`private/ops/2026-09-20-grants-flow-import-readback.json`.
+
+This closes the native diagnostic-expression gate only. The isolated DEV
+create/update evidence remains valid; the organisation-wide target,
+canonical binding, unattended operation, delivery and production gates remain
+open, so G03 remains in progress.
