@@ -2,6 +2,10 @@
 
 Review status: in progress; local ingestion is implemented and tested, while live source and platform execution remain open.
 
+Conductor review fix applied: calendar candidate identity now hashes the full
+source row and duplicate identities fail closed before any candidate rows are
+emitted. The focused adapter tests cover this failure path.
+
 ## Changes
 
 - Added `scripts/grants_ingestion.py` with namespace-tolerant RSS/Atom parsing and API-shaped batch normalization.
