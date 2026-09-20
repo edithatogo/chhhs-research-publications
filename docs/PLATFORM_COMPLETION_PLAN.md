@@ -11,11 +11,7 @@ Execution Strategy: **Separation of concerns, prioritized by operational value, 
 
 All data models, ingestion routines, multi-source enrichment adapters (PubMed, DORA, OpenAlex, Crossref, Dimensions, Scopus, Web of Science, ARDC RLA), flow definitions, versioning scripts, and executive DOCX generators are completed and verified locally. Tenant-side acceptance is tracked separately in [Publication platform acceptance](PUBLICATION_PLATFORM_ACCEPTANCE.md); local checks do not certify live refresh, unattended execution, complete exports, or report readback.
 
-Furthermore, all four tiers of the platform completion roadmap have been **fully executed and verified on the live Queensland Health platform**:
-1. **SharePoint Publication Registry:** historical synchronization evidence exists for 1,265 publications, with versioning and view configuration evidence; current live readback remains a required acceptance gate.
-2. **Power Automate Daily Ingestion:** Flow `{{FLOW_ID}}` updated in-place via package import, connected with Queensland Health credentials, zero cloud sprawl.
-3. **Executive Monthly Word Digest:** Branded Queensland Health clinical research digest generated for August 2026 with KPI cards, hospital breakdowns, and DOIs.
-4. **Power BI Semantic Model & Visual Dashboards:** isolated development evidence exists for the model and report; final native refresh, complete export reconciliation, and report readback remain acceptance gates.
+The four tiers are implemented as local, evidence-gated delivery plans. Historical notes or locally generated artefacts do not prove current tenant state. SharePoint list readback, flow run success, complete export reconciliation, semantic-model refresh, and report rendering remain separate native acceptance gates tracked in [Publication platform acceptance](PUBLICATION_PLATFORM_ACCEPTANCE.md).
 
 ---
 
@@ -27,10 +23,10 @@ A strict, one-time audit of available CLI tools was conducted to determine wheth
 
 | CLI Tool | Local Binary Path | Observed State / Tenant | Viability for CHHHS Platform Deployment |
 | :--- | :--- | :--- | :--- |
-| **PnP.PowerShell** (`Connect-PnPOnline`) | Global PowerShell Module | **Failed:** Error `AADSTS700016: Application with identifier '31359c7f...' not found in directory '0b65b008...'`. | **Infeasible**: Blocked by Queensland Health tenant admin application consent policy. Third-party multi-tenant CLI apps cannot authenticate. |
+| **PnP.PowerShell** (`Connect-PnPOnline`) | Global PowerShell Module | **Failed:** tenant application-consent error (identifier retained only in private evidence). | **Infeasible for this route:** blocked by tenant admin application consent policy. |
 | **CLI for Microsoft 365** (`m365`) | `/opt/homebrew/bin/m365` | **Failed:** Error `AADSTS70043: Refresh token expired or invalid due to sign-in frequency checks by conditional access`. | **Infeasible**: Expired session; interactive re-authentication disallowed by non-interactive operational rules. |
 | **Power Platform CLI** (`pac`) | `/Users/doughnut/.dotnet/tools/pac` | **Active, but Wrong Tenant:** Connected to `RIMS maintainer (Illawarra Shoalhaven LHD)'s Environment` (NSW Health, `health.nsw.gov.au`). | **Infeasible**: Connected to external NSW Health tenant, not Queensland Health. Switching profiles would require interactive device code login. |
-| **Azure CLI** (`az`) | `/opt/homebrew/bin/az` | **Active, but Wrong Tenant:** Connected to tenant `{{OTHER_TENANT_ID}}` (Personal/other Azure subscription). | **Infeasible**: Not connected to Queensland Health enterprise tenant. |
+| **Azure CLI** (`az`) | `/opt/homebrew/bin/az` | **Active, but Wrong Tenant:** connected to a personal/other Azure subscription (tenant identifier retained only in private evidence). | **Infeasible**: not connected to Queensland Health enterprise tenant. |
 
 ### Architectural Decision:
 Per user directive, **no further attempts to log in or run CLI tenant tools will be made**. All platform interactions proceeded strictly through RIMS maintainer's active, enterprise SSO-authenticated browser session (`playwright-cli -s=chrome`).
@@ -44,21 +40,21 @@ The platform completion scope was decomposed by concern and ranked strictly from
 ```
 Value Hierarchy & Deployment Status:
 ┌────────────────────────────────────────────────────────────────────────┐
-│ Tier 1 (Highest Value): Central Research Data Persistence & Review     │ [100% COMPLETED]
-│ - SharePoint List "Publication Registry" (daa2cbe0-d2b0-4e6d-9bab...)  │
-│ - 1,265 publications synced, 500 major versions, 13 fields, 3 views    │
+│ Tier 1 (Highest Value): Central Research Data Persistence & Review     │ [LOCAL COMPLETE; NATIVE OPEN]
+│ - SharePoint List "Publication Registry" (identifier held privately)   │
+│ - Schema/seed/reconciliation implemented; current row readback open     │
 ├────────────────────────────────────────────────────────────────────────┤
-│ Tier 2 (High Value): Automated Cloud Ingestion & Daily Enrichment      │ [100% COMPLETED]
-│ - Power Automate Flow in-place update (d23ad927-7903-42b5-869f...)     │
+│ Tier 2 (High Value): Automated Cloud Ingestion & Daily Enrichment      │ [LOCAL COMPLETE; NATIVE OPEN]
+│ - Power Automate Flow in-place update (identifier held privately)       │
 │ - OpenAlex HTTP enrichment; idempotent upsert into List; zero sprawl   │
 ├────────────────────────────────────────────────────────────────────────┤
 │ Tier 3 (Medium-High Value): Executive Word (DOCX) Reporting            │ [100% COMPLETED]
 │ - Queensland Health branded monthly reports with KPIs & citations     │
 │ - Verified report for August 2026 (reports/CHHHS-Publications-...)     │
 ├────────────────────────────────────────────────────────────────────────┤
-│ Tier 4 (Medium Value): Power BI Analytics & Cross-Source Model         │ [100% COMPLETED]
-│ - 21-table research model (5266ece2...) & 3-page report (b70b4b91...)  │
-│ - DAX acceptance check passed 100%; all 36 visuals rendering cleanly   │
+│ Tier 4 (Medium Value): Power BI Analytics & Cross-Source Model         │ [LOCAL COMPLETE; NATIVE OPEN]
+│ - Research model and 3-page report (identifiers held privately)         │
+│ - Local DAX/visual contracts pass; native refresh/readback remain open  │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -66,10 +62,10 @@ Value Hierarchy & Deployment Status:
 
 | Tier & Concern | Local Engineering Status | Live Platform Status | Platform Completion Evidence |
 | :--- | :--- | :--- | :--- |
-| **Tier 1: SharePoint Data Store** | • 34-column schema finalized.<br>• Seed dataset completely populated (1,265 records).<br>• Versioning and view specs complete. | • List URL: `{{SHAREPOINT_PUBLICATION_REGISTRY_URL}}`<br>• 1,265 records synchronized (1,256 Included, 8 Needs Review). | **Completed**: `scripts/sync_sharepoint_seed.py` + `scripts/retry_failed.py`. 500 versions enabled via REST API. 13 schema fields created. 3 custom views live. |
-| **Tier 2: Power Automate Ingestion** | • Flow definition with OpenAlex HTTP enrichment & fault-tolerant `runAfter` rules.<br>• Deployable zip package `sharepoint-upsert.zip`. | • Flow updated in place: `CHHHS Publications - DEV manual ingestion validation` (`{{FLOW_ID}}`). | **Completed**: Package imported via Power Apps legacy import UI. Platform confirmed: *"All package resources were successfully imported. The flow has been updated successfully."* Internal field names mapped. |
-| **Tier 3: Executive DOCX Reports** | • `scripts/export_monthly_docx.py` fully operational.<br>• Verified reports for 2026-06, 2026-07, 2026-08, 2026-09. | • Executive Word report generated and verified locally and platform ready. | **Completed**: `reports/CHHHS-Publications-Monthly-2026-08.docx` (40 KB). Executive KPI cards, facility breakdowns, source breakdowns, and hyperlinked DOIs/PMIDs. |
-| **Tier 4: Power BI Research Model** | • TMDL model `2026-09-15-t12-model.tmdl` (clean 6-table schema).<br>• 36 visual definitions across 3 pages.<br>• DAX readback checks pass locally. | • Model `{{ISOLATED_MODEL_ID}}` has 21 research tables.<br>• Report `{{ISOLATED_REPORT_ID}}` active. | **Completed**: `native-canonical-check.dax` executed in DAX Query View (100% pass across all 3 statements). Three-page report screenshots confirmed: zero broken visual errors (`private/ops/page1_chhhs_publications.png`, `page2_monthly_publications.png`, `report_view_result.png`). |
+| **Tier 1: SharePoint Data Store** | • 34-column schema, seed/export scripts, and reconciliation contracts are local. | • Native list identity, row count, versioning, and views require current readback. | **Local complete; native acceptance open.** |
+| **Tier 2: Power Automate Ingestion** | • Flow definition, explicit SharePoint target, and fail-closed upsert contract are local. | • Native flow identity, connection references, successful run, and row readback require current evidence. | **Local complete; native acceptance open.** |
+| **Tier 3: Executive DOCX Reports** | • DOCX generator and local reports are reproducible and tested. | • Publication or distribution is not claimed by local artefacts. | **Local complete; delivery acceptance is separate.** |
+| **Tier 4: Power BI Research Model** | • Local model/report definitions and DAX checks are available. | • Native model, refresh, report pages, and complete export reconciliation require current readback. | **Local complete; native acceptance open.** |
 
 ---
 

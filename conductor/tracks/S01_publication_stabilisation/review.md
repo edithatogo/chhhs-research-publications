@@ -35,6 +35,7 @@ Changed paths: `scripts/build_sharepoint_upsert_package.py`, `scripts/validate_p
 - The loop consumes query rows, SourceKey is escaped before the OData filter, and duplicate lookup results terminate the record path with `DUPLICATE_SOURCE_KEY`.
 - The builder reads site/list/field mappings from a validated ignored private target file; the tracked template contains placeholders only. Internal `field_N` names are configuration data, not guessed renames.
 - Validation now checks connector, target, loop, concurrency, duplicate fail-closed branch, update allowlist, escaped filter and sibling `runAfter` dependencies. Mutation tests cover missing loop, parallel writes, duplicate handling, top-level record actions, placeholder targets and unknown dependencies.
+- Added `scripts/publication_batch_contract.py` and `tests/test_publication_batch_contract.py`. The local contract rejects partial/error pages, duplicate keys, non-advancing cursors, missing continuation cursors, count mismatches and independent-key-set mismatches. It also rejects updates to manual/provenance fields and permits only observation fields (including the configured `field_20` mapping).
 - `python3 scripts/build_sharepoint_upsert_package.py ...`: exit 0; generated ignored private package.
 - `python3 scripts/validate_publication_platform_contract.py`: exit 0; structural contract passed. This remains local structural evidence, not a live flow import or execution certificate.
 
@@ -46,12 +47,12 @@ Review outcome: no unresolved critical/high findings in the completed local tran
 - required valid SharePoint list GUIDs and ISO-formatted organisation reference dates;
 - added regression coverage for invalid target/reference metadata.
 
-Full local harness after review fixes: `PASS_LOCAL_ONLY`; 0 Conductor validation errors. The track is not ready for archive because native page inventory, pagination/completeness evidence and contract migration remain open.
+Focused S01.3.5 result: 11 contract tests passed. This closes the local pagination/allowlist task; native paged-flow execution/readback, native page inventory and contract migration remain open and are not claimed here.
 
 ## Remaining blockers
 
 - Native read-only report page inventory and page IDs have not been captured.
-- S01.3 flow action-graph repair and S01.4 contract migration remain outstanding.
+- S01.3 native paged-flow execution/readback and S01.4 contract migration remain outstanding.
 - Existing private runtime evidence remains ignored and was not copied into tracked artefacts.
 
 For each task record: task ID, outcome, changed paths, command and exit status, fixture/live distinction, evidence path and capture time, remaining limitations, rollback reference. Do not include credentials or tenant IDs here.

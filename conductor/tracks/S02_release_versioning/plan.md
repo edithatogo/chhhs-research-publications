@@ -1,6 +1,6 @@
 # Reproducible source and deployment versioning: executable plan
 
-Status: planned. All checkboxes below represent outstanding execution, not completed planning.
+Status: in_progress. Source packaging is locally verified; native recovery/versioning remains unaccepted.
 
 ## S02.1 Version contract and tests
 
@@ -14,16 +14,16 @@ Status: planned. All checkboxes below represent outstanding execution, not compl
 
 - [x] S02.2.1: Refactor packaging to produce a reviewed source allowlist archive without .git, tenant exports, private configuration or history bundles. Keep an explicit separate private backup route.
 - [x] S02.2.2: Use sorted paths and stable archive metadata. Exclude the receipt itself from its own hash calculation; report capture time separately from reproducibility hashes.
-- [ ] S02.2.3: Run the harness on a fresh temporary extraction. Missing private data must not be replaced with fabricated receipts; verify submodule pin and explicit bootstrap instructions.
-- [ ] S02.2.4: Add manifest verification that detects changed files. Do not call a local file copy a new live export.
+- [x] S02.2.3: Run the harness on a fresh temporary extraction. Missing private data must not be replaced with fabricated receipts; verify submodule pin and explicit bootstrap instructions.
+- [x] S02.2.4: Add manifest verification that detects changed files. Do not call a local file copy a new live export.
 - [ ] Checkpoint: write commands/results, changed paths and remaining blockers in review.md; update CURRENT_STATE. Stop dependent work on failure.
 
 ## S02.3 Native versioning and solo operation
 
 - [x] S02.3.0: Assess Microsoft Power Platform Build Tools 2.0, `powerplatform-actions` and PowerApps Test Engine. Keep Build Tools/actions conditional on a Dataverse solution; reject the deprecated Test Engine for the current PBIP/SharePoint acceptance surface.
-- [ ] S02.3.1: Correct VERSIONING_ARCHITECTURE.md: Power Automate drafts/versioning is conditional on solution-aware flow support. Verify actual flow/environment capability before claiming native rollback.
+- [x] S02.3.1: Correct VERSIONING_ARCHITECTURE.md: Power Automate drafts/versioning is conditional on solution-aware flow support. Verify actual flow/environment capability before claiming native rollback.
 - [ ] S02.3.2: Record observed SharePoint versioning, model version-history support and report export route privately. Use definition backups where native versioning is unavailable; no Dataverse/capacity purchase dependency.
-- [ ] S02.3.3: Document one-owner routine: focused commit, full local checks, verified native candidate, release tag and manifest, optional GitHub Release. Conductor stays the backlog; no compulsory Projects/Jira/Planner duplication.
+- [x] S02.3.3: Document one-owner routine: focused commit, full local checks, verified native candidate, release tag and manifest, optional GitHub Release. Conductor stays the backlog; no compulsory Projects/Jira/Planner duplication.
 - [ ] S02.3.4: Add a version/batch display to the existing report only through the isolated authoring route with readback; otherwise leave that subtask pending.
 - [ ] S02.3.5: Run full checks; demonstrate source-package verification and private snapshot restoration in an isolated target before claiming platform recovery.
 - [ ] Checkpoint: write commands/results, changed paths and remaining blockers in review.md; update CURRENT_STATE. Stop dependent work on failure.

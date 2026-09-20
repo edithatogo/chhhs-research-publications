@@ -4,7 +4,7 @@ Updated: 2026-09-20. This is the compact resumption checkpoint, not a live accep
 
 ## Direction
 
-Conductor audit: all track index/spec/plan/metadata files and dependencies validate. T11, T14, T15 and E01 are reopened for outstanding native/operational acceptance; do not treat their historical completion paragraphs as current status. Private GitHub origin is created; upload awaits the history/privacy decision in [GitHub sync](GITHUB_SYNC.md).
+Conductor audit: all track index/spec/plan/metadata files and dependencies validate. T11, T14, T15 and E01 are reopened for outstanding native/operational acceptance; do not treat their historical completion paragraphs as current status. The private GitHub origin contains the source-only canonical history; the dirty local working tree remains the authoring workspace and is not itself the remote release.
 
 One person owns this repository and the existing CHHHS RIMS report. Add funding opportunities, funding calendar and personal watchlist pages to that report. Reuse publication identities and evidence conventions. Grant opportunities, awarded grants and applications have separate identities; institutional dates and subscriptions are explicit entities. No new Fabric project or mandatory preview/AI service.
 
@@ -17,7 +17,7 @@ One person owns this repository and the existing CHHHS RIMS report. Add funding 
 
 ## Remaining implementation
 
-Current tranche: S01.2 evidence-preserving attribution and S01.3.1–S01.3.4 flow action-graph repairs are locally implemented and tested. S01.1 local baseline/scope comparison is recorded, but native page inventory remains open. Next executable task: S01.3.5 pagination/completeness and manual-field preservation, while native inventory can proceed independently. Follow `conductor/PUBLICATION_STABILISATION.md`; complete publication stabilisation and accepted release before resuming G01 grants implementation. Planning or local completion is not remote/platform completion.
+Current tranche: S01.2 evidence-preserving attribution, S01.3.1–S01.3.5 local flow/field contracts and the fail-closed paged-batch contract are implemented and tested. S01.1 local baseline/scope comparison is recorded, but native page inventory and native paged-flow readback remain open. Next executable task: S01.4 contract migration, while native inventory can proceed independently. Follow `conductor/PUBLICATION_STABILISATION.md`; complete publication stabilisation and accepted release before resuming G01 grants implementation. Planning or local completion is not remote/platform completion.
 
 S03 remote status: the existing GitHub repository is private and now contains
 only the reviewed source-only `main` history. A fresh clone with the pinned

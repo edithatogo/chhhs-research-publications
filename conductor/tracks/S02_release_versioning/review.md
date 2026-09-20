@@ -9,7 +9,19 @@
 - Added `tests/test_package_release.py`; focused result: 3 tests passed.
 - Review fix: ZIP members now use a fixed timestamp and the focused result is 4 tests passed, including byte-stable member output.
 
-The current checkout is intentionally dirty, so the package command refuses to create a reproducible release. This is a safety gate, not a packaging failure. S02.2.3–S02.3 remain open until a clean candidate and native recovery/versioning evidence exist.
+The current checkout is intentionally dirty, so the package command refuses to create a reproducible release. This is a safety gate, not a packaging failure. S02.2.3 and S02.2.4 were verified against a separate clean candidate; native recovery/versioning evidence remains open.
+
+## S02.2.3–S02.3.3 local evidence
+
+- Clean candidate `/tmp/chhhs-source-candidate-release.g0VSzp` was bootstrapped
+  with Conductor `6e8f9a860bcdd6a2c423473c12e745200688c633`.
+- Candidate checks: `validate_project.py` 319/319 and unit tests 258/258.
+- `scripts/package_release.py --version 0.3.0-rc1` passed fresh extraction,
+  manifest equality, no Git/private runtime content and source tests. The
+  receipt records `NativeAcceptance=false`; it is not a live export.
+- `docs/VERSIONING_ARCHITECTURE.md` now distinguishes local source receipts
+  from conditional native SharePoint/Power Automate/Power BI versioning and
+  documents the one-owner release routine.
 
 ## S02.3.0 tooling decision
 

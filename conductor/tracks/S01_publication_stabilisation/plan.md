@@ -1,6 +1,6 @@
 # Publication defects and report scope: executable plan
 
-Status: planned. All checkboxes below represent outstanding execution, not completed planning.
+Status: in_progress. Local defects are being closed; native acceptance and contract migration remain separate gates.
 
 ## S01.1 Baseline and scope inventory
 
@@ -25,7 +25,7 @@ Status: planned. All checkboxes below represent outstanding execution, not compl
 - [x] S01.3.2: Inspect baseline package privately. Build upserts inside an explicit record loop with valid runAfter references, source-key escaping, single-run/write concurrency and duplicate detection; do not add recurrence without its explicit gate.
 - [x] S01.3.3: Make the builder consume validated private target/schema configuration. Preserve legitimate field_N internal names through a mapping; never rename live columns by guesswork.
 - [x] S01.3.4: Replace string-presence assertions with action-graph and parameter checks. Reject a missing required package in acceptance mode; optional local skips must be reported as skips.
-- [ ] S01.3.5: Check pagination/completeness and the update field allowlist. Preserve FirstObserved, ReviewStatus, ReviewNotes and manual overrides; partial batches cannot become accepted. Update allowlist is locally checked; complete/pagination evidence remains open.
+- [x] S01.3.5: Add a fail-closed local pagination/completeness contract and enforce the observation-only update allowlist. Preserve FirstObserved, ReviewStatus, ReviewNotes and manual overrides; partial batches cannot become accepted. Native paged-flow execution remains an E01/T15 acceptance gate.
 - [x] Checkpoint: write commands/results, changed paths and remaining blockers in review.md; update CURRENT_STATE. Stop dependent work on failure.
 
 ## S01.4 Contract migration and handoff
