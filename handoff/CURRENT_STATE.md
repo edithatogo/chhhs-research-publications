@@ -13,6 +13,7 @@ One person owns this repository and the existing CHHHS RIMS report. Add funding 
 - Grants normalisation, round identity, invalid-date handling and observation snapshots exist in `scripts/grants_registry.py`.
 - Institutional date offsets and subscription candidate matching exist in `scripts/grants_planning.py`. These are reference logic, not hosted services.
 - G01–G08 specification/plan files exist. They are not completed deployments.
+- G06 native progress advanced in isolated DEV: the `Grant Relationships` list exists at the personal DEV SharePoint site, with `RelationshipKey`, `FromKey`, `ToKey`, `AwardID`, and a submitted `RelationshipType` choice column. `EvidenceURL`, `Confidence`, `ReviewStatus`, required/indexed constraints, relationship round-trip and unchanged publication-total readback remain open.
 - Latest canonical-clone harness: 318 tests (8 private-runtime tests skipped), 438 project checks, Conductor validation, web-first local validation and Power Platform tooling preflight passed. The live CKAN DoRA activity collector retrieved 442/442 rows with all 19 source fields plus the datastore `_id` key and 442 unique source `_id` values; this is source/readback evidence, not tenant acceptance.
 
 ## Remaining implementation
@@ -25,7 +26,7 @@ the latest source-evidence, review and remaining-track-audit corrections. The di
 history remains private and was not pushed; a fresh local canonical clone is
 the synchronized authoring/reference checkout for this tranche.
 
-S02 local status: the release packager now produces only a source archive after a clean-tree gate, with independent software/schema/batch identities and fresh-extraction checks. A clean canonical clone at `bb2ec04` produced and verified a source-only `0.3.0-rc1` preview with no Git history/private runtime and `NativeAcceptance=false`; the dirty authoring checkout has not produced an accepted release. The local PBIP now includes a model-backed `ReleaseMetadata` table and software/batch cards; native SharePoint/model/report version-history and report version/batch readback remain open.
+S02 local status: the release packager now produces only a source archive after a clean-tree gate, with independent software/schema/batch identities and fresh-extraction checks. A clean canonical clone produced and verified a source-only `0.3.0-rc1` preview with no Git history/private runtime and `NativeAcceptance=false`; the dirty authoring checkout has not produced an accepted release. The local PBIP now includes a model-backed `ReleaseMetadata` table and software/batch cards; native SharePoint/model/report version-history and report version/batch readback remain open.
 
 Power Platform tooling decision: the local preflight detects PAC 2.12.2, Azure
 CLI/Azure DevOps, PowerShell and GitHub CLI, but no Dataverse solution project.
