@@ -41,7 +41,7 @@ times remain `null`.
 - [x] **Style Compliance**: Pass - unknown lead times remain unknown and are not inferred.
 - [x] **New Tests**: Yes - malformed and boolean lead-time, authority URL and verification-date rejection are covered.
 - [x] **Test Coverage**: Partial - catalogue and bounded probe contracts are covered; institutional access and feed acceptance are not.
-- [x] **Test Results**: Passed - focused university tests (6), project validation (438 checks) and canonical-clone full suite (363 tests, 8 skipped).
+- [x] **Test Results**: Passed - focused university tests (7), project validation (438 checks) and canonical-clone full suite (364 tests, 8 skipped).
 
 ## Findings
 
@@ -50,3 +50,10 @@ times remain `null`.
 - **File**: `config/grants-universities.json`, `conductor/tracks/G05_grants_universities/plan.md`
 - **Context**: Public-page probes and catalogue validation do not prove permitted portal exports, institutional feeds, authenticated access, or current specialist/foundation coverage.
 - **Suggestion**: Keep G05 active until source-specific access evidence is captured; do not promote institutional pages to unattended intake or claim internal lead times where the catalogue retains `null`.
+
+## Conductor review — catalogue identity and freshness hardening — 2026-09-21
+
+- **Finding:** university catalogue loading string-coerced `institution_id` values, assumed object rows and did not reject future verification dates.
+- **Fix:** rows must be objects with scalar non-empty string identities; `last_verified` is validated against the declared Australia/Brisbane date.
+- **Verification:** focused university tests and the full local gates will be recorded against the implementation commit; institutional feed/export and authenticated portal acceptance remain open.
+- **Verification:** commit `aa0c9ab` passes the focused university suite (7 tests), the full local suite (364 tests, 8 skips), project validation (438 checks), web-first contracts and Conductor validation; institutional feed/export and authenticated portal acceptance remain open.

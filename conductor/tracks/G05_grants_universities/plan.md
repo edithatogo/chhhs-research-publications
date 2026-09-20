@@ -11,3 +11,4 @@
 - [x] Task: Validate known institutional lead-time objects while retaining null for unknown evidence (a179d73).
 - [x] Task: Reject boolean lead times and invalid authority/verification metadata before source use (f0ee882).
 - [x] Task: Reject fractional institutional lead times so catalogue values match integer-day planning inputs (ae2a630).
+- [x] Task: Reject non-object rows, non-string institution identities and future verification dates using the Australia/Brisbane business date.
