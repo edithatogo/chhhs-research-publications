@@ -2,8 +2,19 @@
 
 Requested and created on 2026-09-20: https://github.com/edithatogo/chhhs-research-publications (private).
 
-Initial upload is pending privacy remediation. Existing tracked history contains `downloads/canonical_live_artifacts/` tenant exports, a flow ZIP, seeded registry data and tenant identifiers in source/configuration/documents. AGENTS.md requires actual tenant identifiers, snapshots and caches to remain in ignored private storage. A private repository does not remove that requirement, and `.gitignore` does not remove past commits.
+The initial upload completed from a separate sanitised source-only candidate at
+`e48e54bd73f97c7145436e24bba034ade55a3a7c`. The original local history remains
+private and was not rewritten or pushed. The candidate excluded
+`private/`, `downloads/canonical_live_artifacts/`, ZIP/bundle runtime exports
+and Git history; runtime identities were replaced with tracked placeholders.
 
-Do not push existing branches/tags until this is resolved. Preserve local history and uncommitted report changes. Two options need the owner's choice: create a sanitized source-only initial history for GitHub while retaining local history privately, or sanitize a separate copy of the full history and verify all reachable objects. Neither requires deleting the current checkout.
+The canonical remote is the private `main` branch of
+https://github.com/edithatogo/chhhs-research-publications. Later pushes must
+come from a newly reviewed source-only candidate or a clean checkout of remote
+`main`, never directly from the dirty original checkout.
 
-Before first upload, move runtime targets to private configuration, exclude archived tenant exports and scan the exact proposed Git objects including history. Verify remote visibility and branch head after upload. Do not automate background pushes or upload private receipts.
+The remote readback confirmed private visibility, default branch `main`, and
+the published commit. The candidate passed 319 project checks, 258 tests and a
+fresh-extraction source release with `NativeAcceptance=false`. Do not automate
+background pushes or upload private receipts. GitHub synchronisation does not
+prove Power Platform/native acceptance.
