@@ -46,3 +46,10 @@ into registry identities. The focused relationship suite covers this boundary.
 1. The complete native field set is present and read back in isolated DEV.
 2. `RelationshipKey` is required, unique and indexed in isolated DEV.
 3. Remaining required-field settings, relationship round-trip, unchanged publication reconciliation and approved production/unattended binding remain open.
+
+## Conductor review — relationship identity schema parity — 2026-09-21
+
+- **Finding:** the native DEV readback was recorded as required, indexed and unique for `RelationshipKey`, but the tracked schema declared only required and indexed.
+- **Fix:** commit `2e39aee` adds the explicit `unique` identity invariant and regression coverage.
+- **Verification:** focused relationship tests pass (20); the full suite passes 384 tests with 8 skips; project validation passes 438 checks; web-first, Conductor, Power Platform tooling and visual standards checks pass locally.
+- **Residual gate:** remaining required-field readback, relationship round-trip, unchanged publication totals and approved target binding remain open.

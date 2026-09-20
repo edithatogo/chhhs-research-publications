@@ -8,3 +8,4 @@
 - [x] Task: Fail closed on non-HTTP evidence links and unsupported relationship review statuses (7375728).
 - [x] Task: Reject whitespace-only AwardID values for confirmed award relationships (e329641).
 - [x] Task: Reject non-string relationship identities, evidence URLs and review fields without coercion (8cf6b4f).
+- [x] Task: Declare `RelationshipKey` required, indexed and unique in the tracked schema (`2e39aee`).
