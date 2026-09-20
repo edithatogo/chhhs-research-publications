@@ -5,6 +5,18 @@ Review status: in progress; local planning and idempotency contracts are impleme
 - `validate_policy` requires a version, organisation, anchor, lead time, holiday-calendar version and effective dates.
 - `delivery_event_key` gives future notifications a stable deduplication key; it does not send messages or create calendar events.
 - Existing subscription matching remains candidate generation only and does not authorize delivery.
+- Added `scripts/grants_calendar.py` as a local iCalendar projection contract.
+  It derives institutional all-day dates from exact source deadlines and a
+  versioned policy, preserves the external deadline, emits stable event IDs,
+  marks unreviewed events `TENTATIVE`, and represents cancellations explicitly.
+  Unknown or partial deadlines are omitted; no calendar or notification is
+  created.
+- Added `scripts/grants_calendar.py` as a local iCalendar projection contract.
+  It derives institutional all-day dates from exact source deadlines and a
+  versioned policy, preserves the external deadline, emits stable event IDs,
+  marks unreviewed events `TENTATIVE`, and represents cancellations explicitly.
+  Unknown or partial deadlines are omitted; no calendar or notification is
+  created.
 
 ## Local report/model surface — 2026-09-20
 
