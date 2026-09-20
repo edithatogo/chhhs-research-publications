@@ -43,6 +43,14 @@ class GrantsRegistryTests(unittest.TestCase):
         self.assertEqual(naive["ReviewStatus"], "Needs Review")
         self.assertEqual(invalid["ReviewStatus"], "Needs Review")
 
+    def test_non_http_url_is_not_actionable_evidence(self):
+        item = normalize_opportunity({
+            "Source": "X", "SourceID": "1", "Title": "Call", "URL": "javascript:alert(1)",
+            "RetrievedUTC": "2026-09-20T00:00:00Z",
+        })
+        self.assertEqual(item["URL"], "")
+        self.assertEqual(item["ReviewStatus"], "Needs Review")
+
 
 if __name__ == "__main__":
     unittest.main()

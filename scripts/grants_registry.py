@@ -21,6 +21,8 @@ def normalize_url(value: Any) -> str:
     if not raw:
         return ""
     parts = urlsplit(raw)
+    if parts.scheme.casefold() not in {"http", "https"} or not parts.netloc:
+        return ""
     return urlunsplit((parts.scheme.lower(), parts.netloc.lower(), parts.path.rstrip("/"), parts.query, ""))
 
 
