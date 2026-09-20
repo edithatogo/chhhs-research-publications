@@ -16,7 +16,7 @@ cover both boundaries; prior accepted records remain preserved on rejection.
 - [x] **Style Compliance**: Pass - the evaluator preserves prior accepted records and fails closed on missing evidence.
 - [x] **New Tests**: Yes - missing health and unreported-source cases are covered.
 - [x] **Test Coverage**: Partial - local run evaluation is covered; native monitoring and unattended delivery are not.
-- [x] **Test Results**: Passed - focused G07 tests (7), project validation (438 checks) and canonical-clone full suite (326 tests, 8 skipped).
+- [x] **Test Results**: Passed - focused G07 tests (7), project validation (438 checks) and canonical-clone full suite (329 tests, 8 skipped).
 
 ## Findings
 

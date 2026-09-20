@@ -64,7 +64,7 @@ Run a controlled live cycle only after G02 endpoint/access verification and G03 
 - [x] **Style Compliance**: Pass - raw source values and uncertainty are retained; no source is promoted solely from page reachability.
 - [x] **New Tests**: Yes - the ingestion suite now covers duplicate RSS/Atom source identity, titleless-entry and unbound-entry rejection.
 - [x] **Test Coverage**: Partial - local parser and batch contracts are covered; live feed permissions, source changes and platform writes are not.
-- [x] **Test Results**: Passed - focused ingestion tests (9) and canonical-clone full suite (326 tests, 8 skipped).
+- [x] **Test Results**: Passed - focused ingestion tests (9) and canonical-clone full suite (329 tests, 8 skipped).
 
 ## Findings
 
