@@ -110,3 +110,7 @@ Summary: the local DoRA activity implementation is source-preserving and fail-cl
 - Test results: **Passed** — 267 repository tests, 319 project checks, Conductor validation, and `PASS_LOCAL_ONLY` web-first contracts.
 
 Review finding applied: the first draft treated `Project ID` as unique. Live readback disproved that assumption (375 distinct values across 442 rows), so identity now uses the resource-scoped source `_id` and preserves `Project ID` unchanged. No unresolved local findings remain. Native list creation/import, complete row/column readback and report integration remain the next acceptance gate.
+
+## Native continuation check — 2026-09-20
+
+The authenticated Chrome inventory showed the public DoRA dataset and an existing OneDrive tab, but the SharePoint tab could not be rebound because it is already owned by a prior CUA browser session. A new authenticated Chrome tab timed out, and the separate Playwright CLI session remains at an unauthenticated Power BI sign-in page. No list creation, upload or tenant write was attempted. The next executable native action is to obtain a bindable authenticated SharePoint session, then create or locate the isolated `DORA Activity Registry` and read back its full schema, 442-row key set and sensitive-field handling before any report integration.
