@@ -27,7 +27,8 @@ The completed local G01 prerequisite is archived at `conductor/archive/G01_grant
 - Added schema/mapping parity tests; the local map and schema contain the same 22 persisted fields.
 - Added `config/flows/grants-registry-reviewed-import.definition.json`, a
   SharePoint-only manual reviewed-row JSON upsert definition with serial
-  processing, duplicate-key diagnostic and an exact-zero-match write guard,
+  processing, duplicate-key diagnostic, exact-zero-match create guard and an
+  exact-one-match update guard,
   plus review-field preservation. The private
   package builder injects the isolated DEV target without storing tenant IDs in
   tracked files.
@@ -104,10 +105,11 @@ inactive-flow warning. Full private receipt:
 
 The duplicate branch is intentionally diagnostic rather than a nested
 `Terminate` action: Power Automate rejects `Terminate` inside this
-`Apply to each` scope. The following create/update condition is independently
-guarded by `length(Get items.value) == 0`, so duplicate matches cannot write.
-The local definition uses a non-throwing diagnostic string; the native
-expression was corrected in the 2026-09-21 edit recorded below.
+`Apply to each` scope. The create branch is guarded by
+`length(Get items.value) == 0`, and the update branch now has a nested
+`length(Get items.value) == 1` guard, so duplicate matches cannot write. The
+local definition uses a non-throwing diagnostic string; the native expression
+was corrected in the 2026-09-21 edit recorded below.
 
 ## Native diagnostic-expression correction — 2026-09-21
 
@@ -144,3 +146,9 @@ The review added regression coverage in `3fc2c2f` for the reviewed-import
 flow's `GetItems`, `PostItem` and `PatchItem` operations and connector
 authentication metadata. The open target/operational gates are acceptance
 boundaries, not defects; G03 remains active.
+
+## Conductor review — duplicate-write fail-closed correction — 2026-09-21
+
+- **Finding:** the reviewed-import definition had a duplicate diagnostic, but its update branch could still be reached whenever `Get items` returned more than one row.
+- **Fix:** commit `054aa2e` adds an exact-one-match update condition; duplicate matches now produce diagnostics and no create/update action. Contract and package tests cover the nested guard.
+- **Verification:** focused flow/package tests pass (8); full local suite remains 372 tests with 8 skips. The corrected definition requires re-import/readback in isolated DEV before native acceptance can advance.

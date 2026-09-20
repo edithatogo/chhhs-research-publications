@@ -15,3 +15,4 @@
 - [x] Task: Reconcile superseded historical replay statements and the current cleanup boundary (12574e7).
 - [x] Task: Fail closed on malformed SharePoint targets and unresolved flow-package placeholders (007259d).
 - [x] Task: Cover explicit SharePoint operation IDs and authentication metadata in the reviewed-import flow contract tests (3fc2c2f).
+- [x] Task: Add an exact-one-match update guard so duplicate SharePoint matches cannot write (054aa2e).
