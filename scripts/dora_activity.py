@@ -102,6 +102,8 @@ def validate_page(result: dict[str, Any], expected_fields: list[str] = SOURCE_FI
 
 
 def validate_records(records: list[dict[str, Any]], expected_count: int) -> None:
+    if type(expected_count) is not int or expected_count < 0:
+        raise ValueError("DoRA activity expected record count is invalid")
     if not isinstance(records, list) or len(records) != expected_count:
         raise ValueError("DoRA activity record count does not reconcile")
     keys = []
@@ -109,7 +111,7 @@ def validate_records(records: list[dict[str, Any]], expected_count: int) -> None
         if set(record) != {"_id", *SOURCE_FIELDS}:
             raise ValueError("DoRA activity record has unexpected or missing fields")
         key = record.get(IDENTITY_FIELD)
-        if key is None or not str(key).strip():
+        if isinstance(key, bool) or not isinstance(key, (int, str)) or not str(key).strip():
             raise ValueError("DoRA activity record has no source _id")
         keys.append(str(key).strip())
     if len(keys) != len(set(keys)):

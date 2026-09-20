@@ -93,6 +93,18 @@ class DoraActivityTests(unittest.TestCase):
             with tempfile.TemporaryDirectory() as folder:
                 collect(Path(folder) / "activity", duplicate_source_id, page_size=2)
 
+    def test_source_id_must_be_scalar_and_non_boolean(self):
+        for invalid_id in (True, {"row": 7}, [7]):
+            def invalid_source_id(url, params, invalid_id=invalid_id):
+                result = self.fake_fetcher(url, params)
+                if url == DATASTORE_SEARCH:
+                    result["records"] = [record("1001", invalid_id)]
+                    result["total"] = 1
+                return result
+            with self.subTest(invalid_id=invalid_id), self.assertRaisesRegex(ValueError, "no source _id"):
+                with tempfile.TemporaryDirectory() as folder:
+                    collect(Path(folder) / "activity", invalid_source_id, page_size=2)
+
     def test_rims_schema_declares_every_source_field(self):
         schema = json.loads((ROOT / "config/dora-activity-registry.schema.json").read_text())
         names = {field["name"] for field in schema["fields"]}
