@@ -6,8 +6,10 @@ claims that a page is a working feed merely because an official URL exists.
 from __future__ import annotations
 
 import json
+from datetime import date
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlsplit
 
 REQUIRED_SOURCE_IDS = {
     "nhmrc", "mrff", "arc", "queensland-health", "emf-queensland",
@@ -15,6 +17,11 @@ REQUIRED_SOURCE_IDS = {
 }
 ALLOWED_INTAKE = {"rss", "atom", "api", "reviewed_import", "manual_review"}
 ALLOWED_HEALTH = {"unverified", "research_only", "reviewed_import", "verified_sample"}
+
+
+def _valid_http_url(value: Any) -> bool:
+    parsed = urlsplit(str(value or "").strip())
+    return parsed.scheme in {"http", "https"} and bool(parsed.netloc)
 
 
 def load_catalogue(path: str | Path) -> list[dict[str, Any]]:
@@ -29,17 +36,23 @@ def load_catalogue(path: str | Path) -> list[dict[str, Any]]:
         if not source_id or source_id in seen:
             raise ValueError(f"duplicate or missing source_id: {source_id!r}")
         seen.add(source_id)
-        if not row.get("authority_url") or not row.get("title"):
+        if not isinstance(row.get("title"), str) or not row["title"].strip():
             raise ValueError(f"source {source_id!r} needs title and authority_url")
+        if not _valid_http_url(row.get("authority_url")):
+            raise ValueError(f"source {source_id!r} needs a valid authority_url")
         if row.get("intake") not in ALLOWED_INTAKE:
             raise ValueError(f"source {source_id!r} has unsupported intake")
         if row.get("health_status") not in ALLOWED_HEALTH:
             raise ValueError(f"source {source_id!r} has unsupported health_status")
-        if row.get("intake") == "api" and not row.get("api_url"):
-            raise ValueError(f"source {source_id!r} with api intake needs api_url")
-        for field in ("eligibility_scope", "format", "access", "coverage"):
+        if row.get("intake") == "api" and not _valid_http_url(row.get("api_url")):
+            raise ValueError(f"source {source_id!r} with api intake needs a valid api_url")
+        for field in ("eligibility_scope", "format", "access", "coverage", "last_verified"):
             if not isinstance(row.get(field), str) or not row[field].strip():
                 raise ValueError(f"source {source_id!r} needs {field}")
+        try:
+            date.fromisoformat(row["last_verified"])
+        except ValueError:
+            raise ValueError(f"source {source_id!r} has an invalid last_verified date") from None
     missing = REQUIRED_SOURCE_IDS - seen
     if missing:
         raise ValueError(f"required sources missing: {sorted(missing)}")

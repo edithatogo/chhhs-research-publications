@@ -8,6 +8,7 @@ Review status: in progress; the source catalogue is implemented and the ARC publ
 
 - Added `config/grants-sources.json` covering NHMRC, MRFF, ARC, Queensland Health, EMF Queensland, Advance Queensland, FNQ Hospital Foundation, GrantConnect and CHHHS, with explicit format, access, coverage, eligibility and health fields.
 - Added `scripts/grants_sources.py` to validate required source coverage, authority URLs, proposed intake modes, eligibility scope and explicit health states.
+- Source-catalogue validation now also requires HTTP(S) authority/API URLs and ISO verification dates.
 - Unverified feeds are represented as `research_only` or `unverified`; no source is silently treated as RSS/API-ready. The ARC route is the explicit exception: its public JSON API is marked `verified_sample` and `awards_only`, so it cannot be promoted to an open-opportunity feed.
 
 ## Evidence
@@ -104,9 +105,9 @@ Verify each remaining permitted opportunity feed/API or produce a reviewed impor
 
 - [x] **Plan Compliance**: Partial - the local catalogue, fail-closed reviewed import, bounded calendar adapter and source-context preservation are implemented; permitted opportunity-feed/API evidence and row-level reviewed samples remain open.
 - [x] **Style Compliance**: Pass - source uncertainty is retained explicitly and no HTML candidate is promoted to an accepted opportunity.
-- [x] **New Tests**: Yes - the focused HTML calendar tests cover `SourceColumns` and ordered `SourceCells` preservation.
+- [x] **New Tests**: Yes - the focused source tests cover URL/date metadata rejection as well as `SourceColumns` and ordered `SourceCells` preservation.
 - [x] **Test Coverage**: Partial - local adapters and admission rules are covered; native source/feed, eligibility and unattended acceptance are outside local tests.
-- [x] **Test Results**: Passed - focused tests (5), canonical-clone full suite (335 tests, 8 private-runtime skips), project validation (438 checks), and Conductor validation (0 errors).
+- [x] **Test Results**: Passed - focused tests (7), canonical-clone full suite (337 tests, 8 private-runtime skips), project validation (438 checks), and Conductor validation (0 errors).
 
 ## Findings
 

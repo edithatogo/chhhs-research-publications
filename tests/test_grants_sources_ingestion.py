@@ -1,5 +1,7 @@
 import unittest
 from pathlib import Path
+import json
+import tempfile
 
 from scripts.grants_ingestion import ingest_batches, parse_feed
 from scripts.grants_sources import load_catalogue
@@ -15,6 +17,33 @@ class GrantsSourceTests(unittest.TestCase):
             "qh-health-practitioner-research", "metro-south-research-support",
             "metro-north-research-grants", "torres-cape-research-support",
         } <= ids)
+
+    def test_catalogue_rejects_invalid_urls_and_dates(self):
+        rows = json.loads((Path(__file__).parents[1] / "config/grants-sources.json").read_text())
+        rows[0]["authority_url"] = "not-a-url"
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json") as handle:
+            json.dump(rows, handle)
+            handle.flush()
+            with self.assertRaisesRegex(ValueError, "valid authority_url"):
+                load_catalogue(handle.name)
+
+        rows[0]["authority_url"] = "https://example.org"
+        rows[0]["last_verified"] = "not-a-date"
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json") as handle:
+            json.dump(rows, handle)
+            handle.flush()
+            with self.assertRaisesRegex(ValueError, "invalid last_verified date"):
+                load_catalogue(handle.name)
+
+    def test_api_catalogue_requires_valid_api_url(self):
+        rows = json.loads((Path(__file__).parents[1] / "config/grants-sources.json").read_text())
+        arc = next(row for row in rows if row["source_id"] == "arc")
+        arc["api_url"] = "not-a-url"
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json") as handle:
+            json.dump(rows, handle)
+            handle.flush()
+            with self.assertRaisesRegex(ValueError, "valid api_url"):
+                load_catalogue(handle.name)
 
     def test_arc_public_api_is_verified_as_awards_only(self):
         rows = load_catalogue(Path(__file__).parents[1] / "config/grants-sources.json")
