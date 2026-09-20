@@ -10,6 +10,10 @@ class PackageReleaseTests(unittest.TestCase):
         self.assertEqual(validate_version("0.3.0-rc1"), "0.3.0-rc1")
         with self.assertRaises(ValueError):
             validate_version("v0.3")
+        with self.assertRaisesRegex(ValueError, "version must use"):
+            validate_version(None)
+        with self.assertRaisesRegex(ValueError, "version must use"):
+            validate_version(3)
 
     def test_source_paths_exclude_runtime_archives(self):
         names = {path.as_posix() for path in source_paths()}

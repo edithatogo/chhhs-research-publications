@@ -46,7 +46,7 @@ def write_stable_entry(target: zipfile.ZipFile, name: str, content: bytes) -> No
 
 
 def validate_version(version: str) -> str:
-    if not VERSION_RE.fullmatch(version):
+    if not isinstance(version, str) or not VERSION_RE.fullmatch(version):
         raise ValueError("version must use MAJOR.MINOR.PATCH with an optional preview suffix")
     return version
 
