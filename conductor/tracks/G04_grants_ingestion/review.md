@@ -29,6 +29,18 @@ emitted. The focused adapter tests cover this failure path.
   The HTML probe was read-only and its private receipt is
   `private/ops/2026-09-20-grants-html-calendar-readback.json`.
 
+## Current bounded source exercise — 2026-09-21
+
+The review-only adapter was run against fresh bounded HTTPS responses from the
+official NHMRC and MRFF calendar pages. It returned `candidate_rows` with 13
+NHMRC rows and 179 MRFF rows, preserving the source headers and raw deadline
+text. The first NHMRC candidate was the published MRFF clinical-trial
+collaboration row, demonstrating that the NHMRC calendar is a combined view;
+source identity is therefore retained rather than inferred from page title.
+No candidate was admitted to the accepted registry, and no SharePoint or flow
+write was performed. This strengthens local/source evidence only; the live
+source/list/flow acceptance gate remains open.
+
 ## Remaining gate
 
 Run a controlled live cycle only after G02 endpoint/access verification and G03 isolated list readback. Then reconcile source keys, changed deadlines and archived rounds before operational acceptance.

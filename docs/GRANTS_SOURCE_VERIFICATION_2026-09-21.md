@@ -10,6 +10,11 @@ evidence, not a tenant ingestion or unattended-feed acceptance receipt.
 | ARC | The official Grants Dataset page documents a public JSON API and distinguishes funded-project data from opportunity discovery. | Keep the API route `awards_only`; never treat awards as open opportunities. |
 | Queensland Grants Finder | The public CKAN package endpoint is a valid metadata response, but the reviewed package exposes contribution-resource metadata rather than opportunity rows. | Keep `metadata_only`; follow linked agency pages for actual calls. |
 
+The bounded review-only adapter was also re-run against fresh HTTPS responses:
+NHMRC produced 13 candidate rows and MRFF produced 179 candidate rows. These
+are still `Needs Review` candidates, not accepted opportunities; no source row
+URL, eligibility decision or tenant write was invented.
+
 ## Acceptance boundary
 
 These observations refresh authority-page evidence only. They do not prove a
