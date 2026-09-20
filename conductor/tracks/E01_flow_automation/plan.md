@@ -36,4 +36,4 @@ Earlier checked tasks describe historical implementation. They do not close curr
 ## Phase: Target-package hardening — 2026-09-21
 
 - [x] Harden `load_target` to reject non-HTTPS site targets and empty or unresolved field mappings before package generation (`b6cc2e9`).
-- [x] Add regression coverage for malformed site URLs and empty mappings; the latest local verification reports 360 tests with 8 skips.
+- [x] Add regression coverage for malformed site URLs and empty mappings; the latest local verification reports 361 tests with 8 skips.

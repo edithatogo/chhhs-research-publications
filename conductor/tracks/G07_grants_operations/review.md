@@ -24,7 +24,7 @@ batch and fail closed.
 - [x] **Style Compliance**: Pass - the evaluator preserves prior accepted records and fails closed on missing evidence.
 - [x] **New Tests**: Yes - missing health, unreported-source, duplicate-health and missing-record-source cases are covered.
 - [x] **Test Coverage**: Partial - local run evaluation is covered; native monitoring and unattended delivery are not.
-- [x] **Test Results**: Passed - focused G07 tests (12), project validation (438 checks) and canonical-clone full suite (360 tests, 8 skipped).
+- [x] **Test Results**: Passed - focused G07 tests (13), project validation (438 checks) and canonical-clone full suite (361 tests, 8 skipped).
 
 ## Findings
 
@@ -33,3 +33,10 @@ batch and fail closed.
 - **File**: `conductor/tracks/G07_grants_operations/plan.md`
 - **Context**: Controlled synthetic create/update runs do not prove monitoring, two successive complete live cycles, exact-key reconciliation, schedule or delivery acceptance.
 - **Suggestion**: Keep G07 active until those native operational receipts are captured against an approved target; do not archive based on local evaluation or isolated DEV replay alone.
+
+## Conductor review — identity fail-closed hardening — 2026-09-21
+
+- **Finding:** `evaluate_run` string-coerced malformed source identities and could raise on an unhashable `OpportunityKey`, weakening the operational quarantine boundary.
+- **Fix:** non-string source and opportunity identities are now rejected explicitly; duplicate checks only run over validated string keys. Regression coverage proves the malformed batch is rejected without coercion or an incidental exception.
+- **Verification:** commit `42833c6` passes the focused relationship/operations suite (13 tests), the full local suite (361 tests, 8 skips), project validation (438 checks), web-first contracts and Conductor validation. Remote source-only CI remains to be recorded against the synchronized documentation commit.
+- **Residual gate:** native monitoring, exact-key reconciliation, scheduling and delivery remain open.
