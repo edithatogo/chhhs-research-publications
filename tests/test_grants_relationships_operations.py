@@ -35,7 +35,7 @@ class GrantsRelationshipTests(unittest.TestCase):
             normalize_relationship({'RelationshipType':'relevant_to_opportunity','FromKey':'PUB:1','ToKey':'GRANT:1','EvidenceURL':'https://evidence','Confidence':'candidate','ReviewStatus':'Reviewed'})
 
     def test_run_rejects_failed_source_and_preserves_last_batch(self):
-        result = evaluate_run([{'OpportunityKey':'GRANT:1'}], [{'source':'nhmrc','status':'failed'}], [{'OpportunityKey':'GRANT:old'}])
+        result = evaluate_run([{'OpportunityKey':'GRANT:1'}], [{'source':'nhmrc','status':'failed','count':0}], [{'OpportunityKey':'GRANT:old'}])
         self.assertEqual(result['status'], 'rejected')
         self.assertEqual(result['records'], [{'OpportunityKey':'GRANT:old'}])
 
@@ -47,7 +47,7 @@ class GrantsRelationshipTests(unittest.TestCase):
     def test_run_rejects_record_from_unreported_source(self):
         result = evaluate_run(
             [{'OpportunityKey':'GRANT:1', 'Source':'mrff'}],
-            [{'source':'nhmrc', 'status':'succeeded'}],
+            [{'source':'nhmrc', 'status':'succeeded', 'count':1}],
         )
         self.assertEqual(result['status'], 'rejected')
         self.assertIn('unreported_source', result['errors'])
@@ -55,24 +55,37 @@ class GrantsRelationshipTests(unittest.TestCase):
     def test_run_rejects_incomplete_or_duplicate_health_rows(self):
         result = evaluate_run(
             [{'OpportunityKey':'GRANT:1', 'Source':'nhmrc'}],
-            [{'source':'nhmrc','status':'succeeded'}, {'source':'nhmrc','status':'succeeded'}],
+            [{'source':'nhmrc','status':'succeeded','count':1}, {'source':'nhmrc','status':'succeeded','count':1}],
         )
         self.assertEqual(result['status'], 'rejected')
         self.assertIn('duplicate_health_source', result['errors'])
 
         result = evaluate_run(
             [{'OpportunityKey':'GRANT:1', 'Source':'nhmrc'}],
-            [{'source':'','status':'succeeded'}],
+            [{'source':'','status':'succeeded','count':1}],
         )
         self.assertIn('missing_health_source', result['errors'])
 
     def test_run_rejects_records_without_source(self):
         result = evaluate_run(
             [{'OpportunityKey':'GRANT:1'}],
-            [{'source':'nhmrc','status':'succeeded'}],
+            [{'source':'nhmrc','status':'succeeded','count':1}],
         )
         self.assertEqual(result['status'], 'rejected')
         self.assertIn('missing_record_source', result['errors'])
+
+    def test_run_rejects_invalid_or_mismatched_health_counts(self):
+        result = evaluate_run(
+            [{'OpportunityKey':'GRANT:1', 'Source':'nhmrc'}],
+            [{'source':'nhmrc', 'status':'succeeded', 'count':2}],
+        )
+        self.assertIn('health_record_count_mismatch', result['errors'])
+
+        result = evaluate_run(
+            [{'OpportunityKey':'GRANT:1', 'Source':'nhmrc'}],
+            [{'source':'nhmrc', 'status':'succeeded', 'count':True}],
+        )
+        self.assertIn('invalid_health_count', result['errors'])
 
     def test_policy_and_delivery_keys_are_versioned(self):
         policy = {'PolicyKey':'CHHHS-DEFAULT','Version':'1.0','OrganisationKey':'CHHHS','AnchorKind':'final','LeadDays':10,'CalendarOrBusinessDays':'business','HolidayCalendarVersion':'qld-2026','EffectiveFrom':'2026-01-01'}
