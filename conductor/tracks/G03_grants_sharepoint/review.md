@@ -116,3 +116,21 @@ This closes the native diagnostic-expression gate only. The isolated DEV
 create/update evidence remains valid; the organisation-wide target,
 canonical binding, unattended operation, delivery and production gates remain
 open, so G03 remains in progress.
+
+## Review Report: G03 Grants SharePoint — 2026-09-21
+
+### Summary
+
+The canonical isolated grants list and reviewed-import flow remain structurally sound, and the legacy native diagnostic expression has been corrected and checked in Power Automate. The track is not archivable because the approved organisation-wide target and operational acceptance are still absent.
+
+### Verification Checks
+
+- [x] Plan Compliance: Partial — isolated schema, create/update replay and diagnostic correction are evidenced; target binding and unattended gates remain open.
+- [x] Style Compliance: Pass — SharePoint Online remains the registry connector and OneDrive is not used for registry writes.
+- [x] New Tests: Existing contract and schema tests remain green; the native correction is covered by private UI evidence.
+- [x] Test Coverage: Partial — local structure and isolated DEV behavior are covered; production/organisation-wide behavior is not.
+- [x] Test Results: Passed — 318 tests and Conductor validation passed; Flow Checker read back 0 errors and 0 warnings after saving the correction.
+
+### Findings
+
+No new implementation findings. The open target/operational gates are acceptance boundaries, not defects; G03 remains active.

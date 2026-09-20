@@ -8,3 +8,7 @@
 
 ## Phase: Review fixes
 - [x] Task: Apply review corrections for the controlled native replay and preserve the remaining acceptance boundary (0536b98).
+
+## Phase: Conductor review — 2026-09-21
+
+- [x] Review the schema, flow contract, controlled replay receipt and native diagnostic-expression correction; retain G03 as in progress because target and operational acceptance are incomplete.
