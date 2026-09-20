@@ -1,0 +1,34 @@
+# Track Review: E07 Publication Platform Acceptance
+
+## Current status — 2026-09-20
+
+This track remains **in progress**. Local contracts, package construction,
+source reconciliation and the seven-page grants design are implemented, but
+the platform acceptance gates require current tenant evidence.
+
+The authenticated Power Automate details page for the single retained
+canonical publication flow currently reads **Off**. Flow Checker reads **0
+errors** and **1 warning**, where the warning context is that the flow is off.
+The visible 28-day history reads 2 succeeded, 1 test-failed and 3 failed runs.
+That is useful operational evidence but not consecutive-cycle, unattended,
+recurrence or release acceptance. No write, enable, run or schedule activation
+was performed for this readback.
+
+The authenticated SharePoint Site Contents readback for `eHealth-comm-test`
+did not expose `Publication Registry`, `Grants Registry` or `DORA Activity
+Registry`. This site is therefore not an approved target for creating or
+migrating a registry, and no list was created there. The earlier private DEV
+flow receipt records a personal DEV `Publication Registry`; it does not prove
+an organisation-wide target or grants-list availability.
+
+## Remaining gates
+
+- [ ] Approved isolated SharePoint target and list schema/readback.
+- [ ] Controlled create/replay/update and duplicate/concurrency evidence.
+- [ ] Failure-safe batch, source failure and canonical key-set reconciliation.
+- [ ] Refresh/report readback and monitoring evidence.
+- [ ] Additive organisation fields readback and controlled backfill.
+- [ ] Unattended recurrence evidence and release decision.
+
+Evidence receipt: `private/ops/2026-09-20-powerautomate-publication-flow-tests.json`.
+Local checks do not close these native gates.

@@ -60,3 +60,17 @@ redundant disabled manual duplicate was removed, leaving one canonical flow
 identity.
 The actual recurrence run remains gated because activation requires explicit
 approval.
+
+## Current native status readback — 2026-09-20
+
+The canonical flow details page was re-read through the authenticated Power
+Automate UI. The flow is currently **Off**. Flow Checker reports **0 errors**
+and **1 warning**; the warning is the expected inactive-flow warning, not a
+proof of action correctness. The visible 28-day history contains 2 succeeded,
+1 test-failed and 3 failed runs. This mixed history does not establish
+consecutive-cycle, unattended, recurrence or release acceptance.
+
+No edit, enable, run, list write or schedule activation was performed during
+this readback. The evidence is recorded in the ignored private receipt
+`private/ops/2026-09-20-powerautomate-publication-flow-tests.json`. Native
+execution, replay/update and reconciliation gates therefore remain open.
