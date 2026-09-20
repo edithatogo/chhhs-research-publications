@@ -26,6 +26,12 @@ def met(name: str, label: str|None=None) -> dict:
 def release_col(name: str, label: str|None=None) -> dict:
     return {'field':field('ReleaseMetadata',name),'queryRef':f'ReleaseMetadata.{name}','nativeQueryRef':name,'displayName':label or name}
 
+def grant_col(name: str, label: str|None=None) -> dict:
+    return {'field':field('GrantsRegistry',name),'queryRef':f'GrantsRegistry.{name}','nativeQueryRef':name,'displayName':label or name}
+
+def grant_met(name: str, label: str|None=None) -> dict:
+    return {'field':field('GrantsRegistry',name,'Measure'),'queryRef':f'GrantsRegistry.{name}','nativeQueryRef':name,'displayName':label or name}
+
 def visual(page: str, name: str, kind: str, title: str, xywh: tuple, roles: dict|None=None, text: str|None=None, sort_field: dict|None=None, descending: bool=False) -> None:
     x,y,w,h=xywh
     order=sum(m['page']==page for m in MANIFEST)
@@ -78,7 +84,10 @@ def build(source_pbix: Path | None = None) -> None:
         ('PublicationRegister','CHHHS Publications'),
         ('MonthlyPublications','Monthly Publications'),
         ('SourceReconciliation','Source Reconciliation'),
-        ('ClinicalAnalytics','Clinical Analytics')
+        ('ClinicalAnalytics','Clinical Analytics'),
+        ('FundingOpportunities','Funding Opportunities'),
+        ('FundingCalendar','Funding Calendar'),
+        ('MyFundingWatchlist','My Funding Watchlist')
     ]
     for page,label in pages:
         save_json(REPORT/f'definition/pages/{page}/page.json',{'$schema':BASE+'page/2.0.0/schema.json','name':page,'displayName':label,'displayOption':'FitToPage','height':1080,'width':1920})
@@ -223,6 +232,52 @@ def build(source_pbix: Path | None = None) -> None:
     },sort_field=field('Publication','Publications','Measure'),descending=True)
 
     visual(p,'footer','textbox','',(32,960,1856,40),text='Field of Research mapped using ANZSRC 2020 2-digit divisions. Open access classification verified via Europe PMC and OpenAlex APIs in accordance with the NHMRC Open Access Policy.')
+
+    # Page 5: Funding Opportunities (FundingOpportunities)
+    p='FundingOpportunities'
+    heading(p,'Funding Opportunities','Canonical grant opportunities from reviewed federal, Queensland and institutional sources. Live list ingestion remains pending native acceptance.')
+    for i,(n,t,m) in enumerate([
+        ('grant-count','Opportunities','Grant Opportunities'),
+        ('grant-open','Open opportunities','Open Grant Opportunities'),
+        ('grant-review','Needs review','Grant Opportunities Needing Review'),
+    ]):
+        visual(p,n,'card',t,(32+472*i,112,440,96),{'Values':[grant_met(m)]})
+    visual(p,'grant-status-filter','slicer','Opportunity status',(32,224,440,72),{'Values':[grant_col('Status','Status')]})
+    visual(p,'grant-relevance-filter','slicer','CHHHS relevance',(504,224,440,72),{'Values':[grant_col('CHHHSRelevance','Relevance')]})
+    visual(p,'grant-review-filter','slicer','Review state',(976,224,440,72),{'Values':[grant_col('ReviewStatus','Review status')]})
+    visual(p,'grant-source-filter','slicer','Source',(1448,224,440,72),{'Values':[grant_col('Source','Source')]})
+    visual(p,'grant-register','tableEx','Opportunity register',(32,328,1856,560),{'Values':[
+        grant_col('Title','Opportunity'),grant_col('Funder'),grant_col('Source'),grant_col('Deadline'),
+        grant_col('DeadlinePrecision','Deadline precision'),grant_col('Status'),grant_col('CHHHSRelevance','CHHHS relevance'),
+        grant_col('ReviewStatus','Review status'),grant_col('URL','Source link')
+    ]})
+    footer(p,'Source links and review state are required. A blank or failed source batch must not replace the last accepted registry.')
+
+    # Page 6: Funding Calendar (FundingCalendar)
+    p='FundingCalendar'
+    heading(p,'Funding Calendar','External deadlines are distinct from future institutional dates. Partial and uncertain dates remain visible for review.')
+    visual(p,'calendar-status-filter','slicer','Status',(32,112,440,72),{'Values':[grant_col('Status','Status')]})
+    visual(p,'calendar-precision-filter','slicer','Deadline precision',(504,112,440,72),{'Values':[grant_col('DeadlinePrecision','Precision')]})
+    visual(p,'calendar-source-filter','slicer','Funder / source',(976,112,440,72),{'Values':[grant_col('Funder','Funder')]})
+    visual(p,'calendar-register','tableEx','Funding calendar data',(32,224,1856,632),{'Values':[
+        grant_col('Deadline','External deadline'),grant_col('DeadlinePrecision','Precision'),grant_col('Title','Opportunity'),
+        grant_col('Funder'),grant_col('RoundID','Round'),grant_col('Status'),grant_col('CHHHSRelevance','CHHHS relevance'),
+        grant_col('URL','Source link')
+    ]})
+    visual(p,'calendar-note','textbox','',(32,896,1856,72),text='Institutional dates, holiday calendars and reminders are policy-driven additions and are not yet persisted in the native registry.')
+    footer(p,'Never infer a day from a month or year-only deadline. Preserve source-stated date precision and timezone uncertainty.')
+
+    # Page 7: My Funding Watchlist (MyFundingWatchlist)
+    p='MyFundingWatchlist'
+    heading(p,'My Funding Watchlist','A personal view is designed as a private subscription surface; persistence and delivery remain pending native SharePoint/Power Apps acceptance.')
+    visual(p,'watchlist-relevance-filter','slicer','CHHHS relevance',(32,112,520,72),{'Values':[grant_col('CHHHSRelevance','Relevance')]})
+    visual(p,'watchlist-review-filter','slicer','Review state',(584,112,520,72),{'Values':[grant_col('ReviewStatus','Review status')]})
+    visual(p,'watchlist-note','textbox','',(1136,112,752,72),text='Watchlist filters are a report preview; no personal subscription or notification is created by this PBIP.')
+    visual(p,'watchlist-register','tableEx','Candidate watchlist',(32,224,1856,632),{'Values':[
+        grant_col('Title','Opportunity'),grant_col('Funder'),grant_col('Deadline'),grant_col('Status'),
+        grant_col('CHHHSRelevance','Relevance'),grant_col('ReviewStatus','Review status'),grant_col('ReviewNotes','Review notes'),grant_col('URL','Source link')
+    ]})
+    footer(p,'Personal subscriptions, categories, individual-grant watches and reminder/calendar delivery require an authenticated list-backed preference surface.')
 
     save_json(ROOT/'audit/report-build.json',{'pages':len(pages),'visuals':len(MANIFEST),'manifest':MANIFEST,'legacy_visuals_copied':0,'legacy_filters_copied':0,'native_render_tested':False})
     print(f'Built {len(pages)} pages and {len(MANIFEST)} research-only visuals.')

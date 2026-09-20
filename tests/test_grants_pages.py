@@ -1,0 +1,22 @@
+import json
+import unittest
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+
+
+class GrantsPageSurfaceTests(unittest.TestCase):
+    def test_local_report_contains_three_additive_grants_pages(self):
+        pages = json.loads((ROOT / "powerbi/CHHHS Research Publications.Report/definition/pages/pages.json").read_text())
+        self.assertEqual(pages["pageOrder"][-3:], ["FundingOpportunities", "FundingCalendar", "MyFundingWatchlist"])
+
+    def test_grants_model_is_empty_safe_and_explicitly_pending_native_readback(self):
+        model = json.loads((ROOT / "audit/model.snapshot.json").read_text())["model"]
+        grants = next(table for table in model["tables"] if table["name"] == "GrantsRegistry")
+        self.assertIn("empty", grants["description"])
+        self.assertIn("OpportunityKey", {column["name"] for column in grants["columns"]})
+        self.assertIn("COUNTROWS(GrantsRegistry)", " ".join(measure["expression"] for measure in grants["measures"]))
+
+
+if __name__ == "__main__":
+    unittest.main()

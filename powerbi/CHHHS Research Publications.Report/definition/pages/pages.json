@@ -4,7 +4,10 @@
     "PublicationRegister",
     "MonthlyPublications",
     "SourceReconciliation",
-    "ClinicalAnalytics"
+    "ClinicalAnalytics",
+    "FundingOpportunities",
+    "FundingCalendar",
+    "MyFundingWatchlist"
   ],
   "activePageName": "PublicationRegister"
 }

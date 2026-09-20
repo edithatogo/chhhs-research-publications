@@ -1,6 +1,6 @@
 {
-  "pages": 4,
-  "visuals": 56,
+  "pages": 7,
+  "visuals": 82,
   "manifest": [
     {
       "page": "PublicationRegister",
@@ -672,6 +672,318 @@
         960,
         1856,
         40
+      ]
+    },
+    {
+      "page": "FundingOpportunities",
+      "visual": "heading",
+      "type": "textbox",
+      "title": "CHHHS RESEARCH PUBLICATIONS  |  Funding Opportunities",
+      "position": [
+        32,
+        16,
+        1856,
+        48
+      ]
+    },
+    {
+      "page": "FundingOpportunities",
+      "visual": "caption",
+      "type": "textbox",
+      "title": "Canonical grant opportunities from reviewed federal, Queensland and institutional sources. Live list ingestion remains pending native acceptance.",
+      "position": [
+        32,
+        64,
+        1856,
+        40
+      ]
+    },
+    {
+      "page": "FundingOpportunities",
+      "visual": "grant-count",
+      "type": "card",
+      "title": "Opportunities",
+      "position": [
+        32,
+        112,
+        440,
+        96
+      ]
+    },
+    {
+      "page": "FundingOpportunities",
+      "visual": "grant-open",
+      "type": "card",
+      "title": "Open opportunities",
+      "position": [
+        504,
+        112,
+        440,
+        96
+      ]
+    },
+    {
+      "page": "FundingOpportunities",
+      "visual": "grant-review",
+      "type": "card",
+      "title": "Needs review",
+      "position": [
+        976,
+        112,
+        440,
+        96
+      ]
+    },
+    {
+      "page": "FundingOpportunities",
+      "visual": "grant-status-filter",
+      "type": "slicer",
+      "title": "Opportunity status",
+      "position": [
+        32,
+        224,
+        440,
+        72
+      ]
+    },
+    {
+      "page": "FundingOpportunities",
+      "visual": "grant-relevance-filter",
+      "type": "slicer",
+      "title": "CHHHS relevance",
+      "position": [
+        504,
+        224,
+        440,
+        72
+      ]
+    },
+    {
+      "page": "FundingOpportunities",
+      "visual": "grant-review-filter",
+      "type": "slicer",
+      "title": "Review state",
+      "position": [
+        976,
+        224,
+        440,
+        72
+      ]
+    },
+    {
+      "page": "FundingOpportunities",
+      "visual": "grant-source-filter",
+      "type": "slicer",
+      "title": "Source",
+      "position": [
+        1448,
+        224,
+        440,
+        72
+      ]
+    },
+    {
+      "page": "FundingOpportunities",
+      "visual": "grant-register",
+      "type": "tableEx",
+      "title": "Opportunity register",
+      "position": [
+        32,
+        328,
+        1856,
+        560
+      ]
+    },
+    {
+      "page": "FundingOpportunities",
+      "visual": "footer",
+      "type": "textbox",
+      "title": "Source links and review state are required. A blank or failed source batch must not replace the last accepted registry.",
+      "position": [
+        32,
+        1016,
+        1856,
+        32
+      ]
+    },
+    {
+      "page": "FundingCalendar",
+      "visual": "heading",
+      "type": "textbox",
+      "title": "CHHHS RESEARCH PUBLICATIONS  |  Funding Calendar",
+      "position": [
+        32,
+        16,
+        1856,
+        48
+      ]
+    },
+    {
+      "page": "FundingCalendar",
+      "visual": "caption",
+      "type": "textbox",
+      "title": "External deadlines are distinct from future institutional dates. Partial and uncertain dates remain visible for review.",
+      "position": [
+        32,
+        64,
+        1856,
+        40
+      ]
+    },
+    {
+      "page": "FundingCalendar",
+      "visual": "calendar-status-filter",
+      "type": "slicer",
+      "title": "Status",
+      "position": [
+        32,
+        112,
+        440,
+        72
+      ]
+    },
+    {
+      "page": "FundingCalendar",
+      "visual": "calendar-precision-filter",
+      "type": "slicer",
+      "title": "Deadline precision",
+      "position": [
+        504,
+        112,
+        440,
+        72
+      ]
+    },
+    {
+      "page": "FundingCalendar",
+      "visual": "calendar-source-filter",
+      "type": "slicer",
+      "title": "Funder / source",
+      "position": [
+        976,
+        112,
+        440,
+        72
+      ]
+    },
+    {
+      "page": "FundingCalendar",
+      "visual": "calendar-register",
+      "type": "tableEx",
+      "title": "Funding calendar data",
+      "position": [
+        32,
+        224,
+        1856,
+        632
+      ]
+    },
+    {
+      "page": "FundingCalendar",
+      "visual": "calendar-note",
+      "type": "textbox",
+      "title": "Institutional dates, holiday calendars and reminders are policy-driven additions and are not yet persisted in the native registry.",
+      "position": [
+        32,
+        896,
+        1856,
+        72
+      ]
+    },
+    {
+      "page": "FundingCalendar",
+      "visual": "footer",
+      "type": "textbox",
+      "title": "Never infer a day from a month or year-only deadline. Preserve source-stated date precision and timezone uncertainty.",
+      "position": [
+        32,
+        1016,
+        1856,
+        32
+      ]
+    },
+    {
+      "page": "MyFundingWatchlist",
+      "visual": "heading",
+      "type": "textbox",
+      "title": "CHHHS RESEARCH PUBLICATIONS  |  My Funding Watchlist",
+      "position": [
+        32,
+        16,
+        1856,
+        48
+      ]
+    },
+    {
+      "page": "MyFundingWatchlist",
+      "visual": "caption",
+      "type": "textbox",
+      "title": "A personal view is designed as a private subscription surface; persistence and delivery remain pending native SharePoint/Power Apps acceptance.",
+      "position": [
+        32,
+        64,
+        1856,
+        40
+      ]
+    },
+    {
+      "page": "MyFundingWatchlist",
+      "visual": "watchlist-relevance-filter",
+      "type": "slicer",
+      "title": "CHHHS relevance",
+      "position": [
+        32,
+        112,
+        520,
+        72
+      ]
+    },
+    {
+      "page": "MyFundingWatchlist",
+      "visual": "watchlist-review-filter",
+      "type": "slicer",
+      "title": "Review state",
+      "position": [
+        584,
+        112,
+        520,
+        72
+      ]
+    },
+    {
+      "page": "MyFundingWatchlist",
+      "visual": "watchlist-note",
+      "type": "textbox",
+      "title": "Watchlist filters are a report preview; no personal subscription or notification is created by this PBIP.",
+      "position": [
+        1136,
+        112,
+        752,
+        72
+      ]
+    },
+    {
+      "page": "MyFundingWatchlist",
+      "visual": "watchlist-register",
+      "type": "tableEx",
+      "title": "Candidate watchlist",
+      "position": [
+        32,
+        224,
+        1856,
+        632
+      ]
+    },
+    {
+      "page": "MyFundingWatchlist",
+      "visual": "footer",
+      "type": "textbox",
+      "title": "Personal subscriptions, categories, individual-grant watches and reminder/calendar delivery require an authenticated list-backed preference surface.",
+      "position": [
+        32,
+        1016,
+        1856,
+        32
       ]
     }
   ],

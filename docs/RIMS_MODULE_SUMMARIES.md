@@ -109,7 +109,9 @@ health.
 
 Design: one canonical `Grants Registry` SharePoint list uses `OpportunityKey`
 as its only identity. RSS/Atom/API-shaped adapters and reviewed imports feed a
-fail-closed normaliser. Institutional deadline policies, subscription
+fail-closed normaliser. The local PBIP now includes additive Funding
+Opportunities, Funding Calendar and My Funding Watchlist pages over an
+empty-safe model table. Institutional deadline policies, subscription
 preferences and delivery events are separate typed entities; they do not
 duplicate the registry. Grants pages are additive pages in the existing RIMS
 Power BI report, with Power Apps or another standard form for persistence where
@@ -130,7 +132,8 @@ flowchart LR
 
 Current state: local G01–G08 contracts, source catalogue, adapters, planning,
 relationship and delivery-policy tests exist. No grants list, grants flow,
-report pages, subscriptions or notifications have been accepted in the tenant.
+report pages, subscriptions or notifications have been accepted in the tenant;
+the three local grants page definitions are not tenant readback.
 
 ## 5. RIMS dashboard and user experience
 

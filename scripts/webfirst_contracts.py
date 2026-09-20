@@ -169,9 +169,10 @@ def local_validate(root: Path = ROOT) -> dict[str, Any]:
 
     try:
         contract = load(root/'contracts/web-first-execution.contract.json')
-        check('exact four-page scope', contract['required_pages'] == [
+        check('exact seven-page scope', contract['required_pages'] == [
             'CHHHS Publications', 'Monthly Publications',
-            'Source Reconciliation', 'Clinical Analytics'])
+            'Source Reconciliation', 'Clinical Analytics', 'Funding Opportunities',
+            'Funding Calendar', 'My Funding Watchlist'])
         check('canonical-key headline', contract['headline_identity'] == 'CanonicalKey')
         check('both source contracts', contract['sources'] == ['PubMed', 'DORA'])
         check('local tests are not native acceptance', contract['local_validation_is_native_acceptance'] is False)

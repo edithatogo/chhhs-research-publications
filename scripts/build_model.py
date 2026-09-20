@@ -90,6 +90,7 @@ def build() -> None:
     exprs=[expression('pNCBIEmail','"" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=false]'),expression('FacilityDefinitions',facility_m)]
     for name in ('fnParsePubDate','fnNCBIJson','fnPubMedXML','PubMedHarvest','PubMedFullMetadata','PubMedPublications','PubMedAuthorEvidence','PubMedMetadataChunks','PubMedIngestionAudit','DoraSourceObservations','DoraHistoricalMetadata','DoraMetadataChunks','DoraIngestionAudit','DoraHarvest','CanonicalPublications'):
         exprs.append(expression(name,(ROOT/f'powerquery/{name}.m').read_text()))
+    exprs.append(expression('GrantsRegistry',(ROOT/'config/GrantsRegistry.m').read_text()))
     types={name:'string' for name in ['CanonicalKey','PMID','Title','Journal','Authors','DOI','PubMedURL','DORAURL','CHHHSAffiliatedAuthors','Abstract','SourceSet','DedupMethod','PublicationDateRaw','PublicationDatePrecision','PublicationMonth','OnlineDateRaw','MatchedFacilities','AttributionStatus','AttributionEvidence','PublicationNotice',
         'PMCID','AuthorORCIDs','FundingType','IsInternalFunding','FunderNames','GrantIDs','ClinicalTrialID','IndigenousHealthFocus','FieldOfResearch','StudyDesign','EuropePMC_OpenAccess','EuropePMC_FullTextURL','OpenAccessStatus','OAUrl','PDFDownloadStatus','LocalPDFPath','PDFDownloadedUTC']}
     types.update({n:'dateTime' for n in ['PublicationDate','OnlineDate','RefreshedAtUTC']})
@@ -157,10 +158,25 @@ in #table(type table [ReportMonthStart=date,ReportMonthEndExclusive=date,Refresh
         column('ReleaseMetadata', 'NativeAcceptance', 'boolean'),
     ], release_m)
     release_table['description']='One-row source release identity surface. NativeAcceptance remains false until isolated tenant/report readback proves it.'
+    grant_fields = [
+        ('OpportunityKey','string'),('Title','string'),('Funder','string'),('Source','string'),
+        ('SourceID','string'),('RoundID','string'),('URL','string'),('Description','string'),
+        ('Eligibility','string'),('Geography','string'),('Amount','string'),('Deadline','string'),
+        ('DeadlineRaw','string'),('DeadlinePrecision','string'),('Status','string'),('Contact','string'),
+        ('CHHHSRelevance','string'),('ReviewStatus','string'),('ReviewNotes','string'),
+        ('RetrievedUTC','string'),('RetrievedTimestampStatus','string'),('EvidenceHash','string'),
+    ]
+    grants=table('GrantsRegistry',[column('GrantsRegistry',name,dt,**({'dataCategory':'WebUrl'} if name=='URL' else {})) for name,dt in grant_fields], 'GrantsRegistry')
+    grants['description']='Canonical opportunity registry projection. Empty or unaccepted source batches remain empty; deadlines retain raw text and precision.'
+    grants['measures']=[
+        measure('Grant Opportunities','COUNTROWS(GrantsRegistry)'),
+        measure('Open Grant Opportunities','CALCULATE([Grant Opportunities], KEEPFILTERS(GrantsRegistry[Status] = "open"))'),
+        measure('Grant Opportunities Needing Review','CALCULATE([Grant Opportunities], KEEPFILTERS(GrantsRegistry[ReviewStatus] <> "accepted"))'),
+    ]
     relationships=[]
     for ft,fc,tt,tc in [('Publication','PublicationDate','Date','Date'),('PublicationFacility','CanonicalKey','Publication','CanonicalKey'),('PublicationFacility','FacilityKey','Facility','FacilityKey'),('SearchAudit','FacilityKey','Facility','FacilityKey')]:
         relationships.append({'name':uid(f'{ft}.{fc}->{tt}.{tc}'),'fromTable':ft,'fromColumn':fc,'toTable':tt,'toColumn':tc,'fromCardinality':'many','toCardinality':'one','crossFilteringBehavior':'oneDirection','isActive':True})
-    model={'name':'CHHHS Research Publications','compatibilityLevel':1600,'model':{'culture':'en-AU','defaultPowerBIDataSourceVersion':'powerBI_V3','sourceQueryCulture':'en-AU','tables':[publication,facility,bridge,dates,audit,window,release_table],'relationships':relationships,'expressions':exprs,'annotations':[{'name':'PBI_QueryOrder','value':json.dumps(['pNCBIEmail','FacilityDefinitions','fnParsePubDate','fnNCBIJson','fnPubMedXML','PubMedHarvest','PubMedFullMetadata','PubMedPublications','PubMedAuthorEvidence','PubMedMetadataChunks','PubMedIngestionAudit','DoraSourceObservations','DoraHistoricalMetadata','DoraMetadataChunks','DoraIngestionAudit','DoraHarvest','CanonicalPublications','Publication','Facility','PublicationFacility','Date','SearchAudit','ReportingWindow','ReleaseMetadata'])},{'name':'PBI_TimeIntelligenceEnabled','value':'0'}]}}
+    model={'name':'CHHHS Research Publications','compatibilityLevel':1600,'model':{'culture':'en-AU','defaultPowerBIDataSourceVersion':'powerBI_V3','sourceQueryCulture':'en-AU','tables':[publication,facility,bridge,dates,audit,window,release_table,grants],'relationships':relationships,'expressions':exprs,'annotations':[{'name':'PBI_QueryOrder','value':json.dumps(['pNCBIEmail','FacilityDefinitions','fnParsePubDate','fnNCBIJson','fnPubMedXML','PubMedHarvest','PubMedFullMetadata','PubMedPublications','PubMedAuthorEvidence','PubMedMetadataChunks','PubMedIngestionAudit','DoraSourceObservations','DoraHistoricalMetadata','DoraMetadataChunks','DoraIngestionAudit','DoraHarvest','CanonicalPublications','GrantsRegistry','Publication','Facility','PublicationFacility','Date','SearchAudit','ReportingWindow','ReleaseMetadata'])},{'name':'PBI_TimeIntelligenceEnabled','value':'0'}]}}
     target=ROOT/'powerbi/CHHHS Research Publications.SemanticModel'
     save_json(ROOT/'audit/model.snapshot.json',model)
     save_json(target/'definition.pbism',{'$schema':'https://developer.microsoft.com/json-schemas/fabric/item/semanticModel/definitionProperties/1.0.0/schema.json','version':'5.0','settings':{'qnaEnabled':False}})

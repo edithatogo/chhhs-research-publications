@@ -829,6 +829,201 @@
           }
         ],
         "description": "One-row source release identity surface. NativeAcceptance remains false until isolated tenant/report readback proves it."
+      },
+      {
+        "name": "GrantsRegistry",
+        "isHidden": false,
+        "lineageTag": "a35cda23-2e25-5941-86e7-7bc061a708a6",
+        "columns": [
+          {
+            "name": "OpportunityKey",
+            "dataType": "string",
+            "sourceColumn": "OpportunityKey",
+            "summarizeBy": "none",
+            "lineageTag": "dfe4dfb9-7830-55ab-be1d-da862d443c89"
+          },
+          {
+            "name": "Title",
+            "dataType": "string",
+            "sourceColumn": "Title",
+            "summarizeBy": "none",
+            "lineageTag": "9be61e5d-e662-578a-bd15-026f2503e7bf"
+          },
+          {
+            "name": "Funder",
+            "dataType": "string",
+            "sourceColumn": "Funder",
+            "summarizeBy": "none",
+            "lineageTag": "c55327b2-304f-5d42-8df3-63f772355972"
+          },
+          {
+            "name": "Source",
+            "dataType": "string",
+            "sourceColumn": "Source",
+            "summarizeBy": "none",
+            "lineageTag": "7bb25826-fc22-54a1-a520-851146b85631"
+          },
+          {
+            "name": "SourceID",
+            "dataType": "string",
+            "sourceColumn": "SourceID",
+            "summarizeBy": "none",
+            "lineageTag": "a27e5dba-fcdb-50fc-a7fd-130856780660"
+          },
+          {
+            "name": "RoundID",
+            "dataType": "string",
+            "sourceColumn": "RoundID",
+            "summarizeBy": "none",
+            "lineageTag": "5d7d426b-0b0a-580c-b426-7d965bdb24fc"
+          },
+          {
+            "name": "URL",
+            "dataType": "string",
+            "sourceColumn": "URL",
+            "summarizeBy": "none",
+            "lineageTag": "c83672a7-f81d-549f-9672-b2fb5830f436",
+            "dataCategory": "WebUrl"
+          },
+          {
+            "name": "Description",
+            "dataType": "string",
+            "sourceColumn": "Description",
+            "summarizeBy": "none",
+            "lineageTag": "3ec6dc79-018a-5ec3-85e9-6f38ab705ab4"
+          },
+          {
+            "name": "Eligibility",
+            "dataType": "string",
+            "sourceColumn": "Eligibility",
+            "summarizeBy": "none",
+            "lineageTag": "ac42dd94-a117-5e10-891c-848088420977"
+          },
+          {
+            "name": "Geography",
+            "dataType": "string",
+            "sourceColumn": "Geography",
+            "summarizeBy": "none",
+            "lineageTag": "aa629aa0-17cc-527a-aa26-a632380716ca"
+          },
+          {
+            "name": "Amount",
+            "dataType": "string",
+            "sourceColumn": "Amount",
+            "summarizeBy": "none",
+            "lineageTag": "445269c8-e816-5405-8907-67aef5d6163b"
+          },
+          {
+            "name": "Deadline",
+            "dataType": "string",
+            "sourceColumn": "Deadline",
+            "summarizeBy": "none",
+            "lineageTag": "53b39c9f-6773-5a4c-8721-63ecb94d9e25"
+          },
+          {
+            "name": "DeadlineRaw",
+            "dataType": "string",
+            "sourceColumn": "DeadlineRaw",
+            "summarizeBy": "none",
+            "lineageTag": "dd112e72-de29-5356-9bbb-4b0d8c9cbbb0"
+          },
+          {
+            "name": "DeadlinePrecision",
+            "dataType": "string",
+            "sourceColumn": "DeadlinePrecision",
+            "summarizeBy": "none",
+            "lineageTag": "b9a2f5c7-e0c8-5edc-a7e5-42e59b53e70b"
+          },
+          {
+            "name": "Status",
+            "dataType": "string",
+            "sourceColumn": "Status",
+            "summarizeBy": "none",
+            "lineageTag": "cc8340dd-294b-5295-95a8-42a4cafa59d6"
+          },
+          {
+            "name": "Contact",
+            "dataType": "string",
+            "sourceColumn": "Contact",
+            "summarizeBy": "none",
+            "lineageTag": "182f3f00-cebf-5d8d-9063-27ad55548825"
+          },
+          {
+            "name": "CHHHSRelevance",
+            "dataType": "string",
+            "sourceColumn": "CHHHSRelevance",
+            "summarizeBy": "none",
+            "lineageTag": "95a784f7-1ae1-50c4-b9e6-21d71fe0a206"
+          },
+          {
+            "name": "ReviewStatus",
+            "dataType": "string",
+            "sourceColumn": "ReviewStatus",
+            "summarizeBy": "none",
+            "lineageTag": "ffff3199-5d41-5391-84af-642213642fe0"
+          },
+          {
+            "name": "ReviewNotes",
+            "dataType": "string",
+            "sourceColumn": "ReviewNotes",
+            "summarizeBy": "none",
+            "lineageTag": "3ec20db5-222e-5c0d-8bc5-e3bfe846c9f7"
+          },
+          {
+            "name": "RetrievedUTC",
+            "dataType": "string",
+            "sourceColumn": "RetrievedUTC",
+            "summarizeBy": "none",
+            "lineageTag": "d73d75df-e614-5dd2-b34c-f6d93db175b9"
+          },
+          {
+            "name": "RetrievedTimestampStatus",
+            "dataType": "string",
+            "sourceColumn": "RetrievedTimestampStatus",
+            "summarizeBy": "none",
+            "lineageTag": "4aa3932d-25e5-54ee-951f-404c2636dc27"
+          },
+          {
+            "name": "EvidenceHash",
+            "dataType": "string",
+            "sourceColumn": "EvidenceHash",
+            "summarizeBy": "none",
+            "lineageTag": "81186c13-8d5d-5062-b5e6-ef32f5b03384"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "GrantsRegistry",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "GrantsRegistry"
+              ]
+            }
+          }
+        ],
+        "description": "Canonical opportunity registry projection. Empty or unaccepted source batches remain empty; deadlines retain raw text and precision.",
+        "measures": [
+          {
+            "name": "Grant Opportunities",
+            "expression": "COUNTROWS(GrantsRegistry)",
+            "formatString": "#,0",
+            "lineageTag": "b8c3abdc-235b-53bf-9d07-9b4de6df3bfb"
+          },
+          {
+            "name": "Open Grant Opportunities",
+            "expression": "CALCULATE([Grant Opportunities], KEEPFILTERS(GrantsRegistry[Status] = \"open\"))",
+            "formatString": "#,0",
+            "lineageTag": "7a0f3cee-b104-5b0b-829d-bf27bd9bc629"
+          },
+          {
+            "name": "Grant Opportunities Needing Review",
+            "expression": "CALCULATE([Grant Opportunities], KEEPFILTERS(GrantsRegistry[ReviewStatus] <> \"accepted\"))",
+            "formatString": "#,0",
+            "lineageTag": "9c51d23f-d82a-5466-b5f0-3f6e7f86e971"
+          }
+        ]
       }
     ],
     "relationships": [
@@ -1534,12 +1729,41 @@
           "    [Publications=Verified,Matches=Matches,SourceMap=SourceMap,Audit=Audit,DoraReconciliation=Table.SelectColumns(ExpandMatch,{\"DORAKey\",\"Title\",\"DORAURL\",\"MatchedPMID\",\"DedupMethod\",\"CandidateCount\",\"CandidateKeys\",\"CHHHSAffiliatedAuthors\"})]"
         ],
         "lineageTag": "1889ed12-4e6d-5e99-9b28-b531a47cc6e5"
+      },
+      {
+        "name": "GrantsRegistry",
+        "kind": "m",
+        "expression": [
+          "// Power Query M: read the single canonical Grants Registry SharePoint list.",
+          "let",
+          "    SiteUrl = \"https://<tenant>.sharepoint.com/sites/<site>\",",
+          "    Source = SharePoint.Tables(SiteUrl, [Implementation = \"2.0\", ViewMode = \"All\"]),",
+          "    Registry = Source{[Title = \"Grants Registry\"]}[Items],",
+          "    Selected = Table.SelectColumns(Registry, {",
+          "        \"OpportunityKey\", \"Title\", \"Funder\", \"Source\", \"SourceID\", \"RoundID\", \"URL\",",
+          "        \"Description\", \"Eligibility\", \"Geography\", \"Amount\", \"Deadline\", \"DeadlineRaw\",",
+          "        \"DeadlinePrecision\", \"Status\", \"Contact\", \"CHHHSRelevance\", \"ReviewStatus\",",
+          "        \"ReviewNotes\", \"RetrievedUTC\", \"RetrievedTimestampStatus\", \"EvidenceHash\"",
+          "    }, MissingField.UseNull),",
+          "    Typed = Table.TransformColumnTypes(Selected, {",
+          "        {\"OpportunityKey\", type text}, {\"Title\", type text}, {\"Funder\", type text},",
+          "        {\"Source\", type text}, {\"SourceID\", type text}, {\"RoundID\", type text}, {\"URL\", type text},",
+          "        {\"Description\", type text}, {\"Eligibility\", type text}, {\"Geography\", type text},",
+          "        {\"Amount\", type text}, {\"Deadline\", type text}, {\"DeadlineRaw\", type text},",
+          "        {\"DeadlinePrecision\", type text}, {\"Status\", type text}, {\"Contact\", type text},",
+          "        {\"CHHHSRelevance\", type text}, {\"ReviewStatus\", type text}, {\"ReviewNotes\", type text},",
+          "        {\"RetrievedUTC\", type text}, {\"RetrievedTimestampStatus\", type text}, {\"EvidenceHash\", type text}",
+          "    })",
+          "in",
+          "    Typed"
+        ],
+        "lineageTag": "2ab9e000-c002-5f7b-b03f-998ab2cf7d60"
       }
     ],
     "annotations": [
       {
         "name": "PBI_QueryOrder",
-        "value": "[\"pNCBIEmail\", \"FacilityDefinitions\", \"fnParsePubDate\", \"fnNCBIJson\", \"fnPubMedXML\", \"PubMedHarvest\", \"PubMedFullMetadata\", \"PubMedPublications\", \"PubMedAuthorEvidence\", \"PubMedMetadataChunks\", \"PubMedIngestionAudit\", \"DoraSourceObservations\", \"DoraHistoricalMetadata\", \"DoraMetadataChunks\", \"DoraIngestionAudit\", \"DoraHarvest\", \"CanonicalPublications\", \"Publication\", \"Facility\", \"PublicationFacility\", \"Date\", \"SearchAudit\", \"ReportingWindow\", \"ReleaseMetadata\"]"
+        "value": "[\"pNCBIEmail\", \"FacilityDefinitions\", \"fnParsePubDate\", \"fnNCBIJson\", \"fnPubMedXML\", \"PubMedHarvest\", \"PubMedFullMetadata\", \"PubMedPublications\", \"PubMedAuthorEvidence\", \"PubMedMetadataChunks\", \"PubMedIngestionAudit\", \"DoraSourceObservations\", \"DoraHistoricalMetadata\", \"DoraMetadataChunks\", \"DoraIngestionAudit\", \"DoraHarvest\", \"CanonicalPublications\", \"GrantsRegistry\", \"Publication\", \"Facility\", \"PublicationFacility\", \"Date\", \"SearchAudit\", \"ReportingWindow\", \"ReleaseMetadata\"]"
       },
       {
         "name": "PBI_TimeIntelligenceEnabled",
