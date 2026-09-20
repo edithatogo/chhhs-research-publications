@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "CHHHS Research Publications",
+    "description": "CHHHS publication reporting from PubMed and DORA"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "db883e14-2390-521d-ad52-369be56760c5"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "commit": "affafc9f295dab28468daf6f3497418382d23b36",
+  "clean_tree": true,
+  "git_fsck": "PASS",
+  "unit_tests": 110,
+  "baseline_validation": "PASS: 212 local checks passed, 0 failed.",
+  "policy_checks": 93,
+  "policy_status": "PASS_LOCAL_ONLY",
+  "native_acceptance": false,
+  "live_dashboard_modified": false,
+  "vm_modified": false,
+  "synthetic_export_hashes": "PASS"
+}

@@ -1,0 +1,44 @@
+table SearchAudit
+	lineageTag: 9523dd95-b276-5f66-91d6-ba794154a5ae
+
+	column FacilityKey
+		dataType: string
+		lineageTag: ff011e2c-b7da-595b-963c-d32e923e341b
+		summarizeBy: none
+		sourceColumn: FacilityKey
+
+	column SearchCount
+		dataType: int64
+		lineageTag: 2a00f711-fb39-5088-915e-181448d30ced
+		summarizeBy: none
+		sourceColumn: SearchCount
+
+	column QueryTranslation
+		dataType: string
+		lineageTag: 622bab1b-e443-52e6-8af7-140534230b62
+		summarizeBy: none
+		sourceColumn: QueryTranslation
+
+	column Warnings
+		dataType: string
+		lineageTag: cbb77464-c67e-5334-869a-11a41a4edc24
+		summarizeBy: none
+		sourceColumn: Warnings
+
+	column QueryVersion
+		dataType: string
+		lineageTag: 3a0d6eb3-2009-5715-aec5-875908f633ef
+		summarizeBy: none
+		sourceColumn: QueryVersion
+
+	column RefreshedAtUTC
+		dataType: dateTime
+		formatString: dd MMM yyyy
+		lineageTag: 2ccf4fb4-51b3-5510-b89b-f9819cbc62a2
+		summarizeBy: none
+		sourceColumn: RefreshedAtUTC
+
+	partition SearchAudit = m
+		mode: import
+		source =
+			PubMedHarvest[SearchAudit]

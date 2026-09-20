@@ -1,0 +1,40 @@
+import unittest
+from pathlib import Path
+import sys
+
+ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT / "scripts"))
+
+from grants_registry import merge_observations, normalize_opportunity, normalize_url, sharepoint_field_map
+
+
+class GrantsRegistryTests(unittest.TestCase):
+    def test_rss_atom_and_api_shapes_normalize_to_same_key(self):
+        rss = {"Source": "NHMRC", "SourceID": "G-1", "title": "Tropical Health Grant", "link": "HTTPS://Funder.example/opportunity/1/", "deadline": "2027-04"}
+        api = {"Source": "NHMRC", "ExternalID": "G-1", "Title": "Tropical Health Grant", "URL": "https://funder.example/opportunity/1", "ClosingDate": "2027-04"}
+        self.assertEqual(normalize_opportunity(rss)["OpportunityKey"], normalize_opportunity(api)["OpportunityKey"])
+        self.assertEqual(normalize_opportunity(rss)["DeadlinePrecision"], "month")
+
+    def test_missing_date_stays_unknown(self):
+        item = normalize_opportunity({"Source": "DGR", "Title": "Open call", "URL": "https://example.org/call"})
+        self.assertIsNone(item["Deadline"])
+        self.assertEqual(item["DeadlinePrecision"], "unknown")
+
+    def test_duplicate_merge_retains_source_observations(self):
+        records = merge_observations([
+            {"Source": "A", "SourceID": "1", "Title": "Call", "URL": "https://a.example/1"},
+            {"Source": "A", "SourceID": "1", "Title": "Call", "URL": "https://a.example/1"},
+        ])
+        self.assertEqual(len(records), 1)
+        self.assertEqual(len(records[0]["SourceObservations"]), 2)
+
+    def test_source_isolation_and_sharepoint_mapping(self):
+        record = normalize_opportunity({"Source": "B", "SourceID": "2", "Title": "Call", "URL": "https://b.example/2"})
+        mapped = sharepoint_field_map(record)
+        self.assertEqual(mapped["Source"], "B")
+        self.assertIn("EvidenceHash", mapped)
+        self.assertEqual(normalize_url("HTTPS://B.EXAMPLE/2/"), "https://b.example/2")
+
+
+if __name__ == "__main__":
+    unittest.main()

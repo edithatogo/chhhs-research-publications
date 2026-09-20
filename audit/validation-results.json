@@ -1,0 +1,1159 @@
+{
+  "status": "PASS",
+  "validation_scope": "Local contracts, field bindings, lexical checks and source scans; NOT the native Power BI engine or full Microsoft JSON Schema validation.",
+  "checks": [
+    {
+      "check": "PBIP points directly to Fabric TMDL report and model",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Native research tables only",
+      "result": "PASS",
+      "detail": [
+        "Publication",
+        "Facility",
+        "PublicationFacility",
+        "Date",
+        "SearchAudit",
+        "ReportingWindow"
+      ]
+    },
+    {
+      "check": "Fabric TMDL contains canonical model objects",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Unique fields: Publication",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "M lexical check: partition Publication",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Unique fields: Facility",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "M lexical check: partition Facility",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Unique fields: PublicationFacility",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "M lexical check: partition PublicationFacility",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Unique fields: Date",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "M lexical check: partition Date",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Unique fields: SearchAudit",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "M lexical check: partition SearchAudit",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Unique fields: ReportingWindow",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "M lexical check: partition ReportingWindow",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "DAX qualified references: Publications",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "DAX qualified references: PubMed Publications",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "DAX qualified references: DORA Publications",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "DAX qualified references: Cross-source Matches",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "DAX qualified references: DORA-only Publications",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "DAX qualified references: Reconciliation Needs Review",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "DAX qualified references: Publications Last Complete Month",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "DAX qualified references: Publications Previous Year Month",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "DAX qualified references: Monthly Year-on-Year Change",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "DAX qualified references: Publications Last 24 Complete Months",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "DAX qualified references: Publications Without Usable Month",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "DAX qualified references: Reporting Month",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "DAX qualified references: Refresh Timestamp UTC",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "DAX qualified references: Query Warnings",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "DAX qualified references: Configured Facility Searches",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Relationship endpoints and single-direction filter paths",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "M lexical check: pNCBIEmail",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "M lexical check: FacilityDefinitions",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Source/model expression synchronisation: FacilityDefinitions",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "M lexical check: fnParsePubDate",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Source/model expression synchronisation: fnParsePubDate",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "M lexical check: fnNCBIJson",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Source/model expression synchronisation: fnNCBIJson",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "M lexical check: PubMedHarvest",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Source/model expression synchronisation: PubMedHarvest",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "M lexical check: DoraHarvest",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Source/model expression synchronisation: DoraHarvest",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "M lexical check: CanonicalPublications",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Source/model expression synchronisation: CanonicalPublications",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "All project JSON files parse",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "No old binary caches, scripts, connections or unpublished changes",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "No legacy employment terms, SQL or hidden 2014 filter",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Dashboard contract strictly enforced",
+      "result": "PASS",
+      "detail": {
+        "actual": [
+          "PublicationRegister",
+          "MonthlyPublications",
+          "SourceReconciliation"
+        ],
+        "contract": [
+          "PublicationRegister",
+          "MonthlyPublications",
+          "SourceReconciliation"
+        ]
+      }
+    },
+    {
+      "check": "Deduplication counting contract strictly enforced",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Source contract strictly enforced",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Forbidden primary outcomes absent from report",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Page identity PublicationRegister",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Visual schema metadata PublicationRegister/all-papers",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Model bindings PublicationRegister/all-papers",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Visual query contract PublicationRegister/all-papers",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "No inherited filter/bookmark state PublicationRegister/all-papers",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Visual schema metadata PublicationRegister/caption",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Model bindings PublicationRegister/caption",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Visual query contract PublicationRegister/caption",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "No inherited filter/bookmark state PublicationRegister/caption",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Visual schema metadata PublicationRegister/dora",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Model bindings PublicationRegister/dora",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Visual query contract PublicationRegister/dora",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "No inherited filter/bookmark state PublicationRegister/dora",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Visual schema metadata PublicationRegister/facility-filter",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Model bindings PublicationRegister/facility-filter",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Visual query contract PublicationRegister/facility-filter",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "No inherited filter/bookmark state PublicationRegister/facility-filter",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Visual schema metadata PublicationRegister/footer",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Model bindings PublicationRegister/footer",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Visual query contract PublicationRegister/footer",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "No inherited filter/bookmark state PublicationRegister/footer",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Visual schema metadata PublicationRegister/heading",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Model bindings PublicationRegister/heading",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Visual query contract PublicationRegister/heading",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "No inherited filter/bookmark state PublicationRegister/heading",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Visual schema metadata PublicationRegister/overlap",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Model bindings PublicationRegister/overlap",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Visual query contract PublicationRegister/overlap",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "No inherited filter/bookmark state PublicationRegister/overlap",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Visual schema metadata PublicationRegister/pubmed",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Model bindings PublicationRegister/pubmed",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Visual query contract PublicationRegister/pubmed",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "No inherited filter/bookmark state PublicationRegister/pubmed",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Visual schema metadata PublicationRegister/register",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Model bindings PublicationRegister/register",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Visual query contract PublicationRegister/register",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "No inherited filter/bookmark state PublicationRegister/register",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Visual schema metadata PublicationRegister/review-filter",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Model bindings PublicationRegister/review-filter",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Visual query contract PublicationRegister/review-filter",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "No inherited filter/bookmark state PublicationRegister/review-filter",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Visual schema metadata PublicationRegister/source-filter",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Model bindings PublicationRegister/source-filter",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Visual query contract PublicationRegister/source-filter",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "No inherited filter/bookmark state PublicationRegister/source-filter",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Visual schema metadata PublicationRegister/year-filter",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Model bindings PublicationRegister/year-filter",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Visual query contract PublicationRegister/year-filter",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "No inherited filter/bookmark state PublicationRegister/year-filter",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Page identity MonthlyPublications",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Visual schema metadata MonthlyPublications/caption",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Model bindings MonthlyPublications/caption",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Visual query contract MonthlyPublications/caption",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "No inherited filter/bookmark state MonthlyPublications/caption",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Visual schema metadata MonthlyPublications/footer",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Model bindings MonthlyPublications/footer",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Visual query contract MonthlyPublications/footer",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "No inherited filter/bookmark state MonthlyPublications/footer",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Visual schema metadata MonthlyPublications/heading",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Model bindings MonthlyPublications/heading",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Visual query contract MonthlyPublications/heading",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "No inherited filter/bookmark state MonthlyPublications/heading",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Visual schema metadata MonthlyPublications/month",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Model bindings MonthlyPublications/month",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Visual query contract MonthlyPublications/month",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "No inherited filter/bookmark state MonthlyPublications/month",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Visual schema metadata MonthlyPublications/month-yoy",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Model bindings MonthlyPublications/month-yoy",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Visual query contract MonthlyPublications/month-yoy",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "No inherited filter/bookmark state MonthlyPublications/month-yoy",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Visual schema metadata MonthlyPublications/monthly-papers",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Model bindings MonthlyPublications/monthly-papers",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Visual query contract MonthlyPublications/monthly-papers",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "No inherited filter/bookmark state MonthlyPublications/monthly-papers",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Visual schema metadata MonthlyPublications/monthly-register",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Model bindings MonthlyPublications/monthly-register",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Visual query contract MonthlyPublications/monthly-register",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "No inherited filter/bookmark state MonthlyPublications/monthly-register",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Visual schema metadata MonthlyPublications/monthly-source",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Model bindings MonthlyPublications/monthly-source",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Visual query contract MonthlyPublications/monthly-source",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "No inherited filter/bookmark state MonthlyPublications/monthly-source",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Visual schema metadata MonthlyPublications/publication-trend",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Model bindings MonthlyPublications/publication-trend",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Visual query contract MonthlyPublications/publication-trend",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "No inherited filter/bookmark state MonthlyPublications/publication-trend",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Visual schema metadata MonthlyPublications/undated",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Model bindings MonthlyPublications/undated",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Visual query contract MonthlyPublications/undated",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "No inherited filter/bookmark state MonthlyPublications/undated",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Page identity SourceReconciliation",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Visual schema metadata SourceReconciliation/caption",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Model bindings SourceReconciliation/caption",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Visual query contract SourceReconciliation/caption",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "No inherited filter/bookmark state SourceReconciliation/caption",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Visual schema metadata SourceReconciliation/dedup-method",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Model bindings SourceReconciliation/dedup-method",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Visual query contract SourceReconciliation/dedup-method",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "No inherited filter/bookmark state SourceReconciliation/dedup-method",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Visual schema metadata SourceReconciliation/dora",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Model bindings SourceReconciliation/dora",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Visual query contract SourceReconciliation/dora",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "No inherited filter/bookmark state SourceReconciliation/dora",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Visual schema metadata SourceReconciliation/dora-only",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Model bindings SourceReconciliation/dora-only",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Visual query contract SourceReconciliation/dora-only",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "No inherited filter/bookmark state SourceReconciliation/dora-only",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Visual schema metadata SourceReconciliation/facility-contributions",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Model bindings SourceReconciliation/facility-contributions",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Visual query contract SourceReconciliation/facility-contributions",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "No inherited filter/bookmark state SourceReconciliation/facility-contributions",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Visual schema metadata SourceReconciliation/footer",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Model bindings SourceReconciliation/footer",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Visual query contract SourceReconciliation/footer",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "No inherited filter/bookmark state SourceReconciliation/footer",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Visual schema metadata SourceReconciliation/heading",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Model bindings SourceReconciliation/heading",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Visual query contract SourceReconciliation/heading",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "No inherited filter/bookmark state SourceReconciliation/heading",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Visual schema metadata SourceReconciliation/needs-review",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Model bindings SourceReconciliation/needs-review",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Visual query contract SourceReconciliation/needs-review",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "No inherited filter/bookmark state SourceReconciliation/needs-review",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Visual schema metadata SourceReconciliation/pubmed",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Model bindings SourceReconciliation/pubmed",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Visual query contract SourceReconciliation/pubmed",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "No inherited filter/bookmark state SourceReconciliation/pubmed",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Visual schema metadata SourceReconciliation/reconciliation-register",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Model bindings SourceReconciliation/reconciliation-register",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Visual query contract SourceReconciliation/reconciliation-register",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "No inherited filter/bookmark state SourceReconciliation/reconciliation-register",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Visual schema metadata SourceReconciliation/refresh-time",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Model bindings SourceReconciliation/refresh-time",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Visual query contract SourceReconciliation/refresh-time",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "No inherited filter/bookmark state SourceReconciliation/refresh-time",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Visual schema metadata SourceReconciliation/searches",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Model bindings SourceReconciliation/searches",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Visual query contract SourceReconciliation/searches",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "No inherited filter/bookmark state SourceReconciliation/searches",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Visual schema metadata SourceReconciliation/source-overlap",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Model bindings SourceReconciliation/source-overlap",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Visual query contract SourceReconciliation/source-overlap",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "No inherited filter/bookmark state SourceReconciliation/source-overlap",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Visual schema metadata SourceReconciliation/warnings",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Model bindings SourceReconciliation/warnings",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Visual query contract SourceReconciliation/warnings",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "No inherited filter/bookmark state SourceReconciliation/warnings",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "All visuals within canvas with no overlapping containers",
+      "result": "PASS",
+      "detail": []
+    },
+    {
+      "check": "Expected complete visual count",
+      "result": "PASS",
+      "detail": 36
+    },
+    {
+      "check": "28 unique facility/service search definitions",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "No bare locality-only Yarrabah attribution",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Search and summary counts reconciled",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Retrieval errors are not replaced by empty data",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Batched, fixed-origin, throttled NCBI queries",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "PubMed phrase warnings retained without hiding real errors",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "PubMed+DORA canonical deduplication and many-facility attribution",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "DORA feed is live and provenance fields are retained",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Reporting date range supported by model",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Month selection uses Brisbane calendar and exclusive end",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "No invented first-seen dates or sample publications",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "check": "Fabric Git system files present",
+      "result": "PASS",
+      "detail": [
+        "/mnt/data/chhhs-rims-work/chhhs-research-publications/powerbi/CHHHS Research Publications.Report/.platform",
+        "/mnt/data/chhhs-rims-work/chhhs-research-publications/powerbi/CHHHS Research Publications.SemanticModel/.platform"
+      ]
+    }
+  ],
+  "passed": 212,
+  "failed": 0,
+  "visuals": 36,
+  "visual_field_projections": 60,
+  "runtime_files": 57,
+  "runtime_sha256": {
+    "powerbi/CHHHS Research Publications.pbip": "f7080bfa8388a82f18319d899cebca91d70d607ebf10fa08c1119f14eaf3bb5f",
+    "powerbi/CHHHS Research Publications.Report/.platform": "15b99a51f129fe0724316655de5eb7a726f3037cefd0c8e08dcec5ca8d6e5264",
+    "powerbi/CHHHS Research Publications.Report/definition.pbir": "0795f42e4cd9563a5643636914dc602ec0daec42dfa6872162e2c129913ea0d8",
+    "powerbi/CHHHS Research Publications.SemanticModel/.platform": "dc4239343c70555601e7f1adab960be92bfef880fada71fb17da0cedfe731bff",
+    "powerbi/CHHHS Research Publications.SemanticModel/definition.pbism": "226d58dfda9e4824fd1425f626c07c4d2640085090ac5ed2a27c0739ea46e618",
+    "powerbi/CHHHS Research Publications.SemanticModel/definition/database.tmdl": "4e8e171bc7c64afc76aba0ed7751dce42367c02f9e9490dfa1ca364c4deb4b79",
+    "powerbi/CHHHS Research Publications.SemanticModel/definition/relationships.tmdl": "68f632964ada97d40111af819d85cc0131953e69786b3dd783fb3d62bb73f322",
+    "powerbi/CHHHS Research Publications.SemanticModel/definition/model.tmdl": "d32c8b9cb1ac1d92b3fe6b3363703eac387066eb18d97fc43d18ef77ae256a52",
+    "powerbi/CHHHS Research Publications.SemanticModel/definition/tables/ReportingWindow.tmdl": "077b17a757830108e354eba99cff718bfbcde4908c275371f97c7b8016ca49be",
+    "powerbi/CHHHS Research Publications.SemanticModel/definition/tables/Publication.tmdl": "a6c202287851bae13655c4e81d2597d385b186eb48b1298f06d6af44095cf35f",
+    "powerbi/CHHHS Research Publications.SemanticModel/definition/tables/SearchAudit.tmdl": "5db9a2fec1259e14d735990e90b4f5b4bb0ae691f7941e6ffaae4642c527f3f5",
+    "powerbi/CHHHS Research Publications.SemanticModel/definition/tables/PublicationFacility.tmdl": "2cecb0cee5e6fc6cfc76dae9d090a862ec3208f473f71cf4ca9b9b03ae82a471",
+    "powerbi/CHHHS Research Publications.SemanticModel/definition/tables/Facility.tmdl": "8a1f8851cf3530aff6964c0f84fe1703d9f5931e3c084ecdc83b09785739fe43",
+    "powerbi/CHHHS Research Publications.SemanticModel/definition/tables/Date.tmdl": "8c3dda9b0ed1318c40475109079ce243ba1d967d2a2112d9b7d16864779a39f7",
+    "powerbi/CHHHS Research Publications.Report/definition/version.json": "c761e768563bdd636679fc53a7acf2c973f02a8843ee7dcdfb0cc82616c28c38",
+    "powerbi/CHHHS Research Publications.Report/definition/report.json": "a9e1d1f5204ad3f75552c4ff924f96db60bf1e4f9e16ef6356c84c025f71dfbc",
+    "powerbi/CHHHS Research Publications.Report/definition/pages/pages.json": "7e64f1e102072988eca844bffa4591cd4f20ebcde30eaf5d677d0f484c2594e6",
+    "powerbi/CHHHS Research Publications.Report/definition/pages/MonthlyPublications/page.json": "c96dcc8e9775b3cb8436258fd1f63a771f57430d159197ad0a5b0af202e99bc3",
+    "powerbi/CHHHS Research Publications.Report/definition/pages/PublicationRegister/page.json": "8a127327a2b16e891d06d1a2829bef73e16d0cb00ef2d8cb8ba3ef716c9d2c3d",
+    "powerbi/CHHHS Research Publications.Report/definition/pages/SourceReconciliation/page.json": "adb64947503a0284842588b26c65e8f646d54ac42ceecb5420591aec3681a53d",
+    "powerbi/CHHHS Research Publications.Report/definition/pages/SourceReconciliation/visuals/caption/visual.json": "13eaede921a363857bde5b5684ae3d1463384c5a7e8439de739a50442517c621",
+    "powerbi/CHHHS Research Publications.Report/definition/pages/SourceReconciliation/visuals/dora/visual.json": "6c6a0a2e42efbd36265647d7d633b9d1f4722160e64b2ee8b1a85ee7325cb805",
+    "powerbi/CHHHS Research Publications.Report/definition/pages/SourceReconciliation/visuals/warnings/visual.json": "97067af2c4cb78b3c19f564efd4b701fec237c9a20a67e3948eade0a1ab266c4",
+    "powerbi/CHHHS Research Publications.Report/definition/pages/SourceReconciliation/visuals/dora-only/visual.json": "1a0de5879522638ad413ff98a56e9603e458513f7246d0fe1c9bdf033bfbcb13",
+    "powerbi/CHHHS Research Publications.Report/definition/pages/SourceReconciliation/visuals/needs-review/visual.json": "14be32d94be1f05f30c1b2376ac193a0d5e913b57f2ce218055a9383600b6057",
+    "powerbi/CHHHS Research Publications.Report/definition/pages/SourceReconciliation/visuals/refresh-time/visual.json": "f26cac3e60490c2fa56c2894de958166eb13ac6827795ddb8b97fab4341ce7eb",
+    "powerbi/CHHHS Research Publications.Report/definition/pages/SourceReconciliation/visuals/footer/visual.json": "42ec1374ea03c9408e5164cf2cd4c9782d60cfa7d6cdeb9dca12d40a9543d9f3",
+    "powerbi/CHHHS Research Publications.Report/definition/pages/SourceReconciliation/visuals/reconciliation-register/visual.json": "95ca2b46b89694d364971bd1bad7fa19b4dbf9bbab209fcbca1fca67415d8b12",
+    "powerbi/CHHHS Research Publications.Report/definition/pages/SourceReconciliation/visuals/pubmed/visual.json": "6c93e894e9c6b7093d4b7d613a58140b6cc1fce852e1b762570df4f4e6f8a54f",
+    "powerbi/CHHHS Research Publications.Report/definition/pages/SourceReconciliation/visuals/dedup-method/visual.json": "827ada2f42d7b25ba58f594e624c797c70a1d14e853a274b69f62afb699afcaf",
+    "powerbi/CHHHS Research Publications.Report/definition/pages/SourceReconciliation/visuals/source-overlap/visual.json": "ba95d140ebe247110c606ea8e453b5125c0ff79c757b1a823e46a2a425f32c78",
+    "powerbi/CHHHS Research Publications.Report/definition/pages/SourceReconciliation/visuals/heading/visual.json": "28aa088ebd8d893b99f23a3aa779e258944692a93dd095b537ae78d019739adb",
+    "powerbi/CHHHS Research Publications.Report/definition/pages/SourceReconciliation/visuals/facility-contributions/visual.json": "ffa0fcb038c7fa058f96e978ee3539261645ca94c13441e4923644d1f780d501",
+    "powerbi/CHHHS Research Publications.Report/definition/pages/SourceReconciliation/visuals/searches/visual.json": "55b4b92663632aefc61cf28a2a6cf15f16e32420e6c3c10233e83ea7bf45fd2a",
+    "powerbi/CHHHS Research Publications.Report/definition/pages/PublicationRegister/visuals/caption/visual.json": "640ebd27acc47130f440dc2d75ea6eeb978c63fd20670f9a3e09ffe38ebe3f6d",
+    "powerbi/CHHHS Research Publications.Report/definition/pages/PublicationRegister/visuals/dora/visual.json": "712960a759955797a7c8380a52dede035a45f675c4c13dc38c0ef7a94dd520f1",
+    "powerbi/CHHHS Research Publications.Report/definition/pages/PublicationRegister/visuals/year-filter/visual.json": "00f6ea903c07263158163d8ffad5b5ce826cd883de574d1e43901186b872841c",
+    "powerbi/CHHHS Research Publications.Report/definition/pages/PublicationRegister/visuals/source-filter/visual.json": "9d7ee73d6ff2a465183ae01e2cc4cefa76cc691fb1f139ad5cfc59153da55fd6",
+    "powerbi/CHHHS Research Publications.Report/definition/pages/PublicationRegister/visuals/register/visual.json": "aa92a3de6947b2f848f7e50e88c0220ff1dcc3b00ba6a98a055af26681205dbc",
+    "powerbi/CHHHS Research Publications.Report/definition/pages/PublicationRegister/visuals/footer/visual.json": "cb88089c833c822b1f3cccbfc8182303e634b83595250b4d7b613573071e87be",
+    "powerbi/CHHHS Research Publications.Report/definition/pages/PublicationRegister/visuals/pubmed/visual.json": "f111f40f6d3e32dd27ec72e15966ad0a95a8556b28ad68cc417bc135d0e5de1c",
+    "powerbi/CHHHS Research Publications.Report/definition/pages/PublicationRegister/visuals/facility-filter/visual.json": "65676b0efd5880eb99b64fa1b4a81dc7a22122eac23a3d78a3bac323bc58c6f8",
+    "powerbi/CHHHS Research Publications.Report/definition/pages/PublicationRegister/visuals/heading/visual.json": "34eb8a9c9549f3f9224234367cc4fe3bdab2bd0ca26507660f12443a8d775777",
+    "powerbi/CHHHS Research Publications.Report/definition/pages/PublicationRegister/visuals/all-papers/visual.json": "97f9c612cacf96a3c3a0dcc994fbfd88f9b2ee79dfdd0ff870ea2c8080044ce8",
+    "powerbi/CHHHS Research Publications.Report/definition/pages/PublicationRegister/visuals/overlap/visual.json": "eb83b642db7574163f5d97b086cb0c71eb488273b830b28137ddfacb575743d4",
+    "powerbi/CHHHS Research Publications.Report/definition/pages/PublicationRegister/visuals/review-filter/visual.json": "739a40113a516591bb5a13d6c3bda661f03f2908e9735f17be47868c490c7575",
+    "powerbi/CHHHS Research Publications.Report/definition/pages/MonthlyPublications/visuals/caption/visual.json": "85b4a6026b58874732d1bc640ec5265ec35e18748fa384b8013f991f63337a2b",
+    "powerbi/CHHHS Research Publications.Report/definition/pages/MonthlyPublications/visuals/undated/visual.json": "1bd0fd4bc7987f94373e3de450c45c376ddac6c2522e20f1a63ac8217d976378",
+    "powerbi/CHHHS Research Publications.Report/definition/pages/MonthlyPublications/visuals/publication-trend/visual.json": "ce90180530dadb676b0dcb35759a5bda520e00f0b6d6db68750e184b64868385",
+    "powerbi/CHHHS Research Publications.Report/definition/pages/MonthlyPublications/visuals/footer/visual.json": "8f969f7d1843c37e1c45b638abc362672ea3f95c36194d4dbb875e6f6778da92",
+    "powerbi/CHHHS Research Publications.Report/definition/pages/MonthlyPublications/visuals/monthly-source/visual.json": "0da0c61031c4169a2595361bf088d54cd9841d45dc729ef4898ba7f29df3e416",
+    "powerbi/CHHHS Research Publications.Report/definition/pages/MonthlyPublications/visuals/month-yoy/visual.json": "281c534df4f5283abaaca2c98651a91325ff4ea76a8e151f7bd5d155053ccd6a",
+    "powerbi/CHHHS Research Publications.Report/definition/pages/MonthlyPublications/visuals/heading/visual.json": "f2381d71d78658c6ad17dcda6cca654a122d1a2b0627de2523799df78ae9d171",
+    "powerbi/CHHHS Research Publications.Report/definition/pages/MonthlyPublications/visuals/monthly-papers/visual.json": "85b3deb0a368473c919447d3d37f0dfea3878727251a1b391f5d53a330307d41",
+    "powerbi/CHHHS Research Publications.Report/definition/pages/MonthlyPublications/visuals/monthly-register/visual.json": "e57898d81be3f48cfffd61d241f2374980d41f2c5365ca4d4ff985082961c2db",
+    "powerbi/CHHHS Research Publications.Report/definition/pages/MonthlyPublications/visuals/month/visual.json": "9d1d879be5079f3643275eed3be112e9498a7c0bea9191a9b8e43fca5d01becf",
+    "powerbi/CHHHS Research Publications.Report/StaticResources/SharedResources/BaseThemes/Fluent2-CY26SU08.json": "bece0df19b02bbb8509de2c9f3a4976d8f501c44eb2f867117f32586d628d72b"
+  },
+  "not_run": [
+    "Power BI Desktop open/render",
+    "Power Query M execution",
+    "Tabular/DAX engine execution",
+    "Live PubMed+DORA harvest",
+    "Power BI Service refresh/export",
+    "Power Automate deployment and delivery"
+  ]
+}

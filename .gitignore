@@ -1,0 +1,15 @@
+**/.pbi/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.venv/
+node_modules/
+.env
+*.pbix
+*.pbit
+*.abf
+private/
+.playwright-cli/
+data/bronze/
+data/registry/
+data/papers/

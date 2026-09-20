@@ -1,0 +1,669 @@
+{
+  "pages": 4,
+  "visuals": 55,
+  "manifest": [
+    {
+      "page": "PublicationRegister",
+      "visual": "heading",
+      "type": "textbox",
+      "title": "CHHHS RESEARCH PUBLICATIONS  |  CHHHS Publications",
+      "position": [
+        32,
+        16,
+        1856,
+        48
+      ]
+    },
+    {
+      "page": "PublicationRegister",
+      "visual": "caption",
+      "type": "textbox",
+      "title": "PubMed and DORA publication records. Counts remain provisional while identity and institutional scope reviews are open.",
+      "position": [
+        32,
+        64,
+        1856,
+        40
+      ]
+    },
+    {
+      "page": "PublicationRegister",
+      "visual": "all-papers",
+      "type": "card",
+      "title": "Canonical publications",
+      "position": [
+        32,
+        112,
+        440,
+        96
+      ]
+    },
+    {
+      "page": "PublicationRegister",
+      "visual": "pubmed",
+      "type": "card",
+      "title": "Found in PubMed",
+      "position": [
+        504,
+        112,
+        440,
+        96
+      ]
+    },
+    {
+      "page": "PublicationRegister",
+      "visual": "dora",
+      "type": "card",
+      "title": "Found in DORA",
+      "position": [
+        976,
+        112,
+        440,
+        96
+      ]
+    },
+    {
+      "page": "PublicationRegister",
+      "visual": "overlap",
+      "type": "card",
+      "title": "Found in both sources",
+      "position": [
+        1448,
+        112,
+        440,
+        96
+      ]
+    },
+    {
+      "page": "PublicationRegister",
+      "visual": "facility-filter",
+      "type": "slicer",
+      "title": "Facility / service",
+      "position": [
+        32,
+        224,
+        520,
+        72
+      ]
+    },
+    {
+      "page": "PublicationRegister",
+      "visual": "year-filter",
+      "type": "slicer",
+      "title": "Publication year",
+      "position": [
+        568,
+        224,
+        280,
+        72
+      ]
+    },
+    {
+      "page": "PublicationRegister",
+      "visual": "source-filter",
+      "type": "slicer",
+      "title": "Source provenance",
+      "position": [
+        864,
+        224,
+        440,
+        72
+      ]
+    },
+    {
+      "page": "PublicationRegister",
+      "visual": "review-filter",
+      "type": "slicer",
+      "title": "Attribution status",
+      "position": [
+        1320,
+        224,
+        568,
+        72
+      ]
+    },
+    {
+      "page": "PublicationRegister",
+      "visual": "annual-trajectory",
+      "type": "lineChart",
+      "title": "Annual publication trajectory (2014–2026)",
+      "position": [
+        32,
+        312,
+        912,
+        312
+      ]
+    },
+    {
+      "page": "PublicationRegister",
+      "visual": "facility-breakdown",
+      "type": "barChart",
+      "title": "Publications by CHHHS facility / service",
+      "position": [
+        960,
+        312,
+        928,
+        312
+      ]
+    },
+    {
+      "page": "PublicationRegister",
+      "visual": "attribution-breakdown",
+      "type": "barChart",
+      "title": "Institutional attribution status breakdown",
+      "position": [
+        32,
+        640,
+        912,
+        304
+      ]
+    },
+    {
+      "page": "PublicationRegister",
+      "visual": "provenance-breakdown",
+      "type": "donutChart",
+      "title": "Source provenance distribution",
+      "position": [
+        960,
+        640,
+        928,
+        304
+      ]
+    },
+    {
+      "page": "PublicationRegister",
+      "visual": "footer",
+      "type": "card",
+      "title": "Last model refresh (UTC); source coverage may differ",
+      "position": [
+        32,
+        960,
+        1856,
+        80
+      ]
+    },
+    {
+      "page": "MonthlyPublications",
+      "visual": "heading",
+      "type": "textbox",
+      "title": "CHHHS RESEARCH PUBLICATIONS  |  Monthly Publications",
+      "position": [
+        32,
+        16,
+        1856,
+        48
+      ]
+    },
+    {
+      "page": "MonthlyPublications",
+      "visual": "caption",
+      "type": "textbox",
+      "title": "Select one publication month; clear the selection for the previous complete Brisbane month. Publication dates determine inclusion.",
+      "position": [
+        32,
+        64,
+        1856,
+        40
+      ]
+    },
+    {
+      "page": "MonthlyPublications",
+      "visual": "month",
+      "type": "card",
+      "title": "Reporting month",
+      "position": [
+        32,
+        112,
+        440,
+        96
+      ]
+    },
+    {
+      "page": "MonthlyPublications",
+      "visual": "monthly-papers",
+      "type": "card",
+      "title": "Publications in reporting month",
+      "position": [
+        504,
+        112,
+        440,
+        96
+      ]
+    },
+    {
+      "page": "MonthlyPublications",
+      "visual": "undated",
+      "type": "card",
+      "title": "Records without usable month",
+      "position": [
+        1448,
+        112,
+        440,
+        96
+      ]
+    },
+    {
+      "page": "MonthlyPublications",
+      "visual": "month-yoy",
+      "type": "slicer",
+      "title": "Publication month (choose one; clear for default)",
+      "position": [
+        976,
+        112,
+        440,
+        96
+      ]
+    },
+    {
+      "page": "MonthlyPublications",
+      "visual": "publication-trend",
+      "type": "barChart",
+      "title": "Facility / service matches in reporting month (overlapping)",
+      "position": [
+        32,
+        224,
+        1200,
+        328
+      ]
+    },
+    {
+      "page": "MonthlyPublications",
+      "visual": "monthly-source",
+      "type": "donutChart",
+      "title": "Source provenance",
+      "position": [
+        1256,
+        224,
+        632,
+        328
+      ]
+    },
+    {
+      "page": "MonthlyPublications",
+      "visual": "monthly-history-trend",
+      "type": "lineChart",
+      "title": "Monthly publication trend (Last 24 complete months)",
+      "position": [
+        32,
+        568,
+        1200,
+        432
+      ]
+    },
+    {
+      "page": "MonthlyPublications",
+      "visual": "monthly-attribution",
+      "type": "barChart",
+      "title": "Reporting month attribution status",
+      "position": [
+        1256,
+        568,
+        632,
+        432
+      ]
+    },
+    {
+      "page": "MonthlyPublications",
+      "visual": "footer",
+      "type": "textbox",
+      "title": "Indexing delays can revise prior months. Partial and absent dates are not silently assigned to January or the refresh date.",
+      "position": [
+        32,
+        1016,
+        1856,
+        32
+      ]
+    },
+    {
+      "page": "SourceReconciliation",
+      "visual": "heading",
+      "type": "textbox",
+      "title": "CHHHS RESEARCH PUBLICATIONS  |  Source Reconciliation",
+      "position": [
+        32,
+        16,
+        1856,
+        48
+      ]
+    },
+    {
+      "page": "SourceReconciliation",
+      "visual": "caption",
+      "type": "textbox",
+      "title": "Audit PubMed and DORA coverage, deduplication and institutional-attribution evidence before using counts externally.",
+      "position": [
+        32,
+        64,
+        1856,
+        40
+      ]
+    },
+    {
+      "page": "SourceReconciliation",
+      "visual": "pubmed",
+      "type": "card",
+      "title": "PubMed publications",
+      "position": [
+        32,
+        112,
+        440,
+        96
+      ]
+    },
+    {
+      "page": "SourceReconciliation",
+      "visual": "dora",
+      "type": "card",
+      "title": "DORA publications",
+      "position": [
+        504,
+        112,
+        440,
+        96
+      ]
+    },
+    {
+      "page": "SourceReconciliation",
+      "visual": "dora-only",
+      "type": "card",
+      "title": "DORA-only publications",
+      "position": [
+        976,
+        112,
+        440,
+        96
+      ]
+    },
+    {
+      "page": "SourceReconciliation",
+      "visual": "needs-review",
+      "type": "card",
+      "title": "Needs reconciliation review",
+      "position": [
+        1448,
+        112,
+        440,
+        96
+      ]
+    },
+    {
+      "page": "SourceReconciliation",
+      "visual": "source-overlap",
+      "type": "donutChart",
+      "title": "Canonical publications by source provenance",
+      "position": [
+        32,
+        224,
+        736,
+        312
+      ]
+    },
+    {
+      "page": "SourceReconciliation",
+      "visual": "dedup-method",
+      "type": "barChart",
+      "title": "Reconciliation method",
+      "position": [
+        792,
+        224,
+        528,
+        312
+      ]
+    },
+    {
+      "page": "SourceReconciliation",
+      "visual": "facility-contributions",
+      "type": "tableEx",
+      "title": "PubMed search coverage and warnings",
+      "position": [
+        1344,
+        224,
+        544,
+        312
+      ]
+    },
+    {
+      "page": "SourceReconciliation",
+      "visual": "reconciliation-register",
+      "type": "tableEx",
+      "title": "Reconciliation and attribution register",
+      "position": [
+        32,
+        552,
+        1856,
+        352
+      ]
+    },
+    {
+      "page": "SourceReconciliation",
+      "visual": "refresh-time",
+      "type": "card",
+      "title": "Last model refresh (UTC)",
+      "position": [
+        32,
+        912,
+        584,
+        96
+      ]
+    },
+    {
+      "page": "SourceReconciliation",
+      "visual": "warnings",
+      "type": "card",
+      "title": "PubMed queries with warnings",
+      "position": [
+        640,
+        912,
+        584,
+        96
+      ]
+    },
+    {
+      "page": "SourceReconciliation",
+      "visual": "searches",
+      "type": "card",
+      "title": "Configured PubMed affiliation searches",
+      "position": [
+        1248,
+        912,
+        640,
+        96
+      ]
+    },
+    {
+      "page": "SourceReconciliation",
+      "visual": "footer",
+      "type": "textbox",
+      "title": "Identifier conflicts and title/year candidates remain separate for review. DORA coverage is an observed collection snapshot; durable history and native count acceptance remain pending.",
+      "position": [
+        32,
+        1016,
+        1856,
+        32
+      ]
+    },
+    {
+      "page": "ClinicalAnalytics",
+      "visual": "heading",
+      "type": "textbox",
+      "title": "CHHHS RESEARCH PUBLICATIONS  |  Clinical Analytics",
+      "position": [
+        32,
+        16,
+        1856,
+        48
+      ]
+    },
+    {
+      "page": "ClinicalAnalytics",
+      "visual": "caption",
+      "type": "textbox",
+      "title": "Clinical directorate specialty mapping, ANZSRC Field of Research (FoR) classification, Open Access compliance, and clinical trial activity.",
+      "position": [
+        32,
+        64,
+        1856,
+        40
+      ]
+    },
+    {
+      "page": "ClinicalAnalytics",
+      "visual": "oa-rate",
+      "type": "card",
+      "title": "Open access compliance rate",
+      "position": [
+        32,
+        112,
+        440,
+        96
+      ]
+    },
+    {
+      "page": "ClinicalAnalytics",
+      "visual": "oa-papers",
+      "type": "card",
+      "title": "Open access publications",
+      "position": [
+        504,
+        112,
+        440,
+        96
+      ]
+    },
+    {
+      "page": "ClinicalAnalytics",
+      "visual": "trials-count",
+      "type": "card",
+      "title": "Clinical trial linked papers",
+      "position": [
+        976,
+        112,
+        440,
+        96
+      ]
+    },
+    {
+      "page": "ClinicalAnalytics",
+      "visual": "funded-papers",
+      "type": "card",
+      "title": "Grant-funded publications",
+      "position": [
+        1448,
+        112,
+        440,
+        96
+      ]
+    },
+    {
+      "page": "ClinicalAnalytics",
+      "visual": "facility-filter",
+      "type": "slicer",
+      "title": "Clinical facility / service",
+      "position": [
+        32,
+        224,
+        608,
+        72
+      ]
+    },
+    {
+      "page": "ClinicalAnalytics",
+      "visual": "year-filter",
+      "type": "slicer",
+      "title": "Publication year",
+      "position": [
+        656,
+        224,
+        304,
+        72
+      ]
+    },
+    {
+      "page": "ClinicalAnalytics",
+      "visual": "oa-filter",
+      "type": "slicer",
+      "title": "Open access status",
+      "position": [
+        976,
+        224,
+        440,
+        72
+      ]
+    },
+    {
+      "page": "ClinicalAnalytics",
+      "visual": "study-filter",
+      "type": "slicer",
+      "title": "Study design",
+      "position": [
+        1432,
+        224,
+        456,
+        72
+      ]
+    },
+    {
+      "page": "ClinicalAnalytics",
+      "visual": "specialty-distribution",
+      "type": "barChart",
+      "title": "Publications by clinical directorate and specialty",
+      "position": [
+        32,
+        312,
+        912,
+        312
+      ]
+    },
+    {
+      "page": "ClinicalAnalytics",
+      "visual": "for-division",
+      "type": "barChart",
+      "title": "ANZSRC 2020 Field of Research (FoR) division",
+      "position": [
+        960,
+        312,
+        928,
+        312
+      ]
+    },
+    {
+      "page": "ClinicalAnalytics",
+      "visual": "oa-distribution",
+      "type": "donutChart",
+      "title": "Open access distribution (Gold / Green / Hybrid / Closed)",
+      "position": [
+        32,
+        640,
+        912,
+        304
+      ]
+    },
+    {
+      "page": "ClinicalAnalytics",
+      "visual": "study-design-breakdown",
+      "type": "barChart",
+      "title": "Evidence hierarchy and study designs",
+      "position": [
+        960,
+        640,
+        928,
+        304
+      ]
+    },
+    {
+      "page": "ClinicalAnalytics",
+      "visual": "footer",
+      "type": "textbox",
+      "title": "Field of Research mapped using ANZSRC 2020 2-digit divisions. Open access classification verified via Europe PMC and OpenAlex APIs in accordance with the NHMRC Open Access Policy.",
+      "position": [
+        32,
+        960,
+        1856,
+        40
+      ]
+    }
+  ],
+  "legacy_visuals_copied": 0,
+  "legacy_filters_copied": 0,
+  "native_render_tested": false
+}

@@ -1,0 +1,54 @@
+test_before_brisbane_boundary (test_project.DatePolicyTests.test_before_brisbane_boundary) ... ok
+test_brisbane_boundary_not_utc_boundary (test_project.DatePolicyTests.test_brisbane_boundary_not_utc_boundary) ... ok
+test_current_month_window (test_project.DatePolicyTests.test_current_month_window) ... ok
+test_day_30_preserved (test_project.DatePolicyTests.test_day_30_preserved) ... ok
+test_day_31_preserved (test_project.DatePolicyTests.test_day_31_preserved) ... ok
+test_invalid_day (test_project.DatePolicyTests.test_invalid_day) ... ok
+test_invalid_leap_day_not_clamped (test_project.DatePolicyTests.test_invalid_leap_day_not_clamped) ... ok
+test_invalid_month (test_project.DatePolicyTests.test_invalid_month) ... ok
+test_iso_date (test_project.DatePolicyTests.test_iso_date) ... ok
+test_january_rollover (test_project.DatePolicyTests.test_january_rollover) ... ok
+test_missing_date_not_today (test_project.DatePolicyTests.test_missing_date_not_today) ... ok
+test_month_only_precision (test_project.DatePolicyTests.test_month_only_precision) ... ok
+test_range_not_invented (test_project.DatePolicyTests.test_range_not_invented) ... ok
+test_reject_naive_timestamp (test_project.DatePolicyTests.test_reject_naive_timestamp) ... ok
+test_season_not_invented (test_project.DatePolicyTests.test_season_not_invented) ... ok
+test_unknown_text (test_project.DatePolicyTests.test_unknown_text) ... ok
+test_valid_leap_day (test_project.DatePolicyTests.test_valid_leap_day) ... ok
+test_year_only_not_january (test_project.DatePolicyTests.test_year_only_not_january) ... ok
+test_duplicate_ids_fails (test_project.RetrievalContractTests.test_duplicate_ids_fails) ... ok
+test_error_payload_fails (test_project.RetrievalContractTests.test_error_payload_fails) ... ok
+test_invalid_field_is_fatal (test_project.RetrievalContractTests.test_invalid_field_is_fatal) ... ok
+test_missing_search_fails (test_project.RetrievalContractTests.test_missing_search_fails) ... ok
+test_multi_facility_no_double_count (test_project.RetrievalContractTests.test_multi_facility_no_double_count) ... ok
+test_over_10000_fails (test_project.RetrievalContractTests.test_over_10000_fails) ... ok
+test_phrase_not_found_retained_as_warning (test_project.RetrievalContractTests.test_phrase_not_found_retained_as_warning) ... ok
+test_summary_all_present (test_project.RetrievalContractTests.test_summary_all_present) ... ok
+test_summary_missing_pmid_fails (test_project.RetrievalContractTests.test_summary_missing_pmid_fails) ... ok
+test_summary_record_error_fails (test_project.RetrievalContractTests.test_summary_record_error_fails) ... ok
+test_summary_uid_mismatch_fails (test_project.RetrievalContractTests.test_summary_uid_mismatch_fails) ... ok
+test_true_zero_is_valid (test_project.RetrievalContractTests.test_true_zero_is_valid) ... ok
+test_truncated_ids_fails (test_project.RetrievalContractTests.test_truncated_ids_fails) ... ok
+test_valid_search (test_project.RetrievalContractTests.test_valid_search) ... ok
+test_all_local_gates_pass (test_project.StaticContractTests.test_all_local_gates_pass) ... ok
+test_audit_proves_unchanged_binary (test_project.StaticContractTests.test_audit_proves_unchanged_binary) ... ok
+test_full_schema_validation_not_claimed (test_project.StaticContractTests.test_full_schema_validation_not_claimed) ... ok
+test_hidden_filter_mutation_rejected (test_project.StaticContractTests.test_hidden_filter_mutation_rejected) ... ok
+test_m_backslash_quote_caught (test_project.StaticContractTests.test_m_backslash_quote_caught) ... ok
+test_m_broken_delimiter_caught (test_project.StaticContractTests.test_m_broken_delimiter_caught) ... ok
+test_m_control_escaping (test_project.StaticContractTests.test_m_control_escaping) ... ok
+test_m_quote_escaping (test_project.StaticContractTests.test_m_quote_escaping) ... ok
+test_m_unclosed_string_caught (test_project.StaticContractTests.test_m_unclosed_string_caught) ... ok
+test_m_valid_nested_syntax (test_project.StaticContractTests.test_m_valid_nested_syntax) ... ok
+test_native_acceptance_not_falsely_closed (test_project.StaticContractTests.test_native_acceptance_not_falsely_closed) ... ok
+test_nested_legacy_json_expanded (test_project.StaticContractTests.test_nested_legacy_json_expanded) ... ok
+test_no_employment_sources_in_project (test_project.StaticContractTests.test_no_employment_sources_in_project) ... ok
+test_old_cache_mutation_rejected (test_project.StaticContractTests.test_old_cache_mutation_rejected) ... ok
+test_old_employee_reference_caught (test_project.StaticContractTests.test_old_employee_reference_caught) ... ok
+test_renamed_missing_column_caught (test_project.StaticContractTests.test_renamed_missing_column_caught) ... ok
+test_valid_visual_reference (test_project.StaticContractTests.test_valid_visual_reference) ... ok
+
+----------------------------------------------------------------------
+Ran 49 tests in 0.084s
+
+OK

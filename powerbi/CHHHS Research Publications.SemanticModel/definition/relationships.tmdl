@@ -1,0 +1,19 @@
+relationship 'f0802c14-8afe-5195-8a15-f9612f1d08a8'
+	fromColumn: Publication.PublicationDate
+	toColumn: Date.Date
+	crossFilteringBehavior: oneDirection
+
+relationship '8579390f-a764-5f79-9a17-0754bb603747'
+	fromColumn: PublicationFacility.CanonicalKey
+	toColumn: Publication.CanonicalKey
+	crossFilteringBehavior: oneDirection
+
+relationship '2a8f0813-5139-5560-a6b6-97a33948506d'
+	fromColumn: PublicationFacility.FacilityKey
+	toColumn: Facility.FacilityKey
+	crossFilteringBehavior: oneDirection
+
+relationship 'b6ecbadc-d1dd-5ee4-9e2f-aaee4780a39f'
+	fromColumn: SearchAudit.FacilityKey
+	toColumn: Facility.FacilityKey
+	crossFilteringBehavior: oneDirection

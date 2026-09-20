@@ -1,0 +1,1502 @@
+{
+  "name": "CHHHS Research Publications",
+  "compatibilityLevel": 1600,
+  "model": {
+    "culture": "en-AU",
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "sourceQueryCulture": "en-AU",
+    "tables": [
+      {
+        "name": "Publication",
+        "isHidden": false,
+        "lineageTag": "cdce31b3-d2be-50af-aaa2-2187bca52e81",
+        "columns": [
+          {
+            "name": "CanonicalKey",
+            "dataType": "string",
+            "sourceColumn": "CanonicalKey",
+            "summarizeBy": "none",
+            "lineageTag": "fb6cde9a-69cb-5341-a470-577f3804a58b"
+          },
+          {
+            "name": "PMID",
+            "dataType": "string",
+            "sourceColumn": "PMID",
+            "summarizeBy": "none",
+            "lineageTag": "ad58d0ab-ebe2-5039-980a-74280e3f7d1b"
+          },
+          {
+            "name": "Title",
+            "dataType": "string",
+            "sourceColumn": "Title",
+            "summarizeBy": "none",
+            "lineageTag": "29b1c0a5-172b-5af5-8ed9-666ddc6f0025"
+          },
+          {
+            "name": "Journal",
+            "dataType": "string",
+            "sourceColumn": "Journal",
+            "summarizeBy": "none",
+            "lineageTag": "8791bece-e95f-5abb-ad12-aa8050fb1baf"
+          },
+          {
+            "name": "Authors",
+            "dataType": "string",
+            "sourceColumn": "Authors",
+            "summarizeBy": "none",
+            "lineageTag": "595525d8-5182-536e-81b3-e9ac907d03f6"
+          },
+          {
+            "name": "DOI",
+            "dataType": "string",
+            "sourceColumn": "DOI",
+            "summarizeBy": "none",
+            "lineageTag": "2761cf89-c5a6-52a0-9b5a-f5a1b15b3fb9"
+          },
+          {
+            "name": "PubMedURL",
+            "dataType": "string",
+            "sourceColumn": "PubMedURL",
+            "summarizeBy": "none",
+            "lineageTag": "a0f10f5d-1c77-5241-962c-01eb83d3f878",
+            "dataCategory": "WebUrl"
+          },
+          {
+            "name": "DORAURL",
+            "dataType": "string",
+            "sourceColumn": "DORAURL",
+            "summarizeBy": "none",
+            "lineageTag": "9da581cc-ff05-5514-a6f7-01604d683ab9"
+          },
+          {
+            "name": "CHHHSAffiliatedAuthors",
+            "dataType": "string",
+            "sourceColumn": "CHHHSAffiliatedAuthors",
+            "summarizeBy": "none",
+            "lineageTag": "5dc6bbc4-94bb-5342-b04a-c894c26fb732"
+          },
+          {
+            "name": "Abstract",
+            "dataType": "string",
+            "sourceColumn": "Abstract",
+            "summarizeBy": "none",
+            "lineageTag": "8818e3be-1dc7-5452-b051-5f2e56a08a0a"
+          },
+          {
+            "name": "SourceSet",
+            "dataType": "string",
+            "sourceColumn": "SourceSet",
+            "summarizeBy": "none",
+            "lineageTag": "c87ec083-c77e-5c94-8489-0b1c207cdebc"
+          },
+          {
+            "name": "DedupMethod",
+            "dataType": "string",
+            "sourceColumn": "DedupMethod",
+            "summarizeBy": "none",
+            "lineageTag": "a151bc52-6942-5944-a42e-bd018b6326a5"
+          },
+          {
+            "name": "PublicationDateRaw",
+            "dataType": "string",
+            "sourceColumn": "PublicationDateRaw",
+            "summarizeBy": "none",
+            "lineageTag": "4d4de97a-f779-5b17-8992-0228a9b8af01"
+          },
+          {
+            "name": "PublicationDatePrecision",
+            "dataType": "string",
+            "sourceColumn": "PublicationDatePrecision",
+            "summarizeBy": "none",
+            "lineageTag": "cc6a7947-65d2-5d99-a169-6996daf3c379"
+          },
+          {
+            "name": "PublicationMonth",
+            "dataType": "string",
+            "sourceColumn": "PublicationMonth",
+            "summarizeBy": "none",
+            "lineageTag": "943d521a-f011-5f3f-8f53-71365e7200d3"
+          },
+          {
+            "name": "OnlineDateRaw",
+            "dataType": "string",
+            "sourceColumn": "OnlineDateRaw",
+            "summarizeBy": "none",
+            "lineageTag": "66e5fdc7-ea54-541a-9318-5511d16717b2"
+          },
+          {
+            "name": "MatchedFacilities",
+            "dataType": "string",
+            "sourceColumn": "MatchedFacilities",
+            "summarizeBy": "none",
+            "lineageTag": "6db2b304-77ca-5fa9-b4b3-9e71736b0d93"
+          },
+          {
+            "name": "AttributionStatus",
+            "dataType": "string",
+            "sourceColumn": "AttributionStatus",
+            "summarizeBy": "none",
+            "lineageTag": "ad84bf4f-42e3-5744-95d3-6a04ccdc2a4a"
+          },
+          {
+            "name": "AttributionEvidence",
+            "dataType": "string",
+            "sourceColumn": "AttributionEvidence",
+            "summarizeBy": "none",
+            "lineageTag": "12bc8d36-f527-5a4a-8f91-44b8b2287f22"
+          },
+          {
+            "name": "PublicationNotice",
+            "dataType": "string",
+            "sourceColumn": "PublicationNotice",
+            "summarizeBy": "none",
+            "lineageTag": "fb0035e8-a71a-5572-9efe-2ce8ef7e11b8"
+          },
+          {
+            "name": "PMCID",
+            "dataType": "string",
+            "sourceColumn": "PMCID",
+            "summarizeBy": "none",
+            "lineageTag": "e4cbe433-da47-504c-bd15-faa624a5d038"
+          },
+          {
+            "name": "AuthorORCIDs",
+            "dataType": "string",
+            "sourceColumn": "AuthorORCIDs",
+            "summarizeBy": "none",
+            "lineageTag": "0d1e9cfd-a986-5618-a556-df256207f762"
+          },
+          {
+            "name": "FundingType",
+            "dataType": "string",
+            "sourceColumn": "FundingType",
+            "summarizeBy": "none",
+            "lineageTag": "8d42315c-a627-5ef3-b74f-ae61d52c45d4"
+          },
+          {
+            "name": "IsInternalFunding",
+            "dataType": "string",
+            "sourceColumn": "IsInternalFunding",
+            "summarizeBy": "none",
+            "lineageTag": "0778659c-3472-549a-a61d-0fd305c5a0e3"
+          },
+          {
+            "name": "FunderNames",
+            "dataType": "string",
+            "sourceColumn": "FunderNames",
+            "summarizeBy": "none",
+            "lineageTag": "caa33308-5169-5f42-9c40-a3ba6b061742"
+          },
+          {
+            "name": "GrantIDs",
+            "dataType": "string",
+            "sourceColumn": "GrantIDs",
+            "summarizeBy": "none",
+            "lineageTag": "f9ddbeff-8ba0-5ec1-a39f-8fbc783a1b33"
+          },
+          {
+            "name": "ClinicalTrialID",
+            "dataType": "string",
+            "sourceColumn": "ClinicalTrialID",
+            "summarizeBy": "none",
+            "lineageTag": "1318a951-dab1-5813-b68f-9c9ac26f7242"
+          },
+          {
+            "name": "IndigenousHealthFocus",
+            "dataType": "string",
+            "sourceColumn": "IndigenousHealthFocus",
+            "summarizeBy": "none",
+            "lineageTag": "abd3ef70-e741-5a3d-a22b-d2a49ba4aff9"
+          },
+          {
+            "name": "FieldOfResearch",
+            "dataType": "string",
+            "sourceColumn": "FieldOfResearch",
+            "summarizeBy": "none",
+            "lineageTag": "289c799e-d648-58ee-bbab-9af32c110527"
+          },
+          {
+            "name": "StudyDesign",
+            "dataType": "string",
+            "sourceColumn": "StudyDesign",
+            "summarizeBy": "none",
+            "lineageTag": "ce64892e-c158-5ba3-ad2e-990f3cfe5e88"
+          },
+          {
+            "name": "EuropePMC_OpenAccess",
+            "dataType": "string",
+            "sourceColumn": "EuropePMC_OpenAccess",
+            "summarizeBy": "none",
+            "lineageTag": "e6bf87ed-de1e-5aa8-8feb-f3386604b83c"
+          },
+          {
+            "name": "EuropePMC_FullTextURL",
+            "dataType": "string",
+            "sourceColumn": "EuropePMC_FullTextURL",
+            "summarizeBy": "none",
+            "lineageTag": "014435c5-fc3c-585b-8de3-a2d8e7847fb9",
+            "dataCategory": "WebUrl"
+          },
+          {
+            "name": "OpenAccessStatus",
+            "dataType": "string",
+            "sourceColumn": "OpenAccessStatus",
+            "summarizeBy": "none",
+            "lineageTag": "09128168-9ce3-5e64-9a1f-c10aa2ee806a"
+          },
+          {
+            "name": "OAUrl",
+            "dataType": "string",
+            "sourceColumn": "OAUrl",
+            "summarizeBy": "none",
+            "lineageTag": "b53e2ee0-8ec1-525c-9aee-84941152908a",
+            "dataCategory": "WebUrl"
+          },
+          {
+            "name": "PDFDownloadStatus",
+            "dataType": "string",
+            "sourceColumn": "PDFDownloadStatus",
+            "summarizeBy": "none",
+            "lineageTag": "905909e6-8bb2-54af-9040-e3b7116a06c7"
+          },
+          {
+            "name": "LocalPDFPath",
+            "dataType": "string",
+            "sourceColumn": "LocalPDFPath",
+            "summarizeBy": "none",
+            "lineageTag": "931bdbef-b0de-57dd-9b53-72b68f655114"
+          },
+          {
+            "name": "PDFDownloadedUTC",
+            "dataType": "string",
+            "sourceColumn": "PDFDownloadedUTC",
+            "summarizeBy": "none",
+            "lineageTag": "cb5b36f8-a3c9-501c-9dfb-2f78a2a18046"
+          },
+          {
+            "name": "PublicationDate",
+            "dataType": "dateTime",
+            "sourceColumn": "PublicationDate",
+            "summarizeBy": "none",
+            "lineageTag": "1af28e32-c3a8-5967-8d2f-54c9a605053e",
+            "formatString": "dd MMM yyyy"
+          },
+          {
+            "name": "OnlineDate",
+            "dataType": "dateTime",
+            "sourceColumn": "OnlineDate",
+            "summarizeBy": "none",
+            "lineageTag": "12272100-815c-5bb1-961f-78c7a5980604",
+            "formatString": "dd MMM yyyy"
+          },
+          {
+            "name": "RefreshedAtUTC",
+            "dataType": "dateTime",
+            "sourceColumn": "RefreshedAtUTC",
+            "summarizeBy": "none",
+            "lineageTag": "945f1a30-a76b-5fb9-9793-bb246a799937",
+            "formatString": "dd MMM yyyy"
+          },
+          {
+            "name": "PublicationYear",
+            "dataType": "int64",
+            "sourceColumn": "PublicationYear",
+            "summarizeBy": "none",
+            "lineageTag": "c4fe965e-a3da-5a08-9f19-8827e6847165"
+          },
+          {
+            "name": "AuthorCount",
+            "dataType": "int64",
+            "sourceColumn": "AuthorCount",
+            "summarizeBy": "none",
+            "lineageTag": "b0fb0677-e4b6-5736-a914-d2ab2c863a58"
+          },
+          {
+            "name": "FacilityMatchCount",
+            "dataType": "int64",
+            "sourceColumn": "FacilityMatchCount",
+            "summarizeBy": "none",
+            "lineageTag": "8861036c-7002-5224-988f-339503f575b0"
+          },
+          {
+            "name": "EuropePMC_CitedByCount",
+            "dataType": "int64",
+            "sourceColumn": "EuropePMC_CitedByCount",
+            "summarizeBy": "none",
+            "lineageTag": "117c502c-87be-5010-bb8e-51c584a6d572"
+          },
+          {
+            "name": "CitationCount_Crossref",
+            "dataType": "int64",
+            "sourceColumn": "CitationCount_Crossref",
+            "summarizeBy": "none",
+            "lineageTag": "247a8371-7762-5a2c-a9b2-f8f548a67ff0"
+          },
+          {
+            "name": "CitationCount_OpenAlex",
+            "dataType": "int64",
+            "sourceColumn": "CitationCount_OpenAlex",
+            "summarizeBy": "none",
+            "lineageTag": "99645a13-8458-5a15-8e9a-000a76b91a44"
+          },
+          {
+            "name": "PDFFileSize",
+            "dataType": "int64",
+            "sourceColumn": "PDFFileSize",
+            "summarizeBy": "none",
+            "lineageTag": "76cd3da1-c681-5bc5-a719-aac7670c9390"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Publication",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "CanonicalPublications[Publications]"
+              ]
+            }
+          }
+        ],
+        "description": "One row per canonical publication across PubMed and DORA. Source provenance and reconciliation method are retained; attribution remains reviewable.",
+        "measures": [
+          {
+            "name": "Publications",
+            "expression": "VAR MatchedKeys = VALUES(PublicationFacility[CanonicalKey])\nVAR FacilityFiltered = ISFILTERED(Facility) || ISFILTERED(PublicationFacility)\nRETURN COALESCE(IF(FacilityFiltered, CALCULATE(DISTINCTCOUNT(Publication[CanonicalKey]), KEEPFILTERS(TREATAS(MatchedKeys, Publication[CanonicalKey]))), DISTINCTCOUNT(Publication[CanonicalKey])), 0)",
+            "formatString": "#,0",
+            "lineageTag": "97ff0d7d-3e08-52ff-bdd1-00a5e7eb13ae"
+          },
+          {
+            "name": "PubMed Publications",
+            "expression": "CALCULATE([Publications], KEEPFILTERS(CONTAINSSTRING(Publication[SourceSet], \"PubMed\")))",
+            "formatString": "#,0",
+            "lineageTag": "29da12a5-24b6-59ce-bdae-142b582758d1"
+          },
+          {
+            "name": "DORA Publications",
+            "expression": "CALCULATE([Publications], KEEPFILTERS(CONTAINSSTRING(Publication[SourceSet], \"DORA\")))",
+            "formatString": "#,0",
+            "lineageTag": "23eb45e8-8064-50f2-bb53-8a26b2f49b2d"
+          },
+          {
+            "name": "Cross-source Matches",
+            "expression": "CALCULATE([Publications], KEEPFILTERS(Publication[SourceSet] = \"PubMed; DORA\"))",
+            "formatString": "#,0",
+            "lineageTag": "997e2c79-2289-54df-a7a0-1e2e378b257e"
+          },
+          {
+            "name": "DORA-only Publications",
+            "expression": "CALCULATE([Publications], KEEPFILTERS(Publication[SourceSet] = \"DORA\"))",
+            "formatString": "#,0",
+            "lineageTag": "7a4074bd-4ba0-5be2-ad45-e4cd635fe502"
+          },
+          {
+            "name": "Reconciliation Needs Review",
+            "expression": "CALCULATE([Publications], KEEPFILTERS(CONTAINSSTRING(Publication[AttributionStatus], \"needs review\")))",
+            "formatString": "#,0",
+            "lineageTag": "736ad1e8-accb-5cf8-b035-49c0cb269df6"
+          },
+          {
+            "name": "Open Access Publications",
+            "expression": "CALCULATE([Publications], KEEPFILTERS(Publication[EuropePMC_OpenAccess] = \"Y\" || Publication[OpenAccessStatus] IN {\"Gold\", \"Green\"} || NOT(ISBLANK(Publication[PMCID]))))",
+            "formatString": "#,0",
+            "lineageTag": "2088229c-0ca3-5d43-a4ea-be36ab877869"
+          },
+          {
+            "name": "Open Access Rate",
+            "expression": "DIVIDE([Open Access Publications], [Publications])",
+            "formatString": "0.0%",
+            "lineageTag": "3c6003d0-276d-50a1-bc1e-445f95443e5b"
+          },
+          {
+            "name": "Funded Publications",
+            "expression": "CALCULATE([Publications], KEEPFILTERS(Publication[FundingType] <> \"Unfunded / Departmental\" && Publication[FundingType] <> \"\" && NOT(ISBLANK(Publication[FundingType]))))",
+            "formatString": "#,0",
+            "lineageTag": "3b1fe180-2a8a-5612-b643-eb5d6ca7c42f"
+          },
+          {
+            "name": "Internal CHHHS Funded Publications",
+            "expression": "CALCULATE([Publications], KEEPFILTERS(Publication[IsInternalFunding] = \"Yes\"))",
+            "formatString": "#,0",
+            "lineageTag": "ef70c0c7-a7a1-59c1-9ed5-b6f4c7ecb1f2"
+          },
+          {
+            "name": "First Nations Health Publications",
+            "expression": "CALCULATE([Publications], KEEPFILTERS(Publication[IndigenousHealthFocus] = \"Yes\"))",
+            "formatString": "#,0",
+            "lineageTag": "26b2ce42-edbc-5dad-9906-0a63574f85c9"
+          },
+          {
+            "name": "Clinical Trials Count",
+            "expression": "CALCULATE([Publications], KEEPFILTERS(Publication[ClinicalTrialID] <> \"\" && NOT(ISBLANK(Publication[ClinicalTrialID]))))",
+            "formatString": "#,0",
+            "lineageTag": "e5958ffb-18d5-5dc5-b177-ef8793f37827"
+          },
+          {
+            "name": "Archived Full-Text Papers",
+            "expression": "CALCULATE([Publications], KEEPFILTERS(Publication[PDFDownloadStatus] IN {\"Downloaded\", \"Already Exists\"}))",
+            "formatString": "#,0",
+            "lineageTag": "7e4bdfcb-d347-515d-ae81-8fcd9ad74a0e"
+          },
+          {
+            "name": "Publications Last Complete Month",
+            "expression": "VAR StartDate = MAX(ReportingWindow[ReportMonthStart])\nVAR EndDate = MAX(ReportingWindow[ReportMonthEndExclusive])\nRETURN CALCULATE([Publications], REMOVEFILTERS('Date'), DATESBETWEEN('Date'[Date],StartDate,EndDate-1), KEEPFILTERS(Publication[PublicationDatePrecision] IN {\"day\", \"month\"}))",
+            "formatString": "#,0",
+            "lineageTag": "83c4459f-82fc-51a7-a977-afb5cebf2f01"
+          },
+          {
+            "name": "Publications Previous Year Month",
+            "expression": "VAR StartDate = EDATE(MAX(ReportingWindow[ReportMonthStart]),-12)\nVAR EndDate = EDATE(MAX(ReportingWindow[ReportMonthEndExclusive]),-12)\nRETURN CALCULATE([Publications], REMOVEFILTERS('Date'), DATESBETWEEN('Date'[Date],StartDate,EndDate-1), KEEPFILTERS(Publication[PublicationDatePrecision] IN {\"day\", \"month\"}))",
+            "formatString": "#,0",
+            "lineageTag": "2bcd0c14-f0aa-517d-8221-6534ac168700"
+          },
+          {
+            "name": "Monthly Year-on-Year Change",
+            "expression": "DIVIDE([Publications Last Complete Month]-[Publications Previous Year Month], [Publications Previous Year Month])",
+            "formatString": "0.0%;-0.0%",
+            "lineageTag": "5d18b784-ba92-5c43-9d3b-ddc68aca32da"
+          },
+          {
+            "name": "Publications Last 24 Complete Months",
+            "expression": "VAR StartDate = EDATE(MAX(ReportingWindow[ReportMonthEndExclusive]),-24)\nVAR EndDate = MAX(ReportingWindow[ReportMonthEndExclusive])\nRETURN CALCULATE([Publications], KEEPFILTERS(DATESBETWEEN('Date'[Date],StartDate,EndDate-1)))",
+            "formatString": "#,0",
+            "lineageTag": "8eb94c27-cead-595d-983d-ae6d0ec58458"
+          },
+          {
+            "name": "Publications Without Usable Month",
+            "expression": "CALCULATE([Publications], REMOVEFILTERS('Date'), KEEPFILTERS(NOT(Publication[PublicationDatePrecision] IN {\"day\", \"month\"})))",
+            "formatString": "#,0",
+            "lineageTag": "47f4f80d-6ed7-54b9-ac95-933a5b46d642"
+          },
+          {
+            "name": "Reporting Month",
+            "expression": "IF(ISFILTERED('Date'[YearMonth]), IF(HASONEVALUE('Date'[YearMonth]), SELECTEDVALUE('Date'[YearMonth]), \"Select one month\"), FORMAT(MAX(ReportingWindow[ReportMonthStart]), \"MMMM yyyy\"))",
+            "formatString": "",
+            "lineageTag": "1ea03eb1-bc5a-5581-a454-bfd987773d7f"
+          },
+          {
+            "name": "Refresh Timestamp UTC",
+            "expression": "MAX(ReportingWindow[RefreshedAtUTC])",
+            "formatString": "dd MMM yyyy HH:mm \"UTC\"",
+            "lineageTag": "4b645111-a525-5ea0-b15c-c3a576515500"
+          },
+          {
+            "name": "Query Warnings",
+            "expression": "COUNTROWS(FILTER(SearchAudit, SearchAudit[Warnings] <> \"\"))",
+            "formatString": "#,0",
+            "lineageTag": "1b8c4ee6-beb6-5413-9011-81df65ee62e2"
+          },
+          {
+            "name": "Configured Facility Searches",
+            "expression": "COUNTROWS(Facility)",
+            "formatString": "#,0",
+            "lineageTag": "ed60cd73-cae8-54bf-98df-f99e79650400"
+          },
+          {
+            "name": "Register Row Count",
+            "expression": "VAR N = [Publications] RETURN IF(N > 0, N, BLANK())",
+            "formatString": "#,0",
+            "lineageTag": "84dff746-892e-517d-9770-8537bfad0d2c"
+          },
+          {
+            "name": "Selected Month Publications",
+            "expression": "VAR HasSelection = ISFILTERED('Date'[YearMonth])\nVAR ValidSelection = NOT(HasSelection) || HASONEVALUE('Date'[YearMonth])\nVAR StartDate = IF(HasSelection, DATE(YEAR(MIN('Date'[Date])), MONTH(MIN('Date'[Date])), 1), MAX(ReportingWindow[ReportMonthStart]))\nVAR EndDate = EDATE(StartDate, 1)\nRETURN IF(ValidSelection, CALCULATE([Publications], REMOVEFILTERS('Date'), DATESBETWEEN('Date'[Date], StartDate, EndDate-1), KEEPFILTERS(Publication[PublicationDatePrecision] IN {\"day\", \"month\"})), BLANK())",
+            "formatString": "#,0",
+            "lineageTag": "421e4556-8d6d-5b5a-a98b-69e4c5bfb15c"
+          },
+          {
+            "name": "Monthly Register Row Count",
+            "expression": "VAR N = [Selected Month Publications] RETURN IF(N > 0, N, BLANK())",
+            "formatString": "#,0",
+            "lineageTag": "318edbdb-ffb9-555c-9f9e-5776ffc4dd92"
+          }
+        ]
+      },
+      {
+        "name": "Facility",
+        "isHidden": false,
+        "lineageTag": "ee080b73-143e-55a3-81d6-c2ffee8cc5a1",
+        "columns": [
+          {
+            "name": "FacilityKey",
+            "dataType": "string",
+            "sourceColumn": "FacilityKey",
+            "summarizeBy": "none",
+            "lineageTag": "a935f963-b1bb-53e7-b4e4-9d3f15e8d44f"
+          },
+          {
+            "name": "FacilityName",
+            "dataType": "string",
+            "sourceColumn": "FacilityName",
+            "summarizeBy": "none",
+            "lineageTag": "b42fe8cd-03b9-52cc-a455-c20dfe19e9f2"
+          },
+          {
+            "name": "FacilityGroup",
+            "dataType": "string",
+            "sourceColumn": "FacilityGroup",
+            "summarizeBy": "none",
+            "lineageTag": "2bf69125-43c3-52a8-b9bf-79cd14dc5788"
+          },
+          {
+            "name": "PubMedQuery",
+            "dataType": "string",
+            "sourceColumn": "PubMedQuery",
+            "summarizeBy": "none",
+            "lineageTag": "ee4d6fc0-6cef-5f1a-9658-0f8ffa1fce78"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Facility",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "Table.SelectColumns(FacilityDefinitions,{\"FacilityKey\",\"FacilityName\",\"FacilityGroup\",\"PubMedQuery\"})"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "PublicationFacility",
+        "isHidden": true,
+        "lineageTag": "84f5d3ef-596d-5970-96e7-161c2900c1bb",
+        "columns": [
+          {
+            "name": "CanonicalKey",
+            "dataType": "string",
+            "sourceColumn": "CanonicalKey",
+            "summarizeBy": "none",
+            "lineageTag": "b888ded9-88c2-53dd-8646-2737dccd3412"
+          },
+          {
+            "name": "FacilityKey",
+            "dataType": "string",
+            "sourceColumn": "FacilityKey",
+            "summarizeBy": "none",
+            "lineageTag": "68c99b57-5023-5599-80a2-413dcea08d12"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "PublicationFacility",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "CanonicalPublications[Matches]"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Date",
+        "isHidden": false,
+        "lineageTag": "428522fe-24ed-545c-909e-ac2267350f34",
+        "columns": [
+          {
+            "name": "Date",
+            "dataType": "dateTime",
+            "sourceColumn": "Date",
+            "summarizeBy": "none",
+            "lineageTag": "e7658978-00f1-57a2-bfe4-fdd67db7233f",
+            "formatString": "dd MMM yyyy",
+            "isKey": true
+          },
+          {
+            "name": "Year",
+            "dataType": "int64",
+            "sourceColumn": "Year",
+            "summarizeBy": "none",
+            "lineageTag": "8de8dcec-c713-5e50-8041-0ebf26ab217c"
+          },
+          {
+            "name": "MonthNumber",
+            "dataType": "int64",
+            "sourceColumn": "MonthNumber",
+            "summarizeBy": "none",
+            "lineageTag": "857937cd-f296-5575-8fa7-2adc07688c16",
+            "isHidden": true
+          },
+          {
+            "name": "MonthName",
+            "dataType": "string",
+            "sourceColumn": "MonthName",
+            "summarizeBy": "none",
+            "lineageTag": "978750cd-94ee-5753-b3f4-1e1be3d2c522",
+            "sortByColumn": "MonthNumber"
+          },
+          {
+            "name": "YearMonth",
+            "dataType": "string",
+            "sourceColumn": "YearMonth",
+            "summarizeBy": "none",
+            "lineageTag": "2d13567c-12b2-591f-99f7-60fcb456d81f",
+            "sortByColumn": "YearMonthSort"
+          },
+          {
+            "name": "YearMonthSort",
+            "dataType": "int64",
+            "sourceColumn": "YearMonthSort",
+            "summarizeBy": "none",
+            "lineageTag": "90aa42d3-020d-5481-ae01-31ee61622b50",
+            "isHidden": true
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Date",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Start = #date(1900,1,1),",
+                "    Finish = #date(Date.Year(Date.From(DateTimeZone.SwitchZone(DateTimeZone.FixedUtcNow(),10)))+2,12,31),",
+                "    Days = List.Dates(Start,Duration.Days(Finish-Start)+1,#duration(1,0,0,0)),",
+                "    A = Table.FromList(Days,Splitter.SplitByNothing(),{\"Date\"}),",
+                "    B = Table.TransformColumnTypes(A,{{\"Date\",type date}}),",
+                "    C = Table.AddColumn(B,\"Year\",each Date.Year([Date]),Int64.Type),",
+                "    D = Table.AddColumn(C,\"MonthNumber\",each Date.Month([Date]),Int64.Type),",
+                "    E = Table.AddColumn(D,\"MonthName\",each Date.ToText([Date],\"MMM\",\"en-AU\"),type text),",
+                "    F = Table.AddColumn(E,\"YearMonth\",each Date.ToText([Date],\"yyyy-MM\",\"en-AU\"),type text),",
+                "    G = Table.AddColumn(F,\"YearMonthSort\",each [Year]*100+[MonthNumber],Int64.Type)",
+                "in G"
+              ]
+            }
+          }
+        ],
+        "dataCategory": "Time"
+      },
+      {
+        "name": "SearchAudit",
+        "isHidden": false,
+        "lineageTag": "9523dd95-b276-5f66-91d6-ba794154a5ae",
+        "columns": [
+          {
+            "name": "FacilityKey",
+            "dataType": "string",
+            "sourceColumn": "FacilityKey",
+            "summarizeBy": "none",
+            "lineageTag": "ff011e2c-b7da-595b-963c-d32e923e341b"
+          },
+          {
+            "name": "SearchCount",
+            "dataType": "int64",
+            "sourceColumn": "SearchCount",
+            "summarizeBy": "none",
+            "lineageTag": "2a00f711-fb39-5088-915e-181448d30ced"
+          },
+          {
+            "name": "QueryTranslation",
+            "dataType": "string",
+            "sourceColumn": "QueryTranslation",
+            "summarizeBy": "none",
+            "lineageTag": "622bab1b-e443-52e6-8af7-140534230b62"
+          },
+          {
+            "name": "Warnings",
+            "dataType": "string",
+            "sourceColumn": "Warnings",
+            "summarizeBy": "none",
+            "lineageTag": "cbb77464-c67e-5334-869a-11a41a4edc24"
+          },
+          {
+            "name": "QueryVersion",
+            "dataType": "string",
+            "sourceColumn": "QueryVersion",
+            "summarizeBy": "none",
+            "lineageTag": "3a0d6eb3-2009-5715-aec5-875908f633ef"
+          },
+          {
+            "name": "RefreshedAtUTC",
+            "dataType": "dateTime",
+            "sourceColumn": "RefreshedAtUTC",
+            "summarizeBy": "none",
+            "lineageTag": "2ccf4fb4-51b3-5510-b89b-f9819cbc62a2",
+            "formatString": "dd MMM yyyy"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "SearchAudit",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "PubMedHarvest[SearchAudit]"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "ReportingWindow",
+        "isHidden": false,
+        "lineageTag": "094125aa-13c9-5fd1-99f2-6d34aec9e944",
+        "columns": [
+          {
+            "name": "ReportMonthStart",
+            "dataType": "dateTime",
+            "sourceColumn": "ReportMonthStart",
+            "summarizeBy": "none",
+            "lineageTag": "9cab8528-1d14-5030-8c0d-fc44a2cf97f0",
+            "formatString": "dd MMM yyyy"
+          },
+          {
+            "name": "ReportMonthEndExclusive",
+            "dataType": "dateTime",
+            "sourceColumn": "ReportMonthEndExclusive",
+            "summarizeBy": "none",
+            "lineageTag": "dbe16946-1a3d-5f25-9018-f9d099cb0d9d",
+            "formatString": "dd MMM yyyy"
+          },
+          {
+            "name": "RefreshedAtUTC",
+            "dataType": "dateTime",
+            "sourceColumn": "RefreshedAtUTC",
+            "summarizeBy": "none",
+            "lineageTag": "97db859b-2250-535e-945f-ec3a9f7b3f7f",
+            "formatString": "dd MMM yyyy"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "ReportingWindow",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    NowUTC = DateTimeZone.FixedUtcNow(),",
+                "    BrisbaneToday = Date.From(DateTimeZone.SwitchZone(NowUTC,10)),",
+                "    EndExclusive = Date.StartOfMonth(BrisbaneToday),",
+                "    StartDate = Date.AddMonths(EndExclusive,-1)",
+                "in #table(type table [ReportMonthStart=date,ReportMonthEndExclusive=date,RefreshedAtUTC=datetime],{{StartDate,EndExclusive,DateTimeZone.RemoveZone(NowUTC)}})"
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "name": "f0802c14-8afe-5195-8a15-f9612f1d08a8",
+        "fromTable": "Publication",
+        "fromColumn": "PublicationDate",
+        "toTable": "Date",
+        "toColumn": "Date",
+        "fromCardinality": "many",
+        "toCardinality": "one",
+        "crossFilteringBehavior": "oneDirection",
+        "isActive": true
+      },
+      {
+        "name": "8579390f-a764-5f79-9a17-0754bb603747",
+        "fromTable": "PublicationFacility",
+        "fromColumn": "CanonicalKey",
+        "toTable": "Publication",
+        "toColumn": "CanonicalKey",
+        "fromCardinality": "many",
+        "toCardinality": "one",
+        "crossFilteringBehavior": "oneDirection",
+        "isActive": true
+      },
+      {
+        "name": "2a8f0813-5139-5560-a6b6-97a33948506d",
+        "fromTable": "PublicationFacility",
+        "fromColumn": "FacilityKey",
+        "toTable": "Facility",
+        "toColumn": "FacilityKey",
+        "fromCardinality": "many",
+        "toCardinality": "one",
+        "crossFilteringBehavior": "oneDirection",
+        "isActive": true
+      },
+      {
+        "name": "b6ecbadc-d1dd-5ee4-9e2f-aaee4780a39f",
+        "fromTable": "SearchAudit",
+        "fromColumn": "FacilityKey",
+        "toTable": "Facility",
+        "toColumn": "FacilityKey",
+        "fromCardinality": "many",
+        "toCardinality": "one",
+        "crossFilteringBehavior": "oneDirection",
+        "isActive": true
+      }
+    ],
+    "expressions": [
+      {
+        "name": "pNCBIEmail",
+        "kind": "m",
+        "expression": [
+          "\"\" meta [IsParameterQuery=true, Type=\"Text\", IsParameterQueryRequired=false]"
+        ],
+        "lineageTag": "364b542f-f1a4-5c26-842f-808d3c4cefbc"
+      },
+      {
+        "name": "FacilityDefinitions",
+        "kind": "m",
+        "expression": [
+          "#table(",
+          "    type table [FacilityKey=text, FacilityName=text, FacilityGroup=text, PubMedQuery=text, Active=logical],",
+          "    {",
+          "        {\"hhs\", \"Cairns and Hinterland HHS\", \"Service-wide\", \"(\"\"Cairns and Hinterland Hospital and Health Service\"\"[Affiliation] OR \"\"Cairns & Hinterland Hospital and Health Service\"\"[Affiliation] OR \"\"Cairns and Hinterland Hospital & Health Service\"\"[Affiliation] OR \"\"Cairns & Hinterland Hospital & Health Service\"\"[Affiliation] OR \"\"Cairns and Hinterland Health Service\"\"[Affiliation] OR \"\"CHHHS\"\"[Affiliation] OR \"\"Cairns Health Service District\"\"[Affiliation] OR \"\"Liz Plummer Cancer Care Centre\"\"[Affiliation] OR \"\"Tropical Public Health Services\"\"[Affiliation] OR \"\"Cairns Sexual Health Service\"\"[Affiliation])\", true},",
+          "        {\"cairns\", \"Cairns Hospital\", \"Cairns\", \"(\"\"Cairns Hospital\"\"[Affiliation] OR \"\"Cairns Base Hospital\"\"[Affiliation])\", true},",
+          "        {\"atherton\", \"Atherton Hospital\", \"Hinterland\", \"(\"\"Atherton Hospital\"\"[Affiliation]) AND (Queensland[Affiliation] OR Australia[Affiliation] OR QLD[Affiliation])\", true},",
+          "        {\"babinda\", \"Babinda Multi-Purpose Health Centre\", \"Hinterland\", \"(\"\"Babinda Hospital\"\"[Affiliation] OR \"\"Babinda Multi-Purpose Health Centre\"\"[Affiliation]) AND (Queensland[Affiliation] OR Australia[Affiliation] OR QLD[Affiliation])\", true},",
+          "        {\"gordonvale\", \"Gordonvale Hospital\", \"Hinterland\", \"(\"\"Gordonvale Hospital\"\"[Affiliation]) AND (Queensland[Affiliation] OR Australia[Affiliation] OR QLD[Affiliation])\", true},",
+          "        {\"herberton\", \"Herberton Hospital\", \"Hinterland\", \"(\"\"Herberton Hospital\"\"[Affiliation]) AND (Queensland[Affiliation] OR Australia[Affiliation] OR QLD[Affiliation])\", true},",
+          "        {\"innisfail\", \"Innisfail Hospital\", \"Hinterland\", \"(\"\"Innisfail Hospital\"\"[Affiliation]) AND (Queensland[Affiliation] OR Australia[Affiliation] OR QLD[Affiliation])\", true},",
+          "        {\"mareeba\", \"Mareeba Hospital\", \"Hinterland\", \"(\"\"Mareeba Hospital\"\"[Affiliation]) AND (Queensland[Affiliation] OR Australia[Affiliation] OR QLD[Affiliation])\", true},",
+          "        {\"mossman\", \"Mossman Multi-Purpose Health Service\", \"Hinterland\", \"(\"\"Mossman Hospital\"\"[Affiliation] OR \"\"Mossman Multi-Purpose Health Service\"\"[Affiliation]) AND (Queensland[Affiliation] OR Australia[Affiliation] OR QLD[Affiliation])\", true},",
+          "        {\"tully\", \"Tully Hospital\", \"Hinterland\", \"(\"\"Tully Hospital\"\"[Affiliation]) AND (Queensland[Affiliation] OR Australia[Affiliation] OR QLD[Affiliation])\", true},",
+          "        {\"yarrabah\", \"Yarrabah Emergency Service\", \"Community\", \"(\"\"Yarrabah Emergency Service\"\"[Affiliation]) AND (Queensland[Affiliation] OR Australia[Affiliation] OR QLD[Affiliation])\", true},",
+          "        {\"cairns-north\", \"Cairns North Community Health\", \"Community\", \"(\"\"Cairns North Community Health\"\"[Affiliation])\", true},",
+          "        {\"cairns-south\", \"Cairns South Health Facility\", \"Community\", \"(\"\"Cairns South Health Facility\"\"[Affiliation])\", true},",
+          "        {\"chillagoe\", \"Chillagoe Primary Health Centre\", \"Community\", \"(\"\"Chillagoe Primary Health Centre\"\"[Affiliation] OR \"\"Chillagoe Hospital\"\"[Affiliation]) AND (Queensland[Affiliation] OR Australia[Affiliation] OR QLD[Affiliation])\", true},",
+          "        {\"cow-bay\", \"Cow Bay Primary Health Centre\", \"Community\", \"(\"\"Cow Bay Primary Health Centre\"\"[Affiliation]) AND (Queensland[Affiliation] OR Australia[Affiliation] OR QLD[Affiliation])\", true},",
+          "        {\"croydon\", \"Croydon Primary Health Centre\", \"Community\", \"(\"\"Croydon Primary Health Centre\"\"[Affiliation]) AND (Queensland[Affiliation] OR Australia[Affiliation] OR QLD[Affiliation])\", true},",
+          "        {\"dimbulah\", \"Dimbulah Primary Health Centre\", \"Community\", \"(\"\"Dimbulah Primary Health Centre\"\"[Affiliation]) AND (Queensland[Affiliation] OR Australia[Affiliation] OR QLD[Affiliation])\", true},",
+          "        {\"edmonton\", \"Edmonton Community Health Centre\", \"Community\", \"(\"\"Edmonton Community Health Centre\"\"[Affiliation]) AND (Queensland[Affiliation] OR Australia[Affiliation] OR QLD[Affiliation])\", true},",
+          "        {\"forsayth\", \"Forsayth Primary Health Centre\", \"Community\", \"(\"\"Forsayth Primary Health Centre\"\"[Affiliation]) AND (Queensland[Affiliation] OR Australia[Affiliation] OR QLD[Affiliation])\", true},",
+          "        {\"georgetown\", \"Georgetown Primary Health Centre\", \"Community\", \"(\"\"Georgetown Primary Health Centre\"\"[Affiliation]) AND (Queensland[Affiliation] OR Australia[Affiliation] OR QLD[Affiliation])\", true},",
+          "        {\"jumbun\", \"Jumbun Community Health Centre\", \"Community\", \"(\"\"Jumbun Community Health Centre\"\"[Affiliation]) AND (Queensland[Affiliation] OR Australia[Affiliation] OR QLD[Affiliation])\", true},",
+          "        {\"malanda\", \"Malanda Primary Health Centre\", \"Community\", \"(\"\"Malanda Primary Health Centre\"\"[Affiliation]) AND (Queensland[Affiliation] OR Australia[Affiliation] OR QLD[Affiliation])\", true},",
+          "        {\"millaa-millaa\", \"Millaa Millaa Primary Health Centre\", \"Community\", \"(\"\"Millaa Millaa Primary Health Centre\"\"[Affiliation]) AND (Queensland[Affiliation] OR Australia[Affiliation] OR QLD[Affiliation])\", true},",
+          "        {\"mission-beach\", \"Mission Beach Community Health Centre\", \"Community\", \"(\"\"Mission Beach Community Health Centre\"\"[Affiliation]) AND (Queensland[Affiliation] OR Australia[Affiliation] OR QLD[Affiliation])\", true},",
+          "        {\"mount-garnet\", \"Mount Garnet Primary Health Centre\", \"Community\", \"(\"\"Mount Garnet Primary Health Centre\"\"[Affiliation] OR \"\"Mt Garnet Primary Health Centre\"\"[Affiliation]) AND (Queensland[Affiliation] OR Australia[Affiliation] OR QLD[Affiliation])\", true},",
+          "        {\"ravenshoe\", \"Ravenshoe Primary Health Centre\", \"Community\", \"(\"\"Ravenshoe Primary Health Centre\"\"[Affiliation]) AND (Queensland[Affiliation] OR Australia[Affiliation] OR QLD[Affiliation])\", true},",
+          "        {\"sub-acute\", \"Cairns Sub-Acute Care Unit\", \"Cairns\", \"(\"\"Cairns Sub-Acute Care Unit\"\"[Affiliation])\", true},",
+          "        {\"smithfield\", \"Smithfield Community Health Centre\", \"Community\", \"(\"\"Smithfield Community Health Centre\"\"[Affiliation]) AND (Queensland[Affiliation] OR Australia[Affiliation] OR QLD[Affiliation])\", true}",
+          "    }",
+          ")"
+        ],
+        "lineageTag": "1b033824-9135-55b9-8051-b521bb4d022f"
+      },
+      {
+        "name": "fnParsePubDate",
+        "kind": "m",
+        "expression": [
+          "(raw as nullable text) as record =>",
+          "let",
+          "    TextValue = if raw = null then \"\" else Text.Trim(raw),",
+          "    Parts = List.Select(Text.SplitAny(TextValue, \" /-\"), each _ <> \"\"),",
+          "    YearToken = if List.Count(Parts) > 0 then Parts{0} else \"\",",
+          "    YearValue = if Text.Length(YearToken) = 4 then (try Number.FromText(YearToken, \"en-US\") otherwise null) else null,",
+          "    ValidYear = if YearValue = null then false else YearValue >= 1500 and YearValue <= 9999 and Number.RoundDown(YearValue) = YearValue,",
+          "    MonthToken = if List.Count(Parts) > 1 then Text.Lower(Parts{1}) else \"\",",
+          "    Months = [jan=1,feb=2,mar=3,apr=4,may=5,jun=6,jul=7,aug=8,sep=9,oct=10,nov=11,dec=12],",
+          "    MonthValue = if Record.HasFields(Months, MonthToken) then Record.Field(Months, MonthToken) else (try Number.FromText(MonthToken, \"en-US\") otherwise null),",
+          "    ValidMonth = if MonthValue = null then false else MonthValue >= 1 and MonthValue <= 12 and Number.RoundDown(MonthValue) = MonthValue,",
+          "    NumericParts = List.AllTrue(List.Transform(Parts, each Text.Length(_) > 0 and Text.Select(_, {\"0\"..\"9\"}) = _)),",
+          "    IsRange = Text.Contains(TextValue, \"-\") and not NumericParts,",
+          "    DayValue = if List.Count(Parts) = 3 then (try Number.FromText(Parts{2}, \"en-US\") otherwise null) else 1,",
+          "    ValidDay = if DayValue = null then false else DayValue >= 1 and Number.RoundDown(DayValue) = DayValue,",
+          "    Candidate = if ValidYear and ValidMonth and ValidDay and not IsRange and List.Count(Parts) <= 3 then (try #date(YearValue, MonthValue, DayValue) otherwise null) else null,",
+          "    Precision = if not ValidYear then \"unknown\" else if List.Count(Parts) = 1 then \"year\" else if IsRange then \"range\" else if Candidate = null then \"unknown\" else if List.Count(Parts) = 3 then \"day\" else \"month\"",
+          "in",
+          "    [Date = Candidate, Precision = Precision, Year = if ValidYear then YearValue else null, Raw = TextValue]"
+        ],
+        "lineageTag": "3451e27c-b28a-514b-a38a-1dd772c6a01e"
+      },
+      {
+        "name": "fnNCBIJson",
+        "kind": "m",
+        "expression": [
+          "(endpoint as text, parameters as record, optional attempt as nullable number) as record =>",
+          "let",
+          "    Start = if attempt = null then 0 else attempt,",
+          "    Common = [db=\"pubmed\", retmode=\"json\", tool=\"CHHHSResearchPublications\"],",
+          "    Contact = if pNCBIEmail = null then \"\" else Text.Trim(pNCBIEmail),",
+          "    WithEmail = if Contact = \"\" then Common else if not Text.Contains(Contact,\"@\") then error \"pNCBIEmail must be blank or a valid operational contact\" else Record.AddField(Common,\"email\",Contact),",
+          "    QueryParameters = Record.Combine({WithEmail,parameters}),",
+          "    RetryCodes = {408,429,500,502,503,504},",
+          "    Fetch = (n as number) as record =>",
+          "        let",
+          "            Body = Function.InvokeAfter(() => Web.Contents(\"https://eutils.ncbi.nlm.nih.gov\", [RelativePath=\"entrez/eutils/\" & endpoint, Query=QueryParameters, Timeout=#duration(0,0,2,0), ManualStatusHandling=RetryCodes, IsRetry=n>0]),#duration(0,0,0,if n=0 then 1.1 else Number.Power(2,n))),",
+          "            Status = Record.FieldOrDefault(Value.Metadata(Body),\"Response.Status\",200)",
+          "        in [Status=Status,Body=Binary.Buffer(Body)],",
+          "    Attempts = List.Generate(() => [N=Start,R=Fetch(Start)], each [N]<=4,",
+          "        each if List.Contains(RetryCodes,[R][Status]) and [N]<4 then [N=[N]+1,R=Fetch([N]+1)] else [N=5,R=null], each [R]),",
+          "    Final = List.Last(Attempts),",
+          "    Parsed = if Final[Status]<>200 then error Error.Record(\"PubMedHTTP\",\"NCBI request failed after bounded retries; no successful empty result is substituted.\",[Status=Final[Status],Endpoint=endpoint]) else Json.Document(Final[Body]),",
+          "    Result = if not Value.Is(Parsed,type record) then error \"Unexpected NCBI JSON response\" else if Record.HasFields(Parsed,\"error\") then error Error.Record(\"PubMedAPI\",Text.From(Parsed[error]),null) else Parsed",
+          "in",
+          "    Result"
+        ],
+        "lineageTag": "0906cdfb-026b-5294-8830-07a51d190f0b"
+      },
+      {
+        "name": "fnPubMedXML",
+        "kind": "m",
+        "expression": [
+          "// Full PubMed XML metadata; no author-level institutional conclusion is inferred.",
+          "(ids as list) as table =>",
+          "let",
+          "    EmptyNodes = #table(type table [Name=nullable text,Namespace=nullable text,Value=any,Attributes=any],{}),",
+          "    Nodes = (v as any) as table => if Value.Is(v,type table) then v else EmptyNodes,",
+          "    Children = (v as any, name as text) as list => Table.SelectRows(Nodes(v),each [Name]=name)[Value],",
+          "    Child = (v as any, name as text) as any => List.First(Children(v,name),null),",
+          "    // Iterative depth-first traversal preserves mixed-content text order.",
+          "    TextValue = (v as any) as text => Text.Combine(List.RemoveNulls(List.Generate(",
+          "        ()=>[Todo={v},Out=null], each not List.IsEmpty([Todo]) or [Out]<>null,",
+          "        each if List.IsEmpty([Todo]) then [Todo={},Out=null] else",
+          "            let Head=List.First([Todo]),Tail=List.Skip([Todo])",
+          "            in if Value.Is(Head,type table) then [Todo=Head[Value]&Tail,Out=null] else [Todo=Tail,Out=if Head=null then null else Text.From(Head)],",
+          "        each [Out])),\"\"),",
+          "    DateText = (v as any) as text => let Medline=Child(v,\"MedlineDate\") in if Medline<>null then TextValue(Medline) else Text.Combine(List.Select(List.Transform({\"Year\",\"Month\",\"Day\"},each TextValue(Child(v,_))),each _<>\"\"),\" \"),",
+          "    RetryCodes={408,429,500,502,503,504},",
+          "    Contact=if pNCBIEmail=null then \"\" else Text.Trim(pNCBIEmail),",
+          "    Common=[db=\"pubmed\",retmode=\"xml\",tool=\"CHHHSResearchPublications\",id=Text.Combine(ids,\",\")],",
+          "    Parameters=if Contact=\"\" then Common else Record.AddField(Common,\"email\",Contact),",
+          "    Fetch=(n as number) as record => let",
+          "        Body=Function.InvokeAfter(()=>Web.Contents(\"https://eutils.ncbi.nlm.nih.gov\",[RelativePath=\"entrez/eutils/efetch.fcgi\",Query=Parameters,Timeout=#duration(0,0,2,0),ManualStatusHandling=RetryCodes,IsRetry=n>0]),#duration(0,0,0,if n=0 then 1.1 else Number.Power(2,n))),",
+          "        Status=Record.FieldOrDefault(Value.Metadata(Body),\"Response.Status\",200)",
+          "        in [Status=Status,Body=Binary.Buffer(Body)],",
+          "    Attempts=List.Generate(()=>[N=0,R=Fetch(0)],each [N]<=4,each if List.Contains(RetryCodes,[R][Status]) and [N]<4 then [N=[N]+1,R=Fetch([N]+1)] else [N=5,R=null],each [R]),",
+          "    Final=List.Last(Attempts),",
+          "    XML=if Final[Status]<>200 then error \"PubMed EFetch failed after bounded retries\" else Xml.Document(Final[Body]),",
+          "    Root=Child(XML,\"PubmedArticleSet\"),",
+          "    Articles=Children(Root,\"PubmedArticle\"),",
+          "    Books=Children(Root,\"PubmedBookArticle\"),",
+          "    Checked=if Root=null or List.Count(Books)>0 then error \"Unexpected PubMed XML structure; preserve and review unsupported records\" else Articles,",
+          "    Records=List.Transform(Checked,(v)=>let",
+          "        Citation=Child(v,\"MedlineCitation\"), Article=Child(Citation,\"Article\"), Journal=Child(Article,\"Journal\"),",
+          "        Authors=List.Transform(Children(Child(Article,\"AuthorList\"),\"Author\"),(a)=>[",
+          "            Name=if Child(a,\"CollectiveName\")<>null then TextValue(Child(a,\"CollectiveName\")) else Text.Combine(List.Select({if Child(a,\"ForeName\")=null then TextValue(Child(a,\"Initials\")) else TextValue(Child(a,\"ForeName\")),TextValue(Child(a,\"LastName\")),TextValue(Child(a,\"Suffix\"))},each _<>\"\"),\" \"),",
+          "            Affiliations=List.Transform(Children(a,\"AffiliationInfo\"),each TextValue(Child(_,\"Affiliation\"))) ]),",
+          "        RawDate=DateText(Child(Child(Journal,\"JournalIssue\"),\"PubDate\")),",
+          "        ArticleDates=Children(Article,\"ArticleDate\"),",
+          "        ParsedDate=fnParsePubDate(RawDate),",
+          "        AbstractNodes=Children(Child(Article,\"Abstract\"),\"AbstractText\"),",
+          "        Types=Children(Child(Article,\"PublicationTypeList\"),\"PublicationType\")",
+          "        in [PMID=TextValue(Child(Citation,\"PMID\")),FullTitle=TextValue(Child(Article,\"ArticleTitle\")),FullJournal=TextValue(Child(Journal,\"Title\")),",
+          "            FullAuthors=Text.Combine(List.Transform(Authors,each [Name]),\"; \"),FullAuthorCount=List.Count(Authors),",
+          "            AuthorAffiliationsJSON=Text.FromBinary(Json.FromValue(Authors),TextEncoding.Utf8),",
+          "            FullAbstract=Text.Combine(List.Transform(AbstractNodes,each TextValue(_)),\"#(lf)\"),",
+          "            IssueDateRaw=RawDate,IssueDatePrecision=ParsedDate[Precision],IssueDate=ParsedDate[Date],",
+          "            ArticleDatesJSON=Text.FromBinary(Json.FromValue(ArticleDates),TextEncoding.Utf8),",
+          "            FullPublicationTypes=Text.Combine(List.Transform(Types,each TextValue(_)),\"; \"),",
+          "            FullMetadataJSON=Text.FromBinary(Json.FromValue(v),TextEncoding.Utf8)]),",
+          "    Result=Table.FromRecords(Records,type table [PMID=text,FullTitle=text,FullJournal=text,FullAuthors=text,FullAuthorCount=number,AuthorAffiliationsJSON=text,FullAbstract=text,IssueDateRaw=text,IssueDatePrecision=text,IssueDate=nullable date,ArticleDatesJSON=text,FullPublicationTypes=text,FullMetadataJSON=text]),",
+          "    Returned=Result[PMID],",
+          "    Reconciled=if List.Count(Returned)<>List.Count(ids) or List.Count(List.Distinct(Returned))<>List.Count(ids) or not List.IsEmpty(List.Difference(ids,Returned)) or not List.IsEmpty(List.Difference(Returned,ids)) then error \"EFetch requested and returned PMID sets do not reconcile\" else Result",
+          "in",
+          "    Reconciled"
+        ],
+        "lineageTag": "2f188ade-35cd-5f95-b3f1-bf495342ab8f"
+      },
+      {
+        "name": "PubMedHarvest",
+        "kind": "m",
+        "expression": [
+          "let",
+          "    RefreshedUTC = DateTimeZone.RemoveZone(DateTimeZone.FixedUtcNow()),",
+          "    ActiveQueries = Table.ToRecords(Table.SelectRows(FacilityDefinitions, each [Active] = true)),",
+          "    SearchOne = (definition as record) as record =>",
+          "        let",
+          "            Payload = fnNCBIJson(\"esearch.fcgi\", [term=definition[PubMedQuery], retmax=\"10000\", sort=\"pub_date\"]),",
+          "            Search = if Record.HasFields(Payload, \"esearchresult\") then Payload[esearchresult] else error \"Missing esearchresult\",",
+          "            // Unknown field names are fatal. An unmatched phrase can be a valid zero-hit affiliation search.",
+          "            SearchErrors = Record.FieldOrDefault(Search, \"errorlist\", []),",
+          "            FatalErrors = if Value.Is(SearchErrors,type record) then Record.RemoveFields(SearchErrors,{\"phrasesnotfound\", \"quotedphrasesnotfound\", \"phrasesignored\"},MissingField.Ignore) else error \"Unexpected ESearch errorlist structure\",",
+          "            HasFatalErrors = List.AnyTrue(List.Transform(Record.FieldValues(FatalErrors), each if Value.Is(_,type list) then List.Count(_) > 0 else if _ = null then false else Text.From(_) <> \"\")),",
+          "            Checked = if Record.HasFields(Search, \"ERROR\") then error Error.Record(\"PubMedSearch\", Text.From(Search[ERROR]), null)",
+          "                      else if HasFatalErrors then error Error.Record(\"PubMedSearch\", \"Search contains errors; check the affiliation query\", FatalErrors)",
+          "                      else Search,",
+          "            Count = Number.FromText(Text.From(Checked[count]), \"en-US\"),",
+          "            IDs = List.Buffer(List.Transform(Checked[idlist], each Text.From(_))),",
+          "            Complete = if Count > 10000 then error Error.Record(\"PubMedLimit\", \"Segment this affiliation search into date ranges before retrieving more than 10000 records\", [Facility=definition[FacilityName], Count=Count])",
+          "                       else if Count < 0 or Count <> List.Count(List.Distinct(IDs)) or List.Count(IDs) <> List.Count(List.Distinct(IDs)) then error Error.Record(\"PubMedIncomplete\", \"ESearch count does not match retrieved distinct PMIDs\", [Facility=definition[FacilityName], Count=Count, Retrieved=List.Count(IDs)])",
+          "                       else IDs,",
+          "            WarningParts = List.RemoveNulls({",
+          "                if Record.HasFields(Checked, \"warninglist\") then Checked[warninglist] else null,",
+          "                if Record.HasFields(SearchErrors,\"phrasesnotfound\") and List.Count(SearchErrors[phrasesnotfound]) > 0 then [phrasesnotfound=SearchErrors[phrasesnotfound]] else null,",
+          "                if Record.HasFields(SearchErrors,\"quotedphrasesnotfound\") and List.Count(SearchErrors[quotedphrasesnotfound]) > 0 then [quotedphrasesnotfound=SearchErrors[quotedphrasesnotfound]] else null,",
+          "                if Record.HasFields(SearchErrors,\"phrasesignored\") and List.Count(SearchErrors[phrasesignored]) > 0 then [phrasesignored=SearchErrors[phrasesignored]] else null",
+          "            }),",
+          "            Warnings = if List.Count(WarningParts) > 0 then Text.FromBinary(Json.FromValue(WarningParts), TextEncoding.Utf8) else \"\",",
+          "            Translation = Text.From(Record.FieldOrDefault(Checked, \"querytranslation\", \"\"))",
+          "        in [FacilityKey=definition[FacilityKey], IDs=Complete, SearchCount=Count, QueryTranslation=Translation, Warnings=Warnings],",
+          "    // Accumulate and buffer each request result to avoid unconstrained parallel fan-out.",
+          "    SearchResults = List.Buffer(List.Accumulate(ActiveQueries, {}, (state, definition) =>",
+          "        let Result = SearchOne(definition), Force = List.Count(Result[IDs])",
+          "        in if Force >= 0 then state & {Result} else error \"Invalid count\")),",
+          "    // Preserve the earlier collector's scope-review search without asserting a facility link.",
+          "    ScopeSearch = SearchOne([FacilityKey=\"scope-review:cphu\",FacilityName=\"Cairns Public Health Unit - scope review\",PubMedQuery=\"\"\"Cairns Public Health Unit\"\"[Affiliation]\"]),",
+          "    MatchRecords = List.Combine(List.Transform(SearchResults, (s) => List.Transform(s[IDs], (id) => [PMID=id, FacilityKey=s[FacilityKey]]))),",
+          "    Matches = Table.Buffer(Table.Distinct(Table.FromRecords(MatchRecords, type table [PMID=text,FacilityKey=text]))),",
+          "    AllIDs = List.Buffer(List.Sort(List.Distinct(Matches[PMID] & ScopeSearch[IDs]))),",
+          "    Batches = List.Split(AllIDs,100),",
+          "    FetchBatch = (ids as list) as list =>",
+          "        let",
+          "            Payload = fnNCBIJson(\"esummary.fcgi\", [id=Text.Combine(ids,\",\")]),",
+          "            Result = if Record.HasFields(Payload, \"result\") then Payload[result] else error \"Missing ESummary result\",",
+          "            ReturnedIDs = List.Transform(Result[uids], each Text.From(_)),",
+          "            CheckedIDs = if List.Count(List.Difference(ids,ReturnedIDs)) > 0 or List.Count(List.Difference(ReturnedIDs,ids)) > 0 or List.Count(ReturnedIDs) <> List.Count(ids) then error \"ESummary PMID reconciliation failed\" else ReturnedIDs,",
+          "            Rows = List.Transform(CheckedIDs, (id) =>",
+          "                let Row = Record.Field(Result,id)",
+          "                in if Record.HasFields(Row,\"error\") then error Error.Record(\"PubMedSummary\",Text.From(Row[error]),[PMID=id])",
+          "                   else if Text.From(Row[uid]) <> id then error \"ESummary UID mismatch\" else Row)",
+          "        in List.Buffer(Rows),",
+          "    RawRows = List.Buffer(List.Accumulate(Batches, {}, (state,batch) => state & FetchBatch(batch))),",
+          "    ToPublication = (row as record) as record =>",
+          "        let",
+          "            PMID = Text.From(row[uid]),",
+          "            ParsedDate = fnParsePubDate(Text.From(Record.FieldOrDefault(row,\"pubdate\",\"\"))),",
+          "            OnlineRaw = Text.From(Record.FieldOrDefault(row,\"epubdate\",\"\")),",
+          "            OnlineParsed = fnParsePubDate(OnlineRaw),",
+          "            Types = List.Transform(Record.FieldOrDefault(row,\"pubtype\",{}),each Text.From(_)),",
+          "            TypeText = Text.Lower(Text.Combine(Types,\"|\")),",
+          "            Trial = Text.Contains(TypeText,\"clinical trial\") or Text.Contains(TypeText,\"randomized controlled trial\") or Text.Contains(TypeText,\"controlled clinical trial\"),",
+          "            Synthesis = Text.Contains(TypeText,\"systematic review\") or Text.Contains(TypeText,\"meta-analysis\"),",
+          "            Class = if Trial then \"Clinical trial\" else if Text.Contains(TypeText,\"meta-analysis\") then \"Meta-analysis\" else if Text.Contains(TypeText,\"systematic review\") then \"Systematic review\" else if Text.Contains(TypeText,\"review\") then \"Review\" else if Text.Contains(TypeText,\"journal article\") then \"Journal article\" else \"Other\",",
+          "            AuthorRows = Record.FieldOrDefault(row,\"authors\",{}),",
+          "            Identifiers = Record.FieldOrDefault(row,\"articleids\",{}),",
+          "            DOIValues = List.Select(Identifiers, each Record.FieldOrDefault(_,\"idtype\",\"\") = \"doi\"),",
+          "            DOI = if List.Count(DOIValues) = 0 then null else Text.From(DOIValues{0}[value]),",
+          "            FacilityKeys = Table.SelectRows(Matches, each [PMID] = PMID)[FacilityKey],",
+          "            MatchedQueries = Table.SelectRows(FacilityDefinitions, each List.Contains(FacilityKeys,[FacilityKey]))[PubMedQuery],",
+          "            FacilityNames = Table.SelectRows(FacilityDefinitions, each List.Contains(FacilityKeys,[FacilityKey]))[FacilityName],",
+          "            ModelDate = if ParsedDate[Date] = null then null else if Date.Year(ParsedDate[Date]) < 1900 then null else ParsedDate[Date],",
+          "            ModelOnlineDate = if OnlineParsed[Date] = null then null else if Date.Year(OnlineParsed[Date]) < 1900 then null else OnlineParsed[Date],",
+          "            ModelDatePrecision = if ParsedDate[Date] <> null and ModelDate = null then \"outside-model-range\" else ParsedDate[Precision],",
+          "            PublicationMonth = if List.Contains({\"day\",\"month\"},ModelDatePrecision) then Date.ToText(ModelDate, \"yyyy-MM\", \"en-AU\") else null,",
+          "            Notice = if Text.Contains(TypeText,\"retracted publication\") then \"Retracted publication\" else if Text.Contains(TypeText,\"retraction of publication\") then \"Retraction notice\" else if Text.Contains(TypeText,\"expression of concern\") then \"Expression of concern\" else \"No notice in retrieved publication types\"",
+          "        in [",
+          "            PMID=PMID, Title=Text.From(Record.FieldOrDefault(row,\"title\",\"\")),",
+          "            Journal=Text.From(Record.FieldOrDefault(row,\"fulljournalname\",\"\")),",
+          "            Authors=Text.Combine(List.Transform(AuthorRows,each Text.From(Record.FieldOrDefault(_,\"name\",\"\"))),\"; \"),",
+          "            DOI=DOI, PubMedURL=\"https://pubmed.ncbi.nlm.nih.gov/\" & PMID & \"/\",",
+          "            PublicationDate=ModelDate, PublicationDateRaw=ParsedDate[Raw], PublicationDatePrecision=ModelDatePrecision,",
+          "            PublicationMonth=PublicationMonth, PublicationYear=ParsedDate[Year],",
+          "            OnlineDate=ModelOnlineDate, OnlineDateRaw=OnlineRaw,",
+          "            AuthorCount=List.Count(AuthorRows), PublicationTypes=Text.Combine(Types,\"; \"),",
+          "            PublicationClass=Class, IsClinicalTrial=Trial, IsEvidenceSynthesis=Synthesis,",
+          "            MatchedFacilities=Text.Combine(List.Sort(FacilityNames),\"; \"),",
+          "            AttributionStatus=if List.IsEmpty(FacilityKeys) then \"Historical scope query match - institutional scope needs review\" else \"Affiliation search match - not manually verified\",",
+          "            AttributionEvidence=\"Retrieved by PubMed affiliation search; not author-level verification. Queries: \" & Text.Combine(List.Sort(List.Distinct(MatchedQueries & (if List.Contains(ScopeSearch[IDs],PMID) then {\"\"\"Cairns Public Health Unit\"\"[Affiliation] - historical institutional scope requires review\"} else {}))), \" | \"),",
+          "            PublicationNotice=Notice, FacilityMatchCount=List.Count(FacilityKeys), RefreshedAtUTC=RefreshedUTC",
+          "        ],",
+          "    PublicationRecords = List.Transform(RawRows, each ToPublication(_)),",
+          "    Publications = Table.Buffer(Table.FromRecords(PublicationRecords, type table [",
+          "        PMID=text,Title=text,Journal=text,Authors=text,DOI=nullable text,PubMedURL=text,",
+          "        PublicationDate=nullable date,PublicationDateRaw=text,PublicationDatePrecision=text,",
+          "        PublicationMonth=nullable text,PublicationYear=nullable number,OnlineDate=nullable date,OnlineDateRaw=text,",
+          "        AuthorCount=number,PublicationTypes=text,PublicationClass=text,IsClinicalTrial=logical,IsEvidenceSynthesis=logical,",
+          "        MatchedFacilities=text,AttributionStatus=text,AttributionEvidence=text,PublicationNotice=text,FacilityMatchCount=number,RefreshedAtUTC=datetime",
+          "    ])),",
+          "    VerifiedPublications = if Table.RowCount(Publications) <> List.Count(AllIDs) or List.Count(List.Distinct(Publications[PMID])) <> List.Count(AllIDs) then error \"Final publication row count mismatch\" else Publications,",
+          "    AuditRows = List.Transform(SearchResults & {ScopeSearch}, (s) => [FacilityKey=s[FacilityKey], SearchCount=s[SearchCount], QueryTranslation=s[QueryTranslation], Warnings=s[Warnings], QueryVersion=\"2026-09-11-v2\", RefreshedAtUTC=RefreshedUTC]),",
+          "    SearchAudit = Table.FromRecords(AuditRows, type table [FacilityKey=text,SearchCount=number,QueryTranslation=text,Warnings=text,QueryVersion=text,RefreshedAtUTC=datetime])",
+          "in",
+          "    [Publications=VerifiedPublications, Matches=Matches, SearchAudit=SearchAudit, IDs=AllIDs]"
+        ],
+        "lineageTag": "ba7f4db2-9c1f-59a0-a4f6-f927c691ceb9"
+      },
+      {
+        "name": "PubMedFullMetadata",
+        "kind": "m",
+        "expression": [
+          "let",
+          "    IDs=List.Buffer(List.Sort(List.Distinct(PubMedHarvest[IDs]))),",
+          "    Batches=List.Split(IDs,100),",
+          "    Tables=List.Accumulate(Batches,{},(state,batch)=>let T=Table.Buffer(fnPubMedXML(batch)),N=Table.RowCount(T) in if N=List.Count(batch) then state&{T} else error \"PubMed full metadata batch is incomplete\"),",
+          "    Empty=type table [PMID=text,FullTitle=text,FullJournal=text,FullAuthors=text,FullAuthorCount=number,AuthorAffiliationsJSON=text,FullAbstract=text,IssueDateRaw=text,IssueDatePrecision=text,IssueDate=nullable date,ArticleDatesJSON=text,FullPublicationTypes=text,FullMetadataJSON=text],",
+          "    Result=Table.Combine(Tables,Empty),",
+          "    Verified=if Table.RowCount(Result)<>List.Count(IDs) or List.Count(List.Distinct(Result[PMID]))<>List.Count(IDs) then error \"PubMed full metadata key reconciliation failed\" else Result",
+          "in",
+          "    Verified"
+        ],
+        "lineageTag": "577d9cfa-fdb8-5967-a1fd-33b92a5bebde"
+      },
+      {
+        "name": "PubMedPublications",
+        "kind": "m",
+        "expression": [
+          "let",
+          "    Summary=PubMedHarvest[Publications],",
+          "    Joined=Table.NestedJoin(Summary,{\"PMID\"},PubMedFullMetadata,{\"PMID\"},\"Full\",JoinKind.LeftOuter),",
+          "    Verified=if List.AnyTrue(List.Transform(Joined[Full],each Table.RowCount(_)<>1)) then error \"PubMed summary/full metadata join is not one-to-one\" else Joined,",
+          "    Records=List.Transform(Table.ToRecords(Verified),(r)=>let",
+          "        F=r[Full]{0},Parsed=fnParsePubDate(F[IssueDateRaw]),D=if Parsed[Date]=null then null else if Date.Year(Parsed[Date])<1900 then null else Parsed[Date],",
+          "        Precision=if Parsed[Date]<>null and D=null then \"outside-model-range\" else Parsed[Precision],",
+          "        Base=Record.RemoveFields(r,{\"Full\",\"Title\",\"Journal\",\"Authors\",\"AuthorCount\",\"PublicationDate\",\"PublicationDateRaw\",\"PublicationDatePrecision\",\"PublicationMonth\",\"PublicationYear\",\"AttributionEvidence\"}),",
+          "        Added=[Title=F[FullTitle],Journal=F[FullJournal],Authors=F[FullAuthors],AuthorCount=F[FullAuthorCount],Abstract=F[FullAbstract],",
+          "            PublicationDate=D,PublicationDateRaw=F[IssueDateRaw],PublicationDatePrecision=Precision,PublicationYear=Parsed[Year],",
+          "            PublicationMonth=if D<>null and List.Contains({\"day\",\"month\"},Precision) then Date.ToText(D,\"yyyy-MM\",\"en-AU\") else null,",
+          "            AttributionEvidence=r[AttributionEvidence]&\" Full author-level source statements retained separately in PubMedAuthorEvidence; no automatic institutional approval.\"]",
+          "        in Record.Combine({Base,Added})),",
+          "    Columns=Table.ColumnNames(Summary)&{\"Abstract\"},",
+          "    Result=Table.FromRecords(Records,Columns,MissingField.Error),",
+          "    Typed=Table.TransformColumnTypes(Result,{{\"PMID\",type text},{\"Title\",type text},{\"Journal\",type text},{\"Authors\",type text},{\"DOI\",type text},{\"PubMedURL\",type text},{\"PublicationDate\",type date},{\"PublicationDateRaw\",type text},{\"PublicationDatePrecision\",type text},{\"PublicationMonth\",type text},{\"PublicationYear\",Int64.Type},{\"OnlineDate\",type date},{\"OnlineDateRaw\",type text},{\"AuthorCount\",Int64.Type},{\"PublicationTypes\",type text},{\"PublicationClass\",type text},{\"IsClinicalTrial\",type logical},{\"IsEvidenceSynthesis\",type logical},{\"MatchedFacilities\",type text},{\"AttributionStatus\",type text},{\"AttributionEvidence\",type text},{\"PublicationNotice\",type text},{\"FacilityMatchCount\",Int64.Type},{\"RefreshedAtUTC\",type datetime},{\"Abstract\",type text}})",
+          "in Typed"
+        ],
+        "lineageTag": "747c3fae-11c2-54dc-8366-1e31f6b25059"
+      },
+      {
+        "name": "PubMedAuthorEvidence",
+        "kind": "m",
+        "expression": [
+          "let",
+          "    Rows=List.Combine(List.Transform(Table.ToRecords(PubMedFullMetadata),(r)=>let",
+          "        Authors=Json.Document(r[AuthorAffiliationsJSON])",
+          "        in List.Combine(List.Transform(List.Positions(Authors),(i)=>let A=Authors{i},Affiliations=if List.IsEmpty(A[Affiliations]) then {null} else A[Affiliations]",
+          "            in List.Transform(List.Positions(Affiliations),(j)=>[PMID=r[PMID],AuthorIndex=i+1,AuthorName=A[Name],AffiliationIndex=j+1,AffiliationText=Affiliations{j},EvidenceKind=\"PubMed XML author affiliation; institutional scope not automatically approved\"]))))),",
+          "    Result=Table.FromRecords(Rows,type table [PMID=text,AuthorIndex=number,AuthorName=text,AffiliationIndex=number,AffiliationText=nullable text,EvidenceKind=text])",
+          "in Result"
+        ],
+        "lineageTag": "d9378719-c408-58c2-8f5a-37b5210a28b4"
+      },
+      {
+        "name": "PubMedMetadataChunks",
+        "kind": "m",
+        "expression": [
+          "// UTF-8 hex chunks avoid text normalization and per-cell truncation in the model.",
+          "let",
+          "    Rows=List.Combine(List.Transform(Table.ToRecords(PubMedFullMetadata),(r)=>",
+          "        let S=Binary.ToText(Text.ToBinary(r[FullMetadataJSON],TextEncoding.Utf8),BinaryEncoding.Hex),N=Number.RoundUp(Text.Length(S)/20000)",
+          "        in List.Transform(List.Numbers(0,N),(i)=>[PMID=r[PMID],ChunkIndex=i,ChunkCount=N,MetadataChunk=Text.Middle(S,i*20000,20000),MetadataCharacters=Text.Length(S),Encoding=\"UTF8-HEX\"]))),",
+          "    Result=Table.FromRecords(Rows,type table [PMID=text,ChunkIndex=number,ChunkCount=number,MetadataChunk=text,MetadataCharacters=number,Encoding=text])",
+          "in Result"
+        ],
+        "lineageTag": "08ed5e6c-4f56-5f31-8cde-367221abfc4d"
+      },
+      {
+        "name": "PubMedIngestionAudit",
+        "kind": "m",
+        "expression": [
+          "let",
+          "    Full=Table.Buffer(PubMedFullMetadata),",
+          "    Chunks=Table.Buffer(PubMedMetadataChunks),",
+          "    Expected=List.Distinct(PubMedHarvest[IDs]),",
+          "    Joined=Table.NestedJoin(Full,{\"PMID\"},Chunks,{\"PMID\"},\"Chunks\",JoinKind.LeftOuter),",
+          "    BadChunks=Table.SelectRows(Joined,(r)=>let C=Table.Sort(r[Chunks],{{\"ChunkIndex\",Order.Ascending}}),N=Table.RowCount(C) in N=0 or Text.FromBinary(Binary.FromText(Text.Combine(C[MetadataChunk],\"\"),BinaryEncoding.Hex),TextEncoding.Utf8)<>r[FullMetadataJSON] or List.Count(List.Distinct(C[ChunkIndex]))<>N or List.AnyTrue(List.Transform(C[ChunkCount],each _<>N))),",
+          "    BadDates=Table.SelectRows(Full,each (List.Contains({\"year\",\"unknown\",\"range\"},[IssueDatePrecision]) and [IssueDate]<>null) or (List.Contains({\"day\",\"month\"},[IssueDatePrecision]) and [IssueDate]=null)),",
+          "    AuthorFailures=Table.SelectRows(Full,each List.Count(Json.Document([AuthorAffiliationsJSON]))<>[FullAuthorCount]),",
+          "    Result=#table(type table [Check=text,Observed=number,Passed=logical],{",
+          "        {\"Full metadata publications\",Table.RowCount(Full),Table.RowCount(Full)=List.Count(Expected)},",
+          "        {\"Distinct full-metadata PMIDs\",List.Count(List.Distinct(Full[PMID])),List.Count(List.Distinct(Full[PMID]))=List.Count(Expected)},",
+          "        {\"Missing metadata PMIDs\",List.Count(List.Difference(Expected,Full[PMID])),List.IsEmpty(List.Difference(Expected,Full[PMID]))},",
+          "        {\"Unexpected metadata PMIDs\",List.Count(List.Difference(Full[PMID],Expected)),List.IsEmpty(List.Difference(Full[PMID],Expected))},",
+          "        {\"Metadata reconstruction failures\",Table.RowCount(BadChunks),Table.IsEmpty(BadChunks)},",
+          "        {\"Metadata chunk rows\",Table.RowCount(Chunks),List.AllTrue(List.Transform(Chunks[MetadataChunk],each Text.Length(_)<=20000))},",
+          "        {\"Author evidence count failures\",Table.RowCount(AuthorFailures),Table.IsEmpty(AuthorFailures)},",
+          "        {\"Date precision failures\",Table.RowCount(BadDates),Table.IsEmpty(BadDates)},",
+          "        {\"Blank full titles\",Table.RowCount(Table.SelectRows(Full,each Text.Trim([FullTitle])=\"\")),Table.IsEmpty(Table.SelectRows(Full,each Text.Trim([FullTitle])=\"\"))}",
+          "    })",
+          "in Result"
+        ],
+        "lineageTag": "e460b60f-4134-513a-a113-82f19c66e456"
+      },
+      {
+        "name": "DoraSourceObservations",
+        "kind": "m",
+        "expression": [
+          "let",
+          "    // Raw source staging only; not canonical publications or historical completeness.",
+          "    Source = Xml.Tables(Web.Contents(\"https://dora.health.qld.gov.au\", [RelativePath=\"qldresearchjspui/feed/rss_2.0/1/849\", Timeout=#duration(0,0,2,0)])),",
+          "    Channel = if Table.RowCount(Source) = 1 and Table.HasColumns(Source,\"channel\") then Source{0}[channel] else error \"DORA RSS channel schema changed\",",
+          "    Items = if Table.RowCount(Channel) <> 1 then error \"DORA RSS channel count changed\" else if Table.HasColumns(Channel,\"item\") then Channel{0}[item] else #table(type table [title=nullable text,link=nullable text,description=nullable text,pubDate=nullable text],{}),",
+          "    Checked = if Table.HasColumns(Items,{\"title\",\"link\"}) then Items else error \"DORA RSS item schema changed\",",
+          "    Selected = Table.SelectColumns(Checked,{\"title\",\"link\",\"description\",\"pubDate\"},MissingField.UseNull),",
+          "    Typed = Table.TransformColumnTypes(Selected,{{\"title\",type text},{\"link\",type text},{\"description\",type text},{\"pubDate\",type text}},\"en-AU\")",
+          "in Typed"
+        ],
+        "lineageTag": "04a99730-04b4-51df-8ade-b8920e361e8f"
+      },
+      {
+        "name": "DoraHistoricalMetadata",
+        "kind": "m",
+        "expression": [
+          "// Public collection snapshot, not a durable first-observed registry.",
+          "let",
+          "    Origin=\"https://dora.health.qld.gov.au\",",
+          "    CollectionPath=\"qldresearchjspui/handle/1/849\",",
+          "    Fetch=(path as text, query as record) as binary =>",
+          "        let",
+          "            RetryCodes={408,429,500,502,503,504},",
+          "            Get=(n as number) as record => let",
+          "                Body=Function.InvokeAfter(()=>Web.Contents(\"https://dora.health.qld.gov.au\",[RelativePath=path,Query=query,Timeout=#duration(0,0,2,0),ManualStatusHandling=RetryCodes,IsRetry=n>0]),#duration(0,0,0,if n=0 then 0.5 else Number.Power(2,n))),",
+          "                Status=Record.FieldOrDefault(Value.Metadata(Body),\"Response.Status\",200)",
+          "                in [Status=Status,Body=Binary.Buffer(Body)],",
+          "            Attempts=List.Generate(()=>[N=0,R=Get(0)],each [N]<=4,each if List.Contains(RetryCodes,[R][Status]) and [N]<4 then [N=[N]+1,R=Get([N]+1)] else [N=5,R=null],each [R]),",
+          "            Final=List.Last(Attempts)",
+          "        in if Final[Status]<>200 then error \"DORA HTTP retrieval failed; incomplete history must not replace prior data\" else Final[Body],",
+          "    Page=(offset as number) as record => let",
+          "        Body=Fetch(CollectionPath,[offset=Text.From(offset)]),",
+          "        Ranges=Html.Table(Body,{{\"Range\",\"div.browse_range\"}})[Range],",
+          "        Counts=List.Distinct(List.Transform(Ranges,each Number.FromText(Text.Trim(Text.AfterDelimiter(_,\" of \")),\"en-US\"))),",
+          "        Count=if List.Count(Counts)<>1 then error \"DORA collection count is unavailable or ambiguous\" else Counts{0},",
+          "        Links=Html.Table(Body,{{\"Path\",\"table[summary='This table browses all dspace content'] a[title='Visit this item']\",each [Attributes][href]}})[Path],",
+          "        Checked=if List.AnyTrue(List.Transform(Links,each not Text.StartsWith(_,\"/qldresearchjspui/handle/1/\"))) then error \"Unexpected DORA item URL\" else Links",
+          "        in [Count=Count,Paths=List.Buffer(Checked)],",
+          "    First=Page(0),",
+          "    Expected=First[Count],",
+          "    Offsets=if Expected<=20 then {} else List.Numbers(1,Number.RoundUp(Expected/20)-1),",
+          "    Pages=List.Buffer(List.Accumulate(Offsets,{First},(state,n)=>let P=Page(n*20), Forced=List.Count(P[Paths]) in if P[Count]<>Expected then error \"DORA collection changed during traversal\" else if Forced>=0 then state&{P} else error \"Invalid page\")),",
+          "    Paths=List.Combine(List.Transform(Pages,each [Paths])),",
+          "    Keys=if List.Count(Paths)<>Expected or List.Count(List.Distinct(Paths))<>Expected then error \"DORA collection keys do not reconcile\" else List.Buffer(Paths),",
+          "    RecordFor=(path as text) as record => let",
+          "        Fields=Table.Buffer(Html.Table(Fetch(Text.TrimStart(path,\"/\"),[mode=\"full\"]),{{\"Field\",\"td[headers='s1']\"},{\"Value\",\"td[headers='s2']\"}},[RowSelector=\"table.itemDisplayTable tr\"])),",
+          "        Values=(key as text) as list=>List.Distinct(List.RemoveNulls(Table.SelectRows(Fields,each [Field]=key)[Value])),",
+          "        One=(key as text) as nullable text=>let V=Values(key) in if List.Count(V)>1 then error \"Conflicting DORA single-value metadata\" else List.First(V,null),",
+          "        URL=Origin&path, URI=One(\"dc.identifier.uri\"), Title=One(\"dc.title\"),",
+          "        Identity=if Title=null or not List.Contains({URL,Text.Replace(URL,\"https://\",\"http://\")},URI) then error \"DORA canonical identity/title mismatch\" else URL,",
+          "        Raw=One(\"dc.date.issued\"), Parsed=fnParsePubDate(Raw),",
+          "        Evidence=Text.Combine(Values(\"dc.description\"),\"#(lf)\"),",
+          "        Markers={\"Cairns & Hinterland Hospital and Health Service (CHHHS) affiliated authors:\",\"Cairns & Hinterland Hospital and Health Service (CHHHS) affiliated author:\"},",
+          "        Marker=List.First(List.Select(Markers,each Text.Contains(Evidence,_)),null),",
+          "        Affiliated=if Marker=null then null else Text.Trim(Text.AfterDelimiter(Evidence,Marker)),",
+          "        Journal=One(\"dc.identifier.journaltitle\")",
+          "        in [DORAKey=\"DORA:\"&Identity,DORAURL=Identity,Title=Title,Authors=Text.Combine(Values(\"dc.contributor.author\"),\"; \"),",
+          "            Abstract=Text.Combine(Values(\"dc.description.abstract\"),\"#(lf)\"),CHHHSAffiliatedAuthors=Affiliated,",
+          "            AttributionEvidence=if Evidence=\"\" then \"No explicit DORA affiliation evidence; review required.\" else Evidence,",
+          "            PublicationDate=Parsed[Date],PublicationDateRaw=if Raw=null then \"\" else Raw,PublicationDatePrecision=Parsed[Precision],PublicationYear=Parsed[Year],",
+          "            NormalizedTitle=Text.Select(Text.Lower(Title),{\"a\"..\"z\",\"0\"..\"9\"}),PMID=One(\"dc.identifier.pmid\"),DOI=One(\"dc.identifier.doi\"),Journal=if Journal=null then One(\"dc.relation.ispartof\") else Journal,",
+          "            FullMetadataJSON=Text.FromBinary(Json.FromValue(Table.ToRecords(Fields)),TextEncoding.Utf8),CoverageStatus=\"Observed public collection snapshot\",CollectionExpectedCount=Expected],",
+          "    Records=List.Accumulate(Keys,{},(state,path)=>let R=RecordFor(path),Force=Text.Length(R[FullMetadataJSON]) in if Force>0 then state&{R} else error \"Empty DORA metadata\"),",
+          "    Result=Table.FromRecords(Records,type table [DORAKey=text,DORAURL=text,Title=text,Authors=text,Abstract=text,CHHHSAffiliatedAuthors=nullable text,AttributionEvidence=text,PublicationDate=nullable date,PublicationDateRaw=text,PublicationDatePrecision=text,PublicationYear=nullable number,NormalizedTitle=text,PMID=nullable text,DOI=nullable text,Journal=nullable text,FullMetadataJSON=text,CoverageStatus=text,CollectionExpectedCount=number]),",
+          "    Verified=if Table.RowCount(Result)<>Expected or List.Count(List.Distinct(Result[DORAKey]))<>Expected then error \"DORA metadata keys do not reconcile\" else Result",
+          "in",
+          "    Verified"
+        ],
+        "lineageTag": "e9e3f1dc-07aa-5227-ab01-c6d3831b0585"
+      },
+      {
+        "name": "DoraMetadataChunks",
+        "kind": "m",
+        "expression": [
+          "let",
+          "    Rows=List.Combine(List.Transform(Table.ToRecords(DoraHistoricalMetadata),(r)=>let S=Binary.ToText(Text.ToBinary(r[FullMetadataJSON],TextEncoding.Utf8),BinaryEncoding.Hex),N=Number.RoundUp(Text.Length(S)/20000)",
+          "        in List.Transform(List.Numbers(0,N),(i)=>[DORAKey=r[DORAKey],ChunkIndex=i,ChunkCount=N,MetadataChunk=Text.Middle(S,i*20000,20000),MetadataCharacters=Text.Length(S),Encoding=\"UTF8-HEX\"]))),",
+          "    Result=Table.FromRecords(Rows,type table [DORAKey=text,ChunkIndex=number,ChunkCount=number,MetadataChunk=text,MetadataCharacters=number,Encoding=text])",
+          "in Result"
+        ],
+        "lineageTag": "d5c41108-8156-5354-8664-966d09162d2c"
+      },
+      {
+        "name": "DoraIngestionAudit",
+        "kind": "m",
+        "expression": [
+          "let",
+          "    Full=Table.Buffer(DoraHistoricalMetadata),Chunks=Table.Buffer(DoraMetadataChunks),N=Table.RowCount(Full),",
+          "    Joined=Table.NestedJoin(Full,{\"DORAKey\"},Chunks,{\"DORAKey\"},\"Chunks\",JoinKind.LeftOuter),",
+          "    BadChunks=Table.SelectRows(Joined,(r)=>let C=Table.Sort(r[Chunks],{{\"ChunkIndex\",Order.Ascending}}) in Text.FromBinary(Binary.FromText(Text.Combine(C[MetadataChunk],\"\"),BinaryEncoding.Hex),TextEncoding.Utf8)<>r[FullMetadataJSON]),",
+          "    BadDates=Table.SelectRows(Full,each (List.Contains({\"year\",\"unknown\",\"range\"},[PublicationDatePrecision]) and [PublicationDate]<>null) or (List.Contains({\"day\",\"month\"},[PublicationDatePrecision]) and [PublicationDate]=null)),",
+          "    Result=#table(type table [Check=text,Observed=number,Passed=logical],{",
+          "        {\"Historical DORA records\",N,List.AllTrue(List.Transform(Full[CollectionExpectedCount],each _=N))},",
+          "        {\"Distinct DORA keys\",List.Count(List.Distinct(Full[DORAKey])),List.Count(List.Distinct(Full[DORAKey]))=N},",
+          "        {\"Metadata reconstruction failures\",Table.RowCount(BadChunks),Table.IsEmpty(BadChunks)},",
+          "        {\"Date precision failures\",Table.RowCount(BadDates),Table.IsEmpty(BadDates)},",
+          "        {\"Records needing explicit attribution review\",Table.RowCount(Table.SelectRows(Full,each [CHHHSAffiliatedAuthors]=null or [CHHHSAffiliatedAuthors]=\"\")),true}",
+          "    })",
+          "in Result"
+        ],
+        "lineageTag": "e4cee075-a987-5c7a-9fc9-eb89c75046b4"
+      },
+      {
+        "name": "DoraHarvest",
+        "kind": "m",
+        "expression": [
+          "let",
+          "    DoraURL = \"https://dora.health.qld.gov.au/qldresearchjspui/feed/rss_2.0/1/849\",",
+          "    // Retain raw observations separately; this reference is not durable storage.",
+          "    AsText = DoraSourceObservations,",
+          "    NormalizeTitle = (value as nullable text) as text => if value = null then \"\" else Text.Select(Text.Lower(value), {\"a\"..\"z\",\"0\"..\"9\"}),",
+          "    ExtractBetween = (value as nullable text, start as text, finish as text) as nullable text =>",
+          "        if value = null or not Text.Contains(value,start) then null else try Text.Trim(Text.BeforeDelimiter(Text.AfterDelimiter(value,start),finish)) otherwise null,",
+          "    ExtractAffiliatedAuthors = (value as nullable text) as nullable text =>",
+          "        let",
+          "            singular = \"Cairns & Hinterland Hospital and Health Service (CHHHS) affiliated author: \",",
+          "            plural = \"Cairns & Hinterland Hospital and Health Service (CHHHS) affiliated authors: \",",
+          "            marker = if value <> null and Text.Contains(value,plural) then plural else if value <> null and Text.Contains(value,singular) then singular else null,",
+          "            result = if marker = null then null else Text.Trim(Text.AfterDelimiter(value,marker))",
+          "        in result,",
+          "    AddAuthors = Table.AddColumn(AsText,\"Authors\",each ExtractBetween([description],\"Authors: \",\"#(lf)Abstract:\"),type nullable text),",
+          "    AddAbstract = Table.AddColumn(AddAuthors,\"Abstract\",each ExtractBetween([description],\"Abstract: \",\"#(lf)Description:\"),type nullable text),",
+          "    AddCHHHSAuthors = Table.AddColumn(AddAbstract,\"CHHHSAffiliatedAuthors\",each ExtractAffiliatedAuthors([description]),type nullable text),",
+          "    // RSS pubDate is a feed timestamp, not corroborated publication-date evidence.",
+          "    AddEvidence = Table.AddColumn(AddCHHHSAuthors,\"AttributionEvidence\",each if [CHHHSAffiliatedAuthors]=null or Text.Trim([CHHHSAffiliatedAuthors])=\"\" then \"No CHHHS affiliation statement found in RSS description; review required.\" else \"DORA RSS CHHHS affiliated author statement: \" & [CHHHSAffiliatedAuthors],type text),",
+          "    AddRawDate = Table.AddColumn(AddEvidence,\"PublicationDateRaw\",each [pubDate],type nullable text),",
+          "    AddPrecision = Table.AddColumn(AddRawDate,\"PublicationDatePrecision\",each \"unknown\",type text),",
+          "    AddDate = Table.AddColumn(AddPrecision,\"PublicationDate\",each null,type nullable date),",
+          "    AddYear = Table.AddColumn(AddDate,\"PublicationYear\",each if [PublicationDate]=null then null else Date.Year([PublicationDate]),Int64.Type),",
+          "    AddNorm = Table.AddColumn(AddYear,\"NormalizedTitle\",each NormalizeTitle([title]),type text),",
+          "    AddKey = Table.AddColumn(AddNorm,\"DORAKey\",each \"DORA:\" & Text.From([link]),type text),",
+          "    Selected = Table.SelectColumns(AddKey,{\"DORAKey\",\"title\",\"Authors\",\"Abstract\",\"CHHHSAffiliatedAuthors\",\"AttributionEvidence\",\"PublicationDate\",\"PublicationDateRaw\",\"PublicationDatePrecision\",\"PublicationYear\",\"NormalizedTitle\",\"link\"}),",
+          "    Renamed = Table.RenameColumns(Selected,{{\"title\",\"Title\"},{\"link\",\"DORAURL\"}}),",
+          "    Checked = if Table.HasColumns(Renamed,{\"DORAKey\",\"Title\",\"PublicationYear\",\"DORAURL\"}) then Renamed else error \"DORA RSS schema changed\"",
+          "in",
+          "    Checked"
+        ],
+        "lineageTag": "36940864-1a0f-565a-8011-81566d21335a"
+      },
+      {
+        "name": "CanonicalPublications",
+        "kind": "m",
+        "expression": [
+          "let",
+          "    // Stable output schema also applies when either source has no records.",
+          "    PublicationType = type table [",
+          "        CanonicalKey = nullable text,",
+          "        PMID = nullable text,",
+          "        Title = nullable text,",
+          "        Journal = nullable text,",
+          "        Authors = nullable text,",
+          "        DOI = nullable text,",
+          "        PubMedURL = nullable text,",
+          "        DORAURL = nullable text,",
+          "        CHHHSAffiliatedAuthors = nullable text,",
+          "        Abstract = nullable text,",
+          "        SourceSet = nullable text,",
+          "        DedupMethod = nullable text,",
+          "        PublicationDateRaw = nullable text,",
+          "        PublicationDatePrecision = nullable text,",
+          "        PublicationMonth = nullable text,",
+          "        OnlineDateRaw = nullable text,",
+          "        MatchedFacilities = nullable text,",
+          "        AttributionStatus = nullable text,",
+          "        AttributionEvidence = nullable text,",
+          "        PublicationNotice = nullable text,",
+          "        PMCID = nullable text,",
+          "        AuthorORCIDs = nullable text,",
+          "        FundingType = nullable text,",
+          "        IsInternalFunding = nullable text,",
+          "        FunderNames = nullable text,",
+          "        GrantIDs = nullable text,",
+          "        ClinicalTrialID = nullable text,",
+          "        IndigenousHealthFocus = nullable text,",
+          "        FieldOfResearch = nullable text,",
+          "        StudyDesign = nullable text,",
+          "        EuropePMC_OpenAccess = nullable text,",
+          "        EuropePMC_FullTextURL = nullable text,",
+          "        OpenAccessStatus = nullable text,",
+          "        OAUrl = nullable text,",
+          "        PDFDownloadStatus = nullable text,",
+          "        LocalPDFPath = nullable text,",
+          "        PDFDownloadedUTC = nullable text,",
+          "        PublicationDate = nullable date,",
+          "        OnlineDate = nullable date,",
+          "        RefreshedAtUTC = nullable datetime,",
+          "        PublicationYear = nullable number,",
+          "        AuthorCount = nullable number,",
+          "        FacilityMatchCount = nullable number,",
+          "        EuropePMC_CitedByCount = nullable number,",
+          "        CitationCount_Crossref = nullable number,",
+          "        CitationCount_OpenAlex = nullable number,",
+          "        PDFFileSize = nullable number",
+          "    ],",
+          "    PubMed = PubMedPublications,",
+          "    Dora = DoraHistoricalMetadata,",
+          "    NormalizeTitle = (value as nullable text) as text => if value = null then \"\" else Text.Select(Text.Lower(value), {\"a\"..\"z\",\"0\"..\"9\"}),",
+          "    NormalizePMID = (value as nullable text) as nullable text =>",
+          "        let t = if value = null then \"\" else Text.Trim(value)",
+          "        in if t <> \"\" and Text.Select(t,{\"0\"..\"9\"}) = t and not Text.StartsWith(t,\"0\") then t else null,",
+          "    NormalizeDOI = (value as nullable text) as nullable text =>",
+          "        let",
+          "            raw = if value = null then \"\" else Text.Lower(Text.Trim(value)),",
+          "            prefixes = {\"https://doi.org/\",\"http://doi.org/\",\"https://dx.doi.org/\",\"http://dx.doi.org/\",\"doi:\"},",
+          "            prefix = List.First(List.Select(prefixes,each Text.StartsWith(raw,_)),null),",
+          "            t = if prefix = null then raw else Text.Trim(Text.Range(raw,Text.Length(prefix))),",
+          "            registration = try Text.BetweenDelimiters(t,\"10.\",\"/\") otherwise \"\",",
+          "            suffix = try Text.AfterDelimiter(t,\"/\") otherwise \"\",",
+          "            valid = Text.StartsWith(t,\"10.\") and Text.Length(registration)>=4 and Text.Length(registration)<=9 and Text.Select(registration,{\"0\"..\"9\"})=registration and suffix<>\"\" and Text.Remove(t,{\" \",\"#(tab)\",\"#(cr)\",\"#(lf)\"})=t",
+          "        in if valid then t else null,",
+          "    HasInvalidIdentifier = (r as record) as logical =>",
+          "        let p = Record.FieldOrDefault(r,\"PMID\",null), d = Record.FieldOrDefault(r,\"DOI\",null)",
+          "        in (p <> null and p <> \"\" and NormalizePMID(p) = null) or (d <> null and d <> \"\" and NormalizeDOI(d) = null),",
+          "    PubMedNorm = Table.AddColumn(PubMed,\"NormalizedTitle\",each NormalizeTitle([Title]),type text),",
+          "    MatchDora = Table.AddColumn(Dora,\"Match\",(d as record) =>",
+          "        let",
+          "            doi = NormalizeDOI(Record.FieldOrDefault(d,\"DOI\",null)),",
+          "            suppliedPMID = NormalizePMID(Record.FieldOrDefault(d,\"PMID\",null)),",
+          "            exact = Table.SelectRows(PubMedNorm,(p as record) => (doi <> null and NormalizeDOI(p[DOI]) = doi) or (suppliedPMID <> null and NormalizePMID(p[PMID]) = suppliedPMID)),",
+          "            conflict = List.AnyTrue(List.Transform(Table.ToRecords(exact),(p as record) => (doi <> null and NormalizeDOI(p[DOI]) <> null and NormalizeDOI(p[DOI]) <> doi) or (suppliedPMID <> null and NormalizePMID(p[PMID]) <> null and NormalizePMID(p[PMID]) <> suppliedPMID))),",
+          "            invalid = HasInvalidIdentifier(d) or List.AnyTrue(List.Transform(Table.ToRecords(exact),each HasInvalidIdentifier(_))),",
+          "            title = NormalizeTitle(d[Title]),",
+          "            candidates = Table.SelectRows(PubMedNorm,(p as record) => title <> \"\" and d[PublicationYear] <> null and p[PublicationYear] = d[PublicationYear] and p[NormalizedTitle] = title),",
+          "            n = Table.RowCount(exact),",
+          "            titleCount = Table.RowCount(candidates),",
+          "            matched = n = 1 and not conflict and not invalid,",
+          "            pmid = if matched then exact{0}[PMID] else null,",
+          "            method = if invalid then \"invalid-identifiers-needs-review\" else if conflict then \"conflicting-identifiers-needs-review\" else if n > 1 then \"ambiguous-identifiers-needs-review\" else if matched then (if suppliedPMID = NormalizePMID(exact{0}[PMID]) then \"PMID\" else \"DOI\") else if titleCount > 1 then \"ambiguous-title+year\" else if titleCount = 1 then \"possible-title+year-needs-review\" else \"DORA-only\"",
+          "        in [PMID=pmid,Method=method,CandidateCount=if n > 0 then n else titleCount,CandidateKeys=Text.Combine(List.Transform(if n > 0 then exact[PMID] else candidates[PMID],each \"PMID:\" & _),\"; \")],type record),",
+          "    ExpandMatch = Table.ExpandRecordColumn(MatchDora,\"Match\",{\"PMID\",\"Method\",\"CandidateCount\",\"CandidateKeys\"},{\"MatchedPMID\",\"DedupMethod\",\"CandidateCount\",\"CandidateKeys\"}),",
+          "    PubMedCanonical = Table.AddColumn(PubMedNorm,\"CanonicalKey\",each \"PMID:\" & [PMID],type text),",
+          "    EnrichPubMed = Table.AddColumn(PubMedCanonical,\"DoraEvidence\",(p as record) => Table.SelectRows(ExpandMatch,each [MatchedPMID]=p[PMID]),type table),",
+          "    PubMedRows = Table.AddColumn(EnrichPubMed,\"Canonical\",(p as record) =>",
+          "        let",
+          "            d = p[DoraEvidence], has = Table.RowCount(d)>0,",
+          "            urls = if has then Text.Combine(List.Distinct(List.RemoveNulls(d[DORAURL])),\"; \") else null,",
+          "            chhhs = if has then Text.Combine(List.Distinct(List.RemoveNulls(d[CHHHSAffiliatedAuthors])),\"; \") else null,",
+          "            evidence = Text.Combine(List.RemoveNulls({p[AttributionEvidence]} & (if has then d[AttributionEvidence] else {})), \"; \"),",
+          "            abstracts = List.Select(List.RemoveNulls({Record.FieldOrDefault(p,\"Abstract\",null)} & (if has then d[Abstract] else {})),each _<>\"\"),",
+          "            abstract = if List.Count(abstracts)>0 then abstracts{0} else null",
+          "        in [",
+          "            CanonicalKey=p[CanonicalKey],PMID=p[PMID],Title=p[Title],Journal=p[Journal],Authors=p[Authors],DOI=p[DOI],PubMedURL=p[PubMedURL],DORAURL=urls,",
+          "            PublicationDate=p[PublicationDate],PublicationDateRaw=p[PublicationDateRaw],PublicationDatePrecision=p[PublicationDatePrecision],PublicationMonth=p[PublicationMonth],PublicationYear=p[PublicationYear],",
+          "            OnlineDate=p[OnlineDate],OnlineDateRaw=p[OnlineDateRaw],AuthorCount=p[AuthorCount],",
+          "            MatchedFacilities=p[MatchedFacilities],CHHHSAffiliatedAuthors=chhhs,Abstract=abstract,SourceSet=if has then \"PubMed; DORA\" else \"PubMed\",DedupMethod=if has then Text.Combine(List.Distinct(d[DedupMethod]),\"; \") else \"PMID\",",
+          "            AttributionEvidence=evidence,",
+          "            AttributionStatus=if has then p[AttributionStatus] & \"; DORA identifier match\" else p[AttributionStatus],PublicationNotice=p[PublicationNotice],FacilityMatchCount=p[FacilityMatchCount],RefreshedAtUTC=p[RefreshedAtUTC]",
+          "        ],type record),",
+          "    PubMedCanonicalOnly = Table.SelectColumns(PubMedRows,{\"Canonical\"}),",
+          "    ExpandedPubMed = Table.FromRecords(Table.Column(PubMedCanonicalOnly,\"Canonical\"), PublicationType, MissingField.UseNull),",
+          "    DoraOnly0 = Table.SelectRows(ExpandMatch,each [MatchedPMID]=null),",
+          "    DoraOnly = Table.AddColumn(DoraOnly0,\"Canonical\",(d as record) => [",
+          "        CanonicalKey=d[DORAKey],PMID=Record.FieldOrDefault(d,\"PMID\",null),Title=d[Title],Journal=Record.FieldOrDefault(d,\"Journal\",null),Authors=d[Authors],DOI=Record.FieldOrDefault(d,\"DOI\",null),PubMedURL=null,DORAURL=d[DORAURL],",
+          "        PublicationDate=d[PublicationDate],PublicationDateRaw=d[PublicationDateRaw],PublicationDatePrecision=d[PublicationDatePrecision],PublicationMonth=if d[PublicationDate]<>null and List.Contains({\"day\",\"month\"},d[PublicationDatePrecision]) then Date.ToText(d[PublicationDate],\"yyyy-MM\",\"en-AU\") else null,PublicationYear=d[PublicationYear],",
+          "        OnlineDate=null,OnlineDateRaw=\"\",AuthorCount=if d[Authors]=null or d[Authors]=\"\" then null else List.Count(Text.Split(d[Authors],\";\")),",
+          "        MatchedFacilities=if d[CHHHSAffiliatedAuthors] <> null and Text.Trim(d[CHHHSAffiliatedAuthors]) <> \"\" then \"Cairns and Hinterland HHS\" else \"\",CHHHSAffiliatedAuthors=d[CHHHSAffiliatedAuthors],Abstract=d[Abstract],SourceSet=\"DORA\",DedupMethod=d[DedupMethod],",
+          "        AttributionEvidence=d[AttributionEvidence],",
+          "        AttributionStatus=(if d[CHHHSAffiliatedAuthors] <> null and Text.Trim(d[CHHHSAffiliatedAuthors]) <> \"\" then \"DORA author affiliation statement\" else \"DORA attribution needs review\") & (if d[DedupMethod] <> \"DORA-only\" then \"; identity needs review\" else \"\"),PublicationNotice=\"DORA full metadata; observed public collection snapshot; institutional scope remains reviewable\",FacilityMatchCount=if d[CHHHSAffiliatedAuthors] <> null and Text.Trim(d[CHHHSAffiliatedAuthors]) <> \"\" then 1 else 0,RefreshedAtUTC=DateTimeZone.RemoveZone(DateTimeZone.FixedUtcNow())",
+          "    ],type record),",
+          "    DoraCanonicalOnly = Table.SelectColumns(DoraOnly,{\"Canonical\"}),",
+          "    ExpandedDora = Table.FromRecords(Table.Column(DoraCanonicalOnly,\"Canonical\"), PublicationType, MissingField.UseNull),",
+          "    PubMedSelected = Table.SelectColumns(ExpandedPubMed,Table.ColumnNames(ExpandedDora),MissingField.UseNull),",
+          "    Combined = Table.Combine({PubMedSelected,ExpandedDora}, PublicationType),",
+          "    Verified = if Table.RowCount(Combined) <> List.Count(List.Distinct(Combined[CanonicalKey])) then error \"Canonical publication key is not unique\" else Combined,",
+          "    PubMedMatches0 = PubMedHarvest[Matches],",
+          "    PubMedMatches = Table.AddColumn(PubMedMatches0,\"CanonicalKey\",each \"PMID:\" & [PMID],type text),",
+          "    PubMedBridge = Table.SelectColumns(PubMedMatches,{\"CanonicalKey\",\"FacilityKey\"}),",
+          "    DoraBridge = Table.FromRecords(List.Transform(Table.ToRecords(Table.SelectRows(DoraOnly,each [CHHHSAffiliatedAuthors] <> null and Text.Trim([CHHHSAffiliatedAuthors]) <> \"\")), each [CanonicalKey=[DORAKey],FacilityKey=\"hhs\"]),type table [CanonicalKey=text,FacilityKey=text]),",
+          "    Matches = Table.Distinct(Table.Combine({PubMedBridge,DoraBridge})),",
+          "    // One row per observed source identity, including unresolved DORA candidates.",
+          "    SourceMapType = type table [Source=text,SourceKey=text,CanonicalKey=text],",
+          "    SourceMap = Table.Combine({",
+          "        Table.FromRecords(List.Transform(Table.ToRecords(PubMed),each [Source=\"PubMed\",SourceKey=\"PMID:\" & [PMID],CanonicalKey=\"PMID:\" & [PMID]]),SourceMapType),",
+          "        Table.FromRecords(List.Transform(Table.ToRecords(ExpandMatch),each [Source=\"DORA\",SourceKey=[DORAKey],CanonicalKey=if [MatchedPMID]=null then [DORAKey] else \"PMID:\" & [MatchedPMID]]),SourceMapType)",
+          "    },SourceMapType),",
+          "    CanonicalKeys = Verified[CanonicalKey],",
+          "    Audit = #table(type table [Check=text,Observed=number,Passed=logical],{",
+          "        {\"Source identities mapped exactly once\",Table.RowCount(SourceMap),Table.RowCount(SourceMap)=Table.RowCount(PubMed)+Table.RowCount(Dora) and Table.RowCount(SourceMap)=List.Count(List.Distinct(SourceMap[SourceKey]))},",
+          "        {\"Source mappings without canonical record\",List.Count(List.Difference(SourceMap[CanonicalKey],CanonicalKeys)),List.IsEmpty(List.Difference(SourceMap[CanonicalKey],CanonicalKeys))},",
+          "        {\"Canonical records without source\",List.Count(List.Difference(CanonicalKeys,SourceMap[CanonicalKey])),List.IsEmpty(List.Difference(CanonicalKeys,SourceMap[CanonicalKey]))},",
+          "        {\"Facility mappings without canonical record\",List.Count(List.Difference(Matches[CanonicalKey],CanonicalKeys)),List.IsEmpty(List.Difference(Matches[CanonicalKey],CanonicalKeys))},",
+          "        {\"Canonical count balances source matches\",Table.RowCount(Verified),Table.RowCount(Verified)=Table.RowCount(PubMed)+Table.RowCount(DoraOnly0)},",
+          "        {\"Source sets balance canonical count\",Table.RowCount(Verified),Table.RowCount(Verified)=Table.RowCount(Table.SelectRows(Verified,each List.Contains({\"PubMed\",\"DORA\",\"PubMed; DORA\"},[SourceSet]))) }",
+          "    })",
+          "in",
+          "    [Publications=Verified,Matches=Matches,SourceMap=SourceMap,Audit=Audit,DoraReconciliation=Table.SelectColumns(ExpandMatch,{\"DORAKey\",\"Title\",\"DORAURL\",\"MatchedPMID\",\"DedupMethod\",\"CandidateCount\",\"CandidateKeys\",\"CHHHSAffiliatedAuthors\"})]"
+        ],
+        "lineageTag": "1889ed12-4e6d-5e99-9b28-b531a47cc6e5"
+      }
+    ],
+    "annotations": [
+      {
+        "name": "PBI_QueryOrder",
+        "value": "[\"pNCBIEmail\", \"FacilityDefinitions\", \"fnParsePubDate\", \"fnNCBIJson\", \"fnPubMedXML\", \"PubMedHarvest\", \"PubMedFullMetadata\", \"PubMedPublications\", \"PubMedAuthorEvidence\", \"PubMedMetadataChunks\", \"PubMedIngestionAudit\", \"DoraSourceObservations\", \"DoraHistoricalMetadata\", \"DoraMetadataChunks\", \"DoraIngestionAudit\", \"DoraHarvest\", \"CanonicalPublications\", \"Publication\", \"Facility\", \"PublicationFacility\", \"Date\", \"SearchAudit\", \"ReportingWindow\"]"
+      },
+      {
+        "name": "PBI_TimeIntelligenceEnabled",
+        "value": "0"
+      }
+    ]
+  }
+}

@@ -1,0 +1,381 @@
+{
+  "status": "PASS_LOCAL_ONLY",
+  "checks": [
+    {
+      "check": "exact three-page scope",
+      "passed": true
+    },
+    {
+      "check": "canonical-key headline",
+      "passed": true
+    },
+    {
+      "check": "both source contracts",
+      "passed": true
+    },
+    {
+      "check": "local tests are not native acceptance",
+      "passed": true
+    },
+    {
+      "check": "capability policy matches contract",
+      "passed": true
+    },
+    {
+      "check": "live-check policy matches contract",
+      "passed": true
+    },
+    {
+      "check": "fallback policy matches contract",
+      "passed": true
+    },
+    {
+      "check": "runtime definitions match frozen reviewed baseline",
+      "passed": true
+    },
+    {
+      "check": "baseline is explicitly not a native certificate",
+      "passed": true
+    },
+    {
+      "check": "T08_web_capability_discovery: index.md",
+      "passed": true
+    },
+    {
+      "check": "T08_web_capability_discovery: spec.md",
+      "passed": true
+    },
+    {
+      "check": "T08_web_capability_discovery: plan.md",
+      "passed": true
+    },
+    {
+      "check": "T08_web_capability_discovery: prompt.md",
+      "passed": true
+    },
+    {
+      "check": "T08_web_capability_discovery: review.md",
+      "passed": true
+    },
+    {
+      "check": "T08_web_capability_discovery: recognised status",
+      "passed": true
+    },
+    {
+      "check": "T09_execution_contracts: index.md",
+      "passed": true
+    },
+    {
+      "check": "T09_execution_contracts: spec.md",
+      "passed": true
+    },
+    {
+      "check": "T09_execution_contracts: plan.md",
+      "passed": true
+    },
+    {
+      "check": "T09_execution_contracts: prompt.md",
+      "passed": true
+    },
+    {
+      "check": "T09_execution_contracts: review.md",
+      "passed": true
+    },
+    {
+      "check": "T09_execution_contracts: recognised status",
+      "passed": true
+    },
+    {
+      "check": "T10_isolated_baseline: index.md",
+      "passed": true
+    },
+    {
+      "check": "T10_isolated_baseline: spec.md",
+      "passed": true
+    },
+    {
+      "check": "T10_isolated_baseline: plan.md",
+      "passed": true
+    },
+    {
+      "check": "T10_isolated_baseline: prompt.md",
+      "passed": true
+    },
+    {
+      "check": "T10_isolated_baseline: review.md",
+      "passed": true
+    },
+    {
+      "check": "T10_isolated_baseline: recognised status",
+      "passed": true
+    },
+    {
+      "check": "T11_sources_and_reconciliation: index.md",
+      "passed": true
+    },
+    {
+      "check": "T11_sources_and_reconciliation: spec.md",
+      "passed": true
+    },
+    {
+      "check": "T11_sources_and_reconciliation: plan.md",
+      "passed": true
+    },
+    {
+      "check": "T11_sources_and_reconciliation: prompt.md",
+      "passed": true
+    },
+    {
+      "check": "T11_sources_and_reconciliation: review.md",
+      "passed": true
+    },
+    {
+      "check": "T11_sources_and_reconciliation: recognised status",
+      "passed": true
+    },
+    {
+      "check": "T12_research_model: index.md",
+      "passed": true
+    },
+    {
+      "check": "T12_research_model: spec.md",
+      "passed": true
+    },
+    {
+      "check": "T12_research_model: plan.md",
+      "passed": true
+    },
+    {
+      "check": "T12_research_model: prompt.md",
+      "passed": true
+    },
+    {
+      "check": "T12_research_model: review.md",
+      "passed": true
+    },
+    {
+      "check": "T12_research_model: recognised status",
+      "passed": true
+    },
+    {
+      "check": "T13_web_visuals: index.md",
+      "passed": true
+    },
+    {
+      "check": "T13_web_visuals: spec.md",
+      "passed": true
+    },
+    {
+      "check": "T13_web_visuals: plan.md",
+      "passed": true
+    },
+    {
+      "check": "T13_web_visuals: prompt.md",
+      "passed": true
+    },
+    {
+      "check": "T13_web_visuals: review.md",
+      "passed": true
+    },
+    {
+      "check": "T13_web_visuals: recognised status",
+      "passed": true
+    },
+    {
+      "check": "T14_complete_exports_monthly: index.md",
+      "passed": true
+    },
+    {
+      "check": "T14_complete_exports_monthly: spec.md",
+      "passed": true
+    },
+    {
+      "check": "T14_complete_exports_monthly: plan.md",
+      "passed": true
+    },
+    {
+      "check": "T14_complete_exports_monthly: prompt.md",
+      "passed": true
+    },
+    {
+      "check": "T14_complete_exports_monthly: review.md",
+      "passed": true
+    },
+    {
+      "check": "T14_complete_exports_monthly: recognised status",
+      "passed": true
+    },
+    {
+      "check": "T15_web_acceptance_release: index.md",
+      "passed": true
+    },
+    {
+      "check": "T15_web_acceptance_release: spec.md",
+      "passed": true
+    },
+    {
+      "check": "T15_web_acceptance_release: plan.md",
+      "passed": true
+    },
+    {
+      "check": "T15_web_acceptance_release: prompt.md",
+      "passed": true
+    },
+    {
+      "check": "T15_web_acceptance_release: review.md",
+      "passed": true
+    },
+    {
+      "check": "T15_web_acceptance_release: recognised status",
+      "passed": true
+    },
+    {
+      "check": "T16_utm_windows_fallback: index.md",
+      "passed": true
+    },
+    {
+      "check": "T16_utm_windows_fallback: spec.md",
+      "passed": true
+    },
+    {
+      "check": "T16_utm_windows_fallback: plan.md",
+      "passed": true
+    },
+    {
+      "check": "T16_utm_windows_fallback: prompt.md",
+      "passed": true
+    },
+    {
+      "check": "T16_utm_windows_fallback: review.md",
+      "passed": true
+    },
+    {
+      "check": "T16_utm_windows_fallback: recognised status",
+      "passed": true
+    },
+    {
+      "check": "T16_utm_windows_fallback: fallback is conditional",
+      "passed": true
+    },
+    {
+      "check": "T17_desktop_fallback_acceptance: index.md",
+      "passed": true
+    },
+    {
+      "check": "T17_desktop_fallback_acceptance: spec.md",
+      "passed": true
+    },
+    {
+      "check": "T17_desktop_fallback_acceptance: plan.md",
+      "passed": true
+    },
+    {
+      "check": "T17_desktop_fallback_acceptance: prompt.md",
+      "passed": true
+    },
+    {
+      "check": "T17_desktop_fallback_acceptance: review.md",
+      "passed": true
+    },
+    {
+      "check": "T17_desktop_fallback_acceptance: recognised status",
+      "passed": true
+    },
+    {
+      "check": "T17_desktop_fallback_acceptance: fallback is conditional",
+      "passed": true
+    },
+    {
+      "check": "exactly ten new tracks",
+      "passed": true
+    },
+    {
+      "check": "T08_web_capability_discovery: dependency references exist",
+      "passed": true
+    },
+    {
+      "check": "T09_execution_contracts: dependency references exist",
+      "passed": true
+    },
+    {
+      "check": "T10_isolated_baseline: dependency references exist",
+      "passed": true
+    },
+    {
+      "check": "T11_sources_and_reconciliation: dependency references exist",
+      "passed": true
+    },
+    {
+      "check": "T12_research_model: dependency references exist",
+      "passed": true
+    },
+    {
+      "check": "T13_web_visuals: dependency references exist",
+      "passed": true
+    },
+    {
+      "check": "T14_complete_exports_monthly: dependency references exist",
+      "passed": true
+    },
+    {
+      "check": "T15_web_acceptance_release: dependency references exist",
+      "passed": true
+    },
+    {
+      "check": "T16_utm_windows_fallback: dependency references exist",
+      "passed": true
+    },
+    {
+      "check": "T17_desktop_fallback_acceptance: dependency references exist",
+      "passed": true
+    },
+    {
+      "check": "acyclic dependency graph",
+      "passed": true
+    },
+    {
+      "check": "T05_native_acceptance: superseded not deployed",
+      "passed": true
+    },
+    {
+      "check": "T07_fabric_live_acceptance: superseded not deployed",
+      "passed": true
+    },
+    {
+      "check": "required handoff asset: handoff/POWERBI_PLUGIN_START_HERE.md",
+      "passed": true
+    },
+    {
+      "check": "required handoff asset: handoff/UTM_FALLBACK.md",
+      "passed": true
+    },
+    {
+      "check": "required handoff asset: scripts/Inspect-UTM-Host.sh",
+      "passed": true
+    },
+    {
+      "check": "required handoff asset: scripts/Inspect-PowerBI-Guest.ps1",
+      "passed": true
+    },
+    {
+      "check": "required handoff asset: contracts/publication-export.contract.json",
+      "passed": true
+    },
+    {
+      "check": "required handoff asset: config/live-evidence.template.json",
+      "passed": true
+    },
+    {
+      "check": "export field policy matches contract",
+      "passed": true
+    },
+    {
+      "check": "synthetic fixture satisfies export contract",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "native_acceptance": false,
+  "live_dashboard_modified": false,
+  "vm_modified": false
+}

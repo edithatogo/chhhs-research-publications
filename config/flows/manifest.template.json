@@ -1,0 +1,83 @@
+{
+    "schema": "1.0",
+    "details": {
+        "displayName": "CHHHS Research Publications - Daily Ingestion & Enrichment",
+        "description": "",
+        "createdTime": "2026-09-14T05:50:40.4280335Z",
+        "packageTelemetryId": "2806ea0d-c6b6-4c5c-8e18-aebe6c5fe895",
+        "creator": "N/A",
+        "sourceEnvironment": ""
+    },
+    "resources": {
+        "b0b711fe-26d9-423c-8f7f-304a50653b51": {
+            "type": "Microsoft.Flow/flows",
+            "suggestedCreationType": "Update",
+            "creationType": "Existing, Update",
+            "details": {
+                "displayName": "CHHHS Research Publications - Daily Ingestion & Enrichment"
+            },
+            "configurableBy": "User",
+            "hierarchy": "Root",
+            "dependsOn": [
+                "9a1084dc-93fc-49fe-aa3e-6b5f07de3f76",
+                "b1f1ae3e-24cc-4272-87ad-499ea86918ac",
+                "sp_api_id",
+                "sp_conn_id"
+            ]
+        },
+        "9a1084dc-93fc-49fe-aa3e-6b5f07de3f76": {
+            "id": "/providers/Microsoft.PowerApps/apis/shared_powerbi",
+            "name": "shared_powerbi",
+            "type": "Microsoft.PowerApps/apis",
+            "suggestedCreationType": "Existing",
+            "details": {
+                "displayName": "Power BI",
+                "iconUri": "https://static.powerapps.com/resource/ppcr/releases/v1.0.1812/1.0.1812.4731/powerbi/icon.png"
+            },
+            "configurableBy": "System",
+            "hierarchy": "Child",
+            "dependsOn": []
+        },
+        "b1f1ae3e-24cc-4272-87ad-499ea86918ac": {
+            "type": "Microsoft.PowerApps/apis/connections",
+            "suggestedCreationType": "Existing",
+            "creationType": "Existing",
+            "details": {
+                "displayName": "{{POLITE_EMAIL}}",
+                "iconUri": "https://static.powerapps.com/resource/ppcr/releases/v1.0.1812/1.0.1812.4731/powerbi/icon.png"
+            },
+            "configurableBy": "User",
+            "hierarchy": "Child",
+            "dependsOn": [
+                "9a1084dc-93fc-49fe-aa3e-6b5f07de3f76"
+            ]
+        },
+        "sp_api_id": {
+            "id": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+            "name": "shared_sharepointonline",
+            "type": "Microsoft.PowerApps/apis",
+            "suggestedCreationType": "Existing",
+            "details": {
+                "displayName": "SharePoint",
+                "iconUri": "https://static.powerapps.com/resource/ppcr/releases/v1.0.1827/1.0.1827.4902/sharepointonline/icon.png"
+            },
+            "configurableBy": "System",
+            "hierarchy": "Child",
+            "dependsOn": []
+        },
+        "sp_conn_id": {
+            "type": "Microsoft.PowerApps/apis/connections",
+            "suggestedCreationType": "Existing",
+            "creationType": "Existing",
+            "details": {
+                "displayName": "{{USER_EMAIL}}",
+                "iconUri": "https://static.powerapps.com/resource/ppcr/releases/v1.0.1827/1.0.1827.4902/sharepointonline/icon.png"
+            },
+            "configurableBy": "User",
+            "hierarchy": "Child",
+            "dependsOn": [
+                "sp_api_id"
+            ]
+        }
+    }
+}

@@ -1,0 +1,20 @@
+{
+  "status": "FAIL",
+  "flags": [
+    "Active model equals the original employment model byte-for-byte",
+    "Employment vocabulary in DiagramLayout",
+    "Employment vocabulary in Report/LinguisticSchema",
+    "Employment vocabulary in Report/Layout",
+    "Employment vocabulary in TMDLScripts/CHHHS%20PubMed%20Model.tmdl",
+    "Employment vocabulary in TMDLScripts/Script%203.tmdl",
+    "SQL query remains in TMDLScripts/Script%203.tmdl",
+    "Employment vocabulary in TMDLScripts/Script%202.tmdl",
+    "SQL query remains in TMDLScripts/Script%202.tmdl",
+    "Employment vocabulary in TMDLScripts/Script%201.tmdl",
+    "SQL query remains in TMDLScripts/Script%201.tmdl"
+  ],
+  "active_model_sha256": "00e72ca2699ffa5302ef12345dd7fedc603ce600cd03e43e5b6ee929b938ceaa",
+  "metadata_entries_scanned": 10,
+  "binary_model_semantics_decoded": false,
+  "required_next_check": "Reopen in Desktop and inspect active model; save PBIP and validate its definitions."
+}

@@ -1,0 +1,16 @@
+{
+  "source_attachment": "849(1).xml",
+  "purpose": "schema-only parser evidence; historical item content not retained",
+  "rss_version": "2.0",
+  "item_count_observed": 4,
+  "item_fields_observed": [
+    "date",
+    "description",
+    "guid",
+    "link",
+    "pubDate",
+    "title"
+  ],
+  "items_with_chhhs_affiliated_author_marker": 4,
+  "content_retained": false
+}

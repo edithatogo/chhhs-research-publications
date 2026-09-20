@@ -1,0 +1,10 @@
+{
+  "pages":[
+    {"name":"PublicationRegister","purpose":"complete canonical register and visual analytics"},
+    {"name":"MonthlyPublications","purpose":"last complete Brisbane calendar month, trend, and specialty breakdown"},
+    {"name":"SourceReconciliation","purpose":"source overlap, DORA-only items, ambiguity and attribution audit"},
+    {"name":"ClinicalAnalytics","purpose":"clinical directorate specialties, ANZSRC FoR classification, and research intelligence"}
+  ],
+  "page_count":4,
+  "forbidden_pages":["Employment","ClinicalTrialsEvidence","Demographics","Hiring"]
+}
