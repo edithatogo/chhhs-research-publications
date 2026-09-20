@@ -67,6 +67,8 @@ Institutional lead times, holiday coverage and reminder delivery policies are no
 
 ## Working rules
 
+Current replay correction (2026-09-21): authenticated `playwright-cli -s=login` proved controlled native grants execution. Run `08584116923018304855211342755CU17` succeeded for a synthetic create and run `08584116920125684835586408484CU25` succeeded for a same-key update. SharePoint readback showed the expected row and then changed title, funder, amount, timestamp and evidence hash. The flow was restored Off. The synthetic row remains pending explicit deletion confirmation; no production, schedule, notification or organisation-wide target was touched. Receipt: ignored `private/ops/2026-09-20-grants-flow-import-readback.json`.
+
 Inspect `git status --short` at entry. Preserve unrelated report/manifest and other existing edits; do not mass-stage. Use the active track's spec and plan for tasks. Follow AGENTS.md approval boundaries for deployment/sharing/schedules. Current user direction defines scope; historical observations supply evidence only for their dates. Live contradictions require readback, not a convenient choice of document.
 
 Update this checkpoint with outcome, next executable task, test command/result and exact blocker after work. Keep credentials, actual tenant identifiers and screenshots under ignored private storage. Do not paste raw private output into a context bundle.
