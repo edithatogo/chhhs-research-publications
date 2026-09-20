@@ -183,3 +183,10 @@ Implemented in `da0b657`, with regression coverage in `tests/test_grants_registr
 - **Fix:** commit `ffdc5a8` rejects identical `SourceRowURL` and `URL` values and adds regression coverage.
 - **Verification:** focused reviewed-import tests pass (7); the full suite passes 384 tests with 8 skips; project validation passes 438 checks; web-first, Conductor, Power Platform tooling and visual standards checks pass locally.
 - **Residual gate:** this strengthens local evidence validation only; a real human-reviewed current row or permitted opportunity feed/API and native intake remain required.
+
+## Conductor review — ARC evidence URL structure — 2026-09-21
+
+- **Finding:** the ARC adapter accepted any string with an HTTP(S) prefix, including malformed evidence URLs without a host.
+- **Fix:** commit `96079a0` applies structural URL parsing and adds regression coverage while retaining the awards-only boundary.
+- **Verification:** focused ARC tests pass (4); the full suite passes 385 tests with 8 skips; project validation passes 438 checks; web-first, Conductor, Power Platform tooling and visual standards checks pass locally.
+- **Residual gate:** ARC remains awards-only; permitted opportunity intake, human-reviewed eligibility and native intake remain open.
