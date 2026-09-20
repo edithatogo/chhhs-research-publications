@@ -2,7 +2,7 @@ import unittest
 import json
 from pathlib import Path
 
-from scripts.grants_operations import evaluate_run
+from scripts.grants_operations import evaluate_run, reconcile_registry_keys
 from scripts.grants_planning import delivery_event_key, validate_policy
 from scripts.grants_relationships import normalize_relationship
 
@@ -125,6 +125,34 @@ class GrantsRelationshipTests(unittest.TestCase):
         self.assertIn('invalid_record_object', result['errors'])
         self.assertIn('invalid_health_object', result['errors'])
         self.assertEqual(result['records'], [{'OpportunityKey': 'GRANT:old'}])
+
+    def test_registry_reconciliation_requires_exact_key_sets(self):
+        result = reconcile_registry_keys(
+            [{'OpportunityKey': ' g1 '}, {'OpportunityKey': 'g2'}],
+            [{'OpportunityKey': 'g1'}, {'OpportunityKey': 'g2'}],
+        )
+        self.assertEqual(result['status'], 'reconciled')
+        self.assertEqual(result['records'][0]['OpportunityKey'], ' g1 ')
+
+        result = reconcile_registry_keys(
+            [{'OpportunityKey': 'g1'}, {'OpportunityKey': 'g2'}],
+            [{'OpportunityKey': 'g1'}, {'OpportunityKey': 'g3'}],
+            [{'OpportunityKey': 'old'}],
+        )
+        self.assertEqual(result['status'], 'rejected')
+        self.assertIn('registry_missing_emitted_keys', result['errors'])
+        self.assertIn('registry_has_unexpected_keys', result['errors'])
+        self.assertEqual(result['records'], [{'OpportunityKey': 'old'}])
+
+    def test_registry_reconciliation_rejects_malformed_or_duplicate_rows(self):
+        result = reconcile_registry_keys([None], [{'OpportunityKey': 'g1'}])
+        self.assertEqual(result['status'], 'rejected')
+        self.assertIn('invalid_emitted_record_object', result['errors'])
+        result = reconcile_registry_keys(
+            [{'OpportunityKey': 'g1'}, {'OpportunityKey': 'g1'}],
+            [{'OpportunityKey': 'g1'}],
+        )
+        self.assertIn('duplicate_emitted_key', result['errors'])
 
     def test_policy_and_delivery_keys_are_versioned(self):
         policy = {'PolicyKey':'CHHHS-DEFAULT','Version':'1.0','OrganisationKey':'CHHHS','AnchorKind':'final','LeadDays':10,'CalendarOrBusinessDays':'business','HolidayCalendarVersion':'qld-2026','EffectiveFrom':'2026-01-01'}

@@ -4,6 +4,54 @@ from __future__ import annotations
 from typing import Any, Iterable
 
 
+def reconcile_registry_keys(
+    emitted_records: Iterable[dict[str, Any]],
+    registry_rows: Iterable[dict[str, Any]],
+    prior_records=None,
+):
+    """Compare one emitted cycle with its registry readback by exact key set.
+
+    This is a local reconciliation contract for a future native flow. It does
+    not write the registry and preserves the prior accepted batch whenever the
+    readback is malformed, duplicated or not an exact key-set match.
+    """
+    emitted = list(emitted_records)
+    registry = list(registry_rows)
+    errors: list[str] = []
+    if any(not isinstance(row, dict) for row in emitted):
+        errors.append('invalid_emitted_record_object')
+    if any(not isinstance(row, dict) for row in registry):
+        errors.append('invalid_registry_row_object')
+    safe_emitted = [row if isinstance(row, dict) else {} for row in emitted]
+    safe_registry = [row if isinstance(row, dict) else {} for row in registry]
+    emitted_keys = [row.get('OpportunityKey') for row in safe_emitted]
+    registry_keys = [row.get('OpportunityKey') for row in safe_registry]
+    for values, invalid_error, missing_error, duplicate_error in (
+        (emitted_keys, 'invalid_emitted_key', 'missing_emitted_key', 'duplicate_emitted_key'),
+        (registry_keys, 'invalid_registry_key', 'missing_registry_key', 'duplicate_registry_key'),
+    ):
+        if any(not isinstance(key, str) for key in values):
+            errors.append(invalid_error)
+        if any(isinstance(key, str) and not key.strip() for key in values):
+            errors.append(missing_error)
+        comparable = [key.strip() for key in values if isinstance(key, str) and key.strip()]
+        if len(comparable) != len(set(comparable)):
+            errors.append(duplicate_error)
+    emitted_set = {key.strip() for key in emitted_keys if isinstance(key, str) and key.strip()}
+    registry_set = {key.strip() for key in registry_keys if isinstance(key, str) and key.strip()}
+    if emitted_set - registry_set:
+        errors.append('registry_missing_emitted_keys')
+    if registry_set - emitted_set:
+        errors.append('registry_has_unexpected_keys')
+    accepted = not errors
+    return {
+        'status': 'reconciled' if accepted else 'rejected',
+        'errors': errors,
+        'records': emitted if accepted else list(prior_records or []),
+        'preserved_prior': bool(errors and prior_records),
+    }
+
+
 def evaluate_run(records: Iterable[dict[str, Any]], health: Iterable[dict[str, Any]], prior_records=None):
     records = list(records)
     health = list(health)
