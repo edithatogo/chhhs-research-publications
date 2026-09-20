@@ -7,4 +7,4 @@
 - [x] Record local and live evidence separately before closure.
 
 ## Phase: Review fixes
-- [x] Task: Apply review corrections for the controlled native replay and preserve the remaining acceptance boundary.
+- [x] Task: Apply review corrections for the controlled native replay and preserve the remaining acceptance boundary (0536b98).
