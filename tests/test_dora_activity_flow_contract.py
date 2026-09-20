@@ -55,6 +55,20 @@ class DoraActivityFlowContractTests(unittest.TestCase):
             finally:
                 contract.SCHEMA_PATH = original_path
 
+    def test_schema_field_addition_requires_flow_mapping(self):
+        schema_path = Path(__file__).parents[1] / "config/dora-activity-registry.schema.json"
+        schema = json.loads(schema_path.read_text(encoding="utf-8"))
+        schema["fields"].append({"name": "Future source field", "type": "text"})
+        with tempfile.TemporaryDirectory() as folder:
+            replacement = Path(folder) / schema_path.name
+            replacement.write_text(json.dumps(schema), encoding="utf-8")
+            original_path = contract.SCHEMA_PATH
+            contract.SCHEMA_PATH = replacement
+            try:
+                self.assertTrue(any("must match the canonical registry schema fields" in error for error in validate(self.definition["properties"]["definition"])))
+            finally:
+                contract.SCHEMA_PATH = original_path
+
 
 if __name__ == "__main__":
     unittest.main()

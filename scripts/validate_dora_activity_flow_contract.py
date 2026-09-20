@@ -55,6 +55,8 @@ def validate(definition: dict[str, Any]) -> list[str]:
     identity_field = schema_fields.get(KEY)
     if not isinstance(identity_field, dict) or identity_field.get("unique") is not True:
         errors.append("DoRA registry schema must declare DORAActivityKey unique")
+    if set(schema_fields) != set(MAPPED_FIELDS):
+        errors.append("DoRA flow mappings must match the canonical registry schema fields")
     trigger = definition.get("triggers", {}).get("manual", {})
     schema = trigger.get("inputs", {}).get("schema", {})
     if trigger.get("type") != "Request" or "ActivityRowsJson" not in schema.get("required", []):
