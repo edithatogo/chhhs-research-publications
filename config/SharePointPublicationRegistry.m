@@ -54,7 +54,7 @@ let
         "OAUrl",
         "CitationCount_Crossref",
         "CitationCount_OpenAlex"
-    }, MissingField.UseNull),
+    }, MissingField.Error),
     
     // Set appropriate data types for base columns
     TypedBase = Table.TransformColumnTypes(SelectedColumns, {

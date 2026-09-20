@@ -8,6 +8,11 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class CanonicalSchemaTests(unittest.TestCase):
+    def test_sharepoint_publication_projection_fails_closed_on_missing_columns(self):
+        query = (ROOT / 'config/SharePointPublicationRegistry.m').read_text()
+        self.assertIn('MissingField.Error', query)
+        self.assertNotIn('MissingField.UseNull', query)
+
     def test_empty_source_schema_matches_semantic_model(self):
         source = (ROOT / 'powerquery/CanonicalPublications.m').read_text()
         schema = re.search(r'PublicationType\s*=\s*type table\s*\[(.*?)\],', source, re.S)
