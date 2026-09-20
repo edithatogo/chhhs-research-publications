@@ -113,4 +113,27 @@ Review finding applied: the first draft treated `Project ID` as unique. Live rea
 
 ## Native continuation check — 2026-09-20
 
-The authenticated Chrome inventory showed the public DoRA dataset and an existing OneDrive tab, but the SharePoint tab could not be rebound because it is already owned by a prior CUA browser session. A later authenticated-looking SharePoint/Loop tab also timed out during binding, after which the browser inventory exposed no surfaces. The separate Playwright CLI session remains at an unauthenticated Power BI sign-in page. No list creation, upload or tenant write was attempted. The next executable native action is to obtain a bindable authenticated SharePoint session, then create or locate the isolated `DORA Activity Registry` and read back its full schema, 442-row key set and sensitive-field handling before any report integration.
+The authenticated Chrome inventory showed the public DoRA dataset and an existing OneDrive tab, but the SharePoint tab could not be rebound because it is already owned by a prior CUA browser session. A later authenticated-looking SharePoint/Loop tab also timed out during binding, after which the browser inventory exposed no surfaces. No list creation, upload or tenant write was attempted.
+
+## Playwright CLI continuation — 2026-09-20
+
+An authenticated, headful Playwright CLI session was available and provided current
+tenant readback. The Power Automate flow inventory contained only two CHHHS
+publication DEV flows. The active `CHHHS Publications - DEV validated first history
+commit` flow is a Power BI/OneDrive validation/archive flow, not a SharePoint-list
+registry flow; its current run failed in `Require_validation` because the expression
+attempted to convert `COMMIT_VALIDATION_FAILED` with `int()`. The authenticated
+SharePoint Site Contents page for `https://healthqld.sharepoint.com/sites/eHealth-comm-test`
+contained neither `DORA Activity Registry` nor `Publication Registry`.
+
+This is stronger native evidence for the connector/list mismatch, but it does not
+identify the approved RIMS SharePoint site or authorize creating a list on this
+test site. No tenant mutation or DoRA row upload was performed. Native acceptance
+therefore remains open; the next executable action is to use the approved RIMS site
+identity, then create or locate the isolated list and read back its schema and
+source-key coverage.
+
+The second flow listed in the same environment, `CHHHS Publications - DEV manual
+ingestion validation`, is currently Off. Its native details expose only a Power BI
+connection; it is not a SharePoint registry writer. Its historical successful runs
+therefore do not establish current list persistence.
