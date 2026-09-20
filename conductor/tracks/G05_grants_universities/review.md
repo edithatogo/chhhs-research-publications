@@ -7,4 +7,11 @@ Review status: in progress; university source and institutional-date discovery i
 - QUT and Griffith lead times remain null where a current public source was not sufficient. Griffith’s funding support page explicitly distinguishes internal-access support.
 - `tests/test_grants_universities.py` prevents invented lead times and requires all four institutions.
 
+- The shared bounded probe now supports `config/grants-universities.json`.
+  A read-only 2026-09-20 probe observed one HTTP 200 page (UQ) and three HTTP
+  403 responses (JCU, QUT and Griffith) through the same conservative path;
+  this verifies page/access behaviour only and does not promote institutional
+  portals, calendars or exports to feeds. Receipt:
+  ignored `private/ops/2026-09-20-grants-university-probe.json`.
+
 Portal exports, authenticated institutional feeds and specialist/foundation expansion remain open.

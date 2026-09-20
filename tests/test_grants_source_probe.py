@@ -2,7 +2,7 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from scripts.grants_source_probe import MAX_BYTES, probe_catalogue
+from scripts.grants_source_probe import MAX_BYTES, probe_catalogue, probe_universities
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -48,6 +48,12 @@ class GrantsSourceProbeTests(unittest.TestCase):
         with patch("scripts.grants_source_probe.urllib.request.urlopen", side_effect=fail) as opener:
             result = probe_catalogue(ROOT / "config/grants-sources.json", opener=opener)
         self.assertTrue(all(row["status"] is None and row["error"] == "transport_error" for row in result["results"]))
+
+    def test_university_catalogue_uses_same_conservative_probe(self):
+        with patch("scripts.grants_source_probe.urllib.request.urlopen", return_value=_Response()) as opener:
+            result = probe_universities(ROOT / "config/grants-universities.json", opener=opener)
+        self.assertEqual(len(result["results"]), 4)
+        self.assertTrue(all(row["promoted_to_feed"] is False for row in result["results"]))
 
 
 if __name__ == "__main__":

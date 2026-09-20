@@ -39,7 +39,7 @@ def _probe_row(row: dict[str, Any], opener: Callable[..., Any]) -> dict[str, Any
     request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT}, method="GET")
     observed_at = dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat()
     result: dict[str, Any] = {
-        "source_id": row["source_id"],
+        "source_id": row.get("source_id", row.get("institution_id")),
         "authority_url": url,
         "observed_at": observed_at,
         "probe_kind": "authority_url_bounded_get",
@@ -69,25 +69,43 @@ def _probe_row(row: dict[str, Any], opener: Callable[..., Any]) -> dict[str, Any
     return result
 
 
-def probe_catalogue(path: str | Path, opener: Callable[..., Any] = urllib.request.urlopen) -> dict[str, Any]:
-    rows = load_catalogue(path)
+def _load_university_rows(path: str | Path) -> list[dict[str, Any]]:
+    payload = json.loads(Path(path).read_text(encoding="utf-8"))
+    if not isinstance(payload, list):
+        raise ValueError("university catalogue must be a list")
+    for row in payload:
+        if not isinstance(row, dict) or not row.get("institution_id") or not row.get("authority_url"):
+            raise ValueError("each university row needs institution_id and authority_url")
+    return payload
+
+
+def probe_rows(rows: list[dict[str, Any]], catalogue: str | Path, opener: Callable[..., Any] = urllib.request.urlopen) -> dict[str, Any]:
     results = [_probe_row(row, opener) for row in rows]
     return {
         "status": "observed",
         "observed_at": dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat(),
-        "catalogue": str(path),
+        "catalogue": str(catalogue),
         "max_bytes": MAX_BYTES,
         "results": results,
         "feed_acceptance": "not_proven_by_authority_probe",
     }
 
 
+def probe_catalogue(path: str | Path, opener: Callable[..., Any] = urllib.request.urlopen) -> dict[str, Any]:
+    return probe_rows(load_catalogue(path), path, opener)
+
+
+def probe_universities(path: str | Path, opener: Callable[..., Any] = urllib.request.urlopen) -> dict[str, Any]:
+    return probe_rows(_load_university_rows(path), path, opener)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("catalogue", type=Path)
+    parser.add_argument("--universities", action="store_true", help="interpret the catalogue as config/grants-universities.json")
     parser.add_argument("--out", type=Path)
     args = parser.parse_args()
-    result = probe_catalogue(args.catalogue)
+    result = probe_universities(args.catalogue) if args.universities else probe_catalogue(args.catalogue)
     payload = json.dumps(result, indent=2) + "\n"
     if args.out:
         args.out.parent.mkdir(parents=True, exist_ok=True)

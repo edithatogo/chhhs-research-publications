@@ -13,7 +13,7 @@ One person owns this repository and the existing CHHHS RIMS report. Add funding 
 - Grants normalisation, round identity, invalid-date handling and observation snapshots exist in `scripts/grants_registry.py`.
 - Institutional date offsets and subscription candidate matching exist in `scripts/grants_planning.py`. These are reference logic, not hosted services.
 - G01–G08 specification/plan files exist. They are not completed deployments.
-- Latest local harness: 291 tests, 438 project checks, Conductor validation, web-first local validation and Power Platform tooling preflight passed. The live CKAN DoRA activity collector retrieved 442/442 rows with all 19 source fields plus the datastore `_id` key and 442 unique source `_id` values; this is source/readback evidence, not tenant acceptance.
+- Latest local harness: 292 tests, 438 project checks, Conductor validation, web-first local validation and Power Platform tooling preflight passed. The live CKAN DoRA activity collector retrieved 442/442 rows with all 19 source fields plus the datastore `_id` key and 442 unique source `_id` values; this is source/readback evidence, not tenant acceptance.
 
 ## Remaining implementation
 
