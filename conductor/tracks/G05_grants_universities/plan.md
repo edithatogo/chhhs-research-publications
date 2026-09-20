@@ -1,7 +1,7 @@
 # Implementation plan
 
 - [x] Record scope and acceptance requirements.
-- [ ] Inspect current inputs, dependencies and relevant platform objects.
-- [ ] Implement: Verify JCU, UQ, QUT and Griffith sources and distinguish institutional deadlines and applicant restrictions.
-- [ ] Verify: Record permitted access/export routes and expand remaining university/foundation discovery backlog.
-- [ ] Record local and live evidence separately before closure.
+- [x] Inspect current inputs, dependencies and relevant platform objects. University research-office pages and access boundaries were checked; no institutional login or portal export was used.
+- [x] Implement: Record JCU, UQ, QUT and Griffith authority pages, formats, access, eligibility scope and only source-backed internal lead-time facts.
+- [~] Verify: Public-page evidence is recorded; permitted feed/export routes and internal portal access remain unverified, with unknown lead times retained as null.
+- [x] Record local and live evidence separately before closure.
