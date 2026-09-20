@@ -1,6 +1,7 @@
 # Review: Verify the live web implementation and hand over
  
-Review status: complete (Handover and local artifact export).
+Review status: in progress; the historical handover package is complete, but
+the current native and operational acceptance audit remains open.
 
 ## Executive Handover Summary
 All components requested by the user and defined in Tracks T08 through T15 have been fully implemented, integrated, verified, and exported to the local repository:
@@ -51,11 +52,11 @@ All four phases of the platform completion roadmap have been executed directly o
    - **Zero Sprawl:** Target flow updated in place with no orphan flows or duplicate definitions created.
    - **Field Internal Names:** Mapped to SharePoint internal names (`item/field_1` to `item/field_20`) for reliable connector execution.
 
-3. **Phase 3: Executive Monthly Word Digest (Completed on Platform)**
+3. **Phase 3: Executive Monthly Word Digest (historical implementation claim; current delivery acceptance reopened below)**
    - **Artifact:** `reports/CHHHS-Publications-Monthly-2026-08.docx` (40 KB).
    - **Design:** Queensland Health clinical research styling with 4 KPI cards, hospital breakdowns, source breakdowns, and 9 hyperlinked publications.
 
-4. **Phase 4: Power BI Service Semantic Model & Research Dashboards (Completed on Platform)**
+4. **Phase 4: Power BI Service Semantic Model & Research Dashboards (historical implementation claim; current report acceptance reopened below)**
    - **Isolated Target:** Semantic Model `{{ISOLATED_MODEL_ID}}`, Report `{{ISOLATED_REPORT_ID}}` ("CHHHS Research Publications - isolated development 20260912").
    - **Model Verification:** 21 research tables active in model view (`Publication`, `Facility`, `PublicationFacility`, `PubMedPublications`, `ReportingWindow`, etc.).
    - **DAX Acceptance Query:** `config/native-canonical-check.dax` executed in live Power BI Service DAX Query View:
@@ -84,3 +85,17 @@ All four phases of the platform completion roadmap have been executed directly o
 - Versioning architecture: `docs/VERSIONING_ARCHITECTURE.md`
 - Platform completion plan: `docs/PLATFORM_COMPLETION_PLAN.md`
 - Release readiness: `docs/RELEASE_READINESS.md`
+
+## Reopened acceptance review — 2026-09-21
+
+The historical handover section documents the implementation package but
+contains claims broader than the current evidence. Current native readback has
+reopened the track: the retained publication flow is Off, the canonical
+organisation-wide list/target is not established, and the current Power BI
+Clinical Analytics page has field-binding errors against the deployed semantic
+model. T15 remains active and must not be archived.
+
+- Plan compliance: Partial — local handover artefacts are present; current
+  tenant acceptance, release and delivery gates remain open.
+- Style/safety: Pass — no sharing, schedule or delivery activation was made.
+- Tests: Local checks pass; they do not prove live acceptance.

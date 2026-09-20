@@ -1,6 +1,6 @@
 # Review: Export every citation and stage the monthly workflow
  
-Review status: complete.
+Review status: in progress; local export generation and contract checks are complete, while current native and operational acceptance gates remain open.
 
 ## Outcome Summary
 1. **Full Bibliography Export Engine:**
@@ -22,3 +22,21 @@ Review status: complete.
 - 18 export policy unit tests passing in `tests/test_webfirst.py` (`ExportPolicyTests`).
 - Validated against `contracts/publication-export.contract.json`.
 - 172 total unit tests and 235 project validation checks passing cleanly.
+
+## Reopened acceptance review — 2026-09-21
+
+The historical local outcome above remains valid as implementation evidence,
+but it is not a current tenant acceptance certificate. The automatic-update
+plan still requires a manual native cloud-flow cycle, consecutive-cycle
+retention/replay evidence, current refresh/export reconciliation, and a
+separate schedule/delivery decision. The trigger remains disabled and no
+recipient or schedule has been activated. T14 remains active and is not
+eligible for archive.
+
+### Review Report
+
+- Plan compliance: Partial — local exports, dry-run/failure contracts and
+  blueprints are present; native cycle and consecutive-cycle gates are open.
+- Style/safety: Pass — no delivery or recipient activation is implied by the
+  local artefacts.
+- Tests: Passed locally; native acceptance remains unproven.
