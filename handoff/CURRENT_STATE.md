@@ -49,6 +49,7 @@ Institutional lead times, holiday coverage and reminder delivery policies are no
 - Native read-only Power BI report inventory on 2026-09-20 confirmed four current research pages, including Clinical Analytics (`ReportSection4`). The web-first execution contract now matches that observed four-page scope; frozen runtime hashes were not regenerated. Receipt: `private/ops/2026-09-20-powerbi-report-page-inventory.json`.
 - S02.3.2 versioning observation on 2026-09-20 confirmed SharePoint item history enabled for the DEV `Publication Registry` list with 500 versions. Power BI report readback exposed Save a copy/Download but no version-history control; the attempted model URL was unavailable. Receipt: `private/ops/2026-09-20-versioning-capability-observation.json`. S02.3.4 remains pending until the isolated report route is readable and a version/batch display can be saved and reloaded.
 - G03 native list inventory on 2026-09-20 found only the personal DEV `Publication Registry`; no Grants Registry or DORA Activity Registry was present. No list was created. Receipt: `private/ops/2026-09-20-grants-list-inventory.json`; approved organisation-wide target identity remains required.
+- A controlled replay of the manual publication flow (run `08584117040588468458780027430CU06`) again succeeded through `Create item` and skipped `Update item`; the blank SourceKey filter remains an idempotency/duplicate-risk blocker. The flow was restored Off. This is not a production or unattended acceptance certificate.
 
 ## Working rules
 

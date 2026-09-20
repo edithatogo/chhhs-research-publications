@@ -154,4 +154,6 @@ The private receipt is `private/ops/2026-09-20-powerautomate-publication-flow-te
 
 This proves current DEV/manual flow execution and list readback, not unattended
 production scheduling, organisation-wide site migration, or full canonical
-registry reconciliation.
+registry reconciliation. A controlled replay again took Create rather than
+Update; the blank SourceKey filter observed in action readback leaves duplicate
+prevention/idempotency open.

@@ -30,3 +30,7 @@ flow was restored to Off after the manual test. The private run evidence is
 This closes current DEV/manual execution evidence only. It does not close the
 recurrence deployment, unattended schedule, full registry reconciliation or
 production release gates.
+
+The controlled replay also succeeded but again took the Create branch and skipped
+Update. The observed blank SourceKey filter means this is not idempotency proof;
+duplicate prevention and a nonblank-key update readback remain open.
