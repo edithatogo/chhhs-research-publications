@@ -12,3 +12,4 @@
 ## Phase: Conductor review — 2026-09-21
 
 - [x] Review the schema, flow contract, controlled replay receipt and native diagnostic-expression correction; retain G03 as in progress because target and operational acceptance are incomplete.
+- [x] Task: Reconcile superseded historical replay statements and the current cleanup boundary (12574e7).

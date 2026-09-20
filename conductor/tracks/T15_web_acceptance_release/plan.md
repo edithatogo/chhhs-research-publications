@@ -20,6 +20,7 @@ See [native architecture and licence fallbacks](../../../docs/POWER_PLATFORM_NAT
 - [x] Execute applicable automated checks and the separate native/tenant checks.
 - [x] Record defects, fixes, precise evidence references and remaining blockers in review.md.
 - [x] Update metadata and track register; commit local changes without claiming unperformed external actions.
+- [x] Review correction: mark historical handover claims as separate from current native acceptance (f49328e).
 
 ## Current state
 Release acceptance and handover package completed. All local regression checks (172 tests), contract validation (235 checks, PASS_LOCAL_ONLY), multi-source pipeline (8 sources), SharePoint List versioning (500 major versions), Power Automate in-place update packages, and executive Word DOCX report generators are complete and verified. Handover report prepared in review.md.
