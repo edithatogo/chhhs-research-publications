@@ -36,3 +36,23 @@ Analytics. No native funding page is present. Receipt:
 ignored `private/ops/2026-09-20-powerbi-report-page-inventory.json`.
 The local seven-page definition therefore remains a candidate for an isolated
 authoring route, not a tenant deployment claim.
+
+Review fix applied: the iCalendar projection now rejects duplicate event UIDs
+before emission, preventing duplicate opportunity inputs from generating an
+ambiguous calendar artifact. A focused regression test covers this boundary.
+
+## Verification Checks
+
+- [x] **Plan Compliance**: Partial - local date-policy, subscription and calendar contracts are implemented; native pages, access isolation, reminders and delivery remain open.
+- [x] **Style Compliance**: Pass - uncertain dates remain omitted and event identity is deterministic.
+- [x] **New Tests**: Yes - duplicate UID rejection is covered.
+- [x] **Test Coverage**: Partial - local calendar semantics are covered; native report persistence, personal access and delivery are not.
+- [x] **Test Results**: Passed - focused calendar tests (4) and project validation (438 checks); full-suite rerun required after this review fix.
+
+## Findings
+
+### Medium - native RIMS experience remains unproven
+
+- **File**: `conductor/tracks/G08_rims_grants_experience/plan.md`
+- **Context**: The local seven-page PBIP and iCalendar contract do not prove native funding pages, authenticated subscription persistence, reminder ledger, calendar update/cancellation or notification delivery.
+- **Suggestion**: Keep G08 active until an approved isolated authoring route and native readback prove those behaviours; do not archive from local artefacts alone.

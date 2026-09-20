@@ -9,3 +9,7 @@
 ## Local review extension — 2026-09-20
 
 - [x] Add deterministic iCalendar projection with versioned institutional dates, stable event IDs, tentative review state and explicit cancellation semantics; cover unknown/partial dates and duplicate-safe revisions with tests (f8d0262).
+
+## Phase: Review fixes
+
+- [x] Task: Reject duplicate projected calendar event UIDs before iCalendar emission (ecf3d43).
