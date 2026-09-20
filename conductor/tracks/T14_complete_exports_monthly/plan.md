@@ -21,6 +21,7 @@ See [native architecture and licence fallbacks](../../../docs/POWER_PLATFORM_NAT
 - [x] Record defects, fixes, precise evidence references and remaining blockers in review.md.
 - [x] Update metadata and track register; commit local changes without claiming unperformed external actions.
 - [x] Review correction: mark historical local completion as separate from reopened native/operational acceptance (f49328e).
+- [x] Review fix: reject boolean/negative independent expected counts and blank reconciliation keys (dfb71f6).
 
 ## Current state
 Full bibliography exports (CSV/HTML) and executive monthly Word (DOCX) reports are complete, verified, and branded. Power Automate flow packages (`private/ops/flow-packages/sharepoint-upsert.zip`) and blueprints are prepared and exported locally. All export policy unit tests pass with zero errors.

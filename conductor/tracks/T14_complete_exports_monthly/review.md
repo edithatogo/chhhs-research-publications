@@ -40,3 +40,23 @@ eligible for archive.
 - Style/safety: Pass — no delivery or recipient activation is implied by the
   local artefacts.
 - Tests: Passed locally; native acceptance remains unproven.
+
+## Local contract hardening — 2026-09-21
+
+The review found that paged export reconciliation accepted `True` as a count
+of one and allowed blank independent keys. Commit `dfb71f6` now rejects
+non-negative-integer violations and blank keys before a batch can reconcile.
+
+### Verification Checks
+
+- [x] Plan Compliance: Partial — local export and reconciliation contracts are hardened; native cycle, retention and delivery gates remain open.
+- [x] Style Compliance: Pass — the change is fail-closed and preserves the canonical-key contract.
+- [x] New Tests: Yes — explicit invalid-count and blank-key regression cases.
+- [x] Test Coverage: Partial — local batch validation is covered; native refresh/export/SharePoint readback is not.
+- [x] Test Results: Passed — canonical-clone full suite (352 tests, 8 skipped) and 438 project checks.
+
+### Findings
+
+The local reconciliation issue is fixed. T14 remains in progress because its
+manual native cycle, consecutive-cycle history, refresh correlation and
+delivery decisions are not currently evidenced.
