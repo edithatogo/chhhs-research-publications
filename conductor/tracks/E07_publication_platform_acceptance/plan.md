@@ -9,3 +9,4 @@
 - [x] Phase 7: Add versioned organisational hierarchy enrichment locally with evidence/confidence fields
 - [ ] Phase 8: Read back additive organisational columns in SharePoint and run a controlled backfill
 - [x] Review fix: require SharePoint connector and lookup-target parity for create/update writes (9001654).
+- [x] Review fix: require explicit `GetItems`, `PostItem` and `PatchItem` operation IDs plus connector authentication metadata (6230e1e).

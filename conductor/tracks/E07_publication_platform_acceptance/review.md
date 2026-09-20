@@ -24,6 +24,30 @@ an organisation-wide target or grants-list availability.
 Review fix applied: the local validator now requires create and update actions
 to use SharePoint Online and target the same site/list as the lookup action.
 
+## Review Report: E07 hardening — 2026-09-21
+
+### Summary
+
+The local acceptance contract is stronger after review: registry lookup and
+write operations must use the expected SharePoint operation IDs, and writes
+must declare connector authentication. Native tenant acceptance remains open.
+
+### Verification Checks
+
+- [x] Plan Compliance: Partial — the local contract hardening is complete; the native platform gates remain open.
+- [x] Style Compliance: Pass — the validator remains fail-closed and preserves the SharePoint-list-only boundary.
+- [x] New Tests: Yes — regression coverage rejects an incorrect lookup operation and missing write authentication.
+- [x] Test Coverage: Partial — local definition coverage is present; private package and tenant execution are not available in the canonical clone.
+- [x] Test Results: Passed — full canonical-clone suite 343 tests, 8 skipped; publication contract validation passed.
+
+### Findings
+
+One local contract gap was found and fixed in `6230e1e`: connector identity
+and target parity alone did not prove the expected SharePoint operation or
+authentication metadata. The fix is committed and tracked above. Remaining
+tenant gates are substantive acceptance boundaries, so E07 is not eligible
+for archive.
+
 ## Remaining gates
 
 - [ ] Approved isolated SharePoint target and list schema/readback.
