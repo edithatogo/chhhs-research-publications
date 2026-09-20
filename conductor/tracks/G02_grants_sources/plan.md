@@ -16,3 +16,4 @@
 - [x] Task: Treat non-HTTP(S) opportunity links as non-actionable evidence and retain them as review-needed records (da0b657).
 - [x] Task: Require scalar source IDs and reject future catalogue verification dates (`e4985b2`).
 - [x] Task: Require typed reviewed-import identities, URLs, review status and notes without coercion.
+- [x] Task: Reject malformed ARC award identities, links and descriptive fields without coercion (03568d7).

@@ -69,7 +69,7 @@ Local grid, contrast and theme evidence remains sound, but the current native re
 - [x] Style Compliance: Pass — no local standards defect was identified.
 - [x] New Tests: Existing geometry and contrast tests pass.
 - [x] Test Coverage: Partial — local visual contracts and native page rendering are both inspected; field-binding repair remains open.
-- [x] Test Results: Passed locally — 366 tests (8 skipped), 438 project checks and 82 visual geometries audited; native audit failed the fourth-page field-binding gate.
+- [x] Test Results: Passed locally — 368 tests (8 skipped), 438 project checks and 82 visual geometries audited; native audit failed the fourth-page field-binding gate.
 
 ### Findings
 
