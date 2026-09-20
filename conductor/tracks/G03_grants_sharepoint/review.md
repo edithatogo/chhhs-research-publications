@@ -165,3 +165,10 @@ remain open.
 - **Finding:** the reviewed-import definition had a duplicate diagnostic, but its update branch could still be reached whenever `Get items` returned more than one row.
 - **Fix:** commit `054aa2e` adds an exact-one-match update condition; duplicate matches now produce diagnostics and no create/update action. Contract and package tests cover the nested guard.
 - **Verification:** focused flow/package tests pass (8); full local suite remains 374 tests with 8 skips. The corrected definition requires re-import/readback in isolated DEV before native acceptance can advance.
+
+## Conductor review — reviewed evidence persistence — 2026-09-21
+
+The canonical reviewed-import mapping now persists `SourceRowURL` on both
+create and update, so the row-level evidence required by G02 is not discarded
+at the SharePoint boundary. The tracked definition and local validator pass;
+this local change still requires isolated native re-import/readback.

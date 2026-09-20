@@ -169,3 +169,10 @@ Implemented in `da0b657`, with regression coverage in `tests/test_grants_registr
 - **Finding:** the review-only NHMRC/MRFF table adapter retained only the page URL, so reviewers could not distinguish a row-specific source link from the calendar landing page.
 - **Fix:** commit `e62b6f5` preserves actionable HTTP(S) row links as `SourceLinks` and exposes `SourceRowURL` only when exactly one unambiguous link is present; ambiguous or non-HTTP links remain explicit and do not become evidence automatically.
 - **Verification:** focused HTML-calendar tests pass (6); full local suite passes (374 tests, 8 skips). This improves review provenance but does not create a permitted unattended feed or approve eligibility.
+
+## Conductor review — reviewed-row evidence gate — 2026-09-21
+
+- **Finding:** reviewed imports accepted the source-page `URL` without requiring a distinct row-level evidence link or an explicit eligibility statement.
+- **Fix:** `SourceRowURL` is now required as an actionable HTTP(S) value and is preserved through normalization, the schema, semantic model, SharePoint create/update mapping and field-map export. `Eligibility` is required as a typed, non-empty reviewer input; no eligibility decision is inferred.
+- **Verification:** focused reviewed-import, registry and flow-contract suites pass; the full suite passes 381 tests with 8 skips, project validation passes 438 checks, and the frozen runtime hash was intentionally refreshed for the model field change.
+- **Residual gate:** these are local fail-closed controls; a human-reviewed current row or permitted opportunity feed/API and native list/flow acceptance remain required.

@@ -7,7 +7,7 @@ and its required native acceptance evidence are both complete.
 | Track | Current evidence | Remaining gate | Archive decision |
 |---|---|---|---|
 | S02 | Clean canonical source package reproducibly verified; SharePoint item versioning observed | Isolated native report version/batch display and readback | Keep active |
-| G02 | Official NHMRC/MRFF calendars, ARC awards API, Queensland metadata API, and conservative source catalogue verified | Permitted opportunity feed/API or explicit reviewed rows with source links and eligibility | Keep active |
+| G02 | Official NHMRC/MRFF calendars, ARC awards API, Queensland metadata API, conservative source catalogue, and fail-closed row-level evidence/eligibility gate verified | Permitted opportunity feed/API or explicit human-reviewed rows with source links and eligibility | Keep active |
 | G03 | Isolated Grants Registry schema and authenticated synthetic create/update/duplicate/concurrency evidence; flow checker 0/0; standalone tracked-flow validator and CI gate pass | Approved organisation-wide target, canonical binding and unattended acceptance | Keep active |
 | G04 | RSS/Atom/API-shaped adapters and fresh 13/179 NHMRC/MRFF candidate extraction | Controlled source-to-list cycle and reconciliation | Keep active |
 | G05 | University catalogue and access/lead-time evidence | Permitted institutional export/feed or reviewed intake | Keep active |
