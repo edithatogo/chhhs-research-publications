@@ -52,3 +52,10 @@ batch and fail closed.
 - **Finding:** the local evaluator checked source health counts but had no exact-key comparison between an emitted cycle and the subsequent registry readback.
 - **Fix:** commit `994dc05` adds `reconcile_registry_keys`, which rejects malformed/duplicate keys, reports missing or unexpected registry identities, and preserves the prior accepted batch on mismatch.
 - **Verification:** focused relationship/operations tests pass (18); full local suite passes (374 tests, 8 skips). This is a local reconciliation contract; native list readback, monitoring and scheduling remain open.
+
+## Conductor review — selected-field readback reconciliation — 2026-09-21
+
+- **Finding:** exact key-set equality did not detect a partial SharePoint update where a selected field value differed or was absent.
+- **Fix:** `reconcile_registry_records` now requires an explicit unique field allowlist, checks every emitted key’s selected field values against registry readback, and preserves the prior accepted batch on any mismatch.
+- **Verification:** focused relationship/operations tests pass (20); the full suite passes 383 tests with 8 skips and project validation passes 438 checks.
+- **Residual gate:** this is a local reconciliation contract; native list readback, monitoring, scheduling and delivery remain open.

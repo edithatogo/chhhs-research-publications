@@ -12,7 +12,7 @@ and its required native acceptance evidence are both complete.
 | G04 | RSS/Atom/API-shaped adapters and fresh 13/179 NHMRC/MRFF candidate extraction | Controlled source-to-list cycle and reconciliation | Keep active |
 | G05 | University catalogue and access/lead-time evidence | Permitted institutional export/feed or reviewed intake | Keep active |
 | G06 | Typed relationship contract and local safeguards; isolated personal DEV `Grant Relationships` list with all eight native fields and required/unique/indexed `RelationshipKey` read back | Remaining required-field readback, evidence-bearing relationship round-trip and unchanged publication totals | Keep active |
-| G07 | Fail-closed operational evaluator and isolated create/update replay | Monitoring, operational reconciliation, delivery and scheduling | Keep active |
+| G07 | Fail-closed operational evaluator, exact-key reconciliation, selected-field readback reconciliation and isolated create/update replay | Native monitoring, operational reconciliation, delivery and scheduling | Keep active |
 | G08 | Local calendar, institutional-date and subscription contracts; additive report definitions | Native pages, private access, calendar change ledger and delivery | Keep active |
 | T11 | Local PubMed/DORA preservation and schema/key reconciliation | Native retained-history flow, refresh and list/readback | Keep active |
 | T14 | Complete local exports, monthly generator and failure contracts | Manual native cycle, consecutive-cycle replay and delivery decision | Keep active |
