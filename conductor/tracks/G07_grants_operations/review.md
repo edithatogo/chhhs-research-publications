@@ -24,7 +24,7 @@ batch and fail closed.
 - [x] **Style Compliance**: Pass - the evaluator preserves prior accepted records and fails closed on missing evidence.
 - [x] **New Tests**: Yes - missing health, unreported-source, duplicate-health and missing-record-source cases are covered.
 - [x] **Test Coverage**: Partial - local run evaluation is covered; native monitoring and unattended delivery are not.
-- [x] **Test Results**: Passed - focused G07 tests (13), project validation (438 checks) and canonical-clone full suite (370 tests, 8 skipped).
+- [x] **Test Results**: Passed - focused G07 tests (13), project validation (438 checks) and canonical-clone full suite (372 tests, 8 skipped).
 
 ## Findings
 
@@ -38,7 +38,7 @@ batch and fail closed.
 
 - **Finding:** `evaluate_run` string-coerced malformed source identities and could raise on an unhashable `OpportunityKey`, weakening the operational quarantine boundary.
 - **Fix:** non-string source and opportunity identities are now rejected explicitly; duplicate checks only run over validated string keys. Regression coverage proves the malformed batch is rejected without coercion or an incidental exception.
-- **Verification:** commit `42833c6` passes the focused relationship/operations suite (13 tests), the full local suite (370 tests, 8 skips), project validation (438 checks), web-first contracts and Conductor validation. Remote source-only CI remains to be recorded against the synchronized documentation commit.
+- **Verification:** commit `42833c6` passes the focused relationship/operations suite (13 tests), the full local suite (372 tests, 8 skips), project validation (438 checks), web-first contracts and Conductor validation. Remote source-only CI remains to be recorded against the synchronized documentation commit.
 - **Residual gate:** native monitoring, exact-key reconciliation, scheduling and delivery remain open.
 
 ## Conductor review — malformed run-object hardening — 2026-09-21
@@ -46,3 +46,9 @@ batch and fail closed.
 - **Finding:** `evaluate_run` assumed every record and health row was a mapping, so malformed batches could raise an incidental attribute error instead of entering the rejected-run path.
 - **Fix:** commit `c174a3a` explicitly classifies non-object record and health rows as invalid, evaluates safe placeholders, and preserves the prior accepted batch.
 - **Verification:** the focused relationship/operations suite passes (16 tests); full local and native operational gates remain as documented above.
+
+## Conductor review — exact registry reconciliation — 2026-09-21
+
+- **Finding:** the local evaluator checked source health counts but had no exact-key comparison between an emitted cycle and the subsequent registry readback.
+- **Fix:** commit `994dc05` adds `reconcile_registry_keys`, which rejects malformed/duplicate keys, reports missing or unexpected registry identities, and preserves the prior accepted batch on mismatch.
+- **Verification:** focused relationship/operations tests pass (18); full local suite passes (372 tests, 8 skips). This is a local reconciliation contract; native list readback, monitoring and scheduling remain open.

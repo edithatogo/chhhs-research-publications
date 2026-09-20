@@ -39,7 +39,7 @@ into registry identities. The focused relationship suite covers this boundary.
 - [x] Style compliance: relationship types, confidence and review state remain explicit; publication rows are not mutated.
 - [x] New tests: `tests/test_grants_relationships_operations.py` covers evidence, confidence and input-type boundaries.
 - [x] Test coverage: local relationship schema and Power Query contract are covered.
-- [x] Test results: focused relationship suite passed (15 tests); canonical-clone full suite passed at the current checkpoint (370 tests, 8 skipped; project validation 438 checks).
+- [x] Test results: focused relationship suite passed (15 tests); canonical-clone full suite passed at the current checkpoint (372 tests, 8 skipped; project validation 438 checks).
 
 ## Findings
 
