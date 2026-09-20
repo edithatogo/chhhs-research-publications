@@ -30,7 +30,7 @@ evidence URL and one of the native review-status choices (`Needs Review`,
 - [x] Style compliance: relationship types, confidence and review state remain explicit; publication rows are not mutated.
 - [x] New tests: `tests/test_grants_relationships_operations.py` covers evidence and confidence boundaries.
 - [x] Test coverage: local relationship schema and Power Query contract are covered.
-- [x] Test results: canonical-clone full suite passed at the current checkpoint (349 tests, 8 skipped; project validation 438 checks).
+- [x] Test results: canonical-clone full suite passed at the current checkpoint (350 tests, 8 skipped; project validation 438 checks).
 
 ## Findings
 

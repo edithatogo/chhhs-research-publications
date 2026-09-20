@@ -13,13 +13,18 @@ cover both boundaries; prior accepted records remain preserved on rejection.
 Review fix applied: the evaluator now rejects blank or duplicate source-health
 rows and records without a source identity before accepting a batch.
 
+Additional review fix applied in `91345bf`: health rows now require
+non-negative integer counts, and per-source reported counts must exactly match
+the records admitted from that source. Mismatches preserve the prior accepted
+batch and fail closed.
+
 ## Verification Checks
 
 - [x] **Plan Compliance**: Partial - local fail-closed evaluation and controlled DEV replay evidence exist; monitoring, operational reconciliation, delivery and scheduling remain open.
 - [x] **Style Compliance**: Pass - the evaluator preserves prior accepted records and fails closed on missing evidence.
 - [x] **New Tests**: Yes - missing health, unreported-source, duplicate-health and missing-record-source cases are covered.
 - [x] **Test Coverage**: Partial - local run evaluation is covered; native monitoring and unattended delivery are not.
-- [x] **Test Results**: Passed - focused G07 tests (11), project validation (438 checks) and canonical-clone full suite (349 tests, 8 skipped).
+- [x] **Test Results**: Passed - focused G07 tests (12), project validation (438 checks) and canonical-clone full suite (350 tests, 8 skipped).
 
 ## Findings
 
