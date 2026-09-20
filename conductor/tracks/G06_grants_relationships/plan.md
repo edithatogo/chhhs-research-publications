@@ -7,3 +7,4 @@
 - [~] Record local and live evidence separately before closure. The isolated DEV list now exists with all eight canonical fields read back, and `RelationshipKey` is required, unique and indexed. Remaining required-field readback, an approved relationship round-trip, and unchanged publication-total reconciliation remain open.
 - [x] Task: Fail closed on non-HTTP evidence links and unsupported relationship review statuses (7375728).
 - [x] Task: Reject whitespace-only AwardID values for confirmed award relationships (e329641).
+- [x] Task: Reject non-string relationship identities, evidence URLs and review fields without coercion (8cf6b4f).

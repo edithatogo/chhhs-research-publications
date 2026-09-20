@@ -28,13 +28,18 @@ Additional review fix applied in `e329641`: confirmed `funded_by_award`
 relationships now require a nonblank, trimmed `AwardID`; whitespace-only
 values no longer pass the prior truthiness check.
 
+Additional review fix applied in `8cf6b4f`: relationship records, required
+keys, evidence URLs, confidence, AwardID and review status now require the
+expected string types; malformed values fail closed instead of being coerced
+into registry identities. The focused relationship suite covers this boundary.
+
 ## Verification Checks
 
 - [x] Plan compliance: local schema, validation rules and additive native object are aligned.
 - [x] Style compliance: relationship types, confidence and review state remain explicit; publication rows are not mutated.
-- [x] New tests: `tests/test_grants_relationships_operations.py` covers evidence and confidence boundaries.
+- [x] New tests: `tests/test_grants_relationships_operations.py` covers evidence, confidence and input-type boundaries.
 - [x] Test coverage: local relationship schema and Power Query contract are covered.
-- [x] Test results: canonical-clone full suite passed at the current checkpoint (366 tests, 8 skipped; project validation 438 checks).
+- [x] Test results: focused relationship suite passed (15 tests); canonical-clone full suite passed at the current checkpoint (366 tests, 8 skipped; project validation 438 checks).
 
 ## Findings
 
