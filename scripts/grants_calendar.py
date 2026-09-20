@@ -51,6 +51,9 @@ def project_event(opportunity: dict[str, Any], policy: dict[str, Any]) -> dict[s
     precision = opportunity.get("DeadlinePrecision")
     if precision is not None and not isinstance(precision, str):
         raise ValueError("calendar opportunity DeadlinePrecision must be a string")
+    for field in ("Title", "Source", "Status"):
+        if field in opportunity and not isinstance(opportunity[field], str):
+            raise ValueError(f"calendar opportunity {field} must be a string")
     source_date = _date(opportunity.get("Deadline")) if precision == "day" else None
     if source_date is None:
         return None
@@ -58,9 +61,6 @@ def project_event(opportunity: dict[str, Any], policy: dict[str, Any]) -> dict[s
         if field not in opportunity or opportunity[field] is None or opportunity[field] == "":
             raise ValueError(f"calendar opportunity missing {field}")
         if not isinstance(opportunity[field], str) or not opportunity[field].strip():
-            raise ValueError(f"calendar opportunity {field} must be a string")
-    for field in ("Title", "Source", "Status"):
-        if field in opportunity and not isinstance(opportunity[field], str):
             raise ValueError(f"calendar opportunity {field} must be a string")
     anchor = "institutional"
     event_date = institutional_deadline(

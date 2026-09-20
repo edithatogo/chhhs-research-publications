@@ -46,6 +46,10 @@ class GrantsCalendarTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Status"):
             project_event({"OpportunityKey": "GRANT:6", "Title": "Call", "URL": "https://example.org/call", "Status": False, "Deadline": "2026-10-01", "DeadlinePrecision": "day"}, POLICY)
 
+    def test_uncertain_dates_do_not_hide_malformed_descriptive_fields(self):
+        with self.assertRaisesRegex(ValueError, "Title"):
+            project_event({"OpportunityKey": "GRANT:7", "Title": False, "Deadline": "2026-10", "DeadlinePrecision": "month"}, POLICY)
+
 
 if __name__ == "__main__":
     unittest.main()
