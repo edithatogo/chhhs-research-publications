@@ -70,9 +70,14 @@ def build_rows(envelope: dict[str, Any]) -> list[dict[str, Any]]:
     records = envelope.get("records")
     if not isinstance(records, list):
         raise ValueError("DoRA activity records are required")
+    expected_count = envelope.get("expected_count")
     retrieved_count = envelope.get("retrieved_count")
+    if type(expected_count) is not int or expected_count < 0:
+        raise ValueError("DoRA activity expected count is invalid")
     if type(retrieved_count) is not int or retrieved_count < 0:
         raise ValueError("DoRA activity retrieved count is invalid")
+    if expected_count != retrieved_count:
+        raise ValueError("DoRA activity expected and retrieved counts do not reconcile")
     validate_records(records, retrieved_count)
     resource_id = _required_scalar_text(resource.get("id"), "resource id")
     resource_url = _required_http_url(resource.get("url"), "resource URL")

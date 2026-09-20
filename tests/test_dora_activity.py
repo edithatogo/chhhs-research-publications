@@ -63,6 +63,7 @@ class DoraActivityTests(unittest.TestCase):
             "schema_version": "dora-activity-v1",
             "source_payload": {"resource": {"id": "resource-1", "name": "current", "url": "https://example.invalid/current.csv", "last_modified": "2026-09-08"}},
             "observed_at": "2026-09-20T00:00:00+00:00",
+            "expected_count": 1,
             "retrieved_count": 1,
             "records": [record()],
         }
@@ -117,10 +118,11 @@ class DoraActivityTests(unittest.TestCase):
             "schema_version": "dora-activity-v1",
             "source_payload": {"resource": {"id": "resource-1", "url": "https://example.invalid/current.csv"}},
             "observed_at": "2026-09-20T00:00:00+00:00",
+            "expected_count": 1,
             "retrieved_count": 1,
             "records": [record()],
         }
-        for field, value in (("retrieved_count", "1"), ("observed_at", 123),):
+        for field, value in (("retrieved_count", "1"), ("expected_count", "1"), ("observed_at", 123),):
             malformed = dict(envelope)
             malformed[field] = value
             with self.subTest(field=field), self.assertRaisesRegex(ValueError, "invalid|observation time"):
@@ -140,6 +142,7 @@ class DoraActivityTests(unittest.TestCase):
             "schema_version": "dora-activity-v1",
             "source_payload": {"resource": {"id": "resource-1", "url": "https://example.invalid/current.csv"}},
             "observed_at": "2026-09-20T00:00:00+00:00",
+            "expected_count": 1,
             "retrieved_count": 1,
             "records": [record()],
         }
@@ -151,6 +154,18 @@ class DoraActivityTests(unittest.TestCase):
         malformed_timestamp["observed_at"] = "2026-09-20T00:00:00"
         with self.assertRaisesRegex(ValueError, "timezone"):
             build_rows(malformed_timestamp)
+
+    def test_export_rejects_partial_receipt_counts(self):
+        envelope = {
+            "schema_version": "dora-activity-v1",
+            "source_payload": {"resource": {"id": "resource-1", "url": "https://example.invalid/current.csv"}},
+            "observed_at": "2026-09-20T00:00:00+00:00",
+            "expected_count": 2,
+            "retrieved_count": 1,
+            "records": [record()],
+        }
+        with self.assertRaisesRegex(ValueError, "do not reconcile"):
+            build_rows(envelope)
 
 
 if __name__ == "__main__":
