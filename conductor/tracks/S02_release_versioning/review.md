@@ -53,9 +53,20 @@ The current checkout is intentionally dirty, so the package command refuses to c
 
 ## Remaining S02 gates
 
-S02.3.2 still needs private observed SharePoint/model/report version-history
-evidence. S02.3.4 still needs isolated native report readback for a
-version/batch display. These cannot be closed by a source archive.
+S02.3.4 still needs isolated native report readback for a version/batch display.
+The 2026-09-20 private observation confirms SharePoint item history is enabled
+for the DEV list (500 versions), while the Power BI report exposes Save a copy
+and Download but no version-history control and the attempted semantic-model
+route is unavailable. These cannot be closed by a source archive or by editing
+the original report.
+
+## S02.3.2 capability observation — 2026-09-20
+
+Receipt: `private/ops/2026-09-20-versioning-capability-observation.json`.
+SharePoint item versioning is enabled in the configured DEV list. Power BI
+report/model rollback was not evidenced, so definition backups, source manifests
+and Git remain the recovery contract. The report/model observation was read-only;
+no platform mutation was attempted.
 
 Planning created 2026-09-20. Implementation has not run for this track.
 

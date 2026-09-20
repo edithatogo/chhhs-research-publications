@@ -22,8 +22,8 @@ Status: in_progress. Source packaging is locally verified; native recovery/versi
 
 - [x] S02.3.0: Assess Microsoft Power Platform Build Tools 2.0, `powerplatform-actions` and PowerApps Test Engine. Keep Build Tools/actions conditional on a Dataverse solution; reject the deprecated Test Engine for the current PBIP/SharePoint acceptance surface.
 - [x] S02.3.1: Correct VERSIONING_ARCHITECTURE.md: Power Automate drafts/versioning is conditional on solution-aware flow support. Verify actual flow/environment capability before claiming native rollback.
-- [ ] S02.3.2: Record observed SharePoint versioning, model version-history support and report export route privately. Use definition backups where native versioning is unavailable; no Dataverse/capacity purchase dependency.
+- [x] S02.3.2: Record observed SharePoint versioning, model version-history support and report export route privately. Use definition backups where native versioning is unavailable; no Dataverse/capacity purchase dependency. Evidence: `private/ops/2026-09-20-versioning-capability-observation.json`.
 - [x] S02.3.3: Document one-owner routine: focused commit, full local checks, verified native candidate, release tag and manifest, optional GitHub Release. Conductor stays the backlog; no compulsory Projects/Jira/Planner duplication.
 - [ ] S02.3.4: Add a version/batch display to the existing report only through the isolated authoring route with readback; otherwise leave that subtask pending.
 - [x] S02.3.5: Run full checks; demonstrate source-package verification and private snapshot restoration in an isolated target before claiming platform recovery. Source-package verification is complete; private/native snapshot restoration remains separately unaccepted.
-- [ ] Checkpoint: write commands/results, changed paths and remaining blockers in review.md; update CURRENT_STATE. Stop dependent work on failure.
+- [x] Checkpoint: write commands/results, changed paths and remaining blockers in review.md; update CURRENT_STATE. Stop dependent work on failure.
