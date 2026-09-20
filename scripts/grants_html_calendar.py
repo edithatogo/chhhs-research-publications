@@ -15,20 +15,28 @@ import json
 from html.parser import HTMLParser
 from pathlib import Path
 from typing import Any, Iterable
+from urllib.parse import urlsplit
 
 
 class _TableParser(HTMLParser):
     def __init__(self) -> None:
         super().__init__()
         self.rows: list[list[str]] = []
+        self.row_links: list[list[str]] = []
         self._row: list[str] | None = None
+        self._row_links: list[str] | None = None
         self._cell: list[str] | None = None
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         if tag == "tr":
             self._row = []
+            self._row_links = []
         elif tag in {"td", "th"} and self._row is not None:
             self._cell = []
+        elif tag == "a" and self._cell is not None and self._row_links is not None:
+            href = dict(attrs).get("href")
+            if href:
+                self._row_links.append(href.strip())
 
     def handle_endtag(self, tag: str) -> None:
         if tag in {"td", "th"} and self._row is not None and self._cell is not None:
@@ -37,7 +45,9 @@ class _TableParser(HTMLParser):
         elif tag == "tr" and self._row is not None:
             if self._row:
                 self.rows.append(self._row)
+                self.row_links.append(self._row_links or [])
             self._row = None
+            self._row_links = None
 
     def handle_data(self, data: str) -> None:
         if self._cell is not None:
@@ -82,7 +92,8 @@ def parse_calendar_html(
     positions = {header: headers.index(header) for header in headers}
     records: list[dict[str, Any]] = []
     seen_source_ids: set[str] = set()
-    for row in selected[1:]:
+    selected_links = parser.row_links[index:]
+    for row_index, row in enumerate(selected[1:], start=1):
         if len(row) < len(headers) or not any(row):
             continue
         if [cell.casefold() for cell in row] == headers:
@@ -108,11 +119,20 @@ def parse_calendar_html(
                 "records": [],
             }
         seen_source_ids.add(source_id)
+        row_links = selected_links[row_index] if row_index < len(selected_links) else []
+        actionable_links = [
+            link for link in row_links
+            if urlsplit(link).scheme in {"http", "https"} and bool(urlsplit(link).netloc)
+        ]
         records.append({
             "Source": source,
             "SourceID": source_id,
             "Title": title,
             "URL": source_url,
+            # Row links are evidence candidates only; a missing or ambiguous
+            # link remains explicit instead of being inferred from the title.
+            "SourceLinks": actionable_links,
+            "SourceRowURL": actionable_links[0] if len(actionable_links) == 1 else "",
             # Preserve the complete observed table row so reviewers retain
             # source context beyond the normalised title and date fields.
             "SourceColumns": dict(zip(headers, row)),

@@ -6,7 +6,7 @@ from scripts.grants_html_calendar import parse_calendar_html
 class GrantsHtmlCalendarTests(unittest.TestCase):
     def test_extracts_candidates_without_inventing_exact_deadline_or_review(self):
         html = """<table><tr><th>Grant opportunity</th><th>Applications close</th><th>Status</th></tr>
-        <tr><td>Example call</td><td>11 Nov 2026 - 5:00pm</td><td>Open</td></tr></table>"""
+        <tr><td><a href='https://example.gov.au/call'>Example call</a></td><td>11 Nov 2026 - 5:00pm</td><td>Open</td></tr></table>"""
         result = parse_calendar_html(
             html,
             source="MRFF",
@@ -20,6 +20,8 @@ class GrantsHtmlCalendarTests(unittest.TestCase):
         self.assertEqual(result["records"][0]["ReviewStatus"], "Needs Review")
         self.assertEqual(result["records"][0]["SourceColumns"]["grant opportunity"], "Example call")
         self.assertEqual(result["records"][0]["SourceColumns"]["status"], "Open")
+        self.assertEqual(result["records"][0]["SourceLinks"], ["https://example.gov.au/call"])
+        self.assertEqual(result["records"][0]["SourceRowURL"], "https://example.gov.au/call")
         self.assertEqual(len(result["records"][0]["SourceCells"]), 3)
         self.assertEqual(result["records"][0]["SourceCells"][0], {"header": "grant opportunity", "value": "Example call"})
 
@@ -67,6 +69,14 @@ class GrantsHtmlCalendarTests(unittest.TestCase):
             retrieved_utc="2026-09-20T04:00:00Z",
         )
         self.assertEqual([row["Title"] for row in result["records"]], ["First", "Second"])
+
+    def test_ambiguous_or_non_http_row_links_remain_explicit(self):
+        html = """<table><tr><th>Title</th><th>Close</th></tr>
+        <tr><td><a href='mailto:owner@example.gov.au'>Call</a><a href='https://example.gov.au/one'>one</a><a href='https://example.gov.au/two'>two</a></td><td>2026-11-01</td></tr></table>"""
+        result = parse_calendar_html(html, source="NHMRC", source_url="https://example.gov.au/calendar", retrieved_utc="2026-09-20T04:00:00Z")
+        record = result["records"][0]
+        self.assertEqual(record["SourceLinks"], ["https://example.gov.au/one", "https://example.gov.au/two"])
+        self.assertEqual(record["SourceRowURL"], "")
 
 
 if __name__ == "__main__":
