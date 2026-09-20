@@ -34,6 +34,13 @@ Review status: in progress; the source catalogue is implemented, but official-pa
   South, Torres and Cape and Advance Queensland. None of these observations
   proves a permitted unattended feed or API.
 
+- A bounded table-discovery pass captured candidate rows from the NHMRC and
+  MRFF authority pages, retaining source column names and raw date text. The
+  private receipt contains six candidate rows and explicitly keeps them out of
+  the accepted registry until identifier, date, URL and review fields are
+  completed: ignored
+  `private/ops/2026-09-20-grants-reviewed-table-discovery.json`.
+
 ## Remaining gate
 
 Verify each permitted feed/API or produce a reviewed import sample, beginning with NHMRC, MRFF, ARC and Queensland sources. This needs source readback and remains separate from local catalogue validation.
