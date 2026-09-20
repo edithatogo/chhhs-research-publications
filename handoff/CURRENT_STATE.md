@@ -15,6 +15,7 @@ One person owns this repository and the existing CHHHS RIMS report. Add funding 
 - G01–G08 specification/plan files exist. They are not completed deployments.
 - G06 native progress advanced in isolated DEV: the `Grant Relationships` list exists at the personal DEV SharePoint site, and authenticated list readback confirmed all eight canonical fields (`RelationshipKey`, `RelationshipType`, `FromKey`, `ToKey`, `AwardID`, `EvidenceURL`, `Confidence`, `ReviewStatus`). `RelationshipKey` is required, unique and indexed. Remaining required-field readback, relationship round-trip and unchanged publication-total readback remain open; no production binding has been made.
 - Latest canonical-clone harness: 326 tests (8 private-runtime tests skipped), 438 project checks, Conductor validation, web-first local validation and Power Platform tooling preflight passed. The live CKAN DoRA activity collector retrieved 442/442 rows with all 19 source fields plus the datastore `_id` key and 442 unique source `_id` values; this is source/readback evidence, not tenant acceptance.
+- The 2026-09-21 Conductor review refresh normalised Summary/Verification Checks/Findings evidence across the active grant reviews and updated stale test counts; G04 now fails closed for titleless or unbound RSS/Atom entries. Active tracks remain open where native, source-permission or operational evidence is absent.
 
 ## Remaining implementation
 
