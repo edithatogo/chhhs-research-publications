@@ -63,6 +63,9 @@ def build_icalendar(opportunities: Iterable[dict[str, Any]], policy: dict[str, A
         raise ValueError("generated_utc must be second-precision UTC")
     events = [project_event(item, policy) for item in opportunities]
     events = sorted((item for item in events if item is not None), key=lambda item: (item["Date"], item["UID"]))
+    uids = [event["UID"] for event in events]
+    if len(uids) != len(set(uids)):
+        raise ValueError("duplicate calendar event UID")
     lines = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//CHHHS RIMS//Grant Calendar//EN", "CALSCALE:GREGORIAN", f"DTSTAMP:{generated_utc.replace('-', '').replace(':', '')}"]
     for event in events:
         next_day = (dt.date.fromisoformat(event["Date"]) + dt.timedelta(days=1)).strftime("%Y%m%d")

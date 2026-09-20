@@ -27,6 +27,11 @@ class GrantsCalendarTests(unittest.TestCase):
         self.assertEqual(event["Status"], "CANCELLED")
         self.assertNotEqual(event_uid("GRANT:3", "institutional", "CHHHS-INTAKE", "2026.09"), event_uid("GRANT:3", "institutional", "CHHHS-INTAKE", "2026.10"))
 
+    def test_duplicate_event_uid_fails_closed(self):
+        row = {"OpportunityKey": "GRANT:4", "Title": "Duplicate", "Deadline": "2026-10-01", "DeadlinePrecision": "day"}
+        with self.assertRaisesRegex(ValueError, "duplicate calendar event UID"):
+            build_icalendar([row, dict(row)], POLICY, generated_utc="2026-09-20T04:00:00Z")
+
 
 if __name__ == "__main__":
     unittest.main()
