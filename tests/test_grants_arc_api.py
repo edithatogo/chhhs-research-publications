@@ -59,6 +59,10 @@ class GrantsArcApiTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "evidence URL"):
             parse_award_page(payload, retrieved_at="2026-09-20T03:36:00+00:00")
 
+        payload["data"][0]["links"] = {"self": "https://"}
+        with self.assertRaisesRegex(ValueError, "evidence URL"):
+            parse_award_page(payload, retrieved_at="2026-09-20T03:36:00+00:00")
+
         payload["data"][0]["links"] = {"self": "https://dataportal.arc.gov.au/award/2"}
         payload["data"][0]["attributes"]["current-funding-amount"] = [100]
         with self.assertRaisesRegex(ValueError, "current-funding-amount"):

@@ -11,6 +11,7 @@ import json
 import urllib.parse
 import urllib.request
 from typing import Any, Callable
+from urllib.parse import urlsplit
 
 API_BASE = "https://dataportal.arc.gov.au/NCGP/API/grants"
 MAX_PAGE_SIZE = 1000
@@ -38,6 +39,11 @@ def _amount(value: Any) -> str:
     if isinstance(value, bool) or not isinstance(value, (str, int, float)):
         raise ValueError("ARC API current-funding-amount must be scalar")
     return str(value).strip()
+
+
+def _valid_http_url(value: str) -> bool:
+    parsed = urlsplit(value.strip())
+    return parsed.scheme in {"http", "https"} and bool(parsed.netloc)
 
 
 def _read_json(url: str, opener: Callable[..., Any]) -> dict[str, Any]:
@@ -77,7 +83,7 @@ def parse_award_page(payload: dict[str, Any], *, retrieved_at: str) -> list[dict
         if not isinstance(links, dict):
             raise ValueError("ARC API award links must be an object")
         link = _text(links.get("self"), field="evidence URL")
-        if not link.startswith(("http://", "https://")):
+        if not _valid_http_url(link):
             raise ValueError("ARC API award is missing an evidence URL")
         summary = _text(attrs.get("grant-summary"), field="grant-summary")
         scheme = _text(attrs.get("scheme-name"), field="scheme-name")
