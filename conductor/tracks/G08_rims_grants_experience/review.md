@@ -113,3 +113,10 @@ unknown deadlines are still omitted before event identity is evaluated.
 - **Fix:** commit `cfc57b4` requires `FunderKey` to be a string whenever supplied, including boolean values; the planning regression suite covers the boundary.
 - **Verification:** focused planning tests pass (11); the full suite passes 384 tests with 8 skips; project validation passes 438 checks; web-first, Conductor, Power Platform tooling and visual standards checks pass locally.
 - **Residual gate:** native funding pages, preference isolation, calendar change/cancellation and notification delivery remain open.
+
+## Conductor review — duplicate holiday projection — 2026-09-21
+
+- **Finding:** `institutional_deadline` silently collapsed duplicate holiday dates even though the versioned policy contract rejects them.
+- **Fix:** commit `d7019e0` parses and validates holiday dates for uniqueness before date projection; regression coverage now rejects duplicate dates.
+- **Verification:** focused planning tests pass (11); the full suite passes 384 tests with 8 skips; project validation passes 438 checks; web-first, Conductor, Power Platform tooling and visual standards checks pass locally.
+- **Residual gate:** native policy persistence, funding pages, calendar change/cancellation and notification delivery remain open.

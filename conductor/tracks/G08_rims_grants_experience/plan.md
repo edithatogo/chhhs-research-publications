@@ -21,3 +21,4 @@
 - [x] Task: Reject malformed subscription rules and missing opportunity identity before candidate matching (b45b4e1).
 - [x] Task: Reject non-string calendar opportunity identities, URLs and display fields without coercion (e03f17d).
 - [x] Task: Reject non-string funder identities, including boolean false, before subscription matching (`cfc57b4`).
+- [x] Task: Reject duplicate holiday dates during institutional-date projection (`d7019e0`).
