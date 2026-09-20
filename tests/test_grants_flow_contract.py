@@ -39,6 +39,16 @@ class GrantsFlowContractTests(unittest.TestCase):
         self.assertNotIn("item/ReviewStatus", params)
         self.assertNotIn("item/ReviewNotes", params)
 
+    def test_sharepoint_operation_ids_and_authentication_are_explicit(self):
+        nested = self.actions["Apply_to_each_Reviewed_Row"]["actions"]
+        self.assertEqual(nested["SharePoint_Get_items"]["inputs"]["host"]["operationId"], "GetItems")
+        create = nested["Condition_Is_New_Opportunity"]["actions"]["SharePoint_Create_item"]
+        update = nested["Condition_Is_New_Opportunity"]["else"]["actions"]["SharePoint_Update_item"]
+        self.assertEqual(create["inputs"]["host"]["operationId"], "PostItem")
+        self.assertEqual(update["inputs"]["host"]["operationId"], "PatchItem")
+        self.assertTrue(create["inputs"].get("authentication"))
+        self.assertTrue(update["inputs"].get("authentication"))
+
     def test_placeholders_are_explicit(self):
         text = json.dumps(self.definition)
         self.assertIn("{{SHAREPOINT_SITE_URL}}", text)
