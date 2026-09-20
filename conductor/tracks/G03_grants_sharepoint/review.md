@@ -40,12 +40,12 @@ The completed local G01 prerequisite is archived at `conductor/archive/G01_grant
 
 ## Remaining acceptance
 
-The isolated DEV route is now implemented and read back. The remaining gates
-are to decide and approve the organisation-wide target, bind the grants flow
-to this canonical list or its approved successor, and obtain native execution
-evidence. The imported flow has not been enabled or run, so native row-level
-create/update execution, unattended operation and production acceptance remain
-unproved. Do not use OneDrive actions for registry writes.
+The isolated DEV route is implemented and read back, and the controlled
+authenticated create/update replay is proven by the 2026-09-21 evidence above.
+The remaining gates are to decide and approve the organisation-wide target,
+bind the grants flow to this canonical list or its approved successor, and
+prove unattended operation and production acceptance. Do not use OneDrive
+actions for registry writes.
 
 ## Replay attempt — 2026-09-20
 
@@ -84,6 +84,10 @@ to it in this step.
 
 ## Native reviewed-import flow readback — 2026-09-20
 
+This section records the initial import/readback state. Its statement that the
+flow had not been executed is superseded by the controlled replay recorded
+above; the flow was restored to `Off` after that replay.
+
 The reviewed-import package was accepted by the Power Automate import wizard
 after correcting the SharePoint URL, choice-object and required-key payload
 contracts. The created flow is an Instant/manual flow, was Off before the
@@ -98,9 +102,8 @@ The duplicate branch is intentionally diagnostic rather than a nested
 `Terminate` action: Power Automate rejects `Terminate` inside this
 `Apply to each` scope. The following create/update condition is independently
 guarded by `length(Get items.value) == 0`, so duplicate matches cannot write.
-The local definition uses a non-throwing diagnostic string; the current native
-readback still shows the earlier integer diagnostic expression and therefore
-requires a later controlled native edit before this track can close.
+The local definition uses a non-throwing diagnostic string; the native
+expression was corrected in the 2026-09-21 edit recorded below.
 
 ## Native diagnostic-expression correction — 2026-09-21
 
