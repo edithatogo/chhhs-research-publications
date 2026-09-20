@@ -35,6 +35,12 @@ Review status: in progress; the source catalogue is implemented and the ARC publ
   admission, quarantine and fail-closed batch behaviour. This is a local
   import contract, not evidence that a current source row has been reviewed.
 
+- The review-only HTML calendar adapter now preserves the complete observed
+  source row in `SourceColumns`, keyed by normalised source headers. This
+  closes a local evidence-loss gap for later human review while leaving
+  `Deadline` unknown and `ReviewStatus=Needs Review` until row-level evidence
+  is supplied.
+
 - The probe confirms current authority-page reachability for NHMRC, MRFF, ARC,
   EMF Queensland, FNQ Hospital Foundation, CHHHS, the Health Practitioner
   Research Scheme, Metro North and Cancer Council Queensland. It also records

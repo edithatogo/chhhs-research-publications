@@ -113,6 +113,9 @@ def parse_calendar_html(
             "SourceID": source_id,
             "Title": title,
             "URL": source_url,
+            # Preserve the complete observed table row so reviewers retain
+            # source context beyond the normalised title and date fields.
+            "SourceColumns": dict(zip(headers, row)),
             "Deadline": None,
             "DeadlineRaw": deadline_raw,
             "Status": "Needs Review",
