@@ -290,6 +290,34 @@ tenant-specific output under ignored `private/`. Code commit:
   imported; native list/readback, report integration and unattended execution
   remain unproven. No tenant mutation was made.
 
+## Conductor review — DoRA package post-injection validation — 2026-09-21
+
+### Summary
+
+The DoRA package builder now validates the fully target-injected flow definition
+before writing a ZIP, preventing placeholder substitution from masking later
+contract drift. Code commit: `c9430cd94109b2e6266a73dd1b9e48234b04c3a0`.
+
+### Verification Checks
+
+- **Plan Compliance:** Partial — package safety is complete; native target,
+  import and readback remain open.
+- **Style Compliance:** Pass.
+- **New Tests:** Yes — 3 focused package-builder tests, including definition
+  drift rejection.
+- **Test Coverage:** Partial — local package and contract paths are covered;
+  Power Automate import/execution is not.
+- **Test Results:** Passed — full suite (404 passed, 8 skipped), 438 project
+  checks, Conductor validation, web-first, Power Platform and visual checks;
+  all three flow validators pass.
+
+### Findings
+
+- **Fixed:** package creation could previously write a ZIP without validating
+  the post-injection flow graph.
+- **Residual acceptance:** no package was imported; native list/readback,
+  report integration and unattended execution remain unproven.
+
 Review fix applied: `tests/test_webfirst.py` now asserts that
 `config/native-canonical-retained-partitions.tmdl` is reference-only and
 explicitly scoped to the isolated development model; it cannot silently drift

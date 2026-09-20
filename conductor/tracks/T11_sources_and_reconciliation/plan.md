@@ -116,6 +116,13 @@ Follow [the executable sequence and acceptance gates](../../../docs/DYNAMIC_UPDA
 - [ ] Generate/import only after the approved isolated target is identified;
   package generation is not tenant import or acceptance evidence.
 
+## DoRA package post-injection validation — 2026-09-21
+
+- [x] Validate the target-injected definition with the canonical DoRA flow
+  validator before writing any package (`c9430cd`).
+- [x] Add definition-drift regression coverage.
+- [ ] Native import and readback remain open.
+
 ### Retained reporting projection in progress
 Local parsers now reconstruct PubMed XML-shaped JSON and DORA field arrays without calling the live sources. A summary reader selects each retained source key from its latest committed batch, with exact page/key reconciliation. The first manifest must include PublicationTable and PublicationPageCount. Native parser parity, durable facility mappings, long-text export completeness and switching canonical consumers remain pending; these files are not yet deployed.
 
