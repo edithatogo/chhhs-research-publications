@@ -13,7 +13,7 @@ One person owns this repository and the existing CHHHS RIMS report. Add funding 
 - Grants normalisation, round identity, invalid-date handling and observation snapshots exist in `scripts/grants_registry.py`.
 - Institutional date offsets and subscription candidate matching exist in `scripts/grants_planning.py`. These are reference logic, not hosted services.
 - G01–G08 specification/plan files exist. They are not completed deployments.
-- Latest local harness: 280 tests, 319 project checks, Conductor validation and web-first local validation passed. The live CKAN DoRA activity collector retrieved 442/442 rows with all 19 source fields plus the datastore `_id` key and 442 unique source `_id` values; this is source/readback evidence, not tenant acceptance.
+- Latest local harness: 285 tests, 319 project checks, Conductor validation, web-first local validation and Power Platform tooling preflight passed. The live CKAN DoRA activity collector retrieved 442/442 rows with all 19 source fields plus the datastore `_id` key and 442 unique source `_id` values; this is source/readback evidence, not tenant acceptance.
 
 ## Remaining implementation
 
@@ -21,7 +21,8 @@ Current tranche: S01.2 evidence-preserving attribution, S01.3.1–S01.3.5 local 
 
 S03 remote status: the existing GitHub repository is private and now contains
 only the reviewed source-only `main` history. A fresh clone with the pinned
-Conductor submodule passed 319 checks and 267 tests. The dirty original local
+Conductor submodule passed 319 checks and 285 tests (8 private-runtime tests
+skipped). The dirty original local
 history remains private and was not pushed.
 
 S02 local status: the release packager now produces only a source archive after a clean-tree gate, with independent software/schema/batch identities and fresh-extraction checks. A clean canonical clone at `bb2ec04` produced and verified a source-only `0.3.0-rc1` preview with no Git history/private runtime and `NativeAcceptance=false`; the dirty authoring checkout has not produced an accepted release. Native SharePoint/model/report version-history and report version/batch readback remain open.
