@@ -3,6 +3,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 from scripts.grants_source_probe import MAX_BYTES, probe_catalogue, probe_universities
+from scripts.grants_sources import load_catalogue
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -36,7 +37,7 @@ class GrantsSourceProbeTests(unittest.TestCase):
         body = b"<title>Authority</title>" + (b"x" * (MAX_BYTES + 100))
         with patch("scripts.grants_source_probe.urllib.request.urlopen", return_value=_Response(body)) as opener:
             result = probe_catalogue(ROOT / "config/grants-sources.json", opener=opener)
-        self.assertEqual(len(result["results"]), 14)
+        self.assertEqual(len(result["results"]), len(load_catalogue(ROOT / "config/grants-sources.json")))
         self.assertTrue(all(row["promoted_to_feed"] is False for row in result["results"]))
         self.assertTrue(all(row["truncated"] is True for row in result["results"]))
         self.assertEqual(result["feed_acceptance"], "not_proven_by_authority_probe")
