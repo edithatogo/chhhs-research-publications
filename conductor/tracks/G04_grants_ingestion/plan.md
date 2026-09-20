@@ -10,3 +10,4 @@
 
 - [x] Task: Apply review suggestion: hash the complete source row and reject duplicate calendar identities before candidate emission (03733b8).
 - [x] Task: Apply review suggestion: suppress repeated calendar headers before candidate emission (f16c297).
+- [x] Task: Apply review suggestion: reject duplicate non-empty RSS/Atom source identities before emission (7cd7e47).

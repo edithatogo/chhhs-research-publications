@@ -48,3 +48,19 @@ source/list/flow acceptance gate remains open.
 ## Remaining gate
 
 Run a controlled live cycle only after G02 endpoint/access verification and G03 isolated list readback. Then reconcile source keys, changed deadlines and archived rounds before operational acceptance.
+
+## Verification Checks
+
+- [x] **Plan Compliance**: Partial - RSS/Atom/API-shaped adapters, source isolation, calendar candidate handling and duplicate-identity fail-closed behaviour are implemented; live source/list/flow acceptance remains open.
+- [x] **Style Compliance**: Pass - raw source values and uncertainty are retained; no source is promoted solely from page reachability.
+- [x] **New Tests**: Yes - the ingestion suite now covers duplicate RSS/Atom source identity rejection.
+- [x] **Test Coverage**: Partial - local parser and batch contracts are covered; live feed permissions, source changes and platform writes are not.
+- [x] **Test Results**: Passed - focused ingestion tests (7); full-suite rerun required after this review update.
+
+## Findings
+
+### Medium - live ingestion acceptance remains open
+
+- **File**: `conductor/tracks/G04_grants_ingestion/plan.md`
+- **Context**: Local adapters do not prove a permitted source feed/API, SharePoint write, Power Automate execution, schedule or reconciliation against live rows.
+- **Suggestion**: Keep G04 active until G02 source evidence and G03 target/binding gates are satisfied, then run a controlled source-to-list cycle and reconcile keys, deadline changes and archived rounds.
