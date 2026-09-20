@@ -35,6 +35,22 @@ class GrantsSourceTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "invalid last_verified date"):
                 load_catalogue(handle.name)
 
+        rows[0]["last_verified"] = "2999-12-31"
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json") as handle:
+            json.dump(rows, handle)
+            handle.flush()
+            with self.assertRaisesRegex(ValueError, "future last_verified date"):
+                load_catalogue(handle.name)
+
+    def test_catalogue_rejects_non_string_source_id(self):
+        rows = json.loads((Path(__file__).parents[1] / "config/grants-sources.json").read_text())
+        rows[0]["source_id"] = True
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json") as handle:
+            json.dump(rows, handle)
+            handle.flush()
+            with self.assertRaisesRegex(ValueError, "source_id must be a non-empty string"):
+                load_catalogue(handle.name)
+
     def test_api_catalogue_requires_valid_api_url(self):
         rows = json.loads((Path(__file__).parents[1] / "config/grants-sources.json").read_text())
         arc = next(row for row in rows if row["source_id"] == "arc")

@@ -32,7 +32,10 @@ def load_catalogue(path: str | Path) -> list[dict[str, Any]]:
     for row in payload:
         if not isinstance(row, dict):
             raise ValueError("each source catalogue row must be an object")
-        source_id = str(row.get("source_id", "")).strip()
+        raw_source_id = row.get("source_id")
+        if not isinstance(raw_source_id, str):
+            raise ValueError("source_id must be a non-empty string")
+        source_id = raw_source_id.strip()
         if not source_id or source_id in seen:
             raise ValueError(f"duplicate or missing source_id: {source_id!r}")
         seen.add(source_id)
@@ -50,9 +53,11 @@ def load_catalogue(path: str | Path) -> list[dict[str, Any]]:
             if not isinstance(row.get(field), str) or not row[field].strip():
                 raise ValueError(f"source {source_id!r} needs {field}")
         try:
-            date.fromisoformat(row["last_verified"])
+            verified = date.fromisoformat(row["last_verified"])
         except ValueError:
             raise ValueError(f"source {source_id!r} has an invalid last_verified date") from None
+        if verified > date.today():
+            raise ValueError(f"source {source_id!r} has a future last_verified date")
     missing = REQUIRED_SOURCE_IDS - seen
     if missing:
         raise ValueError(f"required sources missing: {sorted(missing)}")
