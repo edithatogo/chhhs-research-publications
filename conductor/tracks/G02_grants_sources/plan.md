@@ -12,3 +12,4 @@
 
 - [x] Task: Preserve positional source cells alongside the convenience header map in the review-only HTML adapter (review fix `24e880c`).
 - [x] Task: Fail closed on malformed authority/API URLs and source verification dates (bb8ed64).
+- [x] Task: Treat non-HTTP(S) opportunity links as non-actionable evidence and retain them as review-needed records (da0b657).
