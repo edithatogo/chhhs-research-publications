@@ -13,3 +13,7 @@
 ## Phase 3: Contrast & Accessibility Verification
 - [x] Task 3.1: Validate color contrast against WCAG 2.1 AA standards.
 - [x] Task 3.2: Confirm compatibility with standard Queensland Health corporate theming.
+
+## Reopened acceptance audit — 2026-09-21
+
+- [~] Reconcile the local geometry/contrast evidence with the current four-page native report inventory and capture a production-report audit before closure.

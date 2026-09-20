@@ -53,7 +53,5 @@ Execution order and boundaries: [detailed handoff](PUBLICATION_STABILISATION.md)
 
 ## Canonical evolution tracks
 - [~] [E01_flow_automation: Power Automate Ingestion Canonicalization and Recurrence Scheduling](tracks/E01_flow_automation/plan.md) — implementation exists; native/operational acceptance remains open (2026-09-20 audit).
-- [x] [E02_clinical_analytics: Clinical Directorate Attribution and FoR Classification](tracks/E02_clinical_analytics/plan.md) — complete (Cairns-Led vs Collaborative attribution, ANZSRC 2020 FoR, clinical directorate specialty mapping verified by unit tests)
-- [x] [E03_open_access_trials: Open Access Mandate Compliance and Clinical Trial Linkage](tracks/E03_open_access_trials/plan.md) — complete (NHMRC 2022 OA compliance categorization, ANZCTR and ClinicalTrials.gov regex extraction and URL resolution verified by unit tests)
-- [x] [E04_fluent_visual_polish: Microsoft Fluent 2 Visual Polishing and IBCS Standards](tracks/E04_fluent_visual_polish/plan.md) — complete (100% of 36 report visuals audited and certified on 8px base grid, WCAG 2.1 AA theme contrast verified)
+- [~] [E04_fluent_visual_polish: Microsoft Fluent 2 Visual Polishing and IBCS Standards](tracks/E04_fluent_visual_polish/plan.md) — local geometry/contrast tests pass; production-report audit and current four-page native scope remain unproven
 - [~] [E07_publication_platform_acceptance: Publication platform hardening and live evidence](tracks/E07_publication_platform_acceptance/plan.md) — local acceptance contract added; tenant readback and end-to-end replay remain gated

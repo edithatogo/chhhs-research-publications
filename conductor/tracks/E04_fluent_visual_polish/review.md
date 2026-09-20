@@ -11,3 +11,12 @@
 3. **Accessibility & Theming:**
    - WCAG 2.1 AA compliant contrast ratios verified.
    - Consistent Fluent 2 color tokens applied throughout.
+
+## Evidence correction — 2026-09-21
+
+The local geometry and contrast tests pass, but the existing review wording
+claims a production-report audit across three pages. Current authoritative
+Power BI readback establishes four native pages and does not prove that the
+visual audit was performed against the current tenant report. E04 therefore
+remains active until the current native report scope and visual readback are
+verified. No code defect was found in the local standards tests.
