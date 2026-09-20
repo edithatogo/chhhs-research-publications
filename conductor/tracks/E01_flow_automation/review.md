@@ -114,3 +114,8 @@ The corrected publication rows query is consistent between the tracked flow defi
 ### Findings
 
 One local packaging defect was found and fixed in commit `b6cc2e9`: the private publication target loader now requires a concrete HTTPS site URL and non-empty, placeholder-free field mappings before a package can be built. Two regression tests cover those fail-closed cases. The documented native acceptance gates remain substantive, not review defects, so E01 is not eligible for archive.
+
+## Conductor review — local builder and flow-contract execution evidence — 2026-09-21
+
+- **Verification:** 16 focused publication-platform contract tests passed, with 8 tests correctly skipped because the private live package is absent from the source-only clone; `validate_publication_platform_contract.py` passed against the tracked definition.
+- **Boundary:** local loop scope, connector/action safeguards and target-loader checks are covered. Native flow execution, replay/update, failure safety, reconciliation and schedule acceptance remain open.

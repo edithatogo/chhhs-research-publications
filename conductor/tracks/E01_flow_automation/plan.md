@@ -37,3 +37,4 @@ Earlier checked tasks describe historical implementation. They do not close curr
 
 - [x] Harden `load_target` to reject non-HTTPS site targets and empty or unresolved field mappings before package generation (`b6cc2e9`).
 - [x] Add regression coverage for malformed site URLs and empty mappings; the latest local verification reports 363 tests with 8 skips.
+- [x] Review fix: record the local builder/flow-contract execution evidence; native run/replay/schedule acceptance remains separately gated.
