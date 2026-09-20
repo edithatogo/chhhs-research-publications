@@ -23,6 +23,11 @@ Review fix applied: API-shaped records now use the same required title, URL,
 stable-key and timezone-aware retrieval contract as RSS/Atom records before a
 source batch can be accepted.
 
+Additional review fix applied in `8817e21`: entries that lacked explicit
+source IDs could still normalise to the same URL-based `OpportunityKey` within
+one source batch. RSS/Atom and API-shaped batches now fail closed before
+records are emitted; cross-source observation merging is unchanged.
+
 ## Changes
 
 - Added `scripts/grants_ingestion.py` with namespace-tolerant RSS/Atom parsing and API-shaped batch normalization.
@@ -68,7 +73,7 @@ Run a controlled live cycle only after G02 endpoint/access verification and G03 
 - [x] **Style Compliance**: Pass - raw source values and uncertainty are retained; no source is promoted solely from page reachability.
 - [x] **New Tests**: Yes - the ingestion suite now covers duplicate RSS/Atom source identity, titleless-entry, unbound-entry and incomplete API-record rejection.
 - [x] **Test Coverage**: Partial - local parser and batch contracts are covered; live feed permissions, source changes and platform writes are not.
-- [x] **Test Results**: Passed - focused ingestion tests (10) and canonical-clone full suite (346 tests, 8 skipped).
+- [x] **Test Results**: Passed - focused ingestion tests (14) and canonical-clone full suite (348 tests, 8 skipped).
 
 ## Findings
 

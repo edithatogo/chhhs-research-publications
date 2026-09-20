@@ -62,7 +62,7 @@ subscription loss; it does not authorize or send delivery.
 - [x] **Style Compliance**: Pass - uncertain dates remain omitted and event identity is deterministic.
 - [x] **New Tests**: Yes - duplicate UID, malformed policy, missing-key and invalid-URL rejection are covered.
 - [x] **Test Coverage**: Partial - local calendar semantics are covered; native report persistence, personal access and delivery are not.
-- [x] **Test Results**: Passed - focused calendar tests (5), planning/subscription tests (10), project validation (438 checks) and canonical-clone full suite (346 tests, 8 skipped).
+- [x] **Test Results**: Passed - focused calendar tests (5), planning/subscription tests (10), project validation (438 checks) and canonical-clone full suite (348 tests, 8 skipped).
 
 ## Findings
 
