@@ -78,6 +78,11 @@ def validate(definition: dict) -> list[str]:
         errors.append("publication rows query must emit nonblank SourceKey values")
     if loop.get("runAfter") != {"Run_publication_rows_query": ["Succeeded"]} or "Run_publication_rows_query" not in str(loop.get("foreach", "")):
         errors.append("record loop must depend on the publication rows query")
+    readiness_query = actions.get("Run_a_query_against_a_dataset", {})
+    readiness_model = readiness_query.get("inputs", {}).get("parameters", {}).get("datasetid")
+    rows_model = row_query.get("inputs", {}).get("parameters", {}).get("datasetid")
+    if not readiness_model or readiness_model != rows_model:
+        errors.append("readiness and publication rows queries must use the same Power BI model")
 
     condition = record_actions.get("Condition_Is_New_Publication", {})
     if "length(body('SharePoint_Get_items')?['value'])" not in json.dumps(condition):

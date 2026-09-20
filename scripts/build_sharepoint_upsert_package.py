@@ -54,29 +54,31 @@ RETURN FILTER(Rows, Ready)
 '''
 
 
-def load_target(path: Path) -> tuple[str, str, dict[str, str]]:
+def load_target(path: Path) -> tuple[str, str, str, dict[str, str]]:
     payload = json.loads(path.read_text(encoding="utf-8"))
     site_url = str(payload.get("site_url") or "").strip()
     list_id = str(payload.get("list_id") or "").strip()
+    model_id = str(payload.get("model_id") or "").strip()
     fields = payload.get("fields") or {}
     required = {"title", "source_key", "canonical_key", "authors", "journal", "publication_year",
                 "publication_month", "publication_date_raw", "publication_date_precision", "source_set",
                 "pmid", "doi", "matched_facilities", "attribution_evidence", "review_status",
                 "first_observed", "last_observed"}
-    if not site_url or not list_id or "{{" in site_url or "{{" in list_id or not required.issubset(fields):
-        raise ValueError("validated private SharePoint target and complete field mapping are required")
+    if not site_url or not list_id or not model_id or "{{" in site_url or "{{" in list_id or "{{" in model_id or not required.issubset(fields):
+        raise ValueError("validated private SharePoint target, model and complete field mapping are required")
     try:
         UUID(list_id)
+        UUID(model_id)
     except ValueError as exc:
         raise ValueError("SharePoint list_id must be a GUID") from exc
-    return site_url, list_id, {key: str(fields[key]) for key in required}
+    return site_url, list_id, model_id, {key: str(fields[key]) for key in required}
 
 
 def build_package(baseline_path: Path, output_path: Path, target_path: Path = DEFAULT_TARGET) -> Path:
     if not output_path.resolve().is_relative_to((ROOT / "private").resolve()):
         raise ValueError("Native package must be written under ignored private/.")
 
-    site_url, list_guid, fields = load_target(target_path)
+    site_url, list_guid, model_id, fields = load_target(target_path)
     with zipfile.ZipFile(baseline_path) as archive:
         files = {n: archive.read(n) for n in archive.namelist()}
 
@@ -106,6 +108,8 @@ def build_package(baseline_path: Path, output_path: Path, target_path: Path = DE
         "apiName": "sharepointonline",
         "isProcessSimpleApiReferenceConversionAlreadyDone": False,
     }
+
+    definition["actions"]["Run_a_query_against_a_dataset"]["inputs"]["parameters"]["datasetid"] = model_id
 
     # SharePoint Upsert Actions definition
     # These actions are deliberately nested inside a serial loop. Power Automate's
@@ -221,7 +225,7 @@ def build_package(baseline_path: Path, output_path: Path, target_path: Path = DE
         "inputs": {
             "parameters": {
                 "groupid": "myworkspace",
-                "datasetid": "{{ISOLATED_MODEL_ID}}",
+                "datasetid": model_id,
                 "specification/query": PUBLICATION_ROWS_QUERY,
                 "specification/serializerSettings/includeNulls": True,
             },

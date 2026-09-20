@@ -51,6 +51,10 @@ class PublicationPlatformContractTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             load_target(Path("config/sharepoint-publication-target.template.json"))
 
+    def test_native_target_requires_model_id(self):
+        self.require_private_package()
+        self.assertEqual(len(load_target(Path("private/config/sharepoint-publication-target.json"))), 4)
+
     def test_unknown_run_after_dependency_is_rejected(self):
         self.require_private_package()
         definition = copy.deepcopy(_definition())
