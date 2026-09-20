@@ -50,6 +50,10 @@ class GrantsCalendarTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Title"):
             project_event({"OpportunityKey": "GRANT:7", "Title": False, "Deadline": "2026-10", "DeadlinePrecision": "month"}, POLICY)
 
+    def test_exact_day_rejects_impossible_date(self):
+        with self.assertRaisesRegex(ValueError, "not a valid date"):
+            project_event({"OpportunityKey": "GRANT:8", "Title": "Impossible", "URL": "https://example.org/impossible", "Deadline": "2026-02-30", "DeadlinePrecision": "day"}, POLICY)
+
 
 if __name__ == "__main__":
     unittest.main()

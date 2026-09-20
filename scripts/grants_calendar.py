@@ -25,9 +25,15 @@ def _escape(value: Any) -> str:
 
 def _date(value: Any) -> str | None:
     if not isinstance(value, str):
-        return None
+        raise ValueError("calendar opportunity Deadline must be a string for day precision")
     raw = value
-    return raw if re.fullmatch(r"\d{4}-\d{2}-\d{2}", raw) else None
+    if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", raw):
+        raise ValueError("calendar opportunity Deadline must be an ISO date for day precision")
+    try:
+        dt.date.fromisoformat(raw)
+    except ValueError as exc:
+        raise ValueError("calendar opportunity Deadline is not a valid date") from exc
+    return raw
 
 
 def _valid_http_url(value: Any) -> bool:
