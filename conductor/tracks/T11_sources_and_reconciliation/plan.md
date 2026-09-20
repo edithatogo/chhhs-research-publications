@@ -69,6 +69,15 @@ Follow [the executable sequence and acceptance gates](../../../docs/DYNAMIC_UPDA
 - [ ] Native SharePoint schema/row readback and report integration remain open;
   the local exporter contract does not certify tenant acceptance.
 
+## Export URL and timestamp hardening — 2026-09-21
+
+- [x] Require DoRA export provenance URLs to be valid HTTP(S) authorities and
+  observation times to be timezone-aware ISO-8601 values.
+- [x] Add regression coverage for unusable URLs and timezone-less timestamps.
+  Code commit: `2c58a93977c93a8e4b963ae763b97034d3ea56c2`.
+- [ ] Native SharePoint schema/row readback and report integration remain open;
+  local provenance validation does not certify tenant acceptance.
+
 ### Retained reporting projection in progress
 Local parsers now reconstruct PubMed XML-shaped JSON and DORA field arrays without calling the live sources. A summary reader selects each retained source key from its latest committed batch, with exact page/key reconciliation. The first manifest must include PublicationTable and PublicationPageCount. Native parser parity, durable facility mappings, long-text export completeness and switching canonical consumers remain pending; these files are not yet deployed.
 

@@ -148,6 +148,35 @@ activity keys reject boolean or structured resource IDs. Code commit:
   integration, flow execution and unattended delivery remain unproven. No
   tenant mutation was made.
 
+## Conductor review — export URL and timestamp hardening — 2026-09-21
+
+### Summary
+
+The DoRA export provenance boundary now rejects non-HTTP(S) resource URLs and
+timezone-less or malformed observation timestamps. This preserves the source
+link and observation-time evidence required for later native ingestion without
+silently accepting ambiguous metadata. Code commit:
+`2c58a93977c93a8e4b963ae763b97034d3ea56c2`.
+
+### Verification Checks
+
+- Focused DoRA suite: **9 passed**.
+- Full local suite: **393 passed, 8 skipped**.
+- Project validation: **438 checks passed, 0 failed**.
+- Web-first contracts: **PASS_LOCAL_ONLY**.
+- Conductor validation: **0 errors**.
+- Power Platform tooling preflight: **PASS_LOCAL_ONLY**.
+- Visual standards: **PBIR bindings and WCAG contrast passed**.
+- `git diff --check`: **passed**.
+
+### Findings
+
+- **Fixed:** exporter provenance previously accepted arbitrary non-empty URL
+  text and timezone-less observation text.
+- **Residual acceptance:** native SharePoint schema/row readback, report
+  integration, flow execution and unattended delivery remain unproven. No
+  tenant mutation was made.
+
 Review fix applied: `tests/test_webfirst.py` now asserts that
 `config/native-canonical-retained-partitions.tmdl` is reference-only and
 explicitly scoped to the isolated development model; it cannot silently drift

@@ -122,6 +122,14 @@ Focused DoRA tests pass. The full canonical-clone harness passes with 392 tests
 SharePoint schema/row readback, report integration and unattended flow
 acceptance remain open; this is not a tenant acceptance claim.
 
+Follow-up local checkpoint (2026-09-21): DoRA export provenance now also
+requires a valid HTTP(S) resource URL and timezone-aware ISO-8601 observation
+time. Code commit `2c58a93`; focused DoRA tests pass (9), full suite passes
+with 393 tests and 8 skips, and the 438 project checks plus Conductor/web-first,
+Power Platform and visual checks remain green. The canonical clone is ready for
+remote synchronization after the review documentation commit. Native
+SharePoint/report integration and unattended acceptance remain open.
+
 Inspect `git status --short` at entry. Preserve unrelated report/manifest and other existing edits; do not mass-stage. Use the active track's spec and plan for tasks. Follow AGENTS.md approval boundaries for deployment/sharing/schedules. Current user direction defines scope; historical observations supply evidence only for their dates. Live contradictions require readback, not a convenient choice of document.
 
 Update this checkpoint with outcome, next executable task, test command/result and exact blocker after work. Keep credentials, actual tenant identifiers and screenshots under ignored private storage. Do not paste raw private output into a context bundle.
