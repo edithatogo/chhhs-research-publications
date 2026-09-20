@@ -12,3 +12,4 @@
 - [x] Task: Reject incomplete or duplicate source-health rows and records without source identity (2165c70).
 - [x] Task: Reconcile non-negative per-source health counts to admitted record counts and reject mismatches (91345bf).
 - [x] Task: Reject non-string source and opportunity identities without coercion, including unhashable malformed keys.
+- [x] Task: Reject non-object run records and health rows without incidental exceptions (c174a3a).
