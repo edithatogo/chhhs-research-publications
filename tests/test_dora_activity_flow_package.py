@@ -37,6 +37,17 @@ class DoraActivityFlowPackageTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 build_package(Path(folder) / "bad.zip", site_url="https://example.org", list_id=str(uuid.uuid4()), flow_id=str(uuid.uuid4()), connection_display_name=False)
 
+    def test_rejects_definition_drift_before_writing_package(self):
+        private_root = Path(__file__).parents[1] / "private"
+        private_root.mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=private_root) as folder:
+            definition_path = Path(folder) / "drift.json"
+            definition = json.loads((Path(__file__).parents[1] / "config/flows/dora-activity-registry-upsert.definition.json").read_text())
+            del definition["properties"]["definition"]["actions"]["Apply_to_each_DORA_Activity"]["actions"]["SharePoint_Get_items"]
+            definition_path.write_text(json.dumps(definition))
+            with self.assertRaisesRegex(ValueError, "contract failed"):
+                build_package(Path(folder) / "bad.zip", site_url="https://example.org", list_id=str(uuid.uuid4()), flow_id=str(uuid.uuid4()), connection_display_name="DEV", definition_path=definition_path)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -9,6 +9,8 @@ from typing import Any
 from urllib.parse import urlsplit
 from uuid import UUID
 
+from scripts.validate_dora_activity_flow_contract import validate
+
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_DEFINITION = ROOT / "config/flows/dora-activity-registry-upsert.definition.json"
 
@@ -45,6 +47,9 @@ def build_package(output: Path, *, site_url: str, list_id: str, flow_id: str,
     })
     if "{{" in json.dumps(document):
         raise ValueError("flow definition contains unresolved package placeholders")
+    contract_errors = validate(document["properties"]["definition"])
+    if contract_errors:
+        raise ValueError("DoRA flow contract failed after target injection: " + "; ".join(contract_errors))
     manifest = {"schema": "1.0", "details": {
         "displayName": document["properties"]["displayName"],
         "description": "Isolated DoRA Activity Registry import; disabled until native target/readback approval.",
