@@ -117,14 +117,11 @@ The authenticated Chrome inventory showed the public DoRA dataset and an existin
 
 ## Playwright CLI continuation — 2026-09-20
 
-An authenticated, headful Playwright CLI session was available and provided current
-tenant readback. The Power Automate flow inventory contained only two CHHHS
-publication DEV flows. The active `CHHHS Publications - DEV validated first history
-commit` flow is a Power BI/OneDrive validation/archive flow, not a SharePoint-list
-registry flow; its current run failed in `Require_validation` because the expression
-attempted to convert `COMMIT_VALIDATION_FAILED` with `int()`. The authenticated
-SharePoint Site Contents page for `https://healthqld.sharepoint.com/sites/eHealth-comm-test`
-contained neither `DORA Activity Registry` nor `Publication Registry`.
+An earlier Playwright snapshot found only two CHHHS publication DEV flows and
+captured the pre-repair failure in the active history-commit flow. It also checked
+the unapproved `eHealth-comm-test` site, which contained neither `DORA Activity
+Registry` nor `Publication Registry`. That snapshot is superseded for current
+execution by the tested runs below and is retained only as historical evidence.
 
 This is stronger native evidence for the connector/list mismatch, but it does not
 identify the approved RIMS SharePoint site or authorize creating a list on this
