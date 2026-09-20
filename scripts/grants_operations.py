@@ -52,6 +52,51 @@ def reconcile_registry_keys(
     }
 
 
+def reconcile_registry_records(
+    emitted_records: Iterable[dict[str, Any]],
+    registry_rows: Iterable[dict[str, Any]],
+    fields: Iterable[str],
+    prior_records=None,
+):
+    """Reconcile exact keys and selected field values from registry readback.
+
+    Key equality alone can hide a partial SharePoint update. This companion
+    contract checks an explicit field allowlist and preserves the prior
+    accepted batch if any value is missing or differs.
+    """
+    selected_fields = list(fields)
+    if (
+        not selected_fields
+        or any(not isinstance(field, str) or not field.strip() for field in selected_fields)
+        or len(selected_fields) != len(set(selected_fields))
+    ):
+        raise ValueError('reconciliation fields must be unique, non-empty strings')
+    emitted = list(emitted_records)
+    registry = list(registry_rows)
+    key_result = reconcile_registry_keys(emitted, registry)
+    if key_result['status'] != 'reconciled':
+        return {**key_result, 'records': list(prior_records or []), 'preserved_prior': bool(prior_records)}
+    registry_by_key = {row['OpportunityKey'].strip(): row for row in registry}
+    errors: list[str] = []
+    for emitted_row in emitted:
+        key = emitted_row['OpportunityKey'].strip()
+        actual = registry_by_key[key]
+        for field in selected_fields:
+            if field not in emitted_row:
+                errors.append(f'missing_emitted_field:{key}:{field}')
+            elif field not in actual:
+                errors.append(f'missing_registry_field:{key}:{field}')
+            elif actual[field] != emitted_row[field]:
+                errors.append(f'field_mismatch:{key}:{field}')
+    accepted = not errors
+    return {
+        'status': 'reconciled' if accepted else 'rejected',
+        'errors': errors,
+        'records': emitted if accepted else list(prior_records or []),
+        'preserved_prior': bool(errors and prior_records),
+    }
+
+
 def evaluate_run(records: Iterable[dict[str, Any]], health: Iterable[dict[str, Any]], prior_records=None):
     records = list(records)
     health = list(health)

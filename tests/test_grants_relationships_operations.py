@@ -2,7 +2,7 @@ import unittest
 import json
 from pathlib import Path
 
-from scripts.grants_operations import evaluate_run, reconcile_registry_keys
+from scripts.grants_operations import evaluate_run, reconcile_registry_keys, reconcile_registry_records
 from scripts.grants_planning import delivery_event_key, validate_policy
 from scripts.grants_relationships import normalize_relationship
 
@@ -153,6 +153,25 @@ class GrantsRelationshipTests(unittest.TestCase):
             [{'OpportunityKey': 'g1'}],
         )
         self.assertIn('duplicate_emitted_key', result['errors'])
+
+    def test_registry_reconciliation_checks_selected_fields_and_preserves_prior(self):
+        emitted = [{'OpportunityKey': 'g1', 'Title': 'Call', 'Status': 'open'}]
+        readback = [{'OpportunityKey': 'g1', 'Title': 'Call', 'Status': 'open'}]
+        result = reconcile_registry_records(emitted, readback, ['Title', 'Status'])
+        self.assertEqual(result['status'], 'reconciled')
+        result = reconcile_registry_records(
+            emitted,
+            [{'OpportunityKey': 'g1', 'Title': 'Changed', 'Status': 'open'}],
+            ['Title', 'Status'],
+            [{'OpportunityKey': 'old'}],
+        )
+        self.assertEqual(result['status'], 'rejected')
+        self.assertIn('field_mismatch:g1:Title', result['errors'])
+        self.assertEqual(result['records'], [{'OpportunityKey': 'old'}])
+
+    def test_registry_reconciliation_requires_explicit_unique_fields(self):
+        with self.assertRaisesRegex(ValueError, 'unique'):
+            reconcile_registry_records([], [], ['Title', 'Title'])
 
     def test_policy_and_delivery_keys_are_versioned(self):
         policy = {'PolicyKey':'CHHHS-DEFAULT','Version':'1.0','OrganisationKey':'CHHHS','AnchorKind':'final','LeadDays':10,'CalendarOrBusinessDays':'business','HolidayCalendarVersion':'qld-2026','EffectiveFrom':'2026-01-01'}
