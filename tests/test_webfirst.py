@@ -390,4 +390,14 @@ class RetainedProjectionPayloadTests(unittest.TestCase):
         self.assertIn('fnParseRetainedDoraMetadata(RetainedSourceObservations)',payload)
         self.assertNotIn('\n  table DoraPublications\n',payload)
 
+    def test_canonical_retained_partition_is_isolated_and_reference_only(self):
+        payload=(ROOT/'config/native-canonical-retained-partitions.tmdl').read_text()
+        self.assertIn('Apply only to the isolated development model',payload)
+        self.assertIn('ref table PubMedPublications',payload)
+        self.assertIn('ref table DoraPublications',payload)
+        self.assertIn('source = RetainedPubMedPublications',payload)
+        self.assertIn('source = RetainedDoraPublications',payload)
+        self.assertNotIn('\n  table PubMedPublications\n',payload)
+        self.assertNotIn('\n  table DoraPublications\n',payload)
+
 if __name__=='__main__':unittest.main()
