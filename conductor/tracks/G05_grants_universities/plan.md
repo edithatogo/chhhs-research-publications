@@ -9,3 +9,4 @@
 ## Phase: Review fixes
 
 - [x] Task: Validate known institutional lead-time objects while retaining null for unknown evidence (a179d73).
+- [x] Task: Reject boolean lead times and invalid authority/verification metadata before source use (f0ee882).
