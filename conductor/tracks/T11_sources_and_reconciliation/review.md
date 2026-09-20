@@ -230,6 +230,37 @@ cannot silently render as an accepted registry export. Code commit:
   integration, flow execution and unattended delivery remain unproven. No
   tenant mutation was made.
 
+## Conductor review — DoRA activity SharePoint flow contract — 2026-09-21
+
+### Summary
+
+T11 now includes a canonical local DoRA Activity Registry upsert definition,
+standalone structural validator, focused regression suite and source-only CI
+gate. The contract uses SharePoint Online only, serializes writes, preserves
+all 26 schema fields, diagnoses duplicate `DORAActivityKey` rows, and permits
+create/update only for exact zero/one lookup matches. Code commit:
+`693027136610136c2ff443ecae26e21876ea56cc`.
+
+### Verification Checks
+
+- **Plan Compliance:** Partial — local flow contract and CI gate are complete;
+  native list/readback and report integration remain open.
+- **Style Compliance:** Pass.
+- **New Tests:** Yes — 4 focused flow-contract tests.
+- **Test Coverage:** Partial — structural mapping/guard coverage is local only;
+  connector permissions and execution are not proven.
+- **Test Results:** Passed — full suite (401 passed, 8 skipped), 438 project
+  checks, Conductor validation, web-first, Power Platform and visual checks;
+  all three canonical flow validators pass.
+
+### Findings
+
+- **Fixed:** DoRA activity had no tracked canonical SharePoint-only upsert
+  contract or CI validator comparable to publications and grants.
+- **Residual acceptance:** approved target identity, native import, column/row
+  readback, report integration, flow execution and unattended delivery remain
+  unproven. No tenant mutation was made.
+
 Review fix applied: `tests/test_webfirst.py` now asserts that
 `config/native-canonical-retained-partitions.tmdl` is reference-only and
 explicitly scoped to the isolated development model; it cannot silently drift

@@ -96,6 +96,17 @@ Follow [the executable sequence and acceptance gates](../../../docs/DYNAMIC_UPDA
 - [ ] Native SharePoint schema/row readback and report integration remain open;
   local hash verification does not certify tenant acceptance.
 
+## DoRA activity flow contract — 2026-09-21
+
+- [x] Add the canonical local SharePoint-only DoRA Activity Registry upsert
+  definition with serial writes, duplicate-key diagnostics, exact-zero/one
+  guards and all 26 schema-field mappings.
+- [x] Add a standalone validator, focused regression tests and a source-only CI
+  gate. Code commit: `693027136610136c2ff443ecae26e21876ea56cc`.
+- [ ] Import only to an approved isolated target, read back every column and
+  row key, and then prove native report/flow integration. No tenant acceptance
+  is claimed by the local contract.
+
 ### Retained reporting projection in progress
 Local parsers now reconstruct PubMed XML-shaped JSON and DORA field arrays without calling the live sources. A summary reader selects each retained source key from its latest committed batch, with exact page/key reconciliation. The first manifest must include PublicationTable and PublicationPageCount. Native parser parity, durable facility mappings, long-text export completeness and switching canonical consumers remain pending; these files are not yet deployed.
 
