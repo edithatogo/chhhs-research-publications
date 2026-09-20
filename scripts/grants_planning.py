@@ -25,7 +25,10 @@ def institutional_deadline(external_date, lead_days, *, business_days=True, holi
     try:
         if any(not isinstance(day, str) for day in holidays):
             raise ValueError
-        excluded = {date.fromisoformat(day) for day in holidays}
+        parsed_holidays = [date.fromisoformat(day) for day in holidays]
+        if len(parsed_holidays) != len(set(parsed_holidays)):
+            raise ValueError
+        excluded = set(parsed_holidays)
     except (TypeError, ValueError):
         raise ValueError('holidays must contain unique ISO date strings') from None
     remaining = lead_days
