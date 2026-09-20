@@ -34,3 +34,19 @@ production release gates.
 The controlled replay also succeeded but again took the Create branch and skipped
 Update. The observed blank SourceKey filter means this is not idempotency proof;
 duplicate prevention and a nonblank-key update readback remain open.
+
+## Review remediation — 2026-09-20
+
+The first source-only review found that the tracked JSON definition and generated
+package were not the same action graph. The readiness query returned a single
+summary row, while the loop treated it as a publication; this explains the
+blank `SourceKey` filter observed in the native replay. The tracked definition
+and builder now share the corrected graph: readiness, a dedicated canonical
+`Publication` rows query, a serial upsert loop, duplicate-key fail-closed
+handling, and the protected update allowlist.
+
+Local verification: `python3 scripts/validate_publication_platform_contract.py`,
+JSON parsing, and the full unittest suite (283 tests) pass. This is still
+source-only evidence. The isolated tenant deployment and create/replay/update,
+duplicate, failed-batch, recurrence and reconciliation readback tasks remain
+open, so the track remains in progress and must not be archived yet.

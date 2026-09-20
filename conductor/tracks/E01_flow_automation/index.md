@@ -5,6 +5,6 @@
 - [Prompt](prompt.md)
 - [Review](review.md)
 
-Status: **Complete**
+Status: **In progress**
 Scope: `cloud_automation`
-Current execution detail: [stabilisation runbook](execution.md). Follow it alongside the existing plan; historical completion text does not close outstanding tasks.
+Current execution detail: [stabilisation runbook](execution.md). Follow it alongside the existing plan; native deployment, replay/update and schedule acceptance remain open.

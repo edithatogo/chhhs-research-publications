@@ -2,7 +2,7 @@ import unittest
 import copy
 from pathlib import Path
 
-from scripts.validate_publication_platform_contract import PACKAGE, _definition, validate
+from scripts.validate_publication_platform_contract import PACKAGE, _definition, _tracked_definition, validate
 from scripts.build_sharepoint_upsert_package import load_target
 
 
@@ -14,6 +14,9 @@ class PublicationPlatformContractTests(unittest.TestCase):
     def test_package_contract_is_valid_when_present(self):
         self.require_private_package()
         self.assertEqual(validate(_definition()), [])
+
+    def test_tracked_definition_matches_flow_contract(self):
+        self.assertEqual(validate(_tracked_definition()), [])
 
     def test_record_loop_is_required(self):
         self.require_private_package()
@@ -50,6 +53,14 @@ class PublicationPlatformContractTests(unittest.TestCase):
         definition = copy.deepcopy(_definition())
         definition["actions"]["Apply_to_each_Publication"]["actions"]["SharePoint_Get_items"]["runAfter"] = {"Missing": ["Succeeded"]}
         self.assertTrue(any("unknown runAfter" in error for error in validate(definition)))
+
+    def test_publication_loop_consumes_rows_query_not_readiness_summary(self):
+        self.require_private_package()
+        definition = copy.deepcopy(_definition())
+        definition["actions"]["Apply_to_each_Publication"]["foreach"] = (
+            "@coalesce(body('Run_a_query_against_a_dataset')?['results'][0]?['tables'][0]?['rows'], createArray())"
+        )
+        self.assertIn("record loop must depend on the publication rows query", validate(definition))
 
 
 if __name__ == "__main__":

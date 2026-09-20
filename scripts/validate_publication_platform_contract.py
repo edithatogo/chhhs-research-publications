@@ -16,6 +16,7 @@ except ModuleNotFoundError:
 
 ROOT = Path(__file__).resolve().parent.parent
 PACKAGE = ROOT / "private" / "ops" / "flow-packages" / "sharepoint-upsert.zip"
+TRACKED_DEFINITION = ROOT / "config" / "flows" / "publication-registry-upsert.definition.json"
 
 
 def _graph_errors(actions: dict, scope: str = "root") -> list[str]:
@@ -38,6 +39,10 @@ def _definition() -> dict:
     with zipfile.ZipFile(PACKAGE) as archive:
         name = next(n for n in archive.namelist() if n.endswith("/definition.json"))
         return json.loads(archive.read(name))["properties"]["definition"]
+
+
+def _tracked_definition() -> dict:
+    return json.loads(TRACKED_DEFINITION.read_text(encoding="utf-8"))["properties"]["definition"]
 
 
 def validate(definition: dict) -> list[str]:
@@ -63,6 +68,16 @@ def validate(definition: dict) -> list[str]:
         errors.append("registry lookup must specify site and list identifiers")
     if "SourceKey" not in str(parameters.get("$filter", "")):
         errors.append("registry lookup must filter by SourceKey")
+
+    row_query = actions.get("Run_publication_rows_query", {})
+    row_query_text = json.dumps(row_query)
+    if row_query.get("type") != "OpenApiConnection" or "Publication" not in row_query_text:
+        errors.append("publication rows must come from a dedicated Power BI query")
+    row_query_dax = str(row_query.get("inputs", {}).get("parameters", {}).get("specification/query", ""))
+    if "SourceKey" not in row_query_dax or "NOT ISBLANK" not in row_query_dax:
+        errors.append("publication rows query must emit nonblank SourceKey values")
+    if loop.get("runAfter") != {"Run_publication_rows_query": ["Succeeded"]} or "Run_publication_rows_query" not in str(loop.get("foreach", "")):
+        errors.append("record loop must depend on the publication rows query")
 
     condition = record_actions.get("Condition_Is_New_Publication", {})
     if "length(body('SharePoint_Get_items')?['value'])" not in json.dumps(condition):
@@ -95,10 +110,11 @@ def validate(definition: dict) -> list[str]:
 
 
 def main() -> int:
-    if not PACKAGE.exists():
-        print(f"SKIP: private package not present: {PACKAGE}")
-        return 0
-    errors = validate(_definition())
+    errors = validate(_tracked_definition())
+    if PACKAGE.exists():
+        errors.extend(validate(_definition()))
+    else:
+        print(f"INFO: private package not present; validating tracked definition only: {PACKAGE}")
     if errors:
         for error in errors:
             print(f"FAIL: {error}")
