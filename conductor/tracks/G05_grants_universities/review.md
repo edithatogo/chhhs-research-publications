@@ -41,7 +41,7 @@ times remain `null`.
 - [x] **Style Compliance**: Pass - unknown lead times remain unknown and are not inferred.
 - [x] **New Tests**: Yes - malformed and boolean lead-time, authority URL and verification-date rejection are covered.
 - [x] **Test Coverage**: Partial - catalogue and bounded probe contracts are covered; institutional access and feed acceptance are not.
-- [x] **Test Results**: Passed - focused university tests (7), project validation (438 checks) and canonical-clone full suite (364 tests, 8 skipped).
+- [x] **Test Results**: Passed - focused university tests (7), project validation (438 checks) and canonical-clone full suite (365 tests, 8 skipped).
 
 ## Findings
 
@@ -56,4 +56,4 @@ times remain `null`.
 - **Finding:** university catalogue loading string-coerced `institution_id` values, assumed object rows and did not reject future verification dates.
 - **Fix:** rows must be objects with scalar non-empty string identities; `last_verified` is validated against the declared Australia/Brisbane date.
 - **Verification:** focused university tests and the full local gates will be recorded against the implementation commit; institutional feed/export and authenticated portal acceptance remain open.
-- **Verification:** commit `aa0c9ab` passes the focused university suite (7 tests), the full local suite (364 tests, 8 skips), project validation (438 checks), web-first contracts and Conductor validation; institutional feed/export and authenticated portal acceptance remain open.
+- **Verification:** commit `aa0c9ab` passes the focused university suite (7 tests), the full local suite (365 tests, 8 skips), project validation (438 checks), web-first contracts and Conductor validation; institutional feed/export and authenticated portal acceptance remain open.

@@ -114,7 +114,7 @@ coverage is included in `tests/test_webfirst.py`.
 - [x] Style Compliance: Pass — the change enforces the isolation policy and avoids any tenant mutation.
 - [x] New Tests: Yes — canonical scope and placeholder rejection are covered.
 - [x] Test Coverage: Partial — local deployment guard is covered; native authoring/readback remains unavailable.
-- [x] Test Results: Passed — canonical-clone full suite (364 tests, 8 skipped), 438 project checks and Conductor validation.
+- [x] Test Results: Passed — canonical-clone full suite (365 tests, 8 skipped), 438 project checks and Conductor validation.
 
 ### Findings
 
