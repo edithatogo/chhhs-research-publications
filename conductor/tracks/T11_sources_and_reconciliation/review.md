@@ -440,6 +440,36 @@ collector, schema and SharePoint flow identity contracts. Code commit:
   integration and unattended execution remain unproven. No tenant mutation was
   made.
 
+## Conductor review — DoRA projection fail-closed columns — 2026-09-21
+
+### Summary
+
+The DoRA SharePoint projection now uses `MissingField.Error` instead of
+`MissingField.UseNull`. A missing registry column therefore stops the query
+instead of silently manufacturing null values, preserving the source-field
+retention contract. Code commit: `205e561c328b5c0e4240ba5f7b9f52241e22668f`.
+
+### Verification Checks
+
+- **Plan Compliance:** Partial — local DoRA schema drift handling is hardened;
+  native list/readback and report integration remain open.
+- **Style Compliance:** Pass — the projection remains additive and preserves
+  explicit uncertainty.
+- **New Tests:** Yes — the DoRA suite now has 14 tests, including an explicit
+  fail-closed missing-column assertion.
+- **Test Results:** Passed — full suite (412 passed, 8 skipped), 438 project
+  checks, Conductor validation (0 errors), web-first `PASS_LOCAL_ONLY`, Power
+  Platform tooling preflight, visual standards, canonical flow validators and
+  `git diff --check`.
+
+### Findings
+
+- **Fixed:** missing native columns could previously be converted to nulls and
+  appear valid.
+- **Residual acceptance:** native SharePoint schema/row readback, report-page
+  integration and unattended execution remain unproven. No tenant mutation was
+  made.
+
 ## Conductor review — DoRA flow mapping/schema lock — 2026-09-21
 
 ### Summary
