@@ -47,13 +47,16 @@ Additional review fix applied: versioned institutional policies now reject
 reversed effective ranges, malformed holiday dates and duplicate holiday dates
 before date projection. Unknown source dates remain omitted.
 
+Review fix applied: exact-date calendar events now fail closed unless the
+opportunity has a stable `OpportunityKey` and authoritative HTTP(S) URL.
+
 ## Verification Checks
 
 - [x] **Plan Compliance**: Partial - local date-policy, subscription and calendar contracts are implemented; native pages, access isolation, reminders and delivery remain open.
 - [x] **Style Compliance**: Pass - uncertain dates remain omitted and event identity is deterministic.
-- [x] **New Tests**: Yes - duplicate UID and malformed policy rejection are covered.
+- [x] **New Tests**: Yes - duplicate UID, malformed policy, missing-key and invalid-URL rejection are covered.
 - [x] **Test Coverage**: Partial - local calendar semantics are covered; native report persistence, personal access and delivery are not.
-- [x] **Test Results**: Passed - focused calendar tests (4), project validation (438 checks) and canonical-clone full suite (331 tests, 8 skipped).
+- [x] **Test Results**: Passed - focused calendar tests (5), project validation (438 checks) and canonical-clone full suite (332 tests, 8 skipped).
 
 ## Findings
 

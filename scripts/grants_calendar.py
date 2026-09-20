@@ -14,6 +14,7 @@ import json
 import re
 from pathlib import Path
 from typing import Any, Iterable
+from urllib.parse import urlsplit
 
 from scripts.grants_planning import institutional_deadline, validate_policy
 
@@ -25,6 +26,11 @@ def _escape(value: Any) -> str:
 def _date(value: Any) -> str | None:
     raw = str(value or "")
     return raw if re.fullmatch(r"\d{4}-\d{2}-\d{2}", raw) else None
+
+
+def _valid_http_url(value: Any) -> bool:
+    parsed = urlsplit(str(value or "").strip())
+    return parsed.scheme in {"http", "https"} and bool(parsed.netloc)
 
 
 def event_uid(opportunity_key: str, anchor: str, policy_key: str, policy_version: str) -> str:
@@ -46,14 +52,20 @@ def project_event(opportunity: dict[str, Any], policy: dict[str, Any]) -> dict[s
     ) if source_date is not None else None
     if event_date is None:
         return None
+    opportunity_key = str(opportunity.get("OpportunityKey") or "").strip()
+    if not opportunity_key:
+        raise ValueError("calendar opportunity missing OpportunityKey")
+    url = str(opportunity.get("URL") or "").strip()
+    if not _valid_http_url(url):
+        raise ValueError("calendar opportunity requires an HTTP(S) URL")
     status = str(opportunity.get("Status") or "Unknown")
     event_status = "CANCELLED" if status.casefold() in {"cancelled", "canceled"} else "TENTATIVE"
     return {
         "UID": event_uid(str(opportunity["OpportunityKey"]), anchor, str(policy["PolicyKey"]), str(policy["Version"])),
         "Date": event_date, "Status": event_status, "Anchor": anchor,
         "Title": str(opportunity.get("Title") or "Grant opportunity"),
-        "URL": str(opportunity.get("URL") or ""), "Source": str(opportunity.get("Source") or ""),
-        "OpportunityKey": str(opportunity["OpportunityKey"]), "PolicyKey": str(policy["PolicyKey"]),
+        "URL": url, "Source": str(opportunity.get("Source") or ""),
+        "OpportunityKey": opportunity_key, "PolicyKey": str(policy["PolicyKey"]),
         "PolicyVersion": str(policy["Version"]), "ExternalDeadline": source_date,
     }
 
