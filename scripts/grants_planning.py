@@ -33,20 +33,34 @@ def institutional_deadline(external_date, lead_days, *, business_days=True, holi
 
 def subscribers(opportunity, subscriptions):
     """Unique candidate user keys; identity/access/consent checked by delivery."""
-    opportunity_key = str(opportunity.get('OpportunityKey', '')).strip()
-    if not opportunity_key:
+    if not isinstance(opportunity, dict):
+        raise ValueError('opportunity must be an object')
+    opportunity_key = opportunity.get('OpportunityKey')
+    if not isinstance(opportunity_key, str) or not opportunity_key.strip():
         raise ValueError('opportunity requires OpportunityKey for subscription matching')
     category_keys = opportunity.get('CategoryKeys', [])
-    if not isinstance(category_keys, (list, tuple, set)) or any(not str(key).strip() for key in category_keys):
+    if not isinstance(category_keys, (list, tuple, set)) or any(
+        not isinstance(key, str) or not key.strip() for key in category_keys
+    ):
         raise ValueError('opportunity CategoryKeys must be a collection of non-empty keys')
-    targets = {'opportunity': {opportunity_key},
-               'category': {str(key).strip() for key in category_keys},
-               'funder': {str(opportunity.get('FunderKey', '')).strip()}}
+    funder_key = opportunity.get('FunderKey', '')
+    if funder_key and (not isinstance(funder_key, str) or not funder_key.strip()):
+        raise ValueError('opportunity FunderKey must be a string when supplied')
+    targets = {'opportunity': {opportunity_key.strip()},
+               'category': {key.strip() for key in category_keys},
+               'funder': {funder_key.strip()} if isinstance(funder_key, str) and funder_key.strip() else set()}
     matched = set()
     for rule in subscriptions:
-        scope = str(rule.get('Scope', '')).strip()
-        user_key = str(rule.get('UserKey', '')).strip()
-        target_key = str(rule.get('TargetKey', '')).strip()
+        if not isinstance(rule, dict):
+            raise ValueError('subscription rule must be an object')
+        scope = rule.get('Scope')
+        user_key = rule.get('UserKey')
+        target_key = rule.get('TargetKey')
+        if not all(isinstance(value, str) for value in (scope, user_key, target_key)):
+            raise ValueError('subscription requires string scope, user key and target key')
+        scope = scope.strip()
+        user_key = user_key.strip()
+        target_key = target_key.strip()
         if scope not in SUBSCRIPTION_SCOPES or not user_key or not target_key:
             raise ValueError('subscription requires a supported scope, user key and target key')
         if rule.get('Active') is not True and rule.get('Active') is not False:

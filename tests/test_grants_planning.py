@@ -40,6 +40,16 @@ class PlanningTests(unittest.TestCase):
             subscribers({'OpportunityKey': 'g1'}, [{'UserKey': 'u1', 'Active': True, 'Scope': 'unknown', 'TargetKey': 'g1'}])
         with self.assertRaises(ValueError):
             subscribers({'OpportunityKey': 'g1'}, [{'UserKey': 'u1', 'Active': 'yes', 'Scope': 'opportunity', 'TargetKey': 'g1'}])
+        with self.assertRaisesRegex(ValueError, 'rule must be an object'):
+            subscribers({'OpportunityKey': 'g1'}, [None])
+
+    def test_subscription_identity_types_are_not_coerced(self):
+        with self.assertRaisesRegex(ValueError, 'OpportunityKey'):
+            subscribers({'OpportunityKey': True}, [])
+        with self.assertRaisesRegex(ValueError, 'CategoryKeys'):
+            subscribers({'OpportunityKey': 'g1', 'CategoryKeys': [7]}, [])
+        with self.assertRaisesRegex(ValueError, 'FunderKey'):
+            subscribers({'OpportunityKey': 'g1', 'FunderKey': 7}, [])
 
     def test_subscription_matching_requires_opportunity_identity(self):
         with self.assertRaises(ValueError):
