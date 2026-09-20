@@ -99,3 +99,25 @@ model. T15 remains active and must not be archived.
   tenant acceptance, release and delivery gates remain open.
 - Style/safety: Pass — no sharing, schedule or delivery activation was made.
 - Tests: Local checks pass; they do not prove live acceptance.
+
+## Local deployment-safety review — 2026-09-21
+
+The review found that the historical `deploy_canonical_report.py` route could
+issue `updateDefinition` to a canonical/shared report without an isolated
+target guard. Commit `1adc040` now rejects canonical scope, placeholders and
+non-GUID targets before reading credentials or sending a request. Regression
+coverage is included in `tests/test_webfirst.py`.
+
+### Verification Checks
+
+- [x] Plan Compliance: Partial — deployment safety is hardened; native report/model and release gates remain open.
+- [x] Style Compliance: Pass — the change enforces the isolation policy and avoids any tenant mutation.
+- [x] New Tests: Yes — canonical scope and placeholder rejection are covered.
+- [x] Test Coverage: Partial — local deployment guard is covered; native authoring/readback remains unavailable.
+- [x] Test Results: Passed — canonical-clone full suite (354 tests, 8 skipped), 438 project checks and Conductor validation.
+
+### Findings
+
+The unsafe canonical route is now disabled by contract. T15 remains active
+because current report/page binding, refresh, export and handover acceptance
+still require native evidence.
