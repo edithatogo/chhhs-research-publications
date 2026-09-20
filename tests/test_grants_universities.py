@@ -28,6 +28,32 @@ class GrantsUniversityTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "invalid lead-time value"):
                 load_universities(handle.name)
 
+    def test_boolean_lead_time_is_rejected(self):
+        rows = json.loads((Path(__file__).parents[1] / "config/grants-universities.json").read_text())
+        rows[0]["internal_lead_time"]["major_schemes"] = True
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json") as handle:
+            json.dump(rows, handle)
+            handle.flush()
+            with self.assertRaisesRegex(ValueError, "invalid lead-time value"):
+                load_universities(handle.name)
+
+    def test_authority_url_and_verification_date_are_validated(self):
+        rows = json.loads((Path(__file__).parents[1] / "config/grants-universities.json").read_text())
+        rows[0]["authority_url"] = "not-a-url"
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json") as handle:
+            json.dump(rows, handle)
+            handle.flush()
+            with self.assertRaisesRegex(ValueError, "valid authority URL"):
+                load_universities(handle.name)
+
+        rows[0]["authority_url"] = "https://example.org"
+        rows[0]["last_verified"] = "not-a-date"
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json") as handle:
+            json.dump(rows, handle)
+            handle.flush()
+            with self.assertRaisesRegex(ValueError, "invalid last_verified date"):
+                load_universities(handle.name)
+
 
 if __name__ == "__main__":
     unittest.main()

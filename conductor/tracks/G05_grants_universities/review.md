@@ -28,13 +28,16 @@ Review fix applied: `load_universities` now validates known lead-time objects
 for an allowed day unit and bounded non-negative numeric values, while keeping
 unknown lead times as `null`. A focused regression test covers invalid data.
 
+Review fix applied: boolean lead times, malformed authority URLs and invalid
+`last_verified` dates now fail closed before a university source can be used.
+
 ## Verification Checks
 
 - [x] **Plan Compliance**: Partial - JCU/UQ/QUT/Griffith source and access contracts are implemented; permitted institutional exports, feeds and authenticated portal routes remain open.
 - [x] **Style Compliance**: Pass - unknown lead times remain unknown and are not inferred.
-- [x] **New Tests**: Yes - malformed known lead-time rejection is covered.
+- [x] **New Tests**: Yes - malformed and boolean lead-time, authority URL and verification-date rejection are covered.
 - [x] **Test Coverage**: Partial - catalogue and bounded probe contracts are covered; institutional access and feed acceptance are not.
-- [x] **Test Results**: Passed - focused university tests (3), project validation (438 checks) and canonical-clone full suite (333 tests, 8 skipped).
+- [x] **Test Results**: Passed - focused university tests (5), project validation (438 checks) and canonical-clone full suite (335 tests, 8 skipped).
 
 ## Findings
 
