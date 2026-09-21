@@ -47,3 +47,9 @@ extensions.
 - [x] Task: Reject surrounding whitespace in API-shaped identity and URL fields before canonical normalisation (`a1d9636`).
 - [x] Verification: focused ingestion tests (27), full local suite, project checks (460), web-first contracts, Conductor validation and diff validation pass locally.
 - [~] Native feed permissions, source-change/archive reconciliation, recurrence, monitoring and unattended operation remain open.
+
+## Phase: Conductor review fix — HTML calendar evidence boundary — 2026-09-22
+
+- [x] Task: Require canonical source/authority URLs and withhold padded HTML row links from actionable evidence instead of stripping them (`a54b32c`).
+- [x] Verification: focused HTML-calendar tests (8), full local suite, project checks (460), web-first contracts, Conductor validation and diff validation pass locally.
+- [~] Native feed permissions, source-change/archive reconciliation, recurrence, monitoring and unattended operation remain open.

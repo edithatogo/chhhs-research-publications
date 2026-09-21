@@ -1,5 +1,12 @@
 # G04 review
 
+## Conductor review — HTML calendar evidence boundary — 2026-09-22
+
+- **Finding:** the review-only HTML calendar parser stripped row `href` values and accepted padded source/authority URLs, allowing malformed evidence to appear actionable.
+- **Fix:** source identity and HTTPS authority URLs now require canonical values; padded row links are preserved as non-actionable raw candidates and withheld from `SourceLinks`/`SourceRowURL`.
+- **Verification:** focused HTML-calendar tests pass (8); project checks pass 460; web-first, Conductor and diff validation pass locally.
+- **Residual gate:** native feed permissions, source-change/archive reconciliation, recurrence, monitoring, unattended operation and production acceptance remain open.
+
 ## Conductor review — ingestion identity boundary — 2026-09-22
 
 - **Finding:** API-shaped `SourceID`, `ExternalID`, `RoundID` and URL fields were passed to the canonical normaliser, which strips surrounding whitespace before deriving keys and evidence URLs.
