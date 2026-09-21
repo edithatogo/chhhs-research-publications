@@ -1,6 +1,6 @@
 # Current RIMS checkpoint
 
-Updated: 2026-09-21. This is the compact resumption checkpoint, not a live acceptance certificate. Refresh after meaningful work; keep historical narrative in existing evidence documents.
+Updated: 2026-09-22. This is the compact resumption checkpoint, not a live acceptance certificate. Refresh after meaningful work; keep historical narrative in existing evidence documents.
 
 ## Direction
 
@@ -935,3 +935,10 @@ The QLD Health authenticated browser session remains the only authoritative
 native route; its import/parser handoff is documented above and remains
 blocked before Import submission. No VUW artefact was promoted or treated as
 QLD Health evidence.
+E01 native expression retry (2026-09-22): the QLD Health classic designer
+allowed an unsaved Condition shell in the calendar-row create branch, but the
+explicit current-item null expression was rejected and the dynamic-content
+panel stalled. The browser tab was reloaded to discard the draft; no Save,
+enablement or native mutation occurred. E01 remains active. The source-only
+calendar-change validator and publication validator still pass, but their
+local success does not close native null/non-null create/update/readback.
