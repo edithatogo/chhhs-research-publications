@@ -21,6 +21,19 @@ cross-user monitoring, delivery or unattended schedule is part of this tranche.
   reconciliation and unattended monitoring/delivery open until independently
   read back.
 
+### Native malformed-batch test boundary — 2026-09-22
+
+- [x] Attempt the current-user manual test with `ReviewedRowsJson=not-json`.
+  Power Automate opened the canonical flow's Run flow dialog but refused
+  submission because the flow is Off; therefore no run was created and no
+  SharePoint mutation occurred. The flow was not enabled and remains Off.
+  Receipt: `private/ops/2026-09-22-powerautomate-g07-malformed-test-boundary.json`.
+- [~] The malformed-batch failure-safe behavior is still a native execution
+  gate. It cannot be claimed from the pre-submit Off-state boundary; an
+  approved enable/run/restore cycle is required before failed-batch
+  preservation, duplicate/concurrency handling and exact-key reconciliation
+  can be closed.
+
 ## Phase: Review fixes
 - [x] Task: Apply review corrections for the controlled native replay and preserve the remaining acceptance boundary (0536b98).
 - [x] Task: Reject runs without source health or with records from unreported sources (aad9d4a).

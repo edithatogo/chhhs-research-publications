@@ -108,3 +108,32 @@ duplicate/concurrency handling, failed-batch preservation, exact-key
 reconciliation or unattended monitoring/delivery. G07 remains active and is
 not eligible for archive. Receipt:
 `private/ops/2026-09-22-powerautomate-g07-flow-readback.json`.
+
+## Native malformed-batch test boundary — 2026-09-22
+
+### Summary
+
+The current-user manual test route accepted the malformed input field, but
+Power Automate rejected execution before submission because the sole canonical
+Grants flow is Off. No run ID was issued and no SharePoint write was observed.
+
+### Verification checks
+
+- [x] Canonical flow identity re-read: `acf866e4-e4a2-4113-bce4-d2dd9e2f22d6`.
+- [x] Details page re-read: owner Dylan Mordaunt, SharePoint-connected, Status
+  Off.
+- [x] Test dialog readback: `ReviewedRowsJson=not-json` was present, followed
+  by the explicit inactive-flow warning before submission.
+- [x] Flow left Off; no enable, run, or data mutation was attempted.
+- [ ] Native malformed-batch failure-safe run and list readback.
+
+### Findings
+
+This is a clean safety boundary, not a successful failure-path test. G07
+remains active because native failed-batch preservation, duplicate/concurrency
+handling, exact-key operational reconciliation and unattended monitoring or
+delivery still require an approved execution cycle against the isolated
+current-user target.
+
+Receipt:
+`private/ops/2026-09-22-powerautomate-g07-malformed-test-boundary.json`.
