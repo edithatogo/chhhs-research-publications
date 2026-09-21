@@ -700,3 +700,12 @@ Checker 0 errors and one warning caused by the intentionally inactive flow.
 - **Residual acceptance:** the 28-day UI history is not durable retention;
   scheduled/unattended execution, refresh, report reconciliation, delivery
   and production acceptance remain unproven. T11 remains active.
+
+### Native refresh retry — 2026-09-23
+
+A fresh authenticated `Schema and data` refresh remained at
+`Processing queries and validating semantic model` for 100 seconds and was
+cancelled through the native confirmation. This reproduces the refresh gate;
+it does not prove processed-model loading, retained-history reconciliation or
+report acceptance. Receipt:
+`private/ops/2026-09-23-powerbi-native-refresh-retry.json`.
