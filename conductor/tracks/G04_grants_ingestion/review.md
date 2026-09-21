@@ -174,4 +174,22 @@ Receipt:
   Platform, visual and canonical flow validators pass locally.
 - **Residual gate:** permitted live opportunity intake, controlled
   source-to-list reconciliation, native acceptance and unattended operation
-  remain open.
+remain open.
+
+## Conductor review — source identity canonicalisation — 2026-09-22
+
+- **Finding:** `parse_feed` and `ingest_batches` previously accepted source
+  identities with surrounding whitespace and silently collapsed them to a
+  trimmed value. This could conceal source-catalogue drift and make source
+  health attribution ambiguous.
+- **Fix:** the shared `_validate_source_identity` boundary now requires a
+  non-empty string with no surrounding whitespace. `ingest_batches` records a
+  malformed source identity as a failed source-health row without discarding
+  successful batches; malformed batch objects retain the explicit fail-closed
+  error contract. Commit is recorded with the implementation checkpoint.
+- **Verification:** focused ingestion tests pass (24); the full suite passes
+  448 tests with 8 skips; project validation passes 460 checks; web-first,
+  Conductor and diff validation pass locally.
+- **Residual gate:** live feed/API permissions, source-change reconciliation,
+  SharePoint writes, recurrence, monitoring and unattended operation remain
+  open. Local evidence does not certify native tenant acceptance.

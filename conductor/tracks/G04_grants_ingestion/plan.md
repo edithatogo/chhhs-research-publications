@@ -35,3 +35,9 @@ extensions.
 - [x] Task: Validate API-shaped source fields before normalization so booleans/numbers cannot be stringified into accepted records (`5fa0467`).
 - [x] Task: Add a shared typed-input boundary to the canonical grants normalizer (`f6e33e4`).
 - [x] Task: Reject structured and boolean `Amount` values while preserving scalar numeric amounts (`b10810d`).
+
+## Conductor review fix — 2026-09-22
+
+- [x] Task: Reject surrounding whitespace in feed and batch source identities instead of silently normalising distinct source IDs (`d728a32`).
+- [x] Verification: focused ingestion tests (24), full local suite (448 tests, 8 skipped), project checks (460), web-first contracts, Conductor validation and diff validation pass locally.
+- [~] Native feed permissions, source-change/archive reconciliation, recurrence, monitoring and unattended operation remain open; local success is not tenant acceptance.
