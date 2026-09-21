@@ -1,5 +1,12 @@
 # G02 review
 
+## Conductor review — ARC award evidence boundary — 2026-09-22
+
+- **Finding:** the ARC awards-only adapter stripped award code/ID and evidence URL values before preserving them, allowing padded source provenance to become canonical silently.
+- **Fix:** ARC award identity and evidence URL values now reject surrounding whitespace; the adapter remains explicitly `awards_only` and cannot enter the open-opportunity upsert path.
+- **Verification:** focused ARC adapter tests pass (5); project checks pass 460; web-first, Conductor and diff validation pass locally.
+- **Residual gate:** permitted opportunity feeds, row-level review/eligibility evidence, unattended intake and production acceptance remain open.
+
 ## Conductor review — reviewed-import evidence boundary — 2026-09-22
 
 - **Finding:** the reviewed-import fallback claimed not to repair reviewer input but stripped source, identity, URL and review-status fields before admission, allowing malformed evidence to become canonical.

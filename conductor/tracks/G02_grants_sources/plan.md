@@ -97,3 +97,9 @@ source schedule is part of this tranche.
 - [x] Task: Reject surrounding whitespace in reviewed source, identity, URL and review-status fields instead of stripping reviewer evidence before admission (`12f5f41`).
 - [x] Verification: focused reviewed-import tests (9), full local suite, project checks (460), web-first contracts, Conductor validation and diff validation pass locally.
 - [~] Permitted opportunity feeds, row-level review/eligibility evidence and unattended intake remain open.
+
+## Phase: Conductor review fix — ARC award evidence boundary — 2026-09-22
+
+- [x] Task: Reject surrounding whitespace in ARC award code/ID and evidence URL values instead of stripping awards-only provenance before preservation (`6bc6e26`).
+- [x] Verification: focused ARC adapter tests (5), full local suite, project checks (460), web-first contracts, Conductor validation and diff validation pass locally.
+- [~] ARC remains awards-only; permitted opportunity feeds, row-level review/eligibility evidence and unattended intake remain open.
