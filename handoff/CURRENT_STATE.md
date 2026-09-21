@@ -792,3 +792,9 @@ flow inventory contains no new calendar-change flow. No row was written, no
 flow was enabled, and native import, execution, refresh/reconciliation and
 delivery remain open. This is a current-user DEV schema receipt plus an exact
 import blocker, not tenant acceptance.
+
+The bounded diagnostic was extended once using a private tenant-exported
+watchlist package as the source for metadata, connection-reference and
+authentication shape. That third calendar-change import was rejected with the
+same `MalformedFlowAssetFlowDefinition` result. The exported package remains
+ignored/private and no tenant-specific metadata was added to tracked source.

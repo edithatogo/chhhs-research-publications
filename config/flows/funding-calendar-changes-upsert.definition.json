@@ -6,6 +6,21 @@
     "apiId": "/providers/Microsoft.PowerApps/apis/shared_logicflows",
     "displayName": "CHHHS RIMS - Funding Calendar Changes - Reviewed Upsert",
     "definition": {
+      "metadata": {
+        "workflowEntityId": null,
+        "processAdvisorMetadata": null,
+        "flowChargedByPaygo": null,
+        "flowclientsuspensionreason": "None",
+        "flowclientsuspensiontime": null,
+        "flowclientsuspensionreasondetails": "",
+        "creator": {"id": null, "type": "User", "tenantId": null},
+        "provisioningMethod": "FromDefinition",
+        "failureAlertSubscription": true,
+        "clientLastModifiedTime": null,
+        "lastModifiedBy": null,
+        "connectionKeySavedTimeKey": null,
+        "creationSource": null
+      },
       "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
       "contentVersion": "1.0.0.0",
       "parameters": {"$authentication":{"defaultValue":{},"type":"SecureObject"},"$connections":{"defaultValue":{},"type":"Object"}},

@@ -206,8 +206,9 @@ operation.
   focused tests pass.
 - **Native:** one isolated personal DEV `Funding Calendar Changes` list exists;
   all 13 canonical fields and defaults read back correctly with zero items.
-- **Blocker:** two corrected legacy package imports were rejected by Power
-  Automate as `MalformedFlowAssetFlowDefinition`; no flow was created.
+- **Blocker:** three corrected legacy package imports were rejected by Power
+  Automate as `MalformedFlowAssetFlowDefinition`, including one shaped from a
+  private tenant-exported native flow; no flow was created.
 - **Decision:** keep G08 open. Do not archive or enable anything until a
   tenant-exported/native-designer baseline permits a safe definition diff and
   a controlled run/readback is captured.

@@ -462,9 +462,10 @@ canonical fields, requiredness, the required/unique/indexed `ChangeKey`, the
 written and no flow was created or enabled.
 
 The matching local SharePoint-only upsert contract is structurally valid and
-the package was rebuilt twice. Both native import attempts were rejected with
-`MalformedFlowAssetFlowDefinition`, including after moving the package-level
-metadata to the correct structure and simplifying optional-field expressions.
+the package was rebuilt through three bounded diagnostic variants. All native
+import attempts were rejected with `MalformedFlowAssetFlowDefinition`,
+including a package carrying metadata, connection-reference and authentication
+shape copied from a tenant-exported native flow.
 
 ### Verification Checks
 
@@ -476,16 +477,17 @@ metadata to the correct structure and simplifying optional-field expressions.
 - **Test Coverage:** Partial — local schema/change semantics and package
   structure are covered; native import/deserialisation is not accepted.
 - **Native Evidence:** The import surface reported the exact malformed-flow
-  error in both retries and the final inventory showed no new flow copy.
+  error in all three retries and the final inventory showed no new flow copy.
 
 ### Findings
 
 - **Fixed:** local package structure now matches the established flow asset
   shape, and optional mappings use the known-good direct expression form.
 - **Open blocker:** the Power Automate legacy importer still cannot deserialize
-  this asset. Rebuilding by browser or CLI needs either a tenant-exported
-  source definition for this list or a native designer-created baseline to
-  diff against; no blind third retry is warranted.
+  this asset, even after a tenant-exported native shape was used privately as a
+  transformation baseline. The remaining safe route is a native
+  designer-created baseline for this exact list or tenant-side importer
+  diagnostics; no further blind package retry is warranted.
 - **Residual acceptance:** native flow import/readback, controlled run,
   SharePoint row reconciliation, model refresh and calendar delivery remain
   unproven.
