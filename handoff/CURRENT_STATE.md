@@ -740,8 +740,14 @@ native SharePoint UI create/read of `REL-SYNTH-G06-20260922`, the personal
 `Publication Registry` returned 1,468 rows in one page, 1,265 nonblank and
 distinct `CanonicalKey` values, no continuation link, and the same sorted-key
 SHA-256 `2b1b81200fe8e816bc15dce02ff80d4013c908925c2b855b777d241c595fe413`.
-No publication item was changed. The synthetic relationship row is still
-awaiting native delete confirmation; shared binding remains a future extension.
+No publication item was changed. The exact synthetic relationship row was then
+deleted through the native SharePoint `Delete?` confirmation and the list REST
+readback returned zero items. The existing Power BI semantic model's Power
+Query editor then created and saved the `Grant Relationships` query from the
+authenticated QLD Health personal site; model readback showed `Grant
+Relationships table 27 of 27` with 30 columns and zero rows. This closes G06
+for the current-user isolated scope; shared binding and unattended delivery
+remain future extensions.
 
 Model-write boundary (2026-09-21): the semantic-model editor exposes an
 `Editing` mode and the existing canonical publication model was extended in
