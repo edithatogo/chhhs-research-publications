@@ -700,6 +700,14 @@ publication rows are not mutated or implicitly joined. TMDL, regression,
 project and web-first checks pass locally. Native relationship-table binding,
 the synthetic-row cleanup and any shared backfill remain open.
 
+G06 local review correction (2026-09-22): the Conductor review of the
+relationship projection found and corrected one stale test-count statement.
+The canonical clean checkout now passes 439 unit tests with 8 skips, 457
+project checks, `PASS_LOCAL_ONLY` web-first validation and the full harness.
+The review is complete for this local projection phase, but G06 remains
+in-progress because native relationship-table binding and explicit cleanup of
+the current synthetic relationship row are not yet accepted.
+
 T11 native model-binding attempt (2026-09-22): the existing semantic-model
 Power Query editor was reopened and its retained DoRA/history tables and
 organisational-account connection were read back. A new SharePoint Online List
