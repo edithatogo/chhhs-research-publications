@@ -323,6 +323,14 @@ Power Platform, visual and canonical flow validators pass locally. Native
 monitoring, list readback, operational reconciliation, scheduling and delivery
 remain open; no tenant mutation was made.
 
+Latest T11 native-commit hardening (2026-09-21): code commit `b4ed0b9`
+requires the operator-supplied retention `batch` identity to be a valid UUID
+string before package construction. The full suite passes 422 tests with 8
+skips, 438 project checks pass, and Conductor, web-first, Power Platform,
+visual and canonical flow validators pass locally. Native retention import,
+committed-batch readback/replay, report integration and unattended operation
+remain open; no tenant mutation was made.
+
 Latest T11 DoRA package-boundary hardening (2026-09-21): code commit `44b6242`
 rejects non-string DoRA SharePoint package target parameters before URL/GUID
 handling. The full suite passes 421 tests with 8 skips, 438 project checks

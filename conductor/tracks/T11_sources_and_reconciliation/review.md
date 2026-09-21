@@ -590,3 +590,32 @@ commit: `44b62426d0f16b8e735e702f116b30be8c275a9b`.
 - **Residual acceptance:** native SharePoint schema/row readback, report-page
   integration, execution and unattended delivery remain unproven. No tenant
   mutation was made.
+
+## Conductor review — native commit batch identity boundary — 2026-09-21
+
+### Summary
+
+The manual native retention commit package now requires `batch` to be a valid
+UUID string before constructing the commit filename or flow expressions. This
+keeps the operator-assisted bootstrap fail-closed and does not claim native
+batch acceptance. Code commit: `b4ed0b9d8de82ac3fbc113b21190c59b95b26a88`.
+
+### Verification Checks
+
+- **Plan Compliance:** Partial — local bootstrap validation is hardened; native
+  import, committed-batch readback and subsequent-cycle acceptance remain open.
+- **Style Compliance:** Pass — the manual/operator-assisted boundary and
+  private package requirement are unchanged.
+- **New Tests:** Yes — non-string and malformed batch identities are rejected
+  explicitly.
+- **Test Results:** Passed — full suite (422 tests passed, 8 skipped), 438
+  project checks, Conductor validation (0 errors), web-first, Power Platform,
+  visual standards and both canonical flow validators.
+
+### Findings
+
+- **Fixed:** invalid batch values could leak UUID parsing exceptions instead of
+  the package's explicit validation error.
+- **Residual acceptance:** native retention flow import/readback, committed
+  batch replay, report integration and unattended operation remain unproven.
+  No tenant mutation was made.
