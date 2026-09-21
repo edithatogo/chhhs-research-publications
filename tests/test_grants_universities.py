@@ -89,6 +89,15 @@ class GrantsUniversityTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "surrounding whitespace"):
                 load_universities(handle.name)
 
+    def test_authority_url_rejects_surrounding_whitespace(self):
+        rows = json.loads((Path(__file__).parents[1] / "config/grants-universities.json").read_text())
+        rows[0]["authority_url"] = " https://example.org/authority"
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json") as handle:
+            json.dump(rows, handle)
+            handle.flush()
+            with self.assertRaisesRegex(ValueError, "valid authority URL"):
+                load_universities(handle.name)
+
 
 if __name__ == "__main__":
     unittest.main()

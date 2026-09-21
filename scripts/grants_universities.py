@@ -32,6 +32,8 @@ def _validate_lead_time(value, key):
 
 
 def _valid_http_url(value):
+    if not isinstance(value, str) or value != value.strip():
+        return False
     parsed = urlsplit(str(value or "").strip())
     return parsed.scheme in {"http", "https"} and bool(parsed.netloc)
 
