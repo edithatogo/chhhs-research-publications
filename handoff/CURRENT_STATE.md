@@ -297,6 +297,13 @@ execution remain open; no tenant mutation was made. Next executable task is
 native E01 replay/readback once an authorised CHHHS tenant session is
 available.
 
+Resumed native-access recheck (2026-09-21): `playwright-cli` reports that the
+`chrome` and `login` sessions are not open. PAC remains on the unrelated NSW
+environment and Azure remains on the unrelated Flinders tenant. No sign-in,
+tenant switch, deployment or write was attempted. Native Power Automate,
+SharePoint and Power BI gates remain open pending an authorised CHHHS session;
+the canonical local source and remote `main` remain synchronised.
+
 Inspect `git status --short` at entry. Preserve unrelated report/manifest and other existing edits; do not mass-stage. Use the active track's spec and plan for tasks. Follow AGENTS.md approval boundaries for deployment/sharing/schedules. Current user direction defines scope; historical observations supply evidence only for their dates. Live contradictions require readback, not a convenient choice of document.
 
 Update this checkpoint with outcome, next executable task, test command/result and exact blocker after work. Keep credentials, actual tenant identifiers and screenshots under ignored private storage. Do not paste raw private output into a context bundle.

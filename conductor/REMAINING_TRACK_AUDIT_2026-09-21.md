@@ -45,3 +45,13 @@ directory error; Azure is authenticated to a different tenant. No credentials
 were changed and no tenant mutation was attempted. This confirms the remaining
 native gates are externally blocked by tenant/account scope, while local source
 and contract work remains synchronised and CI-green.
+
+## Native access recheck — resumed audit — 2026-09-21
+
+The read-only `playwright-cli` check found that neither the `chrome` nor
+`login` browser session is open. PAC still reports the unrelated NSW profile
+(`Dylan.Mordaunt@health.nsw.gov.au`), and Azure still reports the unrelated
+Flinders tenant/account (`mord0015@flinders.edu.au`). No login, tenant switch,
+deployment, or write was attempted. The native gates listed above therefore
+remain open; this is evidence of unchanged external state, not a completion
+receipt.
