@@ -1,5 +1,12 @@
 # Track Review: E01 Power Automate Ingestion Canonicalization and Recurrence Scheduling
 
+## Conductor review — target binding identity boundary — 2026-09-22
+
+- **Finding:** the publication package target loader stripped SharePoint site/list/model identifiers and internal field mappings before building the flow package, allowing padded deployment bindings to become canonical silently.
+- **Fix:** target identifiers and field mappings now reject surrounding whitespace; regression coverage does not require private tenant artefacts.
+- **Verification:** focused publication contract tests pass (23, 8 private-package cases skipped); project checks pass 460; web-first, Conductor and diff validation pass locally.
+- **Residual gate:** native import, replay/update, duplicate/failure-safe reconciliation and schedule/release evidence remain open.
+
 ## Synchronized verification — 2026-09-22
 
 The canonical checkout passes 456 tests (8 skipped), 460 project checks,

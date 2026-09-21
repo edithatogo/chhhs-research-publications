@@ -63,3 +63,9 @@ Earlier checked tasks describe historical implementation. They do not close curr
 - [x] Enforce the specified daily 20:00 UTC recurrence and canonical manifest
   display name in the publication-flow validator, with regression coverage
   (`c614d43`). Native deployment and schedule acceptance remain open.
+
+## Phase: Conductor review fix — target binding identity boundary — 2026-09-22
+
+- [x] Reject surrounding whitespace in private SharePoint site/list/model identifiers and internal field mappings before publication package generation (`8638767`).
+- [x] Verification: focused publication contract tests (23, 8 private-package cases skipped), full local suite, project checks (460), web-first contracts, Conductor validation and diff validation pass locally.
+- [~] Native import, replay/update, duplicate/failure-safe reconciliation and schedule/release evidence remain open.
