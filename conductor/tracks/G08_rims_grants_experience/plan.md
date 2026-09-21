@@ -14,6 +14,7 @@ unattended delivery are future extensions.
 - [x] Harden future delivery idempotency keys to reject coercible identities and out-of-range offsets without creating ambiguous keys.
 - [x] Make institutional policy and holiday validation reject non-object and non-string inputs without incidental type errors.
 - [x] Review fix: require an explicit current-user key and return only that user's matching subscription (`a6e1602`, `db96224`).
+- [x] Review fix: bind delivery-event idempotency keys to the explicit current user (`0b5c920`).
 
 ## Local review extension — 2026-09-20
 

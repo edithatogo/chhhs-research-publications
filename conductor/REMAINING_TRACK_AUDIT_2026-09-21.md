@@ -73,3 +73,14 @@ local suite passes 426 tests with 8 skips; the harness, 438 project checks,
 Conductor, web-first, Power Platform, visual and canonical flow validators pass
 locally. GitHub Actions run `35552156045` is green. These changes do not close
 the native tenant, permitted-feed or unattended-operation gates listed above.
+
+## Platform route recheck — current user — 2026-09-21
+
+The requested move to current-user platform implementation was attempted
+read-only. `playwright-cli list` reported no browsers; the CUA Chrome provider
+and in-app browser provider were unavailable; attaching to the running native
+Chrome app failed with a ScreenCaptureKit stream error. No login, target
+switch, platform write, flow activation, sharing change or schedule change was
+attempted. The local user-scoped source remains the only synchronised
+canonical version until an attachable current-user platform session is
+available.

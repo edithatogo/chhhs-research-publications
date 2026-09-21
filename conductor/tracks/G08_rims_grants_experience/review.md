@@ -262,6 +262,20 @@ otherwise unsupported shapes. Code commit:
   readback remain open; shared subscriptions, cross-user delivery and
   unattended notification are future extensions.
 
+## Conductor review — delivery-key user binding — 2026-09-21
+
+- **Finding:** delivery-event key generation accepted an arbitrary `user_key`,
+  so a caller could create a ledger identity for a different user even though
+  the active implementation is user-scoped.
+- **Fix:** commit `0b5c920` requires an explicit `current_user_key` and rejects
+  mismatched delivery identities; regression coverage verifies the boundary.
+- **Verification:** focused relationships/operations tests pass (22); the full
+  suite passes 426 tests with 8 skips; 438 project checks, Conductor,
+  web-first, Power Platform, visual and canonical flow validators pass locally.
+- **Residual gate:** current-user native page persistence and manual readback
+  remain open; shared delivery and unattended notification are future
+  extensions.
+
 ## Conductor review — institutional policy field typing — 2026-09-21
 
 - **Finding:** policy validation checked field presence and formatted dates but allowed non-string identity/version/date values through coercive parsing.

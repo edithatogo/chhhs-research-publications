@@ -426,6 +426,23 @@ locally. Current-user native page persistence and manual readback remain open;
 shared subscriptions, cross-user delivery and unattended notification are
 future extensions; no tenant mutation was made.
 
+Latest G08 delivery-ledger hardening (2026-09-21): code commit `0b5c920`
+requires delivery-event key generation to bind the event `UserKey` to an
+explicit current signed-in user. Focused relationships/operations coverage
+passes (22 tests); the full suite passes 426 tests with 8 skips, 438 project
+checks pass, and Conductor, web-first, Power Platform, visual and canonical
+flow validators pass locally. Current-user native page persistence and manual
+readback remain open; shared delivery and unattended notification are future
+extensions; no tenant mutation was made.
+
+Current platform-route blocker (2026-09-21): the requested current-user
+platform implementation was attempted read-only. `playwright-cli list`
+reported no browsers; CUA Chrome and the in-app browser providers were
+unavailable; attaching to the running native Chrome app failed with a
+ScreenCaptureKit stream error. No login, target switch, platform write, flow
+activation, sharing or schedule change was attempted. Resume native work only
+from an attachable current-user browser session.
+
 Latest G07 operations hardening (2026-09-21): code commit `1ac3d52` rejects
 whitespace-divergent source and opportunity identity values before operational
 acceptance, preventing comparison-time trimming from masking malformed
