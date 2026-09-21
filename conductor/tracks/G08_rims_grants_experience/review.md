@@ -53,7 +53,7 @@ with a duplicate diagnostic and is restored Off after testing.
 ### Findings
 
 - **Fixed:** empty optional `SentAt`/`ErrorMessage` values were sent as empty strings, which SharePoint date conversion rejected. The tracked flow now passes null for empty optional values and the corrected package was imported as an Update to the existing flow identity.
-- **Residual acceptance:** the synthetic ledger row remains for evidence pending explicit UI deletion confirmation; the list does not yet enforce required/unique identity based on the current REST field readback, and native report binding, subscription isolation, calendar delivery and unattended operation remain unproven.
+- **Residual acceptance:** the synthetic ledger row was subsequently deleted through the authenticated SharePoint UI and the list read back with zero data rows. Native report binding is evidenced for the saved visuals, while refresh/reconciliation, subscription isolation, calendar delivery and unattended operation remain unproven.
 
 ## Native boundary readback — 2026-09-20
 
@@ -374,7 +374,7 @@ The calendar upsert path was bootstrapped from the existing reviewed SharePoint-
 ### Findings
 
 - **Status:** Partial — the flow and controlled persistence path are proven in isolated DEV, but this is not organisation-wide or unattended acceptance.
-- **Residual gate:** the synthetic calendar row remains in the list pending explicit UI deletion confirmation; native report pages, institutional-date/reminder/change ledger, subscription isolation and calendar/notification delivery remain open.
+- **Residual gate:** the synthetic calendar row was subsequently deleted through the authenticated SharePoint UI and the list read back with zero data rows; native report pages are now evidenced through saved visual readback. Refresh/reconciliation, institutional-date/reminder/change ledger, subscription isolation and calendar/notification delivery remain open.
 - **Decision:** keep G08 active. The native flow evidence is sufficient to close the calendar-upsert subtask, not the whole track, so archiving would overstate completion.
 
 ## Local model/report parity — 2026-09-22
@@ -628,3 +628,14 @@ authored through the authenticated QLD Health designer.
   resource and SharePoint connection resources. The wizard still remained on
   `Uploading your package`, so the remaining failure is the UI handoff after
   successful server-side package parsing. No import submission occurred.
+
+### Classic designer continuation — 2026-09-22
+
+- The classic QLD Health designer was reached by disabling the new-designer
+  switch and exposed the Control/Condition action. The dynamic-content picker
+  nevertheless returned duplicate `PreviousDate` labels from earlier actions
+  without an unambiguous current calendar-row token in the attempted branch.
+- The temporary condition shell was discarded through the browser reload
+  confirmation. No partial edit was saved; the existing flow remains the sole
+  canonical identity and Off. This adds route evidence but does not close the
+  null-date gate.
