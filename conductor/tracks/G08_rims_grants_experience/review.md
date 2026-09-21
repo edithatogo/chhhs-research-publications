@@ -680,3 +680,18 @@ Health SharePoint connection was selected, but the wizard kept the final
 - **Open gate:** native null-date create/update/readback remains unproven;
   refresh/reconciliation and calendar/reminder delivery are also open. G08
   remains active.
+
+### Native code-view recheck — 2026-09-22
+
+The existing canonical flow was reopened in the current QLD Health designer.
+The `Apply to each Calendar Row` code view displayed the current loop and the
+tenant SharePoint site/list identifiers, but the editor explicitly reported
+`Cannot edit in read-only editor`. A locally validated null-preserving loop
+definition was staged only in the browser control; it was rejected by the
+read-only surface, no Save was enabled, and a reload restored the unchanged
+flow. The flow remains Off and no second identity or partial draft exists.
+
+- **Verification:** pass for blocker confirmation; no native mutation occurred.
+- **Decision:** retain the existing flow as the sole canonical identity and
+  keep G08 active until an approved editable designer, solution/import route or
+  tenant permission enables the branch change and its null-date run/readback.
