@@ -66,3 +66,18 @@ batch and fail closed.
 - **Fix:** commit `0eef31a` requires a collection-shaped allowlist, trims field names before uniqueness checks, and adds regression coverage.
 - **Verification:** focused relationship/operations tests pass (20); the full suite passes 387 tests with 8 skips; project validation passes 438 checks; web-first, Conductor, Power Platform tooling and visual standards checks pass locally.
 - **Residual gate:** native list readback, monitoring, scheduling and delivery remain open.
+
+## Conductor review — normalized opportunity-key duplicate boundary — 2026-09-21
+
+- **Finding:** operational duplicate detection compared raw opportunity-key
+  strings, so keys differing only by surrounding whitespace could bypass the
+  batch duplicate guard even though reconciliation canonicalizes them.
+- **Fix:** commit `206588cffca8e6b6effedea19594219a56903bf3` compares the
+  trimmed non-empty key set and adds regression coverage for the whitespace
+  variant.
+- **Verification:** focused relationship/operations tests pass (21); the full
+  suite passes 416 tests with 8 skips, 438 project checks pass, and web-first,
+  Conductor, Power Platform, visual and canonical flow validators pass
+  locally.
+- **Residual gate:** native list readback, monitoring, exact-key operational
+  reconciliation, scheduling and delivery remain open.

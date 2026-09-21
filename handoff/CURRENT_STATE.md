@@ -314,6 +314,15 @@ canonical flow validators pass locally. Permitted live opportunity intake,
 controlled source-to-list reconciliation, native acceptance and unattended
 operation remain open; no tenant mutation was made.
 
+Latest G07 operational hardening (2026-09-21): code commit `206588c` makes
+batch duplicate detection compare normalized trimmed `OpportunityKey` values,
+closing a whitespace-variant identity gap before registry reconciliation.
+Focused relationship/operations coverage is 21 tests; the full suite passes
+416 tests with 8 skips, 438 project checks pass, and Conductor, web-first,
+Power Platform, visual and canonical flow validators pass locally. Native
+monitoring, list readback, operational reconciliation, scheduling and delivery
+remain open; no tenant mutation was made.
+
 Latest G08 policy hardening (2026-09-21): code commit `574193d` rejects an
 explicitly blank institutional grant-policy `EffectiveTo` while preserving
 `null` as the valid open-ended representation. Focused planning coverage is
