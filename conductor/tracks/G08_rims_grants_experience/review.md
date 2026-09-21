@@ -244,6 +244,24 @@ otherwise unsupported shapes. Code commit:
 - **Residual gate:** native grants pages, private preferences, calendar
   change/cancellation and notification delivery remain open.
 
+## Conductor review — current-user subscription boundary — 2026-09-21
+
+- **Finding:** the local subscription matcher returned every matching
+  `UserKey`, which could be mistaken for a multi-user delivery decision even
+  though the active implementation is user-scoped.
+- **Fix:** commits `a6e1602` and `db96224` require an explicit signed-in
+  `current_user_key`, validate it, and return only that user when a rule
+  matches. Documentation now states that the matcher is not delivery
+  authorisation.
+- **Verification:** focused planning tests pass (12); the full suite passes
+  426 tests with 8 skips; 438 project checks, Conductor, web-first, visual and
+  canonical flow validators pass locally. Power Platform binary discovery is
+  present, but the current preflight reported shell initialisation warnings for
+  `az`/`pwsh`; this is not tenant acceptance.
+- **Residual gate:** current-user native page persistence and manual
+  readback remain open; shared subscriptions, cross-user delivery and
+  unattended notification are future extensions.
+
 ## Conductor review — institutional policy field typing — 2026-09-21
 
 - **Finding:** policy validation checked field presence and formatted dates but allowed non-string identity/version/date values through coercive parsing.

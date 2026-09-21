@@ -417,6 +417,15 @@ canonical flow validators pass locally. Native grants pages, private
 preferences, calendar change/cancellation and notification delivery remain
 open; no tenant mutation was made.
 
+Latest G08 user-scope hardening (2026-09-21): commits `a6e1602` and `db96224`
+require the grants subscription matcher to receive the signed-in user's key
+and return only that user on a match. Focused planning coverage passes (12
+tests); the full suite passes 426 tests with 8 skips and 438 project checks,
+Conductor, web-first, visual and canonical flow validators remain green
+locally. Current-user native page persistence and manual readback remain open;
+shared subscriptions, cross-user delivery and unattended notification are
+future extensions; no tenant mutation was made.
+
 Latest G07 operations hardening (2026-09-21): code commit `1ac3d52` rejects
 whitespace-divergent source and opportunity identity values before operational
 acceptance, preventing comparison-time trimming from masking malformed
