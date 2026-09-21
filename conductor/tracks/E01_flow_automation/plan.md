@@ -45,3 +45,15 @@ Earlier checked tasks describe historical implementation. They do not close curr
 - [x] Add an exact-one-match update guard so duplicate publication keys cannot write (`22b5df1`).
 - [x] Add a standalone publication-flow validator and CI gate alongside the grants-flow validator; retain native replay and schedule gates as open (`bcbee3f`).
 - [x] Add regression coverage requiring both canonical flow validators to remain in the source-only CI workflow (`35ef830`).
+
+## Phase: Conductor review recheck — 2026-09-22
+
+- [x] Re-run the source-only validator, full local suite and Conductor checks
+  from the clean canonical checkout.
+- [~] Retry the QLD Health classic-designer null-date branch using an explicit
+  current-item expression. The unsaved condition shell was rejected by the
+  expression editor and the dynamic-content panel stalled; the browser tab was
+  reloaded without saving. Native null/non-null create/update/readback remains
+  open.
+- [ ] Archive E01 only after native replay, failure-safe reconciliation and
+  schedule/release evidence are terminal and independently read back.

@@ -120,6 +120,44 @@ One local packaging defect was found and fixed in commit `b6cc2e9`: the private 
 - **Verification:** 16 focused publication-platform contract tests passed, with 8 tests correctly skipped because the private live package is absent from the source-only clone; `validate_publication_platform_contract.py` passed against the tracked definition.
 - **Boundary:** local loop scope, connector/action safeguards and target-loader checks are covered. Native flow execution, replay/update, failure safety, reconciliation and schedule acceptance remain open.
 
+## Conductor review recheck — 2026-09-22
+
+### Summary
+
+Local publication-flow contracts, package hardening and regression coverage
+remain sound. The native QLD Health acceptance gate is still incomplete and
+the track must remain active.
+
+### Verification Checks
+
+- [x] Plan Compliance: Partial — the source definition and validator cover the
+  required branch graph; native replay/update, failure-safe reconciliation and
+  unattended scheduling remain open.
+- [x] Style Compliance: Pass — the flow remains SharePoint-list-backed,
+  current-user scoped and fail-closed.
+- [x] New Tests: No new source test was required for this browser-only retry;
+  the existing validator and regression suite remain applicable.
+- [x] Test Coverage: Partial — local contracts and prior native non-null
+  execution are covered; native null-date acceptance is not.
+- [x] Test Results: Passed — 444 tests passed with 8 skips, 460 project
+  checks passed, and Conductor validation reported 0 structural errors.
+
+### Findings
+
+#### Medium — native null-date branch cannot yet be authored through the tenant UI
+
+- **Evidence:** the QLD Health classic designer allowed an unsaved Condition
+  shell to be inserted in the existing `Condition Is New Calendar Row` yes
+  branch, but rejected the explicit current-item null expression and then
+  stalled while reopening dynamic content. The draft was discarded by reload;
+  no Save operation occurred.
+- **Impact:** the tracked null-preserving definition is locally valid, but it
+  is not a native implementation receipt. The flow remains the sole canonical
+  target and native null/non-null create/update/readback remains open.
+- **Action:** retain the native gate as `[~]`; retry only through a responsive
+  QLD Health route or a successfully parsed/importable package. Do not archive
+  E01 or claim tenant acceptance from this attempt.
+
 ## Conductor review — duplicate-write fail-closed correction — 2026-09-21
 
 ## Local flow validator coverage — 2026-09-21

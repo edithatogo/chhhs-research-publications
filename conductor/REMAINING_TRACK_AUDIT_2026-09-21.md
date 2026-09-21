@@ -371,8 +371,18 @@ operation.
 ### Canonical checkout refresh — 2026-09-22
 
 - The clean checkout used for this audit is synchronised to the sole GitHub
-  `main` branch at `d4e5d3c`; the original authoring checkout remains
+  `main` branch at `629c2ae`; the original authoring checkout remains
   intentionally dirty and is not a second remote version.
 - Local structural evidence and native tenant evidence remain separate. The
   VUW CLI inventory result and the QLD Health browser import blocker do not
   close any native publication or grants acceptance gate.
+
+### E01 classic-designer expression retry — 2026-09-22
+
+- The QLD Health classic designer permitted an unsaved Condition shell inside
+  the existing `Condition Is New Calendar Row` yes branch. The explicit
+  current-item null expression was rejected by the expression editor, and the
+  dynamic-content panel stalled on retry.
+- The browser tab was reloaded to discard the draft. No Save operation,
+  enablement, or native mutation was performed. E01 remains active; the local
+  null-preserving definition is not a native acceptance receipt.
