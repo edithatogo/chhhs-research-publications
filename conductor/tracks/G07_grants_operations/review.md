@@ -6,8 +6,8 @@ Review status: in progress; local operational guardrails are implemented.
 
 ## Synchronized verification — 2026-09-22
 
-The canonical checkout passes 444 tests (8 skipped), 460 project checks,
-Conductor validation and source-only CI run `35655033968`. Native duplicate/
+The canonical checkout passes 450 tests (8 skipped), 460 project checks,
+Conductor validation and source-only CI run `35657921400`. Native duplicate/
 concurrency, monitoring, reconciliation, recurrence and delivery evidence
 remain open.
 

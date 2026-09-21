@@ -2,8 +2,8 @@
 
 ## Synchronized verification — 2026-09-22
 
-The canonical checkout passes 444 tests (8 skipped), 460 project checks,
-Conductor validation and source-only CI run `35655033968`. The platform
+The canonical checkout passes 450 tests (8 skipped), 460 project checks,
+Conductor validation and source-only CI run `35657921400`. The platform
 acceptance contract remains open because current tenant replay, reconciliation,
 refresh and release evidence is incomplete.
 

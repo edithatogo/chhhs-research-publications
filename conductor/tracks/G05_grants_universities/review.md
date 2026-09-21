@@ -23,8 +23,8 @@ Review status: in progress; university source and institutional-date discovery i
 
 ## Synchronized verification — 2026-09-22
 
-The canonical checkout passes 444 tests (8 skipped), 460 project checks,
-Conductor validation and source-only CI run `35655033968`. Institutional feed,
+The canonical checkout passes 450 tests (8 skipped), 460 project checks,
+Conductor validation and source-only CI run `35657921400`. Institutional feed,
 export and authenticated portal acceptance remain open.
 
 - `config/grants-universities.json` covers JCU, UQ, QUT and Griffith with authority page, format, access boundary, eligibility scope, policy note and last verification.

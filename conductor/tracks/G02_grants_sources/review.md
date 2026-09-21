@@ -23,8 +23,8 @@ opportunity intake, eligibility review and unattended operation remain open.
 
 ## Synchronized verification — 2026-09-22
 
-The canonical checkout passes 444 tests (8 skipped), 460 project checks,
-Conductor validation and source-only CI run `35655033968`. This confirms local
+The canonical checkout passes 450 tests (8 skipped), 460 project checks,
+Conductor validation and source-only CI run `35657921400`. This confirms local
 source contracts only; permitted opportunity feeds, row-level review and
 eligibility evidence remain open.
 

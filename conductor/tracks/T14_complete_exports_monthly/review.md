@@ -4,8 +4,8 @@ Review status: in progress; local export generation and contract checks are comp
 
 ## Synchronized verification — 2026-09-22
 
-The canonical checkout passes 444 tests (8 skipped), 460 project checks,
-Conductor validation and source-only CI run `35655033968`. Native refresh,
+The canonical checkout passes 450 tests (8 skipped), 460 project checks,
+Conductor validation and source-only CI run `35657921400`. Native refresh,
 complete export readback, consecutive-cycle preservation and delivery remain
 unproven.
 
