@@ -11,6 +11,21 @@ metadata such as boolean `record_kind`, numeric `sample_fixture` or a
 non-string `api_url` on a non-API row. That could weaken provenance and source
 classification without failing closed.
 
+## Conductor review — optional API URL canonicalisation — 2026-09-22
+
+- **Finding:** non-API catalogue rows accepted an optional `api_url` with
+  surrounding whitespace. It was type-valid but not canonical, creating a
+  future promotion ambiguity if that row later changed intake mode.
+- **Fix:** all present optional `api_url` values now reject surrounding
+  whitespace, while explicit `null` remains valid. A regression test covers a
+  padded URL on a non-API row.
+- **Verification:** focused source-ingestion tests pass (25); the full suite
+  passes 451 tests with 8 skips; project validation passes 460 checks;
+  web-first, Conductor and diff validation pass locally.
+- **Residual gate:** permitted opportunity feeds, row-level review and
+  eligibility evidence, unattended intake and production acceptance remain
+  open.
+
 The loader now requires optional metadata to be either a non-empty string or
 explicit `null`, and validates any present `api_url` type before applying the
 API-specific URL contract. Regression coverage was added in

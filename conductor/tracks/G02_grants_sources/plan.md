@@ -79,3 +79,9 @@ source schedule is part of this tranche.
   `sample_fixture` and non-API `api_url`) without coercion; preserve explicit
   `null` fixtures (`25ad9d8`). Permitted opportunity feeds and unattended
   intake remain open.
+
+## Phase: Conductor review fix — 2026-09-22
+
+- [x] Task: Reject surrounding whitespace in optional `api_url` values for all catalogue rows, including non-API rows (`69c6acb`).
+- [x] Verification: focused source-ingestion tests (25), full local suite (451 tests, 8 skipped), project checks (460), web-first contracts, Conductor validation and diff validation pass locally.
+- [~] Permitted opportunity feeds, row-level review/eligibility evidence and unattended intake remain open.
