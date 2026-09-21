@@ -85,7 +85,7 @@ class PlanningTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             subscribers({}, [], current_user_key='u1')
         with self.assertRaisesRegex(ValueError, 'current_user_key'):
-            subscribers({'OpportunityKey': 'g1'}, [])
+            subscribers({'OpportunityKey': 'g1'}, [], current_user_key=None)
 
     def test_alias_input_has_same_identity(self):
         a = normalize_opportunity({'title': 'Call', 'link': 'https://example.org/call'})
