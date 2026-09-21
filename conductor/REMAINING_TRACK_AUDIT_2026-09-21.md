@@ -264,7 +264,7 @@ operation.
 ### Resumed canonical audit — 2026-09-22
 
 - **Repository:** the clean canonical checkout is synchronised to the sole
-  GitHub `main` branch at `b950eda`; the original authoring checkout remains
+  GitHub `main` branch at `111b3c3`; the original authoring checkout remains
   intentionally dirty and is not a second remote version.
 - **G08 import evidence:** the authenticated QLD Health browser upload reached
   `generateResourceStorage`; `listImportParameters` returned HTTP 202 and
