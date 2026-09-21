@@ -412,3 +412,18 @@ operation.
 - This corroborates controlled flow execution and canonicality only. Durable
   history, scheduled/unattended operation, refresh, report reconciliation,
   delivery and production acceptance remain open; T11 stays active.
+
+### Current synchronized audit addendum — 2026-09-22
+
+- The canonical clone is clean at `35549dd`, matching the sole GitHub `main`
+  branch. Source-only CI run `35655397495` passed the unit, project,
+  web-first, Conductor, Power Platform preflight, visual and canonical-flow
+  checks.
+- The active review records now use the current 444-test/460-check local
+  baseline. This is source/documentation evidence only; it does not promote
+  any native gate to complete.
+- A fresh `playwright-cli -s=login` route currently resolves to Microsoft
+  sign-in rather than an authenticated QLD Health session. VUW PAC still has
+  no cloud-flow inventory. The QLD Health null-date repair therefore remains
+  unsaved, the canonical flow remains Off, and no track is archivable on this
+  evidence alone.
