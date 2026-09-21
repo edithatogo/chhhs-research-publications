@@ -24,7 +24,7 @@ class DoraActivityFlowPackageTests(unittest.TestCase):
                 self.assertIn("shared_sharepointonline", text)
                 self.assertNotIn("shared_onedriveforbusiness", text)
                 self.assertIn("item/DORAActivityKey", text)
-                self.assertIn("item/PI Email", text)
+                self.assertIn("item/PI_x0020_Email", text)
 
     def test_rejects_invalid_target_or_connection(self):
         private_root = Path(__file__).parents[1] / "private"

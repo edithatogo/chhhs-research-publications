@@ -115,9 +115,14 @@ Follow [the executable sequence and acceptance gates](../../../docs/DYNAMIC_UPDA
   guards and all 26 schema-field mappings.
 - [x] Add a standalone validator, focused regression tests and a source-only CI
   gate. Code commit: `693027136610136c2ff443ecae26e21876ea56cc`.
-- [ ] Import only to an approved isolated target, read back every column and
-  row key, and then prove native report/flow integration. No tenant acceptance
-  is claimed by the local contract.
+- [x] Import to the approved isolated personal DEV target and read back every
+  column and row key. The corrected package imported one current-user flow;
+  two controlled manual runs proved create and same-key update, followed by
+  SharePoint readback and cleanup to zero items. The flow is Off; Flow Checker
+  reports 0 errors and 1 warning (off-flow only).
+- [ ] Prove native retained-history/report integration, refresh and unattended
+  operation. These remain separate acceptance gates; no production acceptance
+  is claimed.
 
 ## DoRA private package bootstrap — 2026-09-21
 
@@ -125,15 +130,32 @@ Follow [the executable sequence and acceptance gates](../../../docs/DYNAMIC_UPDA
   HTTPS site, GUID list/flow IDs and a named SharePoint connection.
 - [x] Add package extraction/placeholder/connector regression tests. Code
   commit: `3c8edd17f30cce20c43e0cbc84eb38deb568e5c3`.
-- [ ] Generate/import only after the approved isolated target is identified;
-  package generation is not tenant import or acceptance evidence.
+- [x] Generate and import the target-injected package to the approved isolated
+  personal DEV target. The package remains ignored/private and the platform
+  flow identifier is not tracked in Git.
 
 ## DoRA package post-injection validation — 2026-09-21
 
 - [x] Validate the target-injected definition with the canonical DoRA flow
   validator before writing any package (`c9430cd`).
 - [x] Add definition-drift regression coverage.
-- [ ] Native import and readback remain open.
+- [x] Native import and complete field/row-key readback completed through the
+  isolated target; the flow was tested and returned to Off.
+- [ ] Native retained-history/report integration, refresh and delivery remain
+  open.
+
+### Native DoRA flow import and controlled replay — 2026-09-21
+
+The first package import was rejected by the native SharePoint connector because
+display-name action parameters such as `item/Project ID` are not valid connector
+internal names. The canonical definition and validator now map display names to
+the SharePoint internal names (for example `Project_x0020_ID`). The rebuilt
+package imported successfully as one new flow in the isolated personal DEV
+environment. A manual create run and a same-key update run both succeeded; the
+26-field row identity and updated values were read back through SharePoint REST.
+The synthetic row was deleted and the list read back with `ItemCount=0`. The
+flow was restored to Off. This proves the contract and controlled flow path,
+not live DoRA ingestion, report binding, recurrence, notifications or release.
 
 ### Retained reporting projection in progress
 Local parsers now reconstruct PubMed XML-shaped JSON and DORA field arrays without calling the live sources. A summary reader selects each retained source key from its latest committed batch, with exact page/key reconciliation. The first manifest must include PublicationTable and PublicationPageCount. Native parser parity, durable facility mappings, long-text export completeness and switching canonical consumers remain pending; these files are not yet deployed.

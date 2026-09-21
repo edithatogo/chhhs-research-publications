@@ -31,7 +31,7 @@ class DoraActivityFlowContractTests(unittest.TestCase):
     def test_missing_source_mapping_is_rejected(self):
         definition = copy.deepcopy(self.definition["properties"]["definition"])
         create = definition["actions"]["Apply_to_each_DORA_Activity"]["actions"]["Condition_Is_New_DORA_Activity"]["actions"]["SharePoint_Create_item"]
-        del create["inputs"]["parameters"]["item/PI Email"]
+        del create["inputs"]["parameters"]["item/PI_x0020_Email"]
         self.assertTrue(any("PI Email" in error for error in validate(definition)))
 
     def test_onedrive_or_duplicate_guard_drift_is_rejected(self):

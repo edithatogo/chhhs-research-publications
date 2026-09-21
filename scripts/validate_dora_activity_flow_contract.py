@@ -19,6 +19,31 @@ MAPPED_FIELDS = [
     "Multi/Single site", "DORA Authority (Yes/No)", "DORA Consent (Yes/No)",
 ]
 
+# SharePoint's connector action parameters use internal field names, while
+# the incoming DoRA row keeps the source/display names. These names are read
+# back from the isolated target and are part of the native binding contract.
+SHAREPOINT_INTERNAL_NAMES = {
+    "Project ID": "Project_x0020_ID",
+    "Review Reference": "Review_x0020_Reference",
+    "HREC (Ethics) Reference Number": "HREC_x0020__x0028_Ethics_x0029__",
+    "Full Project Title": "Full_x0020_Project_x0020_Title",
+    "Short Project Title": "Short_x0020_Project_x0020_Title",
+    "Project Description": "Project_x0020_Description",
+    "Clinical Trial (Yes/No)": "Clinical_x0020_Trial_x0020__x002",
+    "PI Name": "PI_x0020_Name",
+    "PI Email": "PI_x0020_Email",
+    "Contact Person Name": "Contact_x0020_Person_x0020_Name",
+    "Contact Person Email": "Contact_x0020_Person_x0020_Email",
+    "Site Name": "Site_x0020_Name",
+    "Sponsor Name": "Sponsor_x0020_Name",
+    "Start Date": "Start_x0020_Date",
+    "Finish Date": "Finish_x0020_Date",
+    "Disease Category": "Disease_x0020_Category",
+    "Multi/Single site": "Multi_x002f_Single_x0020_site",
+    "DORA Authority (Yes/No)": "DORA_x0020_Authority_x0020__x002",
+    "DORA Consent (Yes/No)": "DORA_x0020_Consent_x0020__x0028_",
+}
+
 
 def _definition() -> dict[str, Any]:
     return json.loads(DEFINITION_PATH.read_text(encoding="utf-8"))["properties"]["definition"]
@@ -101,7 +126,10 @@ def validate(definition: dict[str, Any]) -> list[str]:
             errors.append(f"DoRA {label} must target the lookup site and list")
         if not action_inputs.get("authentication"):
             errors.append(f"DoRA {label} must declare connector authentication")
-        missing = [field for field in MAPPED_FIELDS if f"item/{field}" not in action_params]
+        missing = [
+            field for field in MAPPED_FIELDS
+            if f"item/{SHAREPOINT_INTERNAL_NAMES.get(field, field)}" not in action_params
+        ]
         if missing:
             errors.append(f"DoRA {label} omits mapped field(s): {missing}")
     if "shared_onedriveforbusiness" in json.dumps(definition).lower() or "OneDrive" in json.dumps(definition):

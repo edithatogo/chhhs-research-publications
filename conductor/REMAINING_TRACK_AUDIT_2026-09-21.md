@@ -14,7 +14,7 @@ and its required native acceptance evidence are both complete.
 | G06 | Typed relationship contract and local safeguards; isolated personal DEV `Grant Relationships` list with all eight native fields; `RelationshipKey` required/unique/indexed; synthetic evidence-bearing create/read/update/read/delete round-trip; post-cleanup relationship `ItemCount=0`; publication registry `ItemCount=1468` read back with no publication mutation | Full before/after publication-key reconciliation and shared binding | Keep active |
 | G07 | Fail-closed operational evaluator, exact-key reconciliation, selected-field readback reconciliation and isolated create/update replay | Native monitoring, operational reconciliation, delivery and scheduling | Keep active |
 | G08 | Local calendar, institutional-date and current-user subscription contracts; exactly one native personal `My Funding Watchlist` and one `Funding Calendar` list with REST field readback and zero items; synthetic calendar create/read/edit/read/delete round-trip | Native report pages, current-user flow/page binding, reminder/change ledger, manual calendar readback and delivery | Keep active |
-| T11 | Local PubMed/DORA preservation and schema/key reconciliation; isolated personal `DORA Activity Registry` with all 26 fields, required/unique/indexed identity, indexed record/resource IDs, and synthetic full-field create/read/delete round-trip returning `ItemCount=0` | Native retained-history flow, refresh, DoRA upsert-flow readback and report/list integration | Keep active |
+| T11 | Local PubMed/DORA preservation and schema/key reconciliation; isolated personal `DORA Activity Registry` with all 26 fields, required/unique/indexed identity, indexed record/resource IDs, synthetic full-field create/read/delete round-trip, and one imported current-user upsert flow with successful controlled create/update/readback and cleanup to `ItemCount=0` | Native retained-history flow/report integration, refresh, recurrence, delivery and operational acceptance | Keep active |
 | T14 | Complete local exports, monthly generator and failure contracts | Manual native cycle, consecutive-cycle replay and delivery decision | Keep active |
 | T15 | Local handover/package and current four-page report audit | Native release/readback; Clinical Analytics model bindings are broken | Keep active |
 | E01 | Corrected publication query and successful DEV flow readback; standalone tracked-flow validator and CI gate pass | Manual replay/update, duplicate/failure safety and user-scoped reconciliation | Keep active |
@@ -154,3 +154,17 @@ switch, platform write, flow activation, sharing change or schedule change was
 attempted. The local user-scoped source remains the only synchronised
 canonical version until an attachable current-user platform session is
 available.
+
+## Native DoRA flow continuation — 2026-09-21
+
+The first target-injected DoRA package was rejected by the SharePoint connector
+because action parameter keys used display names rather than connector
+internal names. The canonical definition and validator now apply the explicit
+internal-name map. The rebuilt package imported as exactly one current-user
+`CHHHS DoRA Activity Registry - Reviewed Upsert` flow in the isolated personal
+DEV target. Controlled create and same-key update runs both succeeded;
+SharePoint readback confirmed the mapped identity and updated values, then the
+synthetic row was deleted and `ItemCount=0` was confirmed. Flow Checker showed
+0 errors and one warning for the flow being Off; it was restored to Off after
+testing. Retained-history/report integration, recurrence, notifications,
+delivery and production acceptance remain open.

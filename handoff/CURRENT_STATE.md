@@ -527,6 +527,19 @@ flow, schedule, notification or sharing change was saved. The live inventory
 still contains exactly the existing reviewed-import grants flow (Off) and
 daily publications flow (On/scheduled).
 
+Latest native T11 flow continuation (2026-09-21): the canonical DoRA package
+was first rejected because display-name SharePoint parameters such as
+`item/Project ID` were not connector internal names. The local definition and
+validator were corrected to use the connector internal-name map, and the
+rebuilt package imported as exactly one `CHHHS DoRA Activity Registry -
+Reviewed Upsert` flow in the isolated personal DEV target. A manual create run
+and same-key update run both succeeded. SharePoint readback confirmed the
+mapped identity and updated values across the 26-field schema; the synthetic
+row was deleted and the list returned to `ItemCount=0`. Flow Checker reported
+0 errors and one warning for the flow being Off, and the flow was restored to
+Off after testing. No live DoRA ingestion, recurrence, report binding,
+notification or production operation was enabled.
+
 Inspect `git status --short` at entry. Preserve unrelated report/manifest and other existing edits; do not mass-stage. Use the active track's spec and plan for tasks. Follow AGENTS.md approval boundaries for deployment/sharing/schedules. Current user direction defines scope; historical observations supply evidence only for their dates. Live contradictions require readback, not a convenient choice of document.
 
 Update this checkpoint with outcome, next executable task, test command/result and exact blocker after work. Keep credentials, actual tenant identifiers and screenshots under ignored private storage. Do not paste raw private output into a context bundle.
