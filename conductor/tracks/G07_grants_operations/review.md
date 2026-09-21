@@ -1,5 +1,19 @@
 # G07 review
 
+## Conductor review — registry reconciliation identity boundary — 2026-09-22
+
+- **Finding:** exact-key registry readback reconciliation stripped emitted and
+  registry `OpportunityKey` values before comparison and could accept a padded
+  key as reconciled, unlike the stricter operational evaluator.
+- **Fix:** reconciliation now rejects surrounding whitespace separately for
+  emitted and registry keys; the regression test confirms padded keys do not
+  cross the reconciliation boundary.
+- **Verification:** focused relationship/operations tests pass (22); the full
+  suite passes 452 tests with 8 skips; project validation passes 460 checks;
+  web-first, Conductor and diff validation pass locally.
+- **Residual gate:** native duplicate/concurrency, monitoring, operational
+  readback, recurrence, delivery and production acceptance remain open.
+
 ## Summary
 
 Review status: in progress; local operational guardrails are implemented.

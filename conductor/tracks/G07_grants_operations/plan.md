@@ -82,3 +82,9 @@ cross-user monitoring, delivery or unattended schedule is part of this tranche.
 - [x] Task: Add exact emitted-to-registry key-set reconciliation with fail-closed preservation (994dc05).
 - [x] Task: Add selected-field registry readback reconciliation with fail-closed prior-batch preservation (`1b0c91b`).
 - [x] Task: Reject string-shaped reconciliation field allowlists and canonicalize whitespace before comparison (`0eef31a`).
+
+## Phase: Conductor review fix — reconciliation identity boundary — 2026-09-22
+
+- [x] Task: Reject surrounding whitespace in emitted and registry `OpportunityKey` values during exact-key readback reconciliation instead of silently canonicalising them (`c60d492`).
+- [x] Verification: focused relationship/operations tests (22), full local suite (452 tests, 8 skipped), project checks (460), web-first contracts, Conductor validation and diff validation pass locally.
+- [~] Native duplicate/concurrency, operational monitoring, reconciliation readback, recurrence, delivery and production acceptance remain open.
