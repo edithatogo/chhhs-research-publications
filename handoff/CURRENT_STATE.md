@@ -676,6 +676,13 @@ Power Query editor exited without saving a partial query. Native
 `DORA Activity Registry` table binding, report integration, refresh and
 operational acceptance therefore remain open.
 
+A bounded retry through the legacy `SharePoint list` connector produced the
+same native navigation result: the exact QLD Health personal-site URL and
+organisational connection were accepted, but the navigator did not advance
+after `Next`. That unsaved attempt was also cancelled. The two connector
+routes are therefore distinct but currently share the same navigation blocker;
+the list itself remains present and independently verified through SharePoint.
+
 Model-write boundary (2026-09-21): the semantic-model editor exposes an
 `Editing` mode and the existing canonical publication model was extended in
 place through its Power Query editor after the pre-grants publication-model

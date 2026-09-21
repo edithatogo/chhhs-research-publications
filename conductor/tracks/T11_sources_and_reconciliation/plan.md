@@ -172,4 +172,5 @@ Native Power Query successfully executed the actual committed-history reader. Ag
 
 - [x] Re-open the existing semantic model's native Power Query editor and verify the retained DoRA/history tables and authenticated organisational-account connection are present.
 - [ ] Add the personal `DORA Activity Registry` SharePoint Online list as a native query/table. The connector accepted the exact QLD Health personal-site URL and existing connection, but the navigator did not advance after `Next` during repeated live waits. The unsaved attempt was cancelled and the editor was exited without saving a partial query.
+- [ ] A bounded retry through the legacy `SharePoint list` connector produced the same result: the exact site URL and organisational connection were accepted, but the list navigator did not advance after `Next`; the unsaved attempt was cancelled. This is a native connector/navigation blocker, not evidence that the list is absent.
 - [ ] Native activity-table binding, retained-history reconciliation, report visual integration, refresh, recurrence and delivery remain open.
