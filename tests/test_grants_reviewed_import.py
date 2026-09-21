@@ -56,6 +56,19 @@ class ReviewedImportTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "invalid_SourceID_or_RoundID"):
             import_reviewed_rows([self._row(SourceID=123)])
 
+    def test_identity_and_evidence_fields_reject_surrounding_whitespace(self):
+        for field, value, error in (
+            ("Source", " source-a", "whitespace_Source"),
+            ("URL", " https://example.org/opportunity/123", "invalid_URL"),
+            ("SourceRowURL", "https://example.org/opportunity/123#row ", "invalid_SourceRowURL"),
+            ("ReviewStatus", " Reviewed", "whitespace_ReviewStatus"),
+            ("SourceID", " source-123", "whitespace_SourceID"),
+            ("RoundID", " round-1 ", "whitespace_RoundID"),
+        ):
+            with self.subTest(field=field):
+                with self.assertRaisesRegex(ValueError, error):
+                    import_reviewed_rows([self._row(**{field: value})])
+
     def test_optional_descriptive_fields_are_not_coerced(self):
         with self.assertRaisesRegex(ValueError, "invalid_Amount"):
             import_reviewed_rows([self._row(Amount=False)])

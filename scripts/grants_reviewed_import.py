@@ -19,9 +19,9 @@ except ImportError:  # direct script execution with scripts/ on sys.path
 
 
 def _valid_http_url(value: Any) -> bool:
-    if not isinstance(value, str):
+    if not isinstance(value, str) or value != value.strip():
         return False
-    parsed = urlsplit(value.strip())
+    parsed = urlsplit(value)
     return parsed.scheme in {"http", "https"} and bool(parsed.netloc)
 
 
@@ -40,6 +40,8 @@ def review_errors(row: dict[str, Any], *, expected_source: str | None = None) ->
     source = source_value.strip() if isinstance(source_value, str) else ""
     if source_value is not None and not isinstance(source_value, str):
         errors.append("invalid_Source")
+    elif isinstance(source_value, str) and source_value != source_value.strip():
+        errors.append("whitespace_Source")
     if expected_source and source != expected_source:
         errors.append("source_mismatch")
     for field in _OPTIONAL_STRING_FIELDS:
@@ -57,11 +59,13 @@ def review_errors(row: dict[str, Any], *, expected_source: str | None = None) ->
         errors.append("invalid_URL")
     if not _valid_http_url(row_url):
         errors.append("invalid_SourceRowURL")
-    elif isinstance(opportunity_url, str) and row_url.strip() == opportunity_url.strip():
+    elif isinstance(opportunity_url, str) and row_url == opportunity_url:
         errors.append("SourceRowURL_not_distinct")
     review_status = row.get("ReviewStatus")
     if not isinstance(review_status, str):
         errors.append("invalid_ReviewStatus")
+    elif review_status != review_status.strip():
+        errors.append("whitespace_ReviewStatus")
     elif review_status.strip().casefold() != "reviewed":
         errors.append("ReviewStatus_not_Reviewed")
     notes = row.get("ReviewNotes")
@@ -75,6 +79,11 @@ def review_errors(row: dict[str, Any], *, expected_source: str | None = None) ->
         errors.append("invalid_SourceID_or_RoundID")
     elif not (source_id.strip() or round_id.strip()):
         errors.append("missing_SourceID_or_RoundID")
+    else:
+        if source_id != source_id.strip():
+            errors.append("whitespace_SourceID")
+        if round_id != round_id.strip():
+            errors.append("whitespace_RoundID")
     return errors
 
 
@@ -96,7 +105,7 @@ def import_reviewed_rows(
             failures.append((index, errors))
             continue
         normalized = normalize_opportunity(row, retrieved_at=row["RetrievedUTC"])
-        normalized["SourceRowURL"] = row["SourceRowURL"].strip()
+        normalized["SourceRowURL"] = row["SourceRowURL"]
         if normalized["RetrievedTimestampStatus"] != "valid":
             failures.append((index, ["RetrievedUTC_not_timezone_aware"]))
             continue
