@@ -386,3 +386,14 @@ operation.
 - The browser tab was reloaded to discard the draft. No Save operation,
   enablement, or native mutation was performed. E01 remains active; the local
   null-preserving definition is not a native acceptance receipt.
+### E04 native report audit refresh — 2026-09-22
+
+- Authenticated Power BI readback now shows six pages: `CHHHS Publications`,
+  `Monthly Publications`, `Source Reconciliation`, `Clinical Analytics`,
+  `Funding Opportunities` and `Funding Calendar & Watchlist`.
+- `Clinical Analytics` visibly renders the DORA headers
+  `DORAActivityKey`, `DORARecordID`, `DORAResourceID` and `DORASourceURL`, but
+  nine other visuals still report field-binding errors.
+- The receipt is private and read-only at
+  `private/ops/2026-09-22-powerbi-e04-native-audit.json`. No shared model or
+  report write was attempted; E04 remains active and not archivable.
