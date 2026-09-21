@@ -671,3 +671,32 @@ identity and does not promote the source `Project ID` to a unique key.
   reads back `DORAActivityKey`, `DORARecordID`, `DORAResourceID` and
   `DORASourceURL`. Retained-history reconciliation, refresh, recurrence,
   delivery and production acceptance remain separate gates.
+
+## Native DoRA flow details readback — 2026-09-22
+
+### Summary
+
+The authenticated QLD Health details page for the canonical DoRA upsert flow
+was rechecked. The flow remains the sole current-user DoRA flow and is Off
+after controlled testing. The page showed two visible successful runs, Flow
+Checker 0 errors and one warning caused by the intentionally inactive flow.
+
+### Verification Checks
+
+- **Plan compliance:** Partial — native flow identity, owner, connection,
+  status and recent-run readback are evidenced; durable operations and
+  delivery remain open.
+- **Canonicality:** Pass — the retained flow ID is the one tracked in the
+  private native receipt; no additional DoRA flow was created.
+- **Safety:** Pass — the flow is Off and no run-only users are configured.
+- **Evidence:** Pass for visible UI facts; receipt is
+  `private/ops/2026-09-22-powerautomate-t11-dora-flow-readback.json`.
+
+### Findings
+
+- **Confirmed:** native details-page evidence now records the current owner,
+  SharePoint connection, Flow Checker state and visible successful runs for
+  the canonical flow.
+- **Residual acceptance:** the 28-day UI history is not durable retention;
+  scheduled/unattended execution, refresh, report reconciliation, delivery
+  and production acceptance remain unproven. T11 remains active.

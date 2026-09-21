@@ -182,3 +182,10 @@ Native Power Query successfully executed the actual committed-history reader. Ag
 - [x] Preserve `DORAActivityKey` as the model identity and retain `Project ID` as a non-unique source field; add regression coverage for this distinction.
 - [x] Rebuild the TMDL definition and update the reviewed source-only runtime baseline; local validation passes without claiming native binding.
 - [x] Add/read back the native table through the authorised SharePoint Online List route; model readback showed `DORA Activity Registry table 28 of 28` with 48 columns and zero rows.
+
+### Native DoRA flow details readback — 2026-09-22
+
+- [x] Read back the canonical QLD Health flow details page for `CHHHS DoRA Activity Registry - Reviewed Upsert` (`dd508644-c6d0-40be-aa1e-9b1f4d7c936c`).
+- [x] Confirm Off status, Instant type, owner, SharePoint connection, no run-only users, Flow Checker 0 errors / 1 inactive-flow warning, and two visible successful 28-day runs.
+- [x] Record the UI facts in ignored receipt `private/ops/2026-09-22-powerautomate-t11-dora-flow-readback.json`.
+- [ ] Prove durable run-history capture, recurrence/schedule, refresh and report reconciliation, delivery and production acceptance. Keep T11 active.

@@ -371,7 +371,7 @@ operation.
 ### Canonical checkout refresh — 2026-09-22
 
 - The clean checkout used for this audit is synchronised to the sole GitHub
-  `main` branch at `629c2ae`; the original authoring checkout remains
+  `main` branch at the current canonical commit; the original authoring checkout remains
   intentionally dirty and is not a second remote version.
 - Local structural evidence and native tenant evidence remain separate. The
   VUW CLI inventory result and the QLD Health browser import blocker do not
@@ -397,3 +397,17 @@ operation.
 - The receipt is private and read-only at
   `private/ops/2026-09-22-powerbi-e04-native-audit.json`. No shared model or
   report write was attempted; E04 remains active and not archivable.
+
+### T11 native DoRA flow details readback — 2026-09-22
+
+- The authenticated QLD Health Power Automate details page read back the sole
+  canonical flow `CHHHS DoRA Activity Registry - Reviewed Upsert`
+  (`dd508644-c6d0-40be-aa1e-9b1f4d7c936c`). It is Off, Instant, owned by
+  Dylan Mordaunt, uses the QLD Health SharePoint connection, and has no
+  run-only users.
+- Flow Checker read 0 errors and 1 warning, with the warning being the
+  intentional inactive-flow state. Two visible 28-day runs were Succeeded.
+  Receipt: ignored `private/ops/2026-09-22-powerautomate-t11-dora-flow-readback.json`.
+- This corroborates controlled flow execution and canonicality only. Durable
+  history, scheduled/unattended operation, refresh, report reconciliation,
+  delivery and production acceptance remain open; T11 stays active.

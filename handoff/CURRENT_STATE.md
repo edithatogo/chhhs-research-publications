@@ -942,3 +942,13 @@ panel stalled. The browser tab was reloaded to discard the draft; no Save,
 enablement or native mutation occurred. E01 remains active. The source-only
 calendar-change validator and publication validator still pass, but their
 local success does not close native null/non-null create/update/readback.
+
+T11 native flow readback (2026-09-22): the authenticated QLD Health details
+page rechecked the sole canonical `CHHHS DoRA Activity Registry - Reviewed
+Upsert` flow (`dd508644-c6d0-40be-aa1e-9b1f4d7c936c`). It is Off, owned by Dylan
+Mordaunt, uses the QLD Health SharePoint connection, has no run-only users,
+and shows Flow Checker 0 errors plus one inactive-flow warning. Two visible
+28-day runs are Succeeded. Receipt: ignored
+`private/ops/2026-09-22-powerautomate-t11-dora-flow-readback.json`. This does
+not prove durable history, unattended scheduling, refresh, report
+reconciliation, delivery or production acceptance; T11 remains active.
