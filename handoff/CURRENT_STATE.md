@@ -3,9 +3,11 @@
 Updated: 2026-09-22. This is the compact resumption checkpoint, not a live acceptance certificate. Refresh after meaningful work; keep historical narrative in existing evidence documents.
 
 Latest local checkpoint (2026-09-22): canonical checkout is clean at commit
-`b25a709`, matching `origin/main` after the official grants source/API,
-stale-report reconciliation and second native refresh retry evidence updates;
-GitHub source-only workflow `35653359664` completed successfully.
+`9d31db6`, matching `origin/main` after the second native refresh blocker
+evidence update; GitHub source-only workflow `35653809406` completed
+successfully. The authenticated QLD Health browser route was not persistent
+after the last session restart, and the VUW PAC profile exposed no cloud-flow
+inventory or export. No unsaved native draft is treated as a deployment.
 T08, T09, T10, T12 and T13 have been reviewed and
 archived; the remaining active tracks retain their native/source/operational
 gates. The authenticated QLD Health refresh retries remained at semantic-model
@@ -128,6 +130,13 @@ Track audit correction (2026-09-21): E02, E03, E05 and E06 passed local Conducto
 Current replay correction (2026-09-21): authenticated `playwright-cli -s=login` proved controlled native grants execution. Run `08584116923018304855211342755CU17` succeeded for a synthetic create and run `08584116920125684835586408484CU25` succeeded for a same-key update. SharePoint readback showed the expected row and then changed title, funder, amount, timestamp and evidence hash. The flow was restored Off. The synthetic row remains pending explicit deletion confirmation; no production, schedule, notification or organisation-wide target was touched. Receipt: ignored `private/ops/2026-09-20-grants-flow-import-readback.json`.
 
 Remaining-track audit (2026-09-21): `conductor/REMAINING_TRACK_AUDIT_2026-09-21.md` records each active track, evidence, remaining gate and non-archive decision. No active track is represented as complete while its native/source/operational acceptance gate remains open.
+
+Native access checkpoint (2026-09-22): the QLD Health `Funding Calendar
+Changes - Reviewed Upsert` flow remains the sole canonical flow identity and
+remains Off. The classic-designer null-date repair was explored using the
+authenticated route, but the browser session was lost before save, Flow Checker
+readback or replay; therefore no native flow change is claimed. Re-authentication
+in the QLD Health browser is required before continuing that isolated repair.
 
 Latest local checkpoint (2026-09-21): DoRA activity export provenance was
 hardened in code commit `93d2ac6`; malformed retrieved counts, observation
