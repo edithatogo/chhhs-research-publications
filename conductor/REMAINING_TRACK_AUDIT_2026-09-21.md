@@ -432,3 +432,19 @@ operation.
   active VUW environment is the VUW STAFF default environment, not the QLD
   Health tenant. No profile was changed and no cross-tenant import was
   attempted.
+
+### Browser/CLI route recheck — 2026-09-22
+
+- `playwright-cli -s=login` was directed to the supplied QLD Health Power
+  Automate flows URL and resolved to the Microsoft organisational sign-in
+  page. No authenticated flow list or import wizard was available in this
+  session.
+- PAC 2.12.2 remained authenticated as `mordaudy@staff.vuw.ac.nz`. Read-only
+  `pac power-automate list-cloud-flows` checks against the VUW STAFF default
+  environment and the other visible VUW environment identifiers returned no
+  exportable cloud-flow inventory (or no matching environment for the
+  non-default identifiers).
+- No VUW export exists to carry into QLD Health, and no QLD Health import was
+  submitted. The QLD Health tenant remains the sole canonical native target;
+  the local package and source-only GitHub checkout remain the canonical
+  implementation artefacts.
