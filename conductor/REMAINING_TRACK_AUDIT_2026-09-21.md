@@ -13,7 +13,7 @@ and its required native acceptance evidence are both complete.
 | G05 | University catalogue and access/lead-time evidence | Permitted institutional export/feed or reviewed intake | Keep active |
 | G06 | Typed relationship contract and local safeguards; canonical local `GrantRelationships` model/query projection with all eight fields; isolated personal DEV list with `RelationshipKey` required/unique/indexed; native synthetic create/read round-trip; correlated Publication Registry before/after receipt unchanged at 1,468 rows, 1,265 nonblank/distinct keys, no continuation link and SHA-256 `2b1b81200fe8e816bc15dce02ff80d4013c908925c2b855b777d241c595fe413` | Native cleanup confirmation for the current synthetic row; native/shared model binding | Keep active until cleanup confirmation and review |
 | G07 | Fail-closed operational evaluator, exact-key reconciliation, selected-field readback reconciliation and isolated create/update replay | Native monitoring, operational reconciliation, delivery and scheduling | Keep active |
-| G08 | Local calendar, institutional-date, current-user subscription, source-preserving calendar-change and delivery-ledger contracts; canonical local PBIP projections for `FundingCalendar`, `FundingCalendarChanges`, `MyFundingWatchlist` and `FundingDeliveryLedger`; exactly one native personal list for each existing surface; dedicated upsert flows each have controlled native evidence and are Off after testing; delivery identity is required/unique/indexed; two report pages and the existing semantic model have native SharePoint tables and saved visuals; all three synthetic test rows were removed through exact-item SharePoint delete confirmations; current native inventory contains exactly one copy of each grant/DoRA flow | Current-user flow/page binding, subscription isolation, Power BI refresh/reconciliation, native change-ledger persistence and actual calendar/reminder delivery | Keep active |
+| G08 | Local calendar, institutional-date, current-user subscription, source-preserving calendar-change and delivery-ledger contracts; canonical local PBIP projections for `FundingCalendar`, `FundingCalendarChanges`, `MyFundingWatchlist` and `FundingDeliveryLedger`; exactly one native personal list for each existing surface; dedicated upsert flows each have controlled native evidence and are Off after testing; delivery identity is required/unique/indexed; two report pages and the existing semantic model have native SharePoint tables and saved visuals; all three synthetic test rows were removed through exact-item SharePoint delete confirmations; current native inventory contains exactly one copy of each grant/DoRA flow; native calendar-change copy `e95f2a40-0689-42ec-b35b-b0e5f0440ba2` is saved, Flow Checker-clean and Off | Current-user flow/page binding, subscription isolation, Power BI refresh/reconciliation, controlled change-ledger run/readback and actual calendar/reminder delivery | Keep active |
 | T11 | Local PubMed/DoRA preservation and schema/key reconciliation; canonical local `DoraActivityRegistry` model/query projection with all 26 fields; isolated personal `DORA Activity Registry` with required/unique/indexed identity and indexed record/resource IDs; synthetic full-field create/read/delete round-trip; one imported current-user upsert flow with successful controlled create/update/readback and cleanup; existing semantic model retained-DoRA tables read back; both native SharePoint connectors accepted the QLD Health URL but neither navigator advanced after `Next` | Native `DORA Activity Registry` table binding, retained-history reconciliation, report integration, refresh, recurrence, delivery and operational acceptance | Keep active |
 | T14 | Complete local exports, monthly generator and failure contracts | Manual native cycle, consecutive-cycle replay and delivery decision | Keep active |
 | T15 | Local handover/package and current four-page report audit | Native release/readback; Clinical Analytics model bindings are broken | Keep active |
@@ -199,19 +199,20 @@ confirmation; this is current-user persistence/replay evidence only and does
 not prove notification delivery, subscriptions, report binding or unattended
 operation.
 
-### G08 calendar-change persistence/import boundary — 2026-09-22
+### G08 calendar-change persistence/import boundary — 2026-09-22 (updated)
 
 - **Local:** the canonical `FundingCalendarChanges` projection, revision-diff
   helper, schema and SharePoint-only upsert contract are implemented and
   focused tests pass.
 - **Native:** one isolated personal DEV `Funding Calendar Changes` list exists;
   all 13 canonical fields and defaults read back correctly with zero items.
-- **Blocker:** three corrected legacy package imports were rejected by Power
-  Automate as `MalformedFlowAssetFlowDefinition`, including one shaped from a
-  private tenant-exported native flow; no flow was created.
-- **Decision:** keep G08 open. Do not archive or enable anything until a
-  tenant-exported/native-designer baseline permits a safe definition diff and
-  a controlled run/readback is captured.
+- **Resolved safely:** three corrected legacy package imports were rejected by
+  Power Automate as `MalformedFlowAssetFlowDefinition`; a native Save As copy
+  of the existing calendar flow was used instead. The copy is
+  `e95f2a40-0689-42ec-b35b-b0e5f0440ba2`, bound to `Funding Calendar Changes`,
+  saved with Flow Checker `Errors (0)` and `Warnings (0)`, and remains Off.
+- **Decision:** keep G08 open. Controlled run/readback, page binding,
+  refresh/reconciliation and actual calendar/reminder delivery remain required.
 
 ### S02 isolated report display — 2026-09-22
 

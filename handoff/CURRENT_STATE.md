@@ -767,13 +767,14 @@ authenticated Power Automate browser session remains the authoritative native
 route for the current-user DEV environment.
 
 Native flow inventory readback (2026-09-22): the authenticated QLD Health
-Power Automate `Cloud flows` view returned exactly six current-user flows. The
-five grant/DoRA flows are each present once and disabled: Funding Delivery
+Power Automate `Cloud flows` view returned exactly seven current-user flows. The
+six grant/DoRA flows are each present once and disabled: Funding Delivery
 Ledger (`4955a57d-b609-4c84-a2e8-f3e9ec23c20e`), Funding Calendar
 (`f18e3fad-7ee5-47d7-b166-d9bb41f93a3e`), Funding Watchlist
 (`6f95b2c1-01c6-4717-94af-a8259fd36e5a`), DoRA Activity Registry
-(`dd508644-c6d0-40be-aa1e-9b1f4d7c936c`) and Research Grants
-(`acf866e4-e4a2-4113-bce4-d2dd9e2f22d6`). The sole scheduled/enabled flow is
+(`dd508644-c6d0-40be-aa1e-9b1f4d7c936c`), Research Grants
+(`acf866e4-e4a2-4113-bce4-d2dd9e2f22d6`) and Funding Calendar Changes
+(`e95f2a40-0689-42ec-b35b-b0e5f0440ba2`). The sole scheduled/enabled flow is
 Research Publications - Daily Ingestion & Enrichment
 (`4d226bad-577e-4f16-8914-169a150ad4d6`). This proves current inventory
 uniqueness only; it does not prove flow correctness, recurrence acceptance,
@@ -784,14 +785,17 @@ current-user list inventory confirmed that the target did not exist, the
 authenticated personal DEV workspace was given one isolated `Funding Calendar
 Changes` list. Native SharePoint readback confirmed all 13 canonical fields,
 including required/unique/indexed `ChangeKey`, the `Needs Review` status
-default, false cancellation defaults and zero items. The local SharePoint-only
-upsert definition passes its focused contract tests and two corrected legacy
-package imports were attempted through the authenticated Power Automate
-browser. Both were rejected as `MalformedFlowAssetFlowDefinition`; the final
-flow inventory contains no new calendar-change flow. No row was written, no
-flow was enabled, and native import, execution, refresh/reconciliation and
-delivery remain open. This is a current-user DEV schema receipt plus an exact
-import blocker, not tenant acceptance.
+default, false cancellation defaults and zero items. Three legacy package
+imports were rejected as `MalformedFlowAssetFlowDefinition`; the safe fallback
+was a native Save As copy of the existing calendar flow. The copied flow
+`CHHHS RIMS - Funding Calendar Changes - Reviewed Upsert`
+(`e95f2a40-0689-42ec-b35b-b0e5f0440ba2`) was rebound natively to the Changes
+list with corrected quoted expressions for create/update field mappings.
+Native Flow Checker read `Errors (0)` and `Warnings (0)`; details readback
+showed Modified `Sep 22, 2026, 02:11 AM` and Status `Off`. No synthetic row was
+written and the flow was not enabled or run. Controlled execution, model
+refresh/reconciliation and delivery remain open; this is current-user DEV
+configuration/readback evidence, not production acceptance.
 
 The bounded diagnostic was extended once using a private tenant-exported
 watchlist package as the source for metadata, connection-reference and

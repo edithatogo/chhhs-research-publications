@@ -491,3 +491,21 @@ shape copied from a tenant-exported native flow.
 - **Residual acceptance:** native flow import/readback, controlled run,
   SharePoint row reconciliation, model refresh and calendar delivery remain
   unproven.
+
+### Native designer fallback review — 2026-09-22
+
+- **Fix applied:** after the three legacy importer failures, the existing
+  `Funding Calendar - Reviewed Upsert` flow was copied through the native
+  Power Automate Save As route. The copy
+  `e95f2a40-0689-42ec-b35b-b0e5f0440ba2` was rebound to the isolated
+  `Funding Calendar Changes` list.
+- **Expression repair:** the first draft exposed invalid expressions because
+  shell quoting removed the property-name quotes. The create/update mappings
+  were corrected natively and rechecked; Flow Checker read `Errors (0)` and
+  `Warnings (0)`.
+- **Readback:** the details page showed the flow saved at Modified
+  `Sep 22, 2026, 02:11 AM` with Status `Off`; a fresh editor open had no
+  recovery banner. No synthetic item was written and no run was performed.
+- **Decision:** this closes the native configuration/import subtask but not
+  G08. Controlled create/update/readback, page binding, refresh/reconciliation
+  and actual calendar/reminder delivery remain open, so the track stays active.
