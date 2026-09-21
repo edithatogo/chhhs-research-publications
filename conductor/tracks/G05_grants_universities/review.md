@@ -83,3 +83,29 @@ times remain `null`.
 - **Residual gate:** no permitted institutional export/feed or authenticated
   portal route was established. JCU/Griffith remain to be rechecked before
   G05 can close; unknown lead times remain null.
+
+## Conductor review recheck — JCU and Griffith — 2026-09-22
+
+### Summary
+
+The official JCU and Griffith pages were rechecked. JCU's current application
+procedures specify at least one week before Australian-funder internal deadlines
+and two weeks before overseas-funder internal deadlines. Griffith's public
+research-grants page confirms pre-award support and directs researchers to an
+internal Research Funding service area.
+
+### Verification checks
+
+- [x] JCU authority and application-procedures pages are current official
+  sources and are retained as manual-review evidence.
+- [x] Griffith authority page is current official evidence; its internal-only
+  support boundary is retained.
+- [x] `last_verified` is refreshed to `2026-09-22` for JCU and Griffith.
+- [x] No public feed, export, or authenticated portal route was inferred.
+- [ ] Permitted institutional feed/export or authenticated portal acceptance.
+
+### Findings
+
+G05 remains active. JCU's qualified planning values and Griffith's unknown
+lead-time value remain explicitly bounded; neither institution is promoted to
+unattended ingestion.

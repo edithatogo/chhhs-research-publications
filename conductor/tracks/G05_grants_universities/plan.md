@@ -20,10 +20,14 @@ is assumed.
   scheme information and direct applicants to the Research Office for internal
   deadlines; no permitted feed/export was exposed.
 - [x] Refresh the UQ and QUT catalogue `last_verified` dates to `2026-09-22`.
-- [ ] Recheck JCU and Griffith through their current official pages and obtain
-  a permitted export/feed before treating university coverage as automated.
-  G05 remains active with unknown lead times preserved as null where evidence
-  is absent.
+- [x] Recheck JCU and Griffith through their current official pages. JCU's
+  current application-procedures page confirms one-week Australian and
+  two-week overseas internal submission lead times; Griffith's public page
+  confirms the Research Funding support route is internal-only. Neither public
+  route supplies a permitted feed/export or authenticated portal route.
+- [~] Keep JCU and Griffith at manual-review intake with unknown or qualified
+  lead-time fields; do not promote either institution to unattended ingestion
+  without a permitted export/API or authenticated portal evidence.
 
 ## Phase: Review fixes
 
