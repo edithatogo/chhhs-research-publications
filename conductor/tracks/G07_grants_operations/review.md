@@ -1,5 +1,20 @@
 # G07 review
 
+## Conductor review — relationship identity boundary — 2026-09-22
+
+- **Finding:** relationship normalization trimmed relationship identities,
+  evidence URLs, confidence, award IDs and review states before generating a
+  bridge key or emitting a SharePoint row. Padded values could therefore be
+  silently promoted into canonical-looking relationships.
+- **Fix:** the relationship boundary now rejects surrounding whitespace and
+  keeps the validated values exact; the HTTP(S) evidence check follows the
+  same rule. A regression test covers every affected field.
+- **Verification:** focused relationship/operations tests pass (23); the full
+  suite passes 465 tests with 8 skips; project validation passes 460 checks;
+  web-first, Conductor and diff validation pass locally.
+- **Residual gate:** native duplicate/concurrency, monitoring, operational
+  readback, recurrence, delivery and production acceptance remain open.
+
 ## Conductor review — registry reconciliation identity boundary — 2026-09-22
 
 - **Finding:** exact-key registry readback reconciliation stripped emitted and

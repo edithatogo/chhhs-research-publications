@@ -88,3 +88,14 @@ cross-user monitoring, delivery or unattended schedule is part of this tranche.
 - [x] Task: Reject surrounding whitespace in emitted and registry `OpportunityKey` values during exact-key readback reconciliation instead of silently canonicalising them (`c60d492`).
 - [x] Verification: focused relationship/operations tests (22), full local suite (452 tests, 8 skipped), project checks (460), web-first contracts, Conductor validation and diff validation pass locally.
 - [~] Native duplicate/concurrency, operational monitoring, reconciliation readback, recurrence, delivery and production acceptance remain open.
+
+## Phase: Conductor review fix — relationship identity boundary — 2026-09-22
+
+- [x] Task: Reject surrounding whitespace in relationship identities, evidence
+  URLs, confidence, award IDs and review states instead of silently trimming
+  them (`2fad01c`).
+- [x] Verification: focused relationship/operations tests (23), full local
+  suite (465 tests, 8 skipped), project checks (460), web-first contracts,
+  Conductor validation and diff validation pass locally.
+- [~] Native duplicate/concurrency, operational monitoring, reconciliation
+  readback, recurrence, delivery and production acceptance remain open.
