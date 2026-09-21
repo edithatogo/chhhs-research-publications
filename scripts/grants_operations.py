@@ -129,6 +129,8 @@ def evaluate_run(records: Iterable[dict[str, Any]], health: Iterable[dict[str, A
         errors.append('invalid_health_source')
     if any(not source for source in health_source_values):
         errors.append('missing_health_source')
+    if any(isinstance(item.get('source'), str) and item['source'] != item['source'].strip() for item in safe_health):
+        errors.append('whitespace_health_source')
     if len(health_source_values) != len(set(health_source_values)):
         errors.append('duplicate_health_source')
     for item in safe_health:
@@ -142,10 +144,14 @@ def evaluate_run(records: Iterable[dict[str, Any]], health: Iterable[dict[str, A
         errors.append('invalid_record_source')
     if any(not source.strip() for source in record_source_values):
         errors.append('missing_record_source')
+    if any(isinstance(row.get('Source'), str) and row['Source'] != row['Source'].strip() for row in safe_records):
+        errors.append('whitespace_record_source')
     if any(not isinstance(key, str) for key in keys):
         errors.append('invalid_opportunity_key')
     if any(isinstance(key, str) and not key.strip() for key in keys):
         errors.append('missing_opportunity_key')
+    if any(isinstance(key, str) and key != key.strip() for key in keys):
+        errors.append('whitespace_opportunity_key')
     comparable_keys = [key.strip() for key in keys if isinstance(key, str) and key.strip()]
     if len(comparable_keys) != len(set(comparable_keys)):
         errors.append('duplicate_opportunity_key')

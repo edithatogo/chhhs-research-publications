@@ -128,6 +128,16 @@ class GrantsRelationshipTests(unittest.TestCase):
         self.assertEqual(result['status'], 'rejected')
         self.assertIn('duplicate_opportunity_key', result['errors'])
 
+    def test_run_rejects_whitespace_divergent_source_and_identity_values(self):
+        result = evaluate_run(
+            [{'OpportunityKey': ' GRANT:1 ', 'Source': ' nhmrc '}],
+            [{'source': ' nhmrc ', 'status': 'succeeded', 'count': 1}],
+        )
+        self.assertEqual(result['status'], 'rejected')
+        self.assertIn('whitespace_opportunity_key', result['errors'])
+        self.assertIn('whitespace_record_source', result['errors'])
+        self.assertIn('whitespace_health_source', result['errors'])
+
     def test_run_rejects_non_object_rows_without_incidental_errors(self):
         result = evaluate_run(
             [None],
