@@ -716,15 +716,17 @@ record for unchanged revisions and performs no SharePoint/calendar/notification
 write. The clean checkout passes 443 tests with 8 skips and 460 project
 checks; native persistence, refresh/reconciliation and delivery remain open.
 
-T11 native model binding (2026-09-22): the earlier same-session navigation
+T11 native model/report binding (2026-09-22): the earlier same-session navigation
 timeout is superseded by a successful SharePoint Online List route. The
 existing semantic-model Power Query editor used the authenticated
 organisational connection and exact QLD Health personal-site URL, exposed
 `DORA Activity Registry`, and saved the query with 48 columns and zero rows.
-Model readback showed `DORA Activity Registry table 28 of 28`. Retained-history
-reconciliation, report integration, refresh, recurrence, delivery and
-operational acceptance remain open; this is current-user DEV model evidence,
-not production acceptance.
+Model readback showed `DORA Activity Registry table 28 of 28`. The existing
+Clinical Analytics page was saved and reloaded in Reading view with a table
+visual exposing `DORAActivityKey`, `DORARecordID`, `DORAResourceID` and
+`DORASourceURL`. Retained-history reconciliation, refresh, recurrence,
+delivery and operational acceptance remain open; this is current-user DEV
+model/report evidence, not production acceptance.
 
 G06 native invariant readback and correlated relationship receipt (2026-09-22):
 authenticated SharePoint REST returned all eight relationship fields;

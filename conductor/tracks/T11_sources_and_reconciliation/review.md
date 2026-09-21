@@ -657,6 +657,7 @@ identity and does not promote the source `Project ID` to a unique key.
   of 28`, confirming the native table was committed alongside the existing
   model tables.
 - **Boundary:** this closes native list-to-model table binding for the
-  current-user isolated scope. Retained-history reconciliation, report visual
-  integration, refresh, recurrence, delivery and production acceptance remain
-  separate gates.
+  current-user isolated scope. A saved Clinical Analytics table visual also
+  reads back `DORAActivityKey`, `DORARecordID`, `DORAResourceID` and
+  `DORASourceURL`. Retained-history reconciliation, refresh, recurrence,
+  delivery and production acceptance remain separate gates.

@@ -55,7 +55,7 @@ Follow [the executable sequence and acceptance gates](../../../docs/DYNAMIC_UPDA
 - [x] 11. Confirm the linked Queensland Open Data DoRA dataset is project/activity data distinct from the DORA publication repository; record the current resource schema and entity boundary.
 - [x] 12. Implement a CKAN package/resource discovery and paged datastore collector that fails closed on schema drift, incomplete pages, count mismatch or duplicate source `_id` values, while preserving all source columns and provenance.
 - [x] 13. Implement a source-preserving RIMS export and machine-readable `DORA Activity Registry` schema. Keep contact/ethics fields in private or approved tenant storage only; do not add live rows to Git or publication fixtures.
-- [x] 14. Create or update the isolated SharePoint target and read back every column and row key before any report-page or unattended-flow change. On 2026-09-21 the personal DEV `DORA Activity Registry` was created from the canonical schema with all 26 fields; REST readback confirmed field names, internal names, types, requiredness, identity uniqueness and indexing. A synthetic row populated every mapped field, read back all 26 fields and identity values, was deleted, and the API confirmed `ItemCount=0`. Native tenant acceptance, flow binding and report integration remain open.
+- [x] 14. Create or update the isolated SharePoint target and read back every column and row key before any report-page or unattended-flow change. On 2026-09-21 the personal DEV `DORA Activity Registry` was created from the canonical schema with all 26 fields; REST readback confirmed field names, internal names, types, requiredness, identity uniqueness and indexing. A synthetic row populated every mapped field, read back all 26 fields and identity values, was deleted, and the API confirmed `ItemCount=0`. The current-user flow, native model table and a saved Clinical Analytics table visual are now read back; refresh, retained-history reconciliation and operational acceptance remain open.
 
 ## Local identity hardening — 2026-09-21
 
@@ -69,7 +69,7 @@ Follow [the executable sequence and acceptance gates](../../../docs/DYNAMIC_UPDA
 - [x] Created the remaining canonical fields through authenticated same-origin SharePoint REST, using `Text`, `Number`, `DateTime`, `URL` and `Note` types; the identity field is required, unique and indexed, and `DORARecordID`/`DORAResourceID` are required and indexed.
 - [x] REST readback found all 26 canonical fields with the expected display names, internal names, types and requiredness. Versioning is enabled and `ItemCount=0`.
 - [x] Controlled synthetic full-field round-trip created row ID 1, read back every mapped field and identity value, deleted the row, and confirmed post-cleanup `ItemCount=0`.
-- [x] Import/read back the DoRA upsert flow and connect the current-user model projection. The flow was tested and restored Off; the native table is now saved in the existing model. A permitted live/reviewed cycle, report integration and recurrence remain open; no row or recurrence was activated.
+- [x] Import/read back the DoRA upsert flow and connect the current-user model projection. The flow was tested and restored Off; the native table is now saved in the existing model. A saved Clinical Analytics table visual reads back `DORAActivityKey`, `DORARecordID`, `DORAResourceID` and `DORASourceURL`. A permitted live/reviewed cycle, refresh/reconciliation and recurrence remain open; no row or recurrence was activated.
 
 ## Export provenance hardening — 2026-09-21
 
@@ -173,7 +173,7 @@ Native Power Query successfully executed the actual committed-history reader. Ag
 - [x] Re-open the existing semantic model's native Power Query editor and verify the retained DoRA/history tables and authenticated organisational-account connection are present.
 - [x] Add the personal `DORA Activity Registry` SharePoint Online list as a native query/table. The authenticated organisational connection accepted the QLD Health personal-site URL; the navigator then exposed the list, and Power Query created/saved the query with 48 columns and zero rows.
 - [x] Record the prior bounded legacy-connector navigation failure as superseded evidence; the successful SharePoint Online List route is now authoritative for this model write.
-- [ ] Native activity-table binding, retained-history reconciliation, report visual integration, refresh, recurrence and delivery remain open.
+- [ ] Native activity-table binding and a current-user report visual are complete; retained-history reconciliation, refresh, recurrence and delivery remain open.
 
 ### Local DoRA model projection — 2026-09-22
 
