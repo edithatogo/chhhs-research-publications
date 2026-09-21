@@ -218,3 +218,17 @@ Implemented in `da0b657`, with regression coverage in `tests/test_grants_registr
   locally.
 - **Residual gate:** permitted opportunity intake, human-reviewed eligibility
   and native intake remain open.
+
+## Conductor review — source URL whitespace boundary — 2026-09-21
+
+- **Finding:** source catalogue URL validation stripped whitespace while
+  retaining the original value, allowing an identity-divergent authority or
+  API URL to pass configuration validation.
+- **Fix:** commit `ec5322c` rejects surrounding whitespace on authority and API
+  URLs and adds regression coverage for both paths.
+- **Verification:** focused source/ingestion tests pass (22); the full suite
+  passes 424 tests with 8 skips; 438 project checks, Conductor, web-first,
+  Power Platform, visual and canonical flow validators pass locally.
+- **Residual gate:** permitted opportunity intake, reviewed eligibility,
+  controlled source-to-list reconciliation, native acceptance and unattended
+  operation remain open.

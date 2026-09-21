@@ -23,3 +23,4 @@
 - [x] Task: Reject reviewed rows whose `SourceRowURL` is identical to the general opportunity URL (`ffdc5a8`).
 - [x] Task: Reject malformed optional descriptive fields before reviewed-row normalization (`04642b1`).
 - [x] Task: Reject non-string authority/API URLs in the source catalogue (`18dd567`).
+- [x] Task: Reject authority/API URLs with surrounding whitespace before intake validation (`ec5322c`).

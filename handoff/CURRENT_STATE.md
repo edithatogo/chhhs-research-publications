@@ -392,6 +392,16 @@ Permitted live opportunity intake, controlled source-to-list reconciliation,
 native acceptance and unattended operation remain open; no tenant mutation was
 made.
 
+Latest G02 source-catalogue hardening (2026-09-21): code commit `ec5322c`
+rejects surrounding whitespace in authority and API URLs before source intake
+validation, preventing URL identity divergence between catalogue evidence and
+downstream requests. Focused source/ingestion coverage passes (22 tests); the
+full suite passes 424 tests with 8 skips, 438 project checks pass, and
+Conductor, web-first, Power Platform, visual and canonical flow validators pass
+locally. Permitted opportunity intake, reviewed eligibility, controlled
+source-to-list reconciliation, native acceptance and unattended operation
+remain open; no tenant mutation was made.
+
 Inspect `git status --short` at entry. Preserve unrelated report/manifest and other existing edits; do not mass-stage. Use the active track's spec and plan for tasks. Follow AGENTS.md approval boundaries for deployment/sharing/schedules. Current user direction defines scope; historical observations supply evidence only for their dates. Live contradictions require readback, not a convenient choice of document.
 
 Update this checkpoint with outcome, next executable task, test command/result and exact blocker after work. Keep credentials, actual tenant identifiers and screenshots under ignored private storage. Do not paste raw private output into a context bundle.
