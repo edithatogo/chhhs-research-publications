@@ -64,12 +64,13 @@ unattended delivery are future extensions.
 ## Phase: Native current-user list bootstrap — 2026-09-21
 
 - [x] Task: Inventory the personal DEV site and create the sole `My Funding Watchlist` and `Funding Calendar` lists only when absent; persist the minimal user-scoped schemas with inactive/cancelled defaults and read back the fields through the authenticated SharePoint API.
-- [ ] Task: Add the current-user flow/page binding, calendar revision ledger and controlled readback; do not enable cross-user delivery or unattended notifications.
+- [x] Task: Add current-user flow/page binding and controlled readback for the isolated lists, flows and saved report visuals; no cross-user delivery or unattended notifications were enabled.
+- [~] Task: Complete the calendar revision ledger, refresh/reconciliation and delivery gates; keep cross-user delivery and unattended notifications disabled.
 
 ### Native persistence evidence — 2026-09-21
 
 - [x] Controlled current-user calendar round-trip: created one synthetic deadline with an exact calculated date, authoritative HTTPS source URL, policy key and `Needs Review` state; read back all visible fields; edited the policy key and read it back; deleted the synthetic item and confirmed the list returned to zero rows.
-- [ ] Native page/report binding, revision ledger, reminder/change execution and delivery remain open.
+- [~] Native page/report binding is evidenced for the isolated saved visuals and flow paths; revision ledger, refresh/reconciliation, reminder/change execution and delivery remain open.
 
 The authenticated Power Automate designer was also checked for the next
 current-user flow. It can expose the personal site as a custom SharePoint
@@ -108,7 +109,7 @@ watchlist input contract is required before another native copy is created.
 - [x] Controlled native create run `08584116266950718806813049204CU16` succeeded; SharePoint readback showed `synthetic-calendar-20260921`, `2026-10-15`, the authoritative source URL, `Cancelled=No`, the initial policy key and `Needs Review`.
 - [x] Controlled same-key update run `08584116266295302685959687164CU15` succeeded; SharePoint readback showed `2026-10-20`, `Cancelled=Yes`, policy key `synthetic-policy-20260921-v2` and `Confirmed` without creating a duplicate.
 - [x] Restore the isolated flow Off. The synthetic calendar row was subsequently removed through the native SharePoint delete confirmation and the list returned to zero data rows.
-- [ ] Native report/page binding, institutional-date and reminder/change ledger, subscription isolation and calendar/notification delivery remain open.
+- [~] Native report/page binding is evidenced for the isolated saved visuals; institutional-date and reminder/change ledger, subscription isolation and calendar/notification delivery remain open.
 
 ### Native delivery-ledger flow — 2026-09-21
 
@@ -124,8 +125,8 @@ watchlist input contract is required before another native copy is created.
 - [x] In the existing current-user My workspace semantic model, use the Power Query SharePoint Online List connector and the existing organisational-account connection to add read-only native queries for `My Funding Watchlist`, `Funding Calendar`, `Funding Delivery Ledger` and `Grants Registry`. Model readback now shows tables 22–25 with 26, 29, 32 and 44 columns respectively; the Grants Registry preview evaluated with zero rows and the other three previews evaluated with one controlled synthetic row each.
 - [x] Add and save a native table visual on `Funding Opportunities` bound to `Grants Registry.Funder`, `Deadline`, `Eligibility` and `OpportunityKey`; Reading-view readback shows those headers. The native Grants Registry preview currently has zero rows, so no opportunity row is claimed.
 - [x] Add and save native table visuals on `Funding Calendar & Watchlist`: the calendar visual is bound to `Funding Calendar.CalculatedDate`, `DeadlineKey`, `ReviewStatus` and `SourceURL`, and the watchlist visual is bound to `My Funding Watchlist.Active`, `OpportunityKey`, `Scope` and `TargetKey`. Reading-view readback shows all eight headers, the synthetic calendar row and the synthetic watchlist row.
-- [ ] Refresh/row reconciliation and current-user flow/page binding remain separate gates. The page status text still contains the older phrase that semantic-model binding is pending; this is a cosmetic documentation gap, not evidence that the native bindings are absent.
-- [ ] Add current-user flow/page binding, subscription isolation, calendar revision ledger and actual reminder/change delivery after the semantic-model route is available.
+- [ ] Refresh/row reconciliation remains a separate gate. The page status text still contains the older phrase that semantic-model binding is pending; this is a cosmetic documentation gap, not evidence that the native bindings are absent.
+- [~] Complete subscription isolation, calendar revision ledger and actual reminder/change delivery after the semantic-model refresh route is available; current-user flow/page binding is already evidenced above.
 
 ### Native synthetic-row cleanup — 2026-09-22
 
