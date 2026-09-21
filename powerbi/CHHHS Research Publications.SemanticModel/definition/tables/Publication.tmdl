@@ -123,45 +123,6 @@ table Publication
 		summarizeBy: none
 		sourceColumn: PublicationNotice
 
-	column PublicationDate
-		dataType: dateTime
-		formatString: dd MMM yyyy
-		lineageTag: 1af28e32-c3a8-5967-8d2f-54c9a605053e
-		summarizeBy: none
-		sourceColumn: PublicationDate
-
-	column OnlineDate
-		dataType: dateTime
-		formatString: dd MMM yyyy
-		lineageTag: 12272100-815c-5bb1-961f-78c7a5980604
-		summarizeBy: none
-		sourceColumn: OnlineDate
-
-	column RefreshedAtUTC
-		dataType: dateTime
-		formatString: dd MMM yyyy
-		lineageTag: 945f1a30-a76b-5fb9-9793-bb246a799937
-		summarizeBy: none
-		sourceColumn: RefreshedAtUTC
-
-	column PublicationYear
-		dataType: int64
-		lineageTag: c4fe965e-a3da-5a08-9f19-8827e6847165
-		summarizeBy: none
-		sourceColumn: PublicationYear
-
-	column AuthorCount
-		dataType: int64
-		lineageTag: b0fb0677-e4b6-5736-a914-d2ab2c863a58
-		summarizeBy: none
-		sourceColumn: AuthorCount
-
-	column FacilityMatchCount
-		dataType: int64
-		lineageTag: 8861036c-7002-5224-988f-339503f575b0
-		summarizeBy: none
-		sourceColumn: FacilityMatchCount
-
 	column PMCID
 		dataType: string
 		lineageTag: e4cbe433-da47-504c-bd15-faa624a5d038
@@ -266,6 +227,45 @@ table Publication
 		summarizeBy: none
 		sourceColumn: PDFDownloadedUTC
 
+	column PublicationDate
+		dataType: dateTime
+		formatString: dd MMM yyyy
+		lineageTag: 1af28e32-c3a8-5967-8d2f-54c9a605053e
+		summarizeBy: none
+		sourceColumn: PublicationDate
+
+	column OnlineDate
+		dataType: dateTime
+		formatString: dd MMM yyyy
+		lineageTag: 12272100-815c-5bb1-961f-78c7a5980604
+		summarizeBy: none
+		sourceColumn: OnlineDate
+
+	column RefreshedAtUTC
+		dataType: dateTime
+		formatString: dd MMM yyyy
+		lineageTag: 945f1a30-a76b-5fb9-9793-bb246a799937
+		summarizeBy: none
+		sourceColumn: RefreshedAtUTC
+
+	column PublicationYear
+		dataType: int64
+		lineageTag: c4fe965e-a3da-5a08-9f19-8827e6847165
+		summarizeBy: none
+		sourceColumn: PublicationYear
+
+	column AuthorCount
+		dataType: int64
+		lineageTag: b0fb0677-e4b6-5736-a914-d2ab2c863a58
+		summarizeBy: none
+		sourceColumn: AuthorCount
+
+	column FacilityMatchCount
+		dataType: int64
+		lineageTag: 8861036c-7002-5224-988f-339503f575b0
+		summarizeBy: none
+		sourceColumn: FacilityMatchCount
+
 	column EuropePMC_CitedByCount
 		dataType: int64
 		lineageTag: 117c502c-87be-5010-bb8e-51c584a6d572
@@ -289,6 +289,7 @@ table Publication
 		lineageTag: 76cd3da1-c681-5bc5-a719-aac7670c9390
 		summarizeBy: none
 		sourceColumn: PDFFileSize
+
 	measure Publications =
 		VAR MatchedKeys = VALUES(PublicationFacility[CanonicalKey])
 		VAR FacilityFiltered = ISFILTERED(Facility) || ISFILTERED(PublicationFacility)
@@ -315,6 +316,34 @@ table Publication
 	measure 'Reconciliation Needs Review' = CALCULATE([Publications], KEEPFILTERS(CONTAINSSTRING(Publication[AttributionStatus], "needs review")))
 		formatString: #,0
 		lineageTag: 736ad1e8-accb-5cf8-b035-49c0cb269df6
+
+	measure 'Open Access Publications' = CALCULATE([Publications], KEEPFILTERS(Publication[EuropePMC_OpenAccess] = "Y" || Publication[OpenAccessStatus] IN {"Gold", "Green"} || NOT(ISBLANK(Publication[PMCID]))))
+		formatString: #,0
+		lineageTag: 2088229c-0ca3-5d43-a4ea-be36ab877869
+
+	measure 'Open Access Rate' = DIVIDE([Open Access Publications], [Publications])
+		formatString: 0.0%
+		lineageTag: 3c6003d0-276d-50a1-bc1e-445f95443e5b
+
+	measure 'Funded Publications' = CALCULATE([Publications], KEEPFILTERS(Publication[FundingType] <> "Unfunded / Departmental" && Publication[FundingType] <> "" && NOT(ISBLANK(Publication[FundingType]))))
+		formatString: #,0
+		lineageTag: 3b1fe180-2a8a-5612-b643-eb5d6ca7c42f
+
+	measure 'Internal CHHHS Funded Publications' = CALCULATE([Publications], KEEPFILTERS(Publication[IsInternalFunding] = "Yes"))
+		formatString: #,0
+		lineageTag: ef70c0c7-a7a1-59c1-9ed5-b6f4c7ecb1f2
+
+	measure 'First Nations Health Publications' = CALCULATE([Publications], KEEPFILTERS(Publication[IndigenousHealthFocus] = "Yes"))
+		formatString: #,0
+		lineageTag: 26b2ce42-edbc-5dad-9906-0a63574f85c9
+
+	measure 'Clinical Trials Count' = CALCULATE([Publications], KEEPFILTERS(Publication[ClinicalTrialID] <> "" && NOT(ISBLANK(Publication[ClinicalTrialID]))))
+		formatString: #,0
+		lineageTag: e5958ffb-18d5-5dc5-b177-ef8793f37827
+
+	measure 'Archived Full-Text Papers' = CALCULATE([Publications], KEEPFILTERS(Publication[PDFDownloadStatus] IN {"Downloaded", "Already Exists"}))
+		formatString: #,0
+		lineageTag: 7e4bdfcb-d347-515d-ae81-8fcd9ad74a0e
 
 	measure 'Publications Last Complete Month' =
 		VAR StartDate = MAX(ReportingWindow[ReportMonthStart])
@@ -377,33 +406,6 @@ table Publication
 		formatString: #,0
 		lineageTag: 318edbdb-ffb9-555c-9f9e-5776ffc4dd92
 
-	measure 'Open Access Publications' = CALCULATE([Publications], KEEPFILTERS(Publication[EuropePMC_OpenAccess] = "Y" || Publication[OpenAccessStatus] IN {"Gold", "Green"} || NOT(ISBLANK(Publication[PMCID]))))
-		formatString: #,0
-		lineageTag: 2088229c-0ca3-5d43-a4ea-be36ab877869
-
-	measure 'Open Access Rate' = DIVIDE([Open Access Publications], [Publications])
-		formatString: 0.0%
-		lineageTag: 3c6003d0-276d-50a1-bc1e-445f95443e5b
-
-	measure 'Funded Publications' = CALCULATE([Publications], KEEPFILTERS(Publication[FundingType] <> "Unfunded / Departmental" && Publication[FundingType] <> "" && NOT(ISBLANK(Publication[FundingType]))))
-		formatString: #,0
-		lineageTag: 3b1fe180-2a8a-5612-b643-eb5d6ca7c42f
-
-	measure 'Internal CHHHS Funded Publications' = CALCULATE([Publications], KEEPFILTERS(Publication[IsInternalFunding] = "Yes"))
-		formatString: #,0
-		lineageTag: ef70c0c7-a7a1-59c1-9ed5-b6f4c7ecb1f2
-
-	measure 'First Nations Health Publications' = CALCULATE([Publications], KEEPFILTERS(Publication[IndigenousHealthFocus] = "Yes"))
-		formatString: #,0
-		lineageTag: 26b2ce42-edbc-5dad-9906-0a63574f85c9
-
-	measure 'Clinical Trials Count' = CALCULATE([Publications], KEEPFILTERS(Publication[ClinicalTrialID] <> "" && NOT(ISBLANK(Publication[ClinicalTrialID]))))
-		formatString: #,0
-		lineageTag: e5958ffb-18d5-5dc5-b177-ef8793f37827
-
-	measure 'Archived Full-Text Papers' = CALCULATE([Publications], KEEPFILTERS(Publication[PDFDownloadStatus] IN {"Downloaded", "Already Exists"}))
-		formatString: #,0
-		lineageTag: 7e4bdfcb-d347-515d-ae81-8fcd9ad74a0e
 	partition Publication = m
 		mode: import
 		source =

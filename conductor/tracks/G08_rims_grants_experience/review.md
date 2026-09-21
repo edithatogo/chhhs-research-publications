@@ -376,3 +376,34 @@ The calendar upsert path was bootstrapped from the existing reviewed SharePoint-
 - **Status:** Partial — the flow and controlled persistence path are proven in isolated DEV, but this is not organisation-wide or unattended acceptance.
 - **Residual gate:** the synthetic calendar row remains in the list pending explicit UI deletion confirmation; native report pages, institutional-date/reminder/change ledger, subscription isolation and calendar/notification delivery remain open.
 - **Decision:** keep G08 active. The native flow evidence is sufficient to close the calendar-upsert subtask, not the whole track, so archiving would overstate completion.
+
+## Local model/report parity — 2026-09-22
+
+### Summary
+
+The local PBIP now represents the three user-scoped grant-support surfaces as
+separate SharePoint-backed tables instead of incorrectly projecting calendar
+and watchlist pages from the opportunity registry. This aligns the source
+artefacts with the native field contract while preserving the boundary between
+local validation and tenant acceptance.
+
+### Verification Checks
+
+- [x] **Plan compliance**: Pass — `FundingCalendar`, `MyFundingWatchlist` and
+  `FundingDeliveryLedger` have explicit local M projections and model tables.
+- [x] **Report binding**: Pass locally — the calendar and watchlist visuals
+  resolve against their dedicated tables; 83 visuals pass geometry and field
+  binding validation.
+- [x] **Tests**: Pass — 437 tests passed with 8 skipped; project validation
+  passed 451 checks; web-first validation is `PASS_LOCAL_ONLY`.
+- [x] **Baseline**: Pass — the frozen runtime manifest was replaced with an
+  outcome-linked source-only parity baseline and remains explicitly non-native.
+
+### Findings
+
+- **Residual native gate:** Power BI `Schema and data` refresh still stalls at
+  `Processing queries and validating semantic model`; no native refresh or row
+  reconciliation is claimed.
+- **Residual operational gate:** flows remain Off after testing; subscription
+  isolation, calendar revision/change execution and actual delivery remain
+  open.

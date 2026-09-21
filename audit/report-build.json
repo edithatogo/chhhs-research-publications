@@ -1,6 +1,6 @@
 {
   "pages": 7,
-  "visuals": 82,
+  "visuals": 83,
   "manifest": [
     {
       "page": "PublicationRegister",
@@ -822,7 +822,7 @@
       "page": "FundingCalendar",
       "visual": "caption",
       "type": "textbox",
-      "title": "External deadlines are distinct from future institutional dates. Partial and uncertain dates remain visible for review.",
+      "title": "External deadlines are distinct from institutional dates. Cancellation and review state remain explicit.",
       "position": [
         32,
         64,
@@ -832,9 +832,9 @@
     },
     {
       "page": "FundingCalendar",
-      "visual": "calendar-status-filter",
+      "visual": "calendar-review-filter",
       "type": "slicer",
-      "title": "Status",
+      "title": "Review state",
       "position": [
         32,
         112,
@@ -844,9 +844,9 @@
     },
     {
       "page": "FundingCalendar",
-      "visual": "calendar-precision-filter",
+      "visual": "calendar-cancelled-filter",
       "type": "slicer",
-      "title": "Deadline precision",
+      "title": "Cancellation state",
       "position": [
         504,
         112,
@@ -856,9 +856,9 @@
     },
     {
       "page": "FundingCalendar",
-      "visual": "calendar-source-filter",
+      "visual": "calendar-policy-filter",
       "type": "slicer",
-      "title": "Funder / source",
+      "title": "Policy key",
       "position": [
         976,
         112,
@@ -882,7 +882,7 @@
       "page": "FundingCalendar",
       "visual": "calendar-note",
       "type": "textbox",
-      "title": "Institutional dates, holiday calendars and reminders are policy-driven additions and are not yet persisted in the native registry.",
+      "title": "Institutional dates are policy-driven projections; the external source date and cancellation/review decisions remain separately traceable.",
       "position": [
         32,
         896,
@@ -918,7 +918,7 @@
       "page": "MyFundingWatchlist",
       "visual": "caption",
       "type": "textbox",
-      "title": "A personal view is designed as a private subscription surface; persistence and delivery remain pending native SharePoint/Power Apps acceptance.",
+      "title": "A current-user view over explicit category or individual-opportunity subscriptions; delivery remains a separate gate.",
       "position": [
         32,
         64,
@@ -928,25 +928,37 @@
     },
     {
       "page": "MyFundingWatchlist",
-      "visual": "watchlist-relevance-filter",
+      "visual": "watchlist-active-filter",
       "type": "slicer",
-      "title": "CHHHS relevance",
+      "title": "Active",
       "position": [
         32,
         112,
-        520,
+        440,
         72
       ]
     },
     {
       "page": "MyFundingWatchlist",
-      "visual": "watchlist-review-filter",
+      "visual": "watchlist-scope-filter",
       "type": "slicer",
-      "title": "Review state",
+      "title": "Scope",
       "position": [
-        584,
+        504,
         112,
-        520,
+        440,
+        72
+      ]
+    },
+    {
+      "page": "MyFundingWatchlist",
+      "visual": "watchlist-target-filter",
+      "type": "slicer",
+      "title": "Target",
+      "position": [
+        976,
+        112,
+        440,
         72
       ]
     },
@@ -954,11 +966,11 @@
       "page": "MyFundingWatchlist",
       "visual": "watchlist-note",
       "type": "textbox",
-      "title": "Watchlist filters are a report preview; no personal subscription or notification is created by this PBIP.",
+      "title": "Personal subscription rows are persisted separately from opportunity content; no notification is implied.",
       "position": [
-        1136,
+        1448,
         112,
-        752,
+        440,
         72
       ]
     },
@@ -978,7 +990,7 @@
       "page": "MyFundingWatchlist",
       "visual": "footer",
       "type": "textbox",
-      "title": "Personal subscriptions, categories, individual-grant watches and reminder/calendar delivery require an authenticated list-backed preference surface.",
+      "title": "Categories and individual-opportunity watches are explicit list-backed preferences; reminder/calendar delivery remains separately controlled.",
       "position": [
         32,
         1016,

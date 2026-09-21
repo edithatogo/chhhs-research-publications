@@ -17,6 +17,17 @@ class GrantsPageSurfaceTests(unittest.TestCase):
         self.assertIn("OpportunityKey", {column["name"] for column in grants["columns"]})
         self.assertIn("COUNTROWS(GrantsRegistry)", " ".join(measure["expression"] for measure in grants["measures"]))
 
+    def test_user_scoped_grant_support_tables_are_separate_from_opportunities(self):
+        model = json.loads((ROOT / "audit/model.snapshot.json").read_text())["model"]
+        tables = {table["name"]: table for table in model["tables"]}
+        self.assertEqual(
+            {"FundingCalendar", "MyFundingWatchlist", "FundingDeliveryLedger"}.intersection(tables),
+            {"FundingCalendar", "MyFundingWatchlist", "FundingDeliveryLedger"},
+        )
+        self.assertIn("DeadlineKey", {column["name"] for column in tables["FundingCalendar"]["columns"]})
+        self.assertIn("Active", {column["name"] for column in tables["MyFundingWatchlist"]["columns"]})
+        self.assertIn("DeliveryEventKey", {column["name"] for column in tables["FundingDeliveryLedger"]["columns"]})
+
 
 if __name__ == "__main__":
     unittest.main()

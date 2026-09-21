@@ -132,3 +132,10 @@ watchlist input contract is required before another native copy is created.
 - [x] Through the authenticated SharePoint UI, select only the exact synthetic delivery-ledger, calendar and watchlist rows and confirm each native `Delete?` dialog. Each item was sent to the recycle bin; subsequent list readback showed only the list header row and no synthetic item.
 - [~] Refresh the saved report cache and re-read the bound visuals after cleanup. A native model refresh and a bounded retry both remained at `Processing queries and validating semantic model` and were cancelled through the native confirmation dialog; no refresh success is claimed. This must not be confused with unattended refresh or notification acceptance.
 - [x] Retry the native `Schema and data` refresh after all three grant test lists read zero rows. The second bounded observation reproduced `Processing queries and validating semantic model` and was cancelled through the native confirmation; no refresh success or row reconciliation is claimed.
+
+### Local PBIP/native grant-surface parity — 2026-09-22
+
+- [x] Add canonical local Power Query/model projections for `FundingCalendar`, `MyFundingWatchlist` and `FundingDeliveryLedger`, keeping them separate from `GrantsRegistry` opportunity identity.
+- [x] Rebind the local Funding Calendar and My Funding Watchlist pages to their dedicated current-user tables, matching the native visual field contract; local visual bindings and geometry validate.
+- [x] Replace the frozen source-only runtime baseline with an explicit reviewed parity baseline. This changes local authored definitions only and does not certify the native semantic model or refresh.
+- [ ] Reconcile the local PBIP against a successful native model refresh and row readback; the current Power BI refresh remains blocked at semantic-model validation.

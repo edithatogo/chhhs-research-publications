@@ -4,10 +4,10 @@
   "position": {
     "x": 32,
     "y": 224,
-    "z": 5,
+    "z": 6,
     "width": 1856,
     "height": 632,
-    "tabOrder": 5
+    "tabOrder": 6
   },
   "visual": {
     "visualType": "tableEx",
@@ -21,120 +21,60 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "GrantsRegistry"
+                      "Entity": "MyFundingWatchlist"
                     }
                   },
-                  "Property": "Title"
+                  "Property": "Active"
                 }
               },
-              "queryRef": "GrantsRegistry.Title",
-              "nativeQueryRef": "Title",
-              "displayName": "Opportunity"
+              "queryRef": "MyFundingWatchlist.Active",
+              "nativeQueryRef": "Active",
+              "displayName": "Active"
             },
             {
               "field": {
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "GrantsRegistry"
+                      "Entity": "MyFundingWatchlist"
                     }
                   },
-                  "Property": "Funder"
+                  "Property": "OpportunityKey"
                 }
               },
-              "queryRef": "GrantsRegistry.Funder",
-              "nativeQueryRef": "Funder",
-              "displayName": "Funder"
+              "queryRef": "MyFundingWatchlist.OpportunityKey",
+              "nativeQueryRef": "OpportunityKey",
+              "displayName": "Opportunity key"
             },
             {
               "field": {
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "GrantsRegistry"
+                      "Entity": "MyFundingWatchlist"
                     }
                   },
-                  "Property": "Deadline"
+                  "Property": "Scope"
                 }
               },
-              "queryRef": "GrantsRegistry.Deadline",
-              "nativeQueryRef": "Deadline",
-              "displayName": "Deadline"
+              "queryRef": "MyFundingWatchlist.Scope",
+              "nativeQueryRef": "Scope",
+              "displayName": "Scope"
             },
             {
               "field": {
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "GrantsRegistry"
+                      "Entity": "MyFundingWatchlist"
                     }
                   },
-                  "Property": "Status"
+                  "Property": "TargetKey"
                 }
               },
-              "queryRef": "GrantsRegistry.Status",
-              "nativeQueryRef": "Status",
-              "displayName": "Status"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "GrantsRegistry"
-                    }
-                  },
-                  "Property": "CHHHSRelevance"
-                }
-              },
-              "queryRef": "GrantsRegistry.CHHHSRelevance",
-              "nativeQueryRef": "CHHHSRelevance",
-              "displayName": "Relevance"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "GrantsRegistry"
-                    }
-                  },
-                  "Property": "ReviewStatus"
-                }
-              },
-              "queryRef": "GrantsRegistry.ReviewStatus",
-              "nativeQueryRef": "ReviewStatus",
-              "displayName": "Review status"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "GrantsRegistry"
-                    }
-                  },
-                  "Property": "ReviewNotes"
-                }
-              },
-              "queryRef": "GrantsRegistry.ReviewNotes",
-              "nativeQueryRef": "ReviewNotes",
-              "displayName": "Review notes"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "GrantsRegistry"
-                    }
-                  },
-                  "Property": "URL"
-                }
-              },
-              "queryRef": "GrantsRegistry.URL",
-              "nativeQueryRef": "URL",
-              "displayName": "Source link"
+              "queryRef": "MyFundingWatchlist.TargetKey",
+              "nativeQueryRef": "TargetKey",
+              "displayName": "Target key"
             }
           ]
         }

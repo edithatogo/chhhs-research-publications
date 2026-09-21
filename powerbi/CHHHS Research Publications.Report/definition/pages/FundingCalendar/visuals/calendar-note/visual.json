@@ -20,7 +20,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Institutional dates, holiday calendars and reminders are policy-driven additions and are not yet persisted in the native registry.",
+                    "value": "Institutional dates are policy-driven projections; the external source date and cancellation/review decisions remain separately traceable.",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
                       "fontSize": "16px"

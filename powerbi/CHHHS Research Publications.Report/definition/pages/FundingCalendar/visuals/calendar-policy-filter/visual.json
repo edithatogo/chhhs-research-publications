@@ -1,6 +1,6 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
-  "name": "calendar-source-filter",
+  "name": "calendar-policy-filter",
   "position": {
     "x": 976,
     "y": 112,
@@ -21,15 +21,15 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "GrantsRegistry"
+                      "Entity": "FundingCalendar"
                     }
                   },
-                  "Property": "Funder"
+                  "Property": "PolicyKey"
                 }
               },
-              "queryRef": "GrantsRegistry.Funder",
-              "nativeQueryRef": "Funder",
-              "displayName": "Funder"
+              "queryRef": "FundingCalendar.PolicyKey",
+              "nativeQueryRef": "PolicyKey",
+              "displayName": "Policy"
             }
           ]
         }
@@ -49,7 +49,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Funder / source'"
+                  "Value": "'Policy key'"
                 }
               }
             },

@@ -1,11 +1,11 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
-  "name": "watchlist-relevance-filter",
+  "name": "watchlist-active-filter",
   "position": {
     "x": 32,
     "y": 112,
     "z": 2,
-    "width": 520,
+    "width": 440,
     "height": 72,
     "tabOrder": 2
   },
@@ -21,15 +21,15 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "GrantsRegistry"
+                      "Entity": "MyFundingWatchlist"
                     }
                   },
-                  "Property": "CHHHSRelevance"
+                  "Property": "Active"
                 }
               },
-              "queryRef": "GrantsRegistry.CHHHSRelevance",
-              "nativeQueryRef": "CHHHSRelevance",
-              "displayName": "Relevance"
+              "queryRef": "MyFundingWatchlist.Active",
+              "nativeQueryRef": "Active",
+              "displayName": "Active"
             }
           ]
         }
@@ -49,7 +49,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'CHHHS relevance'"
+                  "Value": "'Active'"
                 }
               }
             },

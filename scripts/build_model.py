@@ -173,10 +173,31 @@ in #table(type table [ReportMonthStart=date,ReportMonthEndExclusive=date,Refresh
         measure('Open Grant Opportunities','CALCULATE([Grant Opportunities], KEEPFILTERS(GrantsRegistry[Status] = "open"))'),
         measure('Grant Opportunities Needing Review','CALCULATE([Grant Opportunities], KEEPFILTERS(GrantsRegistry[ReviewStatus] <> "accepted"))'),
     ]
+    # Keep opportunity identity separate from the current-user preference and
+    # delivery surfaces. These are additive SharePoint projections, not a
+    # replacement for the reviewed Grants Registry.
+    calendar_fields = [
+        ('DeadlineKey','string'), ('OpportunityKey','string'), ('CalculatedDate','dateTime'),
+        ('SourceURL','string'), ('Cancelled','boolean'), ('PolicyKey','string'), ('ReviewStatus','string')
+    ]
+    watchlist_fields = [('OpportunityKey','string'), ('Scope','string'), ('TargetKey','string'), ('Active','boolean')]
+    ledger_fields = [
+        ('DeliveryEventKey','string'), ('UserKey','string'), ('OpportunityKey','string'),
+        ('EventType','string'), ('Revision','string'), ('OffsetDays','int64'), ('Channel','string'),
+        ('Status','string'), ('ScheduledFor','dateTime'), ('SentAt','dateTime'), ('ErrorMessage','string')
+    ]
+    calendar = table('FundingCalendar', [column('FundingCalendar', name, dt, **({'dataCategory':'WebUrl'} if name == 'SourceURL' else {})) for name, dt in calendar_fields], (ROOT/'config/FundingCalendar.m').read_text())
+    calendar['description'] = 'Current-user institutional-date projection. Source dates and cancellation/review state remain explicit.'
+    watchlist = table('MyFundingWatchlist', [column('MyFundingWatchlist', name, dt) for name, dt in watchlist_fields], (ROOT/'config/MyFundingWatchlist.m').read_text())
+    watchlist['description'] = 'Current-user personal subscription scope. Active state is explicit and does not imply notification delivery.'
+    ledger = table('FundingDeliveryLedger', [column('FundingDeliveryLedger', name, dt) for name, dt in ledger_fields], (ROOT/'config/FundingDeliveryLedger.m').read_text())
+    ledger['description'] = 'Current-user delivery revision ledger. Persistence does not prove an actual email or calendar delivery.'
+    for name in ('FundingCalendar', 'MyFundingWatchlist', 'FundingDeliveryLedger'):
+        exprs.append(expression(name, (ROOT/'config'/f'{name}.m').read_text()))
     relationships=[]
     for ft,fc,tt,tc in [('Publication','PublicationDate','Date','Date'),('PublicationFacility','CanonicalKey','Publication','CanonicalKey'),('PublicationFacility','FacilityKey','Facility','FacilityKey'),('SearchAudit','FacilityKey','Facility','FacilityKey')]:
         relationships.append({'name':uid(f'{ft}.{fc}->{tt}.{tc}'),'fromTable':ft,'fromColumn':fc,'toTable':tt,'toColumn':tc,'fromCardinality':'many','toCardinality':'one','crossFilteringBehavior':'oneDirection','isActive':True})
-    model={'name':'CHHHS Research Publications','compatibilityLevel':1600,'model':{'culture':'en-AU','defaultPowerBIDataSourceVersion':'powerBI_V3','sourceQueryCulture':'en-AU','tables':[publication,facility,bridge,dates,audit,window,release_table,grants],'relationships':relationships,'expressions':exprs,'annotations':[{'name':'PBI_QueryOrder','value':json.dumps(['pNCBIEmail','FacilityDefinitions','fnParsePubDate','fnNCBIJson','fnPubMedXML','PubMedHarvest','PubMedFullMetadata','PubMedPublications','PubMedAuthorEvidence','PubMedMetadataChunks','PubMedIngestionAudit','DoraSourceObservations','DoraHistoricalMetadata','DoraMetadataChunks','DoraIngestionAudit','DoraHarvest','CanonicalPublications','GrantsRegistry','Publication','Facility','PublicationFacility','Date','SearchAudit','ReportingWindow','ReleaseMetadata'])},{'name':'PBI_TimeIntelligenceEnabled','value':'0'}]}}
+    model={'name':'CHHHS Research Publications','compatibilityLevel':1600,'model':{'culture':'en-AU','defaultPowerBIDataSourceVersion':'powerBI_V3','sourceQueryCulture':'en-AU','tables':[publication,facility,bridge,dates,audit,window,release_table,grants,calendar,watchlist,ledger],'relationships':relationships,'expressions':exprs,'annotations':[{'name':'PBI_QueryOrder','value':json.dumps(['pNCBIEmail','FacilityDefinitions','fnParsePubDate','fnNCBIJson','fnPubMedXML','PubMedHarvest','PubMedFullMetadata','PubMedPublications','PubMedAuthorEvidence','PubMedMetadataChunks','PubMedIngestionAudit','DoraSourceObservations','DoraHistoricalMetadata','DoraMetadataChunks','DoraIngestionAudit','DoraHarvest','CanonicalPublications','GrantsRegistry','FundingCalendar','MyFundingWatchlist','FundingDeliveryLedger','Publication','Facility','PublicationFacility','Date','SearchAudit','ReportingWindow','ReleaseMetadata'])},{'name':'PBI_TimeIntelligenceEnabled','value':'0'}]}}
     target=ROOT/'powerbi/CHHHS Research Publications.SemanticModel'
     save_json(ROOT/'audit/model.snapshot.json',model)
     save_json(target/'definition.pbism',{'$schema':'https://developer.microsoft.com/json-schemas/fabric/item/semanticModel/definitionProperties/1.0.0/schema.json','version':'5.0','settings':{'qnaEnabled':False}})

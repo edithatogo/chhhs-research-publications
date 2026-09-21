@@ -32,6 +32,10 @@ def grant_col(name: str, label: str|None=None) -> dict:
 def grant_met(name: str, label: str|None=None) -> dict:
     return {'field':field('GrantsRegistry',name,'Measure'),'queryRef':f'GrantsRegistry.{name}','nativeQueryRef':name,'displayName':label or name}
 
+def list_col(table: str, name: str, label: str|None=None) -> dict:
+    """Reference an additive SharePoint-backed grant experience table."""
+    return {'field':field(table,name),'queryRef':f'{table}.{name}','nativeQueryRef':name,'displayName':label or name}
+
 def visual(page: str, name: str, kind: str, title: str, xywh: tuple, roles: dict|None=None, text: str|None=None, sort_field: dict|None=None, descending: bool=False) -> None:
     x,y,w,h=xywh
     order=sum(m['page']==page for m in MANIFEST)
@@ -255,29 +259,29 @@ def build(source_pbix: Path | None = None) -> None:
 
     # Page 6: Funding Calendar (FundingCalendar)
     p='FundingCalendar'
-    heading(p,'Funding Calendar','External deadlines are distinct from future institutional dates. Partial and uncertain dates remain visible for review.')
-    visual(p,'calendar-status-filter','slicer','Status',(32,112,440,72),{'Values':[grant_col('Status','Status')]})
-    visual(p,'calendar-precision-filter','slicer','Deadline precision',(504,112,440,72),{'Values':[grant_col('DeadlinePrecision','Precision')]})
-    visual(p,'calendar-source-filter','slicer','Funder / source',(976,112,440,72),{'Values':[grant_col('Funder','Funder')]})
+    heading(p,'Funding Calendar','External deadlines are distinct from institutional dates. Cancellation and review state remain explicit.')
+    visual(p,'calendar-review-filter','slicer','Review state',(32,112,440,72),{'Values':[list_col('FundingCalendar','ReviewStatus','Review status')]})
+    visual(p,'calendar-cancelled-filter','slicer','Cancellation state',(504,112,440,72),{'Values':[list_col('FundingCalendar','Cancelled','Cancelled')]})
+    visual(p,'calendar-policy-filter','slicer','Policy key',(976,112,440,72),{'Values':[list_col('FundingCalendar','PolicyKey','Policy')]})
     visual(p,'calendar-register','tableEx','Funding calendar data',(32,224,1856,632),{'Values':[
-        grant_col('Deadline','External deadline'),grant_col('DeadlinePrecision','Precision'),grant_col('Title','Opportunity'),
-        grant_col('Funder'),grant_col('RoundID','Round'),grant_col('Status'),grant_col('CHHHSRelevance','CHHHS relevance'),
-        grant_col('URL','Source link')
+        list_col('FundingCalendar','CalculatedDate','Calculated date'),list_col('FundingCalendar','DeadlineKey','Deadline key'),
+        list_col('FundingCalendar','ReviewStatus','Review status'),list_col('FundingCalendar','SourceURL','Source link')
     ]})
-    visual(p,'calendar-note','textbox','',(32,896,1856,72),text='Institutional dates, holiday calendars and reminders are policy-driven additions and are not yet persisted in the native registry.')
+    visual(p,'calendar-note','textbox','',(32,896,1856,72),text='Institutional dates are policy-driven projections; the external source date and cancellation/review decisions remain separately traceable.')
     footer(p,'Never infer a day from a month or year-only deadline. Preserve source-stated date precision and timezone uncertainty.')
 
     # Page 7: My Funding Watchlist (MyFundingWatchlist)
     p='MyFundingWatchlist'
-    heading(p,'My Funding Watchlist','A personal view is designed as a private subscription surface; persistence and delivery remain pending native SharePoint/Power Apps acceptance.')
-    visual(p,'watchlist-relevance-filter','slicer','CHHHS relevance',(32,112,520,72),{'Values':[grant_col('CHHHSRelevance','Relevance')]})
-    visual(p,'watchlist-review-filter','slicer','Review state',(584,112,520,72),{'Values':[grant_col('ReviewStatus','Review status')]})
-    visual(p,'watchlist-note','textbox','',(1136,112,752,72),text='Watchlist filters are a report preview; no personal subscription or notification is created by this PBIP.')
+    heading(p,'My Funding Watchlist','A current-user view over explicit category or individual-opportunity subscriptions; delivery remains a separate gate.')
+    visual(p,'watchlist-active-filter','slicer','Active',(32,112,440,72),{'Values':[list_col('MyFundingWatchlist','Active','Active')]})
+    visual(p,'watchlist-scope-filter','slicer','Scope',(504,112,440,72),{'Values':[list_col('MyFundingWatchlist','Scope','Scope')]})
+    visual(p,'watchlist-target-filter','slicer','Target',(976,112,440,72),{'Values':[list_col('MyFundingWatchlist','TargetKey','Target key')]})
+    visual(p,'watchlist-note','textbox','',(1448,112,440,72),text='Personal subscription rows are persisted separately from opportunity content; no notification is implied.')
     visual(p,'watchlist-register','tableEx','Candidate watchlist',(32,224,1856,632),{'Values':[
-        grant_col('Title','Opportunity'),grant_col('Funder'),grant_col('Deadline'),grant_col('Status'),
-        grant_col('CHHHSRelevance','Relevance'),grant_col('ReviewStatus','Review status'),grant_col('ReviewNotes','Review notes'),grant_col('URL','Source link')
+        list_col('MyFundingWatchlist','Active','Active'),list_col('MyFundingWatchlist','OpportunityKey','Opportunity key'),
+        list_col('MyFundingWatchlist','Scope','Scope'),list_col('MyFundingWatchlist','TargetKey','Target key')
     ]})
-    footer(p,'Personal subscriptions, categories, individual-grant watches and reminder/calendar delivery require an authenticated list-backed preference surface.')
+    footer(p,'Categories and individual-opportunity watches are explicit list-backed preferences; reminder/calendar delivery remains separately controlled.')
 
     save_json(ROOT/'audit/report-build.json',{'pages':len(pages),'visuals':len(MANIFEST),'manifest':MANIFEST,'legacy_visuals_copied':0,'legacy_filters_copied':0,'native_render_tested':False})
     print(f'Built {len(pages)} pages and {len(MANIFEST)} research-only visuals.')

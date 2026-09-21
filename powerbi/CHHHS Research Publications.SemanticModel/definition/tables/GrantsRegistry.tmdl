@@ -1,158 +1,160 @@
 table GrantsRegistry
-	lineageTag: 4b2f5d7a-3e91-4c20-8a6b-1d9f0e2c7b55
+	description: "Canonical opportunity registry projection. Empty or unaccepted source batches remain empty; deadlines retain raw text and precision."
+	lineageTag: a35cda23-2e25-5941-86e7-7bc061a708a6
 
 	column OpportunityKey
 		dataType: string
-		lineageTag: 1c1d1e1f-2021-4223-8425-262728293031
+		lineageTag: dfe4dfb9-7830-55ab-be1d-da862d443c89
 		summarizeBy: none
 		sourceColumn: OpportunityKey
 
 	column Title
 		dataType: string
-		lineageTag: 32333435-3637-4839-8a3b-3c3d3e3f4041
+		lineageTag: 9be61e5d-e662-578a-bd15-026f2503e7bf
 		summarizeBy: none
 		sourceColumn: Title
 
 	column Funder
 		dataType: string
-		lineageTag: 42434445-4647-4849-8a4b-4c4d4e4f5051
+		lineageTag: c55327b2-304f-5d42-8df3-63f772355972
 		summarizeBy: none
 		sourceColumn: Funder
 
 	column Source
 		dataType: string
-		lineageTag: 52535455-5657-4859-8a5b-5c5d5e5f6061
+		lineageTag: 7bb25826-fc22-54a1-a520-851146b85631
 		summarizeBy: none
 		sourceColumn: Source
 
 	column SourceID
 		dataType: string
-		lineageTag: 62636465-6667-4869-8a6b-6c6d6e6f7071
+		lineageTag: a27e5dba-fcdb-50fc-a7fd-130856780660
 		summarizeBy: none
 		sourceColumn: SourceID
 
 	column RoundID
 		dataType: string
-		lineageTag: 72737475-7677-4879-8a7b-7c7d7e7f8081
+		lineageTag: 5d7d426b-0b0a-580c-b426-7d965bdb24fc
 		summarizeBy: none
 		sourceColumn: RoundID
 
 	column URL
 		dataType: string
 		dataCategory: WebUrl
-		lineageTag: 82838485-8687-4889-8a8b-8c8d8e8f9091
+		lineageTag: c83672a7-f81d-549f-9672-b2fb5830f436
 		summarizeBy: none
 		sourceColumn: URL
 
 	column SourceRowURL
 		dataType: string
 		dataCategory: WebUrl
-		lineageTag: 83848586-8788-4989-8a8b-8c8d8e8f9093
+		lineageTag: c2cac2ac-a79f-55e0-a79a-d912b78192de
 		summarizeBy: none
 		sourceColumn: SourceRowURL
 
 	column Description
 		dataType: string
-		lineageTag: 92939495-9697-4899-8a9b-9c9d9e9fa0a1
+		lineageTag: 3ec6dc79-018a-5ec3-85e9-6f38ab705ab4
 		summarizeBy: none
 		sourceColumn: Description
 
 	column Eligibility
 		dataType: string
-		lineageTag: a2a3a4a5-a6a7-48a9-8aab-acadaeafb0b1
+		lineageTag: ac42dd94-a117-5e10-891c-848088420977
 		summarizeBy: none
 		sourceColumn: Eligibility
 
 	column Geography
 		dataType: string
-		lineageTag: b2b3b4b5-b6b7-48b9-8abb-bcbdbebfc0c1
+		lineageTag: aa629aa0-17cc-527a-aa26-a632380716ca
 		summarizeBy: none
 		sourceColumn: Geography
 
 	column Amount
 		dataType: string
-		lineageTag: c2c3c4c5-c6c7-48c9-8acb-cccdcecfd0d1
+		lineageTag: 445269c8-e816-5405-8907-67aef5d6163b
 		summarizeBy: none
 		sourceColumn: Amount
 
 	column Deadline
 		dataType: string
-		lineageTag: d2d3d4d5-d6d7-48d9-8adb-dcdddedfe0e1
+		lineageTag: 53b39c9f-6773-5a4c-8721-63ecb94d9e25
 		summarizeBy: none
 		sourceColumn: Deadline
 
 	column DeadlineRaw
 		dataType: string
-		lineageTag: e2e3e4e5-e6e7-48e9-8aeb-ecedeeeff0f1
+		lineageTag: dd112e72-de29-5356-9bbb-4b0d8c9cbbb0
 		summarizeBy: none
 		sourceColumn: DeadlineRaw
 
 	column DeadlinePrecision
 		dataType: string
-		lineageTag: f2f3f4f5-f6f7-4909-8afb-fcfdfeff0011
+		lineageTag: b9a2f5c7-e0c8-5edc-a7e5-42e59b53e70b
 		summarizeBy: none
 		sourceColumn: DeadlinePrecision
 
 	column Status
 		dataType: string
-		lineageTag: 12131415-1617-4819-8a1b-1c1d1e1f2021
+		lineageTag: cc8340dd-294b-5295-95a8-42a4cafa59d6
 		summarizeBy: none
 		sourceColumn: Status
 
 	column Contact
 		dataType: string
-		lineageTag: 22232425-2627-4829-8a2b-2c2d2e2f3031
+		lineageTag: 182f3f00-cebf-5d8d-9063-27ad55548825
 		summarizeBy: none
 		sourceColumn: Contact
 
 	column CHHHSRelevance
 		dataType: string
-		lineageTag: 32333435-3637-4839-8a3b-3c3d3e3f4042
+		lineageTag: 95a784f7-1ae1-50c4-b9e6-21d71fe0a206
 		summarizeBy: none
 		sourceColumn: CHHHSRelevance
 
 	column ReviewStatus
 		dataType: string
-		lineageTag: 42434445-4647-4849-8a4b-4c4d4e4f5052
+		lineageTag: ffff3199-5d41-5391-84af-642213642fe0
 		summarizeBy: none
 		sourceColumn: ReviewStatus
 
 	column ReviewNotes
 		dataType: string
-		lineageTag: 52535455-5657-4859-8a5b-5c5d5e5f6062
+		lineageTag: 3ec20db5-222e-5c0d-8bc5-e3bfe846c9f7
 		summarizeBy: none
 		sourceColumn: ReviewNotes
 
 	column RetrievedUTC
 		dataType: string
-		lineageTag: 62636465-6667-4869-8a6b-6c6d6e6f7072
+		lineageTag: d73d75df-e614-5dd2-b34c-f6d93db175b9
 		summarizeBy: none
 		sourceColumn: RetrievedUTC
 
 	column RetrievedTimestampStatus
 		dataType: string
-		lineageTag: 72737475-7677-4879-8a7b-7c7d7e7f8082
+		lineageTag: 4aa3932d-25e5-54ee-951f-404c2636dc27
 		summarizeBy: none
 		sourceColumn: RetrievedTimestampStatus
 
 	column EvidenceHash
 		dataType: string
-		lineageTag: 82838485-8687-4889-8a8b-8c8d8e8f9092
+		lineageTag: 81186c13-8d5d-5062-b5e6-ef32f5b03384
 		summarizeBy: none
 		sourceColumn: EvidenceHash
 
 	measure 'Grant Opportunities' = COUNTROWS(GrantsRegistry)
 		formatString: #,0
-		lineageTag: 92939495-9697-4899-8a9b-9c9d9e9fa0a2
+		lineageTag: b8c3abdc-235b-53bf-9d07-9b4de6df3bfb
 
 	measure 'Open Grant Opportunities' = CALCULATE([Grant Opportunities], KEEPFILTERS(GrantsRegistry[Status] = "open"))
 		formatString: #,0
-		lineageTag: a2a3a4a5-a6a7-48a9-8aab-acadaeafb0b2
+		lineageTag: 7a0f3cee-b104-5b0b-829d-bf27bd9bc629
 
 	measure 'Grant Opportunities Needing Review' = CALCULATE([Grant Opportunities], KEEPFILTERS(GrantsRegistry[ReviewStatus] <> "accepted"))
 		formatString: #,0
-		lineageTag: b2b3b4b5-b6b7-48b9-8abb-bcbdbebfc0c2
+		lineageTag: 9c51d23f-d82a-5466-b5f0-3f6e7f86e971
 
 	partition GrantsRegistry = m
 		mode: import
-		source = SharePoint.Tables("https://<tenant>.sharepoint.com/sites/<site>", [Implementation = "2.0", ViewMode = "All"]){[Title = "Grants Registry"]}[Items]
+		source =
+			GrantsRegistry

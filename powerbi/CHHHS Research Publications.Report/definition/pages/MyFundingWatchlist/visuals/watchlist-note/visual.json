@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
   "name": "watchlist-note",
   "position": {
-    "x": 1136,
+    "x": 1448,
     "y": 112,
-    "z": 4,
-    "width": 752,
+    "z": 5,
+    "width": 440,
     "height": 72,
-    "tabOrder": 4
+    "tabOrder": 5
   },
   "visual": {
     "visualType": "textbox",
@@ -20,7 +20,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Watchlist filters are a report preview; no personal subscription or notification is created by this PBIP.",
+                    "value": "Personal subscription rows are persisted separately from opportunity content; no notification is implied.",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
                       "fontSize": "16px"

@@ -1,11 +1,11 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
-  "name": "watchlist-review-filter",
+  "name": "calendar-cancelled-filter",
   "position": {
-    "x": 584,
+    "x": 504,
     "y": 112,
     "z": 3,
-    "width": 520,
+    "width": 440,
     "height": 72,
     "tabOrder": 3
   },
@@ -21,15 +21,15 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "GrantsRegistry"
+                      "Entity": "FundingCalendar"
                     }
                   },
-                  "Property": "ReviewStatus"
+                  "Property": "Cancelled"
                 }
               },
-              "queryRef": "GrantsRegistry.ReviewStatus",
-              "nativeQueryRef": "ReviewStatus",
-              "displayName": "Review status"
+              "queryRef": "FundingCalendar.Cancelled",
+              "nativeQueryRef": "Cancelled",
+              "displayName": "Cancelled"
             }
           ]
         }
@@ -49,7 +49,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Review state'"
+                  "Value": "'Cancellation state'"
                 }
               }
             },

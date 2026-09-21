@@ -674,6 +674,15 @@ the native `Cancel refresh` confirmation. This confirms the same model-refresh
 blocker, not a successful cleanup reconciliation; cached report rows remain
 unverified.
 
+Local grant-surface parity (2026-09-22): the canonical PBIP now contains
+separate SharePoint-backed projections for `FundingCalendar`,
+`MyFundingWatchlist` and `FundingDeliveryLedger`, and the local calendar and
+watchlist visuals bind to those dedicated tables rather than the opportunity
+registry. The local model/report contract passes 437 tests, 451 project checks,
+visual standards and `PASS_LOCAL_ONLY` web-first validation. The runtime
+baseline was intentionally replaced with an outcome-linked source-only parity
+baseline; this does not certify the native model, refresh or row reconciliation.
+
 T11 native model-binding attempt (2026-09-22): the existing semantic-model
 Power Query editor was reopened and its retained DoRA/history tables and
 organisational-account connection were read back. A new SharePoint Online List
