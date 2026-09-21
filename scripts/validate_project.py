@@ -98,13 +98,13 @@ def validate(root: Path=ROOT) -> dict:
         fullmodel=load(root/'audit/model.snapshot.json');model=fullmodel['model']
         tmdl=modeldir/'definition'
         expected_tmdl={'database.tmdl','model.tmdl','relationships.tmdl'}
-        table_tmdl={f'{name}.tmdl' for name in ['Publication','PublicationFacility','Facility','Date','SearchAudit','ReportingWindow','ReleaseMetadata','GrantsRegistry','FundingCalendar','MyFundingWatchlist','FundingDeliveryLedger','DoraActivityRegistry','GrantRelationships']}
+        table_tmdl={f'{name}.tmdl' for name in ['Publication','PublicationFacility','Facility','Date','SearchAudit','ReportingWindow','ReleaseMetadata','GrantsRegistry','FundingCalendar','MyFundingWatchlist','FundingDeliveryLedger','FundingCalendarChanges','DoraActivityRegistry','GrantRelationships']}
         tmdl_ok=tmdl.is_dir() and expected_tmdl <= {p.name for p in tmdl.glob('*.tmdl')} and table_tmdl == {p.name for p in (tmdl/'tables').glob('*.tmdl')} and not (modeldir/'model.bim').exists()
         check('PBIP points directly to Fabric TMDL report and model',root.resolve() in modeldir.parents and definition['version']=='5.0' and tmdl_ok)
     except (OSError,ValueError,KeyError,TypeError) as exc:
         check('Project entry points',False,str(exc));return {'status':'FAIL','checks':checks}
     tables={t['name']:t for t in model['tables']}
-    expected={'Publication','PublicationFacility','Facility','Date','SearchAudit','ReportingWindow','ReleaseMetadata','GrantsRegistry','FundingCalendar','MyFundingWatchlist','FundingDeliveryLedger','DoraActivityRegistry','GrantRelationships'}
+    expected={'Publication','PublicationFacility','Facility','Date','SearchAudit','ReportingWindow','ReleaseMetadata','GrantsRegistry','FundingCalendar','MyFundingWatchlist','FundingDeliveryLedger','FundingCalendarChanges','DoraActivityRegistry','GrantRelationships'}
     check('Canonical research and current-user grant tables only',set(tables)==expected and len(model['tables'])==len(expected),list(tables))
     tmdl_text='\n'.join(p.read_text(encoding='utf-8') for p in sorted((modeldir/'definition').rglob('*.tmdl')))
     check('Fabric TMDL contains canonical model objects',all(token in tmdl_text for token in ['table Publication','expression DoraHarvest','expression CanonicalPublications','relationship']) and 'table Employee' not in tmdl_text)

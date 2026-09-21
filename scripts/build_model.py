@@ -192,6 +192,15 @@ in #table(type table [ReportMonthStart=date,ReportMonthEndExclusive=date,Refresh
     watchlist['description'] = 'Current-user personal subscription scope. Active state is explicit and does not imply notification delivery.'
     ledger = table('FundingDeliveryLedger', [column('FundingDeliveryLedger', name, dt) for name, dt in ledger_fields], (ROOT/'config/FundingDeliveryLedger.m').read_text())
     ledger['description'] = 'Current-user delivery revision ledger. Persistence does not prove an actual email or calendar delivery.'
+    calendar_change_fields = [
+        ('ChangeKey','string'), ('DeadlineKey','string'), ('OpportunityKey','string'),
+        ('ChangeType','string'), ('PreviousRevision','string'), ('Revision','string'),
+        ('PreviousDate','date'), ('CalculatedDate','date'), ('PreviousCancelled','boolean'),
+        ('Cancelled','boolean'), ('SourceURL','string'), ('ObservedUTC','dateTime'),
+        ('ReviewStatus','string')
+    ]
+    calendar_changes = table('FundingCalendarChanges', [column('FundingCalendarChanges', name, dt, **({'dataCategory':'WebUrl'} if name == 'SourceURL' else {})) for name, dt in calendar_change_fields], (ROOT/'config/FundingCalendarChanges.m').read_text())
+    calendar_changes['description'] = 'Current-user source-preserving calendar revision ledger. It records explicit date/cancellation changes; persistence does not prove reminder or calendar delivery.'
     dora_fields = [
         ('DORAActivityKey','string'), ('DORARecordID','int64'), ('DORAResourceID','string'),
         ('DORAResourceName','string'), ('DORAResourceLastModified','string'), ('DORAObservedUTC','dateTime'),
@@ -212,12 +221,12 @@ in #table(type table [ReportMonthStart=date,ReportMonthEndExclusive=date,Refresh
     ]
     relationships_table = table('GrantRelationships', [column('GrantRelationships', name, dt, **({'dataCategory':'WebUrl'} if name == 'EvidenceURL' else {})) for name, dt in relationship_fields], (ROOT/'config/GrantRelationships.m').read_text())
     relationships_table['description'] = 'Typed, evidence-required relationship bridge. FromKey and ToKey preserve separate grant, award and publication identities; no implicit join is performed.'
-    for name in ('FundingCalendar', 'MyFundingWatchlist', 'FundingDeliveryLedger', 'DoraActivityRegistry', 'GrantRelationships'):
+    for name in ('FundingCalendar', 'MyFundingWatchlist', 'FundingDeliveryLedger', 'FundingCalendarChanges', 'DoraActivityRegistry', 'GrantRelationships'):
         exprs.append(expression(name, (ROOT/'config'/f'{name}.m').read_text()))
     relationships=[]
     for ft,fc,tt,tc in [('Publication','PublicationDate','Date','Date'),('PublicationFacility','CanonicalKey','Publication','CanonicalKey'),('PublicationFacility','FacilityKey','Facility','FacilityKey'),('SearchAudit','FacilityKey','Facility','FacilityKey')]:
         relationships.append({'name':uid(f'{ft}.{fc}->{tt}.{tc}'),'fromTable':ft,'fromColumn':fc,'toTable':tt,'toColumn':tc,'fromCardinality':'many','toCardinality':'one','crossFilteringBehavior':'oneDirection','isActive':True})
-    model={'name':'CHHHS Research Publications','compatibilityLevel':1600,'model':{'culture':'en-AU','defaultPowerBIDataSourceVersion':'powerBI_V3','sourceQueryCulture':'en-AU','tables':[publication,facility,bridge,dates,audit,window,release_table,grants,calendar,watchlist,ledger,dora,relationships_table],'relationships':relationships,'expressions':exprs,'annotations':[{'name':'PBI_QueryOrder','value':json.dumps(['pNCBIEmail','FacilityDefinitions','fnParsePubDate','fnNCBIJson','fnPubMedXML','PubMedHarvest','PubMedFullMetadata','PubMedPublications','PubMedAuthorEvidence','PubMedMetadataChunks','PubMedIngestionAudit','DoraSourceObservations','DoraHistoricalMetadata','DoraMetadataChunks','DoraIngestionAudit','DoraHarvest','CanonicalPublications','GrantsRegistry','FundingCalendar','MyFundingWatchlist','FundingDeliveryLedger','DoraActivityRegistry','GrantRelationships','Publication','Facility','PublicationFacility','Date','SearchAudit','ReportingWindow','ReleaseMetadata'])},{'name':'PBI_TimeIntelligenceEnabled','value':'0'}]}}
+    model={'name':'CHHHS Research Publications','compatibilityLevel':1600,'model':{'culture':'en-AU','defaultPowerBIDataSourceVersion':'powerBI_V3','sourceQueryCulture':'en-AU','tables':[publication,facility,bridge,dates,audit,window,release_table,grants,calendar,watchlist,ledger,calendar_changes,dora,relationships_table],'relationships':relationships,'expressions':exprs,'annotations':[{'name':'PBI_QueryOrder','value':json.dumps(['pNCBIEmail','FacilityDefinitions','fnParsePubDate','fnNCBIJson','fnPubMedXML','PubMedHarvest','PubMedFullMetadata','PubMedPublications','PubMedAuthorEvidence','PubMedMetadataChunks','PubMedIngestionAudit','DoraSourceObservations','DoraHistoricalMetadata','DoraMetadataChunks','DoraIngestionAudit','DoraHarvest','CanonicalPublications','GrantsRegistry','FundingCalendar','MyFundingWatchlist','FundingDeliveryLedger','FundingCalendarChanges','DoraActivityRegistry','GrantRelationships','Publication','Facility','PublicationFacility','Date','SearchAudit','ReportingWindow','ReleaseMetadata'])},{'name':'PBI_TimeIntelligenceEnabled','value':'0'}]}}
     target=ROOT/'powerbi/CHHHS Research Publications.SemanticModel'
     save_json(ROOT/'audit/model.snapshot.json',model)
     save_json(target/'definition.pbism',{'$schema':'https://developer.microsoft.com/json-schemas/fabric/item/semanticModel/definitionProperties/1.0.0/schema.json','version':'5.0','settings':{'qnaEnabled':False}})

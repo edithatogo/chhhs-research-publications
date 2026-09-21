@@ -28,6 +28,7 @@ Use standard visuals initially; a paid calendar visual is unnecessary. Report sl
 | Institutional policy | PolicyKey, Version, OrganisationKey, AnchorKind, LeadDays, CalendarOrBusinessDays, HolidayCalendarVersion, EffectiveFrom/To, review state |
 | Institutional deadline | DeadlineKey, AnchorDeadlineKey, PolicyKey/Version, CalculatedDate, OverrideDate, OverrideReason, reviewed status, stale flag |
 | Subscription | SubscriptionKey, authenticated UserKey, Scope (opportunity/category/funder), TargetKey, Active, EventTypes, reminder offsets, digest cadence, channel, timezone |
+| Calendar change ledger | ChangeKey, DeadlineKey, OpportunityKey, previous/current revision and date, cancellation state, source URL, observed time, review state |
 | Delivery ledger | UserKey, EventKey, deadline/source revision, reminder offset, channel, status, attempt time and external event ID |
 | Relationship | Typed opportunity/award/publication/author/organisation keys, evidence, confidence, review state |
 

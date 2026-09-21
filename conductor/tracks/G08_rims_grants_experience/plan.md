@@ -138,5 +138,6 @@ watchlist input contract is required before another native copy is created.
 - [x] Add canonical local Power Query/model projections for `FundingCalendar`, `MyFundingWatchlist` and `FundingDeliveryLedger`, keeping them separate from `GrantsRegistry` opportunity identity.
 - [x] Rebind the local Funding Calendar and My Funding Watchlist pages to their dedicated current-user tables, matching the native visual field contract; local visual bindings and geometry validate.
 - [x] Replace the frozen source-only runtime baseline with an explicit reviewed parity baseline. This changes local authored definitions only and does not certify the native semantic model or refresh.
+- [x] Add the local source-preserving `FundingCalendarChanges` projection and fail-closed revision-diff helper. It records explicit date/cancellation revisions without creating events or sending notifications; native list creation and delivery remain open.
 - [ ] Reconcile the local PBIP against a successful native model refresh and row readback; the current Power BI refresh remains blocked at semantic-model validation.
 - [x] Read back the current-user Power Automate inventory: exactly one publications flow is enabled/scheduled and exactly one disabled copy exists for each grant/DoRA upsert flow; no duplicate flow identity was created.

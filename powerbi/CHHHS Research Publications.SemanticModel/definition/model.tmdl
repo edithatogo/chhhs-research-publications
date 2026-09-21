@@ -2,7 +2,7 @@ model Model
 	culture: en-AU
 	defaultPowerBIDataSourceVersion: powerBI_V3
 	sourceQueryCulture: en-AU
-	annotation PBI_QueryOrder = ["pNCBIEmail", "FacilityDefinitions", "fnParsePubDate", "fnNCBIJson", "fnPubMedXML", "PubMedHarvest", "PubMedFullMetadata", "PubMedPublications", "PubMedAuthorEvidence", "PubMedMetadataChunks", "PubMedIngestionAudit", "DoraSourceObservations", "DoraHistoricalMetadata", "DoraMetadataChunks", "DoraIngestionAudit", "DoraHarvest", "CanonicalPublications", "GrantsRegistry", "FundingCalendar", "MyFundingWatchlist", "FundingDeliveryLedger", "DoraActivityRegistry", "GrantRelationships", "Publication", "Facility", "PublicationFacility", "Date", "SearchAudit", "ReportingWindow", "ReleaseMetadata"]
+	annotation PBI_QueryOrder = ["pNCBIEmail", "FacilityDefinitions", "fnParsePubDate", "fnNCBIJson", "fnPubMedXML", "PubMedHarvest", "PubMedFullMetadata", "PubMedPublications", "PubMedAuthorEvidence", "PubMedMetadataChunks", "PubMedIngestionAudit", "DoraSourceObservations", "DoraHistoricalMetadata", "DoraMetadataChunks", "DoraIngestionAudit", "DoraHarvest", "CanonicalPublications", "GrantsRegistry", "FundingCalendar", "MyFundingWatchlist", "FundingDeliveryLedger", "FundingCalendarChanges", "DoraActivityRegistry", "GrantRelationships", "Publication", "Facility", "PublicationFacility", "Date", "SearchAudit", "ReportingWindow", "ReleaseMetadata"]
 	annotation PBI_TimeIntelligenceEnabled = 0
 
 expression pNCBIEmail = "" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=false]
@@ -668,6 +668,36 @@ expression FundingDeliveryLedger =
 	in
 	    Typed
 	lineageTag: 65539f1e-b002-5310-badc-e8b5e2092a2a
+
+expression FundingCalendarChanges =
+	// Power Query M: read source-preserving current-user calendar changes.
+	let
+	    SiteUrl = try pSharePointSiteUrl otherwise error "pSharePointSiteUrl is required; no tenant default is embedded.",
+	    Source = SharePoint.Tables(SiteUrl, [Implementation = "2.0", ApiVersion = 15]),
+	    Changes = Source{[Title = "Funding Calendar Changes"]}[Items],
+	    Selected = Table.SelectColumns(Changes, {
+	        "ChangeKey", "DeadlineKey", "OpportunityKey", "ChangeType", "PreviousRevision",
+	        "Revision", "PreviousDate", "CalculatedDate", "PreviousCancelled", "Cancelled",
+	        "SourceURL", "ObservedUTC", "ReviewStatus"
+	    }, MissingField.UseNull),
+	    Typed = Table.TransformColumnTypes(Selected, {
+	        {"ChangeKey", type text}, {"DeadlineKey", type text}, {"OpportunityKey", type text},
+	        {"ChangeType", type text}, {"PreviousRevision", type text}, {"Revision", type text},
+	        {"PreviousDate", type date}, {"CalculatedDate", type date},
+	        {"PreviousCancelled", type logical}, {"Cancelled", type logical},
+	        {"SourceURL", type text}, {"ObservedUTC", type datetimezone}, {"ReviewStatus", type text}
+	    }),
+	    ValidRows = Table.SelectRows(Typed, each
+	        [ChangeKey] <> null and [ChangeKey] <> "" and
+	        [DeadlineKey] <> null and [DeadlineKey] <> "" and
+	        [OpportunityKey] <> null and [OpportunityKey] <> "" and
+	        [ChangeType] <> null and [ChangeType] <> "" and
+	        [Revision] <> null and [Revision] <> "" and
+	        [ObservedUTC] <> null and [ReviewStatus] <> null and [ReviewStatus] <> ""
+	    )
+	in
+	    ValidRows
+	lineageTag: 0a18b3c6-0b38-5b6a-b088-2123822e4bdc
 
 expression DoraActivityRegistry =
 	// Power Query M: read the source-preserving DORA Activity Registry list.

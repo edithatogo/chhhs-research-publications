@@ -44,6 +44,13 @@ class GrantsPageSurfaceTests(unittest.TestCase):
         self.assertTrue({"RelationshipKey", "FromKey", "ToKey", "EvidenceURL"} <= fields)
         self.assertIn("no implicit join", rel["description"])
 
+    def test_calendar_change_projection_preserves_revision_history(self):
+        model = json.loads((ROOT / "audit/model.snapshot.json").read_text())["model"]
+        changes = next(table for table in model["tables"] if table["name"] == "FundingCalendarChanges")
+        fields = {column["name"] for column in changes["columns"]}
+        self.assertTrue({"ChangeKey", "PreviousRevision", "Revision", "PreviousDate", "CalculatedDate", "Cancelled"} <= fields)
+        self.assertIn("source-preserving", changes["description"])
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -708,6 +708,14 @@ The review is complete for this local projection phase, but G06 remains
 in-progress because native relationship-table binding and explicit cleanup of
 the current synthetic relationship row are not yet accepted.
 
+G08 local calendar revision ledger (2026-09-22): the canonical local PBIP now
+includes a separate `FundingCalendarChanges` source-preserving projection,
+with explicit previous/current revision and date values, cancellation state,
+source evidence and review state. The fail-closed local diff helper emits no
+record for unchanged revisions and performs no SharePoint/calendar/notification
+write. The clean checkout passes 443 tests with 8 skips and 460 project
+checks; native persistence, refresh/reconciliation and delivery remain open.
+
 T11 native model-binding attempt (2026-09-22): the existing semantic-model
 Power Query editor was reopened and its retained DoRA/history tables and
 organisational-account connection were read back. A new SharePoint Online List

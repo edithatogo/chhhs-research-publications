@@ -418,3 +418,34 @@ local validation and tenant acceptance.
 - **Boundary:** this proves inventory uniqueness and intended disabled state,
   not execution correctness, refresh, delivery, sharing or production
   acceptance.
+
+## Local calendar revision ledger projection — 2026-09-22
+
+### Summary
+
+The canonical local model now includes an additive `FundingCalendarChanges`
+projection. It preserves `ChangeKey`, prior/current revision and date values,
+cancellation transitions, source URL, observation time and review state.
+`scripts/grants_calendar_changes.py` emits a record only when explicit
+before/after values differ; it does not write SharePoint, create calendar
+events or send notifications.
+
+### Verification checks
+
+- [x] **Plan compliance:** Pass locally — the projection is separate from both
+  the opportunity registry and the current-user delivery ledger.
+- [x] **Fail-closed identity/evidence:** Pass — required keys, revisions,
+  booleans, ISO dates, timestamps and HTTP(S) evidence URLs are validated
+  without coercion.
+- [x] **Regression coverage:** Pass — focused change-ledger tests cover create,
+  cancellation, unchanged revisions and malformed input.
+- [x] **Canonical checks:** Pass — 443 tests passed with 8 skips, 460 project
+  checks passed and web-first validation is `PASS_LOCAL_ONLY`.
+- [x] **Baseline:** Pass — the reviewed source-only runtime baseline records
+  the new generated TMDL and remains explicitly non-native.
+
+### Residual gates
+
+Native change-ledger list persistence, current-user flow/page binding,
+successful model refresh/reconciliation and actual reminder/calendar delivery
+remain open. This local projection does not close those gates.
