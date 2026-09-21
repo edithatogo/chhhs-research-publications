@@ -607,3 +607,27 @@ Queensland SharePoint lists, connections or user-scoped permissions. The
 target deployment remains the current Health Queensland environment; a
 target-tenant PAC profile is required before CLI-first import/export can
 replace the browser package route.
+
+Delivery-ledger identity hardening (2026-09-21): in the authenticated
+SharePoint List Settings route, the built-in internal `Title` field used by
+the canonical `DeliveryEventKey` mapping was changed to Required and Enforce
+Unique Values. SharePoint prompted to create the required index; Indexed
+Columns readback confirmed exactly one index on `Title`. REST field readback
+confirmed `InternalName=Title`, `Required=true`, `EnforceUniqueValues=true`,
+and `Indexed=true`. This is current-user DEV list evidence only; the existing
+synthetic row remains in place pending explicit cleanup confirmation.
+
+Health Queensland CLI access boundary (2026-09-21): PAC authentication for a
+separate `healthqld-rims` profile did not complete and created no profile. Azure
+CLI 2.90.0 accepted the Health Queensland tenant and device-code authentication
+was attempted through the existing signed-in browser account, but Conditional
+Access rejected the CLI device resource after successful account selection
+("sign-in was successful but does not meet the criteria to access this
+resource"). The Azure login process was stopped without obtaining a token.
+Microsoft 365 CLI 11.11.0 is installed, but its cached token is expired and a
+fresh login requires an app ID; no app registration was created. PnP.PowerShell
+3.4.1 is installed, but no independent PnP connection was established. The
+Microsoft Graph CLI is not installed. GitHub CLI remains available for the
+canonical repository. These are authentication/tooling boundaries only; the
+authenticated Power Automate browser session remains the authoritative native
+route for the current-user DEV environment.
