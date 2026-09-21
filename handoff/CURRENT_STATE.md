@@ -597,3 +597,13 @@ populated send timestamp. The flow was restored Off. The synthetic row remains
 pending explicit UI deletion confirmation; this proves current-user
 persistence/replay only, not delivery, subscriptions, report binding or
 unattended operation.
+
+CLI route recheck (2026-09-21): PAC 2.12.2 authenticated a separate VUW
+STAFF profile successfully. The VUW Dataverse solution catalogue contained no
+RIMS-specific solution, and the PAC preview `power-automate list-cloud-flows`
+inventory returned no flows. No VUW solution was exported or changed because
+it is a different tenant/environment and cannot carry the current Health
+Queensland SharePoint lists, connections or user-scoped permissions. The
+target deployment remains the current Health Queensland environment; a
+target-tenant PAC profile is required before CLI-first import/export can
+replace the browser package route.
