@@ -15,7 +15,9 @@ def _required_string(row: dict[str, Any], field: str) -> str:
     value = row.get(field)
     if not isinstance(value, str) or not value.strip():
         raise ValueError(f"{field} must be a nonblank string")
-    return value.strip()
+    if value != value.strip():
+        raise ValueError(f"{field} must not have surrounding whitespace")
+    return value
 
 
 def _optional_date(value: Any, field: str) -> str | None:
@@ -33,7 +35,8 @@ def _optional_date(value: Any, field: str) -> str | None:
 def _http_url(value: Any) -> str:
     if not isinstance(value, str):
         raise ValueError("SourceURL must be an HTTP(S) URL")
-    value = value.strip()
+    if value != value.strip():
+        raise ValueError("SourceURL must not have surrounding whitespace")
     parsed = urlsplit(value)
     if parsed.scheme not in {"http", "https"} or not parsed.netloc:
         raise ValueError("SourceURL must be an HTTP(S) URL")

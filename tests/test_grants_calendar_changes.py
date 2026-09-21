@@ -28,6 +28,13 @@ class GrantsCalendarChangeTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "timezone"):
             change_record(None, row, observed_utc="2026-09-22T00:00:00")
 
+    def test_change_identities_and_source_url_reject_surrounding_whitespace(self):
+        row = {"DeadlineKey": "DL:3", "OpportunityKey": "OP:3", "Revision": "v1", "CalculatedDate": "2026-10-01", "Cancelled": False, "SourceURL": "https://example.org/3", "ReviewStatus": "Included"}
+        with self.assertRaisesRegex(ValueError, "DeadlineKey"):
+            change_record(None, dict(row, DeadlineKey=" DL:3"), observed_utc="2026-09-22T00:00:00Z")
+        with self.assertRaisesRegex(ValueError, "SourceURL"):
+            change_record(None, dict(row, SourceURL=" https://example.org/3"), observed_utc="2026-09-22T00:00:00Z")
+
 
 if __name__ == "__main__":
     unittest.main()
