@@ -350,3 +350,8 @@ operation.
 - The active Power BI tab was reloaded without editing or saving the model.
   No data-only refresh success or row reconciliation is claimed; the refresh
   gate remains open.
+- The post-reload notification center separately displayed `Data load was
+  successful` for `CHHHS Research Publications`, timestamped `an hour ago`,
+  alongside the current model's older refresh errors. Because that receipt is
+  not correlated to this attempt's run/request, it is retained as
+  non-correlated native evidence and does not close the refresh gate.

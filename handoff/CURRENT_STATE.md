@@ -919,3 +919,9 @@ route. It did not expose a terminal success receipt, and the native refresh
 history panel stalled while loading. The Power BI tab was reloaded without a
 model edit or save; no data-only refresh success or row reconciliation is
 claimed.
+
+The post-reload notification center separately displayed `Data load was
+successful` for `CHHHS Research Publications`, timestamped `an hour ago`,
+alongside older model refresh errors. This receipt is not correlated to the
+data-only refresh attempt and therefore does not close the refresh or row
+reconciliation gate.
