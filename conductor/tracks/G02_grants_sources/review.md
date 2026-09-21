@@ -282,3 +282,31 @@ Receipt:
 - **Residual gate:** no source was promoted to unattended intake; stable
   row-level identity, permitted export/API and eligibility evidence remain
   required. G02 remains active.
+
+## Official source/API cross-check — 2026-09-22
+
+- **ARC:** the official Grants Search documentation exposes a paginated JSON
+  API for funded projects and identifies the returned fields as award/project
+  context. This is useful for historical/funded-award enrichment, but it is
+  not an open-opportunity or deadline feed and remains awards-only.
+- **Queensland Health / Metro South:** official programme pages expose current
+  rounds, guidance and applicant restrictions. Metro South's 2027 Research
+  Support Scheme is a concrete reviewed HTML source, but no permitted RSS,
+  Atom, API or export route was established from the public pages.
+- **UQ:** the research-office pages expose current-funding guidance and a
+  public news RSS link. The RSS is news, not a funding-opportunity feed; the
+  funding pages remain manual-review or institutionally controlled intake.
+- **NHMRC:** the official search did not establish a machine-readable
+  opportunity endpoint; the existing HTML calendar and Grant Tracker/manual
+  route remain review-gated.
+- **Decision:** VUW is not a viable bootstrap tenant because its authenticated
+  PAC context has no cloud flows to export. QLD Health remains the authoritative
+  target; no cross-tenant import or duplicate flow was created.
+
+**References:** [ARC Grants Search help](https://dataportal.arc.gov.au/RGS/Web/Grants/Help),
+[Queensland Health research grants](https://www.health.qld.gov.au/research-reports/research/researchers/grants-support),
+[Metro South Research Support Scheme](https://www.metrosouth.health.qld.gov.au/research/research-grants/research-support-scheme),
+[UQ research grants](https://research-support.uq.edu.au/research-office/research-grants).
+
+- **Residual gate:** approved source access, row-level review/eligibility,
+  native list/flow readback and unattended operational acceptance remain open.

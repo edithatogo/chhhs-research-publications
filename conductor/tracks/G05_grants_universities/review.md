@@ -109,3 +109,19 @@ internal Research Funding service area.
 G05 remains active. JCU's qualified planning values and Griffith's unknown
 lead-time value remain explicitly bounded; neither institution is promoted to
 unattended ingestion.
+
+## Queensland university/public-feed cross-check — 2026-09-22
+
+- UQ's public research-office route was confirmed as a funding guidance and
+  current-opportunity surface; its exposed RSS link is for university news,
+  not a funding-opportunity feed.
+- No VUW cloud-flow export exists in the authenticated PAC context, so VUW
+  cannot be used as a source tenant for exporting a canonical flow into QLD
+  Health. The QLD Health current-user environment remains the target for
+  native implementation.
+- No public JCU, QUT or Griffith feed/export or authenticated institutional
+  route was established. Their catalogue records remain manual-review with
+  unknown lead times preserved as `null` where unsupported.
+- **Residual gate:** a permitted institutional export/feed or approved
+  authenticated portal route is still required before automated university
+  intake or institutional-date enrichment is accepted.
