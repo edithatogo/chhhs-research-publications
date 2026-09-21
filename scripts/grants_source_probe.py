@@ -18,8 +18,10 @@ from typing import Any, Callable
 
 try:
     from scripts.grants_sources import load_catalogue
+    from scripts.grants_universities import load_universities
 except ImportError:  # direct script execution with scripts/ on sys.path
     from grants_sources import load_catalogue
+    from grants_universities import load_universities
 
 MAX_BYTES = 128 * 1024
 USER_AGENT = "CHHHS-RIMS-grants-source-probe/0.1 (bounded read-only discovery)"
@@ -70,13 +72,9 @@ def _probe_row(row: dict[str, Any], opener: Callable[..., Any]) -> dict[str, Any
 
 
 def _load_university_rows(path: str | Path) -> list[dict[str, Any]]:
-    payload = json.loads(Path(path).read_text(encoding="utf-8"))
-    if not isinstance(payload, list):
-        raise ValueError("university catalogue must be a list")
-    for row in payload:
-        if not isinstance(row, dict) or not row.get("institution_id") or not row.get("authority_url"):
-            raise ValueError("each university row needs institution_id and authority_url")
-    return payload
+    # Use the same fail-closed contract as registry admission. A bounded probe
+    # must never make malformed catalogue rows look like source evidence.
+    return load_universities(path)
 
 
 def probe_rows(rows: list[dict[str, Any]], catalogue: str | Path, opener: Callable[..., Any] = urllib.request.urlopen) -> dict[str, Any]:

@@ -1,4 +1,6 @@
 import unittest
+import json
+import tempfile
 from pathlib import Path
 from unittest.mock import patch
 
@@ -55,6 +57,17 @@ class GrantsSourceProbeTests(unittest.TestCase):
             result = probe_universities(ROOT / "config/grants-universities.json", opener=opener)
         self.assertEqual(len(result["results"]), 4)
         self.assertTrue(all(row["promoted_to_feed"] is False for row in result["results"]))
+
+    def test_university_probe_reuses_strict_catalogue_validation(self):
+        rows = json.loads((ROOT / "config/grants-universities.json").read_text())
+        rows[0]["institution_id"] = " jcu"
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json") as handle:
+            json.dump(rows, handle)
+            handle.flush()
+            with patch("scripts.grants_source_probe.urllib.request.urlopen") as opener:
+                with self.assertRaisesRegex(ValueError, "surrounding whitespace"):
+                    probe_universities(handle.name, opener=opener)
+            opener.assert_not_called()
 
 
 if __name__ == "__main__":
