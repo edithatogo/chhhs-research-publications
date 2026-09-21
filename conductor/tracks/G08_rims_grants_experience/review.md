@@ -747,3 +747,17 @@ The unsaved draft was discarded by reload and the beforeunload confirmation.
 - **Receipt:** `private/ops/2026-09-22-powerautomate-g08-condition-draft-discarded.json`.
 - **Residual gate:** an approved editable branch/import/solution route is still
   required before null-date create/update/readback can be accepted.
+
+### Native report/list reconciliation recheck — 2026-09-22
+
+The current-user Power BI report page `Funding Calendar & Watchlist` still
+rendered `synthetic-calendar-20260921` and `synthetic-watchlist-20260921`.
+The corresponding authenticated SharePoint REST readbacks returned zero items
+for both `Funding Calendar` and `My Funding Watchlist` after cleanup. This is
+stale model/report data and must not be treated as current list persistence.
+
+- **Mutation:** none; no model rows were manually changed and no refresh was
+  claimed successful.
+- **Receipt:** `private/ops/2026-09-22-powerbi-g08-stale-synthetic-readback.json`.
+- **Residual gate:** a correlated successful refresh followed by row-set
+  reconciliation is required before G08 can close.
