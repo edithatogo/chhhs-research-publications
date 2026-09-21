@@ -17,7 +17,6 @@ Execution order and boundaries: [detailed handoff](PUBLICATION_STABILISATION.md)
 ## Current web-first implementation
 
 - [~] [T11_sources_and_reconciliation: Repair and prove PubMed plus DORA ingestion](tracks/T11_sources_and_reconciliation/plan.md) — current-user native list/model/flow readback is evidenced; retained-history, refresh, recurrence, delivery and production acceptance remain open (2026-09-22 audit).
-- [x] [T12_research_model: Replace the underlying model, not just its labels](tracks/T12_research_model/plan.md) — complete (canonical reporting model, DAX readback, multi-source integration)
 - [x] [T13_web_visuals: Implement the three-page publication report](tracks/T13_web_visuals/plan.md) — historical three-page publication implementation; current authenticated native report scope is six pages after the grants extension, with Clinical Analytics binding errors still owned by E04
 - [~] [T14_complete_exports_monthly: Export every citation and stage the monthly workflow](tracks/T14_complete_exports_monthly/plan.md) — implementation exists; native/operational acceptance remains open (2026-09-20 audit).
 - [~] [T15_web_acceptance_release: Verify the live web implementation and hand over](tracks/T15_web_acceptance_release/plan.md) — implementation exists; native/operational acceptance remains open (2026-09-20 audit).

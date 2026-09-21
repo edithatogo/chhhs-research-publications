@@ -32,3 +32,11 @@ The legacy employment and HR data model has been completely eradicated and repla
 - `powerquery/CanonicalPublications.m`
 - `private/ops/2026-09-15-dax-readback.json`
 - `config/native-canonical-check.dax`
+
+## Conductor review recheck — 2026-09-23
+
+T12 remains complete for the canonical research-model scope. Its plan is fully
+checked, the isolated native DAX/readback evidence is preserved, and later
+retained-history, refresh and operational gates remain correctly owned by T11
+and the acceptance tracks. The current canonical checkout passes project,
+Conductor and source-only CI validation. T12 is eligible for archive.
