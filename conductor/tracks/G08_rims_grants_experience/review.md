@@ -1,5 +1,12 @@
 # G08 review
 
+## Conductor review — calendar projection identity boundary — 2026-09-22
+
+- **Finding:** exact-date calendar projection stripped `OpportunityKey` and `URL` values before deriving event UIDs and evidence links, allowing padded identities to become canonical silently.
+- **Fix:** exact-date identity and URL fields now reject surrounding whitespace and are preserved after validation; regression coverage was added.
+- **Verification:** focused calendar tests pass (11); project checks pass 460; web-first, Conductor and diff validation pass locally.
+- **Residual gate:** native null-date branch/import/readback, model refresh/reconciliation, recurrence and delivery remain open.
+
 ## Conductor review — calendar change identity boundary — 2026-09-22
 
 - **Finding:** calendar-change projection stripped `DeadlineKey`, `OpportunityKey`, `ReviewStatus` and `SourceURL` values before emitting revision records, allowing malformed padded identities/URLs to appear canonical.
