@@ -97,14 +97,19 @@ def validate_policy(policy):
                 'HolidayCalendarVersion', 'EffectiveFrom')
     string_required = ('PolicyKey', 'Version', 'OrganisationKey', 'AnchorKind',
                        'HolidayCalendarVersion', 'EffectiveFrom')
-    if any(not isinstance(policy.get(key), str) or not policy[key].strip() for key in string_required):
+    if any(
+        not isinstance(policy.get(key), str)
+        or not policy[key].strip()
+        or policy[key] != policy[key].strip()
+        for key in string_required
+    ):
         return False
     if policy.get('LeadDays') in (None, ''):
         return False
     if 'EffectiveTo' in policy:
         if policy['EffectiveTo'] is not None and not isinstance(policy['EffectiveTo'], str):
             return False
-        if policy['EffectiveTo'] == '':
+        if policy['EffectiveTo'] == '' or policy['EffectiveTo'] != policy['EffectiveTo'].strip():
             return False
     if type(policy['LeadDays']) is not int or not 0 <= policy['LeadDays'] <= 3660:
         return False
@@ -124,7 +129,7 @@ def validate_policy(policy):
     holidays = policy.get('HolidayDates', ())
     if not isinstance(holidays, (list, tuple, set)):
         return False
-    if any(not isinstance(day, str) for day in holidays):
+    if any(not isinstance(day, str) or day != day.strip() for day in holidays):
         return False
     try:
         parsed_holidays = [date.fromisoformat(day) for day in holidays]

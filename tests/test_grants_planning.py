@@ -50,6 +50,19 @@ class PlanningTests(unittest.TestCase):
         self.assertFalse(validate_policy({**policy, 'EffectiveTo': False}))
         self.assertFalse(validate_policy({**policy, 'EffectiveTo': ''}))
 
+    def test_policy_identity_and_dates_reject_surrounding_whitespace(self):
+        policy = {
+            'PolicyKey': 'CHHHS-DEFAULT', 'Version': '1.0', 'OrganisationKey': 'CHHHS',
+            'AnchorKind': 'application_close', 'LeadDays': 10,
+            'CalendarOrBusinessDays': 'business', 'HolidayCalendarVersion': 'qld-2026',
+            'EffectiveFrom': '2026-01-01',
+        }
+        for field in ('PolicyKey', 'Version', 'OrganisationKey', 'AnchorKind', 'HolidayCalendarVersion', 'EffectiveFrom'):
+            with self.subTest(field=field):
+                self.assertFalse(validate_policy({**policy, field: f' {policy[field]}'}))
+        self.assertFalse(validate_policy({**policy, 'EffectiveTo': '2026-12-31 '}))
+        self.assertFalse(validate_policy({**policy, 'HolidayDates': [' 2026-12-25']}))
+
     def test_overlapping_subscriptions_deduplicate_and_respect_pause(self):
         grant = {'OpportunityKey': 'g1', 'CategoryKeys': ['health']}
         rules = [
