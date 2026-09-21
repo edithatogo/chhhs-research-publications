@@ -475,8 +475,9 @@ unique values. A synthetic candidate relationship with an HTTPS evidence URL
 was created, read back, updated, read back again, and deleted to the recycle
 bin. The list now reads `ItemCount=0`. A read-only SharePoint API check of the
 personal `Publication Registry` read `ItemCount=1468`; no publication item was
-changed by the relationship test. G06 remains active pending a true
-before/after publication-key reconciliation; shared binding was not made.
+changed by the relationship test. This paragraph is superseded by the later
+2026-09-22 before/after key-set reconciliation and exact-item cleanup receipt;
+G06 is archived for the current-user scope. Shared binding was not made.
 
 Latest native G08 bootstrap (2026-09-21): inventory of the authenticated
 personal DEV site found no funding watchlist or calendar list, so exactly one
