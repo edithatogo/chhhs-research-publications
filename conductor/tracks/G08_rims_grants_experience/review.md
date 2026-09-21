@@ -505,7 +505,19 @@ shape copied from a tenant-exported native flow.
   `Warnings (0)`.
 - **Readback:** the details page showed the flow saved at Modified
   `Sep 22, 2026, 02:11 AM` with Status `Off`; a fresh editor open had no
-  recovery banner. No synthetic item was written and no run was performed.
-- **Decision:** this closes the native configuration/import subtask but not
-  G08. Controlled create/update/readback, page binding, refresh/reconciliation
-  and actual calendar/reminder delivery remain open, so the track stays active.
+  recovery banner. The successful create run was
+  `08584115988253175752159968677CU24` and the same-key update run was
+  `08584115987296857629538066289CU13`. REST readback showed one item with
+  stable `Id=1`, all mapped fields, the expected v1-to-v2/date/cancellation/
+  URL/review changes and no duplicate. The exact synthetic item was then
+  deleted through the native SharePoint `Delete?` confirmation; the REST
+  endpoint returned zero items and the flow remained Off.
+- **Finding:** two diagnostic runs with `PreviousDate=null` failed because the
+  SharePoint connector received an empty string for the date field, even after
+  the null-safe `if(empty(...), null, ...)` mapping. This is a native
+  connector edge case and remains open; it must not be represented as a
+  successful null-date path.
+- **Decision:** this closes the native configuration and non-null
+  create/update/readback subtask but not G08. Native null-date handling,
+  page binding, refresh/reconciliation and actual calendar/reminder delivery
+  remain open, so the track stays active.

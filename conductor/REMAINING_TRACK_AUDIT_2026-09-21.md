@@ -214,6 +214,26 @@ operation.
 - **Decision:** keep G08 open. Controlled run/readback, page binding,
   refresh/reconciliation and actual calendar/reminder delivery remain required.
 
+### G08 calendar-change native execution — 2026-09-22 (current)
+
+- **Native success:** the copied current-user flow
+  `e95f2a40-0689-42ec-b35b-b0e5f0440ba2` passed a controlled non-null create
+  (`08584115988253175752159968677CU24`) and same-key update
+  (`08584115987296857629538066289CU13`). REST readback showed one stable
+  SharePoint item, complete mapped field values, the expected revision/date/
+  cancellation/URL/review changes and no duplicate.
+- **Cleanup/status:** the exact synthetic item was deleted through the native
+  SharePoint `Delete?` confirmation; the REST endpoint returned zero items.
+  Power Automate details read `Status: Off`; no sharing, schedule or
+  notification setting was changed.
+- **Residual evidence risk:** two null-`PreviousDate` diagnostics failed at
+  the SharePoint date conversion boundary because the connector received an
+  empty string. The native optional-date path is therefore not accepted and
+  remains an explicit follow-up. Model/page binding, refresh/reconciliation
+  and actual calendar/reminder delivery remain open.
+- **Decision:** keep G08 active; the non-null native execution/readback gate
+  is evidenced, but the track is not complete or archivable.
+
 ### S02 isolated report display — 2026-09-22
 
 - **Native current-user evidence:** the existing semantic model retained the

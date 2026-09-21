@@ -792,10 +792,17 @@ was a native Save As copy of the existing calendar flow. The copied flow
 (`e95f2a40-0689-42ec-b35b-b0e5f0440ba2`) was rebound natively to the Changes
 list with corrected quoted expressions for create/update field mappings.
 Native Flow Checker read `Errors (0)` and `Warnings (0)`; details readback
-showed Modified `Sep 22, 2026, 02:11 AM` and Status `Off`. No synthetic row was
-written and the flow was not enabled or run. Controlled execution, model
-refresh/reconciliation and delivery remain open; this is current-user DEV
-configuration/readback evidence, not production acceptance.
+showed Modified `Sep 22, 2026, 02:11 AM` and Status `Off`. The isolated flow
+then passed a non-null create (`08584115988253175752159968677CU24`) and
+same-key update (`08584115987296857629538066289CU13`); REST readback showed one
+stable item with all mapped fields, the expected revision/date/cancellation/
+URL/review changes and no duplicate. The exact synthetic item was deleted via
+the native SharePoint `Delete?` confirmation and the REST endpoint returned
+zero items. Two null-`PreviousDate` diagnostic runs failed because the
+connector received an empty string for its date field even after the null-safe
+mapping; this native optional-date edge case remains open and is not claimed
+as accepted. Model refresh/reconciliation and delivery remain open; this is
+current-user DEV configuration/readback evidence, not production acceptance.
 
 The bounded diagnostic was extended once using a private tenant-exported
 watchlist package as the source for metadata, connection-reference and
