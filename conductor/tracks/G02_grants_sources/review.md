@@ -4,6 +4,23 @@
 
 Review status: in progress; the source catalogue is implemented and the ARC public awards API is now verified, while the opportunity-source and Queensland endpoint gates remain open.
 
+## Conductor review finding and fix — 2026-09-22
+
+The catalogue validated required source fields but accepted malformed optional
+metadata such as boolean `record_kind`, numeric `sample_fixture` or a
+non-string `api_url` on a non-API row. That could weaken provenance and source
+classification without failing closed.
+
+The loader now requires optional metadata to be either a non-empty string or
+explicit `null`, and validates any present `api_url` type before applying the
+API-specific URL contract. Regression coverage was added in
+`tests/test_grants_sources_ingestion.py`.
+
+Commit `25ad9d8` passes the focused G02 suite (23 tests), the full suite (447
+tests, 8 skipped), 460 project checks, web-first validation and Conductor
+validation. This remains local source-catalogue evidence; permitted live
+opportunity intake, eligibility review and unattended operation remain open.
+
 ## Synchronized verification — 2026-09-22
 
 The canonical checkout passes 444 tests (8 skipped), 460 project checks,

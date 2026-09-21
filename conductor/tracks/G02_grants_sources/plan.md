@@ -72,3 +72,10 @@ source schedule is part of this tranche.
 - [x] Task: Reject malformed optional descriptive fields before reviewed-row normalization (`04642b1`).
 - [x] Task: Reject non-string authority/API URLs in the source catalogue (`18dd567`).
 - [x] Task: Reject authority/API URLs with surrounding whitespace before intake validation (`ec5322c`).
+
+## Phase: Conductor review fix — 2026-09-22
+
+- [x] Task: Reject malformed optional source metadata (`record_kind`,
+  `sample_fixture` and non-API `api_url`) without coercion; preserve explicit
+  `null` fixtures (`25ad9d8`). Permitted opportunity feeds and unattended
+  intake remain open.
