@@ -695,3 +695,4 @@ flow. The flow remains Off and no second identity or partial draft exists.
 - **Decision:** retain the existing flow as the sole canonical identity and
   keep G08 active until an approved editable designer, solution/import route or
   tenant permission enables the branch change and its null-date run/readback.
+  Receipt: ignored `private/ops/2026-09-22-powerautomate-g08-code-view-readonly.json`.
