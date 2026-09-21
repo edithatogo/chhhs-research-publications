@@ -13,3 +13,9 @@ relationship data is not shared or delivered to other users in this tranche.
 - [x] Task: Reject non-string relationship identities, evidence URLs and review fields without coercion (8cf6b4f).
 - [x] Task: Declare `RelationshipKey` required, indexed and unique in the tracked schema (`2e39aee`).
 - [x] Task: Complete a current-user synthetic relationship create/read/update/read/delete round-trip and read back the publication-list boundary (2026-09-21).
+
+### Native invariant readback continuation — 2026-09-22
+
+- [x] Read the authenticated personal `Grant Relationships` list through SharePoint REST: `ItemCount=0`; `RelationshipKey` is required, indexed and unique; all eight relationship fields are present.
+- [x] Read the personal `Publication Registry` through SharePoint REST: `ItemCount=1468`; the current page returned all 1,468 rows with no continuation link, 1,265 nonblank `CanonicalKey` values, and no duplicate nonblank keys.
+- [ ] Capture a correlated before/after key-set receipt around a relationship round-trip. The current count/key-set readback strengthens the invariant evidence but does not by itself prove the historical before/after key-set comparison.

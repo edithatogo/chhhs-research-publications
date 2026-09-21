@@ -683,6 +683,15 @@ after `Next`. That unsaved attempt was also cancelled. The two connector
 routes are therefore distinct but currently share the same navigation blocker;
 the list itself remains present and independently verified through SharePoint.
 
+G06 native invariant readback (2026-09-22): authenticated SharePoint REST
+returned `Grant Relationships ItemCount=0` with all eight relationship fields;
+`RelationshipKey` remains required, indexed and unique. The same readback of
+`Publication Registry` returned `ItemCount=1468`, all 1,468 rows in one page,
+1,265 nonblank `CanonicalKey` values, no duplicate nonblank keys and no
+continuation link. This strengthens the unchanged-target evidence, but a
+correlated before/after key-set receipt around a relationship round-trip is
+still required before G06 can close.
+
 Model-write boundary (2026-09-21): the semantic-model editor exposes an
 `Editing` mode and the existing canonical publication model was extended in
 place through its Power Query editor after the pre-grants publication-model
