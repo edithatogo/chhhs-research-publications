@@ -39,3 +39,14 @@ Official references:
 - The [Queensland Grants Finder catalogue](https://www.data.qld.gov.au/dataset/grants-finder) remains a contribution-resource dataset. Its public CKAN presence does not establish a row-level opportunity API.
 
 Decision: retain `reviewed_import`/`manual_review` for these opportunity routes until an approved export, permitted feed/API, or human-reviewed row package supplies stable row identity, source URL, observation timestamp, eligibility/review notes and explicit admission status. No unattended source route is inferred from page reachability or search indexing.
+
+## First-party recheck — 2026-09-22
+
+The current official source guidance does not change that decision. The ARC
+Grants Search help documents a public paginated JSON API, but the dataset is
+grant/project-search data and is not an open-opportunity feed. ARC and the
+Department of Health identify GrantConnect as the authoritative Commonwealth
+opportunity and guideline source. NHMRC and MRFF continue to publish calendar
+pages rather than an accepted RSS/Atom/API opportunity source. Keep these
+routes review-gated until an approved export/API or reviewed row package is
+available; do not infer a feed from HTML reachability.

@@ -13,6 +13,21 @@ source schedule is part of this tranche.
 - [x] Record local and live evidence separately before closure; the catalogue marks unverified intake explicitly and does not promote it to a working feed.
 - [x] Review fix: make catalogue freshness validation use the declared Australia/Brisbane business date so UTC-based CI cannot reject a same-day verification date (commit `c00560f`).
 
+## First-party source recheck — 2026-09-22
+
+- [x] Recheck the official NHMRC and MRFF calendars and the ARC Grants
+  Search/API guidance. NHMRC and MRFF remain HTML calendar/search surfaces;
+  the current MRFF page directs applicants to GrantConnect for current
+  opportunities and notifications. ARC documents a public JSON API for the
+  Grants Search dataset, but GrantConnect remains the authoritative source for
+  Commonwealth grant opportunities and guidelines.
+- [x] Preserve the source classification: ARC JSON remains `awards_only` for
+  this registry and must not be promoted to open-opportunity intake; NHMRC and
+  MRFF remain review-gated HTML candidates until a permitted export or API
+  supplies stable row-level identity, evidence and eligibility.
+- [~] Keep G02/G04 open for a permitted opportunity export/API or an explicit
+  reviewed row package. Authority-page reachability is not feed acceptance.
+
 ## Phase: Review Fixes
 
 - [x] Task: Preserve positional source cells alongside the convenience header map in the review-only HTML adapter (review fix `24e880c`).
