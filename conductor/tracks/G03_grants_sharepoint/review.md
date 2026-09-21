@@ -240,3 +240,32 @@ Code commit: `bdf17b2e70313d5b34fcd2ee5270d4d7d0d6f9ec`.
 - **Residual acceptance:** approved organisation-wide target, native schema/row
   readback, canonical binding, unattended execution and delivery remain
   unproven. No tenant mutation was made.
+
+## Conductor review — package target type boundary — 2026-09-21
+
+### Summary
+
+The grants package builder now rejects non-string target values before URL or
+GUID operations, preventing incidental `TypeError` failures and ensuring
+malformed tenant-specific package inputs fail through the declared validation
+boundary. Code commit: `96c5bc7745390908dfc6fe1d385439e02a1f4951`.
+
+### Verification Checks
+
+- **Plan Compliance:** Partial — local package admission is hardened; native
+  target approval, import/readback and unattended acceptance remain open.
+- **Style Compliance:** Pass — the existing isolated SharePoint package route
+  and no-OneDrive boundary are unchanged.
+- **New Tests:** Yes — package tests cover null/non-string site, list and
+  connection inputs as well as malformed GUIDs.
+- **Test Results:** Passed — full suite (418 tests passed, 8 skipped), 438
+  project checks, Conductor validation (0 errors), web-first, Power Platform,
+  visual standards and both canonical flow validators.
+
+### Findings
+
+- **Fixed:** malformed package target types could leak incidental exceptions
+  instead of the explicit fail-closed package contract.
+- **Residual acceptance:** approved organisation-wide target, native schema and
+  row readback, canonical binding, unattended execution and delivery remain
+  unproven. No tenant mutation was made.

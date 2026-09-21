@@ -323,6 +323,15 @@ Power Platform, visual and canonical flow validators pass locally. Native
 monitoring, list readback, operational reconciliation, scheduling and delivery
 remain open; no tenant mutation was made.
 
+Latest G03 package-boundary hardening (2026-09-21): code commit `96c5bc7`
+rejects non-string grants package target parameters before URL/GUID handling,
+so malformed tenant-specific inputs fail through the explicit validation
+contract. The full suite passes 418 tests with 8 skips, 438 project checks
+pass, and Conductor, web-first, Power Platform, visual and canonical flow
+validators pass locally. Native target approval, import/readback, canonical
+binding, unattended execution and delivery remain open; no tenant mutation was
+made.
+
 Latest G08 calendar hardening (2026-09-21): code commit `f4b44ac` validates
 the semantic value of the iCalendar `generated_utc` timestamp, not only its
 textual shape, and rejects impossible UTC dates/times. Focused calendar
