@@ -490,6 +490,15 @@ Native report pages, flow/page binding, reminder/change ledger, calendar
 delivery, notifications and unattended operation remain open; no sharing or
 cross-user delivery was enabled.
 
+Latest native G08 persistence continuation (2026-09-21): a synthetic item was
+created in the personal `Funding Calendar` with an exact calculated date,
+authoritative HTTPS source URL, policy key and `Needs Review` state. The
+visible fields were read back, the policy key was edited and read back, and
+the item was deleted; the list returned to zero rows. This is current-user
+list persistence evidence only. Native report pages, flow/page binding,
+revision/change ledger, calendar delivery, notifications and unattended
+operation remain open.
+
 Inspect `git status --short` at entry. Preserve unrelated report/manifest and other existing edits; do not mass-stage. Use the active track's spec and plan for tasks. Follow AGENTS.md approval boundaries for deployment/sharing/schedules. Current user direction defines scope; historical observations supply evidence only for their dates. Live contradictions require readback, not a convenient choice of document.
 
 Update this checkpoint with outcome, next executable task, test command/result and exact blocker after work. Keep credentials, actual tenant identifiers and screenshots under ignored private storage. Do not paste raw private output into a context bundle.

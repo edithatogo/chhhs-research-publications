@@ -13,7 +13,7 @@ and its required native acceptance evidence are both complete.
 | G05 | University catalogue and access/lead-time evidence | Permitted institutional export/feed or reviewed intake | Keep active |
 | G06 | Typed relationship contract and local safeguards; isolated personal DEV `Grant Relationships` list with all eight native fields; `RelationshipKey` required/unique/indexed; synthetic evidence-bearing create/read/update/read/delete round-trip; post-cleanup relationship `ItemCount=0`; publication registry `ItemCount=1468` read back with no publication mutation | Full before/after publication-key reconciliation and shared binding | Keep active |
 | G07 | Fail-closed operational evaluator, exact-key reconciliation, selected-field readback reconciliation and isolated create/update replay | Native monitoring, operational reconciliation, delivery and scheduling | Keep active |
-| G08 | Local calendar, institutional-date and current-user subscription contracts; exactly one native personal `My Funding Watchlist` and one `Funding Calendar` list with REST field readback and zero items | Native report pages, current-user flow/page binding, reminder/change ledger, manual calendar readback and delivery | Keep active |
+| G08 | Local calendar, institutional-date and current-user subscription contracts; exactly one native personal `My Funding Watchlist` and one `Funding Calendar` list with REST field readback and zero items; synthetic calendar create/read/edit/read/delete round-trip | Native report pages, current-user flow/page binding, reminder/change ledger, manual calendar readback and delivery | Keep active |
 | T11 | Local PubMed/DORA preservation and schema/key reconciliation | Native retained-history flow, refresh and list/readback | Keep active |
 | T14 | Complete local exports, monthly generator and failure contracts | Manual native cycle, consecutive-cycle replay and delivery decision | Keep active |
 | T15 | Local handover/package and current four-page report audit | Native release/readback; Clinical Analytics model bindings are broken | Keep active |
@@ -86,6 +86,14 @@ and fields (`DeadlineKey` required and unique, `OpportunityKey`,
 `ReviewStatus` default `Needs Review`). Both lists read `ItemCount=0`. No
 subscription, calendar event, flow, notification, sharing change or report
 page was activated; G08 remains active for binding and delivery acceptance.
+
+Controlled calendar persistence evidence: one synthetic deadline item was
+created in the personal `Funding Calendar` with an exact calculated date,
+source URL, policy key and default `Needs Review` state. All visible values
+were read back, the policy key was edited and read back, and the item was
+deleted. The list returned to zero rows. This proves current-user list
+persistence only; it does not prove report binding, revision-ledger logic,
+calendar delivery, notifications or unattended operation.
 
 ## Native relationship continuation — 2026-09-21
 
