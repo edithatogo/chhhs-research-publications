@@ -69,7 +69,7 @@ rows.
   existing SharePoint-only query are represented in TMDL.
 - [x] **Identity safety**: Pass — `RelationshipKey`, `FromKey`, `ToKey` and
   optional `AwardID` remain distinct fields with no implicit join.
-- [x] **Test results**: Pass — 438 tests passed with 8 skipped; 457 project
+- [x] **Test results**: Pass — 439 tests passed with 8 skipped; 457 project
   checks pass; web-first and harness checks remain local-only.
 - [x] **Baseline**: Pass — the source-only runtime baseline records this
   intentional model change and remains explicitly non-native.
