@@ -468,6 +468,28 @@ the remaining explicit synthetic-row cleanup/readback or operational
 acceptance gates. Native evidence is current-user isolated platform evidence,
 not organisation-wide or unattended acceptance.
 
+Latest native G06 continuation (2026-09-21): the personal DEV `Grant
+Relationships` list was read back with all eight canonical fields. The
+`RelationshipKey` column editor confirmed required information and enforced
+unique values. A synthetic candidate relationship with an HTTPS evidence URL
+was created, read back, updated, read back again, and deleted to the recycle
+bin. The list now reads `ItemCount=0`. A read-only SharePoint API check of the
+personal `Publication Registry` read `ItemCount=1468`; no publication item was
+changed by the relationship test. G06 remains active pending a true
+before/after publication-key reconciliation; shared binding was not made.
+
+Latest native G08 bootstrap (2026-09-21): inventory of the authenticated
+personal DEV site found no funding watchlist or calendar list, so exactly one
+`My Funding Watchlist` list and exactly one `Funding Calendar` list were
+created. REST readback confirms the watchlist fields `OpportunityKey`
+(required/unique), `Scope`, `TargetKey`, and `Active` (default false), plus the
+calendar fields `DeadlineKey` (required/unique), `OpportunityKey`,
+`CalculatedDate`, `SourceURL`, `Cancelled` (default false), `PolicyKey`, and
+`ReviewStatus` (default `Needs Review`). Both lists read `ItemCount=0`.
+Native report pages, flow/page binding, reminder/change ledger, calendar
+delivery, notifications and unattended operation remain open; no sharing or
+cross-user delivery was enabled.
+
 Inspect `git status --short` at entry. Preserve unrelated report/manifest and other existing edits; do not mass-stage. Use the active track's spec and plan for tasks. Follow AGENTS.md approval boundaries for deployment/sharing/schedules. Current user direction defines scope; historical observations supply evidence only for their dates. Live contradictions require readback, not a convenient choice of document.
 
 Update this checkpoint with outcome, next executable task, test command/result and exact blocker after work. Keep credentials, actual tenant identifiers and screenshots under ignored private storage. Do not paste raw private output into a context bundle.

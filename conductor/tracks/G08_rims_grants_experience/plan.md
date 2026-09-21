@@ -9,7 +9,7 @@ unattended delivery are future extensions.
 - [x] Review fix: escape carriage returns as well as line feeds in calendar display fields (`a573598`).
 - [x] Apply review fix: reject non-string opportunity/category/funder identities and malformed subscription rule objects before watchlist matching (`53d2419`).
 - [x] Implement: Add local versioned policy validation and stable delivery-event idempotency keys for the future list-backed pages.
-- [~] Verify: Local policy/subscription tests pass; current-user page persistence, personal access, reminder ledger and calendar change/cancellation remain open.
+- [~] Verify: Local policy/subscription tests pass. On 2026-09-21 the authenticated personal DEV SharePoint route created exactly one `My Funding Watchlist` list and exactly one `Funding Calendar` list after inventory confirmed neither existed. Read-only REST readback confirms the watchlist fields (`OpportunityKey` required/unique, `Scope`, `TargetKey`, `Active` default false) and calendar fields (`DeadlineKey` required/unique, `OpportunityKey`, `CalculatedDate`, `SourceURL`, `Cancelled` default false, `PolicyKey`, `ReviewStatus` default `Needs Review`); both lists read `ItemCount=0`. Reminder ledger, calendar change/cancellation execution, native report pages and delivery remain open.
 - [x] Record local and live evidence separately before closure; no report page, subscription, notification or calendar was created.
 - [x] Harden future delivery idempotency keys to reject coercible identities and out-of-range offsets without creating ambiguous keys.
 - [x] Make institutional policy and holiday validation reject non-object and non-string inputs without incidental type errors.
@@ -57,3 +57,8 @@ unattended delivery are future extensions.
 - [x] Task: Reject malformed subscription containers before rule iteration
   (`a0c8d06`).
 - [ ] Native preference persistence, access isolation and delivery remain open.
+
+## Phase: Native current-user list bootstrap — 2026-09-21
+
+- [x] Task: Inventory the personal DEV site and create the sole `My Funding Watchlist` and `Funding Calendar` lists only when absent; persist the minimal user-scoped schemas with inactive/cancelled defaults and read back the fields through the authenticated SharePoint API.
+- [ ] Task: Add the current-user flow/page binding, calendar revision ledger and controlled readback; do not enable cross-user delivery or unattended notifications.
