@@ -56,6 +56,24 @@ class GrantsFlowPackageTests(unittest.TestCase):
                 build_package(Path(folder) / "x.zip", site_url="https://", list_id=str(uuid.uuid4()),
                               flow_id=str(uuid.uuid4()), connection_display_name="DEV")
 
+    def test_rejects_non_string_target_parameters(self):
+        private_root = Path(__file__).parents[1] / "private"
+        private_root.mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=private_root) as folder:
+            output = Path(folder) / "x.zip"
+            with self.assertRaisesRegex(ValueError, "must be strings"):
+                build_package(output, site_url=None, list_id=str(uuid.uuid4()),
+                              flow_id=str(uuid.uuid4()), connection_display_name="DEV")
+            with self.assertRaisesRegex(ValueError, "must be strings"):
+                build_package(output, site_url="https://example.org", list_id=None,
+                              flow_id=str(uuid.uuid4()), connection_display_name="DEV")
+            with self.assertRaisesRegex(ValueError, "must be a GUID"):
+                build_package(output, site_url="https://example.org", list_id=str(uuid.uuid4()),
+                              flow_id="bad", connection_display_name="DEV")
+            with self.assertRaisesRegex(ValueError, "must be a string"):
+                build_package(output, site_url="https://example.org", list_id=str(uuid.uuid4()),
+                              flow_id=str(uuid.uuid4()), connection_display_name=None)
+
 
 if __name__ == "__main__":
     unittest.main()
