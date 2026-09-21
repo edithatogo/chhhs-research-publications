@@ -3,11 +3,13 @@
 Updated: 2026-09-22. This is the compact resumption checkpoint, not a live acceptance certificate. Refresh after meaningful work; keep historical narrative in existing evidence documents.
 
 Latest local checkpoint (2026-09-22): canonical checkout is clean at commit
-`c91efef`, matching `origin/main`; GitHub source-only workflow `35649705692`
-completed successfully. The current register now records the authenticated
-six-page native report scope. Read-only QLD Health browser recheck confirms the
-sole canonical Funding Calendar Changes flow remains Off; the VUW PAC profile
-still exposes no cloud flows and cannot supply an export.
+`484919a`, matching `origin/main`; GitHub source-only workflow `35651815558`
+completed successfully. T08, T09, T10, T12 and T13 have been reviewed and
+archived; the remaining active tracks retain their native/source/operational
+gates. The authenticated QLD Health refresh retry remained at semantic-model
+validation for 100 seconds and was cancelled; the sole canonical Funding
+Calendar Changes flow remains Off. The VUW PAC profile still exposes no cloud
+flows and cannot supply an export.
 
 ## Direction
 

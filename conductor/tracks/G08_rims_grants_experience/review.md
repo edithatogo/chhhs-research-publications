@@ -723,11 +723,11 @@ The cosmetic text correction remains open; the native table-binding evidence
 and the separate refresh/reconciliation and notification-delivery gates are
 unchanged.
 
-### Native model refresh retry — 2026-09-23
+### Native model refresh retry — 2026-09-22
 
 The authenticated semantic-model editor started a fresh `Schema and data`
 refresh after the prior synthetic grant rows had been cleaned up. It remained
 at `Processing queries and validating semantic model` for a bounded 100-second
 observation and was cancelled through the native confirmation. No model write,
 refresh success or row reconciliation is claimed. Receipt:
-`private/ops/2026-09-23-powerbi-native-refresh-retry.json`.
+`private/ops/2026-09-22-powerbi-native-refresh-retry.json`.
