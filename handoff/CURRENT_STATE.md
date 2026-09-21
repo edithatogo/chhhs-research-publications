@@ -362,6 +362,17 @@ Platform, visual and canonical flow validators pass locally. Permitted
 institutional exports/feeds, authenticated portal access and native acceptance
 remain open; no tenant mutation was made.
 
+Latest G05 source recheck (2026-09-22): commit `4569709` refreshed the JCU and
+Griffith catalogue evidence after re-reading their official research-grants
+pages. JCU's application-procedures guidance confirms at least one week before
+Australian-funder internal deadlines and two weeks before overseas-funder
+internal deadlines; Griffith's public page directs researchers to an
+internal-only Research Funding service area. Both catalogue rows now have
+`last_verified=2026-09-22`; no public feed/export or authenticated portal was
+inferred, so G05 remains active and manual-review only. Focused university
+coverage is 8 tests and the project gate remains 460 checks; this is source
+evidence, not tenant acceptance.
+
 Latest G08 calendar hardening (2026-09-21): code commit `f4b44ac` validates
 the semantic value of the iCalendar `generated_utc` timestamp, not only its
 textual shape, and rejects impossible UTC dates/times. Focused calendar
