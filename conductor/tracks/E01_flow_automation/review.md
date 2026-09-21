@@ -174,6 +174,37 @@ The companion architecture documentation now states the same `SourceKey`
 uniqueness requirement as the machine-readable target contract; this is a
 documentation alignment only and does not constitute native schema readback.
 
+## Conductor review — configured SourceKey lookup binding — 2026-09-21
+
+### Summary
+
+The publication SharePoint package builder now derives the lookup `$filter`
+from the configured `source_key` internal field mapping instead of hardcoding
+`field_1`. This keeps target injection and idempotent lookup aligned for
+non-default SharePoint schemas. Code commit: `996d1f3036b7b36b5eafa776770a1b47b79a4804`.
+
+### Verification Checks
+
+- **Plan Compliance:** Partial — local package generation and contract coverage
+  are improved; native import, replay/update, list readback and unattended
+  acceptance remain open.
+- **Style Compliance:** Pass — the existing target contract and SharePoint
+  operation model are preserved.
+- **New Tests:** Yes — a synthetic package test verifies that a custom
+  `SourceKeyInternal` mapping is used in the generated lookup filter.
+- **Test Results:** Passed — full suite (414 passed, 8 skipped), 438 project
+  checks, Conductor validation (0 errors), web-first `PASS_LOCAL_ONLY`, Power
+  Platform tooling preflight, visual standards, canonical flow validators and
+  `git diff --check`.
+
+### Findings
+
+- **Fixed:** generated publication packages could look up `field_1` even when
+  the configured SourceKey internal field had another name.
+- **Residual acceptance:** native SharePoint schema/row readback, replay,
+  complete reconciliation and unattended scheduling remain unproven. No
+  tenant mutation was made.
+
 ## Conductor review — publication projection fail-closed columns — 2026-09-21
 
 ### Summary

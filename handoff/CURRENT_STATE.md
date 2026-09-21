@@ -286,6 +286,17 @@ tenant-switch, sign-in, deployment or write was attempted. This is the current
 blocker for S02.3.4 and the remaining native SharePoint, Power BI and
 Power Automate acceptance gates.
 
+Latest E01 package-binding hardening (2026-09-21): code commit `996d1f3`
+corrects the publication SharePoint package builder so the lookup `$filter`
+uses the configured `source_key` internal field mapping rather than hardcoded
+`field_1`. A synthetic package test covers a custom mapping; the full suite
+passes 414 tests with 8 skips, 438 project checks pass, and Conductor,
+web-first, Power Platform, visual and canonical flow checks remain green
+locally. Native import/readback, replay/update, reconciliation and unattended
+execution remain open; no tenant mutation was made. Next executable task is
+native E01 replay/readback once an authorised CHHHS tenant session is
+available.
+
 Inspect `git status --short` at entry. Preserve unrelated report/manifest and other existing edits; do not mass-stage. Use the active track's spec and plan for tasks. Follow AGENTS.md approval boundaries for deployment/sharing/schedules. Current user direction defines scope; historical observations supply evidence only for their dates. Live contradictions require readback, not a convenient choice of document.
 
 Update this checkpoint with outcome, next executable task, test command/result and exact blocker after work. Keep credentials, actual tenant identifiers and screenshots under ignored private storage. Do not paste raw private output into a context bundle.
