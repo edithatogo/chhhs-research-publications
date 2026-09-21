@@ -19,7 +19,7 @@ current user-scoped tranche. See `docs/USER_BASED_ACCESS_SCOPE.md`.
 - Grants normalisation, round identity, invalid-date handling and observation snapshots exist in `scripts/grants_registry.py`.
 - Institutional date offsets and subscription candidate matching exist in `scripts/grants_planning.py`. These are reference logic, not hosted services.
 - G01–G08 specification/plan files exist. They are not completed deployments.
-- G06 native progress advanced in isolated DEV: the `Grant Relationships` list exists at the personal DEV SharePoint site, and authenticated list readback confirmed all eight canonical fields (`RelationshipKey`, `RelationshipType`, `FromKey`, `ToKey`, `AwardID`, `EvidenceURL`, `Confidence`, `ReviewStatus`). `RelationshipKey` is required, unique and indexed. Remaining required-field readback, relationship round-trip and unchanged publication-total readback remain open; no production binding has been made.
+- G06 native progress advanced in isolated DEV: the `Grant Relationships` list exists at the personal DEV SharePoint site, and authenticated readback confirmed all eight canonical fields (`RelationshipKey`, `RelationshipType`, `FromKey`, `ToKey`, `AwardID`, `EvidenceURL`, `Confidence`, `ReviewStatus`). `RelationshipKey` is required, unique and indexed. A native synthetic create/read and correlated unchanged Publication Registry keyset receipt are complete; only deletion of the current synthetic relationship row and subsequent review/archive remain open. No production or shared binding has been made.
 - Latest canonical-clone harness: 393 tests (8 private-runtime tests skipped), 438 project checks, Conductor validation, web-first local validation and Power Platform tooling preflight passed. The live CKAN DoRA activity collector retrieved 442/442 rows with all 19 source fields plus the datastore `_id` key and 442 unique source `_id` values; scalar/non-boolean source-identity validation is covered locally. G02 now rejects non-string source IDs, future verification dates, non-string catalogue URLs, malformed optional descriptive fields, missing or non-distinct row-level evidence URLs, malformed ARC evidence URLs and missing eligibility statements; G04 validates API source field types before normalization, applies a shared typed-input boundary, and rejects malformed non-object source batches; G06 rejects malformed relationship identities and evidence fields and declares the tracked `RelationshipKey` unique; G07 rejects string-shaped reconciliation field allowlists and now canonicalizes selected fields while reconciling selected registry values as well as exact key sets; G08 rejects non-string policy identity/effective-date fields, opportunity/category/funder identities, duplicate holiday dates and malformed subscription rules. Source-only CI is now declared and structurally tested. This is source/readback evidence, not tenant acceptance.
 - E07 local review fix: publication create/update actions are now required to use SharePoint Online and target the same site/list as lookup; native flow/list acceptance remains open.
 - S02 local review fix: release manifests now reject empty schema and accepted-batch identities; native report version/batch display remains open.
@@ -683,14 +683,15 @@ after `Next`. That unsaved attempt was also cancelled. The two connector
 routes are therefore distinct but currently share the same navigation blocker;
 the list itself remains present and independently verified through SharePoint.
 
-G06 native invariant readback (2026-09-22): authenticated SharePoint REST
-returned `Grant Relationships ItemCount=0` with all eight relationship fields;
-`RelationshipKey` remains required, indexed and unique. The same readback of
-`Publication Registry` returned `ItemCount=1468`, all 1,468 rows in one page,
-1,265 nonblank `CanonicalKey` values, no duplicate nonblank keys and no
-continuation link. This strengthens the unchanged-target evidence, but a
-correlated before/after key-set receipt around a relationship round-trip is
-still required before G06 can close.
+G06 native invariant readback and correlated relationship receipt (2026-09-22):
+authenticated SharePoint REST returned all eight relationship fields;
+`RelationshipKey` remains required, indexed and unique. Before and after a
+native SharePoint UI create/read of `REL-SYNTH-G06-20260922`, the personal
+`Publication Registry` returned 1,468 rows in one page, 1,265 nonblank and
+distinct `CanonicalKey` values, no continuation link, and the same sorted-key
+SHA-256 `2b1b81200fe8e816bc15dce02ff80d4013c908925c2b855b777d241c595fe413`.
+No publication item was changed. The synthetic relationship row is still
+awaiting native delete confirmation; shared binding remains a future extension.
 
 Model-write boundary (2026-09-21): the semantic-model editor exposes an
 `Editing` mode and the existing canonical publication model was extended in

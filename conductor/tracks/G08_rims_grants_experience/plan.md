@@ -9,7 +9,7 @@ unattended delivery are future extensions.
 - [x] Review fix: escape carriage returns as well as line feeds in calendar display fields (`a573598`).
 - [x] Apply review fix: reject non-string opportunity/category/funder identities and malformed subscription rule objects before watchlist matching (`53d2419`).
 - [x] Implement: Add local versioned policy validation and stable delivery-event idempotency keys for the future list-backed pages.
-- [~] Verify: Local policy/subscription tests pass. On 2026-09-21 the authenticated personal DEV SharePoint route created exactly one `My Funding Watchlist` list and exactly one `Funding Calendar` list after inventory confirmed neither existed. Read-only REST readback confirms the watchlist fields (`OpportunityKey` required/unique, `Scope`, `TargetKey`, `Active` default false) and calendar fields (`DeadlineKey` required/unique, `OpportunityKey`, `CalculatedDate`, `SourceURL`, `Cancelled` default false, `PolicyKey`, `ReviewStatus` default `Needs Review`); both lists read `ItemCount=0`. A synthetic calendar item was created/read back with date, source URL, policy and review fields, its policy key was edited/read back, and it was deleted; the calendar returned to zero rows. Reminder ledger, calendar change/cancellation execution, native report pages and delivery remain open.
+- [~] Verify: Local policy/subscription tests pass. On 2026-09-21 the authenticated personal DEV SharePoint route created exactly one `My Funding Watchlist` list and exactly one `Funding Calendar` list after inventory confirmed neither existed. Read-only REST readback confirms the watchlist fields (`OpportunityKey` required/unique, `Scope`, `TargetKey`, `Active` default false) and calendar fields (`DeadlineKey` required/unique, `OpportunityKey`, `CalculatedDate`, `SourceURL`, `Cancelled` default false, `PolicyKey`, `ReviewStatus` default `Needs Review`); native synthetic calendar, watchlist and delivery-ledger rows were created/read back and subsequently removed through exact SharePoint delete confirmations on 2026-09-22, with each list returning zero data rows. Reminder ledger, calendar change/cancellation execution, native report refresh/reconciliation and delivery remain open.
 - [x] Record local and live evidence separately before closure; no report page, subscription, notification or calendar was created.
 - [x] Harden future delivery idempotency keys to reject coercible identities and out-of-range offsets without creating ambiguous keys.
 - [x] Make institutional policy and holiday validation reject non-object and non-string inputs without incidental type errors.
@@ -98,7 +98,7 @@ watchlist input contract is required before another native copy is created.
 - [x] Add and validate a dedicated SharePoint-only `funding-watchlist-v1` manual upsert contract and target-injected package locally.
 - [x] Import exactly one `CHHHS RIMS - Funding Watchlist - Reviewed Upsert` flow into the authenticated current-user DEV context; Flow Checker read 0 errors.
 - [x] Run controlled synthetic create and same-key update cases. SharePoint readback showed the expected opportunity-to-category scope/target and Active changes; the flow was restored Off.
-- [ ] Delete the remaining synthetic watchlist row through the SharePoint UI and confirm zero rows; native report/page binding, calendar ledger and delivery remain open.
+- [x] Delete the synthetic watchlist row through the SharePoint UI and confirm zero rows. Native report/page binding is evidenced for the saved visuals; refresh/reconciliation, calendar ledger and delivery remain open.
 
 ### Native dedicated calendar flow — 2026-09-21
 
@@ -107,7 +107,7 @@ watchlist input contract is required before another native copy is created.
 - [x] Native Flow Checker readback: 0 errors and 0 warnings while enabled; the only inactive-flow warning appeared after the flow was restored Off.
 - [x] Controlled native create run `08584116266950718806813049204CU16` succeeded; SharePoint readback showed `synthetic-calendar-20260921`, `2026-10-15`, the authoritative source URL, `Cancelled=No`, the initial policy key and `Needs Review`.
 - [x] Controlled same-key update run `08584116266295302685959687164CU15` succeeded; SharePoint readback showed `2026-10-20`, `Cancelled=Yes`, policy key `synthetic-policy-20260921-v2` and `Confirmed` without creating a duplicate.
-- [x] Restore the isolated flow Off. Do not delete the synthetic calendar row without explicit UI deletion confirmation; it remains visible as native replay evidence.
+- [x] Restore the isolated flow Off. The synthetic calendar row was subsequently removed through the native SharePoint delete confirmation and the list returned to zero data rows.
 - [ ] Native report/page binding, institutional-date and reminder/change ledger, subscription isolation and calendar/notification delivery remain open.
 
 ### Native delivery-ledger flow — 2026-09-21
@@ -116,7 +116,7 @@ watchlist input contract is required before another native copy is created.
 - [x] Create exactly one personal DEV `Funding Delivery Ledger` list. Native field readback confirms the twelve visible ledger fields, `Status` default `Pending`, versioning enabled with a 50-major-version limit, and zero rows before testing.
 - [x] Import exactly one `CHHHS RIMS - Funding Delivery Ledger - Reviewed Upsert` flow and update that same flow in place after the first controlled run exposed an empty optional `SentAt` conversion defect. Flow Checker read 0 errors and 0 warnings after the null-safe repair.
 - [x] Controlled native create run `08584116256446744665855863737CU13` exposed the expected optional-date defect; no row was written by that failed run. The corrected same-key run `08584116253756053128213151733CU27` succeeded after the update package was imported. SharePoint readback showed one row with `Revision=v2`, `Channel=email`, `Status=Sent`, `ScheduledFor=2026-10-02` and `SentAt=2026-09-21`; the flow was restored Off.
-- [ ] Ledger cleanup, native report/page binding, true subscription isolation and actual calendar/reminder delivery remain open. The synthetic ledger row remains as controlled evidence pending explicit UI deletion confirmation.
+- [x] Remove the synthetic ledger row through the SharePoint UI and confirm zero rows. Native report/page binding is evidenced for the saved visuals; true subscription isolation and actual calendar/reminder delivery remain open.
 
 ### Native report page shells and model binding — 2026-09-21
 
