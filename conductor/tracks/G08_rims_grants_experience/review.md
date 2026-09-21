@@ -309,3 +309,18 @@ otherwise unsupported shapes. Code commit:
   publication/grants flow validators pass locally.
 - **Residual gate:** native policy persistence, funding pages, calendar
   change/cancellation, subscriptions and notification delivery remain open.
+
+## Conductor review — dedicated watchlist contract — 2026-09-21
+
+- **Finding:** the first local watchlist schema declared `Scope` as a choice
+  without constraining its allowed values, leaving the category/funder/
+  opportunity boundary implicit.
+- **Fix:** commit `6e1b43a` records the three supported scope values and adds
+  regression coverage. The schema remains explicitly current-user and
+  personal-list scoped.
+- **Verification:** focused watchlist tests pass (2); the preceding full suite
+  passed 428 tests with 8 skips, project validation passed 438 checks, and
+  Conductor/web-first/Power Platform preflight passed locally.
+- **Residual gate:** the native cloned-flow experiment was discarded because
+  its grants-specific trigger/parser did not carry `Scope` and `TargetKey`.
+  A dedicated native watchlist flow, page binding and delivery remain open.

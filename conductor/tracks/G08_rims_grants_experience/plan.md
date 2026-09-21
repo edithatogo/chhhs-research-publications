@@ -15,6 +15,9 @@ unattended delivery are future extensions.
 - [x] Make institutional policy and holiday validation reject non-object and non-string inputs without incidental type errors.
 - [x] Review fix: require an explicit current-user key and return only that user's matching subscription (`a6e1602`, `db96224`).
 - [x] Review fix: bind delivery-event idempotency keys to the explicit current user (`0b5c920`).
+- [x] Review fix: constrain the watchlist `Scope` choice to `opportunity`,
+  `category` or `funder`, preventing an untyped native subscription target
+  (`6e1b43a`).
 
 ## Local review extension — 2026-09-20
 
