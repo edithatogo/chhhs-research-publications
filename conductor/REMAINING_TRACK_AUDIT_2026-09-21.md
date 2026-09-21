@@ -308,3 +308,16 @@ operation.
   selected. The active tab was reloaded through the headed Chrome UI to
   discard the draft; no Save operation was issued and no tenant flow change
   is claimed. The existing flow identity remains the sole canonical target.
+
+### E04/E07 review recheck — 2026-09-22
+
+- **E04:** local geometry, contrast and PBIR binding contracts remain green;
+  the native four-page report still has the previously recorded nine
+  `Clinical Analytics` field-binding errors, and the isolated authoring route
+  has not yielded a safe repair/readback path. Keep active.
+- **E07:** local publication-flow acceptance validators and SharePoint target
+  parity remain green; native replay/update, failure-safe batch
+  reconciliation, refresh, monitoring and organisation-safe release evidence
+  remain incomplete. Keep active.
+- **Canonical source:** this recheck was performed from the clean checkout at
+  `94ffbc7`; the sole GitHub `main` branch remains the canonical remote.
