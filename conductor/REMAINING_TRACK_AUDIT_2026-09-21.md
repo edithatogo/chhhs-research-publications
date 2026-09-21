@@ -264,7 +264,7 @@ operation.
 ### Resumed canonical audit — 2026-09-22
 
 - **Repository:** the clean canonical checkout is synchronised to the sole
-  GitHub `main` branch at `d50da7f`; the original authoring checkout remains
+  GitHub `main` branch at `7ac5dc4`; the original authoring checkout remains
   intentionally dirty and is not a second remote version.
 - **G08 import evidence:** the authenticated QLD Health browser upload reached
   `generateResourceStorage`; `listImportParameters` returned HTTP 202 and
@@ -283,3 +283,17 @@ operation.
   refresh, reconciliation or delivery gates active. Do not archive G08 until
   the null-preserving branch is imported into the existing flow identity and
   null/non-null create/update/readback is proven.
+
+### G08 classic-designer continuation — 2026-09-22
+
+- The QLD Health classic Power Automate designer was reached by disabling the
+  new-designer switch. It exposes the Control/Condition action and permitted
+  an unsaved branch-edit experiment.
+- The dynamic-content picker exposed duplicate `PreviousDate` labels from
+  prior actions, but did not provide an unambiguous current calendar-row
+  token in the attempted condition. The temporary condition was discarded
+  through the browser reload confirmation; the canonical flow was not saved
+  or changed by this experiment.
+- **Decision:** retain the server-side import/parser success and classic
+  designer route as evidence, but keep the null-preserving repair open. No
+  partial browser edit is a valid implementation receipt.
