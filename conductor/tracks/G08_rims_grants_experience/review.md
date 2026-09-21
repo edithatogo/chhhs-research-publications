@@ -620,3 +620,11 @@ authored through the authenticated QLD Health designer.
   same route. It also remained at the upload-progress state and never exposed
   mappings or an enabled `Import` button. The session was stopped before any
   mutation and returned to the existing flow details page.
+
+- **Backend readback:** the browser network trace showed the package upload
+  was accepted by `generateResourceStorage` and the subsequent
+  `listImportParameters` operation returned HTTP 202; polling the returned
+  operation returned HTTP 200 with `status: Succeeded`, the expected flow
+  resource and SharePoint connection resources. The wizard still remained on
+  `Uploading your package`, so the remaining failure is the UI handoff after
+  successful server-side package parsing. No import submission occurred.

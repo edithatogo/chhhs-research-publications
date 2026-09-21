@@ -852,6 +852,15 @@ the existing flow details page, strengthening the conclusion that the current
 tenant import route is the blocker rather than only the null-preserving
 package shape.
 
+The import network trace provides stronger separation: the package reached
+the tenant's `generateResourceStorage` endpoint, `listImportParameters`
+returned HTTP 202, and polling its returned packaging operation returned HTTP
+200 with `status: Succeeded`, the expected flow resource and SharePoint
+connection resources. The browser wizard nevertheless remained on
+`Uploading your package` and never exposed mappings or an enabled `Import`
+button. No import submission occurred; this is now treated as a UI handoff
+blocker after successful server-side package parsing.
+
 Latest bounded grants-source probe (2026-09-22): private receipts were saved
 under `private/ops/grants-source-probes/`. NHMRC, MRFF, ARC, EMF, Metro North,
 Cancer Council Queensland, Queensland Grants Finder and UQ returned HTTP 200
