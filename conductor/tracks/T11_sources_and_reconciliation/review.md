@@ -560,3 +560,33 @@ schema that cannot enforce the flow's duplicate-key invariant. Code commit:
 - **Residual acceptance:** native SharePoint schema/row readback, report
   integration, execution and unattended delivery remain unproven. No tenant
   mutation was made.
+
+## Conductor review — DoRA package target type boundary — 2026-09-21
+
+### Summary
+
+The DoRA SharePoint package builder now validates target identifiers and
+connection names as strings before URL/GUID handling, preventing malformed
+tenant-specific package inputs from leaking incidental exceptions. Code
+commit: `44b62426d0f16b8e735e702f116b30be8c275a9b`.
+
+### Verification Checks
+
+- **Plan Compliance:** Partial — local DoRA package admission and contract
+  validation are hardened; native import/readback and report integration
+  remain open.
+- **Style Compliance:** Pass — SharePoint-only target injection and the
+  separate DoRA activity boundary are unchanged.
+- **New Tests:** Yes — DoRA package tests cover non-string target parameters
+  and malformed GUIDs.
+- **Test Results:** Passed — full suite (421 tests passed, 8 skipped), 438
+  project checks, Conductor validation (0 errors), web-first, Power Platform,
+  visual standards and both canonical flow validators.
+
+### Findings
+
+- **Fixed:** malformed DoRA package target types could previously leak
+  incidental exceptions rather than fail through the explicit contract.
+- **Residual acceptance:** native SharePoint schema/row readback, report-page
+  integration, execution and unattended delivery remain unproven. No tenant
+  mutation was made.

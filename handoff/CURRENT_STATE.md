@@ -323,6 +323,13 @@ Power Platform, visual and canonical flow validators pass locally. Native
 monitoring, list readback, operational reconciliation, scheduling and delivery
 remain open; no tenant mutation was made.
 
+Latest T11 DoRA package-boundary hardening (2026-09-21): code commit `44b6242`
+rejects non-string DoRA SharePoint package target parameters before URL/GUID
+handling. The full suite passes 421 tests with 8 skips, 438 project checks
+pass, and Conductor, web-first, Power Platform, visual and canonical flow
+validators pass locally. Native DoRA list schema/readback, report integration,
+execution and unattended delivery remain open; no tenant mutation was made.
+
 Latest G03 package-boundary hardening (2026-09-21): code commit `96c5bc7`
 rejects non-string grants package target parameters before URL/GUID handling,
 so malformed tenant-specific inputs fail through the explicit validation
