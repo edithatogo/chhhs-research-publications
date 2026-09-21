@@ -627,6 +627,14 @@ semantic-model editor opened in Viewing mode; its current model readback has
 delivery-ledger tables. The page shells are therefore native report evidence,
 not yet data-bound grant pages. No semantic-model write was attempted.
 
+Model-write boundary (2026-09-21): the semantic-model editor exposes an
+`Editing` mode, but the current model is the publication/reconciliation model
+used by the existing report. There is no grant/calendar/watchlist/ledger table
+in its 21-table readback, and no approved isolated model/rollback receipt for
+adding those tables in place. The editor was left in Viewing mode; adding
+grant tables to the canonical publication model remains an explicit isolated
+model gate, not a completed page-binding claim.
+
 Health Queensland CLI access boundary (2026-09-21): PAC authentication for a
 separate `healthqld-rims` profile did not complete and created no profile. Azure
 CLI 2.90.0 accepted the Health Queensland tenant and device-code authentication
