@@ -124,3 +124,17 @@ Run a controlled live cycle only after G02 endpoint/access verification and G03 
   Power Platform, visual and canonical flow validators pass locally.
 - **Residual gate:** controlled live source-to-list execution, reconciliation
   and unattended operation remain open.
+
+## Conductor review — amount scalar boundary — 2026-09-21
+
+- **Finding:** the shared grants normalizer validated many display and identity
+  fields but could stringify structured or boolean `Amount` values into the
+  canonical registry, weakening source evidence and downstream list typing.
+- **Fix:** commit `b10810d` accepts scalar text/numeric amounts, rejects
+  objects, arrays and booleans, and adds regression coverage.
+- **Verification:** focused registry tests pass (9); the full suite passes 423
+  tests with 8 skips; 438 project checks, Conductor, web-first, Power
+  Platform, visual and canonical flow validators pass locally.
+- **Residual gate:** permitted live opportunity intake, controlled
+  source-to-list reconciliation, native acceptance and unattended operation
+  remain open.
