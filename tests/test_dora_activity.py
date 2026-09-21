@@ -119,6 +119,17 @@ class DoraActivityTests(unittest.TestCase):
                 with tempfile.TemporaryDirectory() as folder:
                     collect(Path(folder) / "activity", invalid_source_id, page_size=2)
 
+    def test_source_id_rejects_surrounding_whitespace(self):
+        def padded_source_id(url, params):
+            result = self.fake_fetcher(url, params)
+            if url == DATASTORE_SEARCH:
+                result["records"] = [record("1001", " 7")]
+                result["total"] = 1
+            return result
+        with tempfile.TemporaryDirectory() as folder:
+            with self.assertRaisesRegex(ValueError, "surrounding whitespace"):
+                collect(Path(folder) / "activity", padded_source_id, page_size=2)
+
     def test_rims_schema_declares_every_source_field(self):
         schema = json.loads((ROOT / "config/dora-activity-registry.schema.json").read_text())
         names = {field["name"] for field in schema["fields"]}

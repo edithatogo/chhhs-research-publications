@@ -117,6 +117,8 @@ def validate_records(records: list[dict[str, Any]], expected_count: int) -> None
         key = record.get(IDENTITY_FIELD)
         if isinstance(key, bool) or not isinstance(key, (int, str)) or not str(key).strip():
             raise ValueError("DoRA activity record has no source _id")
+        if isinstance(key, str) and key != key.strip():
+            raise ValueError("DoRA activity source _id must not have surrounding whitespace")
         keys.append(str(key).strip())
     if len(keys) != len(set(keys)):
         raise ValueError("DoRA activity source _ids are not unique")
