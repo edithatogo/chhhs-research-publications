@@ -731,3 +731,19 @@ at `Processing queries and validating semantic model` for a bounded 100-second
 observation and was cancelled through the native confirmation. No model write,
 refresh success or row reconciliation is claimed. Receipt:
 `private/ops/2026-09-22-powerbi-native-refresh-retry.json`.
+
+### Native branch insertion recheck — 2026-09-22
+
+The authenticated new designer was rechecked against the same canonical flow.
+It allowed a `Condition` to be inserted between `Condition Is New Calendar
+Row` and `Create item`, but left the existing SharePoint action after the new
+condition rather than placing it in a branch. The action menu exposed delete
+and annotation controls only; no safe move/copy operation was available.
+The unsaved draft was discarded by reload and the beforeunload confirmation.
+
+- **Native mutation:** none; the flow remained Off and no Flow Checker or run
+  was initiated.
+- **Canonicality:** preserved; the existing flow ID remains the sole target.
+- **Receipt:** `private/ops/2026-09-22-powerautomate-g08-condition-draft-discarded.json`.
+- **Residual gate:** an approved editable branch/import/solution route is still
+  required before null-date create/update/readback can be accepted.
