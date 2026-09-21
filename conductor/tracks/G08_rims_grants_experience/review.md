@@ -7,6 +7,7 @@ Review status: in progress; local planning and idempotency contracts are impleme
 - `validate_policy` requires a version, organisation, anchor, lead time, holiday-calendar version and effective dates.
 - `delivery_event_key` gives future notifications a stable deduplication key; it does not send messages or create calendar events.
 - Existing subscription matching remains candidate generation only and does not authorize delivery.
+- The current-user delivery ledger is now represented by a versioned personal SharePoint list and a SharePoint-only upsert flow. The first native run correctly exposed that empty optional `SentAt` was being submitted as an empty string; the tracked definition now uses null-safe expressions and the flow was updated in place rather than duplicated.
 - Added `scripts/grants_calendar.py` as a local iCalendar projection contract.
   It derives institutional all-day dates from exact source deadlines and a
   versioned policy, preserves the external deadline, emits stable event IDs,
@@ -29,6 +30,30 @@ Review status: in progress; local planning and idempotency contracts are impleme
 
 Native funding pages, SharePoint list persistence, authenticated preference
 isolation, calendar update/cancellation and notification delivery remain open.
+
+## Native delivery-ledger review — 2026-09-21
+
+### Summary
+
+The personal DEV `Funding Delivery Ledger` list and its canonical upsert flow
+are now natively bootstrapped and tested in the current-user scope. The list
+contains the identity, user/opportunity, event, revision, offset, channel,
+status, schedule/send and error fields; `Status` defaults to `Pending` and
+list versioning is enabled. The flow uses serial SharePoint lookup/create/update
+with a duplicate diagnostic and is restored Off after testing.
+
+### Verification Checks
+
+- [x] **Plan Compliance:** Partial — native ledger persistence and a controlled update are proven; delivery, subscriptions, report pages and unattended operation remain open.
+- [x] **Flow Safety:** Pass — SharePoint-only definition, single-write concurrency, zero/exactly-one guards and no OneDrive dependency are locally validated.
+- [x] **Native Flow Checker:** Pass — 0 errors and 0 warnings after the null-safe optional-date repair.
+- [x] **Native Replay:** Partial — first run `08584116256446744665855863737CU13` failed at the expected empty optional `SentAt` conversion boundary; update package was imported in place and corrected run `08584116253756053128213151733CU27` succeeded. SharePoint readback showed the updated same-key row without a duplicate.
+- [x] **Isolation:** Pass — personal DEV list/flow only; flow restored Off and no notification, sharing or schedule was enabled.
+
+### Findings
+
+- **Fixed:** empty optional `SentAt`/`ErrorMessage` values were sent as empty strings, which SharePoint date conversion rejected. The tracked flow now passes null for empty optional values and the corrected package was imported as an Update to the existing flow identity.
+- **Residual acceptance:** the synthetic ledger row remains for evidence pending explicit UI deletion confirmation; the list does not yet enforce required/unique identity based on the current REST field readback, and native report binding, subscription isolation, calendar delivery and unattended operation remain unproven.
 
 ## Native boundary readback — 2026-09-20
 

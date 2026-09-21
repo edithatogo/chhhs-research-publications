@@ -13,7 +13,7 @@ and its required native acceptance evidence are both complete.
 | G05 | University catalogue and access/lead-time evidence | Permitted institutional export/feed or reviewed intake | Keep active |
 | G06 | Typed relationship contract and local safeguards; isolated personal DEV `Grant Relationships` list with all eight native fields; `RelationshipKey` required/unique/indexed; synthetic evidence-bearing create/read/update/read/delete round-trip; post-cleanup relationship `ItemCount=0`; publication registry `ItemCount=1468` read back with no publication mutation | Full before/after publication-key reconciliation and shared binding | Keep active |
 | G07 | Fail-closed operational evaluator, exact-key reconciliation, selected-field readback reconciliation and isolated create/update replay | Native monitoring, operational reconciliation, delivery and scheduling | Keep active |
-| G08 | Local calendar, institutional-date and current-user subscription contracts; exactly one native personal `My Funding Watchlist` and one `Funding Calendar` list with REST field readback; dedicated watchlist and calendar SharePoint upsert flows each have controlled native create/update evidence and are Off after testing | Native report pages, current-user flow/page binding, reminder/change ledger, subscription isolation, cleanup confirmation and delivery | Keep active |
+| G08 | Local calendar, institutional-date, current-user subscription and delivery-ledger contracts; exactly one native personal `My Funding Watchlist`, `Funding Calendar` and `Funding Delivery Ledger` list; dedicated watchlist, calendar and delivery-ledger SharePoint upsert flows each have controlled native evidence and are Off after testing; delivery-ledger first failure was repaired by an in-place Update import and a same-key success replay | Native report pages, current-user flow/page binding, required/unique delivery identity readback, subscription isolation, cleanup confirmation and actual calendar/reminder delivery | Keep active |
 | T11 | Local PubMed/DORA preservation and schema/key reconciliation; isolated personal `DORA Activity Registry` with all 26 fields, required/unique/indexed identity, indexed record/resource IDs, synthetic full-field create/read/delete round-trip, and one imported current-user upsert flow with successful controlled create/update/readback and cleanup to `ItemCount=0` | Native retained-history flow/report integration, refresh, recurrence, delivery and operational acceptance | Keep active |
 | T14 | Complete local exports, monthly generator and failure contracts | Manual native cycle, consecutive-cycle replay and delivery decision | Keep active |
 | T15 | Local handover/package and current four-page report audit | Native release/readback; Clinical Analytics model bindings are broken | Keep active |
@@ -177,3 +177,24 @@ synthetic row was deleted and `ItemCount=0` was confirmed. Flow Checker showed
 0 errors and one warning for the flow being Off; it was restored to Off after
 testing. Retained-history/report integration, recurrence, notifications,
 delivery and production acceptance remain open.
+
+## Native G08 delivery-ledger continuation — 2026-09-21
+
+The personal DEV site then received exactly one `Funding Delivery Ledger` list.
+Native field readback confirmed the visible identity, user/opportunity, event,
+revision, offset, channel, status, schedule/send and error fields; `Status`
+has default `Pending`, versioning is enabled with a 50-major-version limit,
+and the list was empty before testing. A SharePoint-only ledger flow was
+bootstrapped from the calendar/grants package pattern and imported as the sole
+new flow identity. The initial controlled run
+`08584116256446744665855863737CU13` failed because an empty optional `SentAt`
+value was submitted as `""` to a SharePoint date field. The definition was
+repaired to pass null for empty optional date/error values, the same flow was
+updated in place, Flow Checker read 0 errors and 0 warnings, and the corrected
+same-key run `08584116253756053128213151733CU27` succeeded. SharePoint readback
+showed the single row updated to revision `v2`, channel `email`, status `Sent`,
+the revised scheduled date and a populated send timestamp. The flow was
+restored Off. The synthetic row remains pending explicit UI deletion
+confirmation; this is current-user persistence/replay evidence only and does
+not prove notification delivery, subscriptions, report binding or unattended
+operation.

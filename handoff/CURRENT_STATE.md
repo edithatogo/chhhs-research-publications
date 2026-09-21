@@ -579,3 +579,21 @@ row remains as replay evidence pending explicit UI deletion confirmation;
 native report/page binding, institutional-date/reminder/change ledger,
 subscription isolation and calendar/notification delivery remain open. This
 is tenant DEV evidence, not production or unattended acceptance.
+
+Latest native G08 delivery ledger (2026-09-21): the local
+`funding-delivery-ledger-v1` schema and SharePoint-only upsert definition were
+bootstrapped from the existing grants/calendar package pattern. Exactly one
+personal DEV `Funding Delivery Ledger` list was created; native field readback
+confirmed the visible ledger columns, `Status` default `Pending`, versioning
+enabled with a 50-major-version limit and zero rows before testing. The first
+run `08584116256446744665855863737CU13` failed at the expected empty optional
+`SentAt` date conversion boundary. The definition was repaired with null-safe
+optional date/error expressions and imported as an Update to the same flow
+identity `4955a57d-b609-4c84-a2e8-f3e9ec23c20e`; Flow Checker then read 0 errors
+and 0 warnings. Corrected same-key run
+`08584116253756053128213151733CU27` succeeded, and SharePoint readback showed
+one row at revision `v2`, channel `email`, status `Sent`, revised schedule and
+populated send timestamp. The flow was restored Off. The synthetic row remains
+pending explicit UI deletion confirmation; this proves current-user
+persistence/replay only, not delivery, subscriptions, report binding or
+unattended operation.

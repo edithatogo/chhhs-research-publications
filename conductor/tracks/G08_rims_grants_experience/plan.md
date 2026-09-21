@@ -109,3 +109,11 @@ watchlist input contract is required before another native copy is created.
 - [x] Controlled same-key update run `08584116266295302685959687164CU15` succeeded; SharePoint readback showed `2026-10-20`, `Cancelled=Yes`, policy key `synthetic-policy-20260921-v2` and `Confirmed` without creating a duplicate.
 - [x] Restore the isolated flow Off. Do not delete the synthetic calendar row without explicit UI deletion confirmation; it remains visible as native replay evidence.
 - [ ] Native report/page binding, institutional-date and reminder/change ledger, subscription isolation and calendar/notification delivery remain open.
+
+### Native delivery-ledger flow — 2026-09-21
+
+- [x] Add and validate the SharePoint-only `funding-delivery-ledger-v1` schema, flow definition and package builder locally; optional date/error fields are null-safe.
+- [x] Create exactly one personal DEV `Funding Delivery Ledger` list. Native field readback confirms the twelve visible ledger fields, `Status` default `Pending`, versioning enabled with a 50-major-version limit, and zero rows before testing.
+- [x] Import exactly one `CHHHS RIMS - Funding Delivery Ledger - Reviewed Upsert` flow and update that same flow in place after the first controlled run exposed an empty optional `SentAt` conversion defect. Flow Checker read 0 errors and 0 warnings after the null-safe repair.
+- [x] Controlled native create run `08584116256446744665855863737CU13` exposed the expected optional-date defect; no row was written by that failed run. The corrected same-key run `08584116253756053128213151733CU27` succeeded after the update package was imported. SharePoint readback showed one row with `Revision=v2`, `Channel=email`, `Status=Sent`, `ScheduledFor=2026-10-02` and `SentAt=2026-09-21`; the flow was restored Off.
+- [ ] Ledger cleanup, native report/page binding, true subscription isolation and actual calendar/reminder delivery remain open. The synthetic ledger row remains as controlled evidence pending explicit UI deletion confirmation.

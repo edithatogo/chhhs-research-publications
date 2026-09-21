@@ -34,6 +34,7 @@ def build_package(
     connection_display_name: str,
     definition_path: Path = DEFAULT_DEFINITION,
     description: str | None = None,
+    creation_type: str = "New",
 ) -> Path:
     if not output.resolve().is_relative_to((ROOT / "private").resolve()):
         raise ValueError("tenant-specific package must be written under ignored private/")
@@ -51,6 +52,8 @@ def build_package(
             raise ValueError(f"{label} must be a GUID") from exc
     if not connection_display_name.strip():
         raise ValueError("connection display name is required")
+    if creation_type not in {"New", "Update"}:
+        raise ValueError("creation_type must be New or Update")
 
     document = json.loads(definition_path.read_text(encoding="utf-8"))
     document = _replace(document, {
@@ -72,8 +75,8 @@ def build_package(
         "resources": {
             flow_id: {
                 "type": "Microsoft.Flow/flows",
-                "suggestedCreationType": "New",
-                "creationType": "New",
+                "suggestedCreationType": creation_type,
+                "creationType": creation_type,
                 "details": {"displayName": document["properties"]["displayName"]},
                 "configurableBy": "User",
                 "hierarchy": "Root",
