@@ -67,6 +67,19 @@ batch and fail closed.
 - **Verification:** focused relationship/operations tests pass (20); the full suite passes 387 tests with 8 skips; project validation passes 438 checks; web-first, Conductor, Power Platform tooling and visual standards checks pass locally.
 - **Residual gate:** native list readback, monitoring, scheduling and delivery remain open.
 
+## Conductor review — operational identity whitespace boundary — 2026-09-21
+
+- **Finding:** operational evaluation stripped source and opportunity identity
+  values for comparisons but could accept and retain the original
+  whitespace-bearing values.
+- **Fix:** commit `1ac3d52` rejects whitespace-divergent record sources,
+  health sources and opportunity keys, with regression coverage.
+- **Verification:** focused relationships/operations tests pass (22); the full
+  suite passes 426 tests with 8 skips; 438 project checks, Conductor,
+  web-first, Power Platform, visual and canonical flow validators pass locally.
+- **Residual gate:** native list readback, monitoring, exact-key operational
+  reconciliation, scheduling and delivery remain open.
+
 ## Conductor review — normalized opportunity-key duplicate boundary — 2026-09-21
 
 - **Finding:** operational duplicate detection compared raw opportunity-key

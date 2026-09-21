@@ -4,6 +4,7 @@
 - [x] Inspect current inputs, dependencies and relevant platform objects. Reused G04 source health and G01 stable keys; no operational tenant object was changed.
 - [x] Implement: Add a local fail-closed run evaluator for empty/duplicate/key-missing/failed-source batches and last-accepted preservation.
 - [~] Verify: Local controlled-failure checks pass; one controlled native synthetic create and one same-key update are now evidenced with the flow restored Off. Native monitoring, concurrency, exact-key operational reconciliation and delivery/scheduling remain open.
+- [x] Review fix: reject whitespace-divergent source and opportunity identity values before operational acceptance (`1ac3d52`).
 - [x] Record local and live evidence separately before closure.
 
 ## Phase: Review fixes
