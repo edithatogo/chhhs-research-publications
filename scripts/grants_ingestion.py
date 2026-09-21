@@ -60,6 +60,10 @@ _STRING_INPUT_FIELDS = (
     "Funder", "Organization", "Eligibility", "RoundID",
 )
 
+_STRICT_INPUT_FIELDS = (
+    "URL", "Link", "link", "SourceID", "ExternalID", "RoundID", "SourceRowURL",
+)
+
 
 def _validate_source_record_input(record: Any) -> dict[str, Any]:
     """Reject typed source fields before normalization can stringify them."""
@@ -68,6 +72,10 @@ def _validate_source_record_input(record: Any) -> dict[str, Any]:
     for field in _STRING_INPUT_FIELDS:
         if field in record and record[field] is not None and not isinstance(record[field], str):
             raise ValueError(f"ingestion source field {field} must be a string")
+    for field in _STRICT_INPUT_FIELDS:
+        value = record.get(field)
+        if isinstance(value, str) and value != value.strip():
+            raise ValueError(f"ingestion source field {field} must not have surrounding whitespace")
     return record
 
 

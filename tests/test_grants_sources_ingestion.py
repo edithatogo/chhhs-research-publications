@@ -291,6 +291,19 @@ class GrantsSourceTests(unittest.TestCase):
         self.assertEqual(result["health"][0]["status"], "failed")
         self.assertIn("must be a string", result["health"][0]["error"])
 
+    def test_api_identity_and_url_fields_reject_surrounding_whitespace(self):
+        for field, value in (("SourceID", " source-id"), ("ExternalID", "external-id "),
+                             ("RoundID", " round-1 "), ("URL", " https://example.org/1")):
+            with self.subTest(field=field):
+                result = ingest_batches([{
+                    "source": "api",
+                    "retrieved_at": "2026-09-20T00:00:00Z",
+                    "records": [{"Title": "Call", field: value, **({} if field == "URL" else {"URL": "https://example.org/1"})}],
+                }])
+                self.assertFalse(result["accepted"])
+                self.assertEqual(result["health"][0]["status"], "failed")
+                self.assertIn("surrounding whitespace", result["health"][0]["error"])
+
     def test_current_record_uses_newest_observation_but_preserves_review(self):
         from scripts.grants_registry import merge_observations
         rows = merge_observations([
