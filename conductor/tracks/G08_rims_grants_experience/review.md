@@ -696,3 +696,15 @@ flow. The flow remains Off and no second identity or partial draft exists.
   keep G08 active until an approved editable designer, solution/import route or
   tenant permission enables the branch change and its null-date run/readback.
   Receipt: ignored `private/ops/2026-09-22-powerautomate-g08-code-view-readonly.json`.
+
+### Native normal-designer insertion recheck — 2026-09-22
+
+The normal Add an action route was tested against the same canonical flow. A
+temporary nested `PreviousDate` condition could be staged, but the new
+designer did not expose the existing downstream SharePoint action reliably
+after the insertion, so its complete branch contract could not be verified.
+The draft was reloaded and discarded. Receipt:
+`private/ops/2026-09-22-powerautomate-g08-designer-insertion-reverted.json`.
+No save, import, run, duplicate flow or tenant mutation occurred; the flow
+remains unchanged and Off. The null-preserving local definition remains the
+canonical implementation pending a safe native import/edit route.
