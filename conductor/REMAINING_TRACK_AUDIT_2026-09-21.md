@@ -264,7 +264,7 @@ operation.
 ### Resumed canonical audit — 2026-09-22
 
 - **Repository:** the clean canonical checkout is synchronised to the sole
-  GitHub `main` branch at `7ac5dc4`; the original authoring checkout remains
+  GitHub `main` branch at `b950eda`; the original authoring checkout remains
   intentionally dirty and is not a second remote version.
 - **G08 import evidence:** the authenticated QLD Health browser upload reached
   `generateResourceStorage`; `listImportParameters` returned HTTP 202 and
@@ -297,3 +297,14 @@ operation.
 - **Decision:** retain the server-side import/parser success and classic
   designer route as evidence, but keep the null-preserving repair open. No
   partial browser edit is a valid implementation receipt.
+
+### G08 classic-designer bootstrap retry — 2026-09-22
+
+- The recovered authenticated session exposed the classic action menus. The
+  existing `Create item` action was copied to the designer clipboard and then
+  removed inside an unsaved draft so a null-preserving condition could be
+  inserted before recreating the action in both branches.
+- The action picker became unresponsive before the replacement condition was
+  selected. The active tab was reloaded through the headed Chrome UI to
+  discard the draft; no Save operation was issued and no tenant flow change
+  is claimed. The existing flow identity remains the sole canonical target.

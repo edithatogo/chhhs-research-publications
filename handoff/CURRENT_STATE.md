@@ -896,3 +896,11 @@ attempted branch. The temporary condition shell was discarded through the
 browser reload confirmation; no partial edit was saved, the flow remains Off,
 and the canonical flow identity was not changed. This is additional route
 evidence, not null-date acceptance.
+
+Classic-designer bootstrap retry (2026-09-22): the recovered session exposed
+the classic action menus, so the existing `Create item` action was copied to
+the designer clipboard and removed inside an unsaved draft before the intended
+branch replacement. The action picker then became unresponsive. The active
+headed Chrome tab was reloaded to discard the draft; no Save operation was
+issued and no tenant flow mutation is claimed. The existing flow remains the
+sole canonical target and Off.
