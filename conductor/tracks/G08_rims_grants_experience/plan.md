@@ -93,3 +93,9 @@ watchlist input contract is required before another native copy is created.
 - [x] Add the dedicated `funding-watchlist-v1` local schema and regression
   coverage for the current-user personal list. Native flow binding remains
   open until the trigger/parser uses this contract directly.
+### Native dedicated watchlist flow — 2026-09-21
+
+- [x] Add and validate a dedicated SharePoint-only `funding-watchlist-v1` manual upsert contract and target-injected package locally.
+- [x] Import exactly one `CHHHS RIMS - Funding Watchlist - Reviewed Upsert` flow into the authenticated current-user DEV context; Flow Checker read 0 errors.
+- [x] Run controlled synthetic create and same-key update cases. SharePoint readback showed the expected opportunity-to-category scope/target and Active changes; the flow was restored Off.
+- [ ] Delete the remaining synthetic watchlist row through the SharePoint UI and confirm zero rows; native report/page binding, calendar ledger and delivery remain open.

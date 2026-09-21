@@ -324,3 +324,9 @@ otherwise unsupported shapes. Code commit:
 - **Residual gate:** the native cloned-flow experiment was discarded because
   its grants-specific trigger/parser did not carry `Scope` and `TargetKey`.
   A dedicated native watchlist flow, page binding and delivery remain open.
+## Conductor review — native dedicated watchlist flow — 2026-09-21
+
+- **Finding:** the first native bootstrap route could not carry the dedicated watchlist scope/target input.
+- **Fix:** generated a dedicated SharePoint-only package from the reviewed local contract, with serial key lookup, duplicate diagnostics and exact-zero create/exact-one update guards.
+- **Verification:** import created exactly one canonical current-user flow. Flow Checker read 0 errors; controlled create and same-key update runs succeeded and SharePoint readback showed the expected field changes. The flow was restored Off. A synthetic row remains pending explicit UI deletion confirmation.
+- **Residual acceptance:** native funding pages/report binding, calendar revision ledger and notification delivery remain open; this does not prove unattended or organisation-wide operation.

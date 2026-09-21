@@ -33,6 +33,7 @@ def build_package(
     flow_id: str,
     connection_display_name: str,
     definition_path: Path = DEFAULT_DEFINITION,
+    description: str | None = None,
 ) -> Path:
     if not output.resolve().is_relative_to((ROOT / "private").resolve()):
         raise ValueError("tenant-specific package must be written under ignored private/")
@@ -63,7 +64,7 @@ def build_package(
         "schema": "1.0",
         "details": {
             "displayName": document["properties"]["displayName"],
-            "description": "Isolated DEV reviewed grants import; remains disabled until native test approval.",
+            "description": description or "Isolated DEV reviewed grants import; remains disabled until native test approval.",
             "createdTime": "2026-09-20T00:00:00Z",
             "creator": "N/A",
             "sourceEnvironment": "",
