@@ -69,5 +69,17 @@ The agent environment transition from Codex to **Google Antigravity (`agy`)** is
 ## Next Steps
 
 T08 is complete. Active implementation continues in:
-- [`T10_isolated_baseline`](../T10_isolated_baseline/plan.md): Protect the existing report and finalize development model isolation.
-- [`T11_sources_and_reconciliation`](../T11_sources_and_reconciliation/plan.md): Complete native PubMed/DORA ingestion and connect reporting queries to committed history.
+- [`T10_isolated_baseline`](../../tracks/T10_isolated_baseline/plan.md): Protect the existing report and finalize development model isolation.
+- [`T11_sources_and_reconciliation`](../../tracks/T11_sources_and_reconciliation/plan.md): Complete native PubMed/DORA ingestion and connect reporting queries to committed history.
+
+## Conductor review recheck — 2026-09-23
+
+The track remains complete. All T08 plan items are checked, the capability
+route evidence remains present, and no T08-specific native acceptance task is
+outstanding. Current downstream native gaps are deliberately owned by T11,
+T14, T15, E01, E04 and E07 rather than being folded back into discovery.
+
+Verification: `python3 scripts/validate_project.py` and
+`python3 scripts/validate_conductor.py` pass in the canonical checkout; the
+broader source-only test/CI gates are current on `origin/main`. T08 is
+eligible for archive.

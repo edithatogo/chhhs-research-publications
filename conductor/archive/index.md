@@ -7,3 +7,4 @@
 - [E02_clinical_analytics](E02_clinical_analytics/plan.md) — local clinical attribution, FoR taxonomy, specifications, and tests complete; native projection remains outside this local track.
 - [E03_open_access_trials](E03_open_access_trials/plan.md) — local open-access and trial-linkage rules, specifications, and tests complete; live enrichment remains outside this local track.
 - [S03_private_github_sync](S03_private_github_sync/plan.md) — private source-only `main` synchronization, remote privacy/readback, clean extraction, and local verification complete; native/platform acceptance remains separate.
+- [T08_web_capability_discovery](T08_web_capability_discovery/plan.md) — web-first capability discovery and route selection complete; downstream implementation and native acceptance remain owned by the active tracks.

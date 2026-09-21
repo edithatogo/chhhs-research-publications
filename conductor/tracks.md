@@ -16,7 +16,6 @@ Execution order and boundaries: [detailed handoff](PUBLICATION_STABILISATION.md)
 
 ## Current web-first implementation
 
-- [x] [T08_web_capability_discovery: Prove the plugin and web UI capabilities](tracks/T08_web_capability_discovery/plan.md) — complete (web-first route and capabilities verified with agy / web UI)
 - [x] [T09_execution_contracts: Reconcile context and implement the execution gates](tracks/T09_execution_contracts/plan.md) — complete (local only)
 - [x] [T10_isolated_baseline: Protect the existing report and prove an isolated write](tracks/T10_isolated_baseline/plan.md) — complete (isolated canary write and rollback verified)
 - [~] [T11_sources_and_reconciliation: Repair and prove PubMed plus DORA ingestion](tracks/T11_sources_and_reconciliation/plan.md) — current-user native list/model/flow readback is evidenced; retained-history, refresh, recurrence, delivery and production acceptance remain open (2026-09-22 audit).
