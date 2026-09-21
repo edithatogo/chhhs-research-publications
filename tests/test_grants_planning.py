@@ -81,6 +81,18 @@ class PlanningTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'FunderKey'):
             subscribers({'OpportunityKey': 'g1', 'FunderKey': False}, [], current_user_key='u1')
 
+    def test_subscription_identities_reject_surrounding_whitespace(self):
+        with self.assertRaisesRegex(ValueError, 'current_user_key'):
+            subscribers({'OpportunityKey': 'g1'}, [], current_user_key=' u1')
+        with self.assertRaisesRegex(ValueError, 'OpportunityKey'):
+            subscribers({'OpportunityKey': ' g1'}, [], current_user_key='u1')
+        with self.assertRaisesRegex(ValueError, 'UserKey'):
+            subscribers(
+                {'OpportunityKey': 'g1'},
+                [{'UserKey': ' u1', 'Active': True, 'Scope': 'opportunity', 'TargetKey': 'g1'}],
+                current_user_key='u1',
+            )
+
     def test_subscription_matching_requires_opportunity_identity(self):
         with self.assertRaises(ValueError):
             subscribers({}, [], current_user_key='u1')

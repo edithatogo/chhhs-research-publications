@@ -223,6 +223,8 @@ class GrantsRelationshipTests(unittest.TestCase):
             delivery_event_key('u', 'g', 'new', '1', 3661, 'email', current_user_key='u')
         with self.assertRaisesRegex(ValueError, 'match current_user_key'):
             delivery_event_key('u2', 'g', 'new', '1', 10, 'email', current_user_key='u1')
+        with self.assertRaisesRegex(ValueError, 'surrounding whitespace'):
+            delivery_event_key('u1', 'g', 'new', '1', 10, 'email', current_user_key=' u1')
 
 
 if __name__ == '__main__':

@@ -10,6 +10,14 @@ import re
 SUBSCRIPTION_SCOPES = {'opportunity', 'category', 'funder'}
 
 
+def _identity(value, label):
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError(f'{label} must be a non-empty string')
+    if value != value.strip():
+        raise ValueError(f'{label} must not have surrounding whitespace')
+    return value
+
+
 def institutional_deadline(external_date, lead_days, *, business_days=True, holidays=()):
     """Return a proposed date; partial/unknown source dates remain unknown."""
     if type(lead_days) is not int or not 0 <= lead_days <= 3660:
@@ -45,27 +53,23 @@ def subscribers(opportunity, subscriptions, *, current_user_key: str):
     """Return whether the current user matches, without selecting recipients."""
     if not isinstance(opportunity, dict):
         raise ValueError('opportunity must be an object')
-    if not isinstance(current_user_key, str) or not current_user_key.strip():
-        raise ValueError('current_user_key must be a non-empty string')
-    current_user_key = current_user_key.strip()
+    current_user_key = _identity(current_user_key, 'current_user_key')
     if not isinstance(subscriptions, (list, tuple, set)):
         raise ValueError('subscriptions must be a collection of rules')
     opportunity_key = opportunity.get('OpportunityKey')
-    if not isinstance(opportunity_key, str) or not opportunity_key.strip():
-        raise ValueError('opportunity requires OpportunityKey for subscription matching')
+    opportunity_key = _identity(opportunity_key, 'opportunity OpportunityKey')
     category_keys = opportunity.get('CategoryKeys', [])
-    if not isinstance(category_keys, (list, tuple, set)) or any(
-        not isinstance(key, str) or not key.strip() for key in category_keys
-    ):
+    if not isinstance(category_keys, (list, tuple, set)):
         raise ValueError('opportunity CategoryKeys must be a collection of non-empty keys')
+    category_keys = [_identity(key, 'opportunity CategoryKeys value') for key in category_keys]
     funder_key = opportunity.get('FunderKey', '')
     if not isinstance(funder_key, str):
         raise ValueError('opportunity FunderKey must be a string when supplied')
-    if funder_key and not funder_key.strip():
-        raise ValueError('opportunity FunderKey must be a string when supplied')
-    targets = {'opportunity': {opportunity_key.strip()},
-               'category': {key.strip() for key in category_keys},
-               'funder': {funder_key.strip()} if isinstance(funder_key, str) and funder_key.strip() else set()}
+    if funder_key:
+        funder_key = _identity(funder_key, 'opportunity FunderKey')
+    targets = {'opportunity': {opportunity_key},
+               'category': set(category_keys),
+               'funder': {funder_key} if funder_key else set()}
     matched = False
     for rule in subscriptions:
         if not isinstance(rule, dict):
@@ -73,12 +77,10 @@ def subscribers(opportunity, subscriptions, *, current_user_key: str):
         scope = rule.get('Scope')
         user_key = rule.get('UserKey')
         target_key = rule.get('TargetKey')
-        if not all(isinstance(value, str) for value in (scope, user_key, target_key)):
-            raise ValueError('subscription requires string scope, user key and target key')
-        scope = scope.strip()
-        user_key = user_key.strip()
-        target_key = target_key.strip()
-        if scope not in SUBSCRIPTION_SCOPES or not user_key or not target_key:
+        scope = _identity(scope, 'subscription Scope')
+        user_key = _identity(user_key, 'subscription UserKey')
+        target_key = _identity(target_key, 'subscription TargetKey')
+        if scope not in SUBSCRIPTION_SCOPES:
             raise ValueError('subscription requires a supported scope, user key and target key')
         if rule.get('Active') is not True and rule.get('Active') is not False:
             raise ValueError('subscription Active must be boolean')
@@ -135,14 +137,11 @@ def validate_policy(policy):
 
 def delivery_event_key(user_key, opportunity_key, event_type, revision, offset_days, channel, *, current_user_key: str):
     """Stable idempotency key for a future delivery ledger; no delivery occurs here."""
-    fields = (user_key, opportunity_key, event_type, revision, channel)
-    if any(not isinstance(value, str) or not value.strip() for value in fields):
-        raise ValueError('delivery event identity fields must be non-empty strings')
-    if not isinstance(current_user_key, str) or not current_user_key.strip():
-        raise ValueError('current_user_key must be a non-empty string')
-    if user_key.strip() != current_user_key.strip():
+    fields = tuple(_identity(value, 'delivery event identity fields') for value in (user_key, opportunity_key, event_type, revision, channel))
+    current_user_key = _identity(current_user_key, 'current_user_key')
+    if user_key != current_user_key:
         raise ValueError('delivery event user must match current_user_key')
     if type(offset_days) is not int or not -3660 <= offset_days <= 3660:
         raise ValueError('delivery event offset_days must be an integer from -3660 to 3660')
-    basis = '|'.join(value.strip() for value in fields[:4]) + f'|{offset_days}|' + fields[4].strip()
+    basis = '|'.join(fields[:4]) + f'|{offset_days}|' + fields[4]
     return 'EVENT:' + hashlib.sha256(basis.encode('utf-8')).hexdigest()[:24]
