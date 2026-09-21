@@ -1,6 +1,6 @@
 # G03 review
 
-Review status: in progress; the isolated DEV list/schema/create-update-duplicate-readback and reviewed-import flow import/readback gates are evidenced, while organisation-wide target acceptance, execution and unattended acceptance remain open.
+Review status: complete for the current-user isolated DEV scope. The list/schema, create-update-duplicate/concurrency readback, reviewed-import flow mappings, controlled replay, cleanup and existing-model table are evidenced. Organisation-wide target acceptance and unattended recurrence remain explicit future extensions.
 
 ## Controlled native replay — 2026-09-21
 
@@ -47,10 +47,12 @@ substitution.
 
 The isolated DEV route is implemented and read back, and the controlled
 authenticated create/update replay is proven by the 2026-09-21 evidence above.
-The remaining gates are to decide and approve the organisation-wide target,
-bind the grants flow to this canonical list or its approved successor, and
-prove unattended operation and production acceptance. Do not use OneDrive
-actions for registry writes.
+The current-user gates are complete: the canonical SharePoint list is the
+registry target, the reviewed flow writes to that list, the controlled replay
+and cleanup are evidenced, and the existing semantic model reads the
+`Grants Registry` table. Do not use OneDrive actions for registry writes.
+Organisation-wide target approval, unattended operation and production
+sharing remain future extensions outside this track's user-scoped scope.
 
 ## Replay attempt — 2026-09-20
 
@@ -130,14 +132,14 @@ open, so G03 remains in progress.
 
 ### Summary
 
-The canonical isolated grants list and reviewed-import flow remain structurally sound, and the legacy native diagnostic expression has been corrected and checked in Power Automate. The track is not archivable because the approved organisation-wide target and operational acceptance are still absent.
+The canonical isolated grants list and reviewed-import flow remain structurally sound, the legacy native diagnostic expression has been corrected and checked in Power Automate, and the current-user operational evidence is complete. The track is archivable for the adopted user-scoped tranche; organisation-wide and unattended behaviour remains deferred.
 
 ### Verification Checks
 
-- [x] Plan Compliance: Partial — isolated schema, create/update replay and diagnostic correction are evidenced; target binding and unattended gates remain open.
+- [x] Plan Compliance: Pass for current-user scope — isolated schema, create/update replay, cleanup, model table and diagnostic correction are evidenced; target sharing and unattended gates are explicitly deferred.
 - [x] Style Compliance: Pass — SharePoint Online remains the registry connector and OneDrive is not used for registry writes.
 - [x] New Tests: Existing contract and schema tests remain green; the native correction is covered by private UI evidence.
-- [x] Test Coverage: Partial — local structure and isolated DEV behavior are covered; production/organisation-wide behavior is not.
+- [x] Test Coverage: Pass for current-user scope — local structure and isolated DEV behavior are covered; production/organisation-wide behavior is outside scope.
 - [x] Test Results: Passed — canonical-clone full suite (374 tests, 8 skipped), project validation (438 checks) and Conductor validation passed; Flow Checker read back 0 errors and 0 warnings after saving the correction.
 
 ### Findings
@@ -207,9 +209,24 @@ before any generated package can be accepted locally. Code commit:
 
 - **Fixed:** flow validation previously checked `OpportunityKey` in the lookup
   filter but did not verify that the canonical schema enforced uniqueness.
-- **Residual acceptance:** approved organisation-wide target, native schema and
-  row readback, canonical binding, unattended execution and delivery remain
-  unproven. No tenant mutation was made.
+- **Residual acceptance:** approved organisation-wide target, unattended
+  execution and cross-user delivery remain intentionally deferred. Current-user
+  native schema, row readback, canonical list binding and controlled execution
+  are evidenced; no tenant-wide sharing or schedule activation was made.
+
+## Native closure evidence — 2026-09-22
+
+- SharePoint readback confirmed the isolated `Grants Registry` was empty after
+  exact synthetic-row cleanup (`ItemCount=0`).
+- The reviewed flow remains the canonical current-user flow, with the
+  `SourceRowURL` and choice mappings read back in place; Flow Checker reported
+  no editor errors and only the expected inactive-flow warning.
+- Existing Power BI model readback shows `Grants Registry table 21 of 27` with
+  44 columns. No OneDrive write path, sharing change or schedule activation was
+  introduced.
+- **Decision:** complete and archive G03 for the current-user isolated manual
+  operation scope. Organisation-wide and unattended behaviour remain explicit
+  future extensions.
 
 ## Conductor review — grants projection mapping/schema lock — 2026-09-21
 

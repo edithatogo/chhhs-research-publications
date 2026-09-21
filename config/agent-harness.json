@@ -3,7 +3,7 @@
   "baseline": ["AGENTS.md", "conductor/index.md", "handoff/POWERBI_PLUGIN_START_HERE.md", "handoff/CURRENT_STATE.md", "conductor/workflow.md", "conductor/code_styleguides/general.md"],
   "tasks": {
     "grants": {
-      "context": ["docs/RIMS_GRANTS_EXPERIENCE.md", "docs/GRANTS_DELIVERY_REVIEW.md", "conductor/archive/G01_grants_contracts/spec.md", "conductor/archive/G01_grants_contracts/plan.md", "conductor/tracks/G02_grants_sources/plan.md", "conductor/tracks/G03_grants_sharepoint/spec.md", "scripts/grants_registry.py", "scripts/grants_planning.py"],
+      "context": ["docs/RIMS_GRANTS_EXPERIENCE.md", "docs/GRANTS_DELIVERY_REVIEW.md", "conductor/archive/G01_grants_contracts/spec.md", "conductor/archive/G01_grants_contracts/plan.md", "conductor/tracks/G02_grants_sources/plan.md", "conductor/archive/G03_grants_sharepoint/spec.md", "scripts/grants_registry.py", "scripts/grants_planning.py"],
       "test_patterns": ["test_grants*.py"]
     },
     "publications": {

@@ -749,6 +749,15 @@ Relationships table 27 of 27` with 30 columns and zero rows. This closes G06
 for the current-user isolated scope; shared binding and unattended delivery
 remain future extensions.
 
+G03 native closure evidence (2026-09-22): the isolated personal `Grants
+Registry` list is empty after exact synthetic-row cleanup (`ItemCount=0`). The
+canonical reviewed-import flow remains Off with its `SourceRowURL` and choice
+mappings read back in place; Flow Checker reported no editor errors and only
+the expected inactive-flow warning. The existing Power BI model reads
+`Grants Registry table 21 of 27` with 44 columns. This closes G03 for the
+current-user isolated manual-operation scope; organisation-wide sharing,
+unattended recurrence and cross-user delivery remain future extensions.
+
 Model-write boundary (2026-09-21): the semantic-model editor exposes an
 `Editing` mode and the existing canonical publication model was extended in
 place through its Power Query editor after the pre-grants publication-model
