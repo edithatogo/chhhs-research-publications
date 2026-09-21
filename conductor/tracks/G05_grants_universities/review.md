@@ -1,5 +1,12 @@
 # G05 review
 
+## Conductor review — authority URL boundary — 2026-09-22
+
+- **Finding:** `_valid_http_url` stripped university `authority_url` values before checking the URL structure, allowing a padded source URL to pass catalogue validation.
+- **Fix:** authority URLs now require a string with no surrounding whitespace before HTTP(S) validation; regression coverage was added.
+- **Verification:** focused university tests pass (9); project checks pass 460; web-first, Conductor and diff validation pass locally.
+- **Residual gate:** permitted institutional feed/export, authenticated portal access and specialist/foundation expansion remain open.
+
 ## Conductor review — probe admission boundary — 2026-09-22
 
 - **Finding:** `_load_university_rows` in the bounded source probe applied only

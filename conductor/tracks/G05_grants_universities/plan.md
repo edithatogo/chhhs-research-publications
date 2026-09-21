@@ -41,3 +41,9 @@ is assumed.
 - [x] Task: Reuse the strict university catalogue validator before bounded authority probing, so malformed rows cannot be mistaken for source evidence (`1a073b7`).
 - [x] Verification: focused source-probe/university tests (12), full local suite (449 tests, 8 skipped), project checks (460), web-first contracts, Conductor validation and diff validation pass locally.
 - [~] Permitted institutional feed/export or authenticated portal acceptance remains open; authority-page probes remain read-only evidence only.
+
+## Phase: Conductor review fix — authority URL boundary — 2026-09-22
+
+- [x] Task: Reject surrounding whitespace in university `authority_url` values instead of stripping a source identity before validation (`1f5c25f`).
+- [x] Verification: focused university tests (9), full local suite, project checks (460), web-first contracts, Conductor validation and diff validation pass locally.
+- [~] Permitted institutional feed/export or authenticated portal acceptance remains open; authority-page probes remain read-only evidence only.
