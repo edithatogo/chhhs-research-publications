@@ -41,10 +41,13 @@ def institutional_deadline(external_date, lead_days, *, business_days=True, holi
     return target.isoformat()
 
 
-def subscribers(opportunity, subscriptions):
-    """Unique candidate user keys; identity/access/consent checked by delivery."""
+def subscribers(opportunity, subscriptions, *, current_user_key: str):
+    """Return whether the current user matches, without selecting recipients."""
     if not isinstance(opportunity, dict):
         raise ValueError('opportunity must be an object')
+    if not isinstance(current_user_key, str) or not current_user_key.strip():
+        raise ValueError('current_user_key must be a non-empty string')
+    current_user_key = current_user_key.strip()
     if not isinstance(subscriptions, (list, tuple, set)):
         raise ValueError('subscriptions must be a collection of rules')
     opportunity_key = opportunity.get('OpportunityKey')
@@ -63,7 +66,7 @@ def subscribers(opportunity, subscriptions):
     targets = {'opportunity': {opportunity_key.strip()},
                'category': {key.strip() for key in category_keys},
                'funder': {funder_key.strip()} if isinstance(funder_key, str) and funder_key.strip() else set()}
-    matched = set()
+    matched = False
     for rule in subscriptions:
         if not isinstance(rule, dict):
             raise ValueError('subscription rule must be an object')
@@ -79,9 +82,9 @@ def subscribers(opportunity, subscriptions):
             raise ValueError('subscription requires a supported scope, user key and target key')
         if rule.get('Active') is not True and rule.get('Active') is not False:
             raise ValueError('subscription Active must be boolean')
-        if rule.get('Active') is True and target_key in targets[scope]:
-            matched.add(user_key)
-    return sorted(matched)
+        if rule.get('Active') is True and user_key == current_user_key and target_key in targets[scope]:
+            matched = True
+    return [current_user_key] if matched else []
 
 
 def validate_policy(policy):

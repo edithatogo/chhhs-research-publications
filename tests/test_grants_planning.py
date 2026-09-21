@@ -57,32 +57,35 @@ class PlanningTests(unittest.TestCase):
             {'UserKey': 'u1', 'Active': True, 'Scope': 'opportunity', 'TargetKey': 'g1'},
             {'UserKey': 'u2', 'Active': False, 'Scope': 'opportunity', 'TargetKey': 'g1'},
         ]
-        self.assertEqual(subscribers(grant, rules), ['u1'])
+        self.assertEqual(subscribers(grant, rules, current_user_key='u1'), ['u1'])
+        self.assertEqual(subscribers(grant, rules, current_user_key='u2'), [])
 
     def test_malformed_subscription_rule_fails_closed(self):
         with self.assertRaises(ValueError):
-            subscribers({'OpportunityKey': 'g1'}, [{'UserKey': 'u1', 'Active': True, 'Scope': 'unknown', 'TargetKey': 'g1'}])
+            subscribers({'OpportunityKey': 'g1'}, [{'UserKey': 'u1', 'Active': True, 'Scope': 'unknown', 'TargetKey': 'g1'}], current_user_key='u1')
         with self.assertRaises(ValueError):
-            subscribers({'OpportunityKey': 'g1'}, [{'UserKey': 'u1', 'Active': 'yes', 'Scope': 'opportunity', 'TargetKey': 'g1'}])
+            subscribers({'OpportunityKey': 'g1'}, [{'UserKey': 'u1', 'Active': 'yes', 'Scope': 'opportunity', 'TargetKey': 'g1'}], current_user_key='u1')
         with self.assertRaisesRegex(ValueError, 'rule must be an object'):
-            subscribers({'OpportunityKey': 'g1'}, [None])
+            subscribers({'OpportunityKey': 'g1'}, [None], current_user_key='u1')
         for malformed in (None, 'not-a-rule'):
             with self.subTest(malformed=malformed), self.assertRaisesRegex(ValueError, 'subscriptions must be a collection'):
-                subscribers({'OpportunityKey': 'g1'}, malformed)
+                subscribers({'OpportunityKey': 'g1'}, malformed, current_user_key='u1')
 
     def test_subscription_identity_types_are_not_coerced(self):
         with self.assertRaisesRegex(ValueError, 'OpportunityKey'):
-            subscribers({'OpportunityKey': True}, [])
+            subscribers({'OpportunityKey': True}, [], current_user_key='u1')
         with self.assertRaisesRegex(ValueError, 'CategoryKeys'):
-            subscribers({'OpportunityKey': 'g1', 'CategoryKeys': [7]}, [])
+            subscribers({'OpportunityKey': 'g1', 'CategoryKeys': [7]}, [], current_user_key='u1')
         with self.assertRaisesRegex(ValueError, 'FunderKey'):
-            subscribers({'OpportunityKey': 'g1', 'FunderKey': 7}, [])
+            subscribers({'OpportunityKey': 'g1', 'FunderKey': 7}, [], current_user_key='u1')
         with self.assertRaisesRegex(ValueError, 'FunderKey'):
-            subscribers({'OpportunityKey': 'g1', 'FunderKey': False}, [])
+            subscribers({'OpportunityKey': 'g1', 'FunderKey': False}, [], current_user_key='u1')
 
     def test_subscription_matching_requires_opportunity_identity(self):
         with self.assertRaises(ValueError):
-            subscribers({}, [])
+            subscribers({}, [], current_user_key='u1')
+        with self.assertRaisesRegex(ValueError, 'current_user_key'):
+            subscribers({'OpportunityKey': 'g1'}, [])
 
     def test_alias_input_has_same_identity(self):
         a = normalize_opportunity({'title': 'Call', 'link': 'https://example.org/call'})

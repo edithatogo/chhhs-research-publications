@@ -45,7 +45,7 @@ Category subscriptions include newly discovered and reclassified matching grants
 
 Offer digest versus immediate-change preferences, reminder offsets, and event kinds (new, deadline changed, closing, cancelled). Public category calendars can include public opportunity information only. Personal calendars require a supported authenticated or revocable private feed; a one-off ICS download is not a live subscription. Outlook event synchronisation needs stable event IDs, update/cancellation handling and explicit delivery activation. Date-only events use all-day dates, not invented midnight deadlines.
 
-Personal preference access must be enforced by the backing service; a report filter alone is insufficient. Derive UserKey from the signed-in identity, never trust a user-editable recipient field. The local matcher returns candidates only and is not a delivery authorization check.
+Personal preference access must be enforced by the backing service; a report filter alone is insufficient. Derive UserKey from the signed-in identity, never trust a user-editable recipient field. The local matcher requires the signed-in UserKey and returns only that user as a candidate; it is not a delivery authorization check.
 
 ## Architecture and sequencing
 
