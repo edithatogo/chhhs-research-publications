@@ -563,3 +563,19 @@ category scope/target and Active changes. The flow was restored Off. One
 synthetic watchlist row remains pending explicit UI deletion confirmation;
 native page/report binding, calendar ledger, delivery and unattended or
 organisation-wide acceptance remain open.
+
+Latest native G08 dedicated calendar flow (2026-09-21): the canonical local
+`funding-calendar-v1` contract was packaged and imported as exactly one
+current-user DEV flow, `CHHHS RIMS - Funding Calendar - Reviewed Upsert`
+(`f18e3fad-7ee5-47d7-b166-d9bb41f93a3e`). It uses the existing SharePoint
+connection and the personal `Funding Calendar` list; no OneDrive action,
+sharing, schedule or notification change was made. Flow Checker readback was
+0 errors and 0 warnings while enabled. Native create run
+`08584116266950718806813049204CU16` and same-key update run
+`08584116266295302685959687164CU15` both succeeded. SharePoint readback
+showed the expected date, source URL, cancellation flag, policy key and
+review status, with no duplicate row. The flow was restored Off. The updated
+row remains as replay evidence pending explicit UI deletion confirmation;
+native report/page binding, institutional-date/reminder/change ledger,
+subscription isolation and calendar/notification delivery remain open. This
+is tenant DEV evidence, not production or unattended acceptance.

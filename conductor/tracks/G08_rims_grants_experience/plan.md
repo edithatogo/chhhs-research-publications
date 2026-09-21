@@ -99,3 +99,13 @@ watchlist input contract is required before another native copy is created.
 - [x] Import exactly one `CHHHS RIMS - Funding Watchlist - Reviewed Upsert` flow into the authenticated current-user DEV context; Flow Checker read 0 errors.
 - [x] Run controlled synthetic create and same-key update cases. SharePoint readback showed the expected opportunity-to-category scope/target and Active changes; the flow was restored Off.
 - [ ] Delete the remaining synthetic watchlist row through the SharePoint UI and confirm zero rows; native report/page binding, calendar ledger and delivery remain open.
+
+### Native dedicated calendar flow — 2026-09-21
+
+- [x] Add and validate a dedicated `funding-calendar-v1` SharePoint-only manual upsert contract and target-injected package locally.
+- [x] Import exactly one current-user DEV flow: `CHHHS RIMS - Funding Calendar - Reviewed Upsert`, flow ID `f18e3fad-7ee5-47d7-b166-d9bb41f93a3e`, using the existing SharePoint connection and the personal `Funding Calendar` list.
+- [x] Native Flow Checker readback: 0 errors and 0 warnings while enabled; the only inactive-flow warning appeared after the flow was restored Off.
+- [x] Controlled native create run `08584116266950718806813049204CU16` succeeded; SharePoint readback showed `synthetic-calendar-20260921`, `2026-10-15`, the authoritative source URL, `Cancelled=No`, the initial policy key and `Needs Review`.
+- [x] Controlled same-key update run `08584116266295302685959687164CU15` succeeded; SharePoint readback showed `2026-10-20`, `Cancelled=Yes`, policy key `synthetic-policy-20260921-v2` and `Confirmed` without creating a duplicate.
+- [x] Restore the isolated flow Off. Do not delete the synthetic calendar row without explicit UI deletion confirmation; it remains visible as native replay evidence.
+- [ ] Native report/page binding, institutional-date and reminder/change ledger, subscription isolation and calendar/notification delivery remain open.

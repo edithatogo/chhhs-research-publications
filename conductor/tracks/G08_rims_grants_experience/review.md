@@ -330,3 +330,24 @@ otherwise unsupported shapes. Code commit:
 - **Fix:** generated a dedicated SharePoint-only package from the reviewed local contract, with serial key lookup, duplicate diagnostics and exact-zero create/exact-one update guards.
 - **Verification:** import created exactly one canonical current-user flow. Flow Checker read 0 errors; controlled create and same-key update runs succeeded and SharePoint readback showed the expected field changes. The flow was restored Off. A synthetic row remains pending explicit UI deletion confirmation.
 - **Residual acceptance:** native funding pages/report binding, calendar revision ledger and notification delivery remain open; this does not prove unattended or organisation-wide operation.
+
+## Conductor review — native dedicated calendar flow — 2026-09-21
+
+### Summary
+
+The calendar upsert path was bootstrapped from the existing reviewed SharePoint-flow package pattern and imported as one isolated current-user DEV flow. The implementation targets the personal `Funding Calendar` SharePoint list, not OneDrive, and remains disabled after testing.
+
+### Verification Checks
+
+- Local `validate_calendar_flow_contract.py` passed, including serial processing, duplicate-key diagnostics, exact-zero/exact-one guards, complete `funding-calendar-v1` field mapping, SharePoint connector use and no OneDrive actions.
+- Native Flow Checker readback showed 0 errors and 0 warnings while enabled.
+- Native create run `08584116266950718806813049204CU16` succeeded and read back all expected calendar fields.
+- Native same-key update run `08584116266295302685959687164CU15` succeeded and read back the changed date, cancellation flag, policy key and review status without a duplicate.
+- Native flow status was restored to Off; owner remains Dylan Mordaunt and no sharing, schedule or notification change was made.
+- Local full suite after the calendar additions: 432 tests passed, 8 skipped; project validation passed 438 checks, web-first validation passed, and the agent harness passed with `PASS_LOCAL_ONLY` boundaries.
+
+### Findings
+
+- **Status:** Partial — the flow and controlled persistence path are proven in isolated DEV, but this is not organisation-wide or unattended acceptance.
+- **Residual gate:** the synthetic calendar row remains in the list pending explicit UI deletion confirmation; native report pages, institutional-date/reminder/change ledger, subscription isolation and calendar/notification delivery remain open.
+- **Decision:** keep G08 active. The native flow evidence is sufficient to close the calendar-upsert subtask, not the whole track, so archiving would overstate completion.
