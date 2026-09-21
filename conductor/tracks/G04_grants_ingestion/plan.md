@@ -1,5 +1,9 @@
 # Implementation plan
 
+**Access scope:** current-user local adapters and manual isolated source-to-list
+validation only. Shared ingestion and unattended recurrence are future
+extensions.
+
 - [x] Record scope and acceptance requirements.
 - [x] Inspect current inputs, dependencies and relevant platform objects. Reused the canonical normalizer and kept SharePoint/native objects out of the local adapter.
 - [x] Implement: Implement independently testable adapters and one canonical ingestion workflow.

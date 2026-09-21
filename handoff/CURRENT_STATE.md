@@ -8,6 +8,12 @@ Conductor audit: all track index/spec/plan/metadata files and dependencies valid
 
 One person owns this repository and the existing CHHHS RIMS report. Add funding opportunities, funding calendar and personal watchlist pages to that report. Reuse publication identities and evidence conventions. Grant opportunities, awarded grants and applications have separate identities; institutional dates and subscriptions are explicit entities. No new Fabric project or mandatory preview/AI service.
 
+Access scope decision: the current implementation is user-based. Use the
+authenticated user's isolated DEV SharePoint/Power Platform/Power BI access and
+manual operation only. Organisation-wide binding, sharing, cross-user delivery
+and unattended recurrence are future extensions, not prerequisites for the
+current user-scoped tranche. See `docs/USER_BASED_ACCESS_SCOPE.md`.
+
 ## Verified locally
 
 - Grants normalisation, round identity, invalid-date handling and observation snapshots exist in `scripts/grants_registry.py`.

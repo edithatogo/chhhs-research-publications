@@ -1,5 +1,8 @@
 # Implementation Plan: E04 Microsoft Fluent 2 Visual Polishing and IBCS Standards Alignment
 
+**Access scope:** current-user isolated report authoring and visual readback
+only. Do not broaden sharing or alter production bindings in this tranche.
+
 ## Phase 1: Geometric Grid & Spacing Audit
 - [x] Task 1.1: Audit all visual elements in `powerbi/CHHHS Research Publications.Report/` to certify 8-point base grid compliance.
 - [x] Task 1.2: Validate symmetrical 32px margins and 16px visual gutters across all 3 pages (`PublicationRegister`, `MonthlyPublications`, `SourceReconciliation`).

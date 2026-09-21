@@ -1,5 +1,9 @@
 # Plan: Export every citation and stage the monthly workflow
 
+**Access scope:** current-user manual export and private staging only, using
+the existing publications route. No recipient sharing, mail/calendar delivery
+or unattended schedule is part of the current implementation.
+
 ## Implementation
 - [x] 01. Export the entire canonical register for the continually updated report and a prior-complete-month citation register for the printable monthly report. Include full authors, title, journal, raw date/precision, identifiers, source URLs and CHHHS attribution. Record applied filters, run ID, query version, accepted source batch and coverage.
 - [x] 02. Reconcile CSV/JSON export row count, distinct keys, key-set hash and expected model count. Detect row/size limits and paginate or deterministically partition where an approved API supports it. Never label a truncated file as all publications.

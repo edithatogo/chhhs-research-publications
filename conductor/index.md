@@ -26,6 +26,8 @@ Latest update: [protected development baseline](../docs/PROTECTED_DEVELOPMENT_BA
 
 Native implementation decision (2026-09-13): [Power Platform architecture, observed licences and fallbacks](../docs/POWER_PLATFORM_NATIVE_PLAN.md). Prefer the existing Power BI workspace, standard cloud connectors and native M/DAX; Python remains local verification tooling. Native and unattended acceptance gates remain open.
 
+Current access scope: [user-based access scope](../docs/USER_BASED_ACCESS_SCOPE.md). The active implementation is limited to the authenticated user's isolated DEV objects and manual operation; organisation-wide sharing, cross-user delivery and unattended recurrence are future extensions.
+
 Native progress (2026-09-13): persisted legacy SQL removal cleared source-free Power Query execution; ReportingWindow saved and survived reload. Live DORA cloud staging returned four feed items. See [protected baseline and execution evidence](../docs/PROTECTED_DEVELOPMENT_BASELINE.md). Full source/model/report acceptance remains open.
 
 Latest ingestion deployment: full PubMed/DORA definitions were applied and a native refresh started. Initial PubMed audits exposed a historical search omission and post-import metadata length changes; corrections were applied. Browser policy verification then blocked final readback. See the latest section of docs/PROTECTED_DEVELOPMENT_BASELINE.md before continuing; ingestion is not yet accepted.

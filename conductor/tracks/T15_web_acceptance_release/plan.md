@@ -1,5 +1,9 @@
 # Plan: Verify the live web implementation and hand over
 
+**Access scope:** current-user isolated report/model acceptance and manual
+readback, matching the publications development route. Reader sharing,
+production rebinding and unattended delivery remain future extensions.
+
 ## Implementation
 - [x] 01. Execute the full regression suite and local contract validator, then separately collect native refresh/query results, actual report/model definitions and screenshots.
 - [x] 02. Verify all required live evidence points against the same target IDs, code/query/contract versions and refresh run. Reject missing evidence, stale timestamps, fixture declarations and unrelated successful refreshes.

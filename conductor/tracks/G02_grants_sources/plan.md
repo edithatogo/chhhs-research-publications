@@ -1,5 +1,9 @@
 # Implementation plan
 
+**Access scope:** current-user source inspection and reviewed/manual intake
+only. No shared feed credentials, organisation-wide collector or unattended
+source schedule is part of this tranche.
+
 - [x] Record scope and acceptance requirements.
 - [x] Inspect current inputs, dependencies and relevant platform objects. The reviewed delivery source map and official authority pages were inspected; endpoint payloads remain unverified.
 - [x] Implement: Convert the researched source map into configuration with authority, format, access, sample and coverage status.

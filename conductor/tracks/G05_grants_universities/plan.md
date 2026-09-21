@@ -1,5 +1,9 @@
 # Implementation plan
 
+**Access scope:** current-user permitted source inspection and reviewed/manual
+institution intake only. No cross-user directory or unattended portal access
+is assumed.
+
 - [x] Record scope and acceptance requirements.
 - [x] Inspect current inputs, dependencies and relevant platform objects. University research-office pages and access boundaries were checked; no institutional login or portal export was used.
 - [x] Implement: Record JCU, UQ, QUT and Griffith authority pages, formats, access, eligibility scope and only source-backed internal lead-time facts.

@@ -1,5 +1,9 @@
 # Implementation Plan: E01 Power Automate Ingestion Canonicalization and Recurrence Scheduling
 
+**Access scope:** current-user isolated/manual publication-flow operation only,
+matching the existing publications development route. Recurrence, sharing and
+organisation-wide binding are future extensions.
+
 ## Phase 1: Trigger & Nomenclature Canonicalization
 - [x] Task 1.1: Refactor `config/flows/publication-registry-upsert.definition.json` to replace the manual button trigger with a 20:00 UTC (06:00 AEST) daily recurrence trigger.
 - [x] Task 1.2: Update flow display name from `"CHHHS Publications - DEV manual ingestion validation"` to `"CHHHS Research Publications - Daily Ingestion & Enrichment"`.

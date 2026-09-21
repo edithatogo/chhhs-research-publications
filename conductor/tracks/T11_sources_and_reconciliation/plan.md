@@ -1,5 +1,9 @@
 # Plan: Repair and prove PubMed plus DORA ingestion
 
+**Access scope:** current-user isolated model/list and manual refresh/readback
+only. Do not introduce shared storage, cross-user delivery or unattended
+recurrence while implementing this plan.
+
 ## Implementation
 - [x] 01. Preserve the user's Library search aliases, including HHS ampersand variants, CHHHS, Cairns Health Service District, Liz Plummer Cancer Care Centre, Tropical Public Health Services and Cairns Sexual Health Service. Reconcile them against config/facilities.json, retaining conservative extra facility searches.
 - [x] 02. Compile each M function in the isolated web model. Validate all text-normalisation functions rather than assuming Python reference code proves M compatibility.

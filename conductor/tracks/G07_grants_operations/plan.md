@@ -1,9 +1,12 @@
 # Implementation plan
 
+**Access scope:** current-user manual operation against isolated DEV data; no
+cross-user monitoring, delivery or unattended schedule is part of this tranche.
+
 - [x] Record scope and acceptance requirements.
 - [x] Inspect current inputs, dependencies and relevant platform objects. Reused G04 source health and G01 stable keys; no operational tenant object was changed.
 - [x] Implement: Add a local fail-closed run evaluator for empty/duplicate/key-missing/failed-source batches and last-accepted preservation.
-- [~] Verify: Local controlled-failure checks pass; one controlled native synthetic create and one same-key update are now evidenced with the flow restored Off. Native monitoring, concurrency, exact-key operational reconciliation and delivery/scheduling remain open.
+- [~] Verify: Local controlled-failure checks pass; one controlled native synthetic create and one same-key update are now evidenced with the flow restored Off. Current-user manual monitoring, concurrency and exact-key operational reconciliation remain open; cross-user delivery and unattended scheduling are future extensions.
 - [x] Review fix: reject whitespace-divergent source and opportunity identity values before operational acceptance (`1ac3d52`).
 - [x] Record local and live evidence separately before closure.
 

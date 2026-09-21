@@ -1,5 +1,9 @@
 # Reproducible source and deployment versioning: executable plan
 
+**Access scope:** current-user isolated report/model version readback and
+manual rollback evidence only. No shared release pipeline or unattended
+deployment is part of this tranche.
+
 Status: in_progress. Source packaging is locally verified; native recovery/versioning remains unaccepted.
 
 ## S02.1 Version contract and tests

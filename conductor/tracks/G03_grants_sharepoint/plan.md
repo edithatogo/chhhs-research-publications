@@ -1,9 +1,13 @@
 # Implementation plan
 
+**Access scope:** authenticated current-user isolated DEV SharePoint and
+manual flow operation, matching the publications development pattern. Shared
+organisation-wide binding and unattended recurrence are future extensions.
+
 - [x] Record scope and acceptance requirements.
 - [x] Inspect current inputs, dependencies and relevant platform objects. The canonical G01 mapping and existing publication SharePoint conventions were inspected; no live grants object was found/read back in this tranche.
 - [x] Implement: Generate the explicit additive `Grants Registry` schema and Power Query read definition with `OpportunityKey` as the only local identity.
-- [~] Verify: Local schema/mapping parity is tested and the isolated DEV list has been created and read back with synthetic create/update/duplicate/concurrent-create/delete evidence. The reviewed-import flow has also been imported and read back Off with native Flow Checker 0/0; a controlled authenticated DEV replay proved synthetic create and same-key update, with the flow restored Off. The native diagnostic expression is now corrected and read back with Flow Checker 0/0; organisation-wide target approval, flow binding to the approved target and unattended acceptance remain open.
+- [~] Verify: Local schema/mapping parity is tested and the isolated DEV list has been created and read back with synthetic create/update/duplicate/concurrent-create/delete evidence. The reviewed-import flow has also been imported and read back Off with native Flow Checker 0/0; a controlled authenticated DEV replay proved synthetic create and same-key update, with the flow restored Off. The remaining current-user gates are manual readback and user-scoped binding; shared organisation-wide target approval and unattended acceptance are future extensions.
 - [x] Record local and live evidence separately before closure; isolated DEV writes are synthetic fixtures only, and the current replay row remains subject to explicit cleanup confirmation before deletion.
 
 ## Phase: Review fixes

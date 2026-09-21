@@ -5,6 +5,12 @@ Target Environment: **Queensland Health M365 Tenant (`{{TENANT_ID}}`)**
 Primary User: **RIMS maintainer (configured privately)**
 Execution Strategy: **Separation of concerns, prioritized by operational value, executed via authenticated browser session**
 
+Access scope: **current authenticated user only**. The active implementation
+uses the existing user's isolated DEV objects and manual operation, matching
+the publications development pattern. Organisation-wide sharing, cross-user
+delivery and unattended schedules are future extensions, not current
+acceptance requirements.
+
 ---
 
 ## 1. Executive Summary & Objective

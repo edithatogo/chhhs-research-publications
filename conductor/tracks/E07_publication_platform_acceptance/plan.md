@@ -1,5 +1,9 @@
 # Implementation plan
 
+**Access scope:** current-user isolated publication list/flow/report route and
+manual readback, matching the publications development pattern. Organisation-
+wide sharing and unattended recurrence are future extensions.
+
 - [x] Phase 1: Review current publication platform claims against protected evidence
 - [x] Phase 2: Define canonical SharePoint/flow/model acceptance gates
 - [x] Phase 3: Correct completion language and document connector boundaries
