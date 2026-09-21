@@ -20,6 +20,7 @@ class FundingWatchlistSchemaTests(unittest.TestCase):
         schema = json.loads((Path(__file__).parents[1] / "config/funding-watchlist.schema.json").read_text())
         fields = {field["display_name"]: field for field in schema["fields"]}
         self.assertEqual(fields["Scope"]["type"], "choice")
+        self.assertEqual(fields["Scope"]["choices"], ["opportunity", "category", "funder"])
         self.assertIs(fields["Active"]["default"], False)
 
 
