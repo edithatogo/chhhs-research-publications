@@ -60,6 +60,18 @@ cross-user monitoring, delivery or unattended schedule is part of this tranche.
   acceptance remain open; a single-key create/update cycle is not a substitute
   for those gates.
 
+### Native official reviewed-row replay — 2026-09-22
+
+- [x] Replay one reviewed Queensland opportunity using canonical key
+  `metro-south-innovate-grants-2027`; run
+  `08584115872127113780695944024CU04` succeeded and readback returned exactly
+  one SharePoint item (ID 8).
+- [x] Delete the exact row with HTTP 200, confirm an empty Atom feed and restore
+  the canonical flow Off. Cross-track receipt:
+  `private/ops/2026-09-22-powerautomate-g02-g04-metro-south-reviewed-row.json`.
+- [~] Duplicate/concurrency, monitoring/delivery, recurrence and production
+  acceptance remain open; this was a bounded manual reviewed-import cycle.
+
 ## Phase: Review fixes
 - [x] Task: Apply review corrections for the controlled native replay and preserve the remaining acceptance boundary (0536b98).
 - [x] Task: Reject runs without source health or with records from unreported sources (aad9d4a).

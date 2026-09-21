@@ -87,6 +87,37 @@ Run a controlled live cycle only after G02 endpoint/access verification and G03 
 - **Context**: Local adapters do not prove a permitted source feed/API, SharePoint write, Power Automate execution, schedule or reconciliation against live rows.
 - **Suggestion**: Keep G04 active until G02 source evidence and G03 target/binding gates are satisfied, then run a controlled source-to-list cycle and reconcile keys, deadline changes and archived rounds.
 
+## Conductor review recheck — native reviewed-row cycle — 2026-09-22
+
+### Summary
+
+The official Metro South Health 2027 INNOVATE page was exercised through the
+existing reviewed-import flow as a bounded current-user test. The canonical
+row key was admitted, read back and removed; the flow was restored Off.
+
+### Verification checks
+
+- [x] Source and distinct row URLs are retained; eligibility, amount and date
+  window were supplied as reviewed values.
+- [x] Canonical flow run succeeded:
+  `08584115872127113780695944024CU04`.
+- [x] SharePoint readback returned one item with
+  `OpportunityKey=metro-south-innovate-grants-2027` and ID 8.
+- [x] Cleanup returned HTTP 200; final registry readback was an empty Atom
+  feed and final flow status was Off.
+- [ ] Unattended feed/API intake, source-change reconciliation, recurrence,
+  monitoring, delivery and production acceptance.
+
+### Findings
+
+This closes the bounded reviewed-row-to-list execution gap for the isolated
+manual route. It does not promote the official HTML page to an unattended
+source and G04 remains active pending source change/reconciliation and
+operational evidence.
+
+Receipt:
+`private/ops/2026-09-22-powerautomate-g02-g04-metro-south-reviewed-row.json`.
+
 ## Conductor review — malformed batch hardening — 2026-09-21
 
 - **Verification:** focused G04 ingestion tests passed (15); full suite passed (374 tests, 8 skipped); project validation passed (438 checks); web-first contracts passed locally.

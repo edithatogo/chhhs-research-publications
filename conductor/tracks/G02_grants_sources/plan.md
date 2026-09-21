@@ -43,6 +43,20 @@ source schedule is part of this tranche.
   a permitted row-level export/API, stable identity and eligibility evidence
   are obtained. G02/G04 remain active.
 
+## Native reviewed-row acceptance — 2026-09-22
+
+- [x] Use the official Metro South Health 2027 INNOVATE page as a reviewed
+  HTML source, retaining its row URL, published dates, amount and employee
+  eligibility statement. No feed/API promotion was made.
+- [x] Admit the canonical reviewed row `metro-south-innovate-grants-2027`
+  through the existing current-user Grants Registry flow; native run
+  `08584115872127113780695944024CU04` succeeded and SharePoint readback
+  returned one item (ID 8).
+- [x] Delete the exact test row and read back the empty registry; receipt:
+  `private/ops/2026-09-22-powerautomate-g02-g04-metro-south-reviewed-row.json`.
+- [~] Keep unattended source/API promotion, broader row-level eligibility
+  review and production acceptance open.
+
 ## Phase: Review Fixes
 
 - [x] Task: Preserve positional source cells alongside the convenience header map in the review-only HTML adapter (review fix `24e880c`).

@@ -158,6 +158,24 @@ Implemented in `da0b657`, with regression coverage in `tests/test_grants_registr
 - **Verification:** commit `0a5fc92` passes the focused reviewed-import suite (5 tests), the full local suite (374 tests, 8 skips), project validation (438 checks), web-first contracts and Conductor validation.
 - **Residual gate:** a real human-reviewed current row or permitted opportunity feed/API is still required before G02 can close.
 
+## Conductor review recheck — native reviewed-row evidence — 2026-09-22
+
+The official Metro South Health 2027 INNOVATE page supplied a bounded,
+explicitly reviewed row with distinct source and row URLs, a published amount,
+eligibility statement and date window. The canonical current-user flow run
+`08584115872127113780695944024CU04` succeeded, SharePoint readback returned
+one item with key `metro-south-innovate-grants-2027` (ID 8), and the exact row
+was deleted with HTTP 200. The final registry readback was an empty Atom feed
+and the flow was Off.
+
+This closes the specific reviewed-row/native-write evidence gap for the
+isolated manual route. It does not promote the HTML page to an unattended
+feed/API, establish organisation-wide eligibility, or prove recurrence,
+monitoring, delivery or production acceptance. G02 remains active.
+
+Receipt:
+`private/ops/2026-09-22-powerautomate-g02-g04-metro-south-reviewed-row.json`.
+
 ## Conductor review — ARC adapter type hardening — 2026-09-21
 
 - **Finding:** the ARC awards adapter string-coerced API identities, evidence links and descriptive fields, allowing malformed payload values to enter award context.

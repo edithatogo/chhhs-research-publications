@@ -198,3 +198,31 @@ is not eligible for archive.
 
 Receipt:
 `private/ops/2026-09-22-powerautomate-g07-exact-key-cycle.json`.
+
+## Conductor review recheck — native official reviewed-row replay — 2026-09-22
+
+### Summary
+
+One explicitly reviewed Queensland opportunity was replayed through the same
+canonical Grants flow used by G07. The real canonical key was created and read
+back, then the exact item was removed and the flow restored Off.
+
+### Verification checks
+
+- [x] Run `08584115872127113780695944024CU04` succeeded for
+  `metro-south-innovate-grants-2027`.
+- [x] SharePoint readback returned exactly one item, ID 8, for the key.
+- [x] Exact cleanup returned HTTP 200; final readback was an empty Atom feed.
+- [x] Final canonical flow status was Off.
+- [ ] Duplicate/concurrency, unattended monitoring/delivery, recurrence and
+  production acceptance.
+
+### Findings
+
+The bounded reviewed-row execution path is now natively evidenced alongside
+malformed-input failure safety and exact-key create/update behaviour. G07
+remains active because the outstanding operational gates are broader than a
+single manual replay.
+
+Receipt:
+`private/ops/2026-09-22-powerautomate-g02-g04-metro-south-reviewed-row.json`.

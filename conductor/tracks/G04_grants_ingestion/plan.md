@@ -10,6 +10,17 @@ extensions.
 - [x] Verify: XML/API-shaped fixtures, malformed/incomplete batches, changed deadlines, archived rounds and failed-source isolation are covered locally; live source cycles remain open.
 - [x] Record local and live evidence separately before closure; no unattended flow or schedule was activated.
 
+## Native reviewed-import cycle — 2026-09-22
+
+- [x] Execute one official Queensland HTML opportunity through the existing
+  reviewed-import route, preserving the source and row URLs, raw deadline
+  window, eligibility wording and evidence hash.
+- [x] Read back the exact `OpportunityKey` from SharePoint after the successful
+  run, then delete the exact row and confirm the empty list. Receipt:
+  `private/ops/2026-09-22-powerautomate-g02-g04-metro-south-reviewed-row.json`.
+- [~] RSS/Atom/API promotion, source change/archive reconciliation, recurrence,
+  monitoring and unattended operation remain open.
+
 ## Review fixes — 2026-09-20
 
 - [x] Task: Apply review suggestion: hash the complete source row and reject duplicate calendar identities before candidate emission (03733b8).

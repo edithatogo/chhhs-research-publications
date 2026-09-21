@@ -988,3 +988,17 @@ Atom feed. Receipt: ignored
 `private/ops/2026-09-22-powerautomate-g07-exact-key-cycle.json`. This proves
 isolated native create/update/cleanup only; duplicate/concurrency, unattended
 monitoring/delivery and production acceptance remain open.
+
+G02/G04/G07 native reviewed-row acceptance (2026-09-22): the official Metro
+South Health 2027 INNOVATE page supplied a bounded reviewed row with distinct
+source and row URLs, published amount, eligibility statement and EOI date
+window. The existing canonical QLD Health Grants flow was temporarily enabled;
+run `08584115872127113780695944024CU04` succeeded for canonical key
+`metro-south-innovate-grants-2027`, and SharePoint readback returned one item
+(ID 8). The exact row was deleted with HTTP 200, the full list readback
+returned an empty Atom feed, and the flow was restored Off. Receipt: ignored
+`private/ops/2026-09-22-powerautomate-g02-g04-metro-south-reviewed-row.json`.
+This closes the bounded reviewed-row-to-list execution gap for the isolated
+manual route only; no unattended HTML/feed promotion, source-change
+reconciliation, recurrence, monitoring, delivery, refresh or production
+acceptance is claimed. G02, G04 and G07 remain active.
