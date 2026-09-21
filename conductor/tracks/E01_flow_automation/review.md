@@ -8,6 +8,32 @@ source-only evidence. The QLD Health null-date branch was explored but not
 saved after the authenticated browser session was lost; no native Flow
 Checker/readback or replay is claimed, and the canonical flow remains Off.
 
+## Conductor review finding and fix — 2026-09-22
+
+### Finding
+
+The publication-flow validator enforced the SharePoint/upsert graph but did
+not enforce two explicit E01 specification requirements: the daily 20:00 UTC
+recurrence trigger and the canonical manifest display name. A structurally
+valid but manually triggered or legacy-named package could therefore pass the
+local contract.
+
+### Fix
+
+`validate_publication_platform_contract.py` now validates the recurrence
+frequency, interval, timezone, hour and minute, and validates that the manifest
+contains exactly one flow resource using the canonical display name. The
+package manifest is checked when a private package is available. Regression
+coverage was added in `tests/test_publication_platform_contract.py`.
+
+### Verification
+
+Commit `c614d43` passes the focused publication contract suite (22 tests, 8
+private-package cases skipped), the full suite (446 tests, 8 skipped), 460
+project checks, web-first validation and Conductor validation. This is a local
+structural fix only; native import, replay, reconciliation and schedule
+acceptance remain open.
+
 ## Implementation Summary
 1. **Flow Definition Canonicalized:**
    - File: `config/flows/publication-registry-upsert.definition.json`

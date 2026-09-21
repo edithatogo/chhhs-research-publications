@@ -57,3 +57,9 @@ Earlier checked tasks describe historical implementation. They do not close curr
   open.
 - [ ] Archive E01 only after native replay, failure-safe reconciliation and
   schedule/release evidence are terminal and independently read back.
+
+## Phase: Conductor review fix — 2026-09-22
+
+- [x] Enforce the specified daily 20:00 UTC recurrence and canonical manifest
+  display name in the publication-flow validator, with regression coverage
+  (`c614d43`). Native deployment and schedule acceptance remain open.
