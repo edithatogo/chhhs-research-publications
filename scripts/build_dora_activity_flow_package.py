@@ -31,13 +31,17 @@ def build_package(output: Path, *, site_url: str, list_id: str, flow_id: str,
                   connection_display_name: str, definition_path: Path = DEFAULT_DEFINITION) -> Path:
     if not output.resolve().is_relative_to((ROOT / "private").resolve()):
         raise ValueError("tenant-specific package must be written under ignored private/")
+    if not isinstance(site_url, str) or not isinstance(list_id, str) or not isinstance(flow_id, str):
+        raise ValueError("site_url, list_id and flow_id must be strings")
+    if not isinstance(connection_display_name, str):
+        raise ValueError("connection display name must be a string")
     parsed_site = urlsplit(site_url.strip())
     if parsed_site.scheme != "https" or not parsed_site.netloc or "{{" in site_url:
         raise ValueError("a concrete HTTPS SharePoint site URL is required")
     for value, label in ((list_id, "list_id"), (flow_id, "flow_id")):
         try:
             UUID(value)
-        except (ValueError, AttributeError) as exc:
+        except (TypeError, ValueError, AttributeError) as exc:
             raise ValueError(f"{label} must be a GUID") from exc
     if not isinstance(connection_display_name, str) or not connection_display_name.strip():
         raise ValueError("connection display name is required")

@@ -37,6 +37,21 @@ class DoraActivityFlowPackageTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 build_package(Path(folder) / "bad.zip", site_url="https://example.org", list_id=str(uuid.uuid4()), flow_id=str(uuid.uuid4()), connection_display_name=False)
 
+    def test_rejects_non_string_target_parameters(self):
+        private_root = Path(__file__).parents[1] / "private"
+        private_root.mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=private_root) as folder:
+            output = Path(folder) / "bad.zip"
+            with self.assertRaisesRegex(ValueError, "must be strings"):
+                build_package(output, site_url=None, list_id=str(uuid.uuid4()),
+                              flow_id=str(uuid.uuid4()), connection_display_name="DEV")
+            with self.assertRaisesRegex(ValueError, "must be strings"):
+                build_package(output, site_url="https://example.org", list_id=None,
+                              flow_id=str(uuid.uuid4()), connection_display_name="DEV")
+            with self.assertRaisesRegex(ValueError, "must be a string"):
+                build_package(output, site_url="https://example.org", list_id=str(uuid.uuid4()),
+                              flow_id=str(uuid.uuid4()), connection_display_name=None)
+
     def test_rejects_definition_drift_before_writing_package(self):
         private_root = Path(__file__).parents[1] / "private"
         private_root.mkdir(exist_ok=True)
