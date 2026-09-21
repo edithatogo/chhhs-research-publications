@@ -1,5 +1,12 @@
 # G02 review
 
+## Conductor review — reviewed-import evidence boundary — 2026-09-22
+
+- **Finding:** the reviewed-import fallback claimed not to repair reviewer input but stripped source, identity, URL and review-status fields before admission, allowing malformed evidence to become canonical.
+- **Fix:** reviewed source/identity/URL/review-status fields now reject surrounding whitespace; accepted evidence URLs are preserved exactly after validation. Descriptive fields retain their existing normalization behaviour.
+- **Verification:** focused reviewed-import tests pass (9); project checks pass 460; web-first, Conductor and diff validation pass locally.
+- **Residual gate:** permitted opportunity feeds, row-level review/eligibility evidence, unattended intake and production acceptance remain open.
+
 ## Conductor review — optional metadata identity boundary — 2026-09-22
 
 - **Finding:** optional `record_kind` and `sample_fixture` metadata accepted surrounding whitespace, allowing non-canonical provenance labels to pass catalogue validation and later source-promotion checks.
