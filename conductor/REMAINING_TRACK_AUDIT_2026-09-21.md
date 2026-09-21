@@ -237,6 +237,14 @@ operation.
   existing flow identity, saved, and Flow Checker again read `Errors (0)` and
   `Warnings (0)`. The tracked local definition already used the quoted form;
   this is a tenant-side correction receipt, not a null-date execution proof.
+- **Native null-date recheck (2026-09-22):** the flow was temporarily turned
+  on for one controlled synthetic input with `PreviousDate=null`, then run as
+  `08584115961596220678423119580CU22`. It reached `SharePoint Get items` and
+  failed at `Create item` because the connector received `""` for the
+  `PreviousDate` date field (`OpenApiOperationParameterTypeConversionFailed`;
+  expected `String/date`). No synthetic SharePoint row was written. The flow
+  was turned Off again immediately after the test. This confirms the known
+  connector edge rather than acceptance of the optional-date path.
 - **Decision:** keep G08 active; the non-null native execution/readback gate
   is evidenced, but the track is not complete or archivable.
 

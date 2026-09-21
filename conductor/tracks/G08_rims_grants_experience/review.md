@@ -534,3 +534,17 @@ shape copied from a tenant-exported native flow.
 - **Boundary:** this repairs the tenant configuration syntax only. The
   `PreviousDate=null` connector edge, refresh/reconciliation and delivery
   gates remain open; no new test row was written.
+
+### Native null-date recheck — 2026-09-22
+
+- **Controlled run:** the existing current-user flow was temporarily enabled
+  for a single synthetic row with `PreviousDate=null`. Run
+  `08584115961596220678423119580CU22` reached `SharePoint Get items` and then
+  failed at `Create item` because the connector received an empty string for
+  the `PreviousDate` date field. The native error was
+  `OpenApiOperationParameterTypeConversionFailed` (expected `String/date`).
+- **Cleanup/boundary:** no synthetic row was written, and the flow was turned
+  Off after the test. This is authoritative evidence of the optional-date
+  connector edge, not a successful null-date execution. A null-preserving
+  action design, model/page binding, refresh/reconciliation and delivery
+  remain open; G08 stays active.

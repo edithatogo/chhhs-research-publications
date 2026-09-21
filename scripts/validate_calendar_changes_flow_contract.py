@@ -32,14 +32,22 @@ def validate(definition: dict[str, Any]) -> list[str]:
     is_new=nested.get("Condition_Is_New_Calendar_Change",{}); exactly_one=is_new.get("else",{}).get("actions",{}).get("Condition_Exactly_One_Calendar_Change",{})
     if is_new.get("expression",{}).get("equals",[None,None])[1:] != [0]: errors.append("new change branch must require zero matches")
     if exactly_one.get("expression",{}).get("equals",[None,None])[1:] != [1]: errors.append("change update must require exactly one match")
-    create=is_new.get("actions",{}).get("SharePoint_Create_item",{}); update=exactly_one.get("actions",{}).get("SharePoint_Update_item",{})
-    mapped={k.removeprefix("item/") for k in create.get("inputs",{}).get("parameters",{}) if k.startswith("item/")}
-    if mapped != {"Title", *fields}: errors.append("change create mappings must match the canonical schema fields")
-    for label, action, operation in (("create",create,"PostItem"),("update",update,"PatchItem")):
-        host=action.get("inputs",{}).get("host",{}); action_params=action.get("inputs",{}).get("parameters",{})
-        if host.get("apiId") != "/providers/Microsoft.PowerApps/apis/shared_sharepointonline" or host.get("operationId") != operation: errors.append(f"change {label} must use SharePoint {operation}")
-        if action_params.get("dataset") != params.get("dataset") or action_params.get("table") != params.get("table"): errors.append(f"change {label} must target the same SharePoint list as lookup")
-        if not action.get("inputs",{}).get("authentication"): errors.append(f"change {label} must declare connector authentication")
+    create_condition=is_new.get("actions",{}).get("Condition_PreviousDate_Present_Create",{})
+    update_condition=exactly_one.get("actions",{}).get("Condition_PreviousDate_Present_Update",{})
+    expected={"Title", *fields}; without_date=expected-{"PreviousDate"}
+    for label, condition, operation in (("create",create_condition,"PostItem"),("update",update_condition,"PatchItem")):
+        if condition.get("expression",{}).get("not",{}).get("equals",[None,None])[1:] != [None]: errors.append(f"change {label} must branch on null PreviousDate")
+        actions=condition.get("actions",{}); fallback=condition.get("else",{}).get("actions",{})
+        with_date=next((a for n,a in actions.items() if n.endswith("_With_PreviousDate")),{})
+        without_date_action=next((a for n,a in fallback.items() if n.endswith("_Without_PreviousDate")),{})
+        for branch, action in (("with-date",with_date),("without-date",without_date_action)):
+            mapped={k.removeprefix("item/") for k in action.get("inputs",{}).get("parameters",{}) if k.startswith("item/")}
+            required=expected if branch == "with-date" else without_date
+            if mapped != required: errors.append(f"change {label} {branch} mappings must match its canonical schema fields")
+            host=action.get("inputs",{}).get("host",{}); action_params=action.get("inputs",{}).get("parameters",{})
+            if host.get("apiId") != "/providers/Microsoft.PowerApps/apis/shared_sharepointonline" or host.get("operationId") != operation: errors.append(f"change {label} {branch} must use SharePoint {operation}")
+            if action_params.get("dataset") != params.get("dataset") or action_params.get("table") != params.get("table"): errors.append(f"change {label} {branch} must target the same SharePoint list as lookup")
+            if not action.get("inputs",{}).get("authentication"): errors.append(f"change {label} {branch} must declare connector authentication")
     if "shared_onedriveforbusiness" in json.dumps(definition).lower(): errors.append("change definition must not use OneDrive")
     return errors
 

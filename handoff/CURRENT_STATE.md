@@ -818,6 +818,15 @@ were corrected in the same flow identity, saved, and Flow Checker again read
 quoted form. Model refresh/reconciliation and delivery remain open; this is
 current-user DEV configuration/readback evidence, not production acceptance.
 
+The subsequent controlled null-date recheck used run
+`08584115961596220678423119580CU22` after temporarily enabling the existing
+flow. It reached `SharePoint Get items` but failed at `Create item` because
+the connector converted the null `PreviousDate` to an empty string and rejected
+it as an invalid `String/date` value. No row was written; the flow was turned
+Off again after the test. This confirms the native optional-date edge and
+requires a null-preserving branch/action design before that path can be
+accepted.
+
 The bounded diagnostic was extended once using a private tenant-exported
 watchlist package as the source for metadata, connection-reference and
 authentication shape. That third calendar-change import was rejected with the
