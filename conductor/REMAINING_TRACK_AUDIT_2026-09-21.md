@@ -448,3 +448,8 @@ operation.
   submitted. The QLD Health tenant remains the sole canonical native target;
   the local package and source-only GitHub checkout remain the canonical
   implementation artefacts.
+- The follow-up PAC environment-name audit reached `VUW-AI-TEST` but its flow
+  inventory was empty; `VUW-AI-DEV` returned `Forbidden`, and the remaining
+  visible VUW environment selections did not expose an exportable flow. The
+  active PAC profile was restored to the VUW STAFF default environment after
+  the read-only checks.
