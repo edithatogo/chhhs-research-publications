@@ -149,6 +149,23 @@ class GrantsSourceTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "api_url must not have surrounding whitespace"):
                 load_catalogue(handle.name)
 
+    def test_catalogue_rejects_surrounding_optional_metadata_whitespace(self):
+        rows = json.loads((Path(__file__).parents[1] / "config/grants-sources.json").read_text())
+        rows[0]["record_kind"] = " awards_only"
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json") as handle:
+            json.dump(rows, handle)
+            handle.flush()
+            with self.assertRaisesRegex(ValueError, "record_kind must be a non-empty string or null"):
+                load_catalogue(handle.name)
+
+        rows[0].pop("record_kind")
+        rows[0]["sample_fixture"] = "fixture.json "
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json") as handle:
+            json.dump(rows, handle)
+            handle.flush()
+            with self.assertRaisesRegex(ValueError, "sample_fixture must be a non-empty string or null"):
+                load_catalogue(handle.name)
+
     def test_arc_public_api_is_verified_as_awards_only(self):
         rows = load_catalogue(Path(__file__).parents[1] / "config/grants-sources.json")
         arc = next(row for row in rows if row["source_id"] == "arc")

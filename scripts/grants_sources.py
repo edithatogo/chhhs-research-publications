@@ -62,7 +62,11 @@ def load_catalogue(path: str | Path) -> list[dict[str, Any]]:
             raise ValueError(f"source {source_id!r} has unsupported health_status")
         for field in OPTIONAL_TEXT_FIELDS:
             value = row.get(field)
-            if value is not None and (not isinstance(value, str) or not value.strip()):
+            if value is not None and (
+                not isinstance(value, str)
+                or not value.strip()
+                or value != value.strip()
+            ):
                 raise ValueError(f"source {source_id!r} {field} must be a non-empty string or null")
         if "api_url" in row and row.get("api_url") is not None and not isinstance(row.get("api_url"), str):
             raise ValueError(f"source {source_id!r} api_url must be a string or null")
