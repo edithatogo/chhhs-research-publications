@@ -452,6 +452,22 @@ Conductor, web-first, Power Platform, visual and canonical flow validators pass
 locally. Native list readback, monitoring, exact-key reconciliation, scheduling
 and delivery remain open; no tenant mutation was made.
 
+Latest native G03 continuation (2026-09-21): the authenticated current-user
+Power Automate route was used to retain the sole existing grants flow and
+update it in place. The legacy package importer offered only `Create as new`,
+so that duplicate-producing route was cancelled. The personal DEV `Grants
+Registry` received the missing `SourceRowURL` Hyperlink column. The flow
+designer then persisted and reloaded SourceRowURL plus the canonical choice
+mappings: Create defaults ReviewStatus to `Needs Review`, while Update leaves
+ReviewStatus unchanged. A fresh native package export records server
+modification time `2026-09-21T03:12:53.7725597Z` and contains these mappings.
+Flow Checker reads 0 errors and 1 warning limited to the flow being Off. The
+flow remains Off; no new run, schedule, sharing or notification was activated.
+This closes the export/server-definition discrepancy noted earlier, but not
+the remaining explicit synthetic-row cleanup/readback or operational
+acceptance gates. Native evidence is current-user isolated platform evidence,
+not organisation-wide or unattended acceptance.
+
 Inspect `git status --short` at entry. Preserve unrelated report/manifest and other existing edits; do not mass-stage. Use the active track's spec and plan for tasks. Follow AGENTS.md approval boundaries for deployment/sharing/schedules. Current user direction defines scope; historical observations supply evidence only for their dates. Live contradictions require readback, not a convenient choice of document.
 
 Update this checkpoint with outcome, next executable task, test command/result and exact blocker after work. Keep credentials, actual tenant identifiers and screenshots under ignored private storage. Do not paste raw private output into a context bundle.

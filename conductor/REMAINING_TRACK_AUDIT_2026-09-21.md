@@ -8,7 +8,7 @@ and its required native acceptance evidence are both complete.
 |---|---|---|---|
 | S02 | Clean canonical source package reproducibly verified; SharePoint item versioning observed | Isolated native report version/batch display and readback | Keep active |
 | G02 | Official NHMRC/MRFF calendars, ARC awards API, Queensland metadata API, conservative source catalogue, and fail-closed row-level evidence/eligibility gate verified | Permitted opportunity feed/API or explicit human-reviewed rows with source links and eligibility | Keep active |
-| G03 | Isolated Grants Registry schema and authenticated synthetic create/update/duplicate/concurrency evidence; flow checker 0/0; standalone tracked-flow validator and CI gate pass | Current-user isolated target binding, manual readback and user-scoped acceptance | Keep active |
+| G03 | Isolated Grants Registry schema and authenticated synthetic create/update/duplicate/concurrency evidence; existing flow updated in place; fresh native export contains `SourceRowURL`, choice mappings and current server timestamp; flow remains Off with Flow Checker 0 errors and 1 inactive-flow warning | Explicit cleanup/readback and user-scoped operational acceptance; shared organisation-wide target and unattended operation are future extensions | Keep active |
 | G04 | RSS/Atom/API-shaped adapters and fresh 13/179 NHMRC/MRFF candidate extraction | Controlled source-to-list cycle and reconciliation | Keep active |
 | G05 | University catalogue and access/lead-time evidence | Permitted institutional export/feed or reviewed intake | Keep active |
 | G06 | Typed relationship contract and local safeguards; isolated personal DEV `Grant Relationships` list with all eight native fields and required/unique/indexed `RelationshipKey` read back | Remaining required-field readback, evidence-bearing relationship round-trip and unchanged publication totals | Keep active |
@@ -55,6 +55,24 @@ Flinders tenant/account (`mord0015@flinders.edu.au`). No login, tenant switch,
 deployment, or write was attempted. The native gates listed above therefore
 remain open; this is evidence of unchanged external state, not a completion
 receipt.
+
+## Native grants-flow continuation — 2026-09-21
+
+The authenticated current-user route was restored through `playwright-cli`.
+The existing flow `CHHHS Research Grants - Reviewed Import Upsert`
+(`acf866e4-e4a2-4113-bce4-d2dd9e2f22d6`) was retained as the sole grants flow;
+the legacy package importer was tested but offered only `Create as new`, so it
+was cancelled and no duplicate was created. The personal DEV SharePoint list
+`Grants Registry` received the missing `SourceRowURL` Hyperlink column. The
+existing flow editor then persisted and reloaded SourceRowURL and choice
+mappings for Create and Update; Create defaults ReviewStatus to `Needs Review`
+and Update leaves ReviewStatus untouched. A fresh package export recorded
+server modification time `2026-09-21T03:12:53.7725597Z` and contains the
+SourceRowURL and choice mappings. Flow Checker reads 0 errors and 1 warning,
+where the warning is only that the flow is Off. The flow remains Off and no
+new run, schedule, sharing or notification was activated. G03 remains active
+until the explicit synthetic-row cleanup/readback and current-user operational
+acceptance gates are closed.
 
 ## Local hardening continuation — 2026-09-21
 
