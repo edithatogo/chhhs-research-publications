@@ -2,8 +2,8 @@
 
 ## Synchronized verification — 2026-09-22
 
-The canonical checkout passes 450 tests (8 skipped), 460 project checks,
-Conductor validation and source-only CI run `35657921400`. Native report/model
+The canonical checkout passes 456 tests (8 skipped), 460 project checks,
+Conductor validation and source-only CI run `35660297803`. Native report/model
 version display, history and rollback remain open.
 
 ## S02.1–S02.2 local implementation

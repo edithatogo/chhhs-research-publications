@@ -2,8 +2,8 @@
 
 ## Synchronized verification — 2026-09-22
 
-The canonical checkout passes 450 tests (8 skipped), 460 project checks,
-Conductor validation and source-only CI run `35657921400`. Native readback
+The canonical checkout passes 456 tests (8 skipped), 460 project checks,
+Conductor validation and source-only CI run `35660297803`. Native readback
 still reports nine Clinical Analytics field-binding errors, so visual
 acceptance remains open.
 

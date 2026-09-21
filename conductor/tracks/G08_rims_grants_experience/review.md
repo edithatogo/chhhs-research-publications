@@ -30,8 +30,8 @@ Review status: in progress; local planning and idempotency contracts are impleme
 
 ## Synchronized verification — 2026-09-22
 
-The canonical checkout passes 450 tests (8 skipped), 460 project checks,
-Conductor validation and source-only CI run `35657921400`. This updates the
+The canonical checkout passes 456 tests (8 skipped), 460 project checks,
+Conductor validation and source-only CI run `35660297803`. This updates the
 local evidence baseline only. The QLD Health null-date repair was not saved:
 the authenticated browser session was lost before Flow Checker/readback or
 replay, the canonical flow remains Off, and VUW PAC exposed no cloud-flow
