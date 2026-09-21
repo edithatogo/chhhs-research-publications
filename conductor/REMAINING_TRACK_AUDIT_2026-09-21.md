@@ -123,8 +123,9 @@ with an HTTPS evidence URL was created and read back, updated (title and
 evidence URL), read back again, and then deleted to the recycle bin. The list
 now reads `ItemCount=0`. A read-only SharePoint API check of the personal
 `Publication Registry` read `ItemCount=1468`; no publication item was changed
-by the relationship test. G06 remains active until a true before/after
-publication-key reconciliation is captured; no shared binding was made.
+by the relationship test. The correlated before/after key-set reconciliation
+and exact-item cleanup were subsequently captured, so G06 was reviewed and
+archived for the current-user scope; no shared binding was made.
 
 ## Local hardening continuation — 2026-09-21
 

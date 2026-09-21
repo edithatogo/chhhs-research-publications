@@ -19,7 +19,7 @@ Execution order and boundaries: [detailed handoff](PUBLICATION_STABILISATION.md)
 - [x] [T08_web_capability_discovery: Prove the plugin and web UI capabilities](tracks/T08_web_capability_discovery/plan.md) — complete (web-first route and capabilities verified with agy / web UI)
 - [x] [T09_execution_contracts: Reconcile context and implement the execution gates](tracks/T09_execution_contracts/plan.md) — complete (local only)
 - [x] [T10_isolated_baseline: Protect the existing report and prove an isolated write](tracks/T10_isolated_baseline/plan.md) — complete (isolated canary write and rollback verified)
-- [~] [T11_sources_and_reconciliation: Repair and prove PubMed plus DORA ingestion](tracks/T11_sources_and_reconciliation/plan.md) — implementation exists; native/operational acceptance remains open (2026-09-20 audit).
+- [~] [T11_sources_and_reconciliation: Repair and prove PubMed plus DORA ingestion](tracks/T11_sources_and_reconciliation/plan.md) — current-user native list/model/flow readback is evidenced; retained-history, refresh, recurrence, delivery and production acceptance remain open (2026-09-22 audit).
 - [x] [T12_research_model: Replace the underlying model, not just its labels](tracks/T12_research_model/plan.md) — complete (canonical reporting model, DAX readback, multi-source integration)
 - [x] [T13_web_visuals: Implement the three-page publication report](tracks/T13_web_visuals/plan.md) — historical three-page implementation; current native scope is four pages after S01 reconciliation
 - [~] [T14_complete_exports_monthly: Export every citation and stage the monthly workflow](tracks/T14_complete_exports_monthly/plan.md) — implementation exists; native/operational acceptance remains open (2026-09-20 audit).
