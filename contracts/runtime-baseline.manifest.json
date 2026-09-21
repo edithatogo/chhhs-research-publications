@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "basis_commit": "G06-local-relationship-projection-20260922",
+  "basis_commit": "G08-local-calendar-change-ledger-20260922",
   "purpose": "Frozen drift-detection baseline, NOT certification of native correctness.",
   "native_verified": false,
   "known_defects_open": true,
@@ -150,6 +150,6 @@
     "powerquery/fnRetainSourceObservations.m": "98dc21b33ec8d45501ff4a8a502bf3863d4edbb7e8c4dd8cc773c5c1cf1d2a2a",
     "powerquery/fnValidateStoredMetadata.m": "c6b8c28fba0309012274e702c0e9c22b4b10d5db85d23e3ad8a6fb076f0d369a"
   },
-  "reviewed_revision": "G06-local-relationship-projection",
+  "reviewed_revision": "G08-local-calendar-change-ledger",
   "review_reference": "conductor/tracks/G08_rims_grants_experience/review.md"
 }
