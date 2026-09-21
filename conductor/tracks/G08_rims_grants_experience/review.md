@@ -761,3 +761,16 @@ stale model/report data and must not be treated as current list persistence.
 - **Receipt:** `private/ops/2026-09-22-powerbi-g08-stale-synthetic-readback.json`.
 - **Residual gate:** a correlated successful refresh followed by row-set
   reconciliation is required before G08 can close.
+
+### Native model refresh retry 2 — 2026-09-22
+
+The authenticated QLD Health semantic-model editor was given one further
+bounded refresh observation after the current-user `Funding Calendar` and `My
+Funding Watchlist` SharePoint readbacks were empty. The refresh remained at
+`Processing queries and validating semantic model` and was cancelled through
+the native confirmation dialog.
+
+- **Mutation:** none; no successful refresh, model write or row reconciliation
+  is claimed.
+- **Receipt:** `private/ops/2026-09-22-powerbi-native-refresh-retry-2.json`.
+- **Residual gate:** native refresh remains blocked/stalled; G08 stays open.
