@@ -650,6 +650,22 @@ cosmetic documentation debt; it does not overturn the native visual readback.
 Refresh/reconciliation, current-user flow/page binding, subscription isolation,
 ledger cleanup and actual calendar/reminder delivery remain open.
 
+Native synthetic-row cleanup (2026-09-22): the authenticated SharePoint UI
+identified the exact synthetic rows in `Funding Delivery Ledger`, `Funding
+Calendar` and `My Funding Watchlist`. Each native delete confirmation was
+accepted, sending only those test rows to the recycle bin. Subsequent list
+readback showed each list with its header and no data row. The saved Power BI
+cache still requires a refresh/readback after this cleanup; this does not prove
+unattended refresh, subscription isolation or notification delivery.
+
+Power BI refresh boundary (2026-09-22): a native semantic-model `Refresh all
+tables` operation was started after cleanup. It remained at `Processing queries
+and validating semantic model` through repeated live polling, so it was
+cancelled through the native `Cancel refresh` confirmation. No refresh success,
+row reconciliation or scheduled refresh is claimed; the report's cached
+synthetic rows remain a known stale-readback boundary until a successful native
+refresh can be completed.
+
 Model-write boundary (2026-09-21): the semantic-model editor exposes an
 `Editing` mode and the existing canonical publication model was extended in
 place through its Power Query editor after the pre-grants publication-model

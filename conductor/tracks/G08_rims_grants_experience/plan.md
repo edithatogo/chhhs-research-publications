@@ -126,3 +126,8 @@ watchlist input contract is required before another native copy is created.
 - [x] Add and save native table visuals on `Funding Calendar & Watchlist`: the calendar visual is bound to `Funding Calendar.CalculatedDate`, `DeadlineKey`, `ReviewStatus` and `SourceURL`, and the watchlist visual is bound to `My Funding Watchlist.Active`, `OpportunityKey`, `Scope` and `TargetKey`. Reading-view readback shows all eight headers, the synthetic calendar row and the synthetic watchlist row.
 - [ ] Refresh/row reconciliation and current-user flow/page binding remain separate gates. The page status text still contains the older phrase that semantic-model binding is pending; this is a cosmetic documentation gap, not evidence that the native bindings are absent.
 - [ ] Add current-user flow/page binding, subscription isolation, calendar revision ledger and actual reminder/change delivery after the semantic-model route is available.
+
+### Native synthetic-row cleanup — 2026-09-22
+
+- [x] Through the authenticated SharePoint UI, select only the exact synthetic delivery-ledger, calendar and watchlist rows and confirm each native `Delete?` dialog. Each item was sent to the recycle bin; subsequent list readback showed only the list header row and no synthetic item.
+- [ ] Refresh the saved report cache and re-read the bound visuals after cleanup. A native model refresh was explicitly started, remained at `Processing queries and validating semantic model` during repeated polling, and was cancelled through the native confirmation dialog; no refresh success is claimed. This must not be confused with unattended refresh or notification acceptance.
