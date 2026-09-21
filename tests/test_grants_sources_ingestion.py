@@ -51,6 +51,15 @@ class GrantsSourceTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "source_id must be a non-empty string"):
                 load_catalogue(handle.name)
 
+    def test_catalogue_rejects_surrounding_source_id_whitespace(self):
+        rows = json.loads((Path(__file__).parents[1] / "config/grants-sources.json").read_text())
+        rows[0]["source_id"] = " nhmrc"
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json") as handle:
+            json.dump(rows, handle)
+            handle.flush()
+            with self.assertRaisesRegex(ValueError, "surrounding whitespace"):
+                load_catalogue(handle.name)
+
     def test_catalogue_rejects_non_string_urls(self):
         rows = json.loads((Path(__file__).parents[1] / "config/grants-sources.json").read_text())
         rows[0]["authority_url"] = True

@@ -42,6 +42,8 @@ def load_catalogue(path: str | Path) -> list[dict[str, Any]]:
         source_id = raw_source_id.strip()
         if not source_id or source_id in seen:
             raise ValueError(f"duplicate or missing source_id: {source_id!r}")
+        if source_id != raw_source_id:
+            raise ValueError(f"source {source_id!r} must not have surrounding whitespace")
         seen.add(source_id)
         if not isinstance(row.get("title"), str) or not row["title"].strip():
             raise ValueError(f"source {source_id!r} needs title and authority_url")
