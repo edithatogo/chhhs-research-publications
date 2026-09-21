@@ -9,7 +9,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from dora_activity import DATASTORE_SEARCH, PACKAGE_SHOW, SOURCE_FIELDS, collect
+from dora_activity import DATASTORE_SEARCH, PACKAGE_SHOW, SOURCE_FIELDS, collect, select_resource
 from collect_pubmed import canonical_json
 from export_dora_activity import EXPORT_FIELDS, activity_key, build_rows
 
@@ -60,6 +60,16 @@ class DoraActivityTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "schema drift"):
             with tempfile.TemporaryDirectory() as folder:
                 collect(Path(folder) / "activity", drift, page_size=2)
+
+    def test_active_resource_id_must_be_a_non_empty_string(self):
+        package = {
+            "resources": [{
+                "id": 7, "format": "CSV", "datastore_active": True,
+                "last_modified": "2026-09-08T07:55:28Z",
+            }]
+        }
+        with self.assertRaisesRegex(ValueError, "invalid id"):
+            select_resource(package)
 
     def test_export_adds_provenance_without_dropping_source_columns(self):
         envelope = {

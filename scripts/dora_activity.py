@@ -75,10 +75,14 @@ def select_resource(package: dict[str, Any]) -> dict[str, Any]:
         if isinstance(resource, dict)
         and resource.get("datastore_active") is True
         and str(resource.get("format", "")).upper() == "CSV"
-        and resource.get("id")
     ]
     if not candidates:
         raise ValueError("DoRA package has no active CSV datastore resource")
+    if any(
+        not isinstance(resource.get("id"), str) or not resource["id"].strip()
+        for resource in candidates
+    ):
+        raise ValueError("DoRA active CSV datastore resource has an invalid id")
     return max(candidates, key=_resource_sort_key)
 
 
@@ -132,7 +136,7 @@ def collect(
     if package.get("name") != package_name:
         raise ValueError("DoRA package identity mismatch")
     resource = select_resource(package)
-    resource_id = str(resource["id"])
+    resource_id = resource["id"]
     records: list[dict[str, Any]] = []
     total: int | None = None
     offset = 0
