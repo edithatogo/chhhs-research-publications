@@ -80,6 +80,15 @@ class GrantsUniversityTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "future last_verified date"):
                 load_universities(handle.name)
 
+    def test_identity_rows_reject_surrounding_whitespace(self):
+        rows = json.loads((Path(__file__).parents[1] / "config/grants-universities.json").read_text())
+        rows[0]["institution_id"] = " jcu"
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json") as handle:
+            json.dump(rows, handle)
+            handle.flush()
+            with self.assertRaisesRegex(ValueError, "surrounding whitespace"):
+                load_universities(handle.name)
+
 
 if __name__ == "__main__":
     unittest.main()

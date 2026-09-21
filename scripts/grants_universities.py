@@ -50,6 +50,8 @@ def load_universities(path):
         key = raw_key.strip()
         if not key or key in seen:
             raise ValueError(f"duplicate or missing institution_id: {key!r}")
+        if key != raw_key:
+            raise ValueError(f"institution {key!r} must not have surrounding whitespace")
         seen.add(key)
         for field in ("name", "authority_url", "access", "format", "intake", "eligibility_scope", "policy_note", "last_verified"):
             if not isinstance(row.get(field), str) or not row[field].strip():
