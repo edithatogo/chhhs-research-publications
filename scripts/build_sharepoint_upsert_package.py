@@ -124,6 +124,10 @@ def build_package(baseline_path: Path, output_path: Path, target_path: Path = DE
     # These actions are deliberately nested inside a serial loop. Power Automate's
     # item() expression is only valid in that record scope, and serial execution
     # prevents two rows with the same SourceKey racing between lookup and write.
+    source_key_filter = (
+        f"{fields['source_key']} eq "
+        "'@{replace(string(item()?['SourceKey']),'''','''''')}'"
+    )
     record_actions = {
         "SharePoint_Get_items": {
             "runAfter": {},
@@ -137,7 +141,7 @@ def build_package(baseline_path: Path, output_path: Path, target_path: Path = DE
                 "parameters": {
                     "dataset": site_url,
                     "table": list_guid,
-                    "$filter": "field_1 eq '@{replace(string(item()?['SourceKey']),'''','''''')}'",
+                    "$filter": source_key_filter,
                     "$top": 2,
                 },
                 "authentication": {

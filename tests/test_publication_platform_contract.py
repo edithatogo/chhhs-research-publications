@@ -3,10 +3,11 @@ import copy
 import json
 import tempfile
 import uuid
+import zipfile
 from pathlib import Path
 
 from scripts.validate_publication_platform_contract import PACKAGE, _definition, _tracked_definition, validate
-from scripts.build_sharepoint_upsert_package import load_target
+from scripts.build_sharepoint_upsert_package import build_package, load_target
 
 
 class PublicationPlatformContractTests(unittest.TestCase):
@@ -143,6 +144,65 @@ class PublicationPlatformContractTests(unittest.TestCase):
             }), encoding="utf-8")
             with self.assertRaisesRegex(ValueError, "unique SourceKey"):
                 load_target(target)
+
+    def test_package_lookup_uses_configured_source_key_mapping(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            baseline = root / "baseline.zip"
+            target = root / "target.json"
+            flow_path = "Microsoft.Flow/flows/flow/definition.json"
+            definition = {
+                "properties": {
+                    "definition": {
+                        "actions": {
+                            "Run_a_query_against_a_dataset": {"inputs": {"parameters": {}}}
+                        },
+                        "triggers": {},
+                    },
+                    "connectionReferences": {},
+                }
+            }
+            manifest = {
+                "details": {"displayName": "baseline"},
+                "resources": {"flow": {
+                    "type": "Microsoft.Flow/flows",
+                    "dependsOn": [],
+                    "details": {"displayName": "baseline"},
+                }},
+            }
+            fields = {name: "field_1" for name in {
+                "title", "source_key", "canonical_key", "authors", "journal", "publication_year",
+                "publication_month", "publication_date_raw", "publication_date_precision", "source_set",
+                "pmid", "doi", "matched_facilities", "attribution_evidence", "review_status",
+                "first_observed", "last_observed",
+            }}
+            fields["source_key"] = "SourceKeyInternal"
+            target.write_text(json.dumps({
+                "site_url": "https://example.sharepoint.com/sites/dev",
+                "list_id": str(uuid.uuid4()),
+                "model_id": str(uuid.uuid4()),
+                "unique_fields": ["source_key"],
+                "fields": fields,
+            }), encoding="utf-8")
+            with zipfile.ZipFile(baseline, "w") as archive:
+                archive.writestr(flow_path, json.dumps(definition))
+                archive.writestr("manifest.json", json.dumps(manifest))
+                archive.writestr("Microsoft.Flow/flows/flow/apisMap.json", "{}")
+                archive.writestr("Microsoft.Flow/flows/flow/connectionsMap.json", "{}")
+
+            private_root = Path(__file__).resolve().parent.parent / "private"
+            with tempfile.TemporaryDirectory(dir=private_root) as native_folder:
+                output = Path(native_folder) / "output.zip"
+                build_package(baseline, output, target)
+                with zipfile.ZipFile(output) as archive:
+                    built = json.loads(archive.read(flow_path))
+            lookup = built["properties"]["definition"]["actions"][
+                "Apply_to_each_Publication"
+            ]["actions"]["SharePoint_Get_items"]
+            self.assertEqual(
+                lookup["inputs"]["parameters"]["$filter"],
+                "SourceKeyInternal eq '@{replace(string(item()?['SourceKey']),'''','''''')}'",
+            )
 
     def test_unknown_run_after_dependency_is_rejected(self):
         self.require_private_package()
