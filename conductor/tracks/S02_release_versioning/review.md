@@ -121,7 +121,29 @@ version-history or rollback support.
 - **Finding:** the non-Git source-path fallback walked arbitrary files and could include Python or test-tool caches in a reproducible source archive.
 - **Fix:** commit `f77d3ec` excludes `__pycache__`, `.pytest_cache` and `.mypy_cache` directories and adds a temporary-tree regression test.
 - **Verification:** focused package tests pass (6); the full suite passes 387 tests with 8 skips; project validation passes 438 checks; web-first, Conductor, Power Platform tooling and visual standards checks pass locally.
-- **Residual gate:** native report version/batch display, model recovery and tenant version-history evidence remain open.
+- **Residual gate:** model recovery and tenant version-history evidence remain open; the isolated report version/batch display is now complete.
+
+## Conductor review recheck — 2026-09-22
+
+### Summary
+
+The prior S02 status was stale. The isolated native version/batch display is
+saved and reload-verified; native recovery/version-history and the separate
+refresh, delivery and production gates remain open.
+
+### Verification checks
+
+- [x] Existing semantic model retained the `ReleaseMetadata` table after a
+  full model-editor reload.
+- [x] Existing `Monthly Publications` page read back
+  `AcceptedBatchID`, `NativeAcceptance`, `SchemaVersion` and `SoftwareVersion`.
+- [x] Track register and plan now describe the display gate as complete.
+- [ ] Native Power BI rollback/version history and recovery receipt.
+
+### Findings
+
+No implementation defect was found. S02 remains active and is not eligible
+for archive because native rollback/version history is still unproved.
 
 ## Conductor review — version input type hardening — 2026-09-21
 

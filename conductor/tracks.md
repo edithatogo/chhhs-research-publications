@@ -4,7 +4,7 @@
 
 Execution order and boundaries: [detailed handoff](PUBLICATION_STABILISATION.md). Existing T11, T14, T15, E01 and E07 own live acceptance; their execution runbooks refine the existing plans.
 
-- [~] [S02_release_versioning: reproducible versions and recovery](tracks/S02_release_versioning/plan.md) — source versioning is verified; isolated native version/batch display remains gated.
+- [~] [S02_release_versioning: reproducible versions and recovery](tracks/S02_release_versioning/plan.md) — source versioning and isolated native version/batch display are verified; native rollback/version-history remains gated.
 
 ## Grants extension of CHHHS RIMS
 

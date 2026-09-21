@@ -4,7 +4,7 @@
 manual rollback evidence only. No shared release pipeline or unattended
 deployment is part of this tranche.
 
-Status: in_progress. Source packaging is locally verified; native recovery/versioning remains unaccepted.
+Status: in_progress. Source packaging and isolated native version/batch display are verified; native recovery/versioning remains unaccepted.
 
 ## S02.1 Version contract and tests
 
@@ -13,6 +13,17 @@ Status: in_progress. Source packaging is locally verified; native recovery/versi
 - [x] S02.1.3: Write tests for missing/invalid version, dirty accepted release, changed file hash, missing required artefact, private file exclusion and repeatable manifests.
 - [x] S02.1.4: Use independent fields for SoftwareVersion, SchemaVersion and AcceptedBatchID. A daily harvest changes batch identity, not software version.
 - [x] Checkpoint: write commands/results, changed paths and remaining blockers in review.md; update CURRENT_STATE. Stop dependent work on failure.
+
+## Conductor review recheck — 2026-09-22
+
+- [x] Reconcile the track register with the native display receipt: the
+  `ReleaseMetadata` table and four version/batch fields were saved and
+  reloaded in the existing isolated report.
+- [x] Preserve the native limitation: SharePoint item history is observed, but
+  Power BI report/model rollback or version history is not exposed by the
+  current route.
+- [~] Keep S02 active until a separate recovery/version-history receipt exists;
+  do not archive from the display receipt alone.
 - [x] Review fix: reject non-string release versions without leaking incidental type errors (`42b3c91`).
 - [x] Review fix: reject empty schema and batch identities before release-manifest creation (38c416f).
 
