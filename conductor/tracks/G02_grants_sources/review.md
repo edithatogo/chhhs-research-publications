@@ -204,3 +204,17 @@ Implemented in `da0b657`, with regression coverage in `tests/test_grants_registr
 - **Fix:** commit `18dd567` requires URL values to be strings before structural HTTP(S) validation and adds regression coverage.
 - **Verification:** focused source-ingestion tests pass (20); the full suite passes 389 tests with 8 skips; project validation passes 438 checks; web-first, Conductor, Power Platform tooling and visual standards checks pass locally.
 - **Residual gate:** permitted opportunity intake, human-reviewed eligibility and native intake remain open.
+
+## Conductor review — source identity whitespace boundary — 2026-09-21
+
+- **Finding:** catalogue IDs were stripped for duplicate detection but the
+  original whitespace-bearing value could still be returned to downstream
+  ingestion and source-health reconciliation.
+- **Fix:** commit `232025adbfcb3a19ff7834a26ccfe7c59d91750c` rejects leading or
+  trailing whitespace in `source_id` values and adds regression coverage.
+- **Verification:** focused source-ingestion tests pass (21); the full suite
+  passes 415 tests with 8 skips, 438 project checks pass, and web-first,
+  Conductor, Power Platform, visual and canonical flow validators pass
+  locally.
+- **Residual gate:** permitted opportunity intake, human-reviewed eligibility
+  and native intake remain open.

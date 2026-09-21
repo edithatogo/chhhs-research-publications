@@ -111,3 +111,16 @@ Run a controlled live cycle only after G02 endpoint/access verification and G03 
 
 - **Verification:** commit `213a704` passes the focused ingestion suite (18 tests), the full local suite (374 tests, 8 skips), project validation (438 checks), web-first contracts and Conductor validation.
 - **Boundary:** source, URL, title and opportunity-key admission is now type-safe and fail-closed; live feed permissions, source changes, SharePoint writes and unattended operation remain open.
+
+## Conductor review — source identity whitespace boundary — 2026-09-21
+
+- **Finding:** the source catalogue could pass an untrimmed source identity to
+  ingestion after using its trimmed form only for duplicate detection.
+- **Fix:** commit `232025adbfcb3a19ff7834a26ccfe7c59d91750c` rejects surrounding
+  whitespace before a catalogue identity can reach source-health or registry
+  processing.
+- **Verification:** focused ingestion tests pass (21); the full suite passes
+  415 tests with 8 skips, 438 project checks pass, and web-first, Conductor,
+  Power Platform, visual and canonical flow validators pass locally.
+- **Residual gate:** controlled live source-to-list execution, reconciliation
+  and unattended operation remain open.
