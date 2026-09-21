@@ -34,6 +34,23 @@ class GrantsRelationshipTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'requires from/to keys and evidence'):
             normalize_relationship({'RelationshipType':'relevant_to_opportunity','FromKey':'PUB:1','ToKey':'GRANT:1','EvidenceURL':'evidence','Confidence':'candidate'})
 
+    def test_relationship_rejects_surrounding_whitespace(self):
+        base = {
+            'RelationshipType': 'relevant_to_opportunity',
+            'FromKey': 'PUB:1',
+            'ToKey': 'GRANT:1',
+            'EvidenceURL': 'https://evidence',
+            'Confidence': 'candidate',
+            'AwardID': '',
+            'ReviewStatus': 'Needs Review',
+        }
+        for field in base:
+            with self.subTest(field=field):
+                row = dict(base)
+                row[field] = f" {row[field]} "
+                with self.assertRaises(ValueError):
+                    normalize_relationship(row)
+
     def test_relationship_review_status_is_constrained(self):
         with self.assertRaisesRegex(ValueError, 'unsupported review status'):
             normalize_relationship({'RelationshipType':'relevant_to_opportunity','FromKey':'PUB:1','ToKey':'GRANT:1','EvidenceURL':'https://evidence','Confidence':'candidate','ReviewStatus':'Reviewed'})
