@@ -639,3 +639,14 @@ authored through the authenticated QLD Health designer.
   confirmation. No partial edit was saved; the existing flow remains the sole
   canonical identity and Off. This adds route evidence but does not close the
   null-date gate.
+
+### Native canonical-flow inventory recheck — 2026-09-22
+
+The authenticated QLD Health Power Automate flow list was filtered by
+`Funding` and returned exactly four results: Funding Calendar Changes, Funding
+Delivery Ledger, Funding Calendar and Funding Watchlist. Each result had one
+canonical flow identity and was visibly Off. Receipt:
+`private/ops/2026-09-22-powerautomate-g08-flow-inventory.json`.
+
+This strengthens the single-version/readback gate but does not close the
+null-date branch, refresh/reconciliation or delivery gates. G08 remains active.

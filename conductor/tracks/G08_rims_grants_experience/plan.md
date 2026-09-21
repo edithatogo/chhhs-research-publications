@@ -131,6 +131,11 @@ watchlist input contract is required before another native copy is created.
 
 ### Native synthetic-row cleanup — 2026-09-22
 
+- [x] Re-read the authenticated QLD Health flow inventory filtered by
+  `Funding`: exactly one disabled flow was visible for each of the four
+  canonical grant-flow identities. Receipt:
+  `private/ops/2026-09-22-powerautomate-g08-flow-inventory.json`.
+
 - [x] Through the authenticated SharePoint UI, select only the exact synthetic delivery-ledger, calendar and watchlist rows and confirm each native `Delete?` dialog. Each item was sent to the recycle bin; subsequent list readback showed only the list header row and no synthetic item.
 - [~] Refresh the saved report cache and re-read the bound visuals after cleanup. A native model refresh and a bounded retry both remained at `Processing queries and validating semantic model` and were cancelled through the native confirmation dialog; no refresh success is claimed. This must not be confused with unattended refresh or notification acceptance.
 - [~] Retry the native `Schema and data` refresh after all three grant test lists read zero rows. The second bounded observation reproduced `Processing queries and validating semantic model` and was cancelled through the native confirmation; no refresh success or row reconciliation is claimed.
