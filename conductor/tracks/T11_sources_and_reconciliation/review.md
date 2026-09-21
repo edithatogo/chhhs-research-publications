@@ -1,5 +1,12 @@
 # Review: Repair and prove PubMed plus DORA ingestion
 
+## Conductor review — DoRA source identity boundary — 2026-09-22
+
+- **Finding:** string datastore `_id` values were stripped for uniqueness and receipt hashing while the padded original remained in accepted records, weakening source identity fidelity.
+- **Fix:** scalar string `_id` values now reject surrounding whitespace; integer IDs remain supported and source values remain otherwise preserved.
+- **Verification:** focused DoRA activity tests pass (16); project checks pass 460; web-first, Conductor and diff validation pass locally.
+- **Residual gate:** native retained-history reconciliation, refresh, recurrence, delivery and production acceptance remain open.
+
 Review status: in progress; local activity-resource tranche reviewed, native RIMS acceptance remains open.
 
 ## Synchronized verification — 2026-09-22

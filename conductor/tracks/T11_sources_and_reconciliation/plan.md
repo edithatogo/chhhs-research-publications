@@ -195,3 +195,9 @@ Native Power Query successfully executed the actual committed-history reader. Ag
 - [x] Task: Reject malformed active CSV datastore resource IDs before DoRA API traversal instead of stringifying them (`7410b06`).
 - [x] Verification: focused DoRA activity tests (15), full local suite (450 tests, 8 skipped), project checks (460), web-first contracts, Conductor validation and diff validation pass locally.
 - [~] Native retained-history reconciliation, refresh, recurrence, delivery and production acceptance remain open.
+
+## Phase: Conductor review fix — DoRA source identity boundary — 2026-09-22
+
+- [x] Task: Reject surrounding whitespace in scalar DoRA datastore `_id` values instead of stripping a padded source identity before uniqueness/hash processing (`681d4db`).
+- [x] Verification: focused DoRA activity tests (16), full local suite, project checks (460), web-first contracts, Conductor validation and diff validation pass locally.
+- [~] Native retained-history reconciliation, refresh, recurrence, delivery and production acceptance remain open.
