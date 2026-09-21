@@ -13,3 +13,12 @@ Power BI web changes can autosave. Report-only copying is not sufficient protect
 ## Incremental native execution review — 2026-09-13
  
 Verified baseline checkpoint immediately before isolated table removal. Reload confirmed zero inherited tables; Power Query Queries [0] confirmed persisted query removal. Source-free TRUE evaluation succeeded. Replaced probe with actual ReportingWindow; native dates, save/load and post-reload three-column table verified. Isolated target verified. See `../../../docs/PROTECTED_DEVELOPMENT_BASELINE.md`.
+
+## Conductor review recheck — 2026-09-23
+
+T10 remains complete: its isolated semantic-model/report target, recoverable
+baseline and canary save/reload/rollback evidence are present, and all plan
+items are checked. Later native work must continue against the isolated route
+and must not be inferred from this baseline alone. The current canonical
+checkout passes project, Conductor and source-only CI gates. T10 is eligible
+for archive.

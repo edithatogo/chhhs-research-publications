@@ -69,7 +69,7 @@ The agent environment transition from Codex to **Google Antigravity (`agy`)** is
 ## Next Steps
 
 T08 is complete. Active implementation continues in:
-- [`T10_isolated_baseline`](../../tracks/T10_isolated_baseline/plan.md): Protect the existing report and finalize development model isolation.
+- [`T10_isolated_baseline`](../T10_isolated_baseline/plan.md): Protect the existing report and finalize development model isolation.
 - [`T11_sources_and_reconciliation`](../../tracks/T11_sources_and_reconciliation/plan.md): Complete native PubMed/DORA ingestion and connect reporting queries to committed history.
 
 ## Conductor review recheck — 2026-09-23
