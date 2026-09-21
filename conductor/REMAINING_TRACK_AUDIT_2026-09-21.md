@@ -331,3 +331,12 @@ operation.
 - The headed Chrome tab was reloaded to discard the unsaved draft. No tenant
   mutation is claimed; the existing flow remains the canonical target and
   native null-date acceptance remains open.
+
+### G08 native refresh retry — 2026-09-22
+
+- The authenticated Power BI semantic-model editor started a fresh `Schema
+  and data` refresh after the three grant test lists had read back zero rows.
+- The native progress dialog remained at `Processing queries and validating
+  semantic model` for approximately 50 seconds. The refresh was cancelled
+  through the native `Cancel refresh` confirmation; no refresh success or row
+  reconciliation is claimed. G08 remains open for this gate.

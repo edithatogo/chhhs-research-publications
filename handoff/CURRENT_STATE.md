@@ -904,3 +904,11 @@ branch replacement. The action picker then became unresponsive. The active
 headed Chrome tab was reloaded to discard the draft; no Save operation was
 issued and no tenant flow mutation is claimed. The existing flow remains the
 sole canonical target and Off.
+
+Native model refresh retry (2026-09-22): the authenticated Power BI semantic
+model editor started a fresh `Schema and data` refresh after the three grant
+test lists read back zero rows. The native progress dialog remained at
+`Processing queries and validating semantic model` for approximately 50
+seconds, then the refresh was cancelled through the native confirmation. No
+refresh success or row reconciliation is claimed; this reproduces the current
+model-refresh blocker.
