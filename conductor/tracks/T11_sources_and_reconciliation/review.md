@@ -2,6 +2,13 @@
 
 Review status: in progress; local activity-resource tranche reviewed, native RIMS acceptance remains open.
 
+## Synchronized verification — 2026-09-22
+
+The canonical checkout passes 444 tests (8 skipped), 460 project checks,
+Conductor validation and source-only CI run `35655033968`. These checks do not
+prove retained-history refresh, recurrence, delivery or production acceptance;
+those native gates remain open.
+
 ## Evidence
 - `private/ops/2026-09-15-dax-readback.json`: Live DAX query readback from isolated development model `{{ISOLATED_MODEL_ID}}`.
   - Publication counts: PubMed 1,261 rows; DORA 709 rows.

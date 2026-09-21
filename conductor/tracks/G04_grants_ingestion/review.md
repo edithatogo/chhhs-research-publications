@@ -4,6 +4,12 @@
 
 Review status: in progress; local ingestion is implemented and tested, while live source and platform execution remain open.
 
+## Synchronized verification — 2026-09-22
+
+The canonical checkout passes 444 tests (8 skipped), 460 project checks,
+Conductor validation and source-only CI run `35655033968`. Live feed access,
+SharePoint writes, native flow execution and unattended operation remain open.
+
 Conductor review fix applied: calendar candidate identity now hashes the full
 source row and duplicate identities fail closed before any candidate rows are
 emitted. The focused adapter tests cover this failure path.

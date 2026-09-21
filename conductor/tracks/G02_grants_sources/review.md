@@ -4,6 +4,13 @@
 
 Review status: in progress; the source catalogue is implemented and the ARC public awards API is now verified, while the opportunity-source and Queensland endpoint gates remain open.
 
+## Synchronized verification — 2026-09-22
+
+The canonical checkout passes 444 tests (8 skipped), 460 project checks,
+Conductor validation and source-only CI run `35655033968`. This confirms local
+source contracts only; permitted opportunity feeds, row-level review and
+eligibility evidence remain open.
+
 ## Changes
 
 - Added `config/grants-sources.json` covering NHMRC, MRFF, ARC, Queensland Health, EMF Queensland, Advance Queensland, FNQ Hospital Foundation, GrantConnect and CHHHS, with explicit format, access, coverage, eligibility and health fields.

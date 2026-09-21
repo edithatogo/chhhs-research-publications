@@ -2,6 +2,13 @@
  
 Review status: in progress; local export generation and contract checks are complete, while current native and operational acceptance gates remain open.
 
+## Synchronized verification — 2026-09-22
+
+The canonical checkout passes 444 tests (8 skipped), 460 project checks,
+Conductor validation and source-only CI run `35655033968`. Native refresh,
+complete export readback, consecutive-cycle preservation and delivery remain
+unproven.
+
 ## Outcome Summary
 1. **Full Bibliography Export Engine:**
    - Implemented `scripts/export_publication_register.py` ensuring every expected canonical record is exported with complete metadata (authors, title, journal, raw date, date precision, identifiers, and hyperlinks) without truncation.

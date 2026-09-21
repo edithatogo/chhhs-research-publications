@@ -1,5 +1,11 @@
 # Execution evidence
 
+## Synchronized verification — 2026-09-22
+
+The canonical checkout passes 444 tests (8 skipped), 460 project checks,
+Conductor validation and source-only CI run `35655033968`. Native report/model
+version display, history and rollback remain open.
+
 ## S02.1–S02.2 local implementation
 
 - Replaced the unsafe packager that embedded `.git` and created an all-history bundle.

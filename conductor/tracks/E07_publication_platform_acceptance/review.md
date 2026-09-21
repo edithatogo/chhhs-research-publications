@@ -1,5 +1,12 @@
 # Track Review: E07 Publication Platform Acceptance
 
+## Synchronized verification — 2026-09-22
+
+The canonical checkout passes 444 tests (8 skipped), 460 project checks,
+Conductor validation and source-only CI run `35655033968`. The platform
+acceptance contract remains open because current tenant replay, reconciliation,
+refresh and release evidence is incomplete.
+
 ## Current status — 2026-09-20
 
 This track remains **in progress**. Local contracts, package construction,

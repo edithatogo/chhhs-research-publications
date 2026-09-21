@@ -4,6 +4,16 @@
 
 Review status: in progress; local planning and idempotency contracts are implemented.
 
+## Synchronized verification — 2026-09-22
+
+The canonical checkout passes 444 tests (8 skipped), 460 project checks,
+Conductor validation and source-only CI run `35655033968`. This updates the
+local evidence baseline only. The QLD Health null-date repair was not saved:
+the authenticated browser session was lost before Flow Checker/readback or
+replay, the canonical flow remains Off, and VUW PAC exposed no cloud-flow
+export. Native refresh/reconciliation, calendar revision delivery and
+notification acceptance remain open.
+
 - `validate_policy` requires a version, organisation, anchor, lead time, holiday-calendar version and effective dates.
 - `delivery_event_key` gives future notifications a stable deduplication key; it does not send messages or create calendar events.
 - Existing subscription matching remains candidate generation only and does not authorize delivery.

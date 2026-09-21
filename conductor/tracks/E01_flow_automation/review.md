@@ -1,5 +1,13 @@
 # Track Review: E01 Power Automate Ingestion Canonicalization and Recurrence Scheduling
 
+## Synchronized verification — 2026-09-22
+
+The canonical checkout passes 444 tests (8 skipped), 460 project checks,
+Conductor validation and source-only CI run `35655033968`. This is local and
+source-only evidence. The QLD Health null-date branch was explored but not
+saved after the authenticated browser session was lost; no native Flow
+Checker/readback or replay is claimed, and the canonical flow remains Off.
+
 ## Implementation Summary
 1. **Flow Definition Canonicalized:**
    - File: `config/flows/publication-registry-upsert.definition.json`
