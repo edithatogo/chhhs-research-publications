@@ -104,6 +104,9 @@ def normalize_opportunity(record: dict[str, Any], retrieved_at: str | None = Non
     for field in string_fields:
         if field in record and record[field] is not None and not isinstance(record[field], str):
             raise ValueError(f"opportunity field {field} must be a string")
+    amount = record.get("Amount")
+    if amount is not None and (isinstance(amount, bool) or not isinstance(amount, (str, int, float))):
+        raise ValueError("opportunity field Amount must be scalar text/number")
     record = dict(record)
     record['Title'] = record.get('Title') or record.get('title') or ''
     record['URL'] = record.get('URL') or record.get('Link') or record.get('link') or ''

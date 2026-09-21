@@ -57,6 +57,13 @@ class GrantsRegistryTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, f"field {field}"):
                     normalize_opportunity({field: value})
 
+    def test_amount_rejects_structured_or_boolean_values_but_accepts_numeric(self):
+        for value in ({"currency": "AUD", "value": 100}, [100], True):
+            with self.subTest(value=value):
+                with self.assertRaisesRegex(ValueError, "field Amount"):
+                    normalize_opportunity({"Title": "Call", "URL": "https://example.org/call", "Amount": value})
+        self.assertEqual(normalize_opportunity({"Title": "Call", "URL": "https://example.org/call", "Amount": 100000})["Amount"], "100000")
+
     def test_source_row_url_is_preserved_as_distinct_evidence(self):
         item = normalize_opportunity({
             "Source": "X", "SourceID": "1", "Title": "Call",
