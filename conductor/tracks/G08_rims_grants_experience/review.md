@@ -548,3 +548,52 @@ shape copied from a tenant-exported native flow.
   connector edge, not a successful null-date execution. A null-preserving
   action design, model/page binding, refresh/reconciliation and delivery
   remain open; G08 stays active.
+
+### Conductor review — null-preserving local fix and native retry — 2026-09-22
+
+## Summary
+
+The local branch design is structurally sound and tested, but G08 is not
+ready to archive because the native Control operation cannot currently be
+authored through the authenticated QLD Health designer.
+
+## Verification Checks
+
+- **Plan compliance:** Partial — the local null-preserving create/update
+  design is implemented; native import/readback, refresh and delivery remain
+  open as explicitly recorded in the plan.
+- **Style/compliance:** Pass — the definition remains SharePoint-only and
+  preserves the canonical schema fields in both date branches.
+- **New tests:** Yes — the existing calendar-flow contract now checks both
+  with-date and without-date actions for create and update.
+- **Test coverage:** Partial — local structural coverage passes; native
+  optional-date execution is not yet proven.
+- **Test results:** Passed — 444 tests with 8 skips, 460 project checks,
+  web-first contracts, Conductor validation, Power Platform tooling preflight
+  and diff checks all passed.
+
+## Findings
+
+### High — native branch authoring remains blocked
+
+- **Evidence:** the QLD Health flow editor exposed the correct
+  `Funding Calendar Changes` list, but the Control operation metadata request
+  returned HTTP 403. The new condition could be inserted only as an unsaved
+  shell; its code-view textarea did not persist edits when returning to the
+  designer. The unsaved change was discarded, leaving the existing flow
+  unchanged and Off.
+- **Impact:** there is no native proof that null `PreviousDate` create/update
+  succeeds. Do not import a second flow or archive G08.
+- **Next action:** use an approved legacy/solution import route or a tenant
+  session with Control-operation authoring permission to update the existing
+  flow identity, then run null and non-null create/update cases with exact
+  SharePoint readback and cleanup.
+
+### Low — VUW CLI is not a substitute target
+
+- **Evidence:** the active `pac` profile is VUW (`mordaudy@staff.vuw.ac.nz`),
+  but `pac power-automate list-cloud-flows` returned no flows in that
+  environment. It therefore cannot export this QLD Health flow or provide a
+  valid cross-tenant import source.
+- **Decision:** retain QLD Health as the authoritative native target; the
+  VUW profile remains a tooling check only.

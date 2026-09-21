@@ -827,6 +827,15 @@ Off again after the test. This confirms the native optional-date edge and
 requires a null-preserving branch/action design before that path can be
 accepted.
 
+The follow-on QLD Health designer attempt reached the existing flow and
+confirmed the `Funding Calendar Changes` list, but the new Control operation
+metadata request returned HTTP 403. A temporary condition shell could not be
+completed or persisted through the designer's code view, so it was discarded;
+the native flow remained unchanged and Off. The active `pac` profile is VUW,
+but its preview cloud-flow inventory returned no flows, so VUW cannot export
+the QLD Health flow or serve as a cross-tenant source. Native null-date
+readback remains open.
+
 The bounded diagnostic was extended once using a private tenant-exported
 watchlist package as the source for metadata, connection-reference and
 authentication shape. That third calendar-change import was rejected with the
