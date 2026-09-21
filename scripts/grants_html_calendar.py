@@ -36,7 +36,7 @@ class _TableParser(HTMLParser):
         elif tag == "a" and self._cell is not None and self._row_links is not None:
             href = dict(attrs).get("href")
             if href:
-                self._row_links.append(href.strip())
+                self._row_links.append(href)
 
     def handle_endtag(self, tag: str) -> None:
         if tag in {"td", "th"} and self._row is not None and self._cell is not None:
@@ -63,7 +63,17 @@ def parse_calendar_html(
     required_headers: Iterable[str] = ("title", "close"),
 ) -> dict[str, Any]:
     """Return candidate rows from the first table containing required headers."""
-    if not source.strip() or not source_url.startswith("https://"):
+    parsed_source_url = urlsplit(source_url) if isinstance(source_url, str) else None
+    if (
+        not isinstance(source, str)
+        or not source.strip()
+        or source != source.strip()
+        or not isinstance(source_url, str)
+        or source_url != source_url.strip()
+        or parsed_source_url is None
+        or parsed_source_url.scheme != "https"
+        or not parsed_source_url.netloc
+    ):
         raise ValueError("source and HTTPS source_url are required")
     if not retrieved_utc.endswith(("Z", "+00:00")):
         raise ValueError("retrieved_utc must include an explicit UTC offset")
@@ -122,7 +132,10 @@ def parse_calendar_html(
         row_links = selected_links[row_index] if row_index < len(selected_links) else []
         actionable_links = [
             link for link in row_links
-            if urlsplit(link).scheme in {"http", "https"} and bool(urlsplit(link).netloc)
+            if isinstance(link, str)
+            and link == link.strip()
+            and urlsplit(link).scheme in {"http", "https"}
+            and bool(urlsplit(link).netloc)
         ]
         records.append({
             "Source": source,

@@ -78,6 +78,25 @@ class GrantsHtmlCalendarTests(unittest.TestCase):
         self.assertEqual(record["SourceLinks"], ["https://example.gov.au/one", "https://example.gov.au/two"])
         self.assertEqual(record["SourceRowURL"], "")
 
+    def test_source_identity_and_authority_url_reject_surrounding_whitespace(self):
+        kwargs = {
+            "html": "<table><tr><th>Title</th><th>Close</th></tr></table>",
+            "source": "NHMRC",
+            "source_url": "https://example.gov.au/calendar",
+            "retrieved_utc": "2026-09-20T04:00:00Z",
+        }
+        with self.assertRaisesRegex(ValueError, "source and HTTPS source_url"):
+            parse_calendar_html(**{**kwargs, "source": " NHMRC"})
+        with self.assertRaisesRegex(ValueError, "source and HTTPS source_url"):
+            parse_calendar_html(**{**kwargs, "source_url": "https://example.gov.au/calendar "})
+
+    def test_padded_row_link_is_withheld_from_actionable_evidence(self):
+        html = """<table><tr><th>Title</th><th>Close</th></tr>
+        <tr><td><a href=' https://example.gov.au/call '>Call</a></td><td>2026-11-01</td></tr></table>"""
+        record = parse_calendar_html(html, source="NHMRC", source_url="https://example.gov.au/calendar", retrieved_utc="2026-09-20T04:00:00Z")["records"][0]
+        self.assertEqual(record["SourceLinks"], [])
+        self.assertEqual(record["SourceRowURL"], "")
+
 
 if __name__ == "__main__":
     unittest.main()
