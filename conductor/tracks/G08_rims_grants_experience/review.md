@@ -1,5 +1,22 @@
 # G08 review
 
+## Conductor review — subscription identity isolation — 2026-09-22
+
+- **Finding:** subscription and delivery matching stripped current-user,
+  opportunity, target and event identity values before comparing or hashing
+  them. A malformed identity with surrounding whitespace could therefore
+  collapse into another user's or another target's canonical key.
+- **Fix:** shared identity validation now requires non-empty strings with no
+  surrounding whitespace across subscription matching and delivery-event key
+  generation. Regression coverage covers padded current-user, opportunity and
+  subscription identities and delivery keys.
+- **Verification:** focused planning/operations tests pass (35); the full
+  suite passes 452 tests with 8 skips; project validation passes 460 checks;
+  web-first, Conductor and diff validation pass locally.
+- **Residual gate:** native preference persistence, access isolation,
+  calendar revision execution, refresh/reconciliation and delivery remain
+  open.
+
 ## Summary
 
 Review status: in progress; local planning and idempotency contracts are implemented.

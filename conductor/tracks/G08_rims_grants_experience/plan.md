@@ -35,6 +35,12 @@ unattended delivery are future extensions.
 - [x] Task: Reject duplicate holiday dates during institutional-date projection (`d7019e0`).
 - [x] Task: Require typed policy identity/version and effective-date fields before validation (`09adbe2`).
 
+## Phase: Conductor review fix — identity isolation — 2026-09-22
+
+- [x] Task: Reject surrounding whitespace in current-user, opportunity, subscription and delivery identity fields instead of silently collapsing access keys (`0f1fa21`).
+- [x] Verification: focused planning/operations tests (35), full local suite (452 tests, 8 skipped), project checks (460), web-first contracts, Conductor validation and diff validation pass locally.
+- [~] Native preference persistence, access isolation, calendar revision handling, refresh/reconciliation and delivery remain open.
+
 ## Phase: Calendar omission-boundary review — 2026-09-21
 
 - [x] Task: Validate optional calendar display fields before omitting uncertain
