@@ -2,6 +2,8 @@ import unittest
 from pathlib import Path
 import json
 import tempfile
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
 from scripts.grants_ingestion import ingest_batches, parse_feed
 from scripts.grants_sources import load_catalogue
@@ -99,7 +101,8 @@ class GrantsSourceTests(unittest.TestCase):
 
     def test_catalogue_freshness_uses_brisbane_date(self):
         rows = json.loads((Path(__file__).parents[1] / "config/grants-sources.json").read_text())
-        self.assertTrue(all(row["last_verified"] <= "2026-09-21" for row in rows))
+        today = datetime.now(ZoneInfo("Australia/Brisbane")).date().isoformat()
+        self.assertTrue(all(row["last_verified"] <= today for row in rows))
         self.assertTrue(load_catalogue(Path(__file__).parents[1] / "config/grants-sources.json"))
 
     def test_api_catalogue_requires_valid_api_url(self):

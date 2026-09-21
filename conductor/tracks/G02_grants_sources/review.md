@@ -248,3 +248,19 @@ Implemented in `da0b657`, with regression coverage in `tests/test_grants_registr
   false for every result.
 - **Residual gate:** retain the reviewed-import fallback and obtain approved
   source/API or browser evidence before closing G02.
+
+## Official Queensland/federal freshness recheck — 2026-09-22
+
+- **NHMRC:** the official calendar was read back with current/upcoming rows
+  and its planning-date caveat; it remains HTML/reviewed-import intake.
+- **Queensland Health:** the research grants hub and Health Practitioner
+  Research Scheme page were read back; the latter exposes a 2027 round and
+  application guidance, not a permitted machine feed.
+- **Metro North / Metro South:** official pages expose curated opportunities
+  and current local rounds, including Metro South RSS/INNOVATE information;
+  employment and scheme restrictions remain explicit.
+- **Fix applied:** catalogue freshness dates for NHMRC, Queensland Health,
+  QH HPRS, Metro North and Metro South now read `2026-09-22`.
+- **Residual gate:** no source was promoted to unattended intake; stable
+  row-level identity, permitted export/API and eligibility evidence remain
+  required. G02 remains active.

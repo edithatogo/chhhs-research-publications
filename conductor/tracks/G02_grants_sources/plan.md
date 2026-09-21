@@ -28,6 +28,21 @@ source schedule is part of this tranche.
 - [~] Keep G02/G04 open for a permitted opportunity export/API or an explicit
   reviewed row package. Authority-page reachability is not feed acceptance.
 
+## Queensland source freshness recheck — 2026-09-22
+
+- [x] Recheck the official NHMRC calendar: it exposes current/upcoming scheme
+  rows and explicitly cautions that dates are planning information requiring
+  confirmation in the final guidelines. Keep the HTML adapter review-gated.
+- [x] Recheck Queensland Health, Health Practitioner Research Scheme, Metro
+  North and Metro South sources. The pages expose current programme or round
+  information, including the HPRS 2027 round, Metro North curated openings
+  and Metro South 2027 RSS/INNOVATE dates; each remains manual-review intake
+  with scheme/employment eligibility preserved.
+- [x] Refresh `last_verified` to `2026-09-22` for those five catalogue entries.
+- [ ] Do not promote any of these pages to unattended RSS/API ingestion until
+  a permitted row-level export/API, stable identity and eligibility evidence
+  are obtained. G02/G04 remain active.
+
 ## Phase: Review Fixes
 
 - [x] Task: Preserve positional source cells alongside the convenience header map in the review-only HTML adapter (review fix `24e880c`).

@@ -70,3 +70,16 @@ times remain `null`.
   Power Platform, visual and canonical flow validators pass locally.
 - **Residual gate:** permitted institutional exports/feeds, authenticated
   portal access and current source acceptance remain open.
+
+## University source freshness recheck — 2026-09-22
+
+- **UQ:** the public current-funding table and research-office guidance were
+  read back; internal and external closes are distinct and the standard
+  research-office lead time is ten working days, with scheme exceptions.
+- **QUT:** public research/ARC guidance was read back; internal deadlines are
+  directed to the Research Office and no universal lead-time rule was
+  promoted.
+- **Fix applied:** UQ and QUT catalogue freshness dates now read `2026-09-22`.
+- **Residual gate:** no permitted institutional export/feed or authenticated
+  portal route was established. JCU/Griffith remain to be rechecked before
+  G05 can close; unknown lead times remain null.
