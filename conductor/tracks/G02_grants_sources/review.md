@@ -232,3 +232,19 @@ Implemented in `da0b657`, with regression coverage in `tests/test_grants_registr
 - **Residual gate:** permitted opportunity intake, reviewed eligibility,
   controlled source-to-list reconciliation, native acceptance and unattended
   operation remain open.
+
+## Bounded authority probe — 2026-09-22
+
+- **Evidence:** the read-only source probe captured private receipts at
+  `private/ops/grants-source-probes/grants-sources-20260922.json` and
+  `grants-universities-20260922.json`. NHMRC, MRFF, ARC, EMF, Metro North,
+  Cancer Council Queensland, Queensland Grants Finder and UQ returned HTTP
+  200 authority pages; Queensland Health, Advance Queensland, GrantConnect,
+  CHHHS, QH practitioner research, Metro South, Torres and Cape, JCU, QUT
+  and Griffith returned HTTP 403 to the unauthenticated bounded probe.
+- **Interpretation:** this updates reachability evidence only. It does not
+  promote any source to RSS/Atom/API intake, infer eligibility, or overcome
+  the tenant's authenticated-access boundary; `promoted_to_feed` remains
+  false for every result.
+- **Residual gate:** retain the reviewed-import fallback and obtain approved
+  source/API or browser evidence before closing G02.

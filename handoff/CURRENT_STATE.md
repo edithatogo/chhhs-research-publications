@@ -844,6 +844,14 @@ button. The session was navigated back without submitting; no new flow or
 tenant mutation is claimed. The existing flow identity remains the sole
 canonical target.
 
+Latest bounded grants-source probe (2026-09-22): private receipts were saved
+under `private/ops/grants-source-probes/`. NHMRC, MRFF, ARC, EMF, Metro North,
+Cancer Council Queensland, Queensland Grants Finder and UQ returned HTTP 200
+authority pages; several Queensland Health, federal portal and university
+pages returned HTTP 403 to the unauthenticated probe. This is reachability
+evidence only: no source was promoted to RSS/Atom/API intake and all
+`promoted_to_feed` values remain false.
+
 The bounded diagnostic was extended once using a private tenant-exported
 watchlist package as the source for metadata, connection-reference and
 authentication shape. That third calendar-change import was rejected with the
