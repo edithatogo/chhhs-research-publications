@@ -94,3 +94,17 @@ batch and fail closed.
   locally.
 - **Residual gate:** native list readback, monitoring, exact-key operational
   reconciliation, scheduling and delivery remain open.
+## Conductor review recheck — 2026-09-22
+
+The authenticated QLD Health details page confirms one canonical
+`CHHHS Research Grants - Reviewed Import Upsert` flow
+(`acf866e4-e4a2-4113-bce4-d2dd9e2f22d6`). It is owner-only,
+SharePoint-connected and Off. Flow Checker reports Errors 0 and one warning
+limited to the inactive state; the visible history contains succeeded and
+test-succeeded runs.
+
+This strengthens the isolated native execution evidence, but does not prove
+duplicate/concurrency handling, failed-batch preservation, exact-key
+reconciliation or unattended monitoring/delivery. G07 remains active and is
+not eligible for archive. Receipt:
+`private/ops/2026-09-22-powerautomate-g07-flow-readback.json`.

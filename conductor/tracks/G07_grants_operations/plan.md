@@ -10,6 +10,17 @@ cross-user monitoring, delivery or unattended schedule is part of this tranche.
 - [x] Review fix: reject whitespace-divergent source and opportunity identity values before operational acceptance (`1ac3d52`).
 - [x] Record local and live evidence separately before closure.
 
+## Native operational readback refresh — 2026-09-22
+
+- [x] Re-read the canonical QLD Health `CHHHS Research Grants - Reviewed
+  Import Upsert` details page. It is the sole observed Grants flow, owner-only,
+  SharePoint-connected, Off, with Flow Checker Errors 0 and the expected single
+  inactive-flow warning. Two visible recent runs are succeeded/test-succeeded.
+  Receipt: `private/ops/2026-09-22-powerautomate-g07-flow-readback.json`.
+- [~] Keep duplicate/concurrency, failed-batch preservation, exact-key
+  reconciliation and unattended monitoring/delivery open until independently
+  read back.
+
 ## Phase: Review fixes
 - [x] Task: Apply review corrections for the controlled native replay and preserve the remaining acceptance boundary (0536b98).
 - [x] Task: Reject runs without source health or with records from unreported sources (aad9d4a).
