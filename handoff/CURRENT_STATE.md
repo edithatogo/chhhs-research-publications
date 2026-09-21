@@ -964,3 +964,14 @@ and shows Flow Checker 0 errors plus one inactive-flow warning. Two visible
 `private/ops/2026-09-22-powerautomate-t11-dora-flow-readback.json`. This does
 not prove durable history, unattended scheduling, refresh, report
 reconciliation, delivery or production acceptance; T11 remains active.
+
+G07 native malformed-batch acceptance (2026-09-22): the canonical QLD Health
+`CHHHS Research Grants - Reviewed Import Upsert` flow was temporarily enabled
+for a bounded current-user test with `ReviewedRowsJson=not-json`, then restored
+Off. Run `08584115886238763797828484917CU13` failed at `Parse_Reviewed_Rows`
+with the expected invalid-JSON `InvalidTemplate` error before the loop. The
+authenticated `Grants Registry` REST readback returned an empty Atom feed, so
+no registry item was written. Receipt: ignored
+`private/ops/2026-09-22-powerautomate-g07-malformed-test.json`. This closes only
+the malformed-input failure-safe case; duplicate/concurrency, exact-key
+operational reconciliation, monitoring and delivery remain open.
