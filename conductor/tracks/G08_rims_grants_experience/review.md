@@ -614,3 +614,9 @@ authored through the authenticated QLD Health designer.
   complete in this tenant, or obtain a tenant session with a working import
   route. After a successful import, read back the same flow identity, Flow
   Checker state, null/non-null create/update runs and exact SharePoint rows.
+
+- **Control test:** a previously known-good `New` package for
+  `CHHHS RIMS - Funding Calendar - Reviewed Upsert` was selected through the
+  same route. It also remained at the upload-progress state and never exposed
+  mappings or an enabled `Import` button. The session was stopped before any
+  mutation and returned to the existing flow details page.

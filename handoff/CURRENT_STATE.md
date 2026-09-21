@@ -844,6 +844,14 @@ button. The session was navigated back without submitting; no new flow or
 tenant mutation is claimed. The existing flow identity remains the sole
 canonical target.
 
+A control upload using the previously known-good `New` package for the
+`CHHHS RIMS - Funding Calendar - Reviewed Upsert` flow reproduced the same
+indefinite upload-progress state and never exposed mappings or an enabled
+`Import` button. It was stopped before submission and the browser returned to
+the existing flow details page, strengthening the conclusion that the current
+tenant import route is the blocker rather than only the null-preserving
+package shape.
+
 Latest bounded grants-source probe (2026-09-22): private receipts were saved
 under `private/ops/grants-source-probes/`. NHMRC, MRFF, ARC, EMF, Metro North,
 Cancer Council Queensland, Queensland Grants Finder and UQ returned HTTP 200
