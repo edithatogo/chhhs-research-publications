@@ -53,6 +53,12 @@ unattended delivery are future extensions.
 - [x] Verification: focused calendar tests (11), full local suite, project checks (460), web-first contracts, Conductor validation and diff validation pass locally.
 - [~] Native null-date import/readback, refresh/reconciliation and delivery remain open.
 
+## Phase: Conductor review fix — policy identity boundary — 2026-09-22
+
+- [x] Task: Reject surrounding whitespace in institutional policy identities, effective dates and holiday dates before calendar UID/date projection (`3aa8999`).
+- [x] Verification: focused planning tests (14), full local suite, project checks (460), web-first contracts, Conductor validation and diff validation pass locally.
+- [~] Native null-date import/readback, refresh/reconciliation and delivery remain open.
+
 ## Phase: Calendar omission-boundary review — 2026-09-21
 
 - [x] Task: Validate optional calendar display fields before omitting uncertain

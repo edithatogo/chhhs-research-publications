@@ -1,5 +1,12 @@
 # G08 review
 
+## Conductor review — policy identity boundary — 2026-09-22
+
+- **Finding:** policy validation accepted padded policy keys, versions, organisation/anchor identifiers, effective dates and holiday dates, which could produce ambiguous policy selection or calendar UID inputs.
+- **Fix:** policy string identities and date values now require canonical no-surrounding-whitespace forms before validation.
+- **Verification:** focused planning tests pass (14); project checks pass 460; web-first, Conductor and diff validation pass locally.
+- **Residual gate:** native null-date branch/import/readback, model refresh/reconciliation, recurrence and delivery remain open.
+
 ## Conductor review — calendar projection identity boundary — 2026-09-22
 
 - **Finding:** exact-date calendar projection stripped `OpportunityKey` and `URL` values before deriving event UIDs and evidence links, allowing padded identities to become canonical silently.
