@@ -8,7 +8,9 @@ The canonical repository also runs the source-only workflow at
 `.github/workflows/local-quality.yml` on pushes to `main`, pull requests and
 manual dispatch. It executes the unit suite, project/web-first/Conductor
 validators, visual checks and the read-only Power Platform preflight. It does
-not authenticate to or mutate the tenant.
+not authenticate to or mutate the tenant. The workflow pins the hosted runner
+to `ubuntu-24.04` and uses the Node 24-compatible `actions/checkout@v5` and
+`actions/setup-python@v6` actions for reproducible source-only evidence.
 
 Microsoft Power Platform Build Tools 2.0 are the preferred Azure DevOps task
 family when this project has a Dataverse-backed, solution-aware deployment

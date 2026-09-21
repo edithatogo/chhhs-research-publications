@@ -3,8 +3,8 @@
 Updated: 2026-09-22. This is the compact resumption checkpoint, not a live acceptance certificate. Refresh after meaningful work; keep historical narrative in existing evidence documents.
 
 Latest local checkpoint (2026-09-22): canonical checkout is clean at commit
-`191db2b`, matching `origin/main` after the synchronized active-track review
-evidence update; GitHub source-only workflow `35655322816` completed
+`b4e2f2b`, matching `origin/main` after the synchronized CI runner/action
+update; GitHub source-only workflow `35656024947` completed
 successfully. The authenticated QLD Health browser route was not persistent
 after the last session restart, and the VUW PAC profile exposed no cloud-flow
 inventory or export. No unsaved native draft is treated as a deployment.
