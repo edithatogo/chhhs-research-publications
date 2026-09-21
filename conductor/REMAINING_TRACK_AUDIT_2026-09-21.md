@@ -355,3 +355,24 @@ operation.
   alongside the current model's older refresh errors. Because that receipt is
   not correlated to this attempt's run/request, it is retained as
   non-correlated native evidence and does not close the refresh gate.
+
+### VUW CLI route check — 2026-09-22
+
+- PAC authentication was present for the `vuw-dylan` profile
+  (`mordaudy@staff.vuw.ac.nz`) in
+  `https://orgd747e711.crm6.dynamics.com/`, but
+  `pac power-automate list-cloud-flows` returned an empty inventory.
+- No VUW cloud-flow package was therefore available to export. The QLD
+  Health authenticated browser route remains the authoritative native path;
+  its package parser succeeds but the wizard stalls before Import submission.
+- No VUW artefact was promoted, no cross-tenant copy was attempted, and the
+  QLD Health flow remains the sole canonical native target.
+
+### Canonical checkout refresh — 2026-09-22
+
+- The clean checkout used for this audit is synchronised to the sole GitHub
+  `main` branch at `d4e5d3c`; the original authoring checkout remains
+  intentionally dirty and is not a second remote version.
+- Local structural evidence and native tenant evidence remain separate. The
+  VUW CLI inventory result and the QLD Health browser import blocker do not
+  close any native publication or grants acceptance gate.

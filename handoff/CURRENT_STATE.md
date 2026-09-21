@@ -925,3 +925,13 @@ successful` for `CHHHS Research Publications`, timestamped `an hour ago`,
 alongside older model refresh errors. This receipt is not correlated to the
 data-only refresh attempt and therefore does not close the refresh or row
 reconciliation gate.
+
+VUW CLI route check (2026-09-22): PAC authentication is present for the
+`vuw-dylan` profile (`mordaudy@staff.vuw.ac.nz`) in
+`https://orgd747e711.crm6.dynamics.com/`, but
+`pac power-automate list-cloud-flows` returned an empty inventory. There is
+therefore no VUW cloud-flow source to export for cross-tenant bootstrapping.
+The QLD Health authenticated browser session remains the only authoritative
+native route; its import/parser handoff is documented above and remains
+blocked before Import submission. No VUW artefact was promoted or treated as
+QLD Health evidence.
