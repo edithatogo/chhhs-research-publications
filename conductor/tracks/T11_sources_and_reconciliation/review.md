@@ -642,7 +642,21 @@ identity and does not promote the source `Project ID` to a unique key.
 
 ### Findings
 
-- **Residual native gate:** the SharePoint Online and legacy connectors both
-  accepted the exact QLD Health personal-site URL but failed to advance the
-  list navigator after `Next`. Native table binding, report integration,
-  refresh and operational acceptance remain open.
+- **Residual native gate:** the earlier connector-navigation failure is
+  superseded by the successful SharePoint Online List route below. Native
+  report integration, refresh, retained-history reconciliation and operational
+  acceptance remain open.
+
+## Native DORA Activity Registry model binding — 2026-09-22
+
+- **Native route:** the existing semantic model's Power Query editor used the
+  authenticated organisational connection and exact QLD Health personal-site
+  URL. The navigator exposed `DORA Activity Registry` and the query was
+  created and saved with 48 columns and zero rows.
+- **Model readback:** the model view showed `DORA Activity Registry table 28
+  of 28`, confirming the native table was committed alongside the existing
+  model tables.
+- **Boundary:** this closes native list-to-model table binding for the
+  current-user isolated scope. Retained-history reconciliation, report visual
+  integration, refresh, recurrence, delivery and production acceptance remain
+  separate gates.

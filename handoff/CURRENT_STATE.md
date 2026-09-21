@@ -683,30 +683,30 @@ visual standards and `PASS_LOCAL_ONLY` web-first validation. The runtime
 baseline was intentionally replaced with an outcome-linked source-only parity
 baseline; this does not certify the native model, refresh or row reconciliation.
 
-Local DoRA model projection (2026-09-22): the canonical PBIP now also contains
-the source-preserving `DoraActivityRegistry` table with all 26 tracked fields,
-including `DORAActivityKey`, `DORARecordID`, `DORAResourceID` and the source
-`Project ID` field retained as non-unique. The existing SharePoint-only
-`DoraActivityRegistry.m` query remains the source definition. TMDL, model
-binding, regression coverage and source-only baseline validation pass locally;
-the native connector/list-navigator blocker remains unchanged, so no native
-table binding or refresh acceptance is claimed.
+Local and native DoRA model projection (2026-09-22): the canonical PBIP and
+the existing semantic model now contain the source-preserving
+`DoraActivityRegistry` table with all 26 tracked fields, including
+`DORAActivityKey`, `DORARecordID`, `DORAResourceID` and the source `Project ID`
+field retained as non-unique. The authenticated SharePoint Online List route
+saved the native query with 48 columns and zero rows; model readback showed
+`DORA Activity Registry table 28 of 28`. TMDL, model binding, regression
+coverage and source-only baseline validation pass locally. Retained-history
+reconciliation, report integration, refresh and operational acceptance remain
+open.
 
-Local relationship model projection (2026-09-22): the canonical PBIP now also
-contains the eight-field `GrantRelationships` table and the existing typed
-SharePoint-only query. `RelationshipKey` remains the bridge identity while
-`FromKey`, `ToKey` and optional `AwardID` remain separate endpoint identities;
-publication rows are not mutated or implicitly joined. TMDL, regression,
-project and web-first checks pass locally. Native relationship-table binding,
-the synthetic-row cleanup and any shared backfill remain open.
+Local relationship model projection (2026-09-22): the canonical PBIP and
+existing semantic model now contain the eight-field `GrantRelationships` table
+and the existing typed SharePoint-only query. `RelationshipKey` remains the
+bridge identity while `FromKey`, `ToKey` and optional `AwardID` remain separate
+endpoint identities; publication rows are not mutated or implicitly joined.
+TMDL, regression, project and web-first checks pass locally. Native
+relationship-table binding and exact synthetic-row cleanup were subsequently
+completed for the current-user scope; any shared backfill remains deferred.
 
-G06 local review correction (2026-09-22): the Conductor review of the
-relationship projection found and corrected one stale test-count statement.
-The canonical clean checkout now passes 439 unit tests with 8 skips, 457
-project checks, `PASS_LOCAL_ONLY` web-first validation and the full harness.
-The review is complete for this local projection phase, but G06 remains
-in-progress because native relationship-table binding and explicit cleanup of
-the current synthetic relationship row are not yet accepted.
+G06 closure (2026-09-22): the Conductor review reconciled the relationship
+projection evidence, native table binding and exact SharePoint cleanup. The
+current-user isolated G06 track was archived; organisation-wide sharing and
+unattended delivery remain future extensions.
 
 G08 local calendar revision ledger (2026-09-22): the canonical local PBIP now
 includes a separate `FundingCalendarChanges` source-preserving projection,
@@ -716,22 +716,15 @@ record for unchanged revisions and performs no SharePoint/calendar/notification
 write. The clean checkout passes 443 tests with 8 skips and 460 project
 checks; native persistence, refresh/reconciliation and delivery remain open.
 
-T11 native model-binding attempt (2026-09-22): the existing semantic-model
-Power Query editor was reopened and its retained DoRA/history tables and
-organisational-account connection were read back. A new SharePoint Online List
-source was supplied with the exact QLD Health personal-site URL. The connector
-accepted the URL and connection, but its list navigator did not advance after
-`Next` during repeated live waits. The unsaved dialog was cancelled and the
-Power Query editor exited without saving a partial query. Native
-`DORA Activity Registry` table binding, report integration, refresh and
-operational acceptance therefore remain open.
-
-A bounded retry through the legacy `SharePoint list` connector produced the
-same native navigation result: the exact QLD Health personal-site URL and
-organisational connection were accepted, but the navigator did not advance
-after `Next`. That unsaved attempt was also cancelled. The two connector
-routes are therefore distinct but currently share the same navigation blocker;
-the list itself remains present and independently verified through SharePoint.
+T11 native model binding (2026-09-22): the earlier same-session navigation
+timeout is superseded by a successful SharePoint Online List route. The
+existing semantic-model Power Query editor used the authenticated
+organisational connection and exact QLD Health personal-site URL, exposed
+`DORA Activity Registry`, and saved the query with 48 columns and zero rows.
+Model readback showed `DORA Activity Registry table 28 of 28`. Retained-history
+reconciliation, report integration, refresh, recurrence, delivery and
+operational acceptance remain open; this is current-user DEV model evidence,
+not production acceptance.
 
 G06 native invariant readback and correlated relationship receipt (2026-09-22):
 authenticated SharePoint REST returned all eight relationship fields;
