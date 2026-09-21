@@ -27,3 +27,12 @@ The Power BI report visual layer has been cleanly reconstructed to implement the
 - Exact three-page scope enforced and verified by `scripts/webfirst_contracts.py`.
 - 172 unittests passing.
 - 235 validation checks passing in `scripts/validate_project.py`.
+
+## Conductor review recheck — 2026-09-23
+
+T13 remains complete for the approved three-page publication-report scope.
+The authenticated report now has additional grants pages, and the separate
+Clinical Analytics field-binding defects remain owned by G08/E04; neither
+changes the completed T13 publication visual implementation. The current
+canonical checkout passes project, Conductor and source-only CI validation.
+T13 is eligible for archive.

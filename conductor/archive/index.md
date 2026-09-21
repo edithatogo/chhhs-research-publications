@@ -11,3 +11,4 @@
 - [T09_execution_contracts](T09_execution_contracts/plan.md) — local execution contracts, fail-closed policy gates and reproducible handoff complete; native acceptance remains owned by downstream tracks.
 - [T10_isolated_baseline](T10_isolated_baseline/plan.md) — isolated semantic-model/report baseline, canary persistence and rollback verified; downstream native implementation remains separately gated.
 - [T12_research_model](T12_research_model/plan.md) — canonical research semantic model, multi-source structure and isolated DAX/readback evidence complete; retained-history and operational acceptance remain owned downstream.
+- [T13_web_visuals](T13_web_visuals/plan.md) — approved three-page publication report implemented and validated; grants extension and Clinical Analytics acceptance remain owned by downstream tracks.
