@@ -3,9 +3,9 @@
 Updated: 2026-09-22. This is the compact resumption checkpoint, not a live acceptance certificate. Refresh after meaningful work; keep historical narrative in existing evidence documents.
 
 Latest local checkpoint (2026-09-22): canonical checkout is clean at commit
-`55d357e`, matching `origin/main` after the E01 target-binding and G07
-relationship-identity review fixes; GitHub source-only workflow
-`35662805758` passed for this commit. The authenticated QLD Health browser route is currently at
+`f8777b1`, matching `origin/main` after the E01 target-binding and G07
+relationship-identity review fixes plus the expanded VUW route audit; GitHub
+source-only workflow `35663128330` passed for this commit. The authenticated QLD Health browser route is currently at
 Microsoft sign-in, and the authenticated VUW PAC profile exposed no cloud-flow
 inventory or export. No unsaved native draft is treated as a deployment.
 T08, T09, T10, T12 and T13 have been reviewed and
