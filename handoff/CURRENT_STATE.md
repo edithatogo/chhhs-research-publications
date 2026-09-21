@@ -666,6 +666,16 @@ row reconciliation or scheduled refresh is claimed; the report's cached
 synthetic rows remain a known stale-readback boundary until a successful native
 refresh can be completed.
 
+T11 native model-binding attempt (2026-09-22): the existing semantic-model
+Power Query editor was reopened and its retained DoRA/history tables and
+organisational-account connection were read back. A new SharePoint Online List
+source was supplied with the exact QLD Health personal-site URL. The connector
+accepted the URL and connection, but its list navigator did not advance after
+`Next` during repeated live waits. The unsaved dialog was cancelled and the
+Power Query editor exited without saving a partial query. Native
+`DORA Activity Registry` table binding, report integration, refresh and
+operational acceptance therefore remain open.
+
 Model-write boundary (2026-09-21): the semantic-model editor exposes an
 `Editing` mode and the existing canonical publication model was extended in
 place through its Power Query editor after the pre-grants publication-model

@@ -167,3 +167,9 @@ Seven isolated retained-summary reader cases are also prepared in tests/native/r
 
 ### Committed reader verified after browser recovery
 Native Power Query successfully executed the actual committed-history reader. Aggregate output: PubMed 1261 rows/1261 unique keys/32289819 metadata characters; DORA 709 rows/709 unique keys/2603915 metadata characters; one committed batch per source. Publication-level preview showed the baseline observation timestamp. The temporary aggregate edit was discarded. This verifies complete committed archive reading in native preview; processed table loading, parser parity, canonical/report consumption and subsequent-cycle tests remain pending.
+
+### Native DORA Activity Registry model-binding attempt — 2026-09-22
+
+- [x] Re-open the existing semantic model's native Power Query editor and verify the retained DoRA/history tables and authenticated organisational-account connection are present.
+- [ ] Add the personal `DORA Activity Registry` SharePoint Online list as a native query/table. The connector accepted the exact QLD Health personal-site URL and existing connection, but the navigator did not advance after `Next` during repeated live waits. The unsaved attempt was cancelled and the editor was exited without saving a partial query.
+- [ ] Native activity-table binding, retained-history reconciliation, report visual integration, refresh, recurrence and delivery remain open.
