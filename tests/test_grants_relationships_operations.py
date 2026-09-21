@@ -207,17 +207,22 @@ class GrantsRelationshipTests(unittest.TestCase):
     def test_policy_and_delivery_keys_are_versioned(self):
         policy = {'PolicyKey':'CHHHS-DEFAULT','Version':'1.0','OrganisationKey':'CHHHS','AnchorKind':'final','LeadDays':10,'CalendarOrBusinessDays':'business','HolidayCalendarVersion':'qld-2026','EffectiveFrom':'2026-01-01'}
         self.assertTrue(validate_policy(policy))
-        self.assertEqual(delivery_event_key('u','g','new','1',10,'email'), delivery_event_key('u','g','new','1',10,'email'))
+        self.assertEqual(
+            delivery_event_key('u','g','new','1',10,'email', current_user_key='u'),
+            delivery_event_key('u','g','new','1',10,'email', current_user_key='u'),
+        )
 
     def test_delivery_key_rejects_coercible_or_unbounded_inputs(self):
         with self.assertRaisesRegex(ValueError, 'identity fields'):
-            delivery_event_key(None, 'g', 'new', '1', 10, 'email')
+            delivery_event_key(None, 'g', 'new', '1', 10, 'email', current_user_key='u')
         with self.assertRaisesRegex(ValueError, 'identity fields'):
-            delivery_event_key('u', 'g', 'new', '1', 10, '')
+            delivery_event_key('u', 'g', 'new', '1', 10, '', current_user_key='u')
         with self.assertRaisesRegex(ValueError, 'offset_days'):
-            delivery_event_key('u', 'g', 'new', '1', True, 'email')
+            delivery_event_key('u', 'g', 'new', '1', True, 'email', current_user_key='u')
         with self.assertRaisesRegex(ValueError, 'offset_days'):
-            delivery_event_key('u', 'g', 'new', '1', 3661, 'email')
+            delivery_event_key('u', 'g', 'new', '1', 3661, 'email', current_user_key='u')
+        with self.assertRaisesRegex(ValueError, 'match current_user_key'):
+            delivery_event_key('u2', 'g', 'new', '1', 10, 'email', current_user_key='u1')
 
 
 if __name__ == '__main__':
