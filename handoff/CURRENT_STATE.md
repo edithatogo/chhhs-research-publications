@@ -975,3 +975,16 @@ no registry item was written. Receipt: ignored
 `private/ops/2026-09-22-powerautomate-g07-malformed-test.json`. This closes only
 the malformed-input failure-safe case; duplicate/concurrency, exact-key
 operational reconciliation, monitoring and delivery remain open.
+
+G07 native exact-key create/update/cleanup (2026-09-22): the canonical QLD
+Health `CHHHS Research Grants - Reviewed Import Upsert` flow was temporarily
+enabled for a bounded current-user cycle and restored Off. Create run
+`08584115882832862098741138474CU12` succeeded for synthetic key
+`SYNTH-G07-20260922`; the same-key update run
+`08584115882008512967727243474CU27` succeeded and SharePoint readback showed
+one item (ID 6, etag `"2"`) with the updated title. The exact synthetic item
+was removed and the authenticated full-list REST readback returned an empty
+Atom feed. Receipt: ignored
+`private/ops/2026-09-22-powerautomate-g07-exact-key-cycle.json`. This proves
+isolated native create/update/cleanup only; duplicate/concurrency, unattended
+monitoring/delivery and production acceptance remain open.

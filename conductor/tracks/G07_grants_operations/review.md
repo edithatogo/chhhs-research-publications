@@ -167,3 +167,34 @@ operational gates and is not eligible for archive.
 
 Receipt:
 `private/ops/2026-09-22-powerautomate-g07-malformed-test.json`.
+
+## Conductor review recheck — native exact-key create/update/cleanup — 2026-09-22
+
+### Summary
+
+The canonical QLD Health Grants flow was temporarily enabled for a controlled
+current-user cycle, then restored Off. One synthetic reviewed row was created,
+the same `OpportunityKey` was updated in place, and the exact synthetic item
+was removed. The final Grants Registry readback is empty.
+
+### Verification checks
+
+- [x] Canonical flow identity: `acf866e4-e4a2-4113-bce4-d2dd9e2f22d6`.
+- [x] Create run succeeded: `08584115882832862098741138474CU12`.
+- [x] Update run succeeded: `08584115882008512967727243474CU27`.
+- [x] Same-key readback showed one item, ID 6, etag `"2"`, with the updated
+  title; no second synthetic key was observed.
+- [x] Exact cleanup readback returned an empty Atom feed.
+- [x] Flow status was read back as Off after the cycle.
+- [ ] Duplicate/concurrency, unattended monitoring/delivery and production
+  acceptance.
+
+### Findings
+
+Native exact-key create/update/cleanup is now evidenced for the isolated
+current-user DEV target. This does not prove duplicate/concurrency protection,
+unattended monitoring, schedule or delivery acceptance. G07 remains active and
+is not eligible for archive.
+
+Receipt:
+`private/ops/2026-09-22-powerautomate-g07-exact-key-cycle.json`.

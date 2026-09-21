@@ -45,6 +45,21 @@ cross-user monitoring, delivery or unattended schedule is part of this tranche.
 - [~] Duplicate/concurrency, exact-key operational reconciliation and
   unattended monitoring/delivery remain open; the flow is Off after the test.
 
+### Native exact-key create/update cycle — 2026-09-22
+
+- [x] Temporarily enable the canonical flow and submit one synthetic reviewed
+  row with `OpportunityKey=SYNTH-G07-20260922`; the create run succeeded
+  (`08584115882832862098741138474CU12`).
+- [x] Submit the same key with an updated title, description, amount and hash;
+  the update run succeeded (`08584115882008512967727243474CU27`) and native
+  readback showed one item (ID 6, etag `"2"`) with the updated title.
+- [x] Delete the exact synthetic item and read the full list back as an empty
+  Atom feed; restore the flow Off. Receipt:
+  `private/ops/2026-09-22-powerautomate-g07-exact-key-cycle.json`.
+- [~] Duplicate/concurrency, unattended monitoring/delivery and production
+  acceptance remain open; a single-key create/update cycle is not a substitute
+  for those gates.
+
 ## Phase: Review fixes
 - [x] Task: Apply review corrections for the controlled native replay and preserve the remaining acceptance boundary (0536b98).
 - [x] Task: Reject runs without source health or with records from unreported sources (aad9d4a).
