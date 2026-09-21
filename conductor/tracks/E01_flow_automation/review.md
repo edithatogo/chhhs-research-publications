@@ -234,3 +234,33 @@ being silently converted to nulls during bibliography ingestion. Code commit:
 - **Residual acceptance:** native SharePoint schema/row readback, replay,
   complete key-set reconciliation and unattended scheduling remain unproven.
   No tenant mutation was made.
+
+## Conductor review — publication target type boundary — 2026-09-21
+
+### Summary
+
+The publication target loader now validates target identifiers and field
+mappings as strings before trimming, GUID parsing or package generation. This
+prevents malformed configuration values from being silently coerced into a
+native-looking target. Code commit: `7a3216519062c4fec266f866b86741c1579c62bb`.
+
+### Verification Checks
+
+- **Plan Compliance:** Partial — local target admission and package contract
+  coverage are hardened; native import, replay/update, list readback and
+  unattended acceptance remain open.
+- **Style Compliance:** Pass — the SharePoint-only target and configured
+  SourceKey binding remain unchanged.
+- **New Tests:** Yes — publication contract tests cover non-string site/list/
+  model identifiers and field mappings.
+- **Test Results:** Passed — full suite (419 tests passed, 8 skipped), 438
+  project checks, Conductor validation (0 errors), web-first, Power Platform,
+  visual standards and both canonical flow validators.
+
+### Findings
+
+- **Fixed:** non-string target values could previously be stringified before
+  validation, weakening the private target admission boundary.
+- **Residual acceptance:** native SharePoint schema/row readback, replay,
+  complete reconciliation and unattended scheduling remain unproven. No
+  tenant mutation was made.

@@ -350,6 +350,14 @@ validators pass locally. Native policy persistence, grant pages, personal
 subscriptions, calendar change/delivery and notification acceptance remain
 open; no tenant mutation was made.
 
+Latest E01 target-boundary hardening (2026-09-21): code commit `7a32165`
+requires publication SharePoint target identifiers and field mappings to be
+strings before trimming, GUID parsing or package generation. The full suite
+passes 419 tests with 8 skips, 438 project checks pass, and Conductor,
+web-first, Power Platform, visual and canonical flow validators pass locally.
+Native publication list schema/readback, replay/update, reconciliation and
+unattended execution remain open; no tenant mutation was made.
+
 Inspect `git status --short` at entry. Preserve unrelated report/manifest and other existing edits; do not mass-stage. Use the active track's spec and plan for tasks. Follow AGENTS.md approval boundaries for deployment/sharing/schedules. Current user direction defines scope; historical observations supply evidence only for their dates. Live contradictions require readback, not a convenient choice of document.
 
 Update this checkpoint with outcome, next executable task, test command/result and exact blocker after work. Keep credentials, actual tenant identifiers and screenshots under ignored private storage. Do not paste raw private output into a context bundle.
