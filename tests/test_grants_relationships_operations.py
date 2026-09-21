@@ -117,6 +117,17 @@ class GrantsRelationshipTests(unittest.TestCase):
         self.assertIn('invalid_record_source', result['errors'])
         self.assertIn('invalid_health_source', result['errors'])
 
+    def test_run_rejects_duplicate_normalized_opportunity_keys(self):
+        result = evaluate_run(
+            [
+                {'OpportunityKey': 'GRANT:1', 'Source': 'nhmrc'},
+                {'OpportunityKey': ' GRANT:1 ', 'Source': 'nhmrc'},
+            ],
+            [{'source': 'nhmrc', 'status': 'succeeded', 'count': 2}],
+        )
+        self.assertEqual(result['status'], 'rejected')
+        self.assertIn('duplicate_opportunity_key', result['errors'])
+
     def test_run_rejects_non_object_rows_without_incidental_errors(self):
         result = evaluate_run(
             [None],

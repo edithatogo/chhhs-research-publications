@@ -146,7 +146,7 @@ def evaluate_run(records: Iterable[dict[str, Any]], health: Iterable[dict[str, A
         errors.append('invalid_opportunity_key')
     if any(isinstance(key, str) and not key.strip() for key in keys):
         errors.append('missing_opportunity_key')
-    comparable_keys = [key for key in keys if isinstance(key, str)]
+    comparable_keys = [key.strip() for key in keys if isinstance(key, str) and key.strip()]
     if len(comparable_keys) != len(set(comparable_keys)):
         errors.append('duplicate_opportunity_key')
     if any(item.get('status') != 'succeeded' for item in safe_health):
