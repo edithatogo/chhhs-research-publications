@@ -28,6 +28,10 @@ def _valid_http_url(value: Any) -> bool:
     return parsed.scheme in {"http", "https"} and bool(parsed.netloc)
 
 
+def _has_surrounding_whitespace(value: Any) -> bool:
+    return isinstance(value, str) and value != value.strip()
+
+
 def load_catalogue(path: str | Path) -> list[dict[str, Any]]:
     payload = json.loads(Path(path).read_text(encoding="utf-8"))
     if not isinstance(payload, list):
@@ -47,14 +51,19 @@ def load_catalogue(path: str | Path) -> list[dict[str, Any]]:
         seen.add(source_id)
         if not isinstance(row.get("title"), str) or not row["title"].strip():
             raise ValueError(f"source {source_id!r} needs title and authority_url")
+        if _has_surrounding_whitespace(row.get("authority_url")):
+            raise ValueError(f"source {source_id!r} authority_url must not have surrounding whitespace")
         if not _valid_http_url(row.get("authority_url")):
             raise ValueError(f"source {source_id!r} needs a valid authority_url")
         if row.get("intake") not in ALLOWED_INTAKE:
             raise ValueError(f"source {source_id!r} has unsupported intake")
         if row.get("health_status") not in ALLOWED_HEALTH:
             raise ValueError(f"source {source_id!r} has unsupported health_status")
-        if row.get("intake") == "api" and not _valid_http_url(row.get("api_url")):
-            raise ValueError(f"source {source_id!r} with api intake needs a valid api_url")
+        if row.get("intake") == "api":
+            if _has_surrounding_whitespace(row.get("api_url")):
+                raise ValueError(f"source {source_id!r} api_url must not have surrounding whitespace")
+            if not _valid_http_url(row.get("api_url")):
+                raise ValueError(f"source {source_id!r} with api intake needs a valid api_url")
         for field in ("eligibility_scope", "format", "access", "coverage", "last_verified"):
             if not isinstance(row.get(field), str) or not row[field].strip():
                 raise ValueError(f"source {source_id!r} needs {field}")

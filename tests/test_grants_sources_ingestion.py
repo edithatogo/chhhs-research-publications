@@ -79,6 +79,24 @@ class GrantsSourceTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "valid api_url"):
                 load_catalogue(handle.name)
 
+    def test_catalogue_rejects_surrounding_url_whitespace(self):
+        rows = json.loads((Path(__file__).parents[1] / "config/grants-sources.json").read_text())
+        rows[0]["authority_url"] = " https://example.org/authority"
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json") as handle:
+            json.dump(rows, handle)
+            handle.flush()
+            with self.assertRaisesRegex(ValueError, "authority_url must not have surrounding whitespace"):
+                load_catalogue(handle.name)
+
+        rows[0]["authority_url"] = "https://example.org/authority"
+        arc = next(row for row in rows if row["source_id"] == "arc")
+        arc["api_url"] = "https://example.org/api "
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json") as handle:
+            json.dump(rows, handle)
+            handle.flush()
+            with self.assertRaisesRegex(ValueError, "api_url must not have surrounding whitespace"):
+                load_catalogue(handle.name)
+
     def test_catalogue_freshness_uses_brisbane_date(self):
         rows = json.loads((Path(__file__).parents[1] / "config/grants-sources.json").read_text())
         self.assertTrue(all(row["last_verified"] <= "2026-09-21" for row in rows))
