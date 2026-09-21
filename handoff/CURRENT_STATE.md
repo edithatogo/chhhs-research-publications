@@ -332,6 +332,15 @@ validators pass locally. Native target approval, import/readback, canonical
 binding, unattended execution and delivery remain open; no tenant mutation was
 made.
 
+Latest G05 university-catalogue hardening (2026-09-21): code commit `efc0dfe`
+rejects leading or trailing whitespace in `institution_id` values, preventing
+identity drift between duplicate detection and downstream organisation
+enrichment. Focused university coverage is 8 tests; the full suite passes 420
+tests with 8 skips, 438 project checks pass, and Conductor, web-first, Power
+Platform, visual and canonical flow validators pass locally. Permitted
+institutional exports/feeds, authenticated portal access and native acceptance
+remain open; no tenant mutation was made.
+
 Latest G08 calendar hardening (2026-09-21): code commit `f4b44ac` validates
 the semantic value of the iCalendar `generated_utc` timestamp, not only its
 textual shape, and rejects impossible UTC dates/times. Focused calendar

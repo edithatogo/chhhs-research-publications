@@ -57,3 +57,16 @@ times remain `null`.
 - **Fix:** rows must be objects with scalar non-empty string identities; `last_verified` is validated against the declared Australia/Brisbane date.
 - **Verification:** focused university tests and the full local gates will be recorded against the implementation commit; institutional feed/export and authenticated portal acceptance remain open.
 - **Verification:** commit `aa0c9ab` passes the focused university suite (7 tests), the full local suite (374 tests, 8 skips), project validation (438 checks), web-first contracts and Conductor validation; institutional feed/export and authenticated portal acceptance remain open.
+
+## Conductor review — institution identity whitespace boundary — 2026-09-21
+
+- **Finding:** university catalogue IDs were stripped for duplicate detection
+  but the original whitespace-bearing row value could still be returned to
+  downstream enrichment.
+- **Fix:** commit `efc0dfeae03d8b5ab773e4c4d91a8e079465350e` rejects leading or
+  trailing whitespace in `institution_id` values and adds regression coverage.
+- **Verification:** focused university tests pass (8); the full suite passes
+  420 tests with 8 skips, 438 project checks pass, and web-first, Conductor,
+  Power Platform, visual and canonical flow validators pass locally.
+- **Residual gate:** permitted institutional exports/feeds, authenticated
+  portal access and current source acceptance remain open.
