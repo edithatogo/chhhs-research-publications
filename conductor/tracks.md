@@ -14,7 +14,7 @@ Execution order and boundaries: [detailed handoff](PUBLICATION_STABILISATION.md)
 - [~] [G05_grants_universities: University and specialist coverage](tracks/G05_grants_universities/plan.md) — JCU/UQ/QUT/Griffith source/access catalogue implemented; portal/feed verification remains open.
 - [~] [G06_grants_relationships: Publication and funding relationships](tracks/G06_grants_relationships/plan.md) — typed local relationship contract and isolated DEV eight-field native schema implemented; remaining required-field readback, round-trip and approved target gates remain open.
 - [~] [G07_grants_operations: Grant operational acceptance](tracks/G07_grants_operations/plan.md) — local fail-closed evaluator and controlled DEV create/update replay implemented; current-user manual monitoring/reconciliation remains open; cross-user delivery is a future extension.
-- [~] [G08_rims_grants_experience: RIMS grant pages, dates and subscriptions](tracks/G08_rims_grants_experience/plan.md) — local policy and subscription contracts implemented; native pages/access/delivery remain open.
+- [~] [G08_rims_grants_experience: RIMS grant pages, dates and subscriptions](tracks/G08_rims_grants_experience/plan.md) — local policy and current-user subscription contracts implemented; current-user native pages/persistence remain open; shared delivery is a future extension.
 
 ## Current web-first implementation
 

@@ -6,6 +6,11 @@ proved locally or in the tenant. Local tests and generated definitions do not
 certify live Power BI, SharePoint, Power Automate, permissions, refresh or
 delivery acceptance.
 
+Current access scope: implementation and acceptance are limited to the
+authenticated user's existing access, isolated personal DEV objects and manual
+operation, matching the publications development pattern. Shared access,
+cross-user delivery and unattended recurrence are future extensions.
+
 ## 1. Publications registry
 
 Requirements: collect PubMed affiliation results and Queensland Health DORA
@@ -140,9 +145,10 @@ or cancelled events without creating subscriptions. An isolated personal DEV
 `Grants Registry` list and the SharePoint-only reviewed-import flow have been
 created and read back. A controlled authenticated replay proved one synthetic
 create and one same-key update, with the flow restored Off; the synthetic row
-still requires cleanup confirmation. The organisation-wide target, native report
-pages, subscriptions and notifications remain unaccepted; the three local
-grants page definitions are not tenant readback.
+still requires cleanup confirmation. Current-user native report pages and
+personal subscription persistence remain unaccepted; shared targets,
+cross-user notifications and unattended delivery are future extensions. The
+three local grants page definitions are not tenant readback.
 
 ## 5. RIMS dashboard and user experience
 
@@ -199,6 +205,7 @@ flowchart LR
   A -- fail --> L
 ```
 
-The current remote branch is source-only. Native report/model/list/flow
-acceptance, schedule activation, sharing and outbound delivery remain separate
-gates and must be recorded in ignored private receipts.
+The current remote branch is source-only. Current-user native
+report/model/list/flow acceptance and manual readback remain separate gates and
+must be recorded in ignored private receipts. Schedule activation, sharing and
+outbound delivery are future extensions.
