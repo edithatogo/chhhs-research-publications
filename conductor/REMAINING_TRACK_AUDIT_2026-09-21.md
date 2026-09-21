@@ -260,3 +260,26 @@ operation.
 - **Boundary:** this closes S02.3.4 only. Native refresh, report/model
   version-history, rollback, sharing, scheduled delivery and production
   acceptance remain open; no flow was enabled or schedule changed.
+
+### Resumed canonical audit — 2026-09-22
+
+- **Repository:** the clean canonical checkout is synchronised to the sole
+  GitHub `main` branch at `d50da7f`; the original authoring checkout remains
+  intentionally dirty and is not a second remote version.
+- **G08 import evidence:** the authenticated QLD Health browser upload reached
+  `generateResourceStorage`; `listImportParameters` returned HTTP 202 and
+  its packaging-operation poll returned HTTP 200 with `status: Succeeded`,
+  the expected flow resource and SharePoint connection resources. The wizard
+  then remained at `Uploading your package` and never exposed mappings or an
+  enabled `Import` action. A previously known-good `New` package reproduced
+  the same UI handoff failure; no import or duplicate was created.
+- **Alternate route:** VUW PAC remains authenticated but its cloud-flow
+  inventory is empty; the alternate Chrome/CUA surface was unavailable in
+  this session. QLD Health remains the authoritative native target.
+- **Local gates:** 444 tests passed with 8 skips, 460 project checks passed,
+  and web-first, harness, tooling, Conductor and diff checks passed. These
+  are local/structural gates and do not close native acceptance.
+- **Decision:** keep all tracks with explicit source-access, tenant,
+  refresh, reconciliation or delivery gates active. Do not archive G08 until
+  the null-preserving branch is imported into the existing flow identity and
+  null/non-null create/update/readback is proven.
