@@ -55,3 +55,21 @@ Flinders tenant/account (`mord0015@flinders.edu.au`). No login, tenant switch,
 deployment, or write was attempted. The native gates listed above therefore
 remain open; this is evidence of unchanged external state, not a completion
 receipt.
+
+## Local hardening continuation — 2026-09-21
+
+Since the resumed access recheck, three local review fixes were completed and
+synced to the sole remote `main` branch:
+
+- G02 `ec5322c`: source authority/API URLs with surrounding whitespace now
+  fail closed before intake validation.
+- G08 `a573598`: calendar CR/LF display-field escaping is explicit and tested.
+- G07 `1ac3d52`: operational source and opportunity identities with surrounding
+  whitespace now fail closed rather than being accepted after comparison-time
+  trimming.
+
+The canonical checkout is clean and remote-aligned at `0e67c89`. The full
+local suite passes 426 tests with 8 skips; the harness, 438 project checks,
+Conductor, web-first, Power Platform, visual and canonical flow validators pass
+locally. GitHub Actions run `35552156045` is green. These changes do not close
+the native tenant, permitted-feed or unattended-operation gates listed above.
