@@ -231,6 +231,12 @@ operation.
   empty string. The native optional-date path is therefore not accepted and
   remains an explicit follow-up. Model/page binding, refresh/reconciliation
   and actual calendar/reminder delivery remain open.
+- **Native repair readback (2026-09-22):** a fresh authenticated designer
+  open exposed the same unquoted property-name expressions in the copied
+  `Create item`/`Update item` mappings. Those mappings were corrected in the
+  existing flow identity, saved, and Flow Checker again read `Errors (0)` and
+  `Warnings (0)`. The tracked local definition already used the quoted form;
+  this is a tenant-side correction receipt, not a null-date execution proof.
 - **Decision:** keep G08 active; the non-null native execution/readback gate
   is evidenced, but the track is not complete or archivable.
 

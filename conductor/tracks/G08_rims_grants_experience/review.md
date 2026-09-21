@@ -521,3 +521,16 @@ shape copied from a tenant-exported native flow.
   create/update/readback subtask but not G08. Native null-date handling,
   page binding, refresh/reconciliation and actual calendar/reminder delivery
   remain open, so the track stays active.
+
+### Native expression recheck — 2026-09-22
+
+- **Finding and repair:** a fresh QLD Health designer readback found the
+  copied flow's `Create item` and `Update item` property expressions rendered
+  without quoted property names in several fields. The expressions were
+  corrected in the existing flow identity and saved.
+- **Native check:** Flow Checker read `Errors (0)` and `Warnings (0)` after
+  the repair. The canonical local definition already contained the quoted
+  expressions, so no local flow-definition change was needed.
+- **Boundary:** this repairs the tenant configuration syntax only. The
+  `PreviousDate=null` connector edge, refresh/reconciliation and delivery
+  gates remain open; no new test row was written.

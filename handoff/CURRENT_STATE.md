@@ -811,7 +811,11 @@ the native SharePoint `Delete?` confirmation and the REST endpoint returned
 zero items. Two null-`PreviousDate` diagnostic runs failed because the
 connector received an empty string for its date field even after the null-safe
 mapping; this native optional-date edge case remains open and is not claimed
-as accepted. Model refresh/reconciliation and delivery remain open; this is
+as accepted. A fresh designer recheck on 2026-09-22 found several copied
+tenant mappings rendered without quoted property names; those expressions
+were corrected in the same flow identity, saved, and Flow Checker again read
+`Errors (0)` and `Warnings (0)`. The tracked local definition already had the
+quoted form. Model refresh/reconciliation and delivery remain open; this is
 current-user DEV configuration/readback evidence, not production acceptance.
 
 The bounded diagnostic was extended once using a private tenant-exported
