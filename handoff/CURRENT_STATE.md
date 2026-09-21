@@ -636,6 +636,20 @@ Funding Watchlist and Funding Delivery Ledger`, with the earlier
 `Pre-grants-model baseline: publication model with saved funding page shells`
 retained below it.
 
+Native report visual binding readback (2026-09-22): the existing report now has
+saved table visuals on the two grant pages. `Funding Opportunities` is bound to
+`Grants Registry.Funder`, `Deadline`, `Eligibility` and `OpportunityKey`; its
+Reading-view readback shows the four headers and no rows, matching the current
+zero-row native Grants Registry preview. `Funding Calendar & Watchlist` has a
+calendar visual bound to `CalculatedDate`, `DeadlineKey`, `ReviewStatus` and
+`SourceURL`, plus a watchlist visual bound to `Active`, `OpportunityKey`,
+`Scope` and `TargetKey`. Reading-view readback shows all eight headers, the
+synthetic calendar row and the synthetic watchlist row. The page's older status
+sentence still says semantic-model binding is pending and should be treated as
+cosmetic documentation debt; it does not overturn the native visual readback.
+Refresh/reconciliation, current-user flow/page binding, subscription isolation,
+ledger cleanup and actual calendar/reminder delivery remain open.
+
 Model-write boundary (2026-09-21): the semantic-model editor exposes an
 `Editing` mode and the existing canonical publication model was extended in
 place through its Power Query editor after the pre-grants publication-model
