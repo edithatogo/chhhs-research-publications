@@ -55,9 +55,11 @@ def load_target(path: Path) -> tuple[str, str, str, dict[str, str]]:
     raw_model_id = payload.get("model_id")
     if not all(isinstance(value, str) for value in (raw_site_url, raw_list_id, raw_model_id)):
         raise ValueError("validated private SharePoint target identifiers must be strings")
-    site_url = raw_site_url.strip()
-    list_id = raw_list_id.strip()
-    model_id = raw_model_id.strip()
+    if any(value != value.strip() for value in (raw_site_url, raw_list_id, raw_model_id)):
+        raise ValueError("validated private SharePoint target identifiers must not have surrounding whitespace")
+    site_url = raw_site_url
+    list_id = raw_list_id
+    model_id = raw_model_id
     fields = payload.get("fields")
     if not isinstance(fields, dict):
         raise ValueError("validated private SharePoint target field mapping must be an object")
@@ -88,7 +90,9 @@ def load_target(path: Path) -> tuple[str, str, str, dict[str, str]]:
         raise ValueError("SharePoint list_id must be a GUID") from exc
     if any(not isinstance(fields[key], str) for key in required):
         raise ValueError("validated private SharePoint target field mappings must be strings")
-    mapped_fields = {key: fields[key].strip() for key in required}
+    if any(fields[key] != fields[key].strip() for key in required):
+        raise ValueError("validated private SharePoint target field mappings must not have surrounding whitespace")
+    mapped_fields = {key: fields[key] for key in required}
     if any(not value or "{{" in value for value in mapped_fields.values()):
         raise ValueError("validated private SharePoint target requires non-empty field mappings")
     return site_url, list_id, model_id, mapped_fields

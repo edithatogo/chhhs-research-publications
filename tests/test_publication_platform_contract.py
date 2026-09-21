@@ -172,6 +172,32 @@ class PublicationPlatformContractTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "field mappings must be strings"):
                 load_target(target)
 
+    def test_native_target_rejects_surrounding_whitespace_in_identifiers_and_mappings(self):
+        with tempfile.TemporaryDirectory() as folder:
+            target = Path(folder) / "target.json"
+            fields = {name: "field_1" for name in {
+                "title", "source_key", "canonical_key", "authors", "journal", "publication_year",
+                "publication_month", "publication_date_raw", "publication_date_precision", "source_set",
+                "pmid", "doi", "matched_facilities", "attribution_evidence", "review_status",
+                "first_observed", "last_observed",
+            }}
+            base = {
+                "site_url": "https://example.sharepoint.com/sites/dev",
+                "list_id": str(uuid.uuid4()),
+                "model_id": str(uuid.uuid4()),
+                "unique_fields": ["source_key"],
+                "fields": fields,
+            }
+            for key in ("site_url", "list_id", "model_id"):
+                invalid = {**base, key: f" {base[key]}"}
+                target.write_text(json.dumps(invalid), encoding="utf-8")
+                with self.subTest(key=key), self.assertRaisesRegex(ValueError, "surrounding whitespace"):
+                    load_target(target)
+            invalid_fields = {**base, "fields": {**fields, "source_key": "field_1 "}}
+            target.write_text(json.dumps(invalid_fields), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "field mappings must not"):
+                load_target(target)
+
     def test_native_target_requires_unique_source_key_contract(self):
         with tempfile.TemporaryDirectory() as folder:
             target = Path(folder) / "target.json"
