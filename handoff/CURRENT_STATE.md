@@ -3,9 +3,9 @@
 Updated: 2026-09-22. This is the compact resumption checkpoint, not a live acceptance certificate. Refresh after meaningful work; keep historical narrative in existing evidence documents.
 
 Latest local checkpoint (2026-09-22): canonical checkout is clean at commit
-`6f14df7`, matching `origin/main` after the E01 target-binding identity fix
-and plan/review updates; GitHub source-only workflow `35662505582` passed for
-this commit. The authenticated QLD Health browser route is currently at
+`55d357e`, matching `origin/main` after the E01 target-binding and G07
+relationship-identity review fixes; GitHub source-only workflow
+`35662805758` passed for this commit. The authenticated QLD Health browser route is currently at
 Microsoft sign-in, and the authenticated VUW PAC profile exposed no cloud-flow
 inventory or export. No unsaved native draft is treated as a deployment.
 T08, T09, T10, T12 and T13 have been reviewed and
@@ -33,7 +33,7 @@ current user-scoped tranche. See `docs/USER_BASED_ACCESS_SCOPE.md`.
 - Institutional date offsets and subscription candidate matching exist in `scripts/grants_planning.py`. These are reference logic, not hosted services.
 - G01–G08 specification/plan files exist. They are not completed deployments.
 - G06 is archived for the current-user isolated DEV scope: the `Grant Relationships` list exists at the personal DEV SharePoint site, all eight canonical fields read back, `RelationshipKey` is required/unique/indexed, the native synthetic relationship round-trip and unchanged Publication Registry keyset receipt are complete, the exact synthetic row was deleted and the list reads empty, and the existing model contains the isolated relationship table. No production or shared binding was made.
-- Latest canonical-clone harness: 464 tests (8 private-runtime tests skipped), 460 project checks, Conductor validation, web-first local validation and Power Platform tooling preflight passed. GitHub source-only workflow `35662505582` passed for commit `6f14df7`. The live CKAN DoRA activity collector retrieved 442/442 rows with all 19 source fields plus the datastore `_id` key and 442 unique source `_id` values; scalar/non-boolean source-identity validation is covered locally. E01 target loading now rejects surrounding whitespace in SharePoint site/list/model identifiers and internal field mappings before package generation. This is source/readback evidence, not tenant acceptance.
+- Latest canonical-clone harness: 465 tests (8 private-runtime tests skipped), 460 project checks, Conductor validation, web-first local validation and Power Platform tooling preflight passed. GitHub source-only workflow `35662805758` passed for commit `55d357e`. The live CKAN DoRA activity collector retrieved 442/442 rows with all 19 source fields plus the datastore `_id` key and 442 unique source `_id` values; scalar/non-boolean source-identity validation is covered locally. E01 target loading now rejects surrounding whitespace in SharePoint site/list/model identifiers and internal field mappings before package generation. G07 relationship normalization now rejects surrounding whitespace in relationship identities, evidence URLs, confidence, award IDs and review states. This is source/readback evidence, not tenant acceptance.
 - E07 local review fix: publication create/update actions are now required to use SharePoint Online and target the same site/list as lookup; native flow/list acceptance remains open.
 - S02 local review fix: release manifests now reject empty schema and accepted-batch identities; native report version/batch display remains open.
 - S02 version hardening: commit `42b3c91` rejects non-string release versions through the explicit validation boundary; focused package tests pass (5). Native report version/batch display and rollback remain open.
