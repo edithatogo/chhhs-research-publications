@@ -1,5 +1,12 @@
 # G08 review
 
+## Conductor review — calendar change identity boundary — 2026-09-22
+
+- **Finding:** calendar-change projection stripped `DeadlineKey`, `OpportunityKey`, `ReviewStatus` and `SourceURL` values before emitting revision records, allowing malformed padded identities/URLs to appear canonical.
+- **Fix:** required strings and source URLs now reject surrounding whitespace; regression coverage was added.
+- **Verification:** focused calendar-change tests pass (4); the full suite passes 453 tests with 8 skips; project checks pass 460; web-first, Conductor and diff validation pass locally.
+- **Residual gate:** native null-date branch/import/readback, model refresh/reconciliation, recurrence and delivery remain open.
+
 ## Conductor review — subscription identity isolation — 2026-09-22
 
 - **Finding:** subscription and delivery matching stripped current-user,
