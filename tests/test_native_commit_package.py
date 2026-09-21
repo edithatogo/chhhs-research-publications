@@ -11,6 +11,12 @@ from build_native_commit_package import build
 
 
 class NativeCommitPackageTests(unittest.TestCase):
+    def test_batch_identity_must_be_a_uuid_string(self):
+        with self.assertRaisesRegex(ValueError, 'UUID string'):
+            build(Path('baseline.zip'), Path('result.zip'), None)
+        with self.assertRaisesRegex(ValueError, 'UUID string'):
+            build(Path('baseline.zip'), Path('result.zip'), 'not-a-uuid')
+
     def test_failure_markers_are_text_expressions(self):
         definition = {
             "properties": {

@@ -16,7 +16,12 @@ from build_native_retention_package import ROOT, after, compose
 
 
 def build(baseline, output, batch):
-    batch = str(uuid.UUID(batch))
+    if not isinstance(batch, str):
+        raise ValueError('batch must be a UUID string')
+    try:
+        batch = str(uuid.UUID(batch))
+    except (TypeError, ValueError, AttributeError) as exc:
+        raise ValueError('batch must be a UUID string') from exc
     if not output.resolve().is_relative_to((ROOT / 'private').resolve()):
         raise ValueError('Package contains private connection references.')
     with zipfile.ZipFile(baseline) as z:
