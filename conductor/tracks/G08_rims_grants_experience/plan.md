@@ -67,3 +67,10 @@ unattended delivery are future extensions.
 
 - [x] Controlled current-user calendar round-trip: created one synthetic deadline with an exact calculated date, authoritative HTTPS source URL, policy key and `Needs Review` state; read back all visible fields; edited the policy key and read it back; deleted the synthetic item and confirmed the list returned to zero rows.
 - [ ] Native page/report binding, revision ledger, reminder/change execution and delivery remain open.
+
+The authenticated Power Automate designer was also checked for the next
+current-user flow. It can expose the personal site as a custom SharePoint
+address and resolve the `Funding Calendar` fields, but the manual-trigger
+dynamic-content binding did not resolve reliably in the new designer. The
+incomplete draft was discarded; no duplicate flow, invalid flow, schedule or
+notification was saved.

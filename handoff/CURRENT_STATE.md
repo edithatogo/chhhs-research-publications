@@ -499,6 +499,15 @@ list persistence evidence only. Native report pages, flow/page binding,
 revision/change ledger, calendar delivery, notifications and unattended
 operation remain open.
 
+Power Automate flow continuation (2026-09-21): the authenticated new-designer
+route was tested for a current-user manual flow targeting the personal
+`Funding Calendar`. The custom personal SharePoint site and calendar fields
+were visible, but manual-trigger dynamic-content binding did not resolve
+reliably. The incomplete draft was discarded, so no duplicate flow, invalid
+flow, schedule, notification or sharing change was saved. The live inventory
+still contains exactly the existing reviewed-import grants flow (Off) and
+daily publications flow (On/scheduled).
+
 Inspect `git status --short` at entry. Preserve unrelated report/manifest and other existing edits; do not mass-stage. Use the active track's spec and plan for tasks. Follow AGENTS.md approval boundaries for deployment/sharing/schedules. Current user direction defines scope; historical observations supply evidence only for their dates. Live contradictions require readback, not a convenient choice of document.
 
 Update this checkpoint with outcome, next executable task, test command/result and exact blocker after work. Keep credentials, actual tenant identifiers and screenshots under ignored private storage. Do not paste raw private output into a context bundle.
