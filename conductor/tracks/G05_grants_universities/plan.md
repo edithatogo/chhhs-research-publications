@@ -35,3 +35,9 @@ is assumed.
 - [x] Task: Reject boolean lead times and invalid authority/verification metadata before source use (f0ee882).
 - [x] Task: Reject fractional institutional lead times so catalogue values match integer-day planning inputs (ae2a630).
 - [x] Task: Reject non-object rows, non-string institution identities and future verification dates using the Australia/Brisbane business date.
+
+## Phase: Conductor review fixes — 2026-09-22
+
+- [x] Task: Reuse the strict university catalogue validator before bounded authority probing, so malformed rows cannot be mistaken for source evidence (`1a073b7`).
+- [x] Verification: focused source-probe/university tests (12), full local suite (449 tests, 8 skipped), project checks (460), web-first contracts, Conductor validation and diff validation pass locally.
+- [~] Permitted institutional feed/export or authenticated portal acceptance remains open; authority-page probes remain read-only evidence only.

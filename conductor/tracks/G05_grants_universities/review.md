@@ -1,5 +1,22 @@
 # G05 review
 
+## Conductor review — probe admission boundary — 2026-09-22
+
+- **Finding:** `_load_university_rows` in the bounded source probe applied only
+  a minimal truthiness check. It could probe malformed rows that the canonical
+  university registry loader would reject, weakening the distinction between
+  source discovery and admitted catalogue evidence.
+- **Fix:** the probe now delegates to `load_universities`, preserving the
+  strict identity, authority URL, verification-date, lead-time and
+  `manual_review` contract. A regression test proves a whitespace-bearing
+  institution ID fails before the opener is called.
+- **Verification:** focused source-probe and university tests pass (12); the
+  full suite passes 449 tests with 8 skips; project validation passes 460
+  checks; web-first, Conductor and diff validation pass locally.
+- **Residual gate:** permitted institutional feed/export, authenticated portal
+  access and specialist/foundation expansion remain open. A bounded authority
+  GET still does not prove feed acceptance or unattended ingestion.
+
 ## Summary
 
 Review status: in progress; university source and institutional-date discovery is recorded without promoting private portals to feeds.
