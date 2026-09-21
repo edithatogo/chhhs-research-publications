@@ -427,3 +427,8 @@ operation.
   no cloud-flow inventory. The QLD Health null-date repair therefore remains
   unsaved, the canonical flow remains Off, and no track is archivable on this
   evidence alone.
+- A read-only PAC profile audit found only `nsw-dylan` and `vuw-dylan`; no
+  QLD Health PAC profile or QLD Health environment is available locally. The
+  active VUW environment is the VUW STAFF default environment, not the QLD
+  Health tenant. No profile was changed and no cross-tenant import was
+  attempted.
