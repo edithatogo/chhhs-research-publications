@@ -323,6 +323,15 @@ Power Platform, visual and canonical flow validators pass locally. Native
 monitoring, list readback, operational reconciliation, scheduling and delivery
 remain open; no tenant mutation was made.
 
+Latest G08 calendar hardening (2026-09-21): code commit `f4b44ac` validates
+the semantic value of the iCalendar `generated_utc` timestamp, not only its
+textual shape, and rejects impossible UTC dates/times. Focused calendar
+coverage is 9 tests; the full suite passes 417 tests with 8 skips, 438
+project checks pass, and Conductor plus the publication/grants flow
+validators pass locally. Native policy/page persistence, subscriptions,
+calendar change/delivery and notification acceptance remain open; no tenant
+mutation was made.
+
 Latest G08 policy hardening (2026-09-21): code commit `574193d` rejects an
 explicitly blank institutional grant-policy `EffectiveTo` while preserving
 `null` as the valid open-ended representation. Focused planning coverage is

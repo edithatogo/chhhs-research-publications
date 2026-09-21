@@ -252,3 +252,16 @@ otherwise unsupported shapes. Code commit:
   Power Platform, visual and canonical flow validators pass locally.
 - **Residual gate:** native policy persistence, funding pages, calendar
   change/cancellation and notification delivery remain open.
+
+## Conductor review — calendar generation timestamp semantics — 2026-09-21
+
+- **Finding:** iCalendar generation timestamps were checked for their textual
+  shape but impossible dates or times could still pass the boundary.
+- **Fix:** commit `f4b44ac34a1c6bd01c355e6efb24c541ce46957` parses
+  `generated_utc` as a real second-precision UTC timestamp and rejects
+  impossible values, with regression coverage.
+- **Verification:** focused calendar tests pass (9); the full suite passes 417
+  tests with 8 skips, 438 project checks pass, and Conductor plus the
+  publication/grants flow validators pass locally.
+- **Residual gate:** native policy persistence, funding pages, calendar
+  change/cancellation, subscriptions and notification delivery remain open.
