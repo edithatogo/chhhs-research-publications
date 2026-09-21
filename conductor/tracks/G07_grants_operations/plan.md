@@ -28,11 +28,22 @@ cross-user monitoring, delivery or unattended schedule is part of this tranche.
   submission because the flow is Off; therefore no run was created and no
   SharePoint mutation occurred. The flow was not enabled and remains Off.
   Receipt: `private/ops/2026-09-22-powerautomate-g07-malformed-test-boundary.json`.
-- [~] The malformed-batch failure-safe behavior is still a native execution
-  gate. It cannot be claimed from the pre-submit Off-state boundary; an
-  approved enable/run/restore cycle is required before failed-batch
-  preservation, duplicate/concurrency handling and exact-key reconciliation
-  can be closed.
+- [x] The pre-submit Off-state boundary was superseded by the bounded native
+  execution recorded below; the earlier receipt remains historical evidence
+  that no run was attempted while the flow was Off.
+
+### Native malformed-batch execution — 2026-09-22
+
+- [x] Execute the bounded current-user cycle against the canonical flow:
+  temporarily enable, submit `ReviewedRowsJson=not-json`, read back the failed
+  run and restore the flow Off. Run
+  `08584115886238763797828484917CU13` failed at `Parse_Reviewed_Rows` with the
+  expected invalid-JSON error before `Apply_to_each_Reviewed_Row`.
+- [x] Read back the exact QLD Health personal `Grants Registry` REST endpoint;
+  the response was an empty Atom feed, so no item was created or changed.
+  Receipt: `private/ops/2026-09-22-powerautomate-g07-malformed-test.json`.
+- [~] Duplicate/concurrency, exact-key operational reconciliation and
+  unattended monitoring/delivery remain open; the flow is Off after the test.
 
 ## Phase: Review fixes
 - [x] Task: Apply review corrections for the controlled native replay and preserve the remaining acceptance boundary (0536b98).

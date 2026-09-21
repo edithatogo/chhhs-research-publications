@@ -137,3 +137,33 @@ current-user target.
 
 Receipt:
 `private/ops/2026-09-22-powerautomate-g07-malformed-test-boundary.json`.
+
+## Conductor review recheck — native malformed-batch execution — 2026-09-22
+
+### Summary
+
+The previously blocked failure-safe test was completed in a bounded
+current-user cycle. The canonical flow was temporarily enabled, the malformed
+payload was submitted, the run failed during JSON parsing before the loop, and
+the flow was restored Off.
+
+### Verification checks
+
+- [x] Canonical flow identity: `acf866e4-e4a2-4113-bce4-d2dd9e2f22d6`.
+- [x] Run ID: `08584115886238763797828484917CU13`.
+- [x] Failure action: `Parse_Reviewed_Rows`.
+- [x] Error: `json('not-json')` rejected with an invalid JSON
+  `InvalidTemplate` error.
+- [x] `Apply_to_each_Reviewed_Row` was not entered.
+- [x] SharePoint `Grants Registry` readback returned an empty Atom feed.
+- [x] Flow status was read back as Off after restoration.
+- [ ] Native duplicate/concurrency and exact-key operational reconciliation.
+
+### Findings
+
+The native failed-batch preservation boundary is now evidenced for malformed
+JSON with no registry mutation. G07 remains active for the remaining native
+operational gates and is not eligible for archive.
+
+Receipt:
+`private/ops/2026-09-22-powerautomate-g07-malformed-test.json`.
