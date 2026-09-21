@@ -33,6 +33,16 @@ def _text(value: Any, *, field: str, default: str = "") -> str:
     return value.strip()
 
 
+def _strict_text(value: Any, *, field: str, default: str = "") -> str:
+    if value is None:
+        return default
+    if not isinstance(value, str):
+        raise ValueError(f"ARC API {field} must be a string")
+    if value != value.strip():
+        raise ValueError(f"ARC API {field} must not have surrounding whitespace")
+    return value
+
+
 def _amount(value: Any) -> str:
     if value is None:
         return ""
@@ -42,7 +52,9 @@ def _amount(value: Any) -> str:
 
 
 def _valid_http_url(value: str) -> bool:
-    parsed = urlsplit(value.strip())
+    if not isinstance(value, str) or value != value.strip():
+        return False
+    parsed = urlsplit(value)
     return parsed.scheme in {"http", "https"} and bool(parsed.netloc)
 
 
@@ -76,13 +88,13 @@ def parse_award_page(payload: dict[str, Any], *, retrieved_at: str) -> list[dict
         if not isinstance(attrs, dict):
             raise ValueError("ARC API item must contain attributes")
         source_value = attrs.get("code") if attrs.get("code") not in (None, "") else item.get("id")
-        source_id = _text(source_value, field="award code/id")
+        source_id = _strict_text(source_value, field="award code/id")
         if not source_id:
             raise ValueError("ARC API award is missing code/id")
         links = item.get("links", {})
         if not isinstance(links, dict):
             raise ValueError("ARC API award links must be an object")
-        link = _text(links.get("self"), field="evidence URL")
+        link = _strict_text(links.get("self"), field="evidence URL")
         if not _valid_http_url(link):
             raise ValueError("ARC API award is missing an evidence URL")
         summary = _text(attrs.get("grant-summary"), field="grant-summary")

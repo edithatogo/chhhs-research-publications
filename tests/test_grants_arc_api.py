@@ -68,6 +68,19 @@ class GrantsArcApiTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "current-funding-amount"):
             parse_award_page(payload, retrieved_at="2026-09-20T03:36:00+00:00")
 
+    def test_award_identity_and_evidence_url_reject_surrounding_whitespace(self):
+        payload = {"data": [{
+            "id": "FT260100003",
+            "attributes": {"code": " FT260100003", "grant-summary": "Summary"},
+            "links": {"self": "https://dataportal.arc.gov.au/award/3"},
+        }]}
+        with self.assertRaisesRegex(ValueError, "surrounding whitespace"):
+            parse_award_page(payload, retrieved_at="2026-09-20T03:36:00+00:00")
+        payload["data"][0]["attributes"]["code"] = "FT260100003"
+        payload["data"][0]["links"]["self"] = "https://dataportal.arc.gov.au/award/3 "
+        with self.assertRaisesRegex(ValueError, "surrounding whitespace"):
+            parse_award_page(payload, retrieved_at="2026-09-20T03:36:00+00:00")
+
 
 if __name__ == "__main__":
     unittest.main()
