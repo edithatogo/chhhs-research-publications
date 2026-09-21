@@ -55,13 +55,21 @@ Follow [the executable sequence and acceptance gates](../../../docs/DYNAMIC_UPDA
 - [x] 11. Confirm the linked Queensland Open Data DoRA dataset is project/activity data distinct from the DORA publication repository; record the current resource schema and entity boundary.
 - [x] 12. Implement a CKAN package/resource discovery and paged datastore collector that fails closed on schema drift, incomplete pages, count mismatch or duplicate source `_id` values, while preserving all source columns and provenance.
 - [x] 13. Implement a source-preserving RIMS export and machine-readable `DORA Activity Registry` schema. Keep contact/ethics fields in private or approved tenant storage only; do not add live rows to Git or publication fixtures.
-- [ ] 14. Create or update the isolated SharePoint target and read back every column and row key before any report-page or unattended-flow change. Native tenant acceptance remains open.
+- [x] 14. Create or update the isolated SharePoint target and read back every column and row key before any report-page or unattended-flow change. On 2026-09-21 the personal DEV `DORA Activity Registry` was created from the canonical schema with all 26 fields; REST readback confirmed field names, internal names, types, requiredness, identity uniqueness and indexing. A synthetic row populated every mapped field, read back all 26 fields and identity values, was deleted, and the API confirmed `ItemCount=0`. Native tenant acceptance, flow binding and report integration remain open.
 
 ## Local identity hardening — 2026-09-21
 
 - [x] Reject boolean, structured and blank DoRA datastore `_id` values, and reject invalid expected record counts before reconciliation. Source identities are now limited to scalar string/integer values while the original source value remains preserved in the accepted row.
 - [x] Add regression coverage for the scalar identity contract. Code commit: `12798092b64de6d420904c7cd77d589829076f1c`.
 - [ ] Native SharePoint schema/row readback and report integration remain open; this local fix does not certify tenant acceptance.
+
+## Native DORA Activity Registry bootstrap — 2026-09-21
+
+- [x] Created exactly one isolated personal DEV `DORA Activity Registry` after site inventory found no existing list.
+- [x] Created the remaining canonical fields through authenticated same-origin SharePoint REST, using `Text`, `Number`, `DateTime`, `URL` and `Note` types; the identity field is required, unique and indexed, and `DORARecordID`/`DORAResourceID` are required and indexed.
+- [x] REST readback found all 26 canonical fields with the expected display names, internal names, types and requiredness. Versioning is enabled and `ItemCount=0`.
+- [x] Controlled synthetic full-field round-trip created row ID 1, read back every mapped field and identity value, deleted the row, and confirmed post-cleanup `ItemCount=0`.
+- [ ] Import/read back the DoRA upsert flow, connect the retained model/report projection, and prove a permitted live/reviewed cycle. No row, flow, report page or recurrence was activated.
 
 ## Export provenance hardening — 2026-09-21
 

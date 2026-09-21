@@ -8,13 +8,13 @@ and its required native acceptance evidence are both complete.
 |---|---|---|---|
 | S02 | Clean canonical source package reproducibly verified; SharePoint item versioning observed | Isolated native report version/batch display and readback | Keep active |
 | G02 | Official NHMRC/MRFF calendars, ARC awards API, Queensland metadata API, conservative source catalogue, and fail-closed row-level evidence/eligibility gate verified | Permitted opportunity feed/API or explicit human-reviewed rows with source links and eligibility | Keep active |
-| G03 | Isolated Grants Registry schema and authenticated synthetic create/update/duplicate/concurrency evidence; existing flow updated in place; fresh native export contains `SourceRowURL`, choice mappings and current server timestamp; flow remains Off with Flow Checker 0 errors and 1 inactive-flow warning | Explicit cleanup/readback and user-scoped operational acceptance; shared organisation-wide target and unattended operation are future extensions | Keep active |
+| G03 | Isolated Grants Registry schema and authenticated synthetic create/update/duplicate/concurrency evidence; existing flow updated in place; fresh native export contains `SourceRowURL`, choice mappings and current server timestamp; flow remains Off with Flow Checker 0 errors and 1 inactive-flow warning; synthetic replay cleanup completed and API readback is `ItemCount=0` | User-scoped operational acceptance; shared organisation-wide target and unattended operation are future extensions | Keep active |
 | G04 | RSS/Atom/API-shaped adapters and fresh 13/179 NHMRC/MRFF candidate extraction | Controlled source-to-list cycle and reconciliation | Keep active |
 | G05 | University catalogue and access/lead-time evidence | Permitted institutional export/feed or reviewed intake | Keep active |
 | G06 | Typed relationship contract and local safeguards; isolated personal DEV `Grant Relationships` list with all eight native fields; `RelationshipKey` required/unique/indexed; synthetic evidence-bearing create/read/update/read/delete round-trip; post-cleanup relationship `ItemCount=0`; publication registry `ItemCount=1468` read back with no publication mutation | Full before/after publication-key reconciliation and shared binding | Keep active |
 | G07 | Fail-closed operational evaluator, exact-key reconciliation, selected-field readback reconciliation and isolated create/update replay | Native monitoring, operational reconciliation, delivery and scheduling | Keep active |
 | G08 | Local calendar, institutional-date and current-user subscription contracts; exactly one native personal `My Funding Watchlist` and one `Funding Calendar` list with REST field readback and zero items; synthetic calendar create/read/edit/read/delete round-trip | Native report pages, current-user flow/page binding, reminder/change ledger, manual calendar readback and delivery | Keep active |
-| T11 | Local PubMed/DORA preservation and schema/key reconciliation | Native retained-history flow, refresh and list/readback | Keep active |
+| T11 | Local PubMed/DORA preservation and schema/key reconciliation; isolated personal `DORA Activity Registry` with all 26 fields, required/unique/indexed identity, indexed record/resource IDs, and synthetic full-field create/read/delete round-trip returning `ItemCount=0` | Native retained-history flow, refresh, DoRA upsert-flow readback and report/list integration | Keep active |
 | T14 | Complete local exports, monthly generator and failure contracts | Manual native cycle, consecutive-cycle replay and delivery decision | Keep active |
 | T15 | Local handover/package and current four-page report audit | Native release/readback; Clinical Analytics model bindings are broken | Keep active |
 | E01 | Corrected publication query and successful DEV flow readback; standalone tracked-flow validator and CI gate pass | Manual replay/update, duplicate/failure safety and user-scoped reconciliation | Keep active |
@@ -71,8 +71,14 @@ server modification time `2026-09-21T03:12:53.7725597Z` and contains the
 SourceRowURL and choice mappings. Flow Checker reads 0 errors and 1 warning,
 where the warning is only that the flow is Off. The flow remains Off and no
 new run, schedule, sharing or notification was activated. G03 remains active
-until the explicit synthetic-row cleanup/readback and current-user operational
-acceptance gates are closed.
+for current-user operational acceptance; shared organisation-wide target and
+unattended operation remain future extensions.
+
+Native G03 cleanup continuation — 2026-09-21: the remaining synthetic replay
+row (`Synthetic G03 replay 20260920 UPDATED`) was deleted from the isolated
+personal `Grants Registry` through the authenticated SharePoint UI. The
+SharePoint API immediately read back `ItemCount=0`. No production row was
+changed and the flow remains Off.
 
 ## Native G08 list bootstrap — 2026-09-21
 
@@ -94,6 +100,19 @@ were read back, the policy key was edited and read back, and the item was
 deleted. The list returned to zero rows. This proves current-user list
 persistence only; it does not prove report binding, revision-ledger logic,
 calendar delivery, notifications or unattended operation.
+
+## Native T11 DORA Activity Registry bootstrap — 2026-09-21
+
+The authenticated personal DEV site had no existing `DORA Activity Registry`,
+so exactly one isolated list was created. The canonical 26-field schema was
+then bootstrapped and read back through SharePoint REST. `DORAActivityKey` is
+required, unique and indexed; `DORARecordID` and `DORAResourceID` are required
+and indexed; the remaining fields have the canonical text, note, date/time and
+URL types and requiredness. Versioning is enabled and the list initially read
+zero items. A synthetic row populated every mapped field, read back all 26
+fields and identity values, was deleted, and the API read back `ItemCount=0`.
+This proves isolated schema/row persistence only; DoRA flow import, retained
+model/report integration and live or unattended operation remain open.
 
 ## Native relationship continuation — 2026-09-21
 

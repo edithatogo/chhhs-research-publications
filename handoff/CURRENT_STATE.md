@@ -499,6 +499,25 @@ list persistence evidence only. Native report pages, flow/page binding,
 revision/change ledger, calendar delivery, notifications and unattended
 operation remain open.
 
+Latest native G03 cleanup continuation (2026-09-21): the remaining synthetic
+replay row (`Synthetic G03 replay 20260920 UPDATED`) was deleted from the
+isolated personal `Grants Registry` through the authenticated SharePoint UI.
+The SharePoint API read back `ItemCount=0` immediately afterward. No
+production row was changed and the reviewed-import flow remains Off. Earlier
+handoff notes that described this row as pending deletion are superseded by
+this readback; current-user operational acceptance, shared target approval and
+unattended operation remain open.
+
+Latest native T11 continuation (2026-09-21): the authenticated personal DEV
+site had no `DORA Activity Registry`, so exactly one isolated list was
+created. REST readback confirms all 26 canonical fields, including required
+and unique/indexed `DORAActivityKey`, required/indexed `DORARecordID` and
+`DORAResourceID`, and the expected text, note, date/time and URL types. A
+synthetic row populated every mapped field, read back all 26 mapped fields and
+identity values, was deleted, and the API confirmed `ItemCount=0`. No live
+DORA rows, flow, report page or recurrence was activated; flow import,
+retained model/report integration and operational acceptance remain open.
+
 Power Automate flow continuation (2026-09-21): the authenticated new-designer
 route was tested for a current-user manual flow targeting the personal
 `Funding Calendar`. The custom personal SharePoint site and calendar fields
