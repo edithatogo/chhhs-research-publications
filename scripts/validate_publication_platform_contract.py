@@ -17,6 +17,8 @@ except ModuleNotFoundError:
 ROOT = Path(__file__).resolve().parent.parent
 PACKAGE = ROOT / "private" / "ops" / "flow-packages" / "sharepoint-upsert.zip"
 TRACKED_DEFINITION = ROOT / "config" / "flows" / "publication-registry-upsert.definition.json"
+MANIFEST = ROOT / "config" / "flows" / "manifest.template.json"
+CANONICAL_DISPLAY_NAME = "CHHHS Research Publications - Daily Ingestion & Enrichment"
 
 
 def _graph_errors(actions: dict, scope: str = "root") -> list[str]:
@@ -41,12 +43,41 @@ def _definition() -> dict:
         return json.loads(archive.read(name))["properties"]["definition"]
 
 
+def _manifest() -> dict:
+    with zipfile.ZipFile(PACKAGE) as archive:
+        return json.loads(archive.read("manifest.json"))
+
+
 def _tracked_definition() -> dict:
     return json.loads(TRACKED_DEFINITION.read_text(encoding="utf-8"))["properties"]["definition"]
 
 
+def validate_manifest(manifest: dict) -> list[str]:
+    errors: list[str] = []
+    if manifest.get("details", {}).get("displayName") != CANONICAL_DISPLAY_NAME:
+        errors.append("manifest root must use the canonical flow display name")
+    resources = manifest.get("resources", {})
+    flows = [resource for resource in resources.values() if resource.get("type") == "Microsoft.Flow/flows"]
+    if len(flows) != 1:
+        errors.append("manifest must contain exactly one flow resource")
+    elif flows[0].get("details", {}).get("displayName") != CANONICAL_DISPLAY_NAME:
+        errors.append("manifest flow resource must use the canonical flow display name")
+    return errors
+
+
 def validate(definition: dict) -> list[str]:
     errors: list[str] = []
+    if definition.get("triggers", {}).get("Recurrence", {}).get("type") != "Recurrence":
+        errors.append("canonical publication flow must use a Recurrence trigger")
+    recurrence = definition.get("triggers", {}).get("Recurrence", {}).get("recurrence", {})
+    if (
+        recurrence.get("frequency") != "Day"
+        or recurrence.get("interval") != 1
+        or recurrence.get("timeZone") != "UTC"
+        or recurrence.get("schedule", {}).get("hours") != ["20"]
+        or recurrence.get("schedule", {}).get("minutes") != [0]
+    ):
+        errors.append("recurrence must run daily at 20:00 UTC")
     actions = definition.get("actions", {})
     errors.extend(_graph_errors(actions))
     loop = actions.get("Apply_to_each_Publication", {})
@@ -140,8 +171,10 @@ def validate(definition: dict) -> list[str]:
 
 def main() -> int:
     errors = validate(_tracked_definition())
+    errors.extend(validate_manifest(json.loads(MANIFEST.read_text(encoding="utf-8"))))
     if PACKAGE.exists():
         errors.extend(validate(_definition()))
+        errors.extend(validate_manifest(_manifest()))
     else:
         print(f"INFO: private package not present; validating tracked definition only: {PACKAGE}")
     if errors:

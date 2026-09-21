@@ -6,7 +6,14 @@ import uuid
 import zipfile
 from pathlib import Path
 
-from scripts.validate_publication_platform_contract import PACKAGE, _definition, _tracked_definition, validate
+from scripts.validate_publication_platform_contract import (
+    MANIFEST,
+    PACKAGE,
+    _definition,
+    _tracked_definition,
+    validate,
+    validate_manifest,
+)
 from scripts.build_sharepoint_upsert_package import build_package, load_target
 
 
@@ -21,6 +28,17 @@ class PublicationPlatformContractTests(unittest.TestCase):
 
     def test_tracked_definition_matches_flow_contract(self):
         self.assertEqual(validate(_tracked_definition()), [])
+
+    def test_daily_recurrence_trigger_is_required(self):
+        definition = copy.deepcopy(_tracked_definition())
+        definition["triggers"]["Recurrence"]["recurrence"]["schedule"]["hours"] = ["21"]
+        self.assertIn("recurrence must run daily at 20:00 UTC", validate(definition))
+
+    def test_manifest_has_one_canonical_flow_resource(self):
+        manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
+        self.assertEqual(validate_manifest(manifest), [])
+        manifest["details"]["displayName"] = "legacy flow"
+        self.assertIn("manifest root must use the canonical flow display name", validate_manifest(manifest))
 
     def test_record_loop_is_required(self):
         self.require_private_package()
