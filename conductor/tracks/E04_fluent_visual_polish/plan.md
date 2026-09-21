@@ -36,3 +36,8 @@ only. Do not broaden sharing or alter production bindings in this tranche.
 - [~] Reconcile the nine deployed Clinical Analytics bindings through an
   isolated authoring route. No shared-model write is authorised by this audit;
   the isolated repair route remains the required next gate.
+- [~] Current-user Power BI edit-mode retry exposed the nine broken visuals and
+  `Fix this` controls, but the visual grid intercepted normal clicks and the
+  forced retry did not open a repair mapping dialog. No Save occurred; the
+  report was returned to read mode. Receipt:
+  `private/ops/2026-09-22-powerbi-e04-edit-repair-attempt.json`.

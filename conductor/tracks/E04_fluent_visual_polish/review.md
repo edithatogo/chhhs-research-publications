@@ -106,3 +106,29 @@ This updates the native inventory and strengthens the evidence boundary, but
 does not close E04. The current report remains below native visual acceptance,
 and no shared model/report write was attempted. Receipt:
 `private/ops/2026-09-22-powerbi-e04-native-audit.json`.
+
+## Native edit-mode repair retry — 2026-09-22
+
+### Summary
+
+The authenticated current-user Power BI web editor was opened for
+`Clinical Analytics` and the nine broken visuals were rechecked. The editor
+exposed `Fix this` controls, but the rendered visual grid intercepted normal
+clicks and a forced UI retry did not expose a repair field-mapping dialog. The
+session was returned to read mode without saving.
+
+### Verification Checks
+
+- **Native readback:** Pass — the DORA headers remain visible and the nine
+  known binding errors remain observable.
+- **Mutation safety:** Pass — no Save, model write, report write or sharing
+  change was made.
+- **Repair:** Not achieved — no field mapping was exposed and no binding was
+  changed.
+- **Receipt:** `private/ops/2026-09-22-powerbi-e04-edit-repair-attempt.json`.
+
+### Finding
+
+The isolated authoring route remains the required repair path; the current web
+editor's broken-visual interaction is itself a native tooling limitation.
+E04 remains active and is not archivable.
