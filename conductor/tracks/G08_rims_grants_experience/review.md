@@ -238,3 +238,17 @@ otherwise unsupported shapes. Code commit:
 - **Fix:** commit `09adbe2` requires typed policy identity/version/effective-date fields and adds regression coverage for malformed values.
 - **Verification:** focused planning tests pass (12); the full suite passes 390 tests with 8 skips; project validation passes 438 checks; web-first, Conductor, Power Platform tooling and visual standards checks pass locally.
 - **Residual gate:** native policy persistence, funding pages, calendar change/cancellation and notification delivery remain open.
+
+## Conductor review — explicit policy end-date boundary — 2026-09-21
+
+- **Finding:** an explicitly present blank `EffectiveTo` value was treated as
+  an omitted policy end date, allowing malformed institutional policy metadata
+  to pass validation.
+- **Fix:** commit `574193db93658351d9140008dc0b1b75c500d334` rejects blank
+  `EffectiveTo` values while retaining `null` for an intentionally open-ended
+  policy, with regression coverage.
+- **Verification:** focused planning tests pass (12); the full suite passes
+  415 tests with 8 skips, 438 project checks pass, and web-first, Conductor,
+  Power Platform, visual and canonical flow validators pass locally.
+- **Residual gate:** native policy persistence, funding pages, calendar
+  change/cancellation and notification delivery remain open.
