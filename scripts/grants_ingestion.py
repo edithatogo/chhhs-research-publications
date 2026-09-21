@@ -46,6 +46,14 @@ def _validate_emitted_record(record: dict[str, Any]) -> dict[str, Any]:
     return record
 
 
+def _validate_source_identity(value: Any, *, label: str = "feed source") -> str:
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError(f"{label} must be a non-empty string")
+    if value != value.strip():
+        raise ValueError(f"{label} must not have surrounding whitespace")
+    return value
+
+
 _STRING_INPUT_FIELDS = (
     "Title", "title", "URL", "Link", "link", "SourceID", "ExternalID",
     "Deadline", "ClosingDate", "Description", "Summary", "summary",
@@ -72,8 +80,7 @@ def _validate_unique_batch(records: list[dict[str, Any]]) -> list[dict[str, Any]
 
 def parse_feed(xml_payload: str | bytes, *, source: str, retrieved_at: str) -> list[dict[str, Any]]:
     """Parse RSS/Atom entries while retaining raw deadline text for review."""
-    if not isinstance(source, str) or not source.strip():
-        raise ValueError("feed source must be a non-empty string")
+    source = _validate_source_identity(source)
     root = ET.fromstring(xml_payload)
     entries = [node for node in root.iter() if _local(node.tag) in {"item", "entry"}]
     if not entries:
@@ -117,10 +124,9 @@ def ingest_batches(batches: Iterable[dict[str, Any]]) -> dict[str, Any]:
         if not isinstance(batch, dict):
             raise ValueError("grant source batch must be an object")
         source_value = batch.get("source")
-        source = source_value.strip() if isinstance(source_value, str) else ""
+        source = ""
         try:
-            if not source:
-                raise ValueError("source must be a non-empty string")
+            source = _validate_source_identity(source_value, label="source")
             if "xml" in batch:
                 parsed = parse_feed(batch["xml"], source=source, retrieved_at=batch["retrieved_at"])
             else:

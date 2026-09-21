@@ -239,6 +239,22 @@ class GrantsSourceTests(unittest.TestCase):
         self.assertFalse(result["accepted"])
         self.assertEqual(result["health"][0]["status"], "failed")
 
+    def test_source_identity_rejects_surrounding_whitespace(self):
+        with self.assertRaisesRegex(ValueError, "feed source must not have surrounding whitespace"):
+            parse_feed(
+                "<rss><channel><item><guid>r1</guid><title>Call</title><link>https://example.org/1</link></item></channel></rss>",
+                source=" source-a",
+                retrieved_at="2026-09-20T00:00:00Z",
+            )
+        result = ingest_batches([{
+            "source": " source-a",
+            "retrieved_at": "2026-09-20T00:00:00Z",
+            "records": [{"Title": "Call", "URL": "https://example.org/1"}],
+        }])
+        self.assertFalse(result["accepted"])
+        self.assertEqual(result["health"][0]["status"], "failed")
+        self.assertIn("surrounding whitespace", result["health"][0]["error"])
+
     def test_api_source_fields_are_not_stringified_before_validation(self):
         result = ingest_batches([{
             "source": "api",
