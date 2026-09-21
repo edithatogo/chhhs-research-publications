@@ -96,8 +96,11 @@ def validate_policy(policy):
         return False
     if policy.get('LeadDays') in (None, ''):
         return False
-    if 'EffectiveTo' in policy and policy['EffectiveTo'] is not None and not isinstance(policy['EffectiveTo'], str):
-        return False
+    if 'EffectiveTo' in policy:
+        if policy['EffectiveTo'] is not None and not isinstance(policy['EffectiveTo'], str):
+            return False
+        if policy['EffectiveTo'] == '':
+            return False
     if type(policy['LeadDays']) is not int or not 0 <= policy['LeadDays'] <= 3660:
         return False
     if policy.get('CalendarOrBusinessDays') not in ('calendar', 'business'):

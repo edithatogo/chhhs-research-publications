@@ -48,6 +48,7 @@ class PlanningTests(unittest.TestCase):
                 invalid = {**policy, field: 7}
                 self.assertFalse(validate_policy(invalid))
         self.assertFalse(validate_policy({**policy, 'EffectiveTo': False}))
+        self.assertFalse(validate_policy({**policy, 'EffectiveTo': ''}))
 
     def test_overlapping_subscriptions_deduplicate_and_respect_pause(self):
         grant = {'OpportunityKey': 'g1', 'CategoryKeys': ['health']}
