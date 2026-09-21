@@ -155,6 +155,15 @@ attempted. The local user-scoped source remains the only synchronised
 canonical version until an attachable current-user platform session is
 available.
 
+## Native G08 watchlist-flow bootstrap boundary — 2026-09-21
+
+An existing reviewed-grants flow was cloned temporarily to test reuse for the
+personal `My Funding Watchlist`. The personal list and its four fields were
+resolvable, but the cloned grants trigger/parser lacked the dedicated
+`Scope`/`TargetKey` subscription contract. The incomplete copy was discarded.
+Power Automate then read back exactly three remaining flows: publications,
+reviewed grants and reviewed DoRA. No temporary watchlist flow remains.
+
 ## Native DoRA flow continuation — 2026-09-21
 
 The first target-injected DoRA package was rejected by the SharePoint connector

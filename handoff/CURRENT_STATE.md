@@ -540,6 +540,16 @@ row was deleted and the list returned to `ItemCount=0`. Flow Checker reported
 Off after testing. No live DoRA ingestion, recurrence, report binding,
 notification or production operation was enabled.
 
+Latest native G08 flow bootstrap check (2026-09-21): an existing reviewed
+grants flow was cloned temporarily to test reuse for `My Funding Watchlist`.
+The personal list and its four fields were resolvable, but the cloned
+grants-specific trigger/parser lacked the dedicated `Scope` and `TargetKey`
+subscription contract. The unsaved/incomplete copy was discarded and the
+Power Automate inventory read back exactly three remaining flows: publications,
+reviewed grants and reviewed DoRA. No watchlist flow, notification, schedule or
+sharing change remains. Next executable task is to add and validate the local
+watchlist input contract before a second native bootstrap.
+
 Inspect `git status --short` at entry. Preserve unrelated report/manifest and other existing edits; do not mass-stage. Use the active track's spec and plan for tasks. Follow AGENTS.md approval boundaries for deployment/sharing/schedules. Current user direction defines scope; historical observations supply evidence only for their dates. Live contradictions require readback, not a convenient choice of document.
 
 Update this checkpoint with outcome, next executable task, test command/result and exact blocker after work. Keep credentials, actual tenant identifiers and screenshots under ignored private storage. Do not paste raw private output into a context bundle.

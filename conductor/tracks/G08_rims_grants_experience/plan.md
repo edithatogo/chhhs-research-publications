@@ -74,3 +74,19 @@ address and resolve the `Funding Calendar` fields, but the manual-trigger
 dynamic-content binding did not resolve reliably in the new designer. The
 incomplete draft was discarded; no duplicate flow, invalid flow, schedule or
 notification was saved.
+
+### Native watchlist-flow bootstrap boundary — 2026-09-21
+
+The existing reviewed-grants flow was cloned temporarily as a bootstrap
+candidate for `My Funding Watchlist`. The designer resolved the personal
+SharePoint list and its `OpportunityKey`, `Scope`, `TargetKey` and `Active`
+fields, but the cloned trigger/parser still accepted the grants-opportunity
+payload and could not supply a dedicated subscription scope/target contract.
+The incomplete copy was discarded. The live flow inventory was read back at
+three flows: the canonical publications flow, the reviewed grants flow and the
+reviewed DoRA flow. No temporary watchlist flow remains. A dedicated local
+watchlist input contract is required before another native copy is created.
+
+- [x] Add the dedicated `funding-watchlist-v1` local schema and regression
+  coverage for the current-user personal list. Native flow binding remains
+  open until the trigger/parser uses this contract directly.
