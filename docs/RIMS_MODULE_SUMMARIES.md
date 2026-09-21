@@ -24,8 +24,10 @@ Design: PubMed and DORA source observations are normalised into a canonical
 `Publication` model. A SharePoint `Publication Registry` is the durable list
 target. The single canonical Power Automate flow reads the model, checks source
 readiness, projects publication rows, and serially creates or updates list
-items by `SourceKey`. The existing four-page Power BI report is the presentation
-surface.
+items by `SourceKey`. The current Power BI report is the presentation surface.
+Authenticated readback on 2026-09-22 shows six pages: the four
+publication/analytics pages plus `Funding Opportunities` and `Funding Calendar
+& Watchlist`.
 
 ```mermaid
 flowchart LR

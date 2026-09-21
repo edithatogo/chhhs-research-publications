@@ -12,7 +12,7 @@ Execution order and boundaries: [detailed handoff](PUBLICATION_STABILISATION.md)
 - [~] [G04_grants_ingestion: Grant source ingestion](tracks/G04_grants_ingestion/plan.md) — local adapters and fail-closed batch handling implemented; live source/list/flow acceptance remains open.
 - [~] [G05_grants_universities: University and specialist coverage](tracks/G05_grants_universities/plan.md) — JCU/UQ/QUT/Griffith source/access catalogue implemented; portal/feed verification remains open.
 - [~] [G07_grants_operations: Grant operational acceptance](tracks/G07_grants_operations/plan.md) — local fail-closed evaluator and controlled DEV create/update replay implemented; current-user manual monitoring/reconciliation remains open; cross-user delivery is a future extension.
-- [~] [G08_rims_grants_experience: RIMS grant pages, dates and subscriptions](tracks/G08_rims_grants_experience/plan.md) — local policy and current-user subscription contracts implemented; current-user native pages/persistence remain open; shared delivery is a future extension.
+- [~] [G08_rims_grants_experience: RIMS grant pages, dates and subscriptions](tracks/G08_rims_grants_experience/plan.md) — local policy and current-user native pages/list/flow/model bindings are evidenced; refresh/reconciliation and delivery remain open; shared delivery is a future extension.
 
 ## Current web-first implementation
 
@@ -50,5 +50,5 @@ Execution order and boundaries: [detailed handoff](PUBLICATION_STABILISATION.md)
 
 ## Canonical evolution tracks
 - [~] [E01_flow_automation: Power Automate Ingestion Canonicalization and Recurrence Scheduling](tracks/E01_flow_automation/plan.md) — implementation exists; native/operational acceptance remains open (2026-09-20 audit).
-- [~] [E04_fluent_visual_polish: Microsoft Fluent 2 Visual Polishing and IBCS Standards](tracks/E04_fluent_visual_polish/plan.md) — local geometry/contrast tests pass; production-report audit and current four-page native scope remain unproven
+- [~] [E04_fluent_visual_polish: Microsoft Fluent 2 Visual Polishing and IBCS Standards](tracks/E04_fluent_visual_polish/plan.md) — local geometry/contrast tests pass; six-page native inventory is evidenced, but nine Clinical Analytics field-binding errors and visual acceptance remain open
 - [~] [E07_publication_platform_acceptance: Publication platform hardening and live evidence](tracks/E07_publication_platform_acceptance/plan.md) — local acceptance contract added; tenant readback and end-to-end replay remain gated
