@@ -749,3 +749,16 @@ Microsoft Graph CLI is not installed. GitHub CLI remains available for the
 canonical repository. These are authentication/tooling boundaries only; the
 authenticated Power Automate browser session remains the authoritative native
 route for the current-user DEV environment.
+
+Native flow inventory readback (2026-09-22): the authenticated QLD Health
+Power Automate `Cloud flows` view returned exactly six current-user flows. The
+five grant/DoRA flows are each present once and disabled: Funding Delivery
+Ledger (`4955a57d-b609-4c84-a2e8-f3e9ec23c20e`), Funding Calendar
+(`f18e3fad-7ee5-47d7-b166-d9bb41f93a3e`), Funding Watchlist
+(`6f95b2c1-01c6-4717-94af-a8259fd36e5a`), DoRA Activity Registry
+(`dd508644-c6d0-40be-aa1e-9b1f4d7c936c`) and Research Grants
+(`acf866e4-e4a2-4113-bce4-d2dd9e2f22d6`). The sole scheduled/enabled flow is
+Research Publications - Daily Ingestion & Enrichment
+(`4d226bad-577e-4f16-8914-169a150ad4d6`). This proves current inventory
+uniqueness only; it does not prove flow correctness, recurrence acceptance,
+refresh, delivery or production sharing.
