@@ -88,4 +88,21 @@ Local grid, contrast and theme evidence remains sound, but the current native re
 ### Medium: Clinical Analytics native field bindings are broken
 - **File**: current native Power BI report, `Clinical Analytics` page
 - **Context**: Nine visuals report unavailable or incorrect fields while the three original pages render without visible errors.
-- **Suggestion**: Reconcile the deployed semantic-model schema and report bindings through the isolated authoring route, then rerun the four-page visual audit before any shared/native write.
+- **Suggestion**: Reconcile the deployed semantic-model schema and report bindings through the isolated authoring route, then rerun the current-page visual audit before any shared/native write.
+
+## Native report audit refresh — 2026-09-22
+
+The current authenticated report readback now exposes six pages:
+`CHHHS Publications`, `Monthly Publications`, `Source Reconciliation`,
+`Clinical Analytics`, `Funding Opportunities` and `Funding Calendar & Watchlist`.
+The DORA table on Clinical Analytics visibly renders
+`DORAActivityKey`, `DORARecordID`, `DORAResourceID` and `DORASourceURL`.
+The same page still reports nine visual field errors: Open access compliance
+rate, Open access publications, Clinical trial linked papers, Grant-funded
+publications, Open access status, Study design, ANZSRC Field of Research,
+Open access distribution and Evidence hierarchy/study designs.
+
+This updates the native inventory and strengthens the evidence boundary, but
+does not close E04. The current report remains below native visual acceptance,
+and no shared model/report write was attempted. Receipt:
+`private/ops/2026-09-22-powerbi-e04-native-audit.json`.

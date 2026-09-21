@@ -19,7 +19,7 @@ only. Do not broaden sharing or alter production bindings in this tranche.
 
 ## Reopened acceptance audit — 2026-09-21
 
-- [~] Reconcile the local geometry/contrast evidence with the current four-page native report inventory and capture a production-report audit before closure.
+- [~] Reconcile the local geometry/contrast evidence with the current native report inventory and capture a production-report audit before closure. The 2026-09-22 readback shows six pages, including the two grants pages, while nine Clinical Analytics visuals still report field errors.
 
 ## Phase: Conductor review — 2026-09-21
 
@@ -27,3 +27,12 @@ only. Do not broaden sharing or alter production bindings in this tranche.
 - [x] Record the isolated authoring-route readback result; preserve the repair gate because the authenticated route returned an access-request error and no shared-model write was attempted.
 - [x] Refine the blocker evidence: the workspace model view bootstraps the original model in its iframe and fails with module MIME errors/`NG04002`; no mutation was attempted.
 - [x] Review fix: reject missing, non-finite, negative or non-positive visual geometry before claiming 8px-grid compliance (b747011).
+
+## Native report audit refresh — 2026-09-22
+
+- [x] Read back the current authenticated report page inventory and record the
+  six visible pages, DORA table headers and nine Clinical Analytics visual
+  errors in `private/ops/2026-09-22-powerbi-e04-native-audit.json`.
+- [~] Reconcile the nine deployed Clinical Analytics bindings through an
+  isolated authoring route. No shared-model write is authorised by this audit;
+  the isolated repair route remains the required next gate.
