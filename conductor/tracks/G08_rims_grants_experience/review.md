@@ -650,3 +650,33 @@ canonical flow identity and was visibly Off. Receipt:
 
 This strengthens the single-version/readback gate but does not close the
 null-date branch, refresh/reconciliation or delivery gates. G08 remains active.
+
+### Null-preserving package retry — 2026-09-22
+
+#### Summary
+
+The revised local package was retried through the authenticated QLD Health
+Power Automate import route. Server-side upload completed and the package was
+recognised as an update to the existing canonical flow. The existing QLD
+Health SharePoint connection was selected, but the wizard kept the final
+`Import` action disabled. The wizard was abandoned without submission.
+
+#### Verification Checks
+
+- **Package contract:** Pass locally — the null-preserving definition and
+  package validator remain green.
+- **Native mutation:** Not performed — no import was submitted, no flow was
+  enabled, and the details page still reads Off with Flow Checker 0 errors.
+- **Canonicality:** Pass — no duplicate flow was created; the existing flow
+  ID remains the only target.
+- **Receipt:** `private/ops/2026-09-22-powerautomate-g08-null-package-attempt.json`.
+
+#### Findings
+
+- **Residual blocker:** this tenant's browser import handoff accepts the
+  package upload but does not expose an enabled final Import action, even
+  after the target flow is set to Update and the SharePoint connection is
+  selected.
+- **Open gate:** native null-date create/update/readback remains unproven;
+  refresh/reconciliation and calendar/reminder delivery are also open. G08
+  remains active.
