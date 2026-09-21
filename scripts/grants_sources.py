@@ -66,9 +66,9 @@ def load_catalogue(path: str | Path) -> list[dict[str, Any]]:
                 raise ValueError(f"source {source_id!r} {field} must be a non-empty string or null")
         if "api_url" in row and row.get("api_url") is not None and not isinstance(row.get("api_url"), str):
             raise ValueError(f"source {source_id!r} api_url must be a string or null")
+        if "api_url" in row and _has_surrounding_whitespace(row.get("api_url")):
+            raise ValueError(f"source {source_id!r} api_url must not have surrounding whitespace")
         if row.get("intake") == "api":
-            if _has_surrounding_whitespace(row.get("api_url")):
-                raise ValueError(f"source {source_id!r} api_url must not have surrounding whitespace")
             if not _valid_http_url(row.get("api_url")):
                 raise ValueError(f"source {source_id!r} with api intake needs a valid api_url")
         for field in ("eligibility_scope", "format", "access", "coverage", "last_verified"):
