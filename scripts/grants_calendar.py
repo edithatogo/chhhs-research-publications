@@ -37,9 +37,9 @@ def _date(value: Any) -> str | None:
 
 
 def _valid_http_url(value: Any) -> bool:
-    if not isinstance(value, str):
+    if not isinstance(value, str) or value != value.strip():
         return False
-    parsed = urlsplit(value.strip())
+    parsed = urlsplit(value)
     return parsed.scheme in {"http", "https"} and bool(parsed.netloc)
 
 
@@ -68,6 +68,8 @@ def project_event(opportunity: dict[str, Any], policy: dict[str, Any]) -> dict[s
             raise ValueError(f"calendar opportunity missing {field}")
         if not isinstance(opportunity[field], str) or not opportunity[field].strip():
             raise ValueError(f"calendar opportunity {field} must be a string")
+        if opportunity[field] != opportunity[field].strip():
+            raise ValueError(f"calendar opportunity {field} must not have surrounding whitespace")
     anchor = "institutional"
     event_date = institutional_deadline(
         source_date,
@@ -77,8 +79,8 @@ def project_event(opportunity: dict[str, Any], policy: dict[str, Any]) -> dict[s
     ) if source_date is not None else None
     if event_date is None:
         return None
-    opportunity_key = opportunity["OpportunityKey"].strip()
-    url = opportunity["URL"].strip()
+    opportunity_key = opportunity["OpportunityKey"]
+    url = opportunity["URL"]
     if not _valid_http_url(url):
         raise ValueError("calendar opportunity requires an HTTP(S) URL")
     status = str(opportunity.get("Status") or "Unknown")

@@ -38,6 +38,12 @@ class GrantsCalendarTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "missing OpportunityKey"):
             project_event({"Title": "No key", "URL": "https://example.org/no-key", "Deadline": "2026-10-01", "DeadlinePrecision": "day"}, POLICY)
 
+    def test_exact_date_identity_and_url_reject_surrounding_whitespace(self):
+        for field, value in (("OpportunityKey", " GRANT:1"), ("URL", "https://example.org/grant ")):
+            with self.subTest(field=field):
+                with self.assertRaisesRegex(ValueError, "surrounding whitespace"):
+                    project_event({"OpportunityKey": "GRANT:1", "Title": "Call", "URL": "https://example.org/call", "Deadline": "2026-10-01", "DeadlinePrecision": "day", field: value}, POLICY)
+
     def test_calendar_inputs_are_not_coerced(self):
         with self.assertRaisesRegex(ValueError, "must be a string"):
             project_event({"OpportunityKey": 5, "Title": "Call", "URL": "https://example.org/call", "Deadline": "2026-10-01", "DeadlinePrecision": "day"}, POLICY)
