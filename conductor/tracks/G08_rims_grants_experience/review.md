@@ -708,3 +708,17 @@ The draft was reloaded and discarded. Receipt:
 No save, import, run, duplicate flow or tenant mutation occurred; the flow
 remains unchanged and Off. The null-preserving local definition remains the
 canonical implementation pending a safe native import/edit route.
+
+### Native page-status text edit recheck — 2026-09-22
+
+The current-user Power BI report was opened on `Funding Calendar & Watchlist`
+to correct the stale cosmetic sentence that still says semantic-model binding
+is open. The text box exposed a contenteditable rich-text surface, but the
+browser replacement operation did not select the complete text and produced a
+malformed unsaved draft. The report was reloaded before Save and native
+readback restored the original text. No report/model mutation was saved.
+
+Receipt: `private/ops/2026-09-22-powerbi-g08-status-text-edit-reverted.json`.
+The cosmetic text correction remains open; the native table-binding evidence
+and the separate refresh/reconciliation and notification-delivery gates are
+unchanged.
