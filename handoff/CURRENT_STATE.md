@@ -3,7 +3,9 @@
 Updated: 2026-09-22. This is the compact resumption checkpoint, not a live acceptance certificate. Refresh after meaningful work; keep historical narrative in existing evidence documents.
 
 Latest local checkpoint (2026-09-22): canonical checkout is clean at commit
-`484919a`, matching `origin/main`; GitHub source-only workflow `35651815558`
+`e37a932`, matching `origin/main` after the official grants source/API
+cross-check; the next GitHub source-only workflow is pending. The prior
+successful workflow was `35652121010`.
 completed successfully. T08, T09, T10, T12 and T13 have been reviewed and
 archived; the remaining active tracks retain their native/source/operational
 gates. The authenticated QLD Health refresh retry remained at semantic-model
