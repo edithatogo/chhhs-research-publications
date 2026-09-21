@@ -232,6 +232,18 @@ otherwise unsupported shapes. Code commit:
 - **Verification:** focused planning tests pass (11); the full suite passes 384 tests with 8 skips; project validation passes 438 checks; web-first, Conductor, Power Platform tooling and visual standards checks pass locally.
 - **Residual gate:** native policy persistence, funding pages, calendar change/cancellation and notification delivery remain open.
 
+## Conductor review — calendar CR/LF escaping — 2026-09-21
+
+- **Finding:** iCalendar display-field escaping handled LF but left CR
+  characters intact, allowing malformed line content from source text.
+- **Fix:** commit `a573598` escapes CR and LF consistently and adds regression
+  coverage for title and category values.
+- **Verification:** focused calendar tests pass (10); the full suite passes
+  425 tests with 8 skips; 438 project checks, Conductor, web-first, Power
+  Platform, visual and canonical flow validators pass locally.
+- **Residual gate:** native grants pages, private preferences, calendar
+  change/cancellation and notification delivery remain open.
+
 ## Conductor review — institutional policy field typing — 2026-09-21
 
 - **Finding:** policy validation checked field presence and formatted dates but allowed non-string identity/version/date values through coercive parsing.

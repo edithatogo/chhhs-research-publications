@@ -2,6 +2,7 @@
 
 - [x] Record scope and acceptance requirements.
 - [x] Inspect current inputs, dependencies and relevant platform objects. Existing RIMS page design, planning helper and subscription scopes were inspected; native page inventory remains open.
+- [x] Review fix: escape carriage returns as well as line feeds in calendar display fields (`a573598`).
 - [x] Apply review fix: reject non-string opportunity/category/funder identities and malformed subscription rule objects before watchlist matching (`53d2419`).
 - [x] Implement: Add local versioned policy validation and stable delivery-event idempotency keys for the future list-backed pages.
 - [~] Verify: Local policy/subscription tests pass; native page persistence, per-user access, reminder ledger and calendar change/cancellation remain open.
