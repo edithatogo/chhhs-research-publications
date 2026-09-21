@@ -449,3 +449,43 @@ events or send notifications.
 Native change-ledger list persistence, current-user flow/page binding,
 successful model refresh/reconciliation and actual reminder/calendar delivery
 remain open. This local projection does not close those gates.
+
+## Conductor review — calendar change list/import boundary — 2026-09-22
+
+### Summary
+
+The authenticated QLD Health personal DEV workspace now contains one isolated
+`Funding Calendar Changes` list created only after inventory and a 404 check
+showed that the target was absent. Native schema readback confirms the 13
+canonical fields, requiredness, the required/unique/indexed `ChangeKey`, the
+`Needs Review` default and false cancellation defaults. No synthetic item was
+written and no flow was created or enabled.
+
+The matching local SharePoint-only upsert contract is structurally valid and
+the package was rebuilt twice. Both native import attempts were rejected with
+`MalformedFlowAssetFlowDefinition`, including after moving the package-level
+metadata to the correct structure and simplifying optional-field expressions.
+
+### Verification Checks
+
+- **Plan Compliance:** Partial — isolated native list schema is read back;
+  flow import, execution, page binding and delivery remain open.
+- **Style Compliance:** Pass — the local contract remains SharePoint-only,
+  serialised and fail-closed for duplicate identities.
+- **New Tests:** Yes — focused calendar-change and flow-contract tests pass.
+- **Test Coverage:** Partial — local schema/change semantics and package
+  structure are covered; native import/deserialisation is not accepted.
+- **Native Evidence:** The import surface reported the exact malformed-flow
+  error in both retries and the final inventory showed no new flow copy.
+
+### Findings
+
+- **Fixed:** local package structure now matches the established flow asset
+  shape, and optional mappings use the known-good direct expression form.
+- **Open blocker:** the Power Automate legacy importer still cannot deserialize
+  this asset. Rebuilding by browser or CLI needs either a tenant-exported
+  source definition for this list or a native designer-created baseline to
+  diff against; no blind third retry is warranted.
+- **Residual acceptance:** native flow import/readback, controlled run,
+  SharePoint row reconciliation, model refresh and calendar delivery remain
+  unproven.

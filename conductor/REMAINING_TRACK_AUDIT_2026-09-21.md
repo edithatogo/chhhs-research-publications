@@ -198,3 +198,16 @@ restored Off. The synthetic row remains pending explicit UI deletion
 confirmation; this is current-user persistence/replay evidence only and does
 not prove notification delivery, subscriptions, report binding or unattended
 operation.
+
+### G08 calendar-change persistence/import boundary — 2026-09-22
+
+- **Local:** the canonical `FundingCalendarChanges` projection, revision-diff
+  helper, schema and SharePoint-only upsert contract are implemented and
+  focused tests pass.
+- **Native:** one isolated personal DEV `Funding Calendar Changes` list exists;
+  all 13 canonical fields and defaults read back correctly with zero items.
+- **Blocker:** two corrected legacy package imports were rejected by Power
+  Automate as `MalformedFlowAssetFlowDefinition`; no flow was created.
+- **Decision:** keep G08 open. Do not archive or enable anything until a
+  tenant-exported/native-designer baseline permits a safe definition diff and
+  a controlled run/readback is captured.

@@ -778,3 +778,17 @@ Research Publications - Daily Ingestion & Enrichment
 (`4d226bad-577e-4f16-8914-169a150ad4d6`). This proves current inventory
 uniqueness only; it does not prove flow correctness, recurrence acceptance,
 refresh, delivery or production sharing.
+
+Native G08 calendar-change list/import boundary (2026-09-22): after a 404 and
+current-user list inventory confirmed that the target did not exist, the
+authenticated personal DEV workspace was given one isolated `Funding Calendar
+Changes` list. Native SharePoint readback confirmed all 13 canonical fields,
+including required/unique/indexed `ChangeKey`, the `Needs Review` status
+default, false cancellation defaults and zero items. The local SharePoint-only
+upsert definition passes its focused contract tests and two corrected legacy
+package imports were attempted through the authenticated Power Automate
+browser. Both were rejected as `MalformedFlowAssetFlowDefinition`; the final
+flow inventory contains no new calendar-change flow. No row was written, no
+flow was enabled, and native import, execution, refresh/reconciliation and
+delivery remain open. This is a current-user DEV schema receipt plus an exact
+import blocker, not tenant acceptance.
