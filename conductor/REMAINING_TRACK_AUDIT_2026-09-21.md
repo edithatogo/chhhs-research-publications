@@ -340,3 +340,13 @@ operation.
   semantic model` for approximately 50 seconds. The refresh was cancelled
   through the native `Cancel refresh` confirmation; no refresh success or row
   reconciliation is claimed. G08 remains open for this gate.
+
+### G08 data-only refresh alternative — 2026-09-22
+
+- After the schema-and-data retry stalled, the authenticated model editor was
+  used to select the narrower `Data` refresh route. It did not expose a
+  terminal success receipt, and the subsequent native refresh-history panel
+  stalled while loading.
+- The active Power BI tab was reloaded without editing or saving the model.
+  No data-only refresh success or row reconciliation is claimed; the refresh
+  gate remains open.

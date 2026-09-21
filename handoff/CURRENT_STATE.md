@@ -912,3 +912,10 @@ test lists read back zero rows. The native progress dialog remained at
 seconds, then the refresh was cancelled through the native confirmation. No
 refresh success or row reconciliation is claimed; this reproduces the current
 model-refresh blocker.
+
+Native data-only refresh alternative (2026-09-22): after the schema-and-data
+retry stalled, the model editor was used to select the narrower `Data` refresh
+route. It did not expose a terminal success receipt, and the native refresh
+history panel stalled while loading. The Power BI tab was reloaded without a
+model edit or save; no data-only refresh success or row reconciliation is
+claimed.
