@@ -619,3 +619,30 @@ batch acceptance. Code commit: `b4ed0b9d8de82ac3fbc113b21190c59b95b26a88`.
 - **Residual acceptance:** native retention flow import/readback, committed
   batch replay, report integration and unattended operation remain unproven.
   No tenant mutation was made.
+
+## Local DoRA model projection — 2026-09-22
+
+### Summary
+
+The canonical local semantic model now includes the source-preserving
+`DoraActivityRegistry` projection, using the existing SharePoint-only query and
+all 26 tracked fields. The model keeps `DORAActivityKey` as the registry
+identity and does not promote the source `Project ID` to a unique key.
+
+### Verification Checks
+
+- [x] **Plan compliance**: Pass locally — the model and TMDL contain all 26
+  DoRA registry fields and the existing query remains selected.
+- [x] **Identity preservation**: Pass — regression coverage asserts the
+  source identity and non-unique Project ID distinction.
+- [x] **Test results**: Pass — 438 local checks before this additive table,
+  with the full suite re-run after generation; native acceptance remains false.
+- [x] **Baseline**: Pass — the source-only runtime baseline records the
+  intentional model change and remains explicitly non-native.
+
+### Findings
+
+- **Residual native gate:** the SharePoint Online and legacy connectors both
+  accepted the exact QLD Health personal-site URL but failed to advance the
+  list navigator after `Next`. Native table binding, report integration,
+  refresh and operational acceptance remain open.

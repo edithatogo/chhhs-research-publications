@@ -683,6 +683,15 @@ visual standards and `PASS_LOCAL_ONLY` web-first validation. The runtime
 baseline was intentionally replaced with an outcome-linked source-only parity
 baseline; this does not certify the native model, refresh or row reconciliation.
 
+Local DoRA model projection (2026-09-22): the canonical PBIP now also contains
+the source-preserving `DoraActivityRegistry` table with all 26 tracked fields,
+including `DORAActivityKey`, `DORARecordID`, `DORAResourceID` and the source
+`Project ID` field retained as non-unique. The existing SharePoint-only
+`DoraActivityRegistry.m` query remains the source definition. TMDL, model
+binding, regression coverage and source-only baseline validation pass locally;
+the native connector/list-navigator blocker remains unchanged, so no native
+table binding or refresh acceptance is claimed.
+
 T11 native model-binding attempt (2026-09-22): the existing semantic-model
 Power Query editor was reopened and its retained DoRA/history tables and
 organisational-account connection were read back. A new SharePoint Online List

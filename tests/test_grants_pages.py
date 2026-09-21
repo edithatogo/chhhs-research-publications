@@ -28,6 +28,15 @@ class GrantsPageSurfaceTests(unittest.TestCase):
         self.assertIn("Active", {column["name"] for column in tables["MyFundingWatchlist"]["columns"]})
         self.assertIn("DeliveryEventKey", {column["name"] for column in tables["FundingDeliveryLedger"]["columns"]})
 
+    def test_dora_activity_projection_preserves_source_identity_and_project_id_uncertainty(self):
+        model = json.loads((ROOT / "audit/model.snapshot.json").read_text())["model"]
+        dora = next(table for table in model["tables"] if table["name"] == "DoraActivityRegistry")
+        fields = {column["name"] for column in dora["columns"]}
+        self.assertIn("DORAActivityKey", fields)
+        self.assertIn("Project ID", fields)
+        self.assertIn("DORAResourceID", fields)
+        self.assertIn("non-unique", dora["description"])
+
 
 if __name__ == "__main__":
     unittest.main()

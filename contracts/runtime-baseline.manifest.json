@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "basis_commit": "G08-local-grant-table-parity-20260922",
+  "basis_commit": "T11-local-dora-projection-20260922",
   "purpose": "Frozen drift-detection baseline, NOT certification of native correctness.",
   "native_verified": false,
   "known_defects_open": true,
@@ -104,9 +104,10 @@
     "powerbi/CHHHS Research Publications.Report/definition.pbir": "0795f42e4cd9563a5643636914dc602ec0daec42dfa6872162e2c129913ea0d8",
     "powerbi/CHHHS Research Publications.SemanticModel/.platform": "dc4239343c70555601e7f1adab960be92bfef880fada71fb17da0cedfe731bff",
     "powerbi/CHHHS Research Publications.SemanticModel/definition/database.tmdl": "4e8e171bc7c64afc76aba0ed7751dce42367c02f9e9490dfa1ca364c4deb4b79",
-    "powerbi/CHHHS Research Publications.SemanticModel/definition/model.tmdl": "27db22a3324c1073629a82d62353f8b674b330ce0b5d615347f207e88900608c",
+    "powerbi/CHHHS Research Publications.SemanticModel/definition/model.tmdl": "5ed6df4e6acc0a9932a1f16c040ddc3e5884ac0ce940d2f1d4ae48408bf77736",
     "powerbi/CHHHS Research Publications.SemanticModel/definition/relationships.tmdl": "68f632964ada97d40111af819d85cc0131953e69786b3dd783fb3d62bb73f322",
     "powerbi/CHHHS Research Publications.SemanticModel/definition/tables/Date.tmdl": "8c3dda9b0ed1318c40475109079ce243ba1d967d2a2112d9b7d16864779a39f7",
+    "powerbi/CHHHS Research Publications.SemanticModel/definition/tables/DoraActivityRegistry.tmdl": "4a492bc97f9e5f2ab7843993a1c57d6543ad4319477b5fbcf88a09ac6e5eeae9",
     "powerbi/CHHHS Research Publications.SemanticModel/definition/tables/Facility.tmdl": "8a1f8851cf3530aff6964c0f84fe1703d9f5931e3c084ecdc83b09785739fe43",
     "powerbi/CHHHS Research Publications.SemanticModel/definition/tables/FundingCalendar.tmdl": "7553b0e1a5d18756aeeeba0187a68eabc1d4af0fd0f815789c5b9c82381d9ac7",
     "powerbi/CHHHS Research Publications.SemanticModel/definition/tables/FundingDeliveryLedger.tmdl": "ea8a128ee7053924dbbc49532c240598f21d1054fbc9cab8874867b3e614a960",
@@ -147,6 +148,6 @@
     "powerquery/fnRetainSourceObservations.m": "98dc21b33ec8d45501ff4a8a502bf3863d4edbb7e8c4dd8cc773c5c1cf1d2a2a",
     "powerquery/fnValidateStoredMetadata.m": "c6b8c28fba0309012274e702c0e9c22b4b10d5db85d23e3ad8a6fb076f0d369a"
   },
-  "reviewed_revision": "G08-local-grant-table-parity",
+  "reviewed_revision": "T11-local-dora-projection",
   "review_reference": "conductor/tracks/G08_rims_grants_experience/review.md"
 }

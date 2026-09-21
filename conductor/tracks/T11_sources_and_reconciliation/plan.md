@@ -174,3 +174,10 @@ Native Power Query successfully executed the actual committed-history reader. Ag
 - [ ] Add the personal `DORA Activity Registry` SharePoint Online list as a native query/table. The connector accepted the exact QLD Health personal-site URL and existing connection, but the navigator did not advance after `Next` during repeated live waits. The unsaved attempt was cancelled and the editor was exited without saving a partial query.
 - [ ] A bounded retry through the legacy `SharePoint list` connector produced the same result: the exact site URL and organisational connection were accepted, but the list navigator did not advance after `Next`; the unsaved attempt was cancelled. This is a native connector/navigation blocker, not evidence that the list is absent.
 - [ ] Native activity-table binding, retained-history reconciliation, report visual integration, refresh, recurrence and delivery remain open.
+
+### Local DoRA model projection — 2026-09-22
+
+- [x] Add the source-preserving `DoraActivityRegistry` projection to the canonical local semantic model using the existing SharePoint-only M query and all 26 schema fields.
+- [x] Preserve `DORAActivityKey` as the model identity and retain `Project ID` as a non-unique source field; add regression coverage for this distinction.
+- [x] Rebuild the TMDL definition and update the reviewed source-only runtime baseline; local validation passes without claiming native binding.
+- [ ] Add/read back the native table through an authorised connector route; the QLD Health navigator remains blocked after `Next` in both tested connectors.
