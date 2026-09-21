@@ -1,5 +1,12 @@
 # G04 review
 
+## Conductor review — ingestion identity boundary — 2026-09-22
+
+- **Finding:** API-shaped `SourceID`, `ExternalID`, `RoundID` and URL fields were passed to the canonical normaliser, which strips surrounding whitespace before deriving keys and evidence URLs.
+- **Fix:** those identity and URL fields now reject surrounding whitespace at the source-input boundary; human-readable title/description fields remain normalisable. Regression coverage covers each strict field class.
+- **Verification:** focused ingestion tests pass (27); project checks pass 460; web-first, Conductor and diff validation pass locally.
+- **Residual gate:** native feed permissions, source-change/archive reconciliation, recurrence, monitoring, unattended operation and production acceptance remain open.
+
 ## Summary
 
 Review status: in progress; local ingestion is implemented and tested, while live source and platform execution remain open.

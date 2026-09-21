@@ -41,3 +41,9 @@ extensions.
 - [x] Task: Reject surrounding whitespace in feed and batch source identities instead of silently normalising distinct source IDs (`d728a32`).
 - [x] Verification: focused ingestion tests (24), full local suite (448 tests, 8 skipped), project checks (460), web-first contracts, Conductor validation and diff validation pass locally.
 - [~] Native feed permissions, source-change/archive reconciliation, recurrence, monitoring and unattended operation remain open; local success is not tenant acceptance.
+
+## Phase: Conductor review fix — ingestion identity boundary — 2026-09-22
+
+- [x] Task: Reject surrounding whitespace in API-shaped identity and URL fields before canonical normalisation (`a1d9636`).
+- [x] Verification: focused ingestion tests (27), full local suite, project checks (460), web-first contracts, Conductor validation and diff validation pass locally.
+- [~] Native feed permissions, source-change/archive reconciliation, recurrence, monitoring and unattended operation remain open.
