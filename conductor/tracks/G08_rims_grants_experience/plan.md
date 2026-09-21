@@ -139,3 +139,4 @@ watchlist input contract is required before another native copy is created.
 - [x] Rebind the local Funding Calendar and My Funding Watchlist pages to their dedicated current-user tables, matching the native visual field contract; local visual bindings and geometry validate.
 - [x] Replace the frozen source-only runtime baseline with an explicit reviewed parity baseline. This changes local authored definitions only and does not certify the native semantic model or refresh.
 - [ ] Reconcile the local PBIP against a successful native model refresh and row readback; the current Power BI refresh remains blocked at semantic-model validation.
+- [x] Read back the current-user Power Automate inventory: exactly one publications flow is enabled/scheduled and exactly one disabled copy exists for each grant/DoRA upsert flow; no duplicate flow identity was created.

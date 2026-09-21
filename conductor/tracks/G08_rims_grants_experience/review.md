@@ -407,3 +407,14 @@ local validation and tenant acceptance.
 - **Residual operational gate:** flows remain Off after testing; subscription
   isolation, calendar revision/change execution and actual delivery remain
   open.
+
+## Native flow inventory — 2026-09-22
+
+- **Verification:** the authenticated Power Automate Cloud flows view returned
+  exactly six current-user flows: one publications recurrence and one each for
+  grants, DoRA, watchlist, calendar and delivery-ledger upsert.
+- **Status:** the publications recurrence is the sole enabled/scheduled flow;
+  the five grant/DoRA flows are each present once and disabled.
+- **Boundary:** this proves inventory uniqueness and intended disabled state,
+  not execution correctness, refresh, delivery, sharing or production
+  acceptance.
