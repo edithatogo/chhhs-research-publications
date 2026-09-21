@@ -617,6 +617,16 @@ confirmed `InternalName=Title`, `Required=true`, `EnforceUniqueValues=true`,
 and `Indexed=true`. This is current-user DEV list evidence only; the existing
 synthetic row remains in place pending explicit cleanup confirmation.
 
+Power BI report page implementation (2026-09-21): the existing user-supplied
+CHHHS Research Publications report in My workspace opened in edit mode. Two
+current-user page shells were added and saved through the web editor:
+`Funding Opportunities` and `Funding Calendar & Watchlist`. Switching back to
+Reading view read back both page names and the scope/status text. The linked
+semantic-model editor opened in Viewing mode; its current model readback has
+21 publication/reconciliation tables and no grant, calendar, watchlist or
+delivery-ledger tables. The page shells are therefore native report evidence,
+not yet data-bound grant pages. No semantic-model write was attempted.
+
 Health Queensland CLI access boundary (2026-09-21): PAC authentication for a
 separate `healthqld-rims` profile did not complete and created no profile. Azure
 CLI 2.90.0 accepted the Health Queensland tenant and device-code authentication

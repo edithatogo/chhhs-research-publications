@@ -117,3 +117,9 @@ watchlist input contract is required before another native copy is created.
 - [x] Import exactly one `CHHHS RIMS - Funding Delivery Ledger - Reviewed Upsert` flow and update that same flow in place after the first controlled run exposed an empty optional `SentAt` conversion defect. Flow Checker read 0 errors and 0 warnings after the null-safe repair.
 - [x] Controlled native create run `08584116256446744665855863737CU13` exposed the expected optional-date defect; no row was written by that failed run. The corrected same-key run `08584116253756053128213151733CU27` succeeded after the update package was imported. SharePoint readback showed one row with `Revision=v2`, `Channel=email`, `Status=Sent`, `ScheduledFor=2026-10-02` and `SentAt=2026-09-21`; the flow was restored Off.
 - [ ] Ledger cleanup, native report/page binding, true subscription isolation and actual calendar/reminder delivery remain open. The synthetic ledger row remains as controlled evidence pending explicit UI deletion confirmation.
+
+### Native report page shells — 2026-09-21
+
+- [x] In the existing current-user My workspace report, add and save `Funding Opportunities` and `Funding Calendar & Watchlist` pages through the Power BI web editor; switch back to Reading view and read back both page names and their scope/status text.
+- [ ] Bind the pages to native grant/calendar/watchlist tables. The semantic-model editor opened in Viewing mode and its current 21-table model contains no grant tables; no model write was attempted.
+- [ ] Add current-user flow/page binding, subscription isolation, calendar revision ledger and actual reminder/change delivery after the semantic-model route is available.
