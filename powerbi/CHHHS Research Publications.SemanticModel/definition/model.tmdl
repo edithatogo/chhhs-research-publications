@@ -2,7 +2,7 @@ model Model
 	culture: en-AU
 	defaultPowerBIDataSourceVersion: powerBI_V3
 	sourceQueryCulture: en-AU
-	annotation PBI_QueryOrder = ["pNCBIEmail", "FacilityDefinitions", "fnParsePubDate", "fnNCBIJson", "fnPubMedXML", "PubMedHarvest", "PubMedFullMetadata", "PubMedPublications", "PubMedAuthorEvidence", "PubMedMetadataChunks", "PubMedIngestionAudit", "DoraSourceObservations", "DoraHistoricalMetadata", "DoraMetadataChunks", "DoraIngestionAudit", "DoraHarvest", "CanonicalPublications", "GrantsRegistry", "FundingCalendar", "MyFundingWatchlist", "FundingDeliveryLedger", "DoraActivityRegistry", "Publication", "Facility", "PublicationFacility", "Date", "SearchAudit", "ReportingWindow", "ReleaseMetadata"]
+	annotation PBI_QueryOrder = ["pNCBIEmail", "FacilityDefinitions", "fnParsePubDate", "fnNCBIJson", "fnPubMedXML", "PubMedHarvest", "PubMedFullMetadata", "PubMedPublications", "PubMedAuthorEvidence", "PubMedMetadataChunks", "PubMedIngestionAudit", "DoraSourceObservations", "DoraHistoricalMetadata", "DoraMetadataChunks", "DoraIngestionAudit", "DoraHarvest", "CanonicalPublications", "GrantsRegistry", "FundingCalendar", "MyFundingWatchlist", "FundingDeliveryLedger", "DoraActivityRegistry", "GrantRelationships", "Publication", "Facility", "PublicationFacility", "Date", "SearchAudit", "ReportingWindow", "ReleaseMetadata"]
 	annotation PBI_TimeIntelligenceEnabled = 0
 
 expression pNCBIEmail = "" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=false]
@@ -708,3 +708,27 @@ expression DoraActivityRegistry =
 	in
 	    Unique
 	lineageTag: 82d4d05d-ecab-58ef-b173-c512127a0ac7
+
+expression GrantRelationships =
+	// Power Query M: read the typed grant/publication relationship bridge.
+	let
+	    SiteUrl = try pSharePointSiteUrl otherwise error "pSharePointSiteUrl is required; no tenant default is embedded.",
+	    Source = SharePoint.Tables(SiteUrl, [Implementation = "2.0", ApiVersion = 15]),
+	    RelationshipTable = Source{[Title = "Grant Relationships"]}[Data],
+	    Selected = Table.SelectColumns(RelationshipTable, {
+	        "RelationshipKey", "RelationshipType", "FromKey", "ToKey", "AwardID",
+	        "EvidenceURL", "Confidence", "ReviewStatus"
+	    }, MissingField.UseNull),
+	    Typed = Table.TransformColumnTypes(Selected, {
+	        {"RelationshipKey", type text}, {"RelationshipType", type text},
+	        {"FromKey", type text}, {"ToKey", type text}, {"AwardID", type text},
+	        {"EvidenceURL", type text}, {"Confidence", type text}, {"ReviewStatus", type text}
+	    }),
+	    ValidRows = Table.SelectRows(Typed, each
+	        [RelationshipKey] <> null and [RelationshipKey] <> "" and
+	        [RelationshipType] <> null and [FromKey] <> null and [FromKey] <> "" and
+	        [ToKey] <> null and [ToKey] <> "" and [EvidenceURL] <> null and [EvidenceURL] <> ""
+	    )
+	in
+	    ValidRows
+	lineageTag: f3e9c1d1-3621-51e6-bac1-fe9f660f29cc

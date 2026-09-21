@@ -692,6 +692,14 @@ binding, regression coverage and source-only baseline validation pass locally;
 the native connector/list-navigator blocker remains unchanged, so no native
 table binding or refresh acceptance is claimed.
 
+Local relationship model projection (2026-09-22): the canonical PBIP now also
+contains the eight-field `GrantRelationships` table and the existing typed
+SharePoint-only query. `RelationshipKey` remains the bridge identity while
+`FromKey`, `ToKey` and optional `AwardID` remain separate endpoint identities;
+publication rows are not mutated or implicitly joined. TMDL, regression,
+project and web-first checks pass locally. Native relationship-table binding,
+the synthetic-row cleanup and any shared backfill remain open.
+
 T11 native model-binding attempt (2026-09-22): the existing semantic-model
 Power Query editor was reopened and its retained DoRA/history tables and
 organisational-account connection were read back. A new SharePoint Online List

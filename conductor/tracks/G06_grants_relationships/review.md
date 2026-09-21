@@ -53,3 +53,29 @@ into registry identities. The focused relationship suite covers this boundary.
 - **Fix:** commit `2e39aee` adds the explicit `unique` identity invariant and regression coverage.
 - **Verification:** focused relationship tests pass (20); the full suite passes 384 tests with 8 skips; project validation passes 438 checks; web-first, Conductor, Power Platform tooling and visual standards checks pass locally.
 - **Residual gate:** remaining required-field readback, relationship round-trip, unchanged publication totals and approved target binding remain open.
+
+## Local relationship model projection — 2026-09-22
+
+### Summary
+
+The canonical local semantic model now includes the eight-field
+`GrantRelationships` SharePoint projection. It preserves relationship identity
+and endpoint keys as a bridge rather than flattening or mutating publication
+rows.
+
+### Verification Checks
+
+- [x] **Plan compliance**: Pass locally — all eight tracked fields and the
+  existing SharePoint-only query are represented in TMDL.
+- [x] **Identity safety**: Pass — `RelationshipKey`, `FromKey`, `ToKey` and
+  optional `AwardID` remain distinct fields with no implicit join.
+- [x] **Test results**: Pass — 438 tests passed with 8 skipped; 457 project
+  checks pass; web-first and harness checks remain local-only.
+- [x] **Baseline**: Pass — the source-only runtime baseline records this
+  intentional model change and remains explicitly non-native.
+
+### Findings
+
+- **Residual native gate:** native relationship-table binding and the current
+  synthetic-row cleanup are still unaccepted; no shared relationship binding
+  or publication backfill is claimed.

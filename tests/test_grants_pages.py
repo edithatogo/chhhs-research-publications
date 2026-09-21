@@ -37,6 +37,13 @@ class GrantsPageSurfaceTests(unittest.TestCase):
         self.assertIn("DORAResourceID", fields)
         self.assertIn("non-unique", dora["description"])
 
+    def test_relationship_projection_preserves_separate_endpoint_keys(self):
+        model = json.loads((ROOT / "audit/model.snapshot.json").read_text())["model"]
+        rel = next(table for table in model["tables"] if table["name"] == "GrantRelationships")
+        fields = {column["name"] for column in rel["columns"]}
+        self.assertTrue({"RelationshipKey", "FromKey", "ToKey", "EvidenceURL"} <= fields)
+        self.assertIn("no implicit join", rel["description"])
+
 
 if __name__ == "__main__":
     unittest.main()

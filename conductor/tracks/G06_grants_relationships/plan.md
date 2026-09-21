@@ -14,6 +14,13 @@ relationship data is not shared or delivered to other users in this tranche.
 - [x] Task: Declare `RelationshipKey` required, indexed and unique in the tracked schema (`2e39aee`).
 - [x] Task: Complete a current-user synthetic relationship create/read/update/read/delete round-trip and read back the publication-list boundary (2026-09-21).
 
+### Local relationship model projection — 2026-09-22
+
+- [x] Add the eight-field source-preserving `GrantRelationships` projection to the canonical local semantic model using the existing SharePoint-only M query.
+- [x] Preserve `RelationshipKey` as the bridge identity and retain `FromKey`, `ToKey` and optional `AwardID` as separate endpoint identities; add regression coverage.
+- [x] Rebuild TMDL and update the reviewed source-only runtime baseline; local validation passes without claiming native binding.
+- [ ] Read back the relationship table through an authorised native model route; shared/native binding remains outside the current evidence.
+
 ### Native invariant readback continuation — 2026-09-22
 
 - [x] Read the authenticated personal `Grant Relationships` list through SharePoint REST: `ItemCount=0`; `RelationshipKey` is required, indexed and unique; all eight relationship fields are present.
