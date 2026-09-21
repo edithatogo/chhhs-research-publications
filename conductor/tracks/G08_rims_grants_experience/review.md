@@ -597,3 +597,20 @@ authored through the authenticated QLD Health designer.
   valid cross-tenant import source.
 - **Decision:** retain QLD Health as the authoritative native target; the
   VUW profile remains a tooling check only.
+
+### Medium — direct package-import route did not reach import confirmation
+
+- **Evidence:** the QLD Health `/flows/import` page was reachable in the
+  authenticated browser session. The local
+  `funding-calendar-changes-null-preserving-20260922.zip` was selected and
+  the page accepted it into the upload control, but it remained at
+  `Uploading your package ... Don't navigate away` without exposing the
+  package mappings or enabled `Import` action. The session was navigated back
+  to the existing flow details page without submitting the package.
+- **Impact:** there is still no evidence that the revised definition entered
+  the tenant; the existing flow identity remains the only canonical native
+  flow and no duplicate was created.
+- **Next action:** retry only with a package/solution export shape known to
+  complete in this tenant, or obtain a tenant session with a working import
+  route. After a successful import, read back the same flow identity, Flow
+  Checker state, null/non-null create/update runs and exact SharePoint rows.

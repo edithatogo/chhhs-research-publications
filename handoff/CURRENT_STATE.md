@@ -836,6 +836,14 @@ but its preview cloud-flow inventory returned no flows, so VUW cannot export
 the QLD Health flow or serve as a cross-tenant source. Native null-date
 readback remains open.
 
+The direct QLD Health `/flows/import` route was then reached in the
+authenticated browser. The revised null-preserving package was selected, but
+the upload remained indefinitely at `Uploading your package ... Don't
+navigate away` and never exposed package mappings or an enabled `Import`
+button. The session was navigated back without submitting; no new flow or
+tenant mutation is claimed. The existing flow identity remains the sole
+canonical target.
+
 The bounded diagnostic was extended once using a private tenant-exported
 watchlist package as the source for metadata, connection-reference and
 authentication shape. That third calendar-change import was rejected with the
