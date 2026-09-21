@@ -154,8 +154,8 @@ class GrantsRelationshipTests(unittest.TestCase):
             [{'OpportunityKey': ' g1 '}, {'OpportunityKey': 'g2'}],
             [{'OpportunityKey': 'g1'}, {'OpportunityKey': 'g2'}],
         )
-        self.assertEqual(result['status'], 'reconciled')
-        self.assertEqual(result['records'][0]['OpportunityKey'], ' g1 ')
+        self.assertEqual(result['status'], 'rejected')
+        self.assertIn('whitespace_emitted_key', result['errors'])
 
         result = reconcile_registry_keys(
             [{'OpportunityKey': 'g1'}, {'OpportunityKey': 'g2'}],

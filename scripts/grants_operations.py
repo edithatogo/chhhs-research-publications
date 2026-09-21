@@ -34,6 +34,8 @@ def reconcile_registry_keys(
             errors.append(invalid_error)
         if any(isinstance(key, str) and not key.strip() for key in values):
             errors.append(missing_error)
+        if any(isinstance(key, str) and key != key.strip() for key in values):
+            errors.append('whitespace_emitted_key' if values is emitted_keys else 'whitespace_registry_key')
         comparable = [key.strip() for key in values if isinstance(key, str) and key.strip()]
         if len(comparable) != len(set(comparable)):
             errors.append(duplicate_error)
