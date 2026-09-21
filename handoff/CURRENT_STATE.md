@@ -886,3 +886,13 @@ does not prove model refresh, native version history, rollback, sharing,
 scheduled delivery or production acceptance. The VUW PAC route remains a
 separate, authenticated-but-empty environment and was not used as a QLD
 Health deployment path.
+
+Classic-designer continuation (2026-09-22): the QLD Health flow was opened
+through the classic Power Automate designer by disabling the new-designer
+switch. The classic route exposed the Control/Condition action, but its
+dynamic-content picker returned duplicate `PreviousDate` labels from earlier
+actions and did not provide an unambiguous current calendar-row token in the
+attempted branch. The temporary condition shell was discarded through the
+browser reload confirmation; no partial edit was saved, the flow remains Off,
+and the canonical flow identity was not changed. This is additional route
+evidence, not null-date acceptance.
