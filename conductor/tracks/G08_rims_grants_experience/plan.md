@@ -118,8 +118,9 @@ watchlist input contract is required before another native copy is created.
 - [x] Controlled native create run `08584116256446744665855863737CU13` exposed the expected optional-date defect; no row was written by that failed run. The corrected same-key run `08584116253756053128213151733CU27` succeeded after the update package was imported. SharePoint readback showed one row with `Revision=v2`, `Channel=email`, `Status=Sent`, `ScheduledFor=2026-10-02` and `SentAt=2026-09-21`; the flow was restored Off.
 - [ ] Ledger cleanup, native report/page binding, true subscription isolation and actual calendar/reminder delivery remain open. The synthetic ledger row remains as controlled evidence pending explicit UI deletion confirmation.
 
-### Native report page shells — 2026-09-21
+### Native report page shells and model binding — 2026-09-21
 
 - [x] In the existing current-user My workspace report, add and save `Funding Opportunities` and `Funding Calendar & Watchlist` pages through the Power BI web editor; switch back to Reading view and read back both page names and their scope/status text.
-- [ ] Bind the pages to native grant/calendar/watchlist tables. The semantic-model editor opened in Viewing mode and its current 21-table model contains no grant tables; no model write was attempted.
+- [x] In the existing current-user My workspace semantic model, use the Power Query SharePoint Online List connector and the existing organisational-account connection to add read-only native queries for `My Funding Watchlist`, `Funding Calendar`, `Funding Delivery Ledger` and `Grants Registry`. Model readback now shows tables 22–25 with 26, 29, 32 and 44 columns respectively; the Grants Registry preview evaluated with zero rows and the other three previews evaluated with one controlled synthetic row each.
+- [ ] Replace the page-shell text with bound visuals and read back the fields/rows in Reading view. The model tables are native and saved by the editor, but report visual binding and refresh/readback are still open.
 - [ ] Add current-user flow/page binding, subscription isolation, calendar revision ledger and actual reminder/change delivery after the semantic-model route is available.

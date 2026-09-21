@@ -617,23 +617,32 @@ confirmed `InternalName=Title`, `Required=true`, `EnforceUniqueValues=true`,
 and `Indexed=true`. This is current-user DEV list evidence only; the existing
 synthetic row remains in place pending explicit cleanup confirmation.
 
-Power BI report page implementation (2026-09-21): the existing user-supplied
+Power BI report/model implementation (2026-09-21): the existing user-supplied
 CHHHS Research Publications report in My workspace opened in edit mode. Two
 current-user page shells were added and saved through the web editor:
 `Funding Opportunities` and `Funding Calendar & Watchlist`. Switching back to
-Reading view read back both page names and the scope/status text. The linked
-semantic-model editor opened in Viewing mode; its current model readback has
-21 publication/reconciliation tables and no grant, calendar, watchlist or
-delivery-ledger tables. The page shells are therefore native report evidence,
-not yet data-bound grant pages. No semantic-model write was attempted.
+Reading view read back both page names and the scope/status text. In the
+existing semantic model, the Power Query SharePoint Online List connector used
+the existing organisational-account connection to add read-only native queries
+for `My Funding Watchlist`, `Funding Calendar`, `Funding Delivery Ledger` and
+`Grants Registry`. Model readback now shows tables 22–25 with 26, 29, 32 and 44
+columns respectively; the Grants Registry preview evaluated with zero rows and
+the other three previews evaluated with one controlled synthetic row each. The
+tables are native model evidence, but the report visuals are still page-shell
+text and need binding/readback in Reading view.
+Power BI Version history readback then showed the current version description
+`Native SharePoint grant tables added: Grants Registry, Funding Calendar, My
+Funding Watchlist and Funding Delivery Ledger`, with the earlier
+`Pre-grants-model baseline: publication model with saved funding page shells`
+retained below it.
 
 Model-write boundary (2026-09-21): the semantic-model editor exposes an
-`Editing` mode, but the current model is the publication/reconciliation model
-used by the existing report. There is no grant/calendar/watchlist/ledger table
-in its 21-table readback, and no approved isolated model/rollback receipt for
-adding those tables in place. The editor was left in Viewing mode; adding
-grant tables to the canonical publication model remains an explicit isolated
-model gate, not a completed page-binding claim.
+`Editing` mode and the existing canonical publication model was extended in
+place through its Power Query editor after the pre-grants publication-model
+version-history baseline was saved. The four SharePoint list queries/tables
+were read back natively as tables 22–25. This is a current-user DEV model
+write with a recoverable baseline, not production/shared acceptance; page
+visual binding, refresh, delivery and subscriptions remain separate gates.
 
 Health Queensland CLI access boundary (2026-09-21): PAC authentication for a
 separate `healthqld-rims` profile did not complete and created no profile. Azure
