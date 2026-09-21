@@ -58,6 +58,13 @@ class GrantsCalendarTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "valid UTC timestamp"):
             build_icalendar([], POLICY, generated_utc="2026-99-99T25:61:61Z")
 
+    def test_icalendar_escapes_crlf_in_display_fields(self):
+        row = {"OpportunityKey": "GRANT:9", "Title": "Line one\r\nLine two", "URL": "https://example.org/call", "Source": "NHMRC\r\nreview", "Deadline": "2026-10-01", "DeadlinePrecision": "day"}
+        output = build_icalendar([row], POLICY, generated_utc="2026-09-20T04:00:00Z")
+        self.assertNotIn("Line one\r", output)
+        self.assertIn("SUMMARY:Line one\\n\\nLine two", output)
+        self.assertIn("CATEGORIES:NHMRC\\n\\nreview", output)
+
 
 if __name__ == "__main__":
     unittest.main()

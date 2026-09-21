@@ -20,7 +20,7 @@ from scripts.grants_planning import institutional_deadline, validate_policy
 
 
 def _escape(value: Any) -> str:
-    return str(value or "").replace("\\", "\\\\").replace(";", "\\;").replace(",", "\\,").replace("\n", "\\n")
+    return str(value or "").replace("\\", "\\\\").replace(";", "\\;").replace(",", "\\,").replace("\r", "\\n").replace("\n", "\\n")
 
 
 def _date(value: Any) -> str | None:
