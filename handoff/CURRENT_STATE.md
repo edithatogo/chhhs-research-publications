@@ -666,6 +666,14 @@ row reconciliation or scheduled refresh is claimed; the report's cached
 synthetic rows remain a known stale-readback boundary until a successful native
 refresh can be completed.
 
+Power BI refresh retry (2026-09-22): after confirming the three grant test lists
+were empty, a second native `Schema and data` refresh was started from the
+existing model editor. It again remained at `Processing queries and validating
+semantic model` for a bounded 30-second observation and was cancelled through
+the native `Cancel refresh` confirmation. This confirms the same model-refresh
+blocker, not a successful cleanup reconciliation; cached report rows remain
+unverified.
+
 T11 native model-binding attempt (2026-09-22): the existing semantic-model
 Power Query editor was reopened and its retained DoRA/history tables and
 organisational-account connection were read back. A new SharePoint Online List
