@@ -83,3 +83,8 @@ Verification: `python3 scripts/validate_project.py` and
 `python3 scripts/validate_conductor.py` pass in the canonical checkout; the
 broader source-only test/CI gates are current on `origin/main`. T08 is
 eligible for archive.
+
+The archive move exposed and corrected a validator assumption that all T08–T17
+assets had to remain under `conductor/tracks`. The web-first contract now
+counts those canonical assets across both active and archived collections;
+the targeted 64-test web-first suite and local validators pass after the fix.

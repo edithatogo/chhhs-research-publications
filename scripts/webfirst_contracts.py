@@ -191,19 +191,21 @@ def local_validate(root: Path = ROOT) -> dict[str, Any]:
                 for path in sorted(collection.glob('*/metadata.json')):
                     metadata = load(path)
                     graph[metadata.get('id', metadata.get('track_id'))] = metadata.get('depends_on', [])
-        for path in sorted((root/'conductor/tracks').glob('T*/metadata.json')):
-            metadata = load(path); tid = metadata['id']
-            number = int(tid.split('_')[0][1:])
-            if number < 8:
-                continue
-            states.append(metadata); graph[tid] = metadata['depends_on']
-            for filename in ['index.md', 'spec.md', 'plan.md', 'prompt.md', 'review.md']:
-                check(tid + ': ' + filename, (path.parent/filename).is_file())
-            check(tid + ': recognised status', metadata['status'] in {'pending','in_progress','blocked','gated','complete'})
-            if metadata['status'] == 'complete' and metadata['requires_live_evidence']:
-                check(tid + ': live completion has references', bool(metadata.get('completion_evidence')))
-            if number in (16, 17):
-                check(tid + ': fallback is conditional', metadata['scope'] == 'conditional_desktop')
+        # Archived tracks remain part of the canonical T08-T17 asset set.
+        for collection_name in ('conductor/tracks', 'conductor/archive'):
+            for path in sorted((root/collection_name).glob('T*/metadata.json')):
+                metadata = load(path); tid = metadata['id']
+                number = int(tid.split('_')[0][1:])
+                if number < 8 or number > 17:
+                    continue
+                states.append(metadata); graph[tid] = metadata['depends_on']
+                for filename in ['index.md', 'spec.md', 'plan.md', 'prompt.md', 'review.md']:
+                    check(tid + ': ' + filename, (path.parent/filename).is_file())
+                check(tid + ': recognised status', metadata['status'] in {'pending','in_progress','blocked','gated','complete'})
+                if metadata['status'] == 'complete' and metadata['requires_live_evidence']:
+                    check(tid + ': live completion has references', bool(metadata.get('completion_evidence')))
+                if number in (16, 17):
+                    check(tid + ': fallback is conditional', metadata['scope'] == 'conditional_desktop')
         check('exactly ten new tracks', len(states) == 10)
         for tid, dependencies in graph.items():
             check(tid + ': dependency references exist', all(d in graph for d in dependencies))
