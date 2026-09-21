@@ -48,10 +48,19 @@ SELECTCOLUMNS(
 
 def load_target(path: Path) -> tuple[str, str, str, dict[str, str]]:
     payload = json.loads(path.read_text(encoding="utf-8"))
-    site_url = str(payload.get("site_url") or "").strip()
-    list_id = str(payload.get("list_id") or "").strip()
-    model_id = str(payload.get("model_id") or "").strip()
-    fields = payload.get("fields") or {}
+    if not isinstance(payload, dict):
+        raise ValueError("validated private SharePoint target must be an object")
+    raw_site_url = payload.get("site_url")
+    raw_list_id = payload.get("list_id")
+    raw_model_id = payload.get("model_id")
+    if not all(isinstance(value, str) for value in (raw_site_url, raw_list_id, raw_model_id)):
+        raise ValueError("validated private SharePoint target identifiers must be strings")
+    site_url = raw_site_url.strip()
+    list_id = raw_list_id.strip()
+    model_id = raw_model_id.strip()
+    fields = payload.get("fields")
+    if not isinstance(fields, dict):
+        raise ValueError("validated private SharePoint target field mapping must be an object")
     unique_fields = payload.get("unique_fields")
     required = {"title", "source_key", "canonical_key", "authors", "journal", "publication_year",
                 "publication_month", "publication_date_raw", "publication_date_precision", "source_set",
@@ -77,7 +86,9 @@ def load_target(path: Path) -> tuple[str, str, str, dict[str, str]]:
         UUID(model_id)
     except ValueError as exc:
         raise ValueError("SharePoint list_id must be a GUID") from exc
-    mapped_fields = {key: str(fields[key]).strip() for key in required}
+    if any(not isinstance(fields[key], str) for key in required):
+        raise ValueError("validated private SharePoint target field mappings must be strings")
+    mapped_fields = {key: fields[key].strip() for key in required}
     if any(not value or "{{" in value for value in mapped_fields.values()):
         raise ValueError("validated private SharePoint target requires non-empty field mappings")
     return site_url, list_id, model_id, mapped_fields
