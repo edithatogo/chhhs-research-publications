@@ -96,6 +96,10 @@ def project_event(opportunity: dict[str, Any], policy: dict[str, Any]) -> dict[s
 def build_icalendar(opportunities: Iterable[dict[str, Any]], policy: dict[str, Any], *, generated_utc: str) -> str:
     if not re.fullmatch(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z", generated_utc):
         raise ValueError("generated_utc must be second-precision UTC")
+    try:
+        dt.datetime.strptime(generated_utc, "%Y-%m-%dT%H:%M:%SZ")
+    except ValueError:
+        raise ValueError("generated_utc must be a valid UTC timestamp") from None
     events = [project_event(item, policy) for item in opportunities]
     events = sorted((item for item in events if item is not None), key=lambda item: (item["Date"], item["UID"]))
     uids = [event["UID"] for event in events]
