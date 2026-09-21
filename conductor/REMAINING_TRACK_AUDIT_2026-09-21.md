@@ -321,3 +321,13 @@ operation.
   remain incomplete. Keep active.
 - **Canonical source:** this recheck was performed from the clean checkout at
   `94ffbc7`; the sole GitHub `main` branch remains the canonical remote.
+
+### G08 classic-designer action-picker retry — 2026-09-22
+
+- The existing flow was reloaded and its original `Create item` action was
+  visibly present before the retry. The action was copied using the classic
+  designer clipboard, after which the designer stalled before any delete,
+  replacement, or Save operation completed.
+- The headed Chrome tab was reloaded to discard the unsaved draft. No tenant
+  mutation is claimed; the existing flow remains the canonical target and
+  native null-date acceptance remains open.
