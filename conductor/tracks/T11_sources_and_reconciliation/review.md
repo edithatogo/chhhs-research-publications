@@ -118,6 +118,16 @@ Summary: the DoRA activity collector now fails closed when a datastore `_id` is 
 - **Finding and fix:** `validate_records` previously accepted values such as `True`, `{"row": 7}` and `[7]` after `str()` coercion. Commit `12798092b64de6d420904c7cd77d589829076f1c` restricts source identities to non-boolean scalar string/integer values and adds regression coverage.
 - **Residual acceptance:** native SharePoint target/schema/row-key readback and RIMS report integration remain unproven. No tenant mutation was made.
 
+## Native current-user activity binding update — 2026-09-22
+
+The earlier residual note is superseded for the isolated current-user tranche:
+the authenticated SharePoint Online List route saved the `DORA Activity
+Registry` query with 48 columns and zero rows, model readback showed `DORA
+Activity Registry table 28 of 28`, and the saved `Clinical Analytics` visual
+read back `DORAActivityKey`, `DORARecordID`, `DORAResourceID` and
+`DORASourceURL`. Retained-history reconciliation, refresh, recurrence and
+delivery remain open, so T11 remains active.
+
 ## Conductor review — export provenance hardening — 2026-09-21
 
 ### Summary

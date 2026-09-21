@@ -173,7 +173,8 @@ Native Power Query successfully executed the actual committed-history reader. Ag
 - [x] Re-open the existing semantic model's native Power Query editor and verify the retained DoRA/history tables and authenticated organisational-account connection are present.
 - [x] Add the personal `DORA Activity Registry` SharePoint Online list as a native query/table. The authenticated organisational connection accepted the QLD Health personal-site URL; the navigator then exposed the list, and Power Query created/saved the query with 48 columns and zero rows.
 - [x] Record the prior bounded legacy-connector navigation failure as superseded evidence; the successful SharePoint Online List route is now authoritative for this model write.
-- [ ] Native activity-table binding and a current-user report visual are complete; retained-history reconciliation, refresh, recurrence and delivery remain open.
+- [x] Native activity-table binding and a current-user report visual are complete for the isolated current-user scope: model readback showed `DORA Activity Registry table 28 of 28` with 48 columns and the saved `Clinical Analytics` visual read back `DORAActivityKey`, `DORARecordID`, `DORAResourceID` and `DORASourceURL`.
+- [ ] Retained-history reconciliation, refresh, recurrence and delivery remain open; the isolated visual receipt does not certify those gates.
 
 ### Local DoRA model projection — 2026-09-22
 
