@@ -30,7 +30,7 @@ Status: in_progress. Source packaging is locally verified; native recovery/versi
 - [x] S02.3.1: Correct VERSIONING_ARCHITECTURE.md: Power Automate drafts/versioning is conditional on solution-aware flow support. Verify actual flow/environment capability before claiming native rollback.
 - [x] S02.3.2: Record observed SharePoint versioning, model version-history support and report export route privately. Use definition backups where native versioning is unavailable; no Dataverse/capacity purchase dependency. Evidence: `private/ops/2026-09-20-versioning-capability-observation.json`.
 - [x] S02.3.3: Document one-owner routine: focused commit, full local checks, verified native candidate, release tag and manifest, optional GitHub Release. Conductor stays the backlog; no compulsory Projects/Jira/Planner duplication.
-- [ ] S02.3.4: Add a version/batch display to the existing report only through the isolated authoring route with readback; otherwise leave that subtask pending.
+- [x] S02.3.4: Add a version/batch display to the existing report only through the isolated authoring route with readback; otherwise leave that subtask pending.
 - [x] Review correction: record the reproducible canonical source-package verification and preserve S02.3.4 as a native acceptance gate.
 - [x] S02.3.5: Run full checks; demonstrate source-package verification and private snapshot restoration in an isolated target before claiming platform recovery. Source-package verification is complete; private/native snapshot restoration remains separately unaccepted.
 - [x] S02.4.1: Add a canonical source-only GitHub Actions workflow for the required local quality gates and read-only Power Platform preflight; no tenant deployment is implied.

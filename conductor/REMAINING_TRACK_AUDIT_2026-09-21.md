@@ -212,3 +212,16 @@ operation.
 - **Decision:** keep G08 open. Do not archive or enable anything until a
   tenant-exported/native-designer baseline permits a safe definition diff and
   a controlled run/readback is captured.
+
+### S02 isolated report display — 2026-09-22
+
+- **Native current-user evidence:** the existing semantic model retained the
+  `ReleaseMetadata` calculated table after reload. The existing
+  `Monthly Publications` report page was saved with a four-column table bound
+  to `AcceptedBatchID`, `NativeAcceptance`, `SchemaVersion` and
+  `SoftwareVersion`.
+- **Readback:** a fresh report reload displayed all four headers and the
+  source-only metadata row.
+- **Boundary:** this closes S02.3.4 only. Native refresh, report/model
+  version-history, rollback, sharing, scheduled delivery and production
+  acceptance remain open; no flow was enabled or schedule changed.

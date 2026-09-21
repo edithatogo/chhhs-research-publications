@@ -798,3 +798,15 @@ watchlist package as the source for metadata, connection-reference and
 authentication shape. That third calendar-change import was rejected with the
 same `MalformedFlowAssetFlowDefinition` result. The exported package remains
 ignored/private and no tenant-specific metadata was added to tracked source.
+
+Native S02.3.4 report display readback (2026-09-22): using the authenticated
+QLD Health browser session, the existing semantic model retained the
+`ReleaseMetadata` calculated table after a full model-editor reload. The
+existing `Monthly Publications` page was saved with a table bound to
+`AcceptedBatchID`, `NativeAcceptance`, `SchemaVersion` and `SoftwareVersion`.
+A fresh report reload displayed all four headers and the single source-only
+metadata row. This closes the isolated current-user display subtask only; it
+does not prove model refresh, native version history, rollback, sharing,
+scheduled delivery or production acceptance. The VUW PAC route remains a
+separate, authenticated-but-empty environment and was not used as a QLD
+Health deployment path.

@@ -54,12 +54,11 @@ The current checkout is intentionally dirty, so the package command refuses to c
 
 ## Remaining S02 gates
 
-S02.3.4 still needs isolated native report readback for a version/batch display.
 The 2026-09-20 private observation confirms SharePoint item history is enabled
-for the DEV list (500 versions), while the Power BI report exposes Save a copy
-and Download but no version-history control and the attempted semantic-model
-route is unavailable. These cannot be closed by a source archive or by editing
-the original report.
+for the DEV list (500 versions), while the Power BI report/model still expose
+no native version-history or rollback control. S02.3.4 is now closed by the
+isolated saved/read-back display above; native recovery/version-history,
+refresh, delivery and production acceptance remain separate open gates.
 
 ## Current canonical release verification — 2026-09-21
 
@@ -92,6 +91,30 @@ not native tenant acceptance or report/model version-history evidence.
 Native report version/batch display and recovery remain unaccepted; the
 source-only CI implementation above is locally tested but does not close those
 native gates.
+
+## Conductor review — isolated native version/batch display — 2026-09-22
+
+- **Outcome:** S02.3.4 is complete for the current-user isolated Power BI
+  route. The existing semantic model retained a model-backed
+  `ReleaseMetadata` calculated table after a full model-editor reload.
+- **Report write:** the existing `Monthly Publications` page was edited in
+  place. A table visual was bound to `AcceptedBatchID`, `NativeAcceptance`,
+  `SchemaVersion` and `SoftwareVersion` from `ReleaseMetadata`. The native
+  save confirmation reported that the report was saved.
+- **Report readback:** a fresh report reload showed all four column headers and
+  the single metadata row, including `source-only-canonical`, `false`,
+  `rims-grants-publications-v1` and `0.3.0-rc1`.
+- **Scope:** this is current-user DEV evidence only. It does not prove model
+  refresh, scheduled delivery, report sharing, native version history,
+  rollback, or production acceptance. The metadata row is intentionally
+  static until a governed release process writes an accepted batch.
+
+### Review disposition
+
+The review finding is resolved: the previously open native display gate now
+has a saved and reload-verified isolated implementation. The remaining S02
+limitations are separately recorded and do not justify claiming native
+version-history or rollback support.
 
 ## Conductor review — source archive fallback hygiene — 2026-09-21
 
