@@ -716,3 +716,19 @@ cancelled through the native confirmation. This reproduces the refresh gate;
 it does not prove processed-model loading, retained-history reconciliation or
 report acceptance. Receipt:
 `private/ops/2026-09-22-powerbi-native-refresh-retry.json`.
+
+## Conductor review — DoRA resource identity boundary — 2026-09-22
+
+- **Finding:** `collect` stringified an active datastore resource ID before
+  constructing the CKAN request. A malformed numeric or boolean resource ID
+  could therefore be promoted into a different request target instead of
+  stopping at the package boundary.
+- **Fix:** active CSV datastore resources now require a non-empty string ID;
+  the collector passes that validated string unchanged. A regression test
+  proves a numeric active resource ID is rejected before traversal.
+- **Verification:** focused DoRA activity tests pass (15); the full suite
+  passes 450 tests with 8 skips; project validation passes 460 checks;
+  web-first, Conductor and diff validation pass locally.
+- **Residual gate:** native retained-history reconciliation, model refresh,
+  recurrence, delivery and production acceptance remain open. The collector
+  hardening does not certify tenant execution.

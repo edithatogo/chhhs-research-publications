@@ -189,3 +189,9 @@ Native Power Query successfully executed the actual committed-history reader. Ag
 - [x] Confirm Off status, Instant type, owner, SharePoint connection, no run-only users, Flow Checker 0 errors / 1 inactive-flow warning, and two visible successful 28-day runs.
 - [x] Record the UI facts in ignored receipt `private/ops/2026-09-22-powerautomate-t11-dora-flow-readback.json`.
 - [ ] Prove durable run-history capture, recurrence/schedule, refresh and report reconciliation, delivery and production acceptance. Keep T11 active.
+
+## Phase: Conductor review fixes — 2026-09-22
+
+- [x] Task: Reject malformed active CSV datastore resource IDs before DoRA API traversal instead of stringifying them (`7410b06`).
+- [x] Verification: focused DoRA activity tests (15), full local suite (450 tests, 8 skipped), project checks (460), web-first contracts, Conductor validation and diff validation pass locally.
+- [~] Native retained-history reconciliation, refresh, recurrence, delivery and production acceptance remain open.
