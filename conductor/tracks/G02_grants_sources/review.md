@@ -1,5 +1,12 @@
 # G02 review
 
+## Conductor review — optional metadata identity boundary — 2026-09-22
+
+- **Finding:** optional `record_kind` and `sample_fixture` metadata accepted surrounding whitespace, allowing non-canonical provenance labels to pass catalogue validation and later source-promotion checks.
+- **Fix:** optional metadata now requires a non-empty string with no surrounding whitespace or explicit `null`; regression coverage covers both fields.
+- **Verification:** focused source-ingestion tests pass (26); project checks pass 460; web-first, Conductor and diff validation pass locally.
+- **Residual gate:** permitted opportunity feeds, row-level review/eligibility evidence, unattended intake and production acceptance remain open.
+
 ## Summary
 
 Review status: in progress; the source catalogue is implemented and the ARC public awards API is now verified, while the opportunity-source and Queensland endpoint gates remain open.
