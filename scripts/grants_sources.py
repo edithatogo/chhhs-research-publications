@@ -19,6 +19,7 @@ REQUIRED_SOURCE_IDS = {
 ALLOWED_INTAKE = {"rss", "atom", "api", "reviewed_import", "manual_review"}
 ALLOWED_HEALTH = {"unverified", "research_only", "reviewed_import", "verified_sample"}
 CATALOGUE_TIMEZONE = ZoneInfo("Australia/Brisbane")
+OPTIONAL_TEXT_FIELDS = ("record_kind", "sample_fixture")
 
 
 def _valid_http_url(value: Any) -> bool:
@@ -59,6 +60,12 @@ def load_catalogue(path: str | Path) -> list[dict[str, Any]]:
             raise ValueError(f"source {source_id!r} has unsupported intake")
         if row.get("health_status") not in ALLOWED_HEALTH:
             raise ValueError(f"source {source_id!r} has unsupported health_status")
+        for field in OPTIONAL_TEXT_FIELDS:
+            value = row.get(field)
+            if value is not None and (not isinstance(value, str) or not value.strip()):
+                raise ValueError(f"source {source_id!r} {field} must be a non-empty string or null")
+        if "api_url" in row and row.get("api_url") is not None and not isinstance(row.get("api_url"), str):
+            raise ValueError(f"source {source_id!r} api_url must be a string or null")
         if row.get("intake") == "api":
             if _has_surrounding_whitespace(row.get("api_url")):
                 raise ValueError(f"source {source_id!r} api_url must not have surrounding whitespace")

@@ -78,7 +78,7 @@ class GrantsSourceTests(unittest.TestCase):
         with tempfile.NamedTemporaryFile(mode="w", suffix=".json") as handle:
             json.dump(rows, handle)
             handle.flush()
-            with self.assertRaisesRegex(ValueError, "valid api_url"):
+            with self.assertRaisesRegex(ValueError, "api_url must be a string or null"):
                 load_catalogue(handle.name)
 
     def test_catalogue_rejects_surrounding_url_whitespace(self):
@@ -113,6 +113,31 @@ class GrantsSourceTests(unittest.TestCase):
             json.dump(rows, handle)
             handle.flush()
             with self.assertRaisesRegex(ValueError, "valid api_url"):
+                load_catalogue(handle.name)
+
+    def test_catalogue_rejects_malformed_optional_metadata(self):
+        rows = json.loads((Path(__file__).parents[1] / "config/grants-sources.json").read_text())
+        rows[0]["record_kind"] = True
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json") as handle:
+            json.dump(rows, handle)
+            handle.flush()
+            with self.assertRaisesRegex(ValueError, "record_kind must be a non-empty string or null"):
+                load_catalogue(handle.name)
+
+        rows[0].pop("record_kind")
+        rows[0]["sample_fixture"] = 7
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json") as handle:
+            json.dump(rows, handle)
+            handle.flush()
+            with self.assertRaisesRegex(ValueError, "sample_fixture must be a non-empty string or null"):
+                load_catalogue(handle.name)
+
+        rows[0].pop("sample_fixture")
+        rows[0]["api_url"] = False
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json") as handle:
+            json.dump(rows, handle)
+            handle.flush()
+            with self.assertRaisesRegex(ValueError, "api_url must be a string or null"):
                 load_catalogue(handle.name)
 
     def test_arc_public_api_is_verified_as_awards_only(self):
