@@ -1,5 +1,10 @@
 # Keyless & Token-Free Enrichment Plan: CHHHS Research Publications
 
+## Current scope and source-limit correction — 13 October 2026
+
+Keyless refers to optional external enrichment providers, not Microsoft tenant authentication. The older benefits below are design aims, not guarantees of compliance, availability or operational acceptance. Current OpenAlex limits supersede the historical 100,000-request polite-pool assumption. See the [source assessment](FUTURE_SOURCE_ENRICHMENT.md#additional-source-discovery--13-october-2026) for documented candidates and access gaps; discovery does not waive this policy or enable a provider. ACTIVE labels below describe historical intended/local integration, not current native-runtime proof.
+
+
 Status: **Approved Architecture & Implementation Plan** (2026-09-18)  
 Target Environment: **Queensland Health M365 Tenant (`{{TENANT_ID}}`)**
 Primary User: **RIMS maintainer (configured privately)**
@@ -11,7 +16,7 @@ Governing Constraint: **Zero API Key / Token / Subscription Dependency**
 
 Per user directive, the CHHHS Research Publication system must **operate entirely without API keys, developer tokens, paid subscriptions, or vendor account registrations**. 
 
-This constraint guarantees:
+This constraint aims to reduce external-provider credential management; it does not guarantee:
 1. **Zero Operational Friction:** No credential rotation, expired tokens, credit card ceilings, or vendor access requests.
 2. **Enterprise Cloud Compliance:** Power Automate flows, Power Query transformations, and Python routines run purely over open public protocols with zero secrets stored in the tenant or codebase.
 3. **Institutional Longevity:** Ingestion and enrichment remain durable, reproducible, and self-sustaining across staff transitions without institutional account maintenance.
@@ -25,7 +30,7 @@ All potential data sources and enrichment providers are audited against the keyl
 | Provider / Source | Access Model | Key / Token Required? | Status in CHHHS Pipeline | Notes / Enforcement |
 | :--- | :--- | :---: | :---: | :--- |
 | **PubMed (NCBI E-Utilities)** | Public REST API | **NO** | **ACTIVE (Core)** | Standard anonymous access (up to 3 req/sec). Comprehensive biomedical metadata, MeSH, grant lists, clinical trial links. |
-| **OpenAlex** | Public REST API (Polite Pool) | **NO** | **ACTIVE (Enrichment)** | Requires only a polite email header (`mailto:{{POLITE_EMAIL}}`). Free tier provides 100,000 req/day. Open citations, OA status, topics, grants. |
+| **OpenAlex** | Public REST API with usage budgets | Anonymous use is limited; a key increases budget | Local adapter; native eligibility must be reverified | [Current authentication](https://help.openalex.org/api/authentication/) and [pricing](https://help.openalex.org/access/pricing/) supersede the old keyless quota. Qualify anonymous budget for the actual workload; retain last-good data on exhaustion. No account/key/purchase is implied. |
 | **Crossref** | Public REST API (Polite Pool) | **NO** | **ACTIVE (Enrichment)** | Public polite pool header. DOI resolution, publisher-deposited funder registries, award numbers, clinical trial numbers. |
 | **Internal Rule Engine** | Deterministic Algorithmic Classifier | **NO** | **ACTIVE (Governance)** | Pure Python / Power Query rule sets running locally and in cloud flows over harvested metadata. |
 | **Europe PMC (EBI)** | Open REST API (Keyless) | **NO** | **ACTIVE (Enrichment)** | Keyless open API from EMBL-EBI. Provides PMCID, open-access full-text URLs, author ORCID identifiers, and grant funder linkages. |
@@ -38,7 +43,7 @@ All potential data sources and enrichment providers are audited against the keyl
 
 ## 3. Keyless Funding Architecture & Columns
 
-All funding metadata is extracted exclusively from **OpenAlex, Crossref, Europe PMC, and PubMed**, supplemented by internal deterministic categorization:
+Publication funding-acknowledgement enrichment in this historical design draws from **OpenAlex, Crossref, Europe PMC, and PubMed**, supplemented by internal deterministic categorization:
 
 ```
 Harvest Pipeline (Zero Keys):

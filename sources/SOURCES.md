@@ -1,5 +1,12 @@
 # Primary-source register
 
+## Current source-discovery reference — 13 October 2026
+
+The [additional-source assessment](../docs/FUTURE_SOURCE_ENRICHMENT.md#additional-source-discovery--13-october-2026) records an official-source search for ROR, DataCite, Crossref Retraction Watch, ClinicalTrials.gov, ANZCTR, NHMRC/MRFF awards, ResearchOnline@JCU, Unpaywall, ORCID and Research Data Australia, with overlap against existing providers. It documents value, API/file routes, rights and unresolved access; candidate identification is not enabled ingestion. Reuse the existing catalogue and raw archive.
+
+The September reference list and runtime statements below are historical; current source completeness and native acceptance require the active task's dated evidence.
+
+
 Checked 11 September 2026. This records references and implementation use; it is not an archive of complete source pages.
 
 | Source | Used for |
