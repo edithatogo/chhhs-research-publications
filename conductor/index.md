@@ -1,5 +1,15 @@
 # CHHHS research publications: current Conductor context
 
+## Separate-chat scope — 13 October 2026
+
+Use the [parallel assignments](../docs/PLATFORM_COMPLETION_PLAN.md#parallel-delivery-assignments--13-october-2026)
+for projects/activity and funding preparation beside the existing publications
+owner. Reserve exact files and frozen inputs in separate source-only worktrees;
+shared contracts, native integration, authentication recovery and CURRENT_STATE
+retain one owner. No new chats are implied by this plan. The [API assessment](../docs/FUTURE_SOURCE_ENRICHMENT.md#free-api-coverage-review--13-october-2026)
+now distinguishes free anonymous access, free keys, restricted eligibility and
+paid/unknown access. Current-source acceptance stays ahead of optional expansion.
+
 ## Current route precedence — 13 October 2026
 
 Follow the [shared-data delivery contract](../docs/PLATFORM_COMPLETION_PLAN.md#shared-data-delivery-contract--13-october-2026): CLI/API-first on qualified exact targets, existing archive bootstrap, complete raw payload/schema retention before vertical filtering, and one writer per file/object. Historical browser-first/no-CLI statements and dated completion claims do not override this direction. Preserve current source scope, permissions, isolation, rollback and explicit activation/delivery gates. The publications chat retains its current objects and checkpoint; shared-data work requires disjoint scope or explicit handoff.

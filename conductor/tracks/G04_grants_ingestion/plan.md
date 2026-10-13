@@ -1,5 +1,19 @@
 # Implementation plan
 
+## Parallel adapter preparation — 13 October 2026
+
+Use the [parallel assignments](../../../docs/PLATFORM_COMPLETION_PLAN.md#parallel-delivery-assignments--13-october-2026).
+A funding helper may prepare a single source-specific adapter/mapping plus focused
+checks from the selected G02 source; existing common normalizer, registry schema,
+flow definition and package builder remain integration-owned. Official award
+workbooks/API responses must retain full fields and source vintage in the shared
+raw convention, with separate award projections and funder-scoped identities;
+they must not be coerced into the opportunity schema. If the accepted award
+consumer contract is missing, return its smallest proposed change for integration
+rather than inventing a second registry or collector. H02/H03 native integration
+waits for source qualification and current object ownership. Local preparation
+does not close intake, replay, unattended operation or relationship acceptance.
+
 **Access scope:** current-user local adapters and manual isolated source-to-list
 validation only. Shared ingestion and unattended recurrence are future
 extensions.

@@ -1,5 +1,22 @@
 # Solo context and harness workflow
 
+## Separate-chat execution — 13 October 2026
+
+Use the [parallel delivery assignments](PLATFORM_COMPLETION_PLAN.md#parallel-delivery-assignments--13-october-2026).
+One coordinator owns integration; separate chats may own disjoint local outcomes.
+At dispatch specify base commit, required reviewed input snapshot, exact editable
+files, output paths, invariants, smallest checks and handoff dependency in the
+existing task packet. Reserve new filenames too. A separate worktree/branch
+isolates source edits, not native objects, CLI login state or request quotas.
+Do not copy the dirty original history or private evidence into a remote branch.
+
+Shared contract/catalogue/manifest/dependency edits return as proposals to the
+coordinator. Use unique ignored package/cache paths and preserve in-flight native
+operations. Only the current recovery owner may change shared authentication or
+control the browser. Helpers return a commit and short handoff; the native owner
+keeps CURRENT_STATE and the coordinator merges plan/catalogue updates serially.
+No new lease service, recurring monitor or second status ledger is required.
+
 One owner, one Conductor backlog, one canonical platform instance per tool. No mandatory PR, second reviewer, ticket system, bot framework or new hosted service. Git history supplies change history; track plans supply remaining tasks; CURRENT_STATE supplies the short resume point. Avoid duplicating status into additional ledgers.
 
 ## Commands

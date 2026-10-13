@@ -1,5 +1,17 @@
 # Implementation Plan: E01 Power Automate Ingestion Canonicalization and Recurrence Scheduling
 
+## Parallel scope refinement — 13 October 2026
+
+E01 retains the shared writer and native flow integration under the current object
+owner. Follow the [parallel assignments](../../../docs/PLATFORM_COMPLETION_PLAN.md#parallel-delivery-assignments--13-october-2026).
+Supporting chats prepare source-specific definitions against frozen inputs; they
+must not rebuild the current import package, change connections/trigger state,
+resubmit an uncertain run or refresh the shared model. E01-H02a integrates one
+reviewed adapter at a time with the existing immutable staging/commit-last path,
+exact native preimage, rollback and saved/run readback. Account recovery and
+CURRENT_STATE remain with their recorded owner. No checkbox is closed by this
+planning refinement; schedules and delivery retain their separate gates.
+
 ## Shared-data execution refinement — 13 October 2026
 
 E01-H02a owns bootstrap/adaptation of the existing archive writer, durable raw staging and accepted commit-last integration. Preserve stable workflow identity, connections, batch/replay and prior state. The current publication/archive owner must hand off an overlapping object before another writer acts.

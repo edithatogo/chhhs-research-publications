@@ -1,5 +1,68 @@
 # Platform Completion Plan: CHHHS Research Publication System
 
+## Parallel delivery assignments — 13 October 2026
+
+The user has requested separate-chat boundaries. These are dispatch-ready scopes,
+not evidence that chats have been started or ownership transferred. Start with
+projects/activity and funding preparation alongside the existing publications
+owner; add organisation identity only for a named consumer dependency. Keep
+optional source expansion behind current-source end-to-end acceptance.
+
+| Scope / existing track | First useful deliverable | Candidate exclusive edit envelope | Dependency / handoff |
+| --- | --- | --- | --- |
+| Publications and shared retention: T11-H01a/H02a, E01-H02a and E07 | Accepted current archive generation connected to canonical consumer/register | Existing source capture/archive builders, shared reader, publication flow/model packages, native objects and CURRENT_STATE remain with their current owner | Resolve the recorded pending submission before another run; coordinator integrates shared changes |
+| Projects/activity: T11-H03/H04, then H05 | Reconcile current field mapping and prepare the smallest missing Microsoft activity consumer/export definition | Explicitly selected activity-only files such as `scripts/dora_activity.py`, `scripts/export_dora_activity.py`, their focused tests and activity definition files; no blanket ownership of directories | H03 effective access/retention remains a prerequisite for real-row capture/import; consume a frozen shared contract, propose shared changes to coordinator |
+| Funding: G02 source qualification and G04 adapter preparation | One selected NHMRC/MRFF official-file mapping with source ID, award identity, vintage, complete fields and a native integration proposal | New source-specific adapter/mapping files named at dispatch; source-specific tests only | G02 qualifies rights/identity; G04 integrates after handoff. No edits to common ingestion, source catalogue or flow from a second chat; awards cannot enter opportunity rows |
+| Organisation/researcher identity: T11 enrichment, existing author design and G06 relationships | Bounded ROR/ORCID crosswalk using identifiers already in accepted metadata, with unresolved candidates retained | A separately named ROR mapping module and focused tests; candidate output in chat-specific ignored storage | No automatic person merge, employment inference or rewrite of shared hierarchy/author registry. G06 integrates accepted typed relationships after its dependencies |
+| Optional source qualification: existing T11/G02 work | Close one access, field-loss or incremental-coverage gap from the source assessment | One assigned source note/adapter; coordinator merges catalogue and plan updates | A reachable endpoint or local adapter does not establish source admission or native delivery |
+
+Before dispatch, reserve exact files in the existing task packet, record one
+owner and the base commit/input hashes, and check that the proposed files are
+not already owned. Paths above are candidates, not new ownership claims. Shared
+schemas, catalogues, manifests, dependencies, plan status and Git integration
+have one coordinator. Use separate `codex/` branches/worktrees from reviewed
+source-only history; do not branch the dirty original history for remote push.
+Remote main can lag the working implementation: obtain the required reviewed
+source snapshot, or report the exact missing dependency rather than rebuilding
+it. Do not copy private runtime data into the source checkout.
+
+Each chat returns its commit, exact changed paths, focused check results,
+remaining native gate and rollback/input fingerprint in one short handoff.
+The coordinator integrates serially after checking current source drift. Native
+writes, shared model refreshes and authentication recovery retain their existing
+owners; separate worktrees do not isolate accounts, API quotas or tenant state.
+Use distinct private package/output paths and read-only qualified CLI operations
+where independent; no competing login, profile mutation or browser control.
+Do not write other chats' checkpoints or push main concurrently.
+
+### Improvements to apply inside the existing tasks
+
+- Reuse accepted archive snapshots and source-specific bulk exports for bootstrap;
+  use cursor/incremental requests only where the provider documents them. Record
+  coverage, source version and deletion/correction semantics; missing rows in a
+  partial feed are not deletion evidence.
+- Preserve entity boundaries and relationship direction: work, dataset, person,
+  organisation, project, award and opportunity are separate. Use DOI/PMID/ORCID/
+  ROR and funder-scoped award identifiers; provider IDs remain namespaced. Trial
+  registrations, publication versions and aggregated copies need explicit links.
+- Add only sources that fill a measured field/coverage/freshness gap. Reuse
+  Crossref/OpenAlex/Europe PMC responses before buying another integration cost.
+  Provider citation counts remain separate observations with dates, never summed.
+- Budget API requests across all chats and the runtime; cache permitted accepted
+  responses and use bounded backoff. Free quotas, free keys, account eligibility,
+  data reuse and Microsoft connector costs are distinct. Keep the existing keyless
+  policy until the user explicitly changes it; no registration or paid fallback.
+- Retain only authorised fields in appropriately protected raw storage. Complete
+  payload retention never overrides privacy, content licences or required token
+  redaction. Metadata access does not authorise linked full-text harvesting.
+- Deliver one usable consumer path before adding more adapters or verification
+  infrastructure. Use existing task checks; local preparation cannot close native
+  or operational acceptance.
+
+See [expanded API assessment](FUTURE_SOURCE_ENRICHMENT.md#free-api-coverage-review--13-october-2026)
+for researched additions and explicit deferrals. This refines the existing tracks;
+it does not create a source-platform migration or a new project-management layer.
+
 ## Shared-data delivery contract — 13 October 2026
 
 This is the current execution direction and supersedes older browser-only,

@@ -1,5 +1,76 @@
 # Deferred source enrichment and reconciliation
 
+## Free API coverage review — 13 October 2026
+
+We are not using every relevant free API, and the available evidence does not
+establish that all existing adapters are active native feeds. The earlier
+shortlist remains valid. This second official-documentation review adds the gaps
+below; it is broad coverage of relevant infrastructure, not a claim of an
+exhaustive global census. API availability, price, permission to reuse data,
+privacy, local implementation and native acceptance are separate facts.
+
+| Area / additional source | Added value and documented access | Decision / existing work owner |
+| --- | --- | --- |
+| Cross-domain: **OpenAIRE Graph** | [V3](https://graph.openaire.eu/docs/apis/graph-api/) exposes research products, organisations, projects and persons. [Terms](https://graph.openaire.eu/docs/apis/terms/) allow free anonymous/authenticated use and CC-BY reuse; rate limits differ. V4 is beta. | T11/G06 candidate after existing-source comparison; use stable V3 and exact identifiers, cursor paging for large sets, retain attribution and asserted links. Aggregation is not independent corroboration of an upstream source. |
+| Award links: **NIH RePORTER** | [Public API](https://api.reporter.nih.gov/) supports project and publication searches, including PMID/project-number links; documents a one-request-per-second recommendation, paging limits and CLI examples. | G02/G04/G06: bounded existing-PMID/award lookup when relevant, preserving fiscal-year/application versus core-project identity. Awards are not open opportunities; eligibility and reuse details still need source admission. |
+| Funding opportunities: **Grants.gov** | Official [search2 API](https://www.grants.gov/api/common/search2) explicitly requires no authentication and returns opportunity search results. | G02/G04: conditional international coverage. Qualify detail retrieval, pagination, deadlines, foreign-organisation eligibility and reuse; US listing alone never proves CHHHS eligibility. No application/subscription actions. |
+| Funding/project context: **UKRI Gateway to Research** | [Official guide](https://www.ukri.org/publications/gateway-to-research-guide/a-guide-to-gateway-to-research/) documents public project/people/organisation/output data, quarterly releases and APIs, but explicitly calls the API unsupported. | Conditional G02/G06 exact-award context; preserve release date, avoid name-based affiliation assumptions and new critical-runtime dependence on an unsupported route. |
+| EU project/award context: **CORDIS** | [Data Extraction API](https://cordis.europa.eu/about/dataextractions-api) is free but requires an account/API key and enforces limits. | Conditional G02/G06, currently excluded from automated use by keyless policy. Select only for a relevant EU award/project gap; a permitted versioned export may bootstrap later. |
+| Citation relationships: **OpenCitations** | [Official quickstart](https://github.com/opencitations/oc_docs/blob/main/docs/api/quickstart.md) documents anonymous Index/Meta access and an optional free token. | Optional T11 enrichment using exact DOI/PMID, dated provider-scoped observations; never sum counts from overlapping providers or infer research quality from counts. |
+| Journal/OA context: **DOAJ** | [Terms](https://doaj.org/terms/) make journal/article metadata CC0 and expose API, OAI-PMH and dump routes. API documentation retrieval failed in this review, so exact limits/schema remain unqualified. | Optional T11 exact-ISSN/DOI context; journal listing is not a quality guarantee or permission to copy full text. Reuse Europe PMC overlap before adding ingestion. |
+| Preprints: **bioRxiv/medRxiv** | [Provider API](https://api.biorxiv.org/) documents metadata, date/cursor retrieval and published-paper links. | Optional T11/projects only if preprints are selected scope and existing Europe PMC misses required fields. Preserve server, version and preprint/published relation; do not count versions as independent papers. Confirm chosen content rights separately. |
+| Repository coverage: **CORE** | [Official FAQ](https://core.ac.uk/faq) search evidence says API access is free without registration, subject to limits; direct FAQ/API-page reads failed in this review. | Conditional T11 candidate only: verify actual v3 route, terms and limits before adoption. Do not rely on older claims that all use requires a key or assume metadata licences cover full text. |
+| Author/paper/citation enrichment: **Semantic Scholar** | [Provider API](https://webflow.semanticscholar.org/product/api) includes keyed endpoints/higher-rate access. [Dataset/API licence](https://api.semanticscholar.org/license/) has substantive use restrictions. | Conditional T11/author-design candidate; verify chosen endpoint's key approval, cost and applicable licence for organisational retention/redistribution. No blanket free institutional-use claim. |
+
+### Coverage across the requested entities
+
+- Publications: retain PubMed/DoRA first; reuse Crossref, OpenAlex and Europe PMC;
+  select DataCite and retraction/update relations next. DOAJ, OpenCitations,
+  CORE, Semantic Scholar and preprint endpoints require measured added value.
+- Researchers: reuse deposited ORCID and source author identifiers/affiliations;
+  qualify direct ORCID or OpenAIRE only for missing evidence. Public profiles are
+  not an authoritative staff roster; private workforce data is outside scope.
+- Organisations: ROR plus existing source organisation assertions; preserve
+  historical names, parent/child relationships and funder identifiers separately.
+- Projects/research outputs: DoRA activity first, then scoped ClinicalTrials.gov,
+  permitted ANZCTR exports and DataCite; OpenAIRE adds cross-source relationships.
+- Funding: ARC, NHMRC and MRFF award evidence; NIH/UKRI/CORDIS when an actual
+  international award warrants them. GrantConnect remains the existing Australian
+  opportunity authority without a qualified public API; Grants.gov is a distinct
+  international opportunity candidate. ARDC RDA remains a conditional local
+  project/grant/data route, not interchangeable with ARDC RLA.
+
+### Keyed access: cost and eligibility
+
+| Provider | Is a key/token free? | Remaining boundary |
+| --- | --- | --- |
+| OpenAlex | [Yes](https://help.openalex.org/api/authentication/); [pricing](https://help.openalex.org/access/pricing/) currently gives a free account $1/day API budget without a payment method | Higher usage costs money; anonymous access also exists with a smaller budget. No automatic purchase/top-up; data openness does not make serving unlimited. |
+| OpenAIRE | [Yes](https://graph.openaire.eu/docs/apis/terms/), authenticated and anonymous API use are free; documented limits are currently 7,200/hour and 60/hour respectively | Registration and token lifecycle for higher limits; CC-BY attribution. Recheck limits at implementation and account for all clients sharing a quota. |
+| CORDIS | [Yes](https://cordis.europa.eu/about/dataextractions-api), but a registered API key is required | Terms and quotas apply; above-limit service can require additional agreement/charges. Current keyless policy blocks this automated route. |
+| ORCID | [Public API licence](https://info.orcid.org/public-client-terms-of-service/) is royalty-free for permitted non-commercial use | Individual credential and organisational-use eligibility must be checked; member functionality/extensive use can involve fees. Public data-file reuse is a separate route. |
+| OpenCitations | [Optional token is free](https://opencitations.net/accesstoken/); current quickstart supports anonymous use | Use current endpoint/header documentation; no registration needed for initial anonymous qualification. |
+| Semantic Scholar | No paid plan prerequisite established by this review; keyed access is subject to request/endpoint rules | Free research tooling is not proof of unrestricted institutional API retention rights; verify cost/approval and exact API/dataset licence before selection. |
+| ARDC RDA / RLA | Not established for the exact proposed route and organisational arrangement | RDA [Research Activities API](https://documentation.ardc.edu.au/rda/research-activities-api) and other RDA services differ from RLA; verify access, credentials and fees individually. |
+| Scopus / Web of Science / Dimensions | A developer key or limited free access does not establish entitlement to the required dataset | Keep the existing excluded/restricted status unless exact institutional API entitlement and permitted use are verified; no subscription assumed. |
+
+Free-with-key candidates remain conditional under the existing keyless policy;
+this review does not register accounts, accept agreements or change that policy.
+If the user later allows free credentials, prefer no-payment-method tiers, bounded
+quotas and already approved institutional credential storage, with no paid fallback.
+Microsoft connector/runtime licensing is a separate check even for a free provider.
+
+### Integration decision and acceptance
+
+Use the existing source catalogue/Conductor evidence, not another registry.
+For a selected source record: intended consumer and gap, exact endpoint/version,
+anonymous/key/account requirement, cost ceiling, permitted raw retention and
+redistribution, request budget, bootstrap/incremental route, source IDs, full
+returned field inventory, paging and freshness/deletion limits. Compare a bounded
+accepted identifier set against existing providers before promotion; reported
+incremental coverage must come from actual evidence, not these recommendations.
+No live API payload collection or source admission was performed for this review.
+One coherent source adapter and native consumer path is the unit of delivery.
+
 ## Additional-source discovery — 13 October 2026
 
 Official documentation was searched and compared with the existing source and

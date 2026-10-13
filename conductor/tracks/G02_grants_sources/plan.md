@@ -1,5 +1,26 @@
 # Implementation plan
 
+## Parallel funding qualification — 13 October 2026
+
+The funding chat can prepare one bounded source-specific mapping independently
+of publications under the [parallel assignments](../../../docs/PLATFORM_COMPLETION_PLAN.md#parallel-delivery-assignments--13-october-2026).
+Reuse G02 source qualification and G04 integration, not a separate source backlog.
+First select an NHMRC or MRFF official award workbook, record permitted use, stable
+grant/funder identity, source vintage, full field coverage and update semantics.
+These award exports supplement the older calendar-only observations below;
+they do not establish an opportunity feed or admit an enabled source.
+
+The [expanded assessment](../../../docs/FUTURE_SOURCE_ENRICHMENT.md#free-api-coverage-review--13-october-2026)
+adds NIH RePORTER for exact award/PMID links and Grants.gov as a documented
+keyless opportunity candidate, conditional on foreign-applicant eligibility and
+actual CHHHS relevance. UKRI, CORDIS and ARDC remain targeted conditional routes.
+API keys may be free; cost, institutional eligibility, reuse terms and the current
+keyless policy are separate checks. No registration, API-key purchase or provider
+admission follows from discovery. Keep existing ARC awards and Qld catalogue
+classifications; no raw awards in Git or automatic opportunity conversion.
+Source catalogue/plan updates merge through the coordinator, with no concurrent
+G02 writer. Complete one qualified source handoff before expanding the shortlist.
+
 **Access scope:** current-user source inspection and reviewed/manual intake
 only. No shared feed credentials, organisation-wide collector or unattended
 source schedule is part of this tranche.

@@ -1,5 +1,22 @@
 # Author-centred registry and attribution design
 
+## Parallel identity preparation — 13 October 2026
+
+Follow the [parallel assignments](PLATFORM_COMPLETION_PLAN.md#parallel-delivery-assignments--13-october-2026).
+An optional identity chat owns only a specifically assigned source mapping, using
+accepted deposited ORCID, ROR and provider-scoped author identifiers. Reuse
+existing structured author/affiliation evidence before querying another source.
+Direct ORCID access needs its own organisational-use/credential qualification;
+free credentials do not waive the current keyless policy. ROR supports organisation
+identity, not a claim that a researcher currently works there. Retain asserted
+source, observation/effective dates, ambiguous matches and separate affiliation
+history. No name-only merge or automatic rewrite of accepted identity decisions.
+
+Shared author/organisation schemas and G06 typed relationship integration remain
+coordinator-owned. This refinement adds no routine per-publication approval queue:
+automation continues for admitted deterministic paths; genuine identity conflicts
+use existing exception handling. Native deployment is a later owned operation.
+
 Status: **Design incorporated; implementation remains a derived, review-gated extension**
 
 The publication registry remains the authoritative publication-level register. The author registry is a derived view built from source evidence and identity decisions; it must not promote name-only matches into the canonical bibliography.

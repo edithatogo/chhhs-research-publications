@@ -1,5 +1,23 @@
 # Plan: Repair and prove PubMed plus DORA ingestion
 
+## Parallel scope refinement — 13 October 2026
+
+Follow the [separate-chat assignments](../../../docs/PLATFORM_COMPLETION_PLAN.md#parallel-delivery-assignments--13-october-2026).
+H01a/H02a shared capture/archive/consumer changes remain with the publication and
+integration owner. A projects/activity chat may prepare H03 field/privacy mapping
+and the smallest H04 activity-only Microsoft consumer change using frozen inputs;
+H03 access/retention must pass before real activity acquisition/import. H05 native
+reporting follows accepted H04. No second archive writer or shared-model refresh.
+
+Optional enrichment uses the [API coverage assessment](../../../docs/FUTURE_SOURCE_ENRICHMENT.md#free-api-coverage-review--13-october-2026):
+first reuse current provider fields, then ROR/DataCite and Crossref update links;
+OpenAIRE, OpenCitations, DOAJ and preprint APIs are selected only for demonstrated
+gaps. Researcher preparation uses deposited ORCID and source-scoped author IDs;
+ORCID direct access remains subject to its terms and the existing keyless policy.
+Keep versions, retractions, affiliations and candidate identities distinct.
+Return shared schema/identity changes to the coordinator; existing acceptance
+checkboxes remain unchanged until the named native evidence exists.
+
 ## Shared-data execution refinement — 13 October 2026
 
 T11-H01a owns complete response/schema capture before projection; T11-H02a owns accepted consumers. Reuse the publication owner's accepted source/archive evidence, then implement the next uncovered current-source field path. DoRA activity access/retention stays with T11-H03; its vertical stays with H04.

@@ -1,5 +1,15 @@
 # Keyless & Token-Free Enrichment Plan: CHHHS Research Publications
 
+## Cost versus credential policy — 13 October 2026
+
+A required API key does not necessarily imply a fee. OpenAlex, OpenAIRE and
+CORDIS have documented free keyed routes; ORCID has purpose/eligibility limits.
+See the [cost and access assessment](FUTURE_SOURCE_ENRICHMENT.md#keyed-access-cost-and-eligibility)
+for the provider-specific evidence. These findings do not amend the existing
+zero-key/account policy below. A future explicit policy change can permit free
+credentials selectively without permitting subscriptions, automatic top-ups or
+unlimited calls; no accounts or credentials were created by this review.
+
 ## Current scope and source-limit correction — 13 October 2026
 
 Keyless refers to optional external enrichment providers, not Microsoft tenant authentication. The older benefits below are design aims, not guarantees of compliance, availability or operational acceptance. Current OpenAlex limits supersede the historical 100,000-request polite-pool assumption. See the [source assessment](FUTURE_SOURCE_ENRICHMENT.md#additional-source-discovery--13-october-2026) for documented candidates and access gaps; discovery does not waive this policy or enable a provider. ACTIVE labels below describe historical intended/local integration, not current native-runtime proof.
