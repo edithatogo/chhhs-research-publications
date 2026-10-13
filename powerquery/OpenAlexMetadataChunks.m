@@ -2,9 +2,9 @@
 // approved existing archive folder and binds its exact filename/input hash.
 // This is a staging table, never an accepted publication/report consumer.
 let
-    Files=SharePoint.Files(pRetainedSiteUrl,[ApiVersion=15]),
-    Matches=Table.SelectRows(Files,each [Folder Path]=pRetainedArchiveFolderUrl and
-        [Name]=pOpenAlexStagingFileName),
+    // Reuse the exact folder reader/connection already qualified in the model.
+    // Avoid another site-wide SharePoint.Files enumeration or credential binding.
+    Matches=Table.SelectRows(RetainedArchiveFiles,each [Name]=pOpenAlexStagingFileName),
     Document=if Table.RowCount(Matches)=1 then Json.Document(Binary.Buffer(Matches{0}[Content]))
         else error "Missing or duplicate OpenAlex staging input",
     Rows=Document[chunks], Expected=Document[expected_keys],

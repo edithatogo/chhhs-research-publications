@@ -1,73 +1,101 @@
-# OpenAlex retained-data integration — 13 October 2026
+# OpenAlex retained-data integration — 14 October 2026
 
-The user retained all native objects and shared UI with the core publications
-chat. This source-only handoff closes the frozen OpenAlex retention/consumer
-preparation dependency under T11 enrichment; it does not close native acceptance.
+The human authorised implementation. The core publications chat transferred
+separate bounded isolated-model and stopped-writer authoring leases. Shared
+checkpoint, archive/export flows and activation remain with their owners.
 
-`scripts/prepare_openalex_retention.py` consumes the unchanged frozen input and
-candidate from the preceding OpenAlex preparation. It makes no provider requests
-and trusts complete response bytes, exact DOI/work identity and SHA256 rather
-than derived candidate-record overwrites. Full response bytes and recursive
-observed schema, including unknown/null fields, enter the existing UTF8-HEX chunk
-format. Failed/not-found attempts yield status evidence and no replacement row.
-Output is exclusive, owner-readable and explicitly uncommitted.
+## Delivered source slice
+
+`scripts/prepare_openalex_retention.py` validates the frozen complete responses,
+DOI/work identity, raw byte SHA256 and UTC observations. It retains unknown/null
+fields and recursive observed schema in UTF8-HEX chunks. Failed/not-found attempts
+produce explicit status evidence rather than replacement values.
+
+`scripts/build_openalex_native_bootstrap.py` reuses the exact transferred 42-part
+TMDL model and losslessly compresses the complete private preparation. It appends
+four hidden tables and source-specific expressions. All 40 unrelated parts,
+existing expression bodies and Publication fields remain unchanged. Private
+payloads/target IDs/credentials never enter source Git. New objects retain the
+existing Microsoft runtime; there are no provider calls or new connections.
+
+Native update succeeded; one transactional refresh of only these four tables
+completed in one attempt:
+
+| Native table | Readback rows | Purpose |
+| --- | ---: | --- |
+| OpenAlexMetadataChunks | 22 | Complete three-response bytes/schema/provenance |
+| OpenAlexWorks | 3 | Validated provider-specific fields |
+| OpenAlexPublicationContext | 3 | Exact DOI match to already loaded canonical keys |
+| OpenAlexFieldProvenance | 9 | Each provider field's value/observation/decision |
+
+Native chunks exactly match preparation; all three transport responses reconstruct
+with exact byte length, SHA256 and recursive schema. Publication remains 1,341
+rows × 30 columns: all 40,230 scalar values unchanged. Native 46-part readback
+preserves existing logic; the service moves new table references before the
+existing culture reference and normalises new single-line M/trailing newlines.
+
+Private acceptance pointer in the original workspace:
+`private/ops/2026-10-14-openalex-native-acceptance-private.json`.
+The refresh carries an unchanged `FreshPubMedIngestionAudit` DAX `DistinctCount`
+syntax warning outside the four-table scope. This slice does not claim full-model
+health or repair the unrelated source audit.
+
+## Existing flow integration
+
+`scripts/prepare_openalex_flow.py` adds a single accepted context query and an
+exact canonical-key filter inside the existing serial upsert loop. It preserves
+canonical/source queries, identity aliases, duplicate guard, reviews, corrections,
+first-observed fields, connection references, recurrence and Stopped state.
+
+The qualified list has `OpenAlexID`, `CitationCount_OpenAlex`, `OpenAccessStatus`
+and `OAUrl`, but no qualified source/field-specific timestamp column.
+Consequently the current slice fills missing values only. Existing zero counts
+and nonblank values remain unchanged regardless of unknown age; missing provider
+values never clear them. A conflicting existing WorkID skips provider fills and
+records a `work_id_conflict` action diagnostic. Source observation times remain
+in the accepted native provenance table and bound deployment receipt.
+`CitationMetricsObservedUTC` remains unchanged: it is shared with other providers.
+
+A future counter overwrite policy needs qualified source-specific persisted
+field observation times and provenance. It is a separate gap rather than an
+excuse to block the useful missing-only capability. No schedule/trigger conversion,
+activation, run invocation, delivery, sharing or production change is included.
+The same-ID authoring saved successfully and matches both the Flow API and stored Dataverse workflow definition after removing only service-injected authentication expressions for comparison. Native state remains Stopped and recurrence/connections are unchanged. No runtime invocation occurred. Private authoring acceptance: `private/ops/2026-10-14-openalex-flow-authoring-acceptance-private.json`. Runtime execution remains a separate gate.
+
+## Reusable preparation and next sources
+
+The file-backed `OpenAlexMetadataChunks.m`, `RetainedOpenAlexPublications.m` and
+`config/native-openalex-retention.tmdl` remain preparation for the existing archive
+commit-last path. They reuse `RetainedArchiveFiles` and the exact native reader
+signature, avoiding a second site-wide file listing/connection. They are not the
+active compressed bootstrap tables and do not prove archive-writer integration.
+A prepared document is never an accepted commit manifest.
+
+`fnMergeOpenAlexPublicationContext.m` and `scripts/merge_openalex_context.py`
+preserve null/newer observations and reject equal-time conflicts when complete
+per-field provenance exists. The current native registry writer deliberately uses
+missing-only behavior. No canonical Publication merge expression is changed.
+
+See [phase source routes](../docs/OPENALEX_PHASE_SOURCE_ROUTES.md) for every planned
+source. Reuse accepted fields first, exact missing identifiers next, and versioned
+reference/award files where they reduce calls and parsing effort. Crossref and ROR
+are the next practical scholarly gaps; funding source ownership stays G02/G04.
+
+Focused checks:
 
 ```sh
-python3 scripts/prepare_openalex_retention.py \
-  --private-root /path/to/repository/private/ops \
-  --input /path/to/repository/private/ops/frozen-input.json \
-  --candidate /path/to/repository/private/ops/enrichment-candidate.json \
-  --output /path/to/repository/private/ops/new-retention-preparation.json
 python3 -m unittest discover -s tests -p 'test_openalex*.py'
 ```
 
-The existing private three-DOI evidence uses prefix
-`2026-10-13-openalex-enrichment-`; prepared retention is
-`private/ops/2026-10-13-openalex-retention-prepared-private.json` in the original
-workspace. Raw transport bytes reconstruct exactly for all three works across
-22 chunks. Local checks do not prove native stored bytes, M execution or refresh.
+Rollback uses the private exact model and flow preimages. Restore only the leased
+object after drift/uncertain-write checks; preserve all accepted historical data.
+Routine acquisition, broader DOI coverage and operational acceptance remain open.
 
-Exact next operation for the core owner after its archive/canonical dependency:
-read the existing approved isolated source definition and archive writer, compare
-their preimages and reserve the scoped change. Stage the prepared JSON through
-the qualified existing Microsoft connector with absent-or-identical readback;
-use a source-specific prepared filename, never a `commit-` filename. Configure
-`pOpenAlexStagingFileName` and `pOpenAlexInputSHA256` privately alongside the
-existing `pRetainedSiteUrl`/`pRetainedArchiveFolderUrl`. Do not alter common source
-contracts merely by adding these source files.
-
-The native source table `powerquery/OpenAlexMetadataChunks.m` exposes the exact
-prepared chunk rows and reuses `fnReconstructMetadata` for complete key/chunk
-reconstruction. It forces the typed identity/field projection before returning
-staging chunks. Install `fnProjectRetainedOpenAlex.m` first. The additive table is
-`config/native-openalex-retention.tmdl`; the compound-cursor extraction is
-`config/source-OpenAlexMetadataChunks-page.dax`, two chunks per page to keep
-expression payloads bounded. Their native compilation/execution remains open.
-Core integrates that table into the existing bounded writer and
-commit-last path with Source `OpenAlex`, ChunkTable `OpenAlexMetadataChunks`,
-KeyColumn `OpenAlexWorkID`, ExpectedKeys from `expected_keys`, and source-specific
-page/row/generation evidence. The existing native processing chain, archive byte
-readback, duplicate/replay guards and consumer permissions remain prerequisites;
-the preparation document itself must never be renamed into an accepted manifest.
-No new flow, schedule or physical data store is required.
-
-After accepted persistence, install `fnProjectRetainedOpenAlex.m` and
-`RetainedOpenAlexPublications.m` beside the existing committed-history reader.
-They derive a unique provider-work/DOI table from retained transport bytes,
-preserve null counts and label OA/citation context by provider/time. Invalid or
-conflicting typed observations fail refresh; retain the prior accepted consumer.
-Full author/funder/topic/relationship fields remain in raw evidence for later
-qualified projections. Core may left-join the unique DOI table to the canonical
-publication view; preserve publication keys/counts, known values when incoming
-fields are null, original dates/affiliations and field-specific observation times.
-Do not add unmatched works to publication counts or infer CHHHS affiliation.
-
-Rollback is removal of these additive isolated queries/source registration and
-restoration of the exact saved writer/model preimage. Leave immutable raw evidence
-and last-good committed consumers intact. One native happy path, saved definition
-and byte/key readback plus unchanged replay are still required. The native M view
-does not independently verify SHA256; that fingerprint is local provenance until
-the owner's native byte readback reconciles it. This frozen bootstrap has no
-provider credential: secure live acquisition and equivalent provider failure
-branches remain separate integration work; do not embed the Keychain key in M,
-flow definitions or staging files.
+Final local integration checks: 36 focused OpenAlex tests passed. The required
+full source-checkout milestone ran once: 498 tests, two failures, eight skips;
+460 project checks, Conductor structure and tooling checks passed. Both failures
+also exist at the preceding source commit: module summaries contain seven Mermaid
+blocks while their older test expects six; the shared frozen runtime manifest
+already mismatches local runtime files. These remain with the coordinator, who
+must review any shared manifest refresh after integrating source changes. No test
+or frozen contract was rewritten here to turn those failures green.
