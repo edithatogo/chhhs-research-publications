@@ -1,6 +1,61 @@
-# Keyless & Token-Free Enrichment Plan: CHHHS Research Publications
+# Free API Enrichment Plan: CHHHS Research Publications
 
-## Cost versus credential policy — 13 October 2026
+## Current free-credential policy and failure handling — 13 October 2026
+
+The user has authorised the recommendations and supplied OpenAlex, OpenCitations
+and CORDIS widget credentials. This supersedes the older blanket zero-key/account
+constraint for these selected free services. No paid subscription, top-up or
+unqualified API is authorised. OpenAIRE developer sign-in is confirmed, but token
+retrieval remains open; CORDIS widget credentials do not qualify the extraction
+API. Existing API/source admission and Microsoft native gates still apply.
+
+Provided credentials are held in macOS Keychain as `chhhs-rims.openalex`,
+`chhhs-rims.opencitations` and `chhhs-rims.cordis-widget` under account `rims`.
+Names are public configuration; values never belong in source, logs, query URLs,
+fixtures or receipts. The OpenAlex adapter accepts `OPENALEX_API_KEY` from a
+process environment, otherwise reads the named Keychain item. This is local
+preparation credential handling, not a deployed Microsoft connection. Keep
+credential transfer into Microsoft under the existing supported secure connector
+configuration/ownership path; no plaintext key in flow/model definitions.
+
+The selected preparation entry is `scripts/prepare_openalex_enrichment.py`:
+
+```sh
+python3 scripts/prepare_openalex_enrichment.py \
+  --input private/ops/<reviewed-record-snapshot>.json \
+  --output private/ops/<new-enrichment-candidate>.json --limit 3
+```
+
+Inputs are a frozen publication-record list with DOI values, taken from an
+accepted source slice with its separate acceptance/provenance receipt. Output is
+an exclusive owner-readable private candidate, never a source overwrite. Complete
+raw OpenAlex response bytes/payload, SHA256, exact DOI match, attempts/status and
+observation time accompany derived fields. Unknown raw fields and nulls survive.
+A successful non-null enrichment may update the candidate; failed/not-found
+attempts preserve existing values and successful-observation timestamps.
+
+OpenAlex: timeout per request, at most three attempts; only transient transport,
+429 and selected 5xx are retried. Respect Retry-After up to the bounded wait;
+long waits stop the pass. 401/403, quota/service failures stop further candidate
+requests. 404 is not-found, not zero citations; malformed, foreign-DOI and partial
+batch responses cannot become accepted enrichment. Authorization is header-only;
+redirects are refused. Request/error diagnostics never include credentials or
+provider response text. The legacy dictionary/None wrappers remain compatible
+but cannot expose every status; use the observation/candidate entry for admission.
+The older multi-provider batch runner is not the hardened acceptance route.
+
+Focused OpenAlex tests cover failure preservation, finite retry, rate limits,
+malformed data, identity, partial batches, raw fields and candidate overwrite.
+A real three-DOI slice from accepted DoRA archived pages completed three successful
+OpenAlex responses, retained full bytes and preserved the original snapshot;
+private candidate/provenance use prefix `2026-10-13-openalex-enrichment-`.
+This proves local live preparation only. Equivalent native provider failure
+branches, last-good commit, refresh/consumer binding and operational acceptance
+remain open under T11/E01. OpenCitations connectivity worked with its token, but
+its anonymous endpoint did not independently validate token identity. No blanket
+claim is made for OpenAIRE/CORDIS failure handling before their adapters exist.
+
+## Historical cost review before credential authorisation — 13 October 2026
 
 A required API key does not necessarily imply a fee. OpenAlex, OpenAIRE and
 CORDIS have documented free keyed routes; ORCID has purpose/eligibility limits.
@@ -18,13 +73,13 @@ Keyless refers to optional external enrichment providers, not Microsoft tenant a
 Status: **Approved Architecture & Implementation Plan** (2026-09-18)  
 Target Environment: **Queensland Health M365 Tenant (`{{TENANT_ID}}`)**
 Primary User: **RIMS maintainer (configured privately)**
-Governing Constraint: **Zero API Key / Token / Subscription Dependency**
+Current constraint: **Selected free credentials permitted; no paid subscription or automatic top-up**
 
 ---
 
-## 1. Executive Mandate & Strict Keyless Constraint
+## 1. Historical September keyless mandate
 
-Per user directive, the CHHHS Research Publication system must **operate entirely without API keys, developer tokens, paid subscriptions, or vendor account registrations**. 
+The 18 September design required operation without external API keys, tokens, subscriptions or registrations. The current policy above supersedes that restriction for the selected user-authorised free credentials; this historical rationale does not prohibit their use. 
 
 This constraint aims to reduce external-provider credential management; it does not guarantee:
 1. **Zero Operational Friction:** No credential rotation, expired tokens, credit card ceilings, or vendor access requests.

@@ -11,6 +11,10 @@ import os
 import re
 import time
 import sys
+import subprocess
+from dataclasses import dataclass
+from email.utils import parsedate_to_datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 import urllib.parse
@@ -41,76 +45,151 @@ def clean_doi(raw_doi: Any) -> str | None:
     return None
 
 
-def fetch_openalex_work_by_doi(doi: str, email: str = DEFAULT_POLITE_EMAIL, timeout: int = 10) -> dict[str, Any] | None:
-    """Fetch OpenAlex metadata for a single DOI."""
-    normalized_doi = clean_doi(doi)
-    if not normalized_doi:
-        return None
+@dataclass(frozen=True)
+class OpenAlexObservation:
+    status: str
+    payload: dict[str, Any] | None = None
+    attempts: int = 0
+    http_status: int | None = None
+    raw_body: bytes | None = None
 
-    doi_url = f"https://doi.org/{normalized_doi}"
-    encoded_doi = urllib.parse.quote(doi_url, safe="")
-    url = f"{OPENALEX_BASE_URL}/{encoded_doi}?mailto={urllib.parse.quote(email)}"
 
-    req = urllib.request.Request(
-        url,
-        headers={
-            "User-Agent": USER_AGENT,
-            "Accept": "application/json",
-        },
-    )
-
-    try:
-        with urllib.request.urlopen(req, timeout=timeout) as response:
-            if response.status == 200:
-                data = json.loads(response.read().decode("utf-8"))
-                return data
-    except urllib.error.HTTPError as e:
-        if e.code == 404:
-            logger.debug("DOI %s not found in OpenAlex", normalized_doi)
-        else:
-            logger.warning("HTTP error %d fetching OpenAlex for DOI %s: %s", e.code, normalized_doi, e.reason)
-    except Exception as e:
-        logger.warning("Error fetching OpenAlex for DOI %s: %s", normalized_doi, e)
-
+def _api_key() -> str | None:
+    """Use an explicit environment key, then the macOS Keychain; never log it."""
+    key = os.environ.get("OPENALEX_API_KEY")
+    if key is not None:
+        return key.strip() or None
+    if sys.platform == "darwin":
+        try:
+            result = subprocess.run(
+                ["/usr/bin/security", "find-generic-password", "-s",
+                 "chhhs-rims.openalex", "-a", "rims", "-w"],
+                capture_output=True, text=True, timeout=5, check=False,
+            )
+            if result.returncode == 0:
+                return result.stdout.strip() or None
+        except (OSError, subprocess.TimeoutExpired):
+            pass
     return None
 
 
-def fetch_openalex_batch(
-    dois: list[str],
-    email: str = DEFAULT_POLITE_EMAIL,
-    timeout: int = 15,
-) -> dict[str, dict[str, Any]]:
-    """Fetch OpenAlex metadata for a batch of DOIs (up to 50 per request)."""
-    cleaned_dois = [clean_doi(d) for d in dois if clean_doi(d)]
-    if not cleaned_dois:
-        return {}
+class _NoRedirect(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        # Never forward a bearer credential to a redirected resource.
+        return None
 
-    filter_val = "|".join(f"https://doi.org/{d}" for d in cleaned_dois)
-    url = f"{OPENALEX_BASE_URL}?filter=doi:{urllib.parse.quote(filter_val)}&per_page=50&mailto={urllib.parse.quote(email)}"
 
-    req = urllib.request.Request(
-        url,
-        headers={
-            "User-Agent": USER_AGENT,
-            "Accept": "application/json",
-        },
-    )
+def _open_request(request, timeout):
+    return urllib.request.build_opener(_NoRedirect()).open(request, timeout=timeout)
 
-    results_by_doi: dict[str, dict[str, Any]] = {}
+
+def _retry_delay(value: str | None, attempt: int) -> float | None:
+    if not value:
+        return float(2 ** (attempt - 1))
     try:
-        with urllib.request.urlopen(req, timeout=timeout) as response:
-            if response.status == 200:
-                data = json.loads(response.read().decode("utf-8"))
-                for item in data.get("results", []):
-                    item_doi = clean_doi(item.get("doi"))
-                    if item_doi:
-                        results_by_doi[item_doi] = extract_openalex_metrics(item)
-    except urllib.error.HTTPError as e:
-        logger.warning("HTTP error %d fetching OpenAlex batch: %s", e.code, e.reason)
-    except Exception as e:
-        logger.warning("Error fetching OpenAlex batch: %s", e)
+        seconds = float(value)
+    except (TypeError, ValueError):
+        try:
+            seconds = (parsedate_to_datetime(value) - datetime.now(timezone.utc)).total_seconds()
+        except (ValueError, TypeError, OverflowError):
+            return None
+    # Long/quota waits stop this pass instead of sleeping or retrying too early.
+    return max(0.0, seconds) if 0 <= seconds <= 8 else None
 
-    return results_by_doi
+
+def _request_observation(url: str, timeout: int) -> OpenAlexObservation:
+    headers = {"Accept": "application/json", "User-Agent": "CHHHS-Research-Registry/1.0"}
+    key = _api_key()
+    if key:
+        headers["Authorization"] = "Bearer " + key
+    request = urllib.request.Request(url, headers=headers)
+    for attempt in range(1, 4):
+        try:
+            with _open_request(request, timeout=timeout) as response:
+                if response.status != 200:
+                    return OpenAlexObservation("http_error", attempts=attempt, http_status=response.status)
+                # A bounded response avoids unbounded memory consumption.
+                body = response.read(16 * 1024 * 1024 + 1)
+                if len(body) > 16 * 1024 * 1024:
+                    return OpenAlexObservation("response_too_large", attempts=attempt)
+                data = json.loads(body.decode("utf-8"))
+                if not isinstance(data, dict):
+                    return OpenAlexObservation("invalid_response", attempts=attempt)
+                return OpenAlexObservation("success", data, attempt, 200, body)
+        except urllib.error.HTTPError as error:
+            code = error.code
+            delay = _retry_delay(error.headers.get("Retry-After") if error.headers else None, attempt)
+            error.close()
+            if code == 404:
+                return OpenAlexObservation("not_found", attempts=attempt, http_status=code)
+            if code in (401, 403):
+                return OpenAlexObservation("access_denied", attempts=attempt, http_status=code)
+            if code not in (429, 500, 502, 503, 504):
+                return OpenAlexObservation("http_error", attempts=attempt, http_status=code)
+            status = "rate_limited" if code == 429 else "unavailable"
+            if attempt == 3 or delay is None:
+                return OpenAlexObservation(status, attempts=attempt, http_status=code)
+        except (urllib.error.URLError, TimeoutError, OSError):
+            if attempt == 3:
+                return OpenAlexObservation("unavailable", attempts=attempt)
+            delay = float(2 ** (attempt - 1))
+        except (ValueError, UnicodeError):
+            return OpenAlexObservation("invalid_response", attempts=attempt, raw_body=body)
+        time.sleep(delay)
+    raise AssertionError("Unreachable retry state")
+
+
+def fetch_openalex_observation(doi: str, timeout: int = 10) -> OpenAlexObservation:
+    """Return complete metadata or a distinct safe failure; never fabricate zero."""
+    normalized = clean_doi(doi)
+    if not normalized:
+        return OpenAlexObservation("invalid_identifier")
+    encoded = urllib.parse.quote("https://doi.org/" + normalized, safe="")
+    observation = _request_observation(f"{OPENALEX_BASE_URL}/{encoded}", timeout)
+    if observation.status == "success":
+        returned = clean_doi(observation.payload.get("doi"))
+        if not returned or returned.casefold() != normalized.casefold():
+            return OpenAlexObservation("identity_mismatch", attempts=observation.attempts, http_status=200, raw_body=observation.raw_body)
+    return observation
+
+
+def fetch_openalex_work_by_doi(doi: str, email: str = DEFAULT_POLITE_EMAIL, timeout: int = 10) -> dict[str, Any] | None:
+    """Compatibility wrapper; use observation API when failure status is required."""
+    observation = fetch_openalex_observation(doi, timeout)
+    if observation.status not in ("success", "not_found", "invalid_identifier"):
+        logger.warning("OpenAlex result: %s (attempts=%d)", observation.status, observation.attempts)
+    return observation.payload
+
+
+def fetch_openalex_batch(dois: list[str], email: str = DEFAULT_POLITE_EMAIL, timeout: int = 15) -> dict[str, dict[str, Any]]:
+    """Preserve the legacy mapping interface; reject partial or foreign batches."""
+    cleaned = [clean_doi(d) for d in dois]
+    if not cleaned or any(d is None for d in cleaned) or len(cleaned) > 50:
+        return {}
+    requested = {d.casefold() for d in cleaned}
+    filter_value = "|".join("https://doi.org/" + d for d in cleaned)
+    observation = _request_observation(f"{OPENALEX_BASE_URL}?" + urllib.parse.urlencode(
+        {"filter": "doi:" + filter_value, "per_page": 50}), timeout)
+    if observation.status != "success":
+        logger.warning("OpenAlex batch result: %s", observation.status)
+        return {}
+    data = observation.payload
+    rows = data.get("results")
+    meta = data.get("meta", {})
+    if not isinstance(rows, list) or not isinstance(meta, dict) or len(rows) > 50 or meta.get("count", len(rows)) != len(rows):
+        logger.warning("OpenAlex batch result: incomplete_response")
+        return {}
+    result = {}
+    try:
+        for item in rows:
+            doi = clean_doi(item.get("doi")) if isinstance(item, dict) else None
+            if not doi or doi.casefold() not in requested or doi.casefold() in result:
+                raise ValueError("identity")
+            result[doi.casefold()] = extract_openalex_metrics(item)
+    except (ValueError, TypeError, AttributeError):
+        logger.warning("OpenAlex batch result: invalid_response")
+        return {}
+    return {d: result[d.casefold()] for d in cleaned if d.casefold() in result}
 
 
 def extract_openalex_metrics(raw_data: dict[str, Any] | None) -> dict[str, Any]:
@@ -201,9 +280,14 @@ def enrich_record_with_openalex(record: dict[str, Any], email: str = DEFAULT_POL
     if not doi:
         return record
 
-    data = fetch_openalex_work_by_doi(doi, email=email)
-    if data:
-        metrics = extract_openalex_metrics(data)
+    observation = fetch_openalex_observation(doi)
+    record["OpenAlexAttemptStatus"] = observation.status
+    if observation.status == "success":
+        try:
+            metrics = extract_openalex_metrics(observation.payload)
+        except (ValueError, TypeError, AttributeError):
+            record["OpenAlexAttemptStatus"] = "invalid_response"
+            return record
         for k, v in metrics.items():
             if v is not None:
                 record[k] = v

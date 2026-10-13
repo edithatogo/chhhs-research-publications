@@ -82,7 +82,7 @@ class TestOpenAlex(unittest.TestCase):
         mock_response.read.return_value = json.dumps(payload).encode("utf-8")
         mock_response.__enter__.return_value = mock_response
 
-        with patch("urllib.request.urlopen", return_value=mock_response):
+        with patch("enrich_openalex._open_request", return_value=mock_response):
             res = fetch_openalex_batch(["10.1000/182", "10.1000/183"])
             self.assertIn("10.1000/182", res)
             self.assertIn("10.1000/183", res)

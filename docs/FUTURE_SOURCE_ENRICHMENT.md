@@ -1,5 +1,21 @@
 # Deferred source enrichment and reconciliation
 
+## Selected credential and implementation update — 13 October 2026
+
+The user now permits the selected free credentials supplied in this chat;
+the earlier keyless-policy deferrals below are historical selection boundaries.
+OpenAlex keyed access and a bounded three-DOI local raw-response preparation are
+verified. OpenCitations responded successfully to a token-bearing request, without
+independent token-validation proof. CORDIS remains widget-only/unqualified for
+extraction; OpenAIRE token retrieval remains open. No additional provider/key,
+paid usage or native deployment follows automatically.
+
+Use the [current credential/failure policy](KEYLESS_ENRICHMENT_PLAN.md#current-free-credential-policy-and-failure-handling--13-october-2026).
+API outages must retain last-good enrichment and explicit source status; do not
+turn a failure into zero citations, missing funding or an empty successful batch.
+The implemented evidence applies to OpenAlex local preparation; require separate
+native readback/failure evidence for each selected Microsoft runtime adapter.
+
 ## Free API coverage review — 13 October 2026
 
 We are not using every relevant free API, and the available evidence does not

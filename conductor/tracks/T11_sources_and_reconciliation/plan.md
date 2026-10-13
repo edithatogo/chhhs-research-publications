@@ -1,5 +1,28 @@
 # Plan: Repair and prove PubMed plus DORA ingestion
 
+## OpenAlex bounded implementation checkpoint — 13 October 2026
+
+User-authorised selected free credentials supersede the older blanket keyless
+rule for supplied services; see [current policy](../../../docs/KEYLESS_ENRICHMENT_PLAN.md#current-free-credential-policy-and-failure-handling--13-october-2026).
+Owned scope: `scripts/enrich_openalex.py`, `scripts/prepare_openalex_enrichment.py`
+and `tests/test_openalex*.py`; supporting documentation only. Existing archive,
+canonical consumer, native objects and CURRENT_STATE retain their current owner.
+
+Local OpenAlex preparation now reads the external-provider credential from the
+environment/Keychain, returns explicit failure outcomes, bounds retries, rejects
+foreign identities/partial batches, preserves last-good fields/timestamps, and
+retains complete raw responses in a new private candidate. Fifteen focused tests
+pass. One accepted DoRA archive slice produced three successful live DOI matches,
+with original input hashes and per-response byte hashes retained privately.
+
+Exact next implementation dependency: publication owner accepts the canonical
+consumer/register generation, then integrates this reviewed three-record candidate
+through the existing Microsoft source/consumer path with secure connection binding
+and scoped rollback. No deployment, flow activation, shared schema change or
+T11-H01a/H02a native closure is claimed. OpenAIRE token and CORDIS extraction
+credentials remain source-specific prerequisites, not reasons to rerun publication
+acquisition or expand tests. Keep optional source expansion behind this first path.
+
 ## Parallel scope refinement — 13 October 2026
 
 Follow the [separate-chat assignments](../../../docs/PLATFORM_COMPLETION_PLAN.md#parallel-delivery-assignments--13-october-2026).

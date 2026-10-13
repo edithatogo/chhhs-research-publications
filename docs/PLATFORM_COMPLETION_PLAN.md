@@ -1,5 +1,21 @@
 # Platform Completion Plan: CHHHS Research Publication System
 
+## Selected API implementation update — 13 October 2026
+
+Selected free credentials supplied by the user are authorised under the
+[current policy](KEYLESS_ENRICHMENT_PLAN.md#current-free-credential-policy-and-failure-handling--13-october-2026),
+superseding older blanket keyless wording for those services only. Local OpenAlex
+raw/typed candidate preparation is implemented and exercised against a three-DOI
+accepted archive slice. Last-good preservation and bounded failure behaviour pass
+focused tests; no native pipeline or operational acceptance is inferred.
+
+The publication owner still finishes archive → canonical consumer/register.
+The next integration consumes the frozen reviewed enrichment candidate in the
+existing Microsoft runtime, with secure credentials and equivalent native failure
+branches. OpenAIRE token retrieval and CORDIS extraction credential qualification
+remain open; the supplied CORDIS key is for the widget. No paid fallback, new
+runtime, shared UI takeover or schedule is authorised by the selected API work.
+
 ## Parallel delivery assignments — 13 October 2026
 
 The user has requested separate-chat boundaries. These are dispatch-ready scopes,
