@@ -12,8 +12,9 @@ focused tests; no native pipeline or operational acceptance is inferred.
 The publication owner still finishes archive → canonical consumer/register.
 The next integration consumes the frozen reviewed enrichment candidate in the
 existing Microsoft runtime, with secure credentials and equivalent native failure
-branches. OpenAIRE token retrieval and CORDIS extraction credential qualification
-remain open; the supplied CORDIS key is for the widget. No paid fallback, new
+branches. OpenAIRE token-bearing Graph V3 connectivity is now verified; routine
+refresh credentials and CORDIS extraction credential qualification remain open.
+The supplied CORDIS key is for the widget. No paid fallback, new
 runtime, shared UI takeover or schedule is authorised by the selected API work.
 
 ## Parallel delivery assignments — 13 October 2026

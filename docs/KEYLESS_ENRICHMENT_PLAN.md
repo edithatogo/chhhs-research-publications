@@ -5,12 +5,14 @@
 The user has authorised the recommendations and supplied OpenAlex, OpenCitations
 and CORDIS widget credentials. This supersedes the older blanket zero-key/account
 constraint for these selected free services. No paid subscription, top-up or
-unqualified API is authorised. OpenAIRE developer sign-in is confirmed, but token
-retrieval remains open; CORDIS widget credentials do not qualify the extraction
-API. Existing API/source admission and Microsoft native gates still apply.
+unqualified API is authorised. OpenAIRE developer sign-in and one token-bearing Graph V3 request are
+confirmed (HTTP200, valid JSON, one result); a supplied short-lived token is in
+Keychain. Routine refresh credentials remain unqualified. CORDIS widget credentials
+do not qualify the extraction API. Existing API/source admission and Microsoft native gates still apply.
 
 Provided credentials are held in macOS Keychain as `chhhs-rims.openalex`,
-`chhhs-rims.opencitations` and `chhhs-rims.cordis-widget` under account `rims`.
+`chhhs-rims.opencitations`, `chhhs-rims.cordis-widget` and
+`chhhs-rims.openaire` under account `rims`.
 Names are public configuration; values never belong in source, logs, query URLs,
 fixtures or receipts. The OpenAlex adapter accepts `OPENALEX_API_KEY` from a
 process environment, otherwise reads the named Keychain item. This is local

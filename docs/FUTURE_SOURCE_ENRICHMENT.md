@@ -7,7 +7,9 @@ the earlier keyless-policy deferrals below are historical selection boundaries.
 OpenAlex keyed access and a bounded three-DOI local raw-response preparation are
 verified. OpenCitations responded successfully to a token-bearing request, without
 independent token-validation proof. CORDIS remains widget-only/unqualified for
-extraction; OpenAIRE token retrieval remains open. No additional provider/key,
+extraction. OpenAIRE now has a supplied token in Keychain and one successful
+Graph V3 token-bearing read (HTTP200); refresh handling and source admission
+remain open. No additional provider/key,
 paid usage or native deployment follows automatically.
 
 Use the [current credential/failure policy](KEYLESS_ENRICHMENT_PLAN.md#current-free-credential-policy-and-failure-handling--13-october-2026).

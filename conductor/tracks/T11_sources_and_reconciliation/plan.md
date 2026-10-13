@@ -19,8 +19,9 @@ Exact next implementation dependency: publication owner accepts the canonical
 consumer/register generation, then integrates this reviewed three-record candidate
 through the existing Microsoft source/consumer path with secure connection binding
 and scoped rollback. No deployment, flow activation, shared schema change or
-T11-H01a/H02a native closure is claimed. OpenAIRE token and CORDIS extraction
-credentials remain source-specific prerequisites, not reasons to rerun publication
+T11-H01a/H02a native closure is claimed. OpenAIRE token-bearing Graph V3
+connectivity is verified; routine token refresh and CORDIS extraction credentials
+remain source-specific prerequisites, not reasons to rerun publication
 acquisition or expand tests. Keep optional source expansion behind this first path.
 
 ## Parallel scope refinement — 13 October 2026
