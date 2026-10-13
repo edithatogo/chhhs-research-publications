@@ -1,10 +1,15 @@
 # Technology
 
-Primary: the user's Microsoft Power BI browser workflow plugin plus ordinary Power BI Service report/model/Power Query web editors. Installed workflow v0.1.4 and local Chrome access were observed on 2026-09-12. Bind operations to actual controls and verify permissions and persistence independently; no dedicated Power BI API authoring schemas were exposed.
+## Current route precedence — 13 October 2026
+
+Follow the [shared-data delivery contract](../docs/PLATFORM_COMPLETION_PLAN.md#shared-data-delivery-contract--13-october-2026): CLI/API-first on qualified exact targets, existing archive bootstrap, complete raw payload/schema retention before vertical filtering, and one writer per file/object. Historical browser-first/no-CLI statements and dated completion claims do not override this direction. Preserve current source scope, permissions, isolation, rollback and explicit activation/delivery gates. The publications chat retains its current objects and checkpoint; shared-data work requires disjoint scope or explicit handoff.
+
+
+Primary: qualified CLI/API operations on existing Microsoft resources. Inspect supported tool schemas/help and prove each exact target operation. BrowserOS neo and native Power BI/Power Automate editors are bounded fallbacks. The September browser capability inventory is historical and does not limit current supported CLI operations.
 
 Source control: existing PBIP, PBIR, TMDL, M and DAX files. Microsoft schema URLs may contain the namespace "fabric"; this is not a requirement to deploy Fabric Git or purchase capacity.
 
-Local support: Python 3.11+ standard library; unittest, source validation, route/isolation checks and full-register CSV/HTML renderer. These do not execute M/DAX. Power Automate for a monthly orchestration is planned, not deployed.
+Local support: Python 3.11+ standard library; unittest, source validation, route/isolation checks and full-register CSV/HTML renderer. These do not execute M/DAX. Power Automate runtime and schedule status must be read from the current owner's dated native receipts; local packages do not establish deployment.
 
 Fallback only: existing UTM on the user's Mac, correctly matched Windows 11 architecture and regular Power BI Desktop. Host/guest/installer compatibility must be verified and a native smoke test performed. No implication that UTM is an officially supported Power BI VDI environment.
 

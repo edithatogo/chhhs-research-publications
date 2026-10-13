@@ -1,5 +1,12 @@
 # Plan: Repair and prove PubMed plus DORA ingestion
 
+## Shared-data execution refinement — 13 October 2026
+
+T11-H01a owns complete response/schema capture before projection; T11-H02a owns accepted consumers. Reuse the publication owner's accepted source/archive evidence, then implement the next uncovered current-source field path. DoRA activity access/retention stays with T11-H03; its vertical stays with H04.
+
+Use the [delivery contract](../../../docs/PLATFORM_COMPLETION_PLAN.md#shared-data-delivery-contract--13-october-2026) for the bounded implementation sequence, permission matrix, CLI routes and cause-specific recovery. This refines existing tasks; historical checked phases do not close complete raw retention.
+
+
 **Access scope:** current-user isolated model/list and manual refresh/readback
 only. Do not introduce shared storage, cross-user delivery or unattended
 recurrence while implementing this plan.

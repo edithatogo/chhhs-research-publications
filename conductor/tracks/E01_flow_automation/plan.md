@@ -1,5 +1,12 @@
 # Implementation Plan: E01 Power Automate Ingestion Canonicalization and Recurrence Scheduling
 
+## Shared-data execution refinement — 13 October 2026
+
+E01-H02a owns bootstrap/adaptation of the existing archive writer, durable raw staging and accepted commit-last integration. Preserve stable workflow identity, connections, batch/replay and prior state. The current publication/archive owner must hand off an overlapping object before another writer acts.
+
+Use the [delivery contract](../../../docs/PLATFORM_COMPLETION_PLAN.md#shared-data-delivery-contract--13-october-2026) for the bounded implementation sequence, permission matrix, CLI routes and cause-specific recovery. This refines existing tasks; historical checked phases do not close complete raw retention.
+
+
 **Access scope:** current-user isolated/manual publication-flow operation only,
 matching the existing publications development route. Recurrence, sharing and
 organisation-wide binding are future extensions.

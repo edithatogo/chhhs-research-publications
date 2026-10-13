@@ -1,5 +1,35 @@
 # RIMS module requirements and design summary
 
+## Horizontal and vertical schema — 13 October 2026
+
+Current direction: retain every returned field from each current authorised
+source before subject projection. Shared acquisition, paging, immutable raw
+storage, provenance, freshness and replay support Publications, Projects/Activity,
+Researchers and Funding. Normalisation retains original values and uncertainty;
+registers, exports and Power BI consume accepted subject projections.
+
+```mermaid
+flowchart TD
+  A[Current authorised source acquisitions] --> B[Shared raw payloads and schemas]
+  B --> C[Accepted source projections and provenance]
+  B --> Q[Protected rejected or incomplete observations]
+  C --> P[Publications]
+  C --> D[Projects and activity]
+  C --> R[Researchers]
+  C --> F[Funding]
+  P --> O[Registers, exports and later Power BI]
+  D --> O
+  R --> O
+  F --> O
+```
+
+Implement through existing T11/E01 tasks and the current archive flow; the
+[shared-data delivery contract](PLATFORM_COMPLETION_PLAN.md#shared-data-delivery-contract--13-october-2026)
+contains bootstrap choices, source coverage, permissions, tool routes,
+troubleshooting and acceptance. Historical module snapshots below are dated
+observations, not all-source retention or current permission proof.
+
+
 This is a concise orientation for the modules designed so far. It separates
 the intended Microsoft Power Platform design from what has actually been
 proved locally or in the tenant. Local tests and generated definitions do not

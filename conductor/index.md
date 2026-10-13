@@ -1,5 +1,10 @@
 # CHHHS research publications: current Conductor context
 
+## Current route precedence — 13 October 2026
+
+Follow the [shared-data delivery contract](../docs/PLATFORM_COMPLETION_PLAN.md#shared-data-delivery-contract--13-october-2026): CLI/API-first on qualified exact targets, existing archive bootstrap, complete raw payload/schema retention before vertical filtering, and one writer per file/object. Historical browser-first/no-CLI statements and dated completion claims do not override this direction. Preserve current source scope, permissions, isolation, rollback and explicit activation/delivery gates. The publications chat retains its current objects and checkpoint; shared-data work requires disjoint scope or explicit handoff.
+
+
 Current priority: [publication stabilisation handoff](PUBLICATION_STABILISATION.md). Execute S01 first, prepare S03 privacy remediation independently, then complete versioning and existing native acceptance tracks before grants implementation. Detailed plans are prepared; their tasks are not yet executed.
 
 Resume with [current state](../handoff/CURRENT_STATE.md) and [solo harness commands](../docs/SOLO_AGENT_WORKFLOW.md). The dated observations below are historical context; use current readback for tenant claims. Track plans remain the work backlog.

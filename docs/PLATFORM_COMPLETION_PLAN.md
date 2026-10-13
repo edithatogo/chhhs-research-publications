@@ -1,9 +1,169 @@
 # Platform Completion Plan: CHHHS Research Publication System
 
-Status: **Local implementation complete; platform acceptance remains evidence-gated** (2026-09-20)
+## Shared-data delivery contract — 13 October 2026
+
+This is the current execution direction and supersedes older browser-only,
+blanket CLI-login prohibitions and broad local-completion statements below.
+The requested outcome is one logical retained-data foundation for all current,
+authorised sources, with publications as the first vertical. The publications
+chat continues its owned work; horizontal changes use disjoint files/objects or
+an explicit handoff. This plan does not transfer its archive/model ownership.
+
+### Architecture and source boundary
+
+| Layer | Shared responsibility | Output and acceptance boundary |
+| --- | --- | --- |
+| Raw / bronze | Acquire and retain complete returned payloads, schema descriptors, paging and credential-free request provenance before field or subject projection | Immutable source/batch parts, including unknown fields and protected rejected observations; readable bytes alone do not constitute accepted data |
+| Normalised / silver | Parse source-specific types/keys, preserve originals/nulls/date precision, qualify completeness and identity, retain corrections and source precedence | Versioned accepted projections referencing the exact retained generation; failed generations preserve last-good consumers |
+| Subject / gold | Publications, projects/activity, researchers and funding consume accepted projections and appropriate relationships | Registers, complete exports and later Power BI views; publication filters never delete shared raw evidence |
+
+One logical pool permits source-specific files/tables and separate protected
+areas. It does not require one wide table, new capacity or a physical Fabric
+Lakehouse. Microsoft services remain the deployed runtime; local Python prepares
+artifacts and checks. Storage selection changes only for a demonstrated existing
+limit and an authorised migration/rollback decision.
+
+Scope is every field returned by each **current authorised acquisition**. It is
+not every record held by a provider, nor permission to broaden queries. A finite
+RSS feed retains its coverage limit. Five exported streams can include multiple
+projections of one provider; stream counts do not prove all-source coverage.
+At execution entry, reconcile the existing source catalogue, saved flow/model
+queries and accepted manifests: provider/resource, acquisition scope, paging,
+returned schema, raw retention, typed consumers and unresolved field loss.
+Record this in existing T11/E01 evidence; do not build a new source registry.
+Include enabled funding/enrichment inputs where actually acquired; catalogue
+entries, disabled adapters and historical integration claims are not live feeds.
+
+### Bootstrap and implementation order
+
+Use existing T11-H01a, E01-H02a and T11-H02a ownership; the steps below refine
+those tasks and do not create a second backlog.
+
+1. **Establish the exact gap and handoff.** Read the publication owner's latest
+   accepted generation, pending archive operation and source revision. Reuse
+   complete committed history with explicit legacy raw-coverage limits. Agree
+   one file/object writer before any overlapping change. First deliverable:
+   the smallest named source whose returned payload is not durably retained.
+2. **T11-H01a: retain before projection.** Extend that existing acquisition at
+   the earliest available response boundary. Preserve bytes, schema and new
+   fields even if typed parsing rejects them. PubMed includes ESearch/ESummary/
+   EFetch; DoRA publications includes the actual returned feed/metadata;
+   projects/activity includes full approved CKAN pages and schema. DoRA activity
+   access/privacy/retention prerequisites stay with T11-H03 before acquisition.
+   Funding stays with G02/G04/G05 for source qualification. No retrospective
+   claim that selected metadata reconstructs previously discarded raw fields.
+3. **E01-H02a: extend the existing archive writer.** Bootstrap with its stable
+   identity, connectors, fixed batch, chunk paging, manifests and commit-last
+   protocol. Add raw payload/schema references beside current projections.
+   Raw staging is durable but unaccepted until complete; typed rejection must
+   not discard raw evidence or advance accepted consumers. Prefer bounded serial
+   writes and constant-size loops to unbounded concatenation/action expansion.
+4. **Native delivery for that source.** Export/read exact target and rollback,
+   compare current preimage, build the smallest diff, run focused checks, update
+   the same ID, read saved definition and runtime adoption, then run one affected
+   source/archive cycle and unchanged replay. Resolve uncertain writes before
+   retry. Measure actual payload/page size and run cost before increasing limits.
+5. **T11-H02a: attach accepted consumers.** Link the verified raw observation to
+   the existing accepted manifest/reader, process only affected isolated consumers
+   and reconcile canonical keys and every retained field/date/correction. The
+   publication chat owns its register/export integration. Extend the same pattern
+   to remaining current-source gaps; finish each usable source path before the next.
+
+Bootstrap choices: reuse accepted archive bytes when complete; adapt the existing
+collector/writer when it discards fields; repair an adapter only for an observed
+source difference. Split a flow only when measured size/runtime or ownership
+requires it. A new generic collector, staging service or lake migration is not
+an automatic prerequisite. Preserve richer history when sparse current feeds arrive.
+
+Existing implementation entry points to inspect in the working tree are
+`scripts/prepare_pubmed_raw_source_capture.py`,
+`scripts/prepare_query_projection_archive.py`,
+`scripts/build_native_retention_package.py`,
+`scripts/build_native_commit_package.py` and
+`powerquery/fnReadCommittedHistory.m`. Their current working-tree versions may
+exceed remote main; bind the actual reviewed source revision before deployment,
+and synchronise required implementation separately. Do not assume this planning
+commit deploys or publishes those concurrent changes.
+
+### Permission and authority matrix
+
+Document the exact client, account, tenant/environment, resource ID, operation,
+connection owner, dated proof and expiry/retry condition in existing private S02
+configuration/receipts. Public plans use logical roles/placeholders. A successful
+login, list query or solution import proves only that operation.
+
+| Operation | Required proof before execution | Existing authority boundary |
+| --- | --- | --- |
+| Source read/raw retention | Approved query/resource, effective read access, permitted retention and protected-field destination | Current acquired scope only; restricted DoRA contact/ethics and wider source access need their existing gate |
+| Flow definition update | Exact environment/workflow edit rights, editable component, connection-reference mapping, connection usability, allowed connector/licence/DLP and rollback | Same-ID scoped development update; preserve trigger/state and unrelated actions |
+| Archive read/write | Exact library/folder access through the actual runtime connection; immutable path/replay conflict behavior | No inferred site-wide grant; raw content must not acquire broader access via a common pool |
+| Model definition/processing | Model read/write rights, source credentials, isolated target/consumer inventory, scoped rollback, eligible processing route | No shared/original write without approved isolation/rollback; export/query rights alone are insufficient |
+| Register/vertical projection | Target list/table rights, field/key mappings and approved audience | Protected raw fields do not flow automatically into ordinary lists/reports |
+| Run, recurrence, delivery, promotion | Existing explicit scope for invocation, recipients, activation or cutover and final state | Planning/source push is not schedule, email, sharing, production rebind, capacity or VM approval |
+
+Microsoft documents model read/write requirements for
+[updateDefinition](https://learn.microsoft.com/en-us/rest/api/fabric/semanticmodel/items/update-semantic-model-definition)
+and separate [connection-reference/connection usability](https://learn.microsoft.com/en-us/power-apps/maker/data-platform/create-connection-reference).
+[Solution import](https://learn.microsoft.com/en-us/power-automate/import-flow-solution)
+can enable previously enabled flows when connections resolve: inspect package
+state and use the qualified state-preserving route; verify actual final state.
+These requirements do not establish this tenant's effective permission.
+
+### CLI-first tools and failure recovery
+
+Choose the smallest supported, already-qualified operation. Use PAC for editable
+solution export/unpack/pack/import; a qualified Dataverse workflow API for scoped
+same-ID flow changes; Fabric/Power BI APIs through the proven CLI for model
+read/update/processing; SharePoint REST/M365 only after exact-target access proof.
+A service-specific MCP is useful when its schema and target operation are proven.
+Inspect installed help/tool schemas before invocation. BrowserOS neo is the
+fallback for one named unsupported/failed operation after explicit shared-UI
+handoff and existing-tab inventory. Retain native UI repairs in local source.
+No token transfer, arbitrary ZIP surgery, environment-wide publish or new auth app.
+
+| Observed failure | Next bounded action | Retry/stop condition |
+| --- | --- | --- |
+| Missing mount/file or disk space | Verify exact storage path and capacity; preserve packages and receipts | Resume same operation after storage is restored; never substitute an empty input |
+| Executable missing/PATH | Resolve the installed proven binary and inspect help/version | One corrected invocation; do not reinstall solely for a reduced PATH |
+| MCP transport/schema or API addressing | Check supported argument/endpoint shape; use independently qualified CLI route | One corrected exact-target read; tool IDs/base URLs are not interchangeable |
+| 401, interaction_required, AADSTS70043 | Preserve in-flight handles; recover the proven client through existing supported VS Code/service sign-in workflow under recovery ownership | One exact-target read after login; user enters MFA; no copying credentials |
+| 403, consent or unchanged Conditional Access denial | Record client/resource/operation boundary; use a distinct already-authorised route if it independently satisfies the operation | No same-policy login loop, privilege change or identity switch to evade denial |
+| 429/transient 5xx | Respect service retry guidance and existing finite retry budget; retain source failure status | Stop at budget; never replace failure with successful zero rows |
+| Timeout/202/uncertain update or run | Poll the same operation/run ID and read definition/history | No resubmission until outcome is reconciled |
+| Import saved but old flow runtime executes | Compare saved and executable action graph/version/state and connector bindings | Use qualified per-flow publication/adoption route; no test send until intended runtime verified |
+| Schema drift, truncation or partial archive | Retain complete available raw evidence and failure details; reject accepted commit | Repair observed cause; keep last-good consumers and stable batch conflict guards |
+| Capacity/licence/region mismatch | Verify exact model storage region, capacity eligibility and saved assignment | No repeated incompatible assignment, purchase or trial activation; retain rollback/recovery evidence |
+| Concurrent native/local drift | Compare saved preimage and source fingerprints; preserve other owner's repairs | Reconcile ownership and prepare a new reviewed candidate before writing |
+
+### Proportional acceptance and remote handoff
+
+For each source, require complete request/page/chunk coverage and stored-byte
+readback, schema/field preservation, source identity and acquisition timestamp,
+explicit raw versus typed acceptance, unchanged replay and protected last-good
+state. Compare key sets and values, not counts alone. Local SHA256 proves byte
+comparison only; native M structural checks are not cryptographic verification.
+Reuse accepted failure/preservation evidence when unchanged. Run the smallest
+changed-behavior tests and affected structural checks; full integration belongs
+at shared-contract/integration or release milestones, not every handoff.
+
+The exit is a source-complete retained pool within declared acquisition coverage,
+with usable accepted consumers and field-level lineage. Native technical delivery,
+operator acceptance and explicitly deferred source gaps remain distinct. The next
+vertical is projects/activity after its source/access prerequisites; researchers
+and funding follow their existing plans. Presentation stays last.
+
+This planning update changes documentation only. Check Conductor structure,
+relative links, scoped diff and private-data exclusion; do not claim new runtime
+acceptance. Push from a clean reviewed copy of existing remote main, preserve
+concurrent remote commits with a normal fast-forward workflow, and verify the
+remote SHA and saved file content. Never push the dirty original history or
+private runtime captures. The active publication checkpoint remains its owner's.
+
+
+Status: **Shared-data implementation and native acceptance remain open; historical local checks have bounded scope** (2026-10-13)
 Target Environment: **Queensland Health M365 Tenant (`{{TENANT_ID}}`)**
 Primary User: **RIMS maintainer (configured privately)**
-Execution Strategy: **Separation of concerns, prioritized by operational value, executed via authenticated browser session**
+Execution Strategy: **CLI/API-first qualified same-ID delivery; BrowserOS neo fallback for a named operation under shared-UI ownership**
 
 Access scope: **current authenticated user only**. The active implementation
 uses the existing user's isolated DEV objects and manual operation, matching
@@ -15,27 +175,27 @@ acceptance requirements.
 
 ## 1. Executive Summary & Objective
 
-All data models, ingestion routines, multi-source enrichment adapters (PubMed, DORA, OpenAlex, Crossref, Dimensions, Scopus, Web of Science, ARDC RLA), flow definitions, versioning scripts, and executive DOCX generators are completed and verified locally. Tenant-side acceptance is tracked separately in [Publication platform acceptance](PUBLICATION_PLATFORM_ACCEPTANCE.md); local checks do not certify live refresh, unattended execution, complete exports, or report readback.
+Local model, adapter, flow and export artifacts exist with differing implementation and verification scopes. Reconcile enabled acquisitions and current source revisions before claiming provider coverage or field completeness. Tenant-side acceptance is tracked separately in [Publication platform acceptance](PUBLICATION_PLATFORM_ACCEPTANCE.md); local checks do not certify live refresh, unattended execution, complete exports, or report readback.
 
 The four tiers are implemented as local, evidence-gated delivery plans. Historical notes or locally generated artefacts do not prove current tenant state. SharePoint list readback, flow run success, complete export reconciliation, semantic-model refresh, and report rendering remain separate native acceptance gates tracked in [Publication platform acceptance](PUBLICATION_PLATFORM_ACCEPTANCE.md).
 
 ---
 
-## 2. CLI Tools Evaluation & Route Decision
+## 2. Historical CLI observations — superseded route decision
 
 A strict, one-time audit of available CLI tools was conducted to determine whether automated tenant deployment could occur via command line or if the authenticated browser session is required.
 
-### One-Time Audit Findings:
+### Dated audit findings; reverify the selected client and exact target
 
 | CLI Tool | Local Binary Path | Observed State / Tenant | Viability for CHHHS Platform Deployment |
 | :--- | :--- | :--- | :--- |
 | **PnP.PowerShell** (`Connect-PnPOnline`) | Global PowerShell Module | **Failed:** tenant application-consent error (identifier retained only in private evidence). | **Infeasible for this route:** blocked by tenant admin application consent policy. |
-| **CLI for Microsoft 365** (`m365`) | `/opt/homebrew/bin/m365` | **Failed:** Error `AADSTS70043: Refresh token expired or invalid due to sign-in frequency checks by conditional access`. | **Infeasible**: Expired session; interactive re-authentication disallowed by non-interactive operational rules. |
+| **CLI for Microsoft 365** (`m365`) | `/opt/homebrew/bin/m365` | **Failed:** Error `AADSTS70043: Refresh token expired or invalid due to sign-in frequency checks by conditional access`. | **Historical expiry:** recover the proven client through the current supported sign-in workflow, then verify the exact target. |
 | **Power Platform CLI** (`pac`) | `/Users/doughnut/.dotnet/tools/pac` | **Active, but Wrong Tenant:** Connected to `RIMS maintainer (Illawarra Shoalhaven LHD)'s Environment` (NSW Health, `health.nsw.gov.au`). | **Infeasible**: Connected to external NSW Health tenant, not Queensland Health. Switching profiles would require interactive device code login. |
 | **Azure CLI** (`az`) | `/opt/homebrew/bin/az` | **Active, but Wrong Tenant:** connected to a personal/other Azure subscription (tenant identifier retained only in private evidence). | **Infeasible**: not connected to Queensland Health enterprise tenant. |
 
 ### Architectural Decision:
-Per user directive, **no further attempts to log in or run CLI tenant tools will be made**. All platform interactions proceeded strictly through RIMS maintainer's active, enterprise SSO-authenticated browser session (`playwright-cli -s=chrome`).
+The former blanket prohibition on CLI login is superseded. Use the qualified CLI/API route and cause-specific recovery above. Historical wrong-tenant or expiry observations do not establish current permissions. BrowserOS neo is the bounded fallback after shared-UI handoff.
 
 ---
 
