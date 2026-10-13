@@ -1,5 +1,22 @@
 # Author-centred registry and attribution design
 
+## Planned internal identity sources — 13 October 2026
+
+The [connector source selection](FUTURE_SOURCE_ENRICHMENT.md#microsoft-connector-and-contextual-source-selection--13-october-2026)
+adds approved exact-ID Office 365 Users lookups and existing organisational
+SharePoint registers as supporting internal evidence. Qualify the exact connection,
+selected fields and protected audience before capture. Directory IDs/UPNs and
+ORCID/provider author IDs remain distinct namespaces; no name-only identity join.
+Group membership and directory department/job title are dated assertions, not
+proof of publication authorship, clinical specialty or a project investigator role.
+
+Acquire only the authorised necessary profile fields; retain these in protected
+Microsoft storage, with no workforce rows in source control or external enrichment
+requests. Existing reviewed mappings and automated unambiguous paths are reused;
+only genuine conflicts use existing exception handling. Shared schema and native
+relationship changes return to the integration owner. Local preparation can run
+separately after an exact file reservation; live directory permissions are unproved.
+
 ## Parallel identity preparation — 13 October 2026
 
 Follow the [parallel assignments](PLATFORM_COMPLETION_PLAN.md#parallel-delivery-assignments--13-october-2026).

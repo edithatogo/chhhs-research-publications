@@ -1,5 +1,24 @@
 # Plan: Repair and prove PubMed plus DORA ingestion
 
+## Connector-assisted next slices — 13 October 2026
+
+Refine existing work through the [connector/source selection](../../../docs/FUTURE_SOURCE_ENRICHMENT.md#microsoft-connector-and-contextual-source-selection--13-october-2026),
+without changing checkbox acceptance or current publication ownership. H03/H04
+prepare approved internal project-register mappings via existing SharePoint/Excel
+and maintain the separate DoRA activity access/retention gate. Directory/organisation
+preparation uses exact-ID Office 365 Users and selected organisational registers,
+with explicit fields, protected audience and existing author identity rules.
+ABS geography supports a named accepted consumer with code/edition/period joins;
+H05 reporting remains after source acceptance. Groups/RSS supply scoped supporting
+evidence; optional iCite/Zenodo require a demonstrated enrichment gap.
+
+First operation for any selected slice: read the existing exact target schema and
+permission boundary, bind a frozen accepted input, prepare one disjoint Microsoft
+mapping and return shared contract changes to the coordinator. No tenant-wide
+people harvest, public-api proxy through SharePoint HTTP, paid service creation or
+new report milestone. Native timeout/retry/paging/last-good behaviour must be accepted
+on that source path; local OpenAlex evidence is not universal connector proof.
+
 ## OpenAlex bounded implementation checkpoint — 13 October 2026
 
 User-authorised selected free credentials supersede the older blanket keyless

@@ -1,5 +1,59 @@
 # Deferred source enrichment and reconciliation
 
+## Microsoft connector and contextual-source selection — 13 October 2026
+
+Incorporated at the user's request. These are planned source routes, not evidence
+of enabled tenant connections or new access authority. Finish the current accepted
+source/archive/consumer path first. Prefer approved existing internal registers
+before adding another external aggregator; actual register identities and permission
+proof stay in the existing S02 configuration and private receipts.
+
+| Priority / information | Planned source and Microsoft route | Useful retained evidence / admission boundary |
+| --- | --- | --- |
+| First internal slice: projects, awards and investigator links | Existing approved research/grants SharePoint lists and Excel tables, using [SharePoint](https://learn.microsoft.com/en-us/connectors/sharepointonline/) / [Excel Online Business](https://learn.microsoft.com/en-us/connectors/excelonlinebusiness/) standard connectors | Local project/award IDs, investigators, statuses and source dates missing from public sources. Qualify the exact list/file and audience. Excel row actions require a table; retain the original workbook and prepare a separate structured copy when needed. File acquisition and parsing are separate supported operations. |
+| First identity slice: internal researcher profiles | [Office 365 Users](https://learn.microsoft.com/en-us/connectors/office365users/) standard connector, initially approved exact-ID lookups | Explicitly selected ID/name/department/job title/office fields only when authorised and necessary. No tenant-wide directory harvest or default full profile. Internal employment/directory assertions remain dated separate evidence; scholarly attribution uses existing exact identifiers and exception policy. |
+| Supporting organisation/team context | Approved organisational SharePoint register; [Office 365 Groups](https://learn.microsoft.com/en-us/connectors/office365groups/) standard connector only for selected groups | Group identity/membership and approved unit mappings. A group is not automatically an organisational unit, and membership is not proof of employment, affiliation or project investigator status. Preserve source namespace and effective/observed dates. |
+| First contextual slice: regional population/geography | [ABS APIs](https://www.abs.gov.au/statistics/application-programming-interfaces-apis) or official file releases, through a qualified existing Microsoft Web/HTTP route or staged approved files | Region codes, population and statistical geography edition; preserve period, units, suppression and geographic vintage. Use accepted region-code crosswalks. Organisation mailing address, study site and service catchment are different concepts. |
+| Low-cost discovery where an official feed exists | [RSS](https://learn.microsoft.com/en-us/connectors/rss/) standard connector | Funding/publication announcements with feed/item identity and observation time. Verify the actual official endpoint and retained fields. Feed projection/history limits remain explicit; complete payload retention may need an existing qualified Web/API acquisition alongside the feed connector. |
+| Optional Australian legal-entity context | [ABN Lookup web services](https://abr.business.gov.au/Tools/WebServices), HTTP/custom route after registration/terms qualification | Legal entity/ABN/ACN/name/status context for funders and partners. Complements ROR rather than replacing research organisation identity; exact ABN match preferred. Credentials/permissions and costs must be qualified for the exact route. |
+| Optional biomedical metrics | [NIH iCite API](https://support.icite.nih.gov/hc/en-us/articles/9513563045787-Bulk-Data-and-API), HTTP/custom route | PMID-based provider-specific bibliometric observations, only for a measured metric gap. Preserve metric definitions and observation dates; do not combine overlapping provider counts or infer individual research quality. |
+| Optional related research outputs | [Zenodo Records API](https://developers.zenodo.org/), HTTP/custom route | Known DOI-related datasets/software and deposited metadata, version and relation direction. Reuse DataCite overlap before another collector. Record/file licences differ; no upload/publish or blanket file download. |
+| Conditional geocoding | [Azure Maps connector](https://learn.microsoft.com/en-us/connectors/azuremaps/), currently Standard / Preview | Site/address coordinates and confidence only when an actual location-resolution gap exists. Requires an Azure Maps subscription key; connector tier does not establish free service use. Existing provision/budget/rights first, no subscription creation or personal-address processing. |
+
+### Connector qualification and proportional implementation
+
+A public free API does not imply a free Power Automate integration. General HTTP
+and custom routes need applicable premium/custom-connector entitlement; verify
+actual action classification, licence, DLP, region, connection owner and endpoint
+before selection. The [licensing guidance](https://learn.microsoft.com/en-us/power-platform/admin/powerapps-flow-licensing-faq)
+is distinct from the provider's price and terms. Microsoft service-specific HTTP
+actions are scoped to supported service endpoints, not public-API proxies. An
+existing qualified Power Query Web/source-processing route is an alternative
+when it provides the needed native acquisition; it is not a licence workaround.
+Copilot connectors, Power Query connectors and Power Automate connectors are
+separate capabilities; installed chat plugins do not deploy a tenant connector.
+
+Select one source that closes a named dependency. Read its schema and intended
+native target, retain complete authorised source fields in protected staging,
+then produce the smallest Microsoft mapping/update and scoped rollback. For
+internal profiles, minimise the approved acquisition fields before raw retention;
+no sensitive workforce rows in Git, external providers or alternate development
+accounts. Exact-ID source links and documented uncertainty precede subject views.
+
+Adopt the OpenAlex failure contract for each new native source path: finite retries,
+respect Retry-After, stop unchanged access denial, preserve raw failed-generation
+status and last-good consumers, reject partial paging/schema drift, commit last,
+and distinguish a real empty result from failure. Directory permission withdrawal
+also needs an explicit retention/disposal decision; a transient outage is not
+permission to delete accepted records or keep revoked access indefinitely.
+
+Owned preparation: projects/activity under T11-H03/H04; funding source qualification
+under G02 then G04; researcher/organisation mapping under existing author design
+and T11/G06 integration. ABS is a supporting geography mapping for a named consumer,
+not a new dashboard milestone. Shared schemas/catalogues, native writes and active
+checkpoint remain coordinator/object-owned. Optional ABN/iCite/Zenodo/Azure Maps
+stay deferred unless they close a demonstrated gap. No new chats or feeds launched.
+
 ## Selected credential and implementation update — 13 October 2026
 
 The user now permits the selected free credentials supplied in this chat;

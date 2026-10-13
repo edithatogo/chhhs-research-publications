@@ -1,5 +1,23 @@
 # Implementation plan
 
+## Connector-assisted funding sources — 13 October 2026
+
+Incorporate the [connector/source selection](../../../docs/FUTURE_SOURCE_ENRICHMENT.md#microsoft-connector-and-contextual-source-selection--13-october-2026)
+into existing source qualification and G04 adapter handoff. Prioritise approved
+internal research/award SharePoint registers and official NHMRC/MRFF workbooks;
+read exact fields/identities and permission/reuse scope before intake. Excel row
+reading needs a table; prepare a separate table copy while retaining source bytes,
+sheet/cell provenance, date and dictionary. File download is a separate qualified
+operation, not an assumed feature of the Excel connector.
+
+Official RSS may discover funding announcements where an actual stable feed is
+verified; finite coverage and award/opportunity identity remain explicit. ABN Lookup
+may resolve a named Australian funder/partner legal-entity gap, and Zenodo may supply
+related outputs; neither creates eligibility or award-to-publication proof. HTTP/
+custom licence/DLP and source credentials must be qualified separately from API
+price. Funding chat prepares one source-specific mapping; shared catalogue/flow/
+relationship integration remains serial and owner-controlled. No new source enabled.
+
 ## Parallel funding qualification — 13 October 2026
 
 The funding chat can prepare one bounded source-specific mapping independently

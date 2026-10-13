@@ -1,5 +1,31 @@
 # Platform Completion Plan: CHHHS Research Publication System
 
+## Connector-assisted source priorities — 13 October 2026
+
+Use the [Microsoft connector/source selection](FUTURE_SOURCE_ENRICHMENT.md#microsoft-connector-and-contextual-source-selection--13-october-2026).
+After core source/archive/consumer acceptance, the first additional slices are
+approved internal research/funding registers (SharePoint/Excel), narrowly scoped
+Office 365 Users identity evidence and ABS geographic context. Selected groups
+and official RSS support those slices. Internal list/file availability and exact
+field permissions remain to be established; the plan does not infer an existing
+workforce or project-register access grant.
+
+T11 owns projects/activity and supporting geography/identity preparation; G02/G04
+own funding source/adapter work, with accepted relationships integrated under the
+existing G06 boundary. Separate chats use the current exact-file assignments and
+frozen inputs, not concurrent shared catalogue/schema/model changes. Native
+connector setup and writes stay with the current object/recovery owner.
+
+For external scholarly services use qualified HTTP/custom integration or the
+already-proven Microsoft Web acquisition route. Check connector tier, tenant
+licence/DLP, provider terms, credential lifetime and request budget separately.
+Excel tables are a row-reading prerequisite; raw original files remain retained.
+ABN Lookup, NIH iCite and Zenodo are conditional additions; Azure Maps is a
+Preview connector requiring a service subscription key and separate cost proof.
+No new capacity, paid subscription, broad directory capture or recurring flow
+is implied. New adapters must preserve last-good data and explicit source failure
+status; native readback remains required after local preparation.
+
 ## Selected API implementation update — 13 October 2026
 
 Selected free credentials supplied by the user are authorised under the
