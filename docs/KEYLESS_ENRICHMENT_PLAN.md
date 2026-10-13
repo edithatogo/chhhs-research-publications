@@ -79,7 +79,7 @@ Current constraint: **Selected free credentials permitted; no paid subscription 
 
 ## 1. Historical September keyless mandate
 
-The 18 September design required operation without external API keys, tokens, subscriptions or registrations. The current policy above supersedes that restriction for the selected user-authorised free credentials; this historical rationale does not prohibit their use. 
+The 18 September design required operation without external API keys, tokens, subscriptions or registrations. The current policy above supersedes that restriction for the selected user-authorised free credentials; this historical rationale does not prohibit their use.
 
 This constraint aims to reduce external-provider credential management; it does not guarantee:
 1. **Zero Operational Friction:** No credential rotation, expired tokens, credit card ceilings, or vendor access requests.
