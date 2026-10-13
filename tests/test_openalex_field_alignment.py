@@ -1,0 +1,20 @@
+import base64,hashlib,json,sys,unittest
+from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
+from project_retained_openalex_fields import project
+class Alignment(unittest.TestCase):
+    def envelope(self,**payload):
+        p={'id':'https://openalex.org/W1','doi':'https://doi.org/10.1000/example',**payload};raw=json.dumps(p).encode()
+        return {'kind':'openalex_retained_observation_v1','source':'OpenAlex','http_status':200,'work_id':p['id'],'observed_utc':'2026-01-01T00:00:00Z','raw_response_base64':base64.b64encode(raw).decode(),'raw_byte_count':len(raw),'raw_response_sha256':hashlib.sha256(raw).hexdigest()}
+    def test_current_funding_and_keyword_fields_are_not_lost(self):
+        fields=project(self.envelope(funders=[{'display_name':'Funder'}],awards=[{'funder_display_name':'Other','funder_award_id':'A1'}],keywords=[{'display_name':'Clinical research'}]))['fields']
+        self.assertEqual(fields['FunderNames'],'Funder; Other');self.assertEqual(fields['GrantIDs'],'A1');self.assertEqual(fields['AuthorKeywords'],'Clinical research')
+    def test_all_values_survive_without_old_presentation_caps(self):
+        fields=project(self.envelope(mesh=[{'descriptor_name':str(i)} for i in range(20)],keywords=[{'display_name':str(i)} for i in range(20)],authorships=[{'raw_affiliation_strings':[str(i)],'affiliations':[]} for i in range(8)]))['fields']
+        self.assertEqual(len(fields['MeSHHeadings'].split('; ')),20);self.assertEqual(len(fields['AuthorKeywords'].split('; ')),20);self.assertEqual(len(fields['AffiliationsRaw'].split('; ')),8)
+    def test_null_zero_and_canonical_classification_boundaries(self):
+        out=project(self.envelope(cited_by_count=0,title='Provider title',primary_topic={'field':{'display_name':'Different taxonomy'}},open_access=None))
+        self.assertEqual(out['fields']['CitationCount_OpenAlex'],0);self.assertIsNone(out['fields']['OAUrl']);self.assertNotIn('Title',out['fields']);self.assertNotIn('FieldOfResearch',out['fields']);self.assertIn('primary_topic',out['retained_only_top_level_fields'])
+    def test_fingerprint_rejects_corrupt_transport(self):
+        env=self.envelope();env['raw_response_sha256']='wrong'
+        with self.assertRaises(ValueError):project(env)
