@@ -119,10 +119,32 @@ Against the accepted registry export, 44 exact canonical-key/DOI matches have
 real missing provider fields; 28 also have an available missing OA URL. One
 ambiguous DOI is excluded from this admission claim. The private missing-fill
 packet supplies expected values and preimages for a real bounded native test.
-This is preparation, not native deployment or registry-write acceptance.
-The other RIMS chat retains model/writer ownership during its current manual
-preserve/replay cycle; deploy only after its terminal result and exact handoff.
+After the core chat's three-key manual/replay acceptance and exact stopped-flow
+restoration, the source-only model lease transferred and the increment deployed
+through CLI. Native 46-part readback exactly matches the candidate; only the
+compressed source payload changed. The four-table refresh completed: 242 chunks,
+48 works, 51 canonical context rows and 153 field-provenance rows. Every retained
+response byte/SHA256/schema and projected provider value reconciles, all original
+three raw chunks/input/observation provenance remain exact, and all 40,230
+Publication values remain unchanged. No native provider harvest, flow edit,
+connection/schedule/report change or broader Publication refresh occurred.
+
+Typed observation DateTime readback differs by at most 2.311 ms within the
+[documented Power BI 1/300-second precision](https://learn.microsoft.com/en-us/power-bi/connect-data/desktop-data-types).
+Exact original UTC remains in the retained raw envelope; these values are not
+relabelled as the native refresh or registry-write time. The unchanged unrelated
+source-audit warning remains explicit in the private acceptance.
+
+The model lease returned to the core RIMS chat at terminal acceptance. All 44
+real missing-field target preimages were reverified against its latest replay
+readback and bound to the accepted source receipt. Actual missing-field write
+and replay remain its next native gate; source acceptance does not prove those
+writes or routine provider acquisition.
 
 Private input/candidate/staging prefixes: `2026-10-14-openalex-wider-`.
 Private model candidate: `2026-10-14-openalex-increment-candidate-private.json`.
 Private real-row packet: `2026-10-14-openalex-real-missing-fill-packet-private.json`.
+
+Native increment acceptance: `2026-10-14-openalex-increment-native-acceptance-private.json`.
+Lease handback: `2026-10-14-openalex-increment-to-core-model-handback-private.json`.
+Fresh source-bound target packet: `2026-10-14-openalex-real-missing-fill-accepted-source-private.json`.
