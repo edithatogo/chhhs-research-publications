@@ -1,0 +1,20 @@
+// Exact frozen native staging refresh only. Include nulls, reject query errors.
+// Two 24000-character chunks keep each response below the writer string budget.
+EVALUATE
+VAR After0 = ""
+VAR After1 = -1
+VAR PageSize = 2
+RETURN
+SELECTCOLUMNS(
+    TOPN(PageSize, FILTER(OpenAlexMetadataChunks,
+        OpenAlexMetadataChunks[OpenAlexWorkID] > After0 ||
+        (OpenAlexMetadataChunks[OpenAlexWorkID] = After0 && OpenAlexMetadataChunks[ChunkIndex] > After1)),
+        OpenAlexMetadataChunks[OpenAlexWorkID], ASC, OpenAlexMetadataChunks[ChunkIndex], ASC),
+    "OpenAlexWorkID", OpenAlexMetadataChunks[OpenAlexWorkID],
+    "ChunkIndex", OpenAlexMetadataChunks[ChunkIndex],
+    "ChunkCount", OpenAlexMetadataChunks[ChunkCount],
+    "MetadataCharacters", OpenAlexMetadataChunks[MetadataCharacters],
+    "Encoding", OpenAlexMetadataChunks[Encoding],
+    "MetadataChunk", OpenAlexMetadataChunks[MetadataChunk]
+)
+ORDER BY [OpenAlexWorkID], [ChunkIndex]

@@ -1,0 +1,36 @@
+// Additive isolated source table; its partition uses the matching named M query.
+table OpenAlexMetadataChunks
+
+	column OpenAlexWorkID
+		dataType: string
+		sourceColumn: OpenAlexWorkID
+		summarizeBy: none
+
+	column ChunkIndex
+		dataType: int64
+		sourceColumn: ChunkIndex
+		summarizeBy: none
+
+	column ChunkCount
+		dataType: int64
+		sourceColumn: ChunkCount
+		summarizeBy: none
+
+	column MetadataCharacters
+		dataType: int64
+		sourceColumn: MetadataCharacters
+		summarizeBy: none
+
+	column Encoding
+		dataType: string
+		sourceColumn: Encoding
+		summarizeBy: none
+
+	column MetadataChunk
+		dataType: string
+		sourceColumn: MetadataChunk
+		summarizeBy: none
+
+	partition OpenAlexMetadataChunks = m
+		mode: import
+		source = OpenAlexMetadataChunks
