@@ -99,3 +99,30 @@ blocks while their older test expects six; the shared frozen runtime manifest
 already mismatches local runtime files. These remain with the coordinator, who
 must review any shared manifest refresh after integrating source changes. No test
 or frozen contract was rewritten here to turn those failures green.
+
+## Wider increment — 14 October 2026
+
+The next bounded preparation reuses the three accepted responses and queries 47
+additional exact DOIs from the accepted canonical snapshot through the existing
+CLI adapter: 45 successes, two explicit not-found outcomes, zero provider
+failures. Complete raw bytes and recursive schema remain retained.
+
+`scripts/extend_openalex_native_bootstrap.py` changes only the compressed source
+expression in the accepted 46-part model. All 45 other parts and other expression
+bodies stay unchanged; all prior chunks and original observation/input provenance
+remain byte-for-byte intact. The candidate contains 48 works and 242 chunks.
+It uses 642,198 compressed bytes for 5,310,222 prepared bytes, with no new schema,
+connection or flow changes. Failed/partial passes and duplicate identifiers
+cannot advance the candidate. Three focused increment tests pass.
+
+Against the accepted registry export, 44 exact canonical-key/DOI matches have
+real missing provider fields; 28 also have an available missing OA URL. One
+ambiguous DOI is excluded from this admission claim. The private missing-fill
+packet supplies expected values and preimages for a real bounded native test.
+This is preparation, not native deployment or registry-write acceptance.
+The other RIMS chat retains model/writer ownership during its current manual
+preserve/replay cycle; deploy only after its terminal result and exact handoff.
+
+Private input/candidate/staging prefixes: `2026-10-14-openalex-wider-`.
+Private model candidate: `2026-10-14-openalex-increment-candidate-private.json`.
+Private real-row packet: `2026-10-14-openalex-real-missing-fill-packet-private.json`.
