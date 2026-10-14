@@ -35,7 +35,7 @@ let
         Work=if Value.Is(Payload,type record) then Record.FieldOrDefault(Payload,"id",null) else null,
         ReturnedDOI=if Value.Is(Payload,type record) then CleanDOI(Record.FieldOrDefault(Payload,"doi",null)) else null,
         Identity=if Value.Is(Work,type text) then Text.StartsWith(Work,"https://openalex.org/W") and
-            Text.Length(Text.Range(Work,21))>0 and Text.Select(Text.Range(Work,21),{"0".."9"})=Text.Range(Work,21) and
+            Text.Length(Text.Range(Work,Text.Length("https://openalex.org/W")))>0 and Text.Select(Text.Range(Work,Text.Length("https://openalex.org/W")),{"0".."9"})=Text.Range(Work,Text.Length("https://openalex.org/W")) and
             ReturnedDOI=DOI else false,
         Headers=Record.FieldOrDefault(Metadata,"Headers",[]),
         BudgetNames={"X-RateLimit-Limit","X-RateLimit-Remaining","X-RateLimit-Credits-Used","X-RateLimit-Reset","Retry-After"},
