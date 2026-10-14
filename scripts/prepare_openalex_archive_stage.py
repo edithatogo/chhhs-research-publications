@@ -178,7 +178,7 @@ def build_candidate(native_flow, files, receipt, generation):
         'SchemaVersion': 1, 'Status': 'committed', 'BatchID': receipt['batch_id'],
         'ModelID': params['datasetid'], 'Generation': refresh, 'RefreshRequestID': refresh,
         'ObservedAtUTC': datetime.now(timezone.utc).isoformat(),
-        'ObservationKind': 'Archive commit time; original provider observations remain in raw envelopes',
+        'ObservationKind': 'Manifest preparation time; actual archive commit time is recorded in native file/run receipts; original provider observations remain in raw envelopes',
         'Sources': [copy.deepcopy(receipt['source_spec'])],
         'Validation': {'Keysets': True, 'Metadata': True, 'RefreshGeneration': True},
         'Preservation': {'UnchangedSources': ['PubMed', 'DORA'], 'ChangedSources': ['OpenAlex']},
