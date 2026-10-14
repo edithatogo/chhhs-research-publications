@@ -10,6 +10,7 @@ import copy
 import hashlib
 import json
 import os
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -24,13 +25,19 @@ def sha(raw): return hashlib.sha256(raw).hexdigest()
 def compact(value): return json.dumps(value, ensure_ascii=False, separators=(',', ':'), allow_nan=False).encode()
 
 
-def build(baseline_bytes, capture, retained, manifest, archive_acceptance=None):
-    if sha(baseline_bytes) != BASELINE_SHA:
-        raise ValueError('Exact 47-part frozen preimage required')
+def build(baseline_bytes, capture, retained, manifest, archive_acceptance=None, baseline_sha256=None):
+    expected_sha = baseline_sha256 or BASELINE_SHA
+    if not re.fullmatch(r'[0-9a-f]{64}', expected_sha) or sha(baseline_bytes) != expected_sha:
+        raise ValueError('Exact frozen preimage fingerprint required')
     baseline = json.loads(baseline_bytes)
     old = baseline['definition']['parts']
-    if len(old) != 47 or len({p['path'] for p in old}) != 47:
-        raise ValueError('Unique 47-part preimage required')
+    count = len(old)
+    if count not in (47,48) or len({p['path'] for p in old}) != count:
+        raise ValueError('Unique qualified 47/48-part preimage required')
+    updating = count == 48
+    pending_path = 'definition/tables/'+TABLE+'.tmdl'
+    if updating and (baseline_sha256 is None or pending_path not in {p['path'] for p in old}):
+        raise ValueError('Explicit fingerprint and existing pending table required for update')
     if capture.get('http') != 200 or retained['kind'] != 'openalex_retention_preparation_v1':
         raise ValueError('Accepted complete capture and retention required')
     rows = [{k[k.rfind('[')+1:-1] if k.endswith(']') else k:v for k,v in r.items()}
@@ -108,21 +115,39 @@ in fnPrepareOpenAlexCapturedEnvelope(Rows,Sidecar)'''.replace('SIDECAR',encoded)
     candidate=copy.deepcopy(baseline)
     expr=next(p for p in candidate['definition']['parts'] if p['path']==EXPRESSION)
     original=base64.b64decode(expr['payload'],validate=True).decode()
-    if 'expression fnPrepareOpenAlexCapturedEnvelope =' in original or 'RetainedArchiveFiles' not in original:
-        raise ValueError('Fresh additive archive-bound source required')
-    text=original+'\nexpression fnPrepareOpenAlexCapturedEnvelope =\n'+'\n'.join('\t\t'+line for line in function.splitlines())+'\n'
-    text+='\nexpression OpenAlexPendingEnvelopeSnapshot =\n'+'\n'.join('\t\t'+line for line in snapshot.splitlines())+'\n'
+    if 'RetainedArchiveFiles' not in original:
+        raise ValueError('Qualified existing archive binding required')
+    blocks = {
+        'fnPrepareOpenAlexCapturedEnvelope':'expression fnPrepareOpenAlexCapturedEnvelope =\n'+'\n'.join('\t\t'+line for line in function.splitlines())+'\n',
+        'OpenAlexPendingEnvelopeSnapshot':'expression OpenAlexPendingEnvelopeSnapshot =\n'+'\n'.join('\t\t'+line for line in snapshot.splitlines())+'\n',
+    }
+    if updating:
+        spans=[]
+        for name,body in blocks.items():
+            starts=list(re.finditer(r'(?m)^expression '+re.escape(name)+r'\s*=',original))
+            if len(starts)!=1:raise ValueError('Exactly one existing pending expression required')
+            start=starts[0].start(); following=re.search(r'(?m)^expression ',original[starts[0].end():])
+            end=starts[0].end()+following.start() if following else len(original)
+            spans.append((start,end,body+'\n'))
+        text=original
+        for start,end,body in sorted(spans,reverse=True):text=text[:start]+body+text[end:]
+    else:
+        if any('expression '+name+' =' in original for name in blocks):raise ValueError('Unmodified additive preimage required')
+        text=original+'\n'+'\n'.join(blocks.values())
     expr['payload']=base64.b64encode(text.encode()).decode()
     model=next(p for p in candidate['definition']['parts'] if p['path']=='definition/model.tmdl')
-    model['payload']=base64.b64encode(base64.b64decode(model['payload'])+('\nref table '+TABLE+'\n').encode()).decode()
+    if not updating:model['payload']=base64.b64encode(base64.b64decode(model['payload'])+('\nref table '+TABLE+'\n').encode()).decode()
     table='table '+TABLE+'\n\tisHidden\n'
     for name,kind in [('OpenAlexWorkID','string'),('ChunkIndex','int64'),('ChunkCount','int64'),('MetadataCharacters','int64'),('Encoding','string'),('MetadataChunk','string')]:
         table+='\n\tcolumn '+name+'\n\t\tdataType: '+kind+'\n\t\tsummarizeBy: none\n\t\tsourceColumn: '+name+'\n'
     table+='\n\tpartition '+TABLE+' = m\n\t\tmode: import\n\t\tsource = OpenAlexPendingEnvelopeSnapshot\n'
-    candidate['definition']['parts'].append({'path':'definition/tables/'+TABLE+'.tmdl','payloadType':'InlineBase64','payload':base64.b64encode(table.encode()).decode()})
+    if not updating:candidate['definition']['parts'].append({'path':pending_path,'payloadType':'InlineBase64','payload':base64.b64encode(table.encode()).decode()})
     expected=sha(compact(retained['chunks']))
+    next_parts={part['path']:part for part in candidate['definition']['parts']}
+    preserved=sum(next_parts.get(part['path'])==part for part in old)
     proof={'kind':'openalex_pending_stage_candidate_v1','native_written':False,'provider_calls':0,
-           'baseline_sha256':BASELINE_SHA,'parts':48,'unchanged_old_parts':45,'expected_chunks':len(retained['chunks']),
+           'baseline_sha256':expected_sha,'parts':48,'unchanged_old_parts':preserved,'expected_chunks':len(retained['chunks']),
+           'operation':'update_existing_pending_expressions' if updating else 'add_pending_table',
            'expected_chunk_rows_sha256':expected,'sidecar_bytes':len(compact(sidecar)),
            'raw_payload_literals':False,'source':'existing RetainedArchiveFiles; no acquisition query evaluation',
            'raw_attempts_preserved_in_archive':True,'pending_only':True,
@@ -135,6 +160,7 @@ def main():
     for name in ['private-root','baseline','capture','retained','archive-manifest','output-directory']:
         parser.add_argument('--'+name,required=True,type=Path)
     parser.add_argument('--archive-acceptance',type=Path)
+    parser.add_argument('--baseline-sha256')
     args=parser.parse_args(); root=args.private_root.resolve()
     if root.name!='ops' or root.parent.name!='private' or not root.is_dir():raise ValueError('Existing private/ops required')
     paths=[getattr(args,n).resolve() for n in ['baseline','capture','retained','archive_manifest','output_directory']]
@@ -142,7 +168,7 @@ def main():
     baseline,capture,retained,manifest,out=paths
     acceptance=args.archive_acceptance.resolve() if args.archive_acceptance else None
     if acceptance and not acceptance.is_relative_to(root):raise ValueError('Private acceptance path required')
-    candidate,sidecar,proof,snapshot=build(baseline.read_bytes(),json.loads(capture.read_bytes()),json.loads(retained.read_bytes()),json.loads(manifest.read_bytes()),json.loads(acceptance.read_bytes()) if acceptance else None)
+    candidate,sidecar,proof,snapshot=build(baseline.read_bytes(),json.loads(capture.read_bytes()),json.loads(retained.read_bytes()),json.loads(manifest.read_bytes()),json.loads(acceptance.read_bytes()) if acceptance else None,args.baseline_sha256)
     out.mkdir(mode=0o700)
     for name,value in [('candidate-native-private.json',compact(candidate)),('sidecar-private.json',compact(sidecar)),
                        ('proof-private.json',compact(proof)),('snapshot-private.m',snapshot.encode()),('rollback-native-private.json',baseline.read_bytes())]:
