@@ -20,12 +20,12 @@ let
         Lower=Text.Lower(Text.Trim(V)),Prefixes={"https://doi.org/","http://doi.org/","doi:"},
         Prefix=List.First(List.Select(Prefixes,each Text.StartsWith(Lower,_)),null)
         in if Prefix=null then Lower else Text.Trim(Text.Range(Lower,Text.Length(Prefix))),
-    Fetch=(DOI as text, Attempt as number) as list => let
+    Fetch=(DOI as text, Attempt as number, Delay as number) as list => let
         Path="works/https://doi.org/"&Uri.EscapeDataString(DOI),
-        Call=try Function.InvokeAfter(()=>Web.Contents("https://api.openalex.org",
+        Call=try Function.InvokeAfter(()=>Web.Contents("https://api.openalex.org/",
             [RelativePath=Path,Timeout=#duration(0,0,0,45),IsRetry=Attempt>1,
              ManualStatusHandling={404,429,500,502,503,504}]),
-            #duration(0,0,0,if Attempt=1 then 1 else Number.Power(2,Attempt-1))),
+            #duration(0,0,0,Delay)),
         Metadata=if Call[HasError] then [] else Value.Metadata(Call[Value]),
         HTTP=if Call[HasError] then null else Record.FieldOrDefault(Metadata,"Response.Status",200),
         Raw=if Call[HasError] then #binary({}) else Binary.Buffer(Call[Value]),
@@ -52,20 +52,27 @@ let
             if List.Contains({500,502,503,504},HTTP) then "unavailable" else
             if HTTP<>200 then "http_error" else if Parsed[HasError] then "invalid_response" else
             if not Identity then "identity_mismatch" else "success",
-        Observed=DateTimeZone.ToText(DateTimeZone.UtcNow(),"yyyy-MM-dd'T'HH:mm:ss.fffffff'Z'","en-US"),
+        Observed=if Length>=0 then DateTimeZone.ToText(DateTimeZone.UtcNow(),"yyyy-MM-dd'T'HH:mm:ss.fffffff'Z'","en-US")
+            else error "Raw byte acquisition incomplete",
         Schema=if Parsed[HasError] then [Kind="invalid-json"] else Describe(Payload),
         Current=[RequestedDOI=DOI,RawAttempt=Attempt,RawEndpoint="https://api.openalex.org/"&Path,
             RawRequestJSON=Text.FromBinary(Json.FromValue([method="GET",relative_path=Path,
                 requested_doi=DOI,input_sha256=InputSHA256,credential_mode="Anonymous",operation="singleton"]),TextEncoding.Utf8),
-            RawAcquiredUTC=Observed,RawHTTPStatus=HTTP,RawStatus=Status,RawByteCount=Length,
+            RawAcquiredUTC=Observed,RawHTTPStatus=HTTP,
+            RawStatus=if Text.Length(Observed)>0 then Status else error "Missing raw capture time",RawByteCount=Length,
             RawBinary=Raw,RawSchemaJSON=Text.FromBinary(Json.FromValue(Schema),TextEncoding.Utf8),
             RawBudgetHeadersJSON=Text.FromBinary(Json.FromValue(Budget),TextEncoding.Utf8)],
-        Retry=List.Contains({"rate_limited","unavailable"},Status) and Attempt<3
+        HasRetryHint=Record.HasFields(Budget,"Retry-After"),
+        RetryHint=try Number.FromText(Text.From(Record.FieldOrDefault(Budget,"Retry-After",null)),"en-US"),
+        HintValid=if not HasRetryHint then true else if RetryHint[HasError] then false
+            else Value.Is(RetryHint[Value],type number) and RetryHint[Value]>=0 and RetryHint[Value]<=30,
+        NextDelay=if HasRetryHint and HintValid then List.Max({1,RetryHint[Value]}) else Number.Power(2,Attempt),
+        Retry=List.Contains({"rate_limited","unavailable"},Current[RawStatus]) and Attempt<3 and HintValid
         // Keep every returned retry body; failure never clears accepted data.
-        in {Current}&(if Retry then @Fetch(DOI,Attempt+1) else {}),
+        in {Current}&(if Retry then @Fetch(DOI,Attempt+1,NextDelay) else {}),
     Pass=List.Accumulate(Scope,[Stopped=false,Responses={}],(State,DOI)=>
         if State[Stopped] then State else let
-            Attempts=List.Buffer(Fetch(DOI,1)),Last=List.Last(Attempts),
+            Attempts=List.Buffer(Fetch(DOI,1,1)),Last=List.Last(Attempts),
             Stop=not List.Contains({"success","not_found"},Last[RawStatus])
         in [Stopped=Stop,Responses=State[Responses]&Attempts]),
     Responses=List.Buffer(Pass[Responses]),
