@@ -8,30 +8,30 @@ Full coverage should reuse accepted cached responses and the existing archive;
 it should not grow a separate enrichment pipeline or an inline-model data lake.
 
 Complete raw payload/schema is already retained for the 48 successful works.
-Only four provider fields are currently integrated into the native registry
-writer. The remaining returned fields must have explicit mappings or retained
+The native model now exposes all nine compatible fields. The existing registry
+writer's additional five-field run/replay remains a separate core-owned gate. The remaining returned fields must have explicit mappings or retained
 context dispositions; retaining raw bytes alone does not close field alignment.
 
-| Existing registry field | Current source path | Native integration / candidate coverage |
+| Existing registry field | Current source path | Native model mapping / source coverage |
 | --- | --- | --- |
 | OpenAlexID | id | Existing mapping; 48/48 |
 | CitationCount_OpenAlex | cited_by_count | Existing mapping; zero distinct from missing; 48/48 |
 | OpenAccessStatus | open_access.oa_status | Existing Text target: preserve exact provider lowercase status; 48/48 |
 | OAUrl | open_access.oa_url | Existing mapping; 31/48 |
-| FunderNames | funders[].display_name; awards[].funder_display_name | Compatible local projection; 14/48 |
-| GrantIDs | awards[].funder_award_id | Compatible local projection; 5/48. Structured funder/award IDs and direction remain in raw relationships |
-| MeSHHeadings | mesh[].descriptor_name | Compatible local projection; all headings, 16/48 |
-| AuthorKeywords | keywords[].display_name | Compatible local projection; all keywords, 46/48 |
-| AffiliationsRaw | authorships[].raw_affiliation_strings; affiliations[].raw_affiliation_string | Compatible local projection; all reported raw strings, 45/48 |
+| FunderNames | funders[].display_name; awards[].funder_display_name | Verified native model projection; 14/48 |
+| GrantIDs | awards[].funder_award_id | Verified native model projection; 5/48. Structured funder/award IDs and direction remain in raw relationships |
+| MeSHHeadings | mesh[].descriptor_name | Verified native model projection; all headings, 16/48 |
+| AuthorKeywords | keywords[].display_name | Verified native model projection; all keywords, 46/48 |
+| AffiliationsRaw | authorships[].raw_affiliation_strings; affiliations[].raw_affiliation_string | Verified native model projection; all reported raw strings, 45/48 |
 
 The older mapper used removed `grants` and keyword `keyword`, and presentation
 caps silently restricted lists. `scripts/project_retained_openalex_fields.py`
 reads the accepted complete transport bytes, verifies fingerprint/identity,
 projects current fields without those caps, and labels every field with source,
 original observation UTC, raw response hash and candidate/missing disposition.
-Legacy field paths remain supported for historical responses. Native deployment
-of the five additional mappings remains coordinator-owned; no native model,
-flow, list schema or canonical rule was changed by this local alignment work.
+Legacy field paths remain supported for historical responses. The five additional mappings are now saved and processed in the existing model.
+Their registry writes remain coordinator-owned; no list schema, canonical rule,
+report binding or schedule was changed by this alignment.
 
 Other returned fields remain complete source context, not discarded data.
 Existing PubMed/DoRA precedence preserves canonical titles/authors/journal/dates
@@ -115,3 +115,30 @@ qualification and drift tests pass; five Python field/size checks pass. Parser
 and local checks do not establish native save, processing or physical field
 qualification. The other RIMS chat owns that qualification and lease allocation;
 no native object was changed by this preparation.
+
+## Native nine-field acceptance — 14 October 2026
+
+The physical fields were qualified through the existing SharePoint connection:
+four Note fields (63999-character physical policy) and GrantIDs Text (255). The
+model cell bound remains separate. After an explicit model-only lease and fresh
+exact baseline check, the four prepared parts saved successfully on the same
+isolated model. Native readback differs only by serializer blank lines in the
+new expression/provenance portions; every prior expression body and the other
+42 parts are unchanged. No new table/connection/provider request was introduced.
+
+The affected four-table transactional refresh completed. Native readback: 242
+raw chunks, 48 complete responses, 51 canonical context rows and 459 provenance
+rows. All nine candidate fields match the lossless projector and qualified size
+policy, and the actual parsed native diagnostic count is zero. Original Works,
+Context and provenance columns/values, all complete transport bytes/schema, exact
+raw observation UTC/hash and all 40,230 Publication values remain unchanged.
+The unrelated existing source-audit warning remains recorded.
+
+Transient status/result reads timed out; the same retained operation handles
+resolved without write resubmission or authentication changes. The model lease
+returned at terminal acceptance with native context/works/provenance exports.
+The other RIMS chat owns the existing writer's nine-field run/replay. Full
+1,281-DOI coverage and routine shared-archive acquisition are still open.
+
+Private acceptance: `2026-10-14-openalex-nine-field-native-acceptance-private.json`.
+Private model handback: `2026-10-14-openalex-nine-field-to-core-model-handback-private.json`.
