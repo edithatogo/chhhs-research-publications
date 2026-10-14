@@ -71,6 +71,34 @@ signature, avoiding a second site-wide file listing/connection. They are not the
 active compressed bootstrap tables and do not prove archive-writer integration.
 A prepared document is never an accepted commit manifest.
 
+The next archive slice is implemented locally by
+`scripts/prepare_openalex_archive_stage.py`: it pages the existing successful
+raw envelopes in the native bracketed wire format, fingerprints every page,
+preserves original observations, and supplies the existing reader's source
+specification. It emits no commit marker. On the frozen 1,341-row canonical input,
+the private package has 121 two-row pages/242 chunks for 48 accepted responses.
+Of 1,281 distinct valid DOIs, two have retained not-found outcomes and 1,231 remain
+in 25 request batches of at most 50. No provider request or native write occurred
+during this packaging. The exact stopped archive writer needs a separate handoff
+and native readback/commit-last integration; the core chat keeps the model,
+registry writer and shared checkpoint. The accepted native reader takes
+`(Files, SourceName)`; the older local reader file must not replace that native
+definition during integration. Three focused archive packaging checks passed.
+
+The persistence fragment reuses the exact OneDrive archive connector templates,
+serialises the page loop, writes only on an explicit 404, reads back every page,
+and rejects any byte conflict. Its generation-validation hook and commit-last
+dependency remain explicit integration requirements; it is not a deployable
+standalone flow and emits no marker. Fresh exact Flow API readback found the
+archive writer Started, with its existing required validated-manifest input and
+both connection references. Latest three runs are terminal; the accepted archive
+run remains Succeeded. Preserve this actual Started preimage on restoration.
+The earlier inputful CLI trigger ACL refusal is unchanged. The only qualified
+inputful invocation is the existing BrowserOS route, which needs a clean shared
+UI handoff. No input omission, connection conversion, invocation, native write,
+authentication change or provider request was made for this stage. The core chat
+will resolve that route after its current registry delivery.
+
 `fnMergeOpenAlexPublicationContext.m` and `scripts/merge_openalex_context.py`
 preserve null/newer observations and reject equal-time conflicts when complete
 per-field provenance exists. The current native registry writer deliberately uses
