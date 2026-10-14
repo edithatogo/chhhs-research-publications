@@ -143,6 +143,35 @@ prepared without native archive acceptance. Core keeps all native leases and
 must supply actual commit/readback acceptance before same-ID deployment,
 transactional four-table processing and raw/nine-field/canonical parity.
 
+### Native committed-source acceptance — 14 October 2026
+
+Core accepted the actual archive run: all 121 stored page byte lengths, SHA256
+and complete contents match the source packet, the final marker matches v4,
+and the original 51 source actions were skipped. Under the subsequent explicit
+isolated-model lease, the same-ID three-part reader update saved and read back.
+All 43 unaffected parts and the complete original expression prefix are exact;
+the service normalised blank lines only in the newly appended expressions.
+One transactional refresh of the four OpenAlex tables completed in one attempt.
+
+Native readbacks contain 242 chunks, 48 works, 51 canonical contexts and 459 field
+provenance rows. Every existing column/value in those four tables exactly matches
+the accepted nine-field baseline. All 1,341 Publication rows and all 40,230 scalar
+values exactly match the fresh preflight. Every successful raw response still
+reconstructs with its exact transport bytes, SHA256, byte count and recursive
+schema; original raw UTC and all nine mapped values/provenance remain exact.
+The active partitions now read committed history; inline bootstrap expressions
+are retained unused for rollback. No provider requests, flow changes, bound
+reports or enabled refresh schedule were introduced. The existing unrelated
+FreshPubMedIngestionAudit warning remains outside this change.
+
+The model lease is returned to core with no unsaved changes or in-flight handles.
+Private evidence in the original workspace:
+`private/ops/2026-10-14-openalex-committed-reader-native-acceptance-private.json`
+and `private/ops/2026-10-14-openalex-committed-reader-to-core-model-handback-private.json`.
+This closes durable delivery and committed-reader integration for the 48 cached
+responses. The remaining 1,231 DOI acquisitions, routine operation and production
+acceptance remain separate work; the two retained not-found outcomes are preserved.
+
 `fnMergeOpenAlexPublicationContext.m` and `scripts/merge_openalex_context.py`
 preserve null/newer observations and reject equal-time conflicts when complete
 per-field provenance exists. The current native registry writer deliberately uses
