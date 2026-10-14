@@ -99,6 +99,27 @@ UI handoff. No input omission, connection conversion, invocation, native write,
 authentication change or provider request was made for this stage. The core chat
 will resolve that route after its current registry delivery.
 
+The completed local candidate is built with `build_candidate` and the CLI's
+`--native-preimage`/`--accepted-generation` options. It adds one source-dispatch
+condition before the original entry; all 51 original actions are exact except
+that entry dependency, and trigger, stable identity, Started state and references
+are exact. Non-OpenAlex manifests continue through the original path. The new
+branch validates the exact required manifest and accepted generation counts,
+then compares every captured page with the current native model chunks before
+its absence/conflict/readback archive gate. After all 121 pages succeed, it reuses
+the original absent-only commit-marker and exact marker-readback logic. Successful
+OpenAlex delivery terminates before the original PubMed writer can run.
+
+Private final candidate, manifest, proof and exact-diff check are under
+`private/ops/2026-10-14-openalex-archive-candidate-v3` in the original workspace.
+Earlier v1/v2 preparations are superseded. Four focused checks pass; all action
+dependencies are within their scopes and action names are globally unique. The
+full local milestone ran 513 tests with the same two known failures and eight
+skips; 460 project checks pass. This proves local preparation only. Core retains
+the native archive/model/registry/checkpoint lease and must perform fresh drift
+readback, supported submission, inputful invocation, stored-byte acceptance and
+exact restoration. The CLI trigger ACL refusal and required UI handoff remain.
+
 `fnMergeOpenAlexPublicationContext.m` and `scripts/merge_openalex_context.py`
 preserve null/newer observations and reject equal-time conflicts when complete
 per-field provenance exists. The current native registry writer deliberately uses
