@@ -117,9 +117,10 @@ def main():
     def checkpoint():save(ledger,state)
     if args.action=='admit':
         receipt=read(path('archive-receipt'))
+        refresh_ids=[receipt[k] for k in ['producer_refresh_request_id','producer_refresh_id'] if k in receipt]
         if (current['phase']!='captured' or receipt.get('status')!='PASS' or receipt.get('native_commit_exact') is not True or
             receipt.get('raw_native_readback_verified') is not True or receipt.get('source_input_sha256')!=INPUT_SHA or
-            receipt.get('producer_refresh_request_id')!=current['refresh_request_id'] or
+            not refresh_ids or any(value!=current['refresh_request_id'] for value in refresh_ids) or
             not re.fullmatch(r'[0-9a-f]{64}',receipt.get('manifest_sha256','')) or
             sorted(receipt.get('committed_dois',[]))!=sorted(current['selected_dois'])):
             raise ValueError('Exact native raw archive admission receipt required; batch stays frozen')
