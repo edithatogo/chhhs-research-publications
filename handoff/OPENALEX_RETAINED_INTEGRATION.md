@@ -120,6 +120,29 @@ the native archive/model/registry/checkpoint lease and must perform fresh drift
 readback, supported submission, inputful invocation, stored-byte acceptance and
 exact restoration. The CLI trigger ACL refusal and required UI handoff remain.
 
+`scripts/build_openalex_archive_reader_model.py` now prepares the same 46-part
+model to consume the committed OpenAlex history after native archive acceptance.
+Its production CLI requires the exact accepted nine-field baseline SHA256 and
+validates the v4 manifest plus all 121 page fingerprints/242 chunks against the
+48 complete retained envelopes. It appends two expressions using the already
+qualified `fnReadCommittedHistory(Files, SourceName)` and `RetainedArchiveFiles`.
+The committed anchor must match the exact required manifest once; history retains
+all anchor keys and allows later accepted OpenAlex batches.
+
+Only the OpenAlexMetadataChunks and OpenAlexWorks partition sources change,
+along with append-only expressions: 43 model parts and the entire original
+948,545-byte expression prefix are exact. Chunk reconstruction encodes the
+original retained MetadataJSON text directly; it does not reserialise payloads.
+The same nine-field projector, limits, columns, context/provenance formulas,
+canonical Publication, prior sources and connections remain exact. Bootstrap
+expressions stay unused for rollback; the active partitions no longer depend on
+them. Two focused checks, both M parser checks and the exact real-source diff
+pass. The private candidate is under
+`private/ops/2026-10-14-openalex-committed-reader-candidate`; it is explicitly
+prepared without native archive acceptance. Core keeps all native leases and
+must supply actual commit/readback acceptance before same-ID deployment,
+transactional four-table processing and raw/nine-field/canonical parity.
+
 `fnMergeOpenAlexPublicationContext.m` and `scripts/merge_openalex_context.py`
 preserve null/newer observations and reject equal-time conflicts when complete
 per-field provenance exists. The current native registry writer deliberately uses
