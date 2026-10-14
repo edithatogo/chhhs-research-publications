@@ -142,7 +142,7 @@ def build_author_registry(
             record["NameVariants"] += "; " + display
         if status == "Confirmed" or record["IdentityStatus"] == "Unresolved":
             record["IdentityStatus"] = status
-            record["IdentityConfidence"] = "high" if status == "Confirmed" else record["IdentityConfidence"]
+            record["IdentityConfidence"] = {"Confirmed": "high", "Probable": "medium", "Unresolved": "low"}[status]
         record["Sources"].add(source)
         relation = {
             "AuthorKey": key,

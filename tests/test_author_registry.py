@@ -9,6 +9,17 @@ from author_registry import author_statistics, build_author_registry, normalise_
 
 
 class AuthorRegistryTests(unittest.TestCase):
+    def test_affiliation_confidence_does_not_depend_on_evidence_order(self):
+        rows = [
+            {"PMID": "123", "AuthorIndex": 1, "AuthorName": "Jane", "AffiliationIndex": 1},
+            {"PMID": "123", "AuthorIndex": 1, "AuthorName": "Jane", "AffiliationIndex": 2, "AffiliationText": "Cairns Hospital"},
+        ]
+        for ordered in (rows, list(reversed(rows))):
+            authors, evidence = build_author_registry(ordered)
+            self.assertEqual(len(evidence), 2)
+            self.assertEqual(authors[0]["IdentityStatus"], "Probable")
+            self.assertEqual(authors[0]["IdentityConfidence"], "medium")
+
     def test_dora_publication_attribution_is_not_individual_affiliation(self):
         attribution = "Publication associated with Cairns Hospital"
         authors, evidence = build_author_registry(dora_records=[
