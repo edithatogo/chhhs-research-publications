@@ -18,3 +18,12 @@ class Alignment(unittest.TestCase):
     def test_fingerprint_rejects_corrupt_transport(self):
         env=self.envelope();env['raw_response_sha256']='wrong'
         with self.assertRaises(ValueError):project(env)
+
+class PhysicalLimits(unittest.TestCase):
+    def test_oversized_candidate_never_trims_or_alters_full_source_evidence(self):
+        from project_retained_openalex_fields import apply_qualified_limits
+        original={'fields':{k:None for k in ['FunderNames','GrantIDs','MeSHHeadings','AuthorKeywords','AffiliationsRaw']},'provenance':[{'Field':'GrantIDs','CandidateValue':'0123456789','Decision':'compatible_candidate','RawResponseSHA256':'raw-link'}]}
+        original['fields']['GrantIDs']='0123456789'
+        limits={k:100 for k in original['fields']};limits['GrantIDs']=5
+        checked=apply_qualified_limits(original,limits)
+        self.assertIsNone(checked['fields']['GrantIDs']);self.assertEqual(checked['provenance'][0]['CandidateValue'],'0123456789');self.assertEqual(checked['provenance'][0]['Decision'],'projection_rejected_size');self.assertEqual(original['fields']['GrantIDs'],'0123456789')

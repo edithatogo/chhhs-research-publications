@@ -62,3 +62,21 @@ def project(envelope):
     return {'fields':fields,'provenance':provenance,
         'retained_only_top_level_fields':sorted(set(payload)-{p.split('.')[0].removesuffix('[]') for paths in PATHS.values() for p in paths}),
         'canonical_mutation':False,'native_acceptance':False}
+
+
+def apply_qualified_limits(projection,limits):
+    """Suppress an oversized flat candidate; preserve full raw-linked evidence."""
+    import copy
+    result=copy.deepcopy(projection);diagnostics=[]
+    names=['FunderNames','GrantIDs','MeSHHeadings','AuthorKeywords','AffiliationsRaw']
+    if set(limits)!=set(names) or any(type(v) is not int or v<1 for v in limits.values()):
+        raise ValueError('Five positive qualified physical limits required')
+    for name in names:
+        value=result['fields'][name];maximum=min(limits[name],32766)
+        if value is not None and len(value)>maximum:
+            result['fields'][name]=None
+            diagnostics.append({'Field':name,'Status':'projection_rejected_size','Characters':len(value),'Limit':maximum})
+            for proof in result['provenance']:
+                if proof['Field']==name:proof['Decision']='projection_rejected_size'
+    result['projection_diagnostics']=diagnostics
+    return result

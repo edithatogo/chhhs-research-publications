@@ -78,3 +78,40 @@ their source records are already present in retained DoRA and merged into the
 accepted canonical publications. Preserve those secondary registry
 representations; do not treat them as missing raw coverage or reharvest/delete
 them to make counts agree. Source-map evidence remains private and core-owned.
+
+## Prepared same-model native envelope
+
+The source-owned `fnProjectRetainedOpenAlexAligned.m` wraps the unchanged native
+validator. `build_openalex_alignment_model.py` refuses a deployable candidate
+until the physical destination schema is verified, fingerprinted and supplies
+positive limits for all five additional fields. The agreed input is the accepted
+46-part, 48-work model; no new table, connection, provider request or pipeline is
+created. Exactly four parts change:
+
+| Part | Additive change |
+| --- | --- |
+| expressions.tmdl | Append qualified limits and the wrapper; every existing expression body remains a byte-for-byte prefix |
+| tables/OpenAlexWorks.tmdl | Add five provider-specific fields plus exact raw UTC, response hash and projection diagnostics; preserve the six existing columns/values |
+| tables/OpenAlexPublicationContext.tmdl | Add their lookups and observation columns; preserve canonical membership and the existing four-field mappings |
+| tables/OpenAlexFieldProvenance.tmdl | Preserve the existing three branches; add WorkID and five field branches, plus raw UTC/hash/diagnostics |
+
+The remaining 42 parts, including model.tmdl and all Publication/source definitions,
+remain unchanged. Expected slice readback is 48 works, 51 existing canonical keys,
+and 459 field-provenance rows. Four existing OpenAlex tables are the affected
+processing scope; Publication and broader source harvesting remain excluded.
+These are prepared expectations, not native execution proof.
+
+If a candidate exceeds either the qualified physical field limit or the model's
+32,766-character cell bound, only that field candidate is suppressed and a
+`projection_rejected_size` diagnostic records its name, length and bound. Complete
+original text remains in raw evidence; the local reference also preserves it in
+raw-linked candidate provenance. No prefix truncation, empty-success substitution
+or clearing of existing registry values is allowed. Any diagnostic must remain
+visible to the coordinator and downstream exception path; a successful table
+refresh alone cannot claim complete field alignment when diagnostics are present.
+
+Microsoft's M parser accepts the wrapper. Three native-envelope preservation,
+qualification and drift tests pass; five Python field/size checks pass. Parser
+and local checks do not establish native save, processing or physical field
+qualification. The other RIMS chat owns that qualification and lease allocation;
+no native object was changed by this preparation.
