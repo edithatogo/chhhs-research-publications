@@ -16,7 +16,7 @@ context dispositions; retaining raw bytes alone does not close field alignment.
 | --- | --- | --- |
 | OpenAlexID | id | Existing mapping; 48/48 |
 | CitationCount_OpenAlex | cited_by_count | Existing mapping; zero distinct from missing; 48/48 |
-| OpenAccessStatus | open_access.oa_status | Existing mapping; 48/48 |
+| OpenAccessStatus | open_access.oa_status | Existing Text target: preserve exact provider lowercase status; 48/48 |
 | OAUrl | open_access.oa_url | Existing mapping; 31/48 |
 | FunderNames | funders[].display_name; awards[].funder_display_name | Compatible local projection; 14/48 |
 | GrantIDs | awards[].funder_award_id | Compatible local projection; 5/48. Structured funder/award IDs and direction remain in raw relationships |
@@ -63,3 +63,18 @@ Private local alignment receipt:
 Four focused alignment tests pass. Full coverage, additional native mappings and
 routine acquisition remain explicit delivery gaps; the downstream pipeline is
 reused rather than replaced.
+
+## Native status casing and existing representations
+
+The qualified OpenAccessStatus destination is Text. Preserve exact provider
+values such as `closed` and `gold`; do not apply the legacy local mapper's
+Titlecase conversion. Expected writes must bind the accepted native context,
+not older candidate-record presentation values. Existing nonblank registry
+values remain preserved under the missing-only policy. A later destination
+Choice/enum mapping would require its own explicit qualified translation.
+
+The core owner also reconciled the four legacy PMID-zero DoRA registry items:
+their source records are already present in retained DoRA and merged into the
+accepted canonical publications. Preserve those secondary registry
+representations; do not treat them as missing raw coverage or reharvest/delete
+them to make counts agree. Source-map evidence remains private and core-owned.
