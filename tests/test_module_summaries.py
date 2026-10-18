@@ -22,12 +22,14 @@ class ModuleSummaryDocumentationTests(unittest.TestCase):
             self.assertRegex(text, rf"## \d+\. {re.escape(heading)}")
 
         blocks = re.findall(r"```mermaid\n(.*?)\n```", text, flags=re.DOTALL)
-        self.assertEqual(len(blocks), len(expected))
+        self.assertIn("## Horizontal and vertical schema", text)
+        expected_diagrams = len(expected) + 1  # overview plus one per module
+        self.assertEqual(len(blocks), expected_diagrams)
         for block in blocks:
             self.assertRegex(block, r"(?m)^flowchart (LR|TD|RL|BT)\s*$")
             self.assertGreaterEqual(len(re.findall(r"(?m)^\s*\S+.*-->.*$", block)), 2)
 
-        self.assertEqual(text.count("\n```"), len(expected) * 2)
+        self.assertEqual(text.count("\n```"), expected_diagrams * 2)
 
 
 if __name__ == "__main__":
