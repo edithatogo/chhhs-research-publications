@@ -17,17 +17,24 @@ class ModuleSummaryDocumentationTests(unittest.TestCase):
             "RIMS dashboard and user experience",
             "Platform operations, versioning and CI/CD",
         ]
-        for heading in expected:
-            self.assertIn("## ", text)
-            self.assertRegex(text, rf"## \d+\. {re.escape(heading)}")
+        sections = re.split(r"(?m)^## ", text)[1:]
+        headings = [section.splitlines()[0] for section in sections]
+        self.assertEqual(
+            headings,
+            ["Horizontal and vertical schema — 13 October 2026"]
+            + [f"{index}. {name}" for index, name in enumerate(expected, 1)],
+        )
+        for index, section in enumerate(sections):
+            with self.subTest(section=headings[index]):
+                if index:
+                    self.assertRegex(section, r"(?m)^Requirements: ")
+                    self.assertRegex(section, r"(?m)^Design: ")
+                blocks = re.findall(r"```mermaid\n(.*?)\n```", section, flags=re.DOTALL)
+                self.assertEqual(len(blocks), 1)
+                self.assertEqual(section.count("\n```"), 2)
+                self.assertRegex(blocks[0], r"(?m)^flowchart (LR|TD|RL|BT)\s*$")
+                self.assertGreaterEqual(len(re.findall(r"(?m)^\s*\S+.*-->.*$", blocks[0])), 2)
 
-        blocks = re.findall(r"```mermaid\n(.*?)\n```", text, flags=re.DOTALL)
-        self.assertEqual(len(blocks), len(expected))
-        for block in blocks:
-            self.assertRegex(block, r"(?m)^flowchart (LR|TD|RL|BT)\s*$")
-            self.assertGreaterEqual(len(re.findall(r"(?m)^\s*\S+.*-->.*$", block)), 2)
-
-        self.assertEqual(text.count("\n```"), len(expected) * 2)
 
 
 if __name__ == "__main__":
