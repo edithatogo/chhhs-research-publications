@@ -7,6 +7,14 @@ from pathlib import Path
 
 from scripts.check_grants_field_parity import compare
 
+ROOT = Path(__file__).resolve().parents[1]
+PRIVATE_OPS_ROOT = ROOT / "private" / "ops"
+
+@unittest.skipUnless(
+    PRIVATE_OPS_ROOT.exists(),
+    "private/ops directory not present; skipping grants field parity CLI tests"
+)
+
 
 def native_receipt(fields):
     return {"complete": True, "list_id_matches_prior": True,

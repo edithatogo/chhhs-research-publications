@@ -10,7 +10,13 @@ from scripts.build_grants_flow_package import DEFAULT_DEFINITION, build_package
 
 SOURCE_DEFINITION_SHA256 = hashlib.sha256(DEFAULT_DEFINITION.read_bytes()).hexdigest()
 
+ROOT = Path(__file__).resolve().parents[1]
+PRIVATE_OPS_ROOT = ROOT / "private" / "ops"
 
+@unittest.skipUnless(
+    PRIVATE_OPS_ROOT.exists(),
+    "private/ops directory not present; skipping grants flow package tests"
+)
 class GrantsFlowPackageTests(unittest.TestCase):
     def test_private_package_injects_target_without_placeholders(self):
         private_root = Path(__file__).parents[1] / "private"

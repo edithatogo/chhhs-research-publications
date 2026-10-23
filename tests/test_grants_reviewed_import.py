@@ -10,6 +10,11 @@ from scripts.grants_reviewed_import import (
     PRIVATE_OPS_ROOT, import_reviewed_rows, main, reconcile_reviewed_batches,
 )
 
+@unittest.skipUnless(
+    PRIVATE_OPS_ROOT.exists(),
+    "private/ops directory not present; skipping grants reviewed import tests"
+)
+
 
 class ReviewedImportTests(unittest.TestCase):
     def _import(self, rows, **kwargs):
