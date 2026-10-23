@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "e09-feed-storage.schema.json",
+  "title": "E09 collaborative-research-feed additive storage (local contract)",
+  "description": "Draft-2020-12 contract for the three additive E09 Phase 1 record types. Canonical public keys bind to existing registry SourceKey identities (source:SourceID); thread ids derive exactly; records stay non-authoritative until a native curator decision record exists; sends stay behind explicit delivery authority. This schema mirrors scripts/e09_feed_contracts.py field-for-field; unknown or missing fields fail closed in runtime validation.",
+  "$defs": {
+    "contribution_record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contribution_id",
+        "publication_key",
+        "thread_id",
+        "submitted_on",
+        "contributor_id_kind",
+        "contributor_urn",
+        "identity_verification_ref",
+        "evidence",
+        "evidence_urls",
+        "suggested_keywords",
+        "status",
+        "source_revision",
+        "submitted_at_project_revision",
+        "curator_decision_on",
+        "curated_record_reference",
+        "authoritative"
+      ],
+      "properties": {
+        "contribution_id": {"type": "string", "minLength": 1},
+        "publication_key": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]{1,31}:[^|\\s][^|]*$"},
+        "thread_id": {"type": "string", "minLength": 1, "pattern": "^thread:[a-z0-9][a-z0-9-]{1,31}:[^|\\s][^|]*$"},
+        "submitted_on": {"type": "string", "format": "date"},
+        "contributor_id_kind": {"enum": ["anonymous", "declared", "authenticated"]},
+        "contributor_urn": {"type": ["string", "null"], "minLength": 1},
+        "identity_verification_ref": {"type": ["string", "null"], "minLength": 1},
+        "evidence": {"type": "string", "minLength": 1},
+        "evidence_urls": {"type": "array", "items": {"type": "string", "pattern": "^https://\\S+$"}},
+        "suggested_keywords": {"type": "array", "items": {"type": "string", "minLength": 1, "pattern": "^[^|\\s].*$"}},
+        "status": {"enum": ["submitted", "curator_accepted", "curator_amended", "curator_rejected", "unresolved"]},
+        "source_revision": {"type": "integer", "minimum": 1},
+        "submitted_at_project_revision": {"type": "integer", "minimum": 1},
+        "curator_decision_on": {"type": ["string", "null"], "format": "date"},
+        "curated_record_reference": {"type": ["string", "null"], "minLength": 1},
+        "authoritative": {"const": false}
+      }
+    },
+    "subscription_preference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "subscription_id",
+        "subscriber_urn",
+        "cadence",
+        "status",
+        "enrolled_on",
+        "revised_on",
+        "revision",
+        "contact_route",
+        "delivery_authority_active",
+        "delivery_authority_reference"
+      ],
+      "properties": {
+        "subscription_id": {"type": "string", "minLength": 1},
+        "subscriber_urn": {"type": "string", "minLength": 1, "pattern": "^\\S+$"},
+        "cadence": {"enum": ["weekly", "daily", "off"]},
+        "status": {"enum": ["active", "paused", "withdrawn"]},
+        "enrolled_on": {"type": "string", "format": "date"},
+        "revised_on": {"type": "string", "format": "date"},
+        "revision": {"type": "integer", "minimum": 1},
+        "contact_route": {"enum": ["authorised_list", "existing_digest_components"]},
+        "delivery_authority_active": {"type": "boolean"},
+        "delivery_authority_reference": {"type": ["string", "null"], "minLength": 1}
+      }
+    },
+    "delivery_receipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "receipt_id",
+        "publication_key",
+        "thread_id",
+        "trigger",
+        "intended_outcome",
+        "outcome",
+        "discovered_on",
+        "recorded_at",
+        "delivery_authority_reference",
+        "suppression_reason",
+        "post_reference",
+        "reconciliation_required",
+        "revision"
+      ],
+      "properties": {
+        "receipt_id": {"type": "string", "minLength": 1},
+        "publication_key": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]{1,31}:[^|\\s][^|]*$"},
+        "thread_id": {"type": "string", "minLength": 1, "pattern": "^thread:[a-z0-9][a-z0-9-]{1,31}:[^|\\s][^|]*$"},
+        "trigger": {"enum": ["first_discovery", "baseline", "catch_up", "revision_update"]},
+        "intended_outcome": {"enum": ["team_post", "email_edition", "no_send"]},
+        "outcome": {"enum": ["recorded_only", "suppressed_policy", "sent", "failed_uncertain"]},
+        "discovered_on": {"type": "string", "format": "date"},
+        "recorded_at": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}T(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|[+-](?:[01]\\d|2[0-3]):[0-5]\\d)$"},
+        "delivery_authority_reference": {"type": ["string", "null"], "minLength": 1},
+        "suppression_reason": {"type": ["string", "null"], "minLength": 1},
+        "post_reference": {"type": ["string", "null"], "minLength": 1},
+        "reconciliation_required": {"type": "boolean"},
+        "revision": {"type": "integer", "minimum": 1}
+      }
+    }
+  },
+  "oneOf": [
+    {"$ref": "#/$defs/contribution_record"},
+    {"$ref": "#/$defs/subscription_preference"},
+    {"$ref": "#/$defs/delivery_receipt"}
+  ]
+}
