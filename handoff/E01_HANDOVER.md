@@ -6,6 +6,11 @@ new native state, operational adoption, production cutover or authority to send.
 
 ## Accepted capabilities
 
+Fresh native setup inventory and the reduced-run delivery approach are in
+[source schedules/state](../docs/SOURCE_FLOW_NATIVE_SETUP_20261024.md) and
+[accelerated delivery](../conductor/tracks/E01_flow_automation/accelerated-delivery-20261024.md).
+These are definition/state evidence; they do not assert new runtime acceptance.
+
 | Area | Accepted evidence | Last accepted restored state |
 | --- | --- | --- |
 | DataCite | Genuine completed-query prefix automatically reused without recollection; second query completed under frozen provenance; chained archive guards passed; original checkpoint identity/ETag/all260707bytes unchanged | 63actions, Thursday05:00 Brisbane, concurrency1, original binding, Started |

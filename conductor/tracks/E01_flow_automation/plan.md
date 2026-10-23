@@ -1,5 +1,9 @@
 # Implementation Plan: E01 Power Automate Ingestion Canonicalization and Recurrence Scheduling
 
+Current efficiency direction: [accelerated delivery, 24 October](accelerated-delivery-20261024.md).
+Reuse accepted bootstraps and native objects; apply only missing diffs through
+qualified PAC/FlowAgent routes and avoid repeated unchanged tests/provider runs.
+
 ## Execution choice and fallback — planning amendment, 23 October 2026
 
 **E01 default:** FlowAgent bounded diagnostics → existing Flow API same-ID writer; PAC only for qualified ALM.
