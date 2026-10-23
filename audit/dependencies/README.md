@@ -1,5 +1,17 @@
 # Python3.15 dependency qualification
 
+## Explicit repository CI environments — 24 October 2026
+
+Quality and compatibility jobs create fresh `.venv-ci`, `.venv-tool-canary` or
+`.venv-runtime-canary` environments through `scripts/create_ci_python_env.sh`.
+The bootstrap comes from the pinned setup action's absolute `python-path` output;
+actual version is checked before creation, and version plus environment prefix
+are checked afterwards. Domain commands select the repository interpreter
+explicitly. Hash-locked dependencies are installed into that environment rather
+than the runner system. Tool-candidate behavior runs under the candidate's own
+dependencies. Setup failures retain terminal receipts without PATH Python or an
+older fallback. These CI changes do not activate the shared Fabric MCP candidate.
+
 ## Shared security caller — 24 October 2026
 
 The source-security caller now selects the qualified main merge
