@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+# Invoke with the explicitly selected repository-local Python3.15.1.
 """Retry sync for any items in SharePoint seed that had transient errors."""
 
 from __future__ import annotations

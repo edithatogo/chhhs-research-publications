@@ -4,7 +4,7 @@ Generates an executive-ready clinical governance and research report for a speci
 month (or the most recently completed calendar month) from the Publication Registry.
 
 Usage:
-  python3 scripts/export_monthly_docx.py [--month YYYY-MM] [--output PATH] [--status STATUS]
+  .venv/bin/python scripts/export_monthly_docx.py [--month YYYY-MM] [--output PATH] [--status STATUS]
 """
 import argparse
 import csv

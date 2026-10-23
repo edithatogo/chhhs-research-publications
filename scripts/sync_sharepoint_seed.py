@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+# Invoke with the explicitly selected repository-local Python3.15.1.
 """Sync enriched publication registry seed CSV to SharePoint list via Playwright-CLI.
 
 Updates all 1,265 items in-place with:
