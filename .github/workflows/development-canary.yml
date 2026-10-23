@@ -176,7 +176,26 @@ jobs:
           [[ "$runtime_manifest_revision" =~ ^[a-f0-9]{40}$ ]]
           curl --fail --silent --show-error --location "https://raw.githubusercontent.com/actions/python-versions/$runtime_manifest_revision/versions-manifest.json" -o .local/runtime-canary/manifest.json
           runtime_platform="$(.venv-ci/bin/python -c 'import platform; print(platform.freedesktop_os_release()["VERSION_ID"])')"
-          .venv-ci/bin/python .careops-ci-tools/portfolio-scripts/ci_delivery.py runtime --platform-version "$runtime_platform" --manifest .local/runtime-canary/manifest.json --manifest-revision "$runtime_manifest_revision" --output .local/runtime-canary/discovery.json --github-output "$GITHUB_OUTPUT"
+          .venv-ci/bin/python - "$runtime_manifest_revision" "$runtime_platform" "$GITHUB_OUTPUT" <<'PYCODE'
+          import hashlib, importlib.util, json, re, sys
+          from pathlib import Path
+          assert sys.version_info[:3] == (3, 15, 1)
+          revision, platform_version, github_output = sys.argv[1:]
+          assert re.fullmatch(r'[a-f0-9]{40}', revision)
+          baseline = Path('.python-version').read_text().strip()
+          assert baseline == '3.15.1'
+          spec = importlib.util.spec_from_file_location('qualified_discovery', '.careops-ci-tools/portfolio-scripts/ci_delivery.py')
+          helper = importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(helper)
+          raw = Path('.local/runtime-canary/manifest.json').read_bytes()
+          releases = [release for release in json.loads(raw) if str(release.get('version', '')).startswith('3.15.')]
+          result = helper.select_python_preview(releases, baseline=baseline, platform_version=platform_version)
+          result.update(manifestRevision=revision, manifestSha256=hashlib.sha256(raw).hexdigest(), selectedSeries='3.15')
+          Path('.local/runtime-canary/discovery.json').write_text(json.dumps(result, indent=2) + '\n')
+          with Path(github_output).open('a') as handle:
+              handle.write('available=' + ('true' if result['candidate'] else 'false') + '\n')
+              handle.write('version=' + (result['candidate'] or '') + '\n')
+          PYCODE
       - name: Set up only the exact available preview
         id: candidate_python
         if: steps.discover.outputs.available == 'true' && startsWith(steps.discover.outputs.version, '3.15.')

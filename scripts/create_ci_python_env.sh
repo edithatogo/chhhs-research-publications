@@ -9,6 +9,11 @@ ci_python=$1
 ci_env=$2
 ci_version=$3
 [[ "$ci_python" == /* ]] || { printf 'Absolute bootstrap interpreter required\n' >&2; exit 2; }
+# The immutable actions manifest uses 3.15.x-alpha.N/beta.N/rc.N, while the
+# interpreter reports PEP440 spelling. Compare equivalent exact versions.
+ci_version=${ci_version/-alpha./a}
+ci_version=${ci_version/-beta./b}
+ci_version=${ci_version/-rc./rc}
 [[ "$ci_version" =~ ^3\.15\.[0-9]+((a|b|rc)[0-9]+)?$ ]] || { printf 'Exact Python3.15 candidate required\n' >&2; exit 2; }
 ci_root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd -P)
 "$ci_python" -I - "$ci_root" "$ci_env" "$ci_version" <<'PY'
