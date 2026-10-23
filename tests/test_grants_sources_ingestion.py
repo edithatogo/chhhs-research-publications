@@ -1,9 +1,6 @@
 import unittest
 from pathlib import Path
 
-from scripts.grants_ingestion import MAX_XML_BYTES, ingest_batches, parse_feed
-from scripts.grants_sources import load_catalogue
-
 ROOT = Path(__file__).resolve().parents[1]
 PRIVATE_OPS_ROOT = ROOT / "private" / "ops"
 REQUIRED_EVIDENCE_FILES = [
@@ -13,11 +10,11 @@ REQUIRED_EVIDENCE_FILES = [
     "2026-10-23-g02-qgip-official-resource-recheck/full-snapshot.json",
     "2026-10-23-g02-qgip-official-resource-recheck/snapshot-comparison.json",
 ]
+if not all((PRIVATE_OPS_ROOT / f).exists() for f in REQUIRED_EVIDENCE_FILES):
+    raise unittest.SkipTest("private/ops evidence files not present; skipping grants sources ingestion tests")
 
-@unittest.skipUnless(
-    all((PRIVATE_OPS_ROOT / f).exists() for f in REQUIRED_EVIDENCE_FILES),
-    "private/ops evidence files not present; skipping grants sources ingestion tests"
-)
+from scripts.grants_ingestion import MAX_XML_BYTES, ingest_batches, parse_feed
+from scripts.grants_sources import load_catalogue
 
 QUALIFICATION = {
     "observed_at": "2026-10-23T10:00:00+10:00",

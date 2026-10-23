@@ -7,6 +7,18 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 from unittest.mock import Mock, patch
 
+ROOT = Path(__file__).resolve().parents[1]
+PRIVATE_OPS_ROOT = ROOT / "private" / "ops"
+REQUIRED_EVIDENCE_FILES = [
+    "2026-09-28-arc-awards-two-pass-keyset-snapshot-private.json",
+    "2026-09-28-grants-finder-contribution-api-reconciliation-private.json",
+    "2026-10-07-g02-arc-two-date-row-reconciliation-private.json",
+    "2026-10-23-g02-qgip-official-resource-recheck/full-snapshot.json",
+    "2026-10-23-g02-qgip-official-resource-recheck/snapshot-comparison.json",
+]
+if not all((PRIVATE_OPS_ROOT / f).exists() for f in REQUIRED_EVIDENCE_FILES):
+    raise unittest.SkipTest("private/ops evidence files not present; skipping grants arc api tests")
+
 from scripts.grants_arc_api import (
     ARCAPIHTTPError, ARCPageValidationError, ARCSnapshotFetchError, parse_award_page,
     fetch_award_page, fetch_award_snapshot,

@@ -9,6 +9,18 @@ from contextlib import redirect_stdout
 from unittest.mock import Mock
 from urllib.parse import parse_qs, urlparse
 
+ROOT = Path(__file__).resolve().parents[1]
+PRIVATE_OPS_ROOT = ROOT / "private" / "ops"
+REQUIRED_EVIDENCE_FILES = [
+    "2026-09-28-arc-awards-two-pass-keyset-snapshot-private.json",
+    "2026-09-28-grants-finder-contribution-api-reconciliation-private.json",
+    "2026-10-07-g02-arc-two-date-row-reconciliation-private.json",
+    "2026-10-23-g02-qgip-official-resource-recheck/full-snapshot.json",
+    "2026-10-23-g02-qgip-official-resource-recheck/snapshot-comparison.json",
+]
+if not all((PRIVATE_OPS_ROOT / f).exists() for f in REQUIRED_EVIDENCE_FILES):
+    raise unittest.SkipTest("private/ops evidence files not present; skipping grants qld qgip api tests")
+
 from scripts.grants_qld_qgip_api import (
     API_BASE, INDEX_RESOURCE_ID, PACKAGE_ID, PACKAGE_NAME, RESOURCE_ID, PAGE_SIZE,
     MAX_RESPONSE_BYTES, _get_json, build_review_queue, fetch_review_queue,
