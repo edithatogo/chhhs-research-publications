@@ -1,4 +1,3 @@
-import pytest
 import unittest
 from pathlib import Path
 
@@ -19,7 +18,6 @@ import copy
 import hashlib
 import json
 
-import pytest
 import unittest
 
 from scripts.build_grants_runtime_cases import build_cases

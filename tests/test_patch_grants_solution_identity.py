@@ -1,4 +1,3 @@
-import pytest
 import unittest
 from pathlib import Path
 
@@ -17,7 +16,6 @@ if not all((PRIVATE_OPS_ROOT / f).exists() for f in REQUIRED_EVIDENCE_FILES):
 
 import copy
 import json
-import pytest
 import unittest
 from scripts.patch_grants_solution_identity import CONTRACT, COUNT, patch_definition
 

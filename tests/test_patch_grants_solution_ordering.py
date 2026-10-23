@@ -1,4 +1,3 @@
-import pytest
 import unittest
 from pathlib import Path
 
@@ -19,7 +18,6 @@ import copy
 import json
 from datetime import datetime
 
-import pytest
 import unittest
 
 from scripts.patch_grants_solution_identity import CONTRACT
