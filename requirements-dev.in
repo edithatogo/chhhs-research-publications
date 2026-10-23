@@ -1,0 +1,11 @@
+# Local preparation/quality tools only; deployed runtime stays on Microsoft.
+pytest
+python-docx
+lxml
+openpyxl
+pip
+certifi
+ruff
+pip-audit
+zizmor
+uv

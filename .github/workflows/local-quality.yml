@@ -28,7 +28,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
-          python-version: '3.15.0'
+          python-version: '3.15.1'
 
       - name: Run unit tests
         run: python -m unittest discover -s tests -v
@@ -54,8 +54,8 @@ jobs:
           python scripts/validate_grants_flow_contract.py
           python scripts/validate_dora_activity_flow_contract.py
 
-  minimum-python:
-    name: Minimum Python compatibility
+  locked-dependencies:
+    name: Python3.15.1 locked artifact dependencies
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
@@ -63,9 +63,19 @@ jobs:
         with:
           persist-credentials: false
           submodules: recursive
-      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
-          python-version: '3.11'
+          python-version: '3.15.1'
+      - uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
+        with:
+          version: '0.13.5'
+          enable-cache: false
+      - name: Install exact hash-locked development dependencies
+        run: uv pip sync --system --require-hashes -r requirements-dev.txt
+      - name: Verify installed dependency metadata and artifact libraries
+        run: |
+          python -m pip check
+          python -c "import sys, certifi, docx, lxml.etree, openpyxl; assert sys.version_info[:3] == (3, 15, 1)"
       - run: python -m unittest discover -s tests -v
       - run: python scripts/validate_project.py
       - run: python scripts/webfirst_contracts.py validate

@@ -1,0 +1,89 @@
+{
+  "date": "2026-10-23",
+  "python": "3.15.1",
+  "isolation": "Separate uv-managed interpreter and worktree .venv; no live interpreter/profile replacement",
+  "resolver": "uv0.13.5 --prerelease allow --upgrade --universal --generate-hashes",
+  "installed_packages": {
+    "filelock": "4.2.4",
+    "ruff": "0.17.2",
+    "license-expression": "30.4.4",
+    "zizmor": "1.32.0rc1",
+    "packaging": "26.3",
+    "pip_api": "0.0.35",
+    "Pygments": "2.21.0",
+    "requests": "2.34.2",
+    "defusedxml": "0.7.1",
+    "boolean.py": "5.0",
+    "rich": "15.0.0",
+    "openpyxl": "3.1.5",
+    "et_xmlfile": "2.0.0",
+    "iniconfig": "2.3.1",
+    "CacheControl": "0.14.4",
+    "tomli_w": "1.2.0",
+    "pluggy": "1.7.0",
+    "lxml": "7.0.0b1",
+    "msgpack": "1.2.3",
+    "pytest": "9.1.1",
+    "urllib3": "2.8.0",
+    "mdurl": "0.1.2",
+    "sortedcontainers": "2.4.0",
+    "py-serializable": "2.1.0",
+    "uv": "0.13.5",
+    "pip": "26.2.2",
+    "markdown-it-py": "4.2.0",
+    "tomli": "2.5.0",
+    "python-docx": "1.2.0",
+    "certifi": "2026.10.19",
+    "typing_extensions": "4.16.0",
+    "packageurl-python": "0.17.6",
+    "charset-normalizer": "3.5.2",
+    "cyclonedx-python-lib": "11.12.0",
+    "pip-requirements-parser": "32.0.1",
+    "pyparsing": "3.3.3",
+    "pip_audit": "2.10.1",
+    "platformdirs": "4.13.5",
+    "idna": "3.20"
+  },
+  "qualification": {
+    "unittest": {
+      "ran": 619,
+      "skipped": 12,
+      "failures": 0
+    },
+    "project_contract_checks": 460,
+    "full_agent_harness": "PASS_LOCAL_ONLY",
+    "pip_check": "PASS",
+    "uv_pip_check": "PASS",
+    "pip_audit": "No known vulnerabilities found",
+    "ruff": "PASS E9,F63,F7,F82",
+    "zizmor": "PASS offline pedantic",
+    "artifact_roundtrips": "DOCX and XLSX in-memory write/read pass"
+  },
+  "lock_sha256": {
+    "requirements-dev.txt": "106fff130cf99bef0630d0365dd94afc3224fdea196ac94c0303a3968841e92d",
+    "requirements-source-ingestion.txt": "1999cbcbb75e766d553f503791bf79641ce9636e98d0c303c0857752e6d60ac1"
+  },
+  "action_pins": {
+    "setup_python": "6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 v7.1.0",
+    "setup_uv": "07a047e608db84b3d8c06cd9a7c7dcc9c355c18e v10.3.2",
+    "checkout": "3d3c42e5aac5ba805825da76410c181273ba90b1 v7.0.1",
+    "upload_artifact": "cf430e030ddbb5b0abf93d22962f4752f3646cd9 v7.0.2"
+  },
+  "node_tooling": {
+    "repository_package_manifest": null,
+    "installed_node": "26.12.1",
+    "latest_official_node": "26.12.1",
+    "installed_global_npm": "11.20.0",
+    "latest_npm_isolated_candidate": "12.2.1",
+    "global_npm_modified": false,
+    "scope": "No repo Node package graph or npm CI/runtime; native browser helpers retain existing qualified tool host. Candidate npm qualified in private cache; global shared tooling untouched."
+  },
+  "native_effects": false,
+  "email_or_other_messages_sent": false,
+  "limitations": [
+    "This qualifies clean canonical source, not unrelated dirty working-tree edits or native Power Automate paths.",
+    "The stable runner and dependency tool runner target3.15.1; runtime discovery may intentionally exercise a newer prerelease without promotion.",
+    "Reusable source-security policy is separately versioned and owned; no claim that its private internals changed here.",
+    "Platform-specific wheels remain subject to exact-head hosted CI; no clean CI or main promotion claimed by this local receipt."
+  ]
+}

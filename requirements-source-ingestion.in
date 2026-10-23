@@ -1,0 +1,2 @@
+# Local parsing of retained workbook artifacts; no acquisition/runtime migration.
+openpyxl
