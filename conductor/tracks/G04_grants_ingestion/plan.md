@@ -14,7 +14,7 @@ scoped explorer, worker or independent review must retain disjoint ownership;
 no delegation, installation or native effect is performed by this amendment.
 Record preparation → saved readback → runtime → web acceptance separately in
 existing receipts, with same-ID preimage, drift guard and scoped recovery.
-Use the [shared capability guide](../../cli-implementation-routes-20261022.md)
+Use the [shared capability guide](#cli-implementation-routes)
 for conditional hosted MCP/Fabric IQ/ALM choices and current tool inventory.
 Existing task markers, accepted evidence and ownership remain authoritative.
 
@@ -28,7 +28,7 @@ Existing task markers, accepted evidence and ownership remain authoritative.
 
 At execution, record the installed help/exposed schema and exact supported
 operation in the existing private receipt before selecting a writer. The
-[shared tool and evidence contract](../../cli-implementation-routes-20261022.md#tool-selection-and-evidence-record--23-october-2026)
+[shared tool and evidence contract](#cli-implementation-routes#tool-selection-and-evidence-record--23-october-2026)
 applies: available does not mean connected or target-qualified. Primary-agent
 execution is the default; optional local delegation needs explicit scope and
 existing authority. This is a plan amendment only; no implementation or status
@@ -44,7 +44,7 @@ This is a later execution instruction, not an implementation performed here.
 **Selected path:** Dynamic original workbook archive → native Excel processing copy → SharePoint/register/model; full keys and replay.
 
 **Dispatch:** Read this plan's track-specific CLI refinement and the
-[capability selection contract](../../cli-implementation-routes-20261022.md#tool-selection-and-evidence-record--23-october-2026).
+[capability selection contract](#cli-implementation-routes#tool-selection-and-evidence-record--23-october-2026).
 Resolve exact private bindings and the current native owner before preparing the
 smallest change. Use CLI help/MCP schemas to bind the operation; do not turn a
 logical sequence into a guessed command or endpoint. Record tool/version/pin,
@@ -82,7 +82,7 @@ route; it does not authorise implementation in this planning turn.
 
 **Execution exit and cross-track handoff:** Consume admitted G02/G05 inputs and accepted G03 fields. Prove complete original retention, shape discovery, typed import, exact full-key reconciliation and unchanged replay on Microsoft runtime. Keep last-good records and processing-copy provenance when an unfamiliar workbook fails.
 
-**Workflow and agents:** Follow the [current capability guide](../../cli-implementation-routes-20261022.md#planning-refresh--23-october-2026).
+**Workflow and agents:** Follow the [current capability guide](#cli-implementation-routes#planning-refresh--23-october-2026).
 The primary agent owns semantics and native effects. A narrowly scoped explorer,
 disjoint local worker or independent reviewer is optional only when delegation
 is authorised and useful; specify exact files and never add a second native writer.
@@ -97,7 +97,7 @@ tooling uses the established supported route or a precise documented deferral.
 **Planning only; implementation remains under the existing task statuses.**
 This section takes precedence over conflicting historical tool/route wording;
 accepted increments and current implementation receipts remain authoritative.
-Follow the [shared capability, workflow and preview contract](../../cli-implementation-routes-20261022.md).
+Follow the [shared capability, workflow and preview contract](#cli-implementation-routes).
 
 **Owner / agents:** Existing grants collector/import owners; consume G02 admission and G03 schema. A disjoint local explorer/worker may prepare
 source and a separate reviewer may inspect it; no second native writer.
@@ -114,7 +114,7 @@ source and a separate reviewer may inspect it; no second native writer.
 (or `resume` for an existing operation), then read the selected skill and installed
 CLI help. Resolve targets from existing private S02 manifests. Obtain exact M365
 syntax through `m365_search_commands` → `m365_get_command_docs`; inspect exposed
-FlowAgent/Fabric schemas rather than inventing calls. The [shared capability guide](../../cli-implementation-routes-20261022.md)
+FlowAgent/Fabric schemas rather than inventing calls. The [shared capability guide](#cli-implementation-routes)
 records available versus conditional tools and the common gated command sequence.
 These are instructions for a later implementation run, not commands executed here.
 
@@ -133,7 +133,7 @@ send, schedule, sharing or task completion is performed by this planning update.
 
 Existing raw workbook archive and supported native Excel/cloud-flow processing. Local scripts prepare definitions and reconciliation only; they are not the deployed ingestion runtime.
 
-Use the [capability qualification and agent rules](../../cli-implementation-routes-20261022.md#execution-time-capability-qualification) before selecting a newer transport. Record the exact tool/version, operation schema, target scope, prepared input revision, owner and rollback in the existing private receipt. An unavailable optional tool does not block the established supported route. No additional installation or native action is part of this planning update.
+Use the [capability qualification and agent rules](#cli-implementation-routes#execution-time-capability-qualification) before selecting a newer transport. Record the exact tool/version, operation schema, target scope, prepared input revision, owner and rollback in the existing private receipt. An unavailable optional tool does not block the established supported route. No additional installation or native action is part of this planning update.
 
 <!-- execution-route-end -->
 
@@ -146,7 +146,7 @@ Use the [capability qualification and agent rules](../../cli-implementation-rout
 **Acceptance / limits:** Local workbook parsing is an oracle, not hosted ingestion. No replacement runtime or recurrence activation; natural observations move to E08.
 
 
-Current source expansion follows the [CLI-only delivery queue](../../post-mvp-sequence.md#cli-only-source-delivery-queue--18-october-2026). Reuse existing components; no browser/headless/manual-upload fallback. Deliver one source end to end and skip conditional blockers. This overrides conflicting historical route/order wording below.
+Current source expansion follows the [CLI-only delivery queue](#post-mvp-sequence#cli-only-source-delivery-queue--18-october-2026). Reuse existing components; no browser/headless/manual-upload fallback. Deliver one source end to end and skip conditional blockers. This overrides conflicting historical route/order wording below.
 
 ## Selected funding source increment complete — 18 October 2026
 

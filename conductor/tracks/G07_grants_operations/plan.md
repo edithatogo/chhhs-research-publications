@@ -14,7 +14,7 @@ scoped explorer, worker or independent review must retain disjoint ownership;
 no delegation, installation or native effect is performed by this amendment.
 Record preparation → saved readback → runtime → web acceptance separately in
 existing receipts, with same-ID preimage, drift guard and scoped recovery.
-Use the [shared capability guide](../../cli-implementation-routes-20261022.md)
+Use the [shared capability guide](#cli-implementation-routes)
 for conditional hosted MCP/Fabric IQ/ALM choices and current tool inventory.
 Existing task markers, accepted evidence and ownership remain authoritative.
 
@@ -28,7 +28,7 @@ Existing task markers, accepted evidence and ownership remain authoritative.
 
 At execution, record the installed help/exposed schema and exact supported
 operation in the existing private receipt before selecting a writer. The
-[shared tool and evidence contract](../../cli-implementation-routes-20261022.md#tool-selection-and-evidence-record--23-october-2026)
+[shared tool and evidence contract](#cli-implementation-routes#tool-selection-and-evidence-record--23-october-2026)
 applies: available does not mean connected or target-qualified. Primary-agent
 execution is the default; optional local delegation needs explicit scope and
 existing authority. This is a plan amendment only; no implementation or status
@@ -44,7 +44,7 @@ This is a later execution instruction, not an implementation performed here.
 **Selected path:** Native run/action + list/model reconciliation and scoped recovery; existing monitoring, later occurrences in E08.
 
 **Dispatch:** Read this plan's track-specific CLI refinement and the
-[capability selection contract](../../cli-implementation-routes-20261022.md#tool-selection-and-evidence-record--23-october-2026).
+[capability selection contract](#cli-implementation-routes#tool-selection-and-evidence-record--23-october-2026).
 Resolve exact private bindings and the current native owner before preparing the
 smallest change. Use CLI help/MCP schemas to bind the operation; do not turn a
 logical sequence into a guessed command or endpoint. Record tool/version/pin,
@@ -82,7 +82,7 @@ route; it does not authorise implementation in this planning turn.
 
 **Execution exit and cross-track handoff:** Reuse settled G02–G06 evidence and reconcile the current integration run before replay. Close the selected technical path only with durable register/model/output parity and scoped deployed recovery. Put later operating-window observations in E08 without reopening accepted setup.
 
-**Workflow and agents:** Follow the [current capability guide](../../cli-implementation-routes-20261022.md#planning-refresh--23-october-2026).
+**Workflow and agents:** Follow the [current capability guide](#cli-implementation-routes#planning-refresh--23-october-2026).
 The primary agent owns semantics and native effects. A narrowly scoped explorer,
 disjoint local worker or independent reviewer is optional only when delegation
 is authorised and useful; specify exact files and never add a second native writer.
@@ -97,7 +97,7 @@ tooling uses the established supported route or a precise documented deferral.
 **Planning only; implementation remains under the existing task statuses.**
 This section takes precedence over conflicting historical tool/route wording;
 accepted increments and current implementation receipts remain authoritative.
-Follow the [shared capability, workflow and preview contract](../../cli-implementation-routes-20261022.md).
+Follow the [shared capability, workflow and preview contract](#cli-implementation-routes).
 
 **Owner / agents:** Existing grants runtime owner; E08 owns later observation. A disjoint local explorer/worker may prepare
 source and a separate reviewer may inspect it; no second native writer.
@@ -114,7 +114,7 @@ source and a separate reviewer may inspect it; no second native writer.
 (or `resume` for an existing operation), then read the selected skill and installed
 CLI help. Resolve targets from existing private S02 manifests. Obtain exact M365
 syntax through `m365_search_commands` → `m365_get_command_docs`; inspect exposed
-FlowAgent/Fabric schemas rather than inventing calls. The [shared capability guide](../../cli-implementation-routes-20261022.md)
+FlowAgent/Fabric schemas rather than inventing calls. The [shared capability guide](#cli-implementation-routes)
 records available versus conditional tools and the common gated command sequence.
 These are instructions for a later implementation run, not commands executed here.
 
@@ -133,7 +133,7 @@ send, schedule, sharing or task completion is performed by this planning update.
 
 Power Automate diagnose/run-action reads and existing M365/model reconciliation. Process Intelligence remains optional and unactivated; it is not a required monitoring or acceptance dependency.
 
-Use the [capability qualification and agent rules](../../cli-implementation-routes-20261022.md#execution-time-capability-qualification) before selecting a newer transport. Record the exact tool/version, operation schema, target scope, prepared input revision, owner and rollback in the existing private receipt. An unavailable optional tool does not block the established supported route. No additional installation or native action is part of this planning update.
+Use the [capability qualification and agent rules](#cli-implementation-routes#execution-time-capability-qualification) before selecting a newer transport. Record the exact tool/version, operation schema, target scope, prepared input revision, owner and rollback in the existing private receipt. An unavailable optional tool does not block the established supported route. No additional installation or native action is part of this planning update.
 
 <!-- execution-route-end -->
 
@@ -176,6 +176,6 @@ Apply the [hardened completion contract](../../../docs/PLATFORM_COMPLETION_PLAN.
   Non-finite freshness limits (NaN or infinity) are rejected as invalid policy; otherwise NaN comparisons could incorrectly certify stale source health as fresh. This is local evaluator proof only.
   2026-10-03 identity-boundary guard: run evaluation now rejects padded opportunity/source/source-evidence identities even without optional freshness policy; freshness policy source and owner IDs must also be exact unpadded text. Failures preserve the prior accepted snapshot. The focused relationship/operations suite passes 42 tests; native concurrency and restore remain open.
 - [ ] **G07-H03 — Implement monitoring and restore.** Depends: G07-H02. Reuse existing source health/run receipts and flow history; define owner, source recheck/freshness thresholds, expected duration/volume, escalation destination, retention and connection-rotation procedure in existing operations docs. Prove one actionable failure signal without an unapproved outbound send, and rehearse restore of accepted schema/flow/list sample plus model rebind. Output: private restore timings and exact-key reconciliation; no second monitoring framework. Run focused operations tests and integration harness once; residual risks have owner and release disposition.
-- [ ] **G07-H04 — Activation boundary and technical handover.** Depends: G07-H03 and G08-H06 if delivery is included. Record the concrete artefact/state, permissions, recipients/channel, cadence, rollback and acceptance receipts in existing evidence. Do not seek approval or contact an operational owner. Keep schedules/delivery inactive unless existing explicit authority covers the exact action; hand over the technically verified setup with that boundary recorded. Later natural execution and operating-window observations remain owned once by E08-F05/F04 and pending until their evidence exists. The two controlled cycles in G07-H01 precede any activation and do not replace the [E08 follow-up](../E08_operational_followups/plan.md). Calendar waiting does not block technical handover; operational maturity remains a separate claim. Revocation disables only an already authorized feature and preserves evidence.
+- [ ] **G07-H04 — Activation boundary and technical handover.** Depends: G07-H03 and G08-H06 if delivery is included. Record the concrete artefact/state, permissions, recipients/channel, cadence, rollback and acceptance receipts in existing evidence. Do not seek approval or contact an operational owner. Keep schedules/delivery inactive unless existing explicit authority covers the exact action; hand over the technically verified setup with that boundary recorded. Later natural execution and operating-window observations remain owned once by E08-F05/F04 and pending until their evidence exists. The two controlled cycles in G07-H01 precede any activation and do not replace the [E08 follow-up](#e08-operational-followups). Calendar waiting does not block technical handover; operational maturity remains a separate claim. Revocation disables only an already authorized feature and preserves evidence.
 
 Track closure requires all applicable acceptance tasks above, the shared completion contract, and a review recording any explicitly approved exclusions. Local pass, source availability and import success are separate from native and operational acceptance.

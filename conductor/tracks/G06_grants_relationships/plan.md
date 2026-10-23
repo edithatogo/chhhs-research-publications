@@ -14,7 +14,7 @@ scoped explorer, worker or independent review must retain disjoint ownership;
 no delegation, installation or native effect is performed by this amendment.
 Record preparation → saved readback → runtime → web acceptance separately in
 existing receipts, with same-ID preimage, drift guard and scoped recovery.
-Use the [shared capability guide](../../cli-implementation-routes-20261022.md)
+Use the [shared capability guide](#cli-implementation-routes)
 for conditional hosted MCP/Fabric IQ/ALM choices and current tool inventory.
 Existing task markers, accepted evidence and ownership remain authoritative.
 
@@ -28,7 +28,7 @@ Existing task markers, accepted evidence and ownership remain authoritative.
 
 At execution, record the installed help/exposed schema and exact supported
 operation in the existing private receipt before selecting a writer. The
-[shared tool and evidence contract](../../cli-implementation-routes-20261022.md#tool-selection-and-evidence-record--23-october-2026)
+[shared tool and evidence contract](#cli-implementation-routes#tool-selection-and-evidence-record--23-october-2026)
 applies: available does not mean connected or target-qualified. Primary-agent
 execution is the default; optional local delegation needs explicit scope and
 existing authority. This is a plan amendment only; no implementation or status
@@ -44,7 +44,7 @@ This is a later execution instruction, not an implementation performed here.
 **Selected path:** Evidence bridges and measures through isolated TMDL/Fabric DAX; no multiplying joins or inferred verified relationships.
 
 **Dispatch:** Read this plan's track-specific CLI refinement and the
-[capability selection contract](../../cli-implementation-routes-20261022.md#tool-selection-and-evidence-record--23-october-2026).
+[capability selection contract](#cli-implementation-routes#tool-selection-and-evidence-record--23-october-2026).
 Resolve exact private bindings and the current native owner before preparing the
 smallest change. Use CLI help/MCP schemas to bind the operation; do not turn a
 logical sequence into a guessed command or endpoint. Record tool/version/pin,
@@ -82,7 +82,7 @@ route; it does not authorise implementation in this planning turn.
 
 **Execution exit and cross-track handoff:** Retain existing accepted bridge results; select only the next missing relationship capability. Prove grain, candidate/confirmed separation, no fan-out, filter direction and unchanged standalone totals with native DAX, then E04/G08 reader detail. Human confirmation is not technical setup.
 
-**Workflow and agents:** Follow the [current capability guide](../../cli-implementation-routes-20261022.md#planning-refresh--23-october-2026).
+**Workflow and agents:** Follow the [current capability guide](#cli-implementation-routes#planning-refresh--23-october-2026).
 The primary agent owns semantics and native effects. A narrowly scoped explorer,
 disjoint local worker or independent reviewer is optional only when delegation
 is authorised and useful; specify exact files and never add a second native writer.
@@ -97,7 +97,7 @@ tooling uses the established supported route or a precise documented deferral.
 **Planning only; implementation remains under the existing task statuses.**
 This section takes precedence over conflicting historical tool/route wording;
 accepted increments and current implementation receipts remain authoritative.
-Follow the [shared capability, workflow and preview contract](../../cli-implementation-routes-20261022.md).
+Follow the [shared capability, workflow and preview contract](#cli-implementation-routes).
 
 **Owner / agents:** Existing relationship/model owner; report owner retains presentation. A disjoint local explorer/worker may prepare
 source and a separate reviewer may inspect it; no second native writer.
@@ -114,7 +114,7 @@ source and a separate reviewer may inspect it; no second native writer.
 (or `resume` for an existing operation), then read the selected skill and installed
 CLI help. Resolve targets from existing private S02 manifests. Obtain exact M365
 syntax through `m365_search_commands` → `m365_get_command_docs`; inspect exposed
-FlowAgent/Fabric schemas rather than inventing calls. The [shared capability guide](../../cli-implementation-routes-20261022.md)
+FlowAgent/Fabric schemas rather than inventing calls. The [shared capability guide](#cli-implementation-routes)
 records available versus conditional tools and the common gated command sequence.
 These are instructions for a later implementation run, not commands executed here.
 
@@ -133,7 +133,7 @@ send, schedule, sharing or task completion is performed by this planning update.
 
 semantic-model-authoring with qualified Fabric TMDL/DAX. Hosted Authoring MCP may replace the authoring transport after exact-target qualification; it does not change evidence or ownership requirements.
 
-Use the [capability qualification and agent rules](../../cli-implementation-routes-20261022.md#execution-time-capability-qualification) before selecting a newer transport. Record the exact tool/version, operation schema, target scope, prepared input revision, owner and rollback in the existing private receipt. An unavailable optional tool does not block the established supported route. No additional installation or native action is part of this planning update.
+Use the [capability qualification and agent rules](#cli-implementation-routes#execution-time-capability-qualification) before selecting a newer transport. Record the exact tool/version, operation schema, target scope, prepared input revision, owner and rollback in the existing private receipt. An unavailable optional tool does not block the established supported route. No additional installation or native action is part of this planning update.
 
 <!-- execution-route-end -->
 
@@ -161,7 +161,7 @@ verification and dependency wording below. Preserve historical evidence and
 working native objects; no authentication-method substitution is authorised.
 
 
-Current source expansion follows the [CLI-only delivery queue](../../post-mvp-sequence.md#cli-only-source-delivery-queue--18-october-2026). Reuse existing components; no browser/headless/manual-upload fallback. Deliver one source end to end and skip conditional blockers. This overrides conflicting historical route/order wording below.
+Current source expansion follows the [CLI-only delivery queue](#post-mvp-sequence#cli-only-source-delivery-queue--18-october-2026). Reuse existing components; no browser/headless/manual-upload fallback. Deliver one source end to end and skip conditional blockers. This overrides conflicting historical route/order wording below.
 
 ## Cross-source funding reconciliation — 18 October 2026
 
@@ -240,4 +240,4 @@ Track closure requires all applicable acceptance tasks above, the shared complet
 
 ## Post-MVP relationship refinement (planning only)
 
-After both MVPs' native and operational acceptance, R1.5/R1.6 and R5.6 in [the existing sequence](../../post-mvp-sequence.md) refine G06-H01–H03: separate local/external IDs; typed project/person/organisation/publication/funding links; dated roles, author order/name variants where relevant; candidate/confirmed evidence and persistent corrections. Opportunities/applications/awards remain distinct. Begin with one existing relationship type, and require no false merge, orphan/duplicate link, multiplied counts/amounts or change to accepted publication outputs. No new bridge/backlog or native implementation is authorised by this roadmap refinement.
+After both MVPs' native and operational acceptance, R1.5/R1.6 and R5.6 in [the existing sequence](#post-mvp-sequence) refine G06-H01–H03: separate local/external IDs; typed project/person/organisation/publication/funding links; dated roles, author order/name variants where relevant; candidate/confirmed evidence and persistent corrections. Opportunities/applications/awards remain distinct. Begin with one existing relationship type, and require no false merge, orphan/duplicate link, multiplied counts/amounts or change to accepted publication outputs. No new bridge/backlog or native implementation is authorised by this roadmap refinement.

@@ -14,7 +14,7 @@ scoped explorer, worker or independent review must retain disjoint ownership;
 no delegation, installation or native effect is performed by this amendment.
 Record preparation → saved readback → runtime → web acceptance separately in
 existing receipts, with same-ID preimage, drift guard and scoped recovery.
-Use the [shared capability guide](../../cli-implementation-routes-20261022.md)
+Use the [shared capability guide](#cli-implementation-routes)
 for conditional hosted MCP/Fabric IQ/ALM choices and current tool inventory.
 Existing task markers, accepted evidence and ownership remain authoritative.
 
@@ -28,7 +28,7 @@ Existing task markers, accepted evidence and ownership remain authoritative.
 
 At execution, record the installed help/exposed schema and exact supported
 operation in the existing private receipt before selecting a writer. The
-[shared tool and evidence contract](../../cli-implementation-routes-20261022.md#tool-selection-and-evidence-record--23-october-2026)
+[shared tool and evidence contract](#cli-implementation-routes#tool-selection-and-evidence-record--23-october-2026)
 applies: available does not mean connected or target-qualified. Primary-agent
 execution is the default; optional local delegation needs explicit scope and
 existing authority. This is a plan amendment only; no implementation or status
@@ -44,7 +44,7 @@ This is a later execution instruction, not an implementation performed here.
 **Selected path:** Existing Invoker-bound watchlist/calendar/ledger graphs + Lists persistence/security → semantic model/PBIR web reader.
 
 **Dispatch:** Read this plan's track-specific CLI refinement and the
-[capability selection contract](../../cli-implementation-routes-20261022.md#tool-selection-and-evidence-record--23-october-2026).
+[capability selection contract](#cli-implementation-routes#tool-selection-and-evidence-record--23-october-2026).
 Resolve exact private bindings and the current native owner before preparing the
 smallest change. Use CLI help/MCP schemas to bind the operation; do not turn a
 logical sequence into a guessed command or endpoint. Record tool/version/pin,
@@ -82,7 +82,7 @@ route; it does not authorise implementation in this planning turn.
 
 **Execution exit and cross-track handoff:** Use existing Lists/forms and Invoker-bound flow objects before proposing an app. Prove caller-specific edit/read/retry and privacy, authoritative date semantics and canonical model bindings, then the actual web watchlist/calendar journey. Notifications remain separately authorised.
 
-**Workflow and agents:** Follow the [current capability guide](../../cli-implementation-routes-20261022.md#planning-refresh--23-october-2026).
+**Workflow and agents:** Follow the [current capability guide](#cli-implementation-routes#planning-refresh--23-october-2026).
 The primary agent owns semantics and native effects. A narrowly scoped explorer,
 disjoint local worker or independent reviewer is optional only when delegation
 is authorised and useful; specify exact files and never add a second native writer.
@@ -97,7 +97,7 @@ tooling uses the established supported route or a precise documented deferral.
 **Planning only; implementation remains under the existing task statuses.**
 This section takes precedence over conflicting historical tool/route wording;
 accepted increments and current implementation receipts remain authoritative.
-Follow the [shared capability, workflow and preview contract](../../cli-implementation-routes-20261022.md).
+Follow the [shared capability, workflow and preview contract](#cli-implementation-routes).
 
 **Owner / agents:** Existing grants list/flow/model/report owners by exact object. A disjoint local explorer/worker may prepare
 source and a separate reviewer may inspect it; no second native writer.
@@ -114,7 +114,7 @@ source and a separate reviewer may inspect it; no second native writer.
 (or `resume` for an existing operation), then read the selected skill and installed
 CLI help. Resolve targets from existing private S02 manifests. Obtain exact M365
 syntax through `m365_search_commands` → `m365_get_command_docs`; inspect exposed
-FlowAgent/Fabric schemas rather than inventing calls. The [shared capability guide](../../cli-implementation-routes-20261022.md)
+FlowAgent/Fabric schemas rather than inventing calls. The [shared capability guide](#cli-implementation-routes)
 records available versus conditional tools and the common gated command sequence.
 These are instructions for a later implementation run, not commands executed here.
 
@@ -133,7 +133,7 @@ send, schedule, sharing or task completion is performed by this planning update.
 
 Lists web forms and existing Invoker-bound flows first; semantic-model-authoring and PBIR follow proven persistence/security. Canvas/code/model-app skills are conditional only for a demonstrated unmet interaction requirement.
 
-Use the [capability qualification and agent rules](../../cli-implementation-routes-20261022.md#execution-time-capability-qualification) before selecting a newer transport. Record the exact tool/version, operation schema, target scope, prepared input revision, owner and rollback in the existing private receipt. An unavailable optional tool does not block the established supported route. No additional installation or native action is part of this planning update.
+Use the [capability qualification and agent rules](#cli-implementation-routes#execution-time-capability-qualification) before selecting a newer transport. Record the exact tool/version, operation schema, target scope, prepared input revision, owner and rollback in the existing private receipt. An unavailable optional tool does not block the established supported route. No additional installation or native action is part of this planning update.
 
 <!-- execution-route-end -->
 
@@ -203,7 +203,7 @@ Track closure requires all applicable acceptance tasks above, the shared complet
 
 ## Post-MVP navigation refinement (planning only)
 
-After both MVPs and included data/access gates, [R5.5/R5.6](../../post-mvp-sequence.md) refine G08-H03 with one project/researcher/funding drill-through and reverse lookup. Reuse existing identities/bridges; display evidence, freshness, link uncertainty and role/time. Reader acceptance requires reconciled entity totals, no count/award-amount multiplication and correct opportunity/application/award labels. Optional R6 discovery/conversational search must prove benefit and caller permissions separately. No added report/native implementation is authorised before the gate.
+After both MVPs and included data/access gates, [R5.5/R5.6](#post-mvp-sequence) refine G08-H03 with one project/researcher/funding drill-through and reverse lookup. Reuse existing identities/bridges; display evidence, freshness, link uncertainty and role/time. Reader acceptance requires reconciled entity totals, no count/award-amount multiplication and correct opportunity/application/award labels. Optional R6 discovery/conversational search must prove benefit and caller permissions separately. No added report/native implementation is authorised before the gate.
 
 R5.5 quality/coverage refinement displays actionable reconciliation, freshness and explicit unknown-versus-zero alongside reconciled totals. R5.7 supplies evidence-linked researcher discovery before optional R6 search; R5.8 period snapshots extend T14/T15 only after their acceptance. Optional R6.6 suggestions remain separate from accepted data/identity/merge decisions, evaluated before enablement with a usable AI-off path. No performance ranking or automatic AI write is authorised.
 
@@ -234,5 +234,5 @@ Active6774, source/status intersection/reset and award-code1/source-link checks
 passed. Six focused tests and local1868/eight skips passed. The source URL
 conditional-format projection required MIN at URL-inclusive row grain; source
 amounts remain text/unknown and are not summed. See
-[reader and lessons](../../../docs/ARC_AWARD_READER.md). Broader G08 tasks and
+[reader and lessons](#arc-award-reader). Broader G08 tasks and
 hosting/reader/production gates remain open;R13c immutable,successor pending.
