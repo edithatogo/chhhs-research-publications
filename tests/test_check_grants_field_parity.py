@@ -14,9 +14,8 @@ PRIVATE_OPS_ROOT = ROOT / "private" / "ops"
     PRIVATE_OPS_ROOT.exists(),
     "private/ops directory not present; skipping grants field parity CLI tests"
 )
-
-
-def native_receipt(fields):
+class GrantsFieldParityTests(unittest.TestCase):
+    def native_receipt(self, fields):
     return {"complete": True, "list_id_matches_prior": True,
             "inventory": {"complete": True, "includes_hidden_and_system": True,
                           "continuation_exhausted": True, "field_count": len(fields)},
