@@ -55,6 +55,7 @@
       "pyparsing": "3.3.3",
       "pytest": "9.1.1",
       "python-docx": "1.2.0",
+      "pyyaml": "6.0.3",
       "requests": "2.34.2",
       "rich": "15.0.0",
       "ruff": "0.17.2",
@@ -67,7 +68,7 @@
       "zizmor": "1.32.0rc1"
     },
     "lock_sha256": {
-      "requirements-dev.txt": "106fff130cf99bef0630d0365dd94afc3224fdea196ac94c0303a3968841e92d",
+      "requirements-dev.txt": "3a37a5b31e5d48868463c249d9f9b1c05406b0bcc65f8c34ad683e4fc3762e93",
       "requirements-source-ingestion.txt": "1999cbcbb75e766d553f503791bf79641ce9636e98d0c303c0857752e6d60ac1"
     }
   },

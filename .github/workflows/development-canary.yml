@@ -22,15 +22,6 @@ jobs:
         with:
           persist-credentials: false
           submodules: recursive
-      - name: Read qualified shared candidate resolver
-        id: policy
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          repository: edithatogo/careops
-          ref: 6319d0c0c76ee672223c156abce9d4181c41aa9a
-          path: .careops-ci-tools
-          persist-credentials: false
-          submodules: false
       - id: python
         uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
@@ -44,10 +35,16 @@ jobs:
         id: resolve
         run: |
           mkdir -p .local/tool-canary
-          python .careops-ci-tools/portfolio-scripts/ci_delivery.py lock --root .careops-ci-tools --preview --output .careops-ci-tools/.local/canary/requirements.lock --receipt .local/tool-canary/candidate.json
-          cp .careops-ci-tools/.local/canary/requirements.lock .local/tool-canary/requirements.lock
+          uv pip compile requirements-dev.in --python 3.15.1 --prerelease allow --upgrade --generate-hashes --universal --output-file .local/tool-canary/requirements.lock --no-emit-index-url
+          python - <<'PYCODE'
+          import hashlib, json
+          from pathlib import Path
+          lock = Path('.local/tool-canary/requirements.lock')
+          receipt = {'lockSha256': hashlib.sha256(lock.read_bytes()).hexdigest(), 'inputSha256': hashlib.sha256(Path('requirements-dev.in').read_bytes()).hexdigest(), 'targetPython': '3.15.1', 'prereleasesAllowed': True}
+          Path('.local/tool-canary/candidate.json').write_text(json.dumps(receipt, indent=2) + '\n')
+          PYCODE
           uv venv --python 3.15.1 "$RUNNER_TEMP/rims-tool-canary"
-          uv pip install --python "$RUNNER_TEMP/rims-tool-canary/bin/python" --require-hashes --only-binary=:all: -r .local/tool-canary/requirements.lock
+          uv pip install --python "$RUNNER_TEMP/rims-tool-canary/bin/python" --require-hashes -r .local/tool-canary/requirements.lock
           "$RUNNER_TEMP/rims-tool-canary/bin/python" -VV > .local/tool-canary/tool-python-version.txt
           python -VV > .local/tool-canary/python-version.txt
       - name: Exercise RIMS behaviour and candidate tooling
@@ -65,7 +62,6 @@ jobs:
         if: always()
         env:
           SOURCE_OUTCOME: ${{ steps.source.outcome }}
-          POLICY_OUTCOME: ${{ steps.policy.outcome }}
           PYTHON_OUTCOME: ${{ steps.python.outcome }}
           BOOTSTRAP_OUTCOME: ${{ steps.bootstrap.outcome }}
           RESOLVE_OUTCOME: ${{ steps.resolve.outcome }}
@@ -78,9 +74,9 @@ jobs:
           root.mkdir(parents=True, exist_ok=True)
           lock = root / 'requirements.lock'
           digest = hashlib.sha256(lock.read_bytes()).hexdigest() if lock.exists() else None
-          stages = {name: os.environ[name.upper() + '_OUTCOME'] for name in ['source', 'policy', 'python', 'bootstrap', 'resolve', 'qualification']}
+          stages = {name: os.environ[name.upper() + '_OUTCOME'] for name in ['source', 'python', 'bootstrap', 'resolve', 'qualification']}
           failed = next((name for name, outcome in stages.items() if outcome == 'failure'), None)
-          if failed in ['source', 'policy', 'python', 'bootstrap']:
+          if failed in ['source', 'python', 'bootstrap']:
               state = 'setup-blocked'
           elif failed:
               state = 'executed-failure'

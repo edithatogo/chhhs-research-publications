@@ -26,6 +26,7 @@
     "pytest": "9.1.1",
     "urllib3": "2.8.0",
     "mdurl": "0.1.2",
+    "PyYAML": "6.0.3",
     "sortedcontainers": "2.4.0",
     "py-serializable": "2.1.0",
     "uv": "0.13.5",
@@ -60,7 +61,7 @@
     "artifact_roundtrips": "DOCX and XLSX in-memory write/read pass"
   },
   "lock_sha256": {
-    "requirements-dev.txt": "106fff130cf99bef0630d0365dd94afc3224fdea196ac94c0303a3968841e92d",
+    "requirements-dev.txt": "3a37a5b31e5d48868463c249d9f9b1c05406b0bcc65f8c34ad683e4fc3762e93",
     "requirements-source-ingestion.txt": "1999cbcbb75e766d553f503791bf79641ce9636e98d0c303c0857752e6d60ac1"
   },
   "action_pins": {
@@ -83,7 +84,22 @@
   "limitations": [
     "This qualifies clean canonical source, not unrelated dirty working-tree edits or native Power Automate paths.",
     "All active RIMS Python runners target3.15.1. Discovery can record other versions as data, but only3.15.x candidates may execute.",
-    "Reusable source-security policy is separately versioned and owned; no claim that its private internals changed here.",
+    "Shared pin-checker/discovery sources remain immutable imported code; execute under RIMS-selected3.15.1. The old shared reusable workflow is no longer an active runner for RIMS.",
     "Platform-specific wheels remain subject to exact-head hosted CI; no clean CI or main promotion claimed by this local receipt."
-  ]
+  ],
+  "resolved_hosted_incompatibility": {
+    "failure": "Shared candidate resolver selected PyYAML6.0.3; wheel-only install has no cp315 wheel",
+    "resolution": "RIMS own latest hash-lock resolver; permit supported isolated source build for latest PyYAML6.0.3 instead of older Python. Local yaml parser import/consistency passes; hosted installation remains a required gate."
+  },
+  "security_runner": {
+    "runtime": "3.15.1",
+    "entry": "RIMS-owned source-security workflow",
+    "preserved_checks": [
+      "SHA256-verified full-history gitleaks",
+      "immutable shared workflow-pin checker",
+      "SHA256-verified actionlint",
+      "offline pedantic zizmor"
+    ],
+    "reason": "Called shared workflow has no runtime input and hardcodes3.15.0; caller cannot override. RIMS owns its job using same scanners and current locked tools."
+  }
 }

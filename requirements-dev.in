@@ -9,3 +9,4 @@ ruff
 pip-audit
 zizmor
 uv
+PyYAML

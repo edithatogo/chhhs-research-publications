@@ -13,3 +13,10 @@ Only clean canonical source is qualified here. In-flight native flows, raw
 archives, checkpoints, authentication, unrelated dirty work, schedules and email
 controls remain unchanged. Hosted exact-head checks and main verification are
 separate promotion evidence; do not infer them from this local receipt.
+
+The old shared reusable security workflow hardcodes3.15.0 without a runtime
+parameter. RIMS now owns that job, retaining full-history gitleaks, immutable
+shared pin-checker, actionlint and zizmor while using its3.15.1 hash-locked
+tools. The development canary resolves RIMS direct inputs and permits isolated
+source builds: PyYAML6.0.3 is current but lacks a cp315 Linux wheel, so a
+wheel-only install was rejected rather than silently falling back to3.14.
