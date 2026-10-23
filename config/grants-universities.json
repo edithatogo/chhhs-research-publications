@@ -68,7 +68,19 @@
       "effective_from": null,
       "timezone": null
     },
-    "last_verified": "2026-10-23"
+    "last_verified": "2026-10-23",
+    "organisation_identity": {
+      "scheme": "ROR",
+      "id": "https://ror.org/04gsp2c11",
+      "status": "active",
+      "evidence_url": "https://api.ror.org/v2/organizations/04gsp2c11",
+      "observed_on": "2026-10-24",
+      "evidence_sha256": "7a9d513651156f6c8ce786b80ba710ffd5d954a38cbe5e226bc63953fd77f9cf",
+      "matched_name": "James Cook University",
+      "matched_website_host": "www.jcu.edu.au",
+      "country_code": "AU",
+      "scope": "Organisation identity only; no feed entitlement, applicant eligibility or opportunity relationship inferred."
+    }
   },
   {
     "institution_id": "uq",
@@ -147,7 +159,19 @@
       "effective_from": null,
       "timezone": null
     },
-    "last_verified": "2026-10-23"
+    "last_verified": "2026-10-23",
+    "organisation_identity": {
+      "scheme": "ROR",
+      "id": "https://ror.org/00rqy9422",
+      "status": "active",
+      "evidence_url": "https://api.ror.org/v2/organizations/00rqy9422",
+      "observed_on": "2026-10-24",
+      "evidence_sha256": "f72b05c5120fea8a4f6f9fb6fb278297c7050943f1d2df58a56222e03f570a80",
+      "matched_name": "The University of Queensland",
+      "matched_website_host": "www.uq.edu.au",
+      "country_code": "AU",
+      "scope": "Organisation identity only; no feed entitlement, applicant eligibility or opportunity relationship inferred."
+    }
   },
   {
     "institution_id": "qut",
@@ -188,7 +212,19 @@
       "effective_from": "2025-11-07",
       "timezone": null
     },
-    "last_verified": "2026-10-23"
+    "last_verified": "2026-10-23",
+    "organisation_identity": {
+      "scheme": "ROR",
+      "id": "https://ror.org/03pnv4752",
+      "status": "active",
+      "evidence_url": "https://api.ror.org/v2/organizations/03pnv4752",
+      "observed_on": "2026-10-24",
+      "evidence_sha256": "ab4dd36a122f0209774f8d7eb08153308567de9725532e31ecd99f7c1e006135",
+      "matched_name": "Queensland University of Technology",
+      "matched_website_host": "www.qut.edu.au",
+      "country_code": "AU",
+      "scope": "Organisation identity only; no feed entitlement, applicant eligibility or opportunity relationship inferred."
+    }
   },
   {
     "institution_id": "griffith",
@@ -250,6 +286,18 @@
       "effective_from": null,
       "timezone": null
     },
-    "last_verified": "2026-10-23"
+    "last_verified": "2026-10-23",
+    "organisation_identity": {
+      "scheme": "ROR",
+      "id": "https://ror.org/02sc3r913",
+      "status": "active",
+      "evidence_url": "https://api.ror.org/v2/organizations/02sc3r913",
+      "observed_on": "2026-10-24",
+      "evidence_sha256": "8dd7daac6e102ffc42dd060c092d25633d0f8d81a9035b1c3062149f3aea7cf3",
+      "matched_name": "Griffith University",
+      "matched_website_host": "www.griffith.edu.au",
+      "country_code": "AU",
+      "scope": "Organisation identity only; no feed entitlement, applicant eligibility or opportunity relationship inferred."
+    }
   }
 ]
