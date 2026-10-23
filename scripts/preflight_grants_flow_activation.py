@@ -1,7 +1,7 @@
 """Fail-closed, read-only grants flow binding and replay preflight.
 
 Inputs are private, current native exports/readbacks, not a plan or a package
-template. PASS permits a controlled test decision; it is not activation approval.
+template. PASS checks technical entry only; it neither activates nor proves a run.
 """
 from __future__ import annotations
 
@@ -14,8 +14,12 @@ from uuid import UUID
 
 try:
     from .grants_registry import stable_key
+    from .grants_ingestion import ingest_batches
+    from .grants_sources import DEFAULT_CATALOGUE, load_catalogue
 except ImportError:
     from grants_registry import stable_key
+    from grants_ingestion import ingest_batches
+    from grants_sources import DEFAULT_CATALOGUE, load_catalogue
 
 MAX_READBACK_AGE_HOURS = 24
 
@@ -35,11 +39,33 @@ def _identity(row: dict[str, Any]) -> tuple[str, str, str]:
 
 
 def preflight(*, flow: dict[str, Any], target: dict[str, Any], snapshot: dict[str, Any],
-              batch: dict[str, Any], checked_at: datetime | None = None) -> dict[str, Any]:
+              batch: dict[str, Any], checked_at: datetime | None = None,
+              input_mode: str = "reviewed", machine_catalogue: list[dict[str, Any]] | None = None,
+              machine_batches: list[dict[str, Any]] | None = None) -> dict[str, Any]:
     errors: list[str] = []
     def reject(condition: bool, code: str) -> None:
         if condition:
             errors.append(code)
+
+    # Machine facts carry no human decision. Derive the expected full rows by
+    # running the existing independent admission boundary; never trust a flag
+    # claiming admission or bypass the reviewed gate on arbitrary rows.
+    machine_records = None
+    reject(input_mode not in {"reviewed", "machine"}, "invalid_input_mode")
+    if input_mode == "machine":
+        if (not isinstance(machine_catalogue, list) or not machine_catalogue
+                or not isinstance(machine_batches, list) or not machine_batches):
+            errors.append("machine_admission_inputs_missing")
+        else:
+            ingestion = ingest_batches(machine_batches, catalogue=machine_catalogue)
+            health = ingestion["health"]
+            if (ingestion["accepted"] is not True or len(health) != len(machine_batches)
+                    or any(item.get("status") != "succeeded" for item in health)):
+                errors.append("machine_source_admission_failed")
+            else:
+                machine_records = ingestion["records"]
+    elif machine_catalogue is not None or machine_batches is not None:
+        errors.append("machine_inputs_require_machine_mode")
 
     try:
         list_id = str(UUID(target["list_id"]))
@@ -68,6 +94,9 @@ def preflight(*, flow: dict[str, Any], target: dict[str, Any], snapshot: dict[st
            or snapshot.get("site_url") != site, "snapshot_incomplete_or_wrong_target")
     rows = snapshot.get("rows")
     incoming = batch.get("rows")
+    if input_mode == "machine":
+        reject(machine_records is None or incoming != machine_records,
+               "machine_projection_mismatch")
     reject(not isinstance(rows, list) or snapshot.get("count") != (len(rows) if isinstance(rows, list) else None),
            "snapshot_count_mismatch")
     reject(not isinstance(incoming, list) or not incoming or batch.get("complete") is not True,
@@ -111,7 +140,7 @@ def preflight(*, flow: dict[str, Any], target: dict[str, Any], snapshot: dict[st
             if origin == "batch":
                 if stable_key(row) != key:
                     errors.append("batch_key_does_not_match_source_identity")
-                if row.get("ReviewStatus") != "Reviewed" or not isinstance(row.get("ReviewNotes"), str) or not row["ReviewNotes"].strip():
+                if input_mode != "machine" and (row.get("ReviewStatus") != "Reviewed" or not isinstance(row.get("ReviewNotes"), str) or not row["ReviewNotes"].strip()):
                     errors.append("batch_review_unproved")
             try:
                 _utc(row.get("RetrievedUTC"))
@@ -134,6 +163,7 @@ def preflight(*, flow: dict[str, Any], target: dict[str, Any], snapshot: dict[st
                     errors.append("retrieval_time_invalid")
             keys[key] = row
     return {"accepted": not errors, "errors": sorted(set(errors)),
+            "input_mode": input_mode,
             "snapshot_count": len(rows), "batch_count": len(incoming),
             "boundary": "Local preflight only; native graph, run and row-level acceptance require saved readback."}
 
@@ -143,13 +173,28 @@ def main() -> int:
     for name in ("flow", "target", "snapshot", "batch"):
         parser.add_argument(f"--{name}", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--input-mode", choices=("reviewed", "machine"), default="reviewed")
+    parser.add_argument("--machine-batches", type=Path,
+                        help="retained complete machine envelopes under private/ops")
     args = parser.parse_args()
     private = (Path(__file__).resolve().parents[1] / "private" / "ops").resolve()
     paths = [getattr(args, name).resolve() for name in ("flow", "target", "snapshot", "batch")]
     if not all(path.is_relative_to(private) for path in paths) or not args.output.resolve().is_relative_to(private):
         parser.error("all inputs and output must stay under ignored private/ops")
+    if args.input_mode == "machine" and args.machine_batches is None:
+        parser.error("machine mode requires --machine-batches")
+    if args.machine_batches is not None and (args.input_mode != "machine"
+            or not args.machine_batches.resolve().is_relative_to(private)):
+        parser.error("--machine-batches requires machine mode and an ignored private/ops input")
+    machine_kwargs = {}
+    if args.input_mode == "machine":
+        # CLI admission always uses the maintained catalogue, not an ad hoc
+        # JSON file carrying self-asserted qualification statuses.
+        machine_kwargs = {"machine_catalogue": load_catalogue(DEFAULT_CATALOGUE),
+                          "machine_batches": json.loads(args.machine_batches.read_text())}
     result = preflight(**{name: json.loads(getattr(args, name).read_text())
-                          for name in ("flow", "target", "snapshot", "batch")})
+                          for name in ("flow", "target", "snapshot", "batch")},
+                       input_mode=args.input_mode, **machine_kwargs)
     args.output.write_text(json.dumps(result, indent=2) + "\n")
     print(f"accepted={result['accepted']} errors={','.join(result['errors'])}")
     return 0 if result["accepted"] else 1

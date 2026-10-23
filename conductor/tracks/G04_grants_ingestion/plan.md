@@ -330,3 +330,7 @@ The factual bootstrap above supersedes earlier 'no typed rows admitted' statemen
 for this declared current-sheet scope only. No research use, narrative adaptation,
 redistribution, whole funding-universe coverage or business acceptance is implied.
 Evidence: `private/ops/2026-10-18-source-expansion/progress-receipt.json`.
+
+## Isolated implementation recovery — 24 October 2026
+
+See [recovery and validation](recovery-20261024.md). Existing task statuses remain unchanged; local recovered implementation is not native acceptance.

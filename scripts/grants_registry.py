@@ -13,6 +13,11 @@ from typing import Any, Iterable
 from urllib.parse import urlsplit, urlunsplit
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
+try:
+    from .grants_deadline_schedule import canonical_object, normalize_schedule
+except ImportError:
+    from grants_deadline_schedule import canonical_object, normalize_schedule
+
 OPPORTUNITY_KEY_PREFIXES = ("GRANT:", "GRANTX:")
 
 _RFC3339_INSTANT = re.compile(
@@ -28,7 +33,7 @@ _TEXT_INPUT_FIELDS = {
     "Eligibility", "Geography", "Amount", "Deadline", "ClosingDate", "deadline",
     "DeadlineTimezone", "deadlineTimezone", "deadline_timezone",
     "SourceTimezone", "sourceTimezone", "source_timezone", "Timezone", "timezone", "time_zone",
-    "Status", "Contact",
+    "Status", "Contact", "DeadlineScheduleJSON", "SourceDateFactsJSON", "SourceAttribution",
     "CHHHSRelevance", "ReviewStatus", "ReviewNotes", "RetrievedUTC",
 }
 
@@ -378,6 +383,9 @@ def normalize_opportunity(record: dict[str, Any], retrieved_at: str | None = Non
         "Amount": _text(record.get("Amount")),
         **deadline_temporal,
         "DeadlineRaw": _text(raw_deadline),
+        "DeadlineScheduleJSON": normalize_schedule(record.get("DeadlineScheduleJSON"), record),
+        "SourceDateFactsJSON": canonical_object(record.get("SourceDateFactsJSON")),
+        "SourceAttribution": _text(record.get("SourceAttribution")),
         "Status": _text(record.get("Status")) or "Unknown",
         "Contact": _text(record.get("Contact")),
         "CHHHSRelevance": _text(record.get("CHHHSRelevance")) or "Unknown",
@@ -435,6 +443,7 @@ def sharepoint_field_map(record: dict[str, Any]) -> dict[str, Any]:
         "Eligibility", "Geography", "Amount", "Deadline", "DeadlineRaw",
         "DeadlineTimezone", "DeadlineLocalTime", "DeadlineUTCInstant",
         "DeadlineBrisbaneDate", "DeadlineBrisbaneTime", "DeadlineTemporalStatus",
-        "DeadlinePrecision", "Status", "Contact", "CHHHSRelevance", "ReviewStatus", "ReviewNotes", "RetrievedUTC",
+        "DeadlinePrecision", "DeadlineScheduleJSON", "SourceDateFactsJSON", "SourceAttribution",
+        "Status", "Contact", "CHHHSRelevance", "ReviewStatus", "ReviewNotes", "RetrievedUTC",
         "RetrievedTimestampStatus", "EvidenceHash",
     )}

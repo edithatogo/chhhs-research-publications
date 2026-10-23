@@ -11,11 +11,86 @@ except ImportError:  # Optional test extra; runtime has no third-party dependenc
 from scripts.grants_universities import (
     load_universities, reconcile_institution_facts, reconcile_receipted_institution_fact,
     validate_reviewed_fact_receipt,
+    prepare_reviewed_institution_import,
 )
 from scripts.grants_registry import stable_key
 
 
 class GrantsUniversityTests(unittest.TestCase):
+    def preparation_inputs(self):
+        catalogue, _, factory = self.synthetic_inputs()
+        row = {"Source": "funder", "SourceID": "round-1", "Title": "Synthetic grant",
+               "URL": "https://funder.example/round-1", "Deadline": "2027-06-30",
+               "RetrievedUTC": "2026-09-25T10:00:00Z", "ReviewStatus": "Reviewed",
+               "ReviewNotes": "Synthetic official funder observation"}
+        receipts = []
+        for institution in ("uq", "jcu"):
+            receipt = self.reviewed_receipt()
+            receipt["receipt_id"] += institution
+            receipt["fact"] = factory(institution, OpportunityKey=stable_key(row))
+            receipt["fact_sha256"] = hashlib.sha256(json.dumps(
+                receipt["fact"], ensure_ascii=False, sort_keys=True,
+                separators=(",", ":")).encode()).hexdigest()
+            receipt["evidence"].update(url=receipt["fact"]["evidence_url"])
+            receipts.append(receipt)
+        return row, receipts, catalogue
+
+    def prepare(self, row, receipts, catalogue, **kwargs):
+        return prepare_reviewed_institution_import(
+            [row], receipts, catalogue, expected_source="funder",
+            official_hosts={"funder.example"}, **kwargs)
+
+    def test_prepare_reviewed_import_preserves_canonical_and_institution_facts(self):
+        row, receipts, catalogue = self.preparation_inputs()
+        before = json.dumps([row, receipts, catalogue], sort_keys=True)
+        result = self.prepare(row, receipts, catalogue,
+                              verify_evidence=lambda _: True, verify_reviewer=lambda _: True)
+        self.assertFalse(result["imported"])
+        self.assertEqual(result["intake"], "manual_review")
+        self.assertEqual(result["feed_rights"], "unverified")
+        self.assertEqual(len(result["opportunities"]), 1)
+        self.assertEqual(len(result["institution_facts"]), 2)
+        for fact in result["institution_facts"]:
+            self.assertEqual(fact["OpportunityKey"], stable_key(row))
+            self.assertEqual(fact["external_deadline"], "2027-06-30")
+            self.assertEqual(len(fact["internal_deadlines"]), 2)
+            self.assertIsNone(fact["policy_provenance"]["timezone"])
+            self.assertEqual(fact["institutional_eligibility"]["status"], "restricted")
+            self.assertTrue(fact["ReviewReceiptFactSHA256"])
+        self.assertEqual(before, json.dumps([row, receipts, catalogue], sort_keys=True))
+        replay = self.prepare(row, reversed(receipts), catalogue,
+                              verify_evidence=lambda _: True, verify_reviewer=lambda _: True)
+        self.assertEqual(result, replay)
+
+    def test_prepare_reviewed_import_fails_closed_at_both_boundaries(self):
+        row, receipts, catalogue = self.preparation_inputs()
+        with self.assertRaisesRegex(ValueError, "artifact is unverified"):
+            self.prepare(row, receipts, catalogue)
+        row["OpportunityKey"] = "GRANT:" + "a" * 24
+        with self.assertRaisesRegex(ValueError, "OpportunityKey_mismatch"):
+            self.prepare(row, receipts, catalogue,
+                         verify_evidence=lambda _: True, verify_reviewer=lambda _: True)
+
+    def test_prepare_reviewed_import_rejects_unresolved_rights_and_duplicate_facts(self):
+        for change, message in (({"format": "rss"}, "machine feed rights"),
+                                ({"format": "pdf"}, "format is unsupported"),
+                                ({"entitlement_status": "revoked"}, "revoked entitlement"),
+                                ({"eligibility": {"status": "unknown", "restrictions": []}},
+                                 "manual resolution")):
+            row, receipts, catalogue = self.preparation_inputs()
+            receipts[0]["fact"].update(change)
+            receipts[0]["fact_sha256"] = hashlib.sha256(json.dumps(
+                receipts[0]["fact"], ensure_ascii=False, sort_keys=True,
+                separators=(",", ":")).encode()).hexdigest()
+            receipts[0]["evidence"]["format"] = receipts[0]["fact"]["format"]
+            with self.subTest(change=change), self.assertRaisesRegex(ValueError, message):
+                self.prepare(row, receipts, catalogue,
+                             verify_evidence=lambda _: True, verify_reviewer=lambda _: True)
+        row, receipts, catalogue = self.preparation_inputs()
+        with self.assertRaisesRegex(ValueError, "duplicate reviewed fact receipt"):
+            self.prepare(row, [receipts[0], receipts[0]], catalogue,
+                         verify_evidence=lambda _: True, verify_reviewer=lambda _: True)
+
     @staticmethod
     def synthetic_inputs():
         catalogue = [

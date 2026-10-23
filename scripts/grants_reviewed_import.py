@@ -15,8 +15,10 @@ from typing import Any, Iterable
 
 try:
     from .grants_registry import normalize_opportunity, stable_key, valid_official_url
+    from .grants_deadline_schedule import require_source_schedule
 except ImportError:  # direct script execution with scripts/ on sys.path
     from grants_registry import normalize_opportunity, stable_key, valid_official_url
+    from grants_deadline_schedule import require_source_schedule
 
 
 # Reviewer identity and audit provenance cannot be established by a JSON row.
@@ -36,7 +38,7 @@ SOURCE_TEXT_FIELDS = frozenset({
     "Summary", "summary", "Eligibility", "Geography", "Amount", "Deadline",
     "ClosingDate", "deadline", "DeadlineTimezone", "deadlineTimezone", "deadline_timezone",
     "SourceTimezone", "sourceTimezone", "source_timezone", "Timezone", "timezone", "time_zone",
-    "Status", "Contact", "CHHHSRelevance",
+    "Status", "Contact", "CHHHSRelevance", "DeadlineScheduleJSON", "SourceDateFactsJSON", "SourceAttribution",
 })
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 PRIVATE_OPS_ROOT = REPOSITORY_ROOT / "private" / "ops"
@@ -46,6 +48,10 @@ def review_errors(row: dict[str, Any], *, expected_source: str | None = None,
                   official_hosts: Iterable[str] = ()) -> list[str]:
     """Return all admission errors without silently repairing reviewer input."""
     errors: list[str] = []
+    try:
+        require_source_schedule(row)
+    except (ValueError, TypeError, KeyError):
+        errors.append("invalid_source_schedule")
     if UNTRUSTED_PROVENANCE_FIELDS.intersection(row):
         errors.append("untrusted_reviewer_provenance")
     source = str(row.get("Source", "")).strip()
@@ -185,7 +191,7 @@ def reconcile_reviewed_batches(
         "Description", "Eligibility", "Geography", "Amount", "Deadline",
         "DeadlineRaw", "DeadlinePrecision", "DeadlineTimezone", "DeadlineLocalTime",
         "DeadlineUTCInstant", "DeadlineBrisbaneDate", "DeadlineBrisbaneTime",
-        "DeadlineTemporalStatus", "Status", "Contact",
+        "DeadlineTemporalStatus", "DeadlineScheduleJSON", "SourceDateFactsJSON", "SourceAttribution", "Status", "Contact",
     )
     if any(observed_at(current_index[key]) == observed_at(prior_index[key])
            and any(current_index[key].get(field) != prior_index[key].get(field)
