@@ -7,7 +7,7 @@ let
         "OpportunityKey", "Title", "Funder", "Source", "SourceID", "RoundID", "URL", "SourceRowURL",
         "Description", "Eligibility", "Geography", "Amount", "Deadline", "DeadlineRaw",
         "DeadlineTimezone", "DeadlineLocalTime", "DeadlineUTCInstant", "DeadlineBrisbaneDate",
-        "DeadlineBrisbaneTime", "DeadlineTemporalStatus", "DeadlinePrecision", "Status", "Contact", "CHHHSRelevance", "ReviewStatus",
+        "DeadlineBrisbaneTime", "DeadlineTemporalStatus", "DeadlinePrecision", "DeadlineScheduleJSON", "SourceDateFactsJSON", "SourceAttribution", "Status", "Contact", "CHHHSRelevance", "ReviewStatus",
         "ReviewNotes", "RetrievedUTC", "RetrievedTimestampStatus", "EvidenceHash"
     }, MissingField.UseNull),
     Typed = Table.TransformColumnTypes(Selected, {
@@ -17,7 +17,7 @@ let
         {"Amount", type text}, {"Deadline", type text}, {"DeadlineRaw", type text},
         {"DeadlineTimezone", type text}, {"DeadlineLocalTime", type text}, {"DeadlineUTCInstant", type text},
         {"DeadlineBrisbaneDate", type text}, {"DeadlineBrisbaneTime", type text}, {"DeadlineTemporalStatus", type text},
-        {"DeadlinePrecision", type text}, {"Status", type text}, {"Contact", type text},
+        {"DeadlinePrecision", type text}, {"DeadlineScheduleJSON", type text}, {"SourceDateFactsJSON", type text}, {"SourceAttribution", type text}, {"Status", type text}, {"Contact", type text},
         {"CHHHSRelevance", type text}, {"ReviewStatus", type text}, {"ReviewNotes", type text},
         {"RetrievedUTC", type text}, {"RetrievedTimestampStatus", type text}, {"EvidenceHash", type text}
     })

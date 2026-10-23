@@ -1013,6 +1013,27 @@
             "lineageTag": "b9a2f5c7-e0c8-5edc-a7e5-42e59b53e70b"
           },
           {
+            "name": "DeadlineScheduleJSON",
+            "dataType": "string",
+            "sourceColumn": "DeadlineScheduleJSON",
+            "summarizeBy": "none",
+            "lineageTag": "6e4d4d8a-69f5-5a27-9787-71ac130023ff"
+          },
+          {
+            "name": "SourceDateFactsJSON",
+            "dataType": "string",
+            "sourceColumn": "SourceDateFactsJSON",
+            "summarizeBy": "none",
+            "lineageTag": "19fb2c3b-062f-5478-860b-3e56a50e6d9b"
+          },
+          {
+            "name": "SourceAttribution",
+            "dataType": "string",
+            "sourceColumn": "SourceAttribution",
+            "summarizeBy": "none",
+            "lineageTag": "bcc4403f-1f90-507d-a236-4ddbd45a31b4"
+          },
+          {
             "name": "Status",
             "dataType": "string",
             "sourceColumn": "Status",
@@ -1830,7 +1851,7 @@
           "        \"OpportunityKey\", \"Title\", \"Funder\", \"Source\", \"SourceID\", \"RoundID\", \"URL\", \"SourceRowURL\",",
           "        \"Description\", \"Eligibility\", \"Geography\", \"Amount\", \"Deadline\", \"DeadlineRaw\",",
           "        \"DeadlineTimezone\", \"DeadlineLocalTime\", \"DeadlineUTCInstant\", \"DeadlineBrisbaneDate\",",
-          "        \"DeadlineBrisbaneTime\", \"DeadlineTemporalStatus\", \"DeadlinePrecision\", \"Status\", \"Contact\", \"CHHHSRelevance\", \"ReviewStatus\",",
+          "        \"DeadlineBrisbaneTime\", \"DeadlineTemporalStatus\", \"DeadlinePrecision\", \"DeadlineScheduleJSON\", \"SourceDateFactsJSON\", \"SourceAttribution\", \"Status\", \"Contact\", \"CHHHSRelevance\", \"ReviewStatus\",",
           "        \"ReviewNotes\", \"RetrievedUTC\", \"RetrievedTimestampStatus\", \"EvidenceHash\"",
           "    }, MissingField.UseNull),",
           "    Typed = Table.TransformColumnTypes(Selected, {",
@@ -1840,7 +1861,7 @@
           "        {\"Amount\", type text}, {\"Deadline\", type text}, {\"DeadlineRaw\", type text},",
           "        {\"DeadlineTimezone\", type text}, {\"DeadlineLocalTime\", type text}, {\"DeadlineUTCInstant\", type text},",
           "        {\"DeadlineBrisbaneDate\", type text}, {\"DeadlineBrisbaneTime\", type text}, {\"DeadlineTemporalStatus\", type text},",
-          "        {\"DeadlinePrecision\", type text}, {\"Status\", type text}, {\"Contact\", type text},",
+          "        {\"DeadlinePrecision\", type text}, {\"DeadlineScheduleJSON\", type text}, {\"SourceDateFactsJSON\", type text}, {\"SourceAttribution\", type text}, {\"Status\", type text}, {\"Contact\", type text},",
           "        {\"CHHHSRelevance\", type text}, {\"ReviewStatus\", type text}, {\"ReviewNotes\", type text},",
           "        {\"RetrievedUTC\", type text}, {\"RetrievedTimestampStatus\", type text}, {\"EvidenceHash\", type text}",
           "    })",

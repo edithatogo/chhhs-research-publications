@@ -165,7 +165,8 @@ in #table(type table [ReportMonthStart=date,ReportMonthEndExclusive=date,Refresh
         ('Eligibility','string'),('Geography','string'),('Amount','string'),('Deadline','string'),
         ('DeadlineRaw','string'),('DeadlineTimezone','string'),('DeadlineLocalTime','string'),
         ('DeadlineUTCInstant','string'),('DeadlineBrisbaneDate','string'),('DeadlineBrisbaneTime','string'),
-        ('DeadlineTemporalStatus','string'),('DeadlinePrecision','string'),('Status','string'),('Contact','string'),
+        ('DeadlineTemporalStatus','string'),('DeadlinePrecision','string'),
+        ('DeadlineScheduleJSON','string'),('SourceDateFactsJSON','string'),('SourceAttribution','string'),('Status','string'),('Contact','string'),
         ('CHHHSRelevance','string'),('ReviewStatus','string'),('ReviewNotes','string'),
         ('RetrievedUTC','string'),('RetrievedTimestampStatus','string'),('EvidenceHash','string'),
     ]

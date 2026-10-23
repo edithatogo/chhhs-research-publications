@@ -161,6 +161,27 @@ def reviewed_runtime_files(root: Path, frozen: dict[str, Any]) -> dict[str, str]
                 or digest == change['before_sha256']):
             raise ValueError('Reviewed text change needs a distinct exact after fingerprint')
         expected[name] = digest
+    schedule = load(root/'contracts/runtime-baseline.grants-schedule-20261024.manifest.json')
+    schedule_paths = {
+        'powerbi/CHHHS Research Publications.SemanticModel/definition/model.tmdl',
+        'powerbi/CHHHS Research Publications.SemanticModel/definition/tables/GrantsRegistry.tmdl',
+    }
+    if (schedule.get('kind') != 'reviewed_grants_schedule_projection'
+            or schedule.get('base_manifest_sha256') != hashlib.sha256(baseline.read_bytes()).hexdigest()
+            or schedule.get('native_verified') is not False
+            or schedule.get('review') != 'conductor/tracks/G04_grants_ingestion/recovery-20261024.md'
+            or not isinstance(schedule.get('changes'), dict)
+            or set(schedule['changes']) != schedule_paths):
+        raise ValueError('Grants projection requires exact scoped local review')
+    for name, change in schedule['changes'].items():
+        if not isinstance(change, dict) or change.get('before_sha256') != expected[name]:
+            raise ValueError('Grants projection preimage mismatch')
+        digest = change.get('after_sha256')
+        if (not isinstance(digest, str) or len(digest) != 64
+                or any(c not in '0123456789abcdef' for c in digest)
+                or digest == change['before_sha256']):
+            raise ValueError('Invalid grants projection fingerprint')
+        expected[name] = digest
     return expected
 
 
