@@ -144,3 +144,29 @@ existing native `runtimeSource`/`connection`/`api` reference representation; the
 Flow API reference presentation is not interchangeable with it. Compare the exact
 logical reference and connection IDs and native definition on readback. Shell
 exit zero from PAC Power Fx does not establish that a Patch succeeded.
+
+### Bounded native qualification — 24 October 2026
+
+The separate manual qualifier completed one Yarrabah query alongside the retained
+original run. Acquisition took25seconds: one189,482-byte page,13rows/13uniqueDOIs,
+matching the provider total. Independent native reads hashed the scope, raw
+provider envelope, attempt/window summaries and progress. Progress remained
+complete=false/accepted=false; the current last-good identity/ETag/bytes/hash and
+selector were unchanged. Full saved clientdata/reference equality passed before
+runtime and after restoration to Draft/Stopped. No solution import was needed.
+
+Preserve the qualifier Stopped as evidence; do not invoke it again automatically.
+This small acquisition does not prove monthly plan expression parity, multi-batch
+continuation, full coverage, sustained throughput or a quantified speedup. The
+permanent daily/baseline pair and retained-generation terminal gates remain open.
+Native versioned documentation is pending under the existing handoff, with exact
+private receipts `qualification-runtime-acceptance.json`,
+`qualification-runtime-archive-proof.json` and `qualification-lastgood-postrun.json`.
+
+The [E01 handover](../handoff/E01_HANDOVER.md) now consolidates the retained
+accepted DataCite, ClinicalTrials, writer and closed-send digest evidence, the
+small parallel qualification and the251-window recovery staging. The remaining
+original-generation, permanent-pair and native versioned-documentation gates stay
+explicit. Recovery input is251windows/330verifiedpages; the332listed pages include
+two outside the accepted complete-window prefix. All40files in the complete
+recovery manifest reconcile to their recorded bytes and hashes.
