@@ -82,7 +82,7 @@
   "email_or_other_messages_sent": false,
   "limitations": [
     "This qualifies clean canonical source, not unrelated dirty working-tree edits or native Power Automate paths.",
-    "The stable runner and dependency tool runner target3.15.1; runtime discovery may intentionally exercise a newer prerelease without promotion.",
+    "All active RIMS Python runners target3.15.1. Discovery can record other versions as data, but only3.15.x candidates may execute.",
     "Reusable source-security policy is separately versioned and owned; no claim that its private internals changed here.",
     "Platform-specific wheels remain subject to exact-head hosted CI; no clean CI or main promotion claimed by this local receipt."
   ]

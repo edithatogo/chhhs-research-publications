@@ -115,7 +115,7 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
   runtime:
-    name: Python preview discovery and RIMS compatibility
+    name: Python3.15 candidate discovery and RIMS compatibility
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -161,14 +161,14 @@ jobs:
           runtime_platform="$(python -c 'import platform; print(platform.freedesktop_os_release()["VERSION_ID"])')"
           python .careops-ci-tools/portfolio-scripts/ci_delivery.py runtime --platform-version "$runtime_platform" --manifest .local/runtime-canary/manifest.json --manifest-revision "$runtime_manifest_revision" --output .local/runtime-canary/discovery.json --github-output "$GITHUB_OUTPUT"
       - name: Set up only the exact available preview
-        if: steps.discover.outputs.available == 'true'
+        if: steps.discover.outputs.available == 'true' && startsWith(steps.discover.outputs.version, '3.15.')
         uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: ${{ steps.discover.outputs.version }}
           allow-prereleases: true
       - name: Exercise RIMS on the resolved Python preview
         id: runtime_tests
-        if: steps.discover.outputs.available == 'true'
+        if: steps.discover.outputs.available == 'true' && startsWith(steps.discover.outputs.version, '3.15.')
         run: |
           python -VV > .local/runtime-canary/python-version.txt
           python scripts/agent_harness.py check --task all
