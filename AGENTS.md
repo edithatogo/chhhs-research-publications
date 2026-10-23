@@ -1,15 +1,21 @@
 # Agent instructions
 
-## Required local Python runtime
+## Runtime and dependency compatibility — 24 October 2026
 
-Every active local, build, test, automation and CI Python use requires Python
-3.15 at the newest qualified patch (currently3.15.1). Select `.venv/bin/python`
-explicitly and verify its actual version. Never use an older PATH interpreter or
-compatibility runner. Create a fresh isolated environment; preserve already
-running operations until terminal. Keep historical evidence and deliberate
-synthetic version-handling fixtures unchanged. Follow README setup and exact
-hash locks; installation or a manifest alone is not qualification. No emails or
-external messages are authorised for runtime migration.
+Prefer the latest qualified runtime and dependency versions, including Python
+3.15.1 for the current repository environment. Another version may be used when
+needed for application, tooling, CI/helper or provider compatibility. Choose the
+newest suitable version that works; record the concrete reason and scope of an
+exception and verify the actual interpreter and dependency behavior. A necessary
+alternate version does not require additional permission.
+
+Select the repo-local interpreter explicitly for repository checks. Preserve
+working latest-version environments and in-flight operations; do not downgrade
+or rebuild unnecessarily. Follow setup instructions and exact hash locks for the
+selected environment. Installation or a manifest alone is not qualification.
+Keep security, functionality, ownership and private-evidence gates. No emails or
+external messages are authorised by a runtime change. Historical evidence and
+synthetic version-handling fixtures remain unchanged.
 
 ## Current route precedence — 13 October 2026
 
