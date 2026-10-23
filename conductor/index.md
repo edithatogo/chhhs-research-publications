@@ -54,3 +54,10 @@ Deferred extension (requested 2026-09-14): [additional free-source enrichment an
 Platform completion: [platform completion plan and gap analysis](../docs/PLATFORM_COMPLETION_PLAN.md) establishes the 4-phase value-ranked roadmap (SharePoint List -> Power Automate -> Word DOCX Reports -> Power BI Service) for executing remaining platform deployments via authenticated browser sessions.
 
 Current acceptance boundary: [publication platform acceptance](../docs/PUBLICATION_PLATFORM_ACCEPTANCE.md) records the live evidence gates for SharePoint persistence, flow replay, concurrency, reconciliation, refresh/readback, and monitoring.
+
+## E10 Python3.15 migration and qualification
+
+[E10 track](tracks/E10_python315_migration/index.md) registers the full repository
+runtime objective, reusing PR9/current-main evidence. Attached helper-host terminal
+handover and final audit remain explicit. Existing unfinished E01 goal is preserved;
+no separate E10 goal is armed. [Registry](tracks.md).

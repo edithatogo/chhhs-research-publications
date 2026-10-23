@@ -1,0 +1,18 @@
+{
+  "id": "E10_python315_migration",
+  "number": "E10",
+  "title": "Python3.15 migration and qualification",
+  "type": "chore",
+  "status": "in_progress",
+  "created_at_utc": "2026-10-23T12:17:19.425801+00:00",
+  "depends_on": [],
+  "requires_live_evidence": false,
+  "canonical_implementation_pr": "https://github.com/edithatogo/chhhs-research-publications/pull/9",
+  "canonical_commit": "36bbb3f5df6a618c59c9b524f43a23580f08f215",
+  "goal_tool_status": "NO_NEW_GOAL_EXISTING_UNFINISHED_E01_GOAL_PRESERVED",
+  "remaining": [
+    "Attached Fabric MCP helper host3.14.6 safe terminal accounting/migration",
+    "Final full-scope current-state audit and any necessary integration"
+  ],
+  "native_effects_authorized": false
+}
