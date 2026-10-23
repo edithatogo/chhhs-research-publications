@@ -30,6 +30,20 @@ routine second review. Each step has an explicit implementation/evidence boundar
   bindings/authentication and other consumers. Do not restart the active host.
   External EndNote3.13.13 host is separately owned outside RIMS; exclude with
   evidence, do not alter it. Any genuine unsupported dependency stays explicit.
+  - [x] 24October: isolated repo-local3.15.1 MCP0.8.7 candidate with74 locked
+    packages, latest compatible FastMCP3.4.11/MCP1.30.0/Azure Identity1.26.0.
+    Actual in-memory and stdio initialize/tools-list pass;58 names match attached
+    catalogue and input/output schemas agree between transports. No native tool,
+    network or auth subprocess call occurred. Dependency check, explicit launcher
+    version, syntax and two fail-closed environment selectors pass.
+  - [x] Add exact hash lock, repo-local version-checking launcher and staged
+    reversible configuration preimage/diff. Shared profile remains unchanged.
+  - [ ] Activate only at a proved affected host/native-operation terminal boundary.
+    Multiple RIMS and other repository processes share the external launcher;
+    archival of G02 does not prove native termination or release global ownership.
+    No supported scoped terminal handover/idleness evidence is available. The
+    no-contact direction prevents requesting a release or contacting G02. Preserve
+    current processes, bindings and Crossref; do not force restart/profile changes.
 - [ ] E10.7 Audit all numbered specification requirements against current state,
   complete any remaining in-scope uses/handover and verify current-head/main
   integration of necessary source changes. Do not promote optional host claims
@@ -42,10 +56,13 @@ routine second review. Each step has an explicit implementation/evidence boundar
 
 ## Next exact action
 
-Read the configured attached Fabric MCP launch path and package metadata, then
-prepare only an isolated3.15.1 host candidate within existing ownership. Retain
-active process and route; no native/auth changes or contacts. Run only newly
-relevant qualification, then hand over at terminal.
+Candidate qualification is complete locally. At an actual supported terminal
+boundary, reconcile all affected native/MCP handles and exact profile ownership,
+then apply only the staged launcher selection for the intended host/session.
+Until then retain the active3.14.6 host and report this exact handover boundary;
+do not repeat dependency resolution or passing tenant-free checks. Guide:
+`docs/FABRIC_MCP_RUNTIME.md`; public evidence:
+`audit/dependencies/fabric-mcp-python315-20261024.json`.
 
 ## Completion receipts
 
