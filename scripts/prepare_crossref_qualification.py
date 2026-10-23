@@ -5,6 +5,7 @@ import argparse
 import copy
 import hashlib
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -45,6 +46,17 @@ def prepare(pair, expected_sha256):
     branch['B_Batch_finalize'] = {'type': 'Compose', 'runAfter': old['runAfter'],
         'inputs': {'qualification_only': True, 'accepted': False,
                    'complete': False, 'verified_windows': "@length(variables('B_Queries'))"}}
+    failure = next(c for n, c in cards(branch) if n == 'B_Failure_receipt')
+    failure['inputs'] = {
+        'schema_version': 1, 'source': 'crossref', 'qualification_only': True,
+        'complete': False, 'accepted': False,
+        'run_id': "@workflow()?['run']?['name']",
+        'scope_sha256': "@outputs('B_Scope')?['scope_sha256']",
+        'cutoff': "@outputs('B_Generation_cutoff')",
+        'acquisition_failed': "@variables('B_AcquisitionFailed')",
+        'verified_windows': "@length(variables('B_Queries'))",
+        'progress_verification_status': "@actions('B_Batch_verify_progress')?['status']",
+        'qualification_result_status': "@actions('B_Batch_finalize')?['status']"}
     attempt = next(c for n, c in cards(branch) if n == 'B_Until_query_attempt')
     attempt['expression'] = "@greaterOrEquals(variables('B_QueryAttempt'),1)"
     attempt['limit'] = {'count': 1, 'timeout': 'PT20M'}
@@ -66,6 +78,12 @@ def prepare(pair, expected_sha256):
         ('crossref-baseline-complete-', 'crossref-qualification-disabled-complete-')):
         serialized = serialized.replace(before, after)
     result = json.loads(serialized)
+    names = {name for name, _ in cards(result['properties']['definition']['actions'])}
+    referenced = set(re.findall(
+        r"\b(?:outputs|body|actions|result|items)\('([^']+)'\)",
+        json.dumps(result['properties']['definition'])))
+    if referenced - names:
+        raise ValueError('Missing action references: ' + ', '.join(sorted(referenced - names)))
     # Accepted-marker writers and DOI acquisition must be physically absent.
     for name, card in cards(result['properties']['definition']['actions']):
         if card.get('type') == 'Http' and name != 'B_Get_page':

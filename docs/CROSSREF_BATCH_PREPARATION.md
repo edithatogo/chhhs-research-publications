@@ -136,3 +136,11 @@ The selected qualification packet now includes an explicit pre-request cap guard
 and a storage-writer allowlist. The earlier local packets are superseded and
 retained as history. Native authentication remains at the same account picker;
 no native deployment or runtime claim follows from local preparation.
+
+Native qualification refinement: removing finalisation must also replace failure
+diagnostics that name those removed actions. The preparer now rejects unresolved
+action-expression references. A Dataverse clientdata transport must preserve the
+existing native `runtimeSource`/`connection`/`api` reference representation; the
+Flow API reference presentation is not interchangeable with it. Compare the exact
+logical reference and connection IDs and native definition on readback. Shell
+exit zero from PAC Power Fx does not establish that a Patch succeeded.
