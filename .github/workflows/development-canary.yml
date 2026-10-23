@@ -26,6 +26,11 @@ jobs:
         uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: '3.15.1'
+      - name: Create and verify explicit repository Python
+        id: local_python
+        env:
+          BOOTSTRAP_PYTHON: ${{ steps.python.outputs.python-path }}
+        run: bash scripts/create_ci_python_env.sh "$BOOTSTRAP_PYTHON" .venv-ci 3.15.1
       - id: bootstrap
         uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
         with:
@@ -35,48 +40,49 @@ jobs:
         id: resolve
         run: |
           mkdir -p .local/tool-canary
-          uv pip compile requirements-dev.in --python 3.15.1 --prerelease allow --upgrade --generate-hashes --universal --output-file .local/tool-canary/requirements.lock --no-emit-index-url
-          python - <<'PYCODE'
+          uv pip compile requirements-dev.in --python "$GITHUB_WORKSPACE/.venv-ci/bin/python" --prerelease allow --upgrade --generate-hashes --universal --output-file .local/tool-canary/requirements.lock --no-emit-index-url
+          .venv-ci/bin/python - <<'PYCODE'
           import hashlib, json
           from pathlib import Path
           lock = Path('.local/tool-canary/requirements.lock')
           receipt = {'lockSha256': hashlib.sha256(lock.read_bytes()).hexdigest(), 'inputSha256': hashlib.sha256(Path('requirements-dev.in').read_bytes()).hexdigest(), 'targetPython': '3.15.1', 'prereleasesAllowed': True}
           Path('.local/tool-canary/candidate.json').write_text(json.dumps(receipt, indent=2) + '\n')
           PYCODE
-          uv venv --python 3.15.1 "$RUNNER_TEMP/rims-tool-canary"
-          uv pip install --python "$RUNNER_TEMP/rims-tool-canary/bin/python" --require-hashes -r .local/tool-canary/requirements.lock
-          "$RUNNER_TEMP/rims-tool-canary/bin/python" -VV > .local/tool-canary/tool-python-version.txt
-          python -VV > .local/tool-canary/python-version.txt
+          bash scripts/create_ci_python_env.sh "$GITHUB_WORKSPACE/.venv-ci/bin/python" .venv-tool-canary 3.15.1
+          uv pip install --python "$GITHUB_WORKSPACE/.venv-tool-canary/bin/python" --require-hashes -r .local/tool-canary/requirements.lock
+          "$GITHUB_WORKSPACE/.venv-tool-canary/bin/python" -VV > .local/tool-canary/tool-python-version.txt
+          .venv-ci/bin/python -VV > .local/tool-canary/python-version.txt
       - name: Exercise RIMS behaviour and candidate tooling
         id: qualification
         run: |
-          python scripts/agent_harness.py check --task all
-          python scripts/validate_visual_standards.py
-          python scripts/validate_publication_platform_contract.py
-          python scripts/validate_grants_flow_contract.py
-          python scripts/validate_dora_activity_flow_contract.py
-          "$RUNNER_TEMP/rims-tool-canary/bin/ruff" check --select E9,F63,F7,F82 scripts tests
-          "$RUNNER_TEMP/rims-tool-canary/bin/python" -m pip_audit --disable-pip --no-deps -r .local/tool-canary/requirements.lock
-          "$RUNNER_TEMP/rims-tool-canary/bin/zizmor" --offline --persona pedantic --format plain .github/workflows
+          .venv-tool-canary/bin/python scripts/agent_harness.py check --task all
+          .venv-tool-canary/bin/python scripts/validate_visual_standards.py
+          .venv-tool-canary/bin/python scripts/validate_publication_platform_contract.py
+          .venv-tool-canary/bin/python scripts/validate_grants_flow_contract.py
+          .venv-tool-canary/bin/python scripts/validate_dora_activity_flow_contract.py
+          "$GITHUB_WORKSPACE/.venv-tool-canary/bin/ruff" check --select E9,F63,F7,F82 scripts tests
+          "$GITHUB_WORKSPACE/.venv-tool-canary/bin/python" -m pip_audit --disable-pip --no-deps -r .local/tool-canary/requirements.lock
+          "$GITHUB_WORKSPACE/.venv-tool-canary/bin/zizmor" --offline --persona pedantic --format plain .github/workflows
       - name: Record actual tool qualification outcomes
-        if: always()
+        if: always() && steps.local_python.outcome == 'success'
         env:
           SOURCE_OUTCOME: ${{ steps.source.outcome }}
           PYTHON_OUTCOME: ${{ steps.python.outcome }}
+          LOCAL_PYTHON_OUTCOME: ${{ steps.local_python.outcome }}
           BOOTSTRAP_OUTCOME: ${{ steps.bootstrap.outcome }}
           RESOLVE_OUTCOME: ${{ steps.resolve.outcome }}
           QUALIFICATION_OUTCOME: ${{ steps.qualification.outcome }}
         run: |
-          python3 - <<'PYCODE'
+          .venv-ci/bin/python - <<'PYCODE'
           import hashlib, json, os
           from pathlib import Path
           root = Path('.local/tool-canary')
           root.mkdir(parents=True, exist_ok=True)
           lock = root / 'requirements.lock'
           digest = hashlib.sha256(lock.read_bytes()).hexdigest() if lock.exists() else None
-          stages = {name: os.environ[name.upper() + '_OUTCOME'] for name in ['source', 'python', 'bootstrap', 'resolve', 'qualification']}
+          stages = {name: os.environ[name.upper() + '_OUTCOME'] for name in ['source', 'python', 'local_python', 'bootstrap', 'resolve', 'qualification']}
           failed = next((name for name, outcome in stages.items() if outcome == 'failure'), None)
-          if failed in ['source', 'python', 'bootstrap']:
+          if failed in ['source', 'python', 'local_python', 'bootstrap']:
               state = 'setup-blocked'
           elif failed:
               state = 'executed-failure'
@@ -101,6 +107,15 @@ jobs:
           receipt = {'sourceCommit': os.environ['GITHUB_SHA'], 'stages': stages, 'failedStage': failed, 'runtimes': runtimes, 'lockSha256': digest, 'state': state, 'promoted': False, 'nativeWrites': False}
           (root / 'qualification.json').write_text(json.dumps(receipt, indent=2) + '\n')
           PYCODE
+      - name: Retain tool setup failure without a fallback interpreter
+        if: always() && steps.local_python.outcome != 'success'
+        env:
+          SOURCE_OUTCOME: ${{ steps.source.outcome }}
+          PYTHON_OUTCOME: ${{ steps.python.outcome }}
+          LOCAL_PYTHON_OUTCOME: ${{ steps.local_python.outcome }}
+        run: |
+          mkdir -p .local/tool-canary
+          printf '{"sourceCommit":"%s","stages":{"source":"%s","python":"%s","local_python":"%s"},"state":"setup-blocked","promoted":false,"nativeWrites":false}\n' "$GITHUB_SHA" "$SOURCE_OUTCOME" "$PYTHON_OUTCOME" "$LOCAL_PYTHON_OUTCOME" > .local/tool-canary/qualification.json
       - name: Retain candidate versions and lock without promotion
         if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
@@ -127,14 +142,20 @@ jobs:
           path: .careops-ci-tools
           persist-credentials: false
           submodules: false
-      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+      - id: qualified_python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: '3.15.1'
+      - name: Create and verify explicit repository Python
+        id: qualified_env
+        env:
+          BOOTSTRAP_PYTHON: ${{ steps.qualified_python.outputs.python-path }}
+        run: bash scripts/create_ci_python_env.sh "$BOOTSTRAP_PYTHON" .venv-ci 3.15.1
       - name: Verify failed discovery retains a terminal receipt
         run: |
           probe_receipt=".local/runtime-contract-probe/discovery.json"
-          python .careops-ci-tools/portfolio-scripts/ci_delivery.py runtime-finalize --receipt "$probe_receipt" --discovery-outcome failure --outcome skipped
-          python - "$probe_receipt" <<'PYTHON'
+          .venv-ci/bin/python .careops-ci-tools/portfolio-scripts/ci_delivery.py runtime-finalize --receipt "$probe_receipt" --discovery-outcome failure --outcome skipped
+          .venv-ci/bin/python - "$probe_receipt" <<'PYTHON'
           import json
           import sys
           from pathlib import Path
@@ -154,27 +175,58 @@ jobs:
           runtime_manifest_revision="$(gh api repos/actions/python-versions/commits/main --jq .sha)"
           [[ "$runtime_manifest_revision" =~ ^[a-f0-9]{40}$ ]]
           curl --fail --silent --show-error --location "https://raw.githubusercontent.com/actions/python-versions/$runtime_manifest_revision/versions-manifest.json" -o .local/runtime-canary/manifest.json
-          runtime_platform="$(python -c 'import platform; print(platform.freedesktop_os_release()["VERSION_ID"])')"
-          python .careops-ci-tools/portfolio-scripts/ci_delivery.py runtime --platform-version "$runtime_platform" --manifest .local/runtime-canary/manifest.json --manifest-revision "$runtime_manifest_revision" --output .local/runtime-canary/discovery.json --github-output "$GITHUB_OUTPUT"
+          runtime_platform="$(.venv-ci/bin/python -c 'import platform; print(platform.freedesktop_os_release()["VERSION_ID"])')"
+          .venv-ci/bin/python - "$runtime_manifest_revision" "$runtime_platform" "$GITHUB_OUTPUT" <<'PYCODE'
+          import hashlib, importlib.util, json, re, sys
+          from pathlib import Path
+          assert sys.version_info[:3] == (3, 15, 1)
+          revision, platform_version, github_output = sys.argv[1:]
+          assert re.fullmatch(r'[a-f0-9]{40}', revision)
+          baseline = Path('.python-version').read_text().strip()
+          assert baseline == '3.15.1'
+          spec = importlib.util.spec_from_file_location('qualified_discovery', '.careops-ci-tools/portfolio-scripts/ci_delivery.py')
+          helper = importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(helper)
+          raw = Path('.local/runtime-canary/manifest.json').read_bytes()
+          releases = [release for release in json.loads(raw) if str(release.get('version', '')).startswith('3.15.')]
+          result = helper.select_python_preview(releases, baseline=baseline, platform_version=platform_version)
+          result.update(manifestRevision=revision, manifestSha256=hashlib.sha256(raw).hexdigest(), selectedSeries='3.15')
+          Path('.local/runtime-canary/discovery.json').write_text(json.dumps(result, indent=2) + '\n')
+          with Path(github_output).open('a') as handle:
+              handle.write('available=' + ('true' if result['candidate'] else 'false') + '\n')
+              handle.write('version=' + (result['candidate'] or '') + '\n')
+          PYCODE
       - name: Set up only the exact available preview
+        id: candidate_python
         if: steps.discover.outputs.available == 'true' && startsWith(steps.discover.outputs.version, '3.15.')
         uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: ${{ steps.discover.outputs.version }}
           allow-prereleases: true
+      - name: Create and verify resolved preview environment
+        if: steps.discover.outputs.available == 'true' && startsWith(steps.discover.outputs.version, '3.15.')
+        env:
+          CANDIDATE_PYTHON: ${{ steps.candidate_python.outputs.python-path }}
+          CANDIDATE_VERSION: ${{ steps.discover.outputs.version }}
+        run: bash scripts/create_ci_python_env.sh "$CANDIDATE_PYTHON" .venv-runtime-canary "$CANDIDATE_VERSION"
       - name: Exercise RIMS on the resolved Python preview
         id: runtime_tests
         if: steps.discover.outputs.available == 'true' && startsWith(steps.discover.outputs.version, '3.15.')
         run: |
-          python -VV > .local/runtime-canary/python-version.txt
-          python scripts/agent_harness.py check --task all
-          python scripts/validate_visual_standards.py
+          .venv-runtime-canary/bin/python -VV > .local/runtime-canary/python-version.txt
+          .venv-runtime-canary/bin/python scripts/agent_harness.py check --task all
+          .venv-runtime-canary/bin/python scripts/validate_visual_standards.py
       - name: Record actual qualification or explicit unavailability
-        if: always()
+        if: always() && steps.qualified_env.outcome == 'success'
         env:
           DISCOVERY_OUTCOME: ${{ steps.discover.outcome }}
           RUNTIME_TEST_OUTCOME: ${{ steps.runtime_tests.outcome }}
-        run: python .careops-ci-tools/portfolio-scripts/ci_delivery.py runtime-finalize --receipt .local/runtime-canary/discovery.json --outcome "$RUNTIME_TEST_OUTCOME" --discovery-outcome "$DISCOVERY_OUTCOME"
+        run: .venv-ci/bin/python .careops-ci-tools/portfolio-scripts/ci_delivery.py runtime-finalize --receipt .local/runtime-canary/discovery.json --outcome "$RUNTIME_TEST_OUTCOME" --discovery-outcome "$DISCOVERY_OUTCOME"
+      - name: Retain runtime setup failure without a fallback interpreter
+        if: always() && steps.qualified_env.outcome != 'success'
+        run: |
+          mkdir -p .local/runtime-canary
+          printf '%s\n' '{"state":"setup-blocked","runtimeTestsExecuted":false,"promoted":false,"nativeWrites":false}' > .local/runtime-canary/discovery.json
       - name: Retain frozen manifest and actual outcome
         if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+# Invoke with the explicitly selected repository-local Python3.15.1.
 """Create keyless research governance and funding fields on SharePoint list."""
 import json
 import os

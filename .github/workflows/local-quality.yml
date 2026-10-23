@@ -26,33 +26,39 @@ jobs:
           persist-credentials: false
 
       - name: Set up Python
+        id: python
         uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: '3.15.1'
 
+      - name: Create and verify explicit repository Python
+        env:
+          BOOTSTRAP_PYTHON: ${{ steps.python.outputs.python-path }}
+        run: bash scripts/create_ci_python_env.sh "$BOOTSTRAP_PYTHON" .venv-ci 3.15.1
+
       - name: Run unit tests
-        run: python -m unittest discover -s tests -v
+        run: .venv-ci/bin/python -m unittest discover -s tests -v
 
       - name: Validate project contracts
-        run: python scripts/validate_project.py
+        run: .venv-ci/bin/python scripts/validate_project.py
 
       - name: Validate web-first contracts
-        run: python scripts/webfirst_contracts.py validate
+        run: .venv-ci/bin/python scripts/webfirst_contracts.py validate
 
       - name: Validate Conductor structure
-        run: python scripts/validate_conductor.py
+        run: .venv-ci/bin/python scripts/validate_conductor.py
 
       - name: Run read-only Power Platform tooling preflight
-        run: python scripts/powerplatform_tooling.py check
+        run: .venv-ci/bin/python scripts/powerplatform_tooling.py check
 
       - name: Validate visual standards
-        run: python scripts/validate_visual_standards.py
+        run: .venv-ci/bin/python scripts/validate_visual_standards.py
 
       - name: Validate canonical flow contracts
         run: |
-          python scripts/validate_publication_platform_contract.py
-          python scripts/validate_grants_flow_contract.py
-          python scripts/validate_dora_activity_flow_contract.py
+          .venv-ci/bin/python scripts/validate_publication_platform_contract.py
+          .venv-ci/bin/python scripts/validate_grants_flow_contract.py
+          .venv-ci/bin/python scripts/validate_dora_activity_flow_contract.py
 
   locked-dependencies:
     name: Python3.15.1 locked artifact dependencies
@@ -63,20 +69,26 @@ jobs:
         with:
           persist-credentials: false
           submodules: recursive
-      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+      - id: python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: '3.15.1'
+
+      - name: Create and verify explicit repository Python
+        env:
+          BOOTSTRAP_PYTHON: ${{ steps.python.outputs.python-path }}
+        run: bash scripts/create_ci_python_env.sh "$BOOTSTRAP_PYTHON" .venv-ci 3.15.1
       - uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
         with:
           version: '0.13.5'
           enable-cache: false
       - name: Install exact hash-locked development dependencies
-        run: uv pip sync --system --require-hashes requirements-dev.txt
+        run: uv pip sync --python "$GITHUB_WORKSPACE/.venv-ci/bin/python" --require-hashes requirements-dev.txt
       - name: Verify installed dependency metadata and artifact libraries
         run: |
-          python -m pip check
-          python -c "import sys, certifi, docx, lxml.etree, openpyxl; assert sys.version_info[:3] == (3, 15, 1)"
-      - run: python -m unittest discover -s tests -v
-      - run: python scripts/validate_project.py
-      - run: python scripts/webfirst_contracts.py validate
-      - run: python scripts/validate_conductor.py
+          .venv-ci/bin/python -m pip check
+          .venv-ci/bin/python -c "import sys, certifi, docx, lxml.etree, openpyxl; assert sys.version_info[:3] == (3, 15, 1)"
+      - run: .venv-ci/bin/python -m unittest discover -s tests -v
+      - run: .venv-ci/bin/python scripts/validate_project.py
+      - run: .venv-ci/bin/python scripts/webfirst_contracts.py validate
+      - run: .venv-ci/bin/python scripts/validate_conductor.py

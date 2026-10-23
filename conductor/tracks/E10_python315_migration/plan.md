@@ -48,6 +48,14 @@ routine second review. Each step has an explicit implementation/evidence boundar
   complete any remaining in-scope uses/handover and verify current-head/main
   integration of necessary source changes. Do not promote optional host claims
   or infer full qualification from PR9 alone.
+  - 24October audit correction: quality/canary jobs still used PATH Python and
+    the artifact job installed into the runner system environment. The prepared
+    correction creates fresh repository environments from setup-python's exact
+    absolute output, verifies actual version/prefix, invokes those interpreters
+    explicitly and retains setup-failure receipts without a fallback interpreter.
+    Candidate tool behavior runs inside the candidate dependency environment.
+    Exact-head and main CI must pass before accepting this correction; the shared
+    Fabric host handover remains separate and incomplete.
 - [x] E10.8 Inspect durable goal state: unfinished E01 goal remains blocked,
   preserved unchanged. Separate E10 CreateGoal not attempted because no goal
   slot is available; no retry or false rejection/success claim. Registration

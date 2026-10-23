@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+# Invoke with the explicitly selected repository-local Python3.15.1.
 """
 Open Access Full-Text Paper Downloader and Archiver for CHHHS Publications.
 

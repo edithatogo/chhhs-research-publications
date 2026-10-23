@@ -28,6 +28,7 @@ process: create a fresh environment and keep its path explicit.
 ```sh
 uv python install 3.15.1 --no-bin
 uv venv --python 3.15.1 .venv
+.venv/bin/python -c 'import sys; assert sys.version_info[:3] == (3, 15, 1); print(sys.version)'
 uv pip sync --python .venv/bin/python --require-hashes requirements-dev.txt
 .venv/bin/python -m pip check
 .venv/bin/python scripts/agent_harness.py check --task all

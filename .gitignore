@@ -3,6 +3,10 @@ __pycache__/
 .pytest_cache/
 .ruff_cache/
 .venv/
+.venv-ci/
+.venv-tool-canary/
+.venv-runtime-canary/
+.venv-fabric-mcp/
 node_modules/
 .env
 *.pbix
