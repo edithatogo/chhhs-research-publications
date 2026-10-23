@@ -1,4 +1,5 @@
 import pytest
+import unittest
 from pathlib import Path
 
 # Skip entire module if private/ops evidence files not present
@@ -12,13 +13,14 @@ REQUIRED_EVIDENCE_FILES = [
     "2026-10-23-g02-qgip-official-resource-recheck/snapshot-comparison.json",
 ]
 if not all((PRIVATE_OPS_ROOT / f).exists() for f in REQUIRED_EVIDENCE_FILES):
-    pytest.skip("private/ops evidence files not present; skipping tests", allow_module_level=True)
+    raise unittest.SkipTest("private/ops evidence files not present; skipping tests")
 
 import copy
 import hashlib
 import json
 
 import pytest
+import unittest
 
 from scripts.build_grants_runtime_cases import build_cases
 from scripts.validate_grants_runtime_evidence import evaluate
