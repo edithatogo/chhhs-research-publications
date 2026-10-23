@@ -1,0 +1,223 @@
+{
+  "schema_version": 1,
+  "revision": "2026-10-18-crossref-institutional-hedge-v1",
+  "intent": "Candidate superset of the maintained PubMed affiliation hedge, using Crossref query.affiliation semantics; retain all raw pages before precise affiliation selection.",
+  "pubmed_hedge_reference": "config/collector.json",
+  "rows_per_page": 500,
+  "overlap_days": 7,
+  "full_reconciliation_days": 28,
+  "snapshot_lag_minutes": 10,
+  "query_semantics": "Each distinctive anchor is queried separately. Crossref phrase words broaden rather than enforce an exact phrase; no global hospital/health query. Every maintained affiliation alias must contain its configured anchor. Geographic false positives remain in raw retention.",
+  "queries": [
+    {
+      "key": "cairns",
+      "anchor": "Cairns",
+      "covers_affiliation_aliases": [
+        "Cairns and Hinterland Hospital and Health Service",
+        "Cairns & Hinterland Hospital and Health Service",
+        "Cairns and Hinterland Hospital & Health Service",
+        "Cairns & Hinterland Hospital & Health Service",
+        "Cairns and Hinterland Health Service",
+        "Cairns Health Service District",
+        "Cairns Sexual Health Service",
+        "Cairns Hospital",
+        "Cairns Base Hospital",
+        "Cairns North Community Health",
+        "Cairns South Health Facility",
+        "Cairns Sub-Acute Care Unit",
+        "Cairns Public Health Unit"
+      ]
+    },
+    {
+      "key": "chhhs",
+      "anchor": "CHHHS",
+      "covers_affiliation_aliases": [
+        "CHHHS"
+      ]
+    },
+    {
+      "key": "liz",
+      "anchor": "Liz",
+      "covers_affiliation_aliases": [
+        "Liz Plummer Cancer Care Centre"
+      ]
+    },
+    {
+      "key": "tropical",
+      "anchor": "Tropical",
+      "covers_affiliation_aliases": [
+        "Tropical Public Health Services"
+      ]
+    },
+    {
+      "key": "atherton",
+      "anchor": "Atherton",
+      "covers_affiliation_aliases": [
+        "Atherton Hospital"
+      ]
+    },
+    {
+      "key": "babinda",
+      "anchor": "Babinda",
+      "covers_affiliation_aliases": [
+        "Babinda Hospital",
+        "Babinda Multi-Purpose Health Centre"
+      ]
+    },
+    {
+      "key": "gordonvale",
+      "anchor": "Gordonvale",
+      "covers_affiliation_aliases": [
+        "Gordonvale Hospital"
+      ]
+    },
+    {
+      "key": "herberton",
+      "anchor": "Herberton",
+      "covers_affiliation_aliases": [
+        "Herberton Hospital"
+      ]
+    },
+    {
+      "key": "innisfail",
+      "anchor": "Innisfail",
+      "covers_affiliation_aliases": [
+        "Innisfail Hospital"
+      ]
+    },
+    {
+      "key": "mareeba",
+      "anchor": "Mareeba",
+      "covers_affiliation_aliases": [
+        "Mareeba Hospital"
+      ]
+    },
+    {
+      "key": "mossman",
+      "anchor": "Mossman",
+      "covers_affiliation_aliases": [
+        "Mossman Hospital",
+        "Mossman Multi-Purpose Health Service"
+      ]
+    },
+    {
+      "key": "tully",
+      "anchor": "Tully",
+      "covers_affiliation_aliases": [
+        "Tully Hospital"
+      ]
+    },
+    {
+      "key": "yarrabah",
+      "anchor": "Yarrabah",
+      "covers_affiliation_aliases": [
+        "Yarrabah Emergency Service"
+      ]
+    },
+    {
+      "key": "chillagoe",
+      "anchor": "Chillagoe",
+      "covers_affiliation_aliases": [
+        "Chillagoe Primary Health Centre",
+        "Chillagoe Hospital"
+      ]
+    },
+    {
+      "key": "cow",
+      "anchor": "Cow",
+      "covers_affiliation_aliases": [
+        "Cow Bay Primary Health Centre"
+      ]
+    },
+    {
+      "key": "croydon",
+      "anchor": "Croydon",
+      "covers_affiliation_aliases": [
+        "Croydon Primary Health Centre"
+      ]
+    },
+    {
+      "key": "dimbulah",
+      "anchor": "Dimbulah",
+      "covers_affiliation_aliases": [
+        "Dimbulah Primary Health Centre"
+      ]
+    },
+    {
+      "key": "edmonton",
+      "anchor": "Edmonton",
+      "covers_affiliation_aliases": [
+        "Edmonton Community Health Centre"
+      ]
+    },
+    {
+      "key": "forsayth",
+      "anchor": "Forsayth",
+      "covers_affiliation_aliases": [
+        "Forsayth Primary Health Centre"
+      ]
+    },
+    {
+      "key": "georgetown",
+      "anchor": "Georgetown",
+      "covers_affiliation_aliases": [
+        "Georgetown Primary Health Centre"
+      ]
+    },
+    {
+      "key": "jumbun",
+      "anchor": "Jumbun",
+      "covers_affiliation_aliases": [
+        "Jumbun Community Health Centre"
+      ]
+    },
+    {
+      "key": "malanda",
+      "anchor": "Malanda",
+      "covers_affiliation_aliases": [
+        "Malanda Primary Health Centre"
+      ]
+    },
+    {
+      "key": "millaa",
+      "anchor": "Millaa",
+      "covers_affiliation_aliases": [
+        "Millaa Millaa Primary Health Centre"
+      ]
+    },
+    {
+      "key": "mission",
+      "anchor": "Mission",
+      "covers_affiliation_aliases": [
+        "Mission Beach Community Health Centre"
+      ]
+    },
+    {
+      "key": "garnet",
+      "anchor": "Garnet",
+      "covers_affiliation_aliases": [
+        "Mount Garnet Primary Health Centre",
+        "Mt Garnet Primary Health Centre"
+      ]
+    },
+    {
+      "key": "ravenshoe",
+      "anchor": "Ravenshoe",
+      "covers_affiliation_aliases": [
+        "Ravenshoe Primary Health Centre"
+      ]
+    },
+    {
+      "key": "smithfield",
+      "anchor": "Smithfield",
+      "covers_affiliation_aliases": [
+        "Smithfield Community Health Centre"
+      ]
+    }
+  ],
+  "limitations": [
+    "Crossref affiliation metadata is optional/incomplete. Complete query results do not establish all institutional publications.",
+    "Broad anchors such as Edmonton, Georgetown and Tropical intentionally acquire false positives; precise selection follows raw retention.",
+    "DOI reconciliation complements discovery for records with absent affiliation metadata."
+  ]
+}

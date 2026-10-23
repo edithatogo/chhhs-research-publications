@@ -21,13 +21,16 @@ class ModuleSummaryDocumentationTests(unittest.TestCase):
             self.assertIn("## ", text)
             self.assertRegex(text, rf"## \d+\. {re.escape(heading)}")
 
-        blocks = re.findall(r"```mermaid\n(.*?)\n```", text, flags=re.DOTALL)
+        # The document also has a top-level horizontal/vertical overview diagram.
+        # Count the six numbered module diagrams below, not that overview.
+        module_summaries = text.split("## 1. Publications registry", 1)[1]
+        blocks = re.findall(r"```mermaid\n(.*?)\n```", module_summaries, flags=re.DOTALL)
         self.assertEqual(len(blocks), len(expected))
         for block in blocks:
             self.assertRegex(block, r"(?m)^flowchart (LR|TD|RL|BT)\s*$")
             self.assertGreaterEqual(len(re.findall(r"(?m)^\s*\S+.*-->.*$", block)), 2)
 
-        self.assertEqual(text.count("\n```"), len(expected) * 2)
+        self.assertEqual(module_summaries.count("\n```"), len(expected) * 2)
 
 
 if __name__ == "__main__":
