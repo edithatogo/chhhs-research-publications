@@ -14,6 +14,8 @@ REQUIRED_EVIDENCE_FILES = [
 if not all((PRIVATE_OPS_ROOT / f).exists() for f in REQUIRED_EVIDENCE_FILES):
     raise unittest.SkipTest("private/ops evidence files not present; skipping tests")
 
+import pytest
+
 import copy
 
 import unittest
