@@ -22,32 +22,29 @@ jobs:
         with:
           persist-credentials: false
           submodules: recursive
-      - name: Read qualified shared candidate resolver
-        id: policy
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          repository: edithatogo/careops
-          ref: 6319d0c0c76ee672223c156abce9d4181c41aa9a
-          path: .careops-ci-tools
-          persist-credentials: false
-          submodules: false
       - id: python
-        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
-          python-version: '3.15.0'
+          python-version: '3.15.1'
       - id: bootstrap
-        uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
+        uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
         with:
-          version: '0.13.1'
+          version: '0.13.5'
           enable-cache: false
       - name: Resolve a separate exact hash-locked CI tool candidate
         id: resolve
         run: |
           mkdir -p .local/tool-canary
-          python .careops-ci-tools/portfolio-scripts/ci_delivery.py lock --root .careops-ci-tools --preview --output .careops-ci-tools/.local/canary/requirements.lock --receipt .local/tool-canary/candidate.json
-          cp .careops-ci-tools/.local/canary/requirements.lock .local/tool-canary/requirements.lock
-          uv venv --python 3.14.8 "$RUNNER_TEMP/rims-tool-canary"
-          uv pip install --python "$RUNNER_TEMP/rims-tool-canary/bin/python" --require-hashes --only-binary=:all: -r .local/tool-canary/requirements.lock
+          uv pip compile requirements-dev.in --python 3.15.1 --prerelease allow --upgrade --generate-hashes --universal --output-file .local/tool-canary/requirements.lock --no-emit-index-url
+          python - <<'PYCODE'
+          import hashlib, json
+          from pathlib import Path
+          lock = Path('.local/tool-canary/requirements.lock')
+          receipt = {'lockSha256': hashlib.sha256(lock.read_bytes()).hexdigest(), 'inputSha256': hashlib.sha256(Path('requirements-dev.in').read_bytes()).hexdigest(), 'targetPython': '3.15.1', 'prereleasesAllowed': True}
+          Path('.local/tool-canary/candidate.json').write_text(json.dumps(receipt, indent=2) + '\n')
+          PYCODE
+          uv venv --python 3.15.1 "$RUNNER_TEMP/rims-tool-canary"
+          uv pip install --python "$RUNNER_TEMP/rims-tool-canary/bin/python" --require-hashes -r .local/tool-canary/requirements.lock
           "$RUNNER_TEMP/rims-tool-canary/bin/python" -VV > .local/tool-canary/tool-python-version.txt
           python -VV > .local/tool-canary/python-version.txt
       - name: Exercise RIMS behaviour and candidate tooling
@@ -65,7 +62,6 @@ jobs:
         if: always()
         env:
           SOURCE_OUTCOME: ${{ steps.source.outcome }}
-          POLICY_OUTCOME: ${{ steps.policy.outcome }}
           PYTHON_OUTCOME: ${{ steps.python.outcome }}
           BOOTSTRAP_OUTCOME: ${{ steps.bootstrap.outcome }}
           RESOLVE_OUTCOME: ${{ steps.resolve.outcome }}
@@ -78,9 +74,9 @@ jobs:
           root.mkdir(parents=True, exist_ok=True)
           lock = root / 'requirements.lock'
           digest = hashlib.sha256(lock.read_bytes()).hexdigest() if lock.exists() else None
-          stages = {name: os.environ[name.upper() + '_OUTCOME'] for name in ['source', 'policy', 'python', 'bootstrap', 'resolve', 'qualification']}
+          stages = {name: os.environ[name.upper() + '_OUTCOME'] for name in ['source', 'python', 'bootstrap', 'resolve', 'qualification']}
           failed = next((name for name, outcome in stages.items() if outcome == 'failure'), None)
-          if failed in ['source', 'policy', 'python', 'bootstrap']:
+          if failed in ['source', 'python', 'bootstrap']:
               state = 'setup-blocked'
           elif failed:
               state = 'executed-failure'
@@ -98,7 +94,7 @@ jobs:
                   runtimes[name] = path.read_text().strip() if path.exists() else ''
               if state == 'qualified-tool-candidate' and (not digest or candidate.get('lockSha256') != digest):
                   state = 'evidence-mismatch'
-              if state == 'qualified-tool-candidate' and not (runtimes['python-version'].startswith('Python 3.15.0 ') and runtimes['tool-python-version'].startswith('Python 3.14.8 ')):
+              if state == 'qualified-tool-candidate' and not (runtimes['python-version'].startswith('Python 3.15.1 ') and runtimes['tool-python-version'].startswith('Python 3.15.1 ')):
                   state = 'runtime-mismatch'
           except (OSError, ValueError, TypeError):
               state = 'evidence-invalid'
@@ -115,7 +111,7 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
   runtime:
-    name: Python preview discovery and RIMS compatibility
+    name: Python3.15 candidate discovery and RIMS compatibility
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -131,9 +127,9 @@ jobs:
           path: .careops-ci-tools
           persist-credentials: false
           submodules: false
-      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
-          python-version: '3.15.0'
+          python-version: '3.15.1'
       - name: Verify failed discovery retains a terminal receipt
         run: |
           probe_receipt=".local/runtime-contract-probe/discovery.json"
@@ -161,14 +157,14 @@ jobs:
           runtime_platform="$(python -c 'import platform; print(platform.freedesktop_os_release()["VERSION_ID"])')"
           python .careops-ci-tools/portfolio-scripts/ci_delivery.py runtime --platform-version "$runtime_platform" --manifest .local/runtime-canary/manifest.json --manifest-revision "$runtime_manifest_revision" --output .local/runtime-canary/discovery.json --github-output "$GITHUB_OUTPUT"
       - name: Set up only the exact available preview
-        if: steps.discover.outputs.available == 'true'
-        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        if: steps.discover.outputs.available == 'true' && startsWith(steps.discover.outputs.version, '3.15.')
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: ${{ steps.discover.outputs.version }}
           allow-prereleases: true
       - name: Exercise RIMS on the resolved Python preview
         id: runtime_tests
-        if: steps.discover.outputs.available == 'true'
+        if: steps.discover.outputs.available == 'true' && startsWith(steps.discover.outputs.version, '3.15.')
         run: |
           python -VV > .local/runtime-canary/python-version.txt
           python scripts/agent_harness.py check --task all

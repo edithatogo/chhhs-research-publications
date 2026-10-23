@@ -9,7 +9,7 @@ Primary: qualified CLI/API operations on existing Microsoft resources. Inspect s
 
 Source control: existing PBIP, PBIR, TMDL, M and DAX files. Microsoft schema URLs may contain the namespace "fabric"; this is not a requirement to deploy Fabric Git or purchase capacity.
 
-Local support: Python 3.11+ standard library; unittest, source validation, route/isolation checks and full-register CSV/HTML renderer. These do not execute M/DAX. Power Automate runtime and schedule status must be read from the current owner's dated native receipts; local packages do not establish deployment.
+Local support: Python 3.15.1 standard library; unittest, source validation, route/isolation checks and full-register CSV/HTML renderer. These do not execute M/DAX. Power Automate runtime and schedule status must be read from the current owner's dated native receipts; local packages do not establish deployment.
 
 Fallback only: existing UTM on the user's Mac, correctly matched Windows 11 architecture and regular Power BI Desktop. Host/guest/installer compatibility must be verified and a native smoke test performed. No implication that UTM is an officially supported Power BI VDI environment.
 
