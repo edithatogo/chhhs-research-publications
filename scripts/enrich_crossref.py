@@ -18,7 +18,8 @@ logger = logging.getLogger(__name__)
 
 CROSSREF_BASE_URL = "https://api.crossref.org/works"
 DEFAULT_POLITE_EMAIL = os.environ.get("CROSSREF_POLITE_EMAIL", "")
-USER_AGENT = f"CHHHS-Research-Registry/1.0 (mailto:{DEFAULT_POLITE_EMAIL})"
+USER_AGENT = (f"CHHHS-Research-Registry/1.0 (mailto:{DEFAULT_POLITE_EMAIL})"
+              if DEFAULT_POLITE_EMAIL else "CHHHS-Research-Registry/1.0")
 
 
 def clean_doi(raw_doi: Any) -> str | None:
@@ -38,13 +39,18 @@ def fetch_crossref_work_by_doi(doi: str, email: str = DEFAULT_POLITE_EMAIL, time
     if not normalized_doi:
         return None
 
+    email = email.strip() if isinstance(email, str) else ""
     encoded_doi = urllib.parse.quote(normalized_doi)
-    url = f"{CROSSREF_BASE_URL}/{encoded_doi}?mailto={urllib.parse.quote(email)}"
+    url = f"{CROSSREF_BASE_URL}/{encoded_doi}"
+    user_agent = "CHHHS-Research-Registry/1.0"
+    if email:
+        url += f"?mailto={urllib.parse.quote(email)}"
+        user_agent += f" (mailto:{email})"
 
     req = urllib.request.Request(
         url,
         headers={
-            "User-Agent": USER_AGENT,
+            "User-Agent": user_agent,
             "Accept": "application/json",
         },
     )

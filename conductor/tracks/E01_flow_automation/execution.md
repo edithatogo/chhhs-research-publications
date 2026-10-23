@@ -12,7 +12,7 @@ scripts/build_sharepoint_upsert_package.py; config/flows/publication-registry-up
 
 ## 2. Repair local first
 
-- [x] Use S01's tested builder and verified column mapping. Validate explicit loop scope, dependency graph, lookup uniqueness, escaped keys, pagination and preservation of manual review fields. Evidence: `python3 -m unittest discover -s tests -p 'test_publication_platform_contract.py' -v` (16 passed, 8 private-package cases skipped) and `python3 scripts/validate_publication_platform_contract.py` passed against the tracked definition. These are local contract checks, not native flow acceptance.
+- [ ] Use S01's tested builder and verified column mapping. Validate explicit loop scope, dependency graph, lookup uniqueness, escaped keys, pagination and preservation of manual review fields. Do not replace legitimate field_N names.
 
 ## 3. Controlled update
 
