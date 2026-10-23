@@ -71,7 +71,7 @@ jobs:
           version: '0.13.5'
           enable-cache: false
       - name: Install exact hash-locked development dependencies
-        run: uv pip sync --system --require-hashes -r requirements-dev.txt
+        run: uv pip sync --system --require-hashes requirements-dev.txt
       - name: Verify installed dependency metadata and artifact libraries
         run: |
           python -m pip check
