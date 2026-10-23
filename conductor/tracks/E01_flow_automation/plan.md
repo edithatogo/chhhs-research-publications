@@ -713,9 +713,13 @@ comes before optional unattended operation; use existing exact target ownership.
   do not finish this task. Reuse raw retention, generation commit and replay logic.
 - [ ] Reuse source-specific watermarks/change dates and finite retries; resume failed
   pages without committing partial generations. Preserve last-good consumers and
-  distinguish unchanged, empty, failed and incomplete outcomes.
+  distinguish unchanged, empty, failed and incomplete outcomes. This historical
+  expansion item is the same unresolved work as the canonical provider-gap item
+  above; track progress once there and do not execute it as a second task.
 - [ ] Expose freshness, coverage and failed-generation state in existing source/run
   records and useful SharePoint views; no new monitoring product or approval queue.
+  This duplicates the canonical source-health item above; keep one status/evidence
+  record there.
 **Transferred follow-up — E08-F03:** later natural trigger/history observations.
 Native continuation implementation and controlled qualification remain in E01.
 
@@ -886,12 +890,12 @@ Within E01-H02a/H02/H03, follow the native implementation owner and exact reques
 
 Earlier checked tasks describe historical implementation. They do not close current operational acceptance.
 
-- [ ] Verify remaining native execution, replay/readback and reconciliation against current private receipts.
-- [ ] Record release and schedule status separately from local test/package completion.
+- [x] Verify remaining native execution, replay/readback and reconciliation against current private receipts. Completed 23 October in `review.md` under “Objective reconciliation and continuation review”; latest provider receipts and exact residual blockers are reconciled there. This audit does not itself accept the unresolved native paths.
+- [x] Record release and schedule status separately from local test/package completion. Completed 23 October in the same review: digest remains no-send/Stopped; provider flow states/cadences and the partial Crossref/DataCite outcomes are recorded separately from local checks.
 
 ## Phase 4: Local flow defect remediation
 - [x] Separate the Power BI readiness summary query from the publication-row query consumed by the SharePoint upsert loop; add a nonblank `SourceKey` contract and regression test.
-- [~] Re-deploy the corrected definition only to the approved isolated/manual route and capture create, replay/update, duplicate and failed-batch readback. The 2026-09-21 live retest proves corrected readiness/query/loop execution and SharePoint lookup; create/replay/update, duplicate, failed-batch, reconciliation and unattended-cycle evidence remain open.
+- [~] Re-deploy the corrected definition only to the approved isolated/manual route and capture create, replay/update, duplicate and failed-batch readback. The 2026-09-21 live retest proves corrected readiness/query/loop execution and SharePoint lookup. Later E01-H03 receipts supersede the old create/replay/update and duplicate gaps; `writer-runtime-recovery-20261022.md` and `writer-concurrency-20261022.md` accept those selected cases. Failed-batch/reconciliation and unattended-cycle evidence remain open under H04/H05.
 
 ## Phase: Live query retest evidence — 2026-09-21
 
@@ -932,7 +936,7 @@ The historical native gap below is partly superseded by the 3 October deployment
 - [x] Prepare the generic origin-aware projection and exact SourceKey OR CanonicalKey lookup. Read-only reconciliation matched 1,335 current identities with three genuine additions and no multiple matches. Preserve PUB:hash internal IDs, DoRA aliases, explicit review/history, blank stubs and secondary observations; no bulk admission or cleanup follows from this proof.
 - [x] Reconcile local PMID mappings to the existing native behaviour: derive PubMed identity digits; retain DoRA metadata on create and existing metadata on update. This supersedes the historical local instruction to clear non-PubMed values; source origin and metadata identifier are separate facts. Fresh package and 31 focused projection/guard/platform tests pass.
 - [x] Save the three-path native candidate to the same stopped flow after fresh authenticated ETag/state/definition comparison. Candidate/rollback hashes and exact changed paths: `private/ops/2026-10-10-e01-compatible-definition-preparation-private.json`. Native bindings/connections/trigger and PMID expressions remain unchanged. 10 October recovered Azure CLI identity/resource route; exact workflow GET200, If-Match PATCH204 and exact saved-definition GET prove this slice, with state0/status1 (Off) preserved. Actual clientdata rollback and receipt: `private/ops/2026-10-10-e01-compatible-definition-native-acceptance-private.json`. No registry write/run/activation occurred.
-- [ ] Reconcile both query bindings and readiness with a qualified routine source model before controlled create/update/replay. The accepted report-unbound retained snapshot is suitable for scoped snapshot acceptance; its empty current-source audit tables cannot silently satisfy routine ingestion readiness. Preserve existing activation, target and bounded test authority.
+- [ ] Reconcile both query bindings and readiness with a qualified routine source model before controlled create/update/replay. The accepted report-unbound retained snapshot is suitable for scoped snapshot acceptance; its empty current-source audit tables cannot silently satisfy routine ingestion readiness. Preserve existing activation, target and bounded test authority. The later R45 raw-reader acceptance does not close this routine-model gate: it retains `runtime_and_memory_qualified=false`, and does not establish current source audit readiness.
 
 Runtime target probe — 10 October: exact qualified canary query200 reports 1,271 PubMed rows/nine audits, but no loaded DoRA publication/audit rows; retained tables are 1,271/709 and canonical1338. Existing saved DoraPublications partition reads RetainedDoraPublications, while DoraIngestionAudit reads live DoraHistoricalMetadata/chunks; loading retained snapshot is not proof of routine-current collection audits. Old bound model's latest refresh history GET200 is terminal Cancelled (29 September), which does not explain or resolve its saved MSOLAP query failure. No unchanged query retry, refresh, capacity assignment or permanent rebind. Receipts: `private/ops/2026-10-10-e01-qualified-model-source-readiness-private.json` and `private/ops/2026-10-10-e01-bound-model-refresh-history-private.json`. Restore/qualify intended routine-source model under the existing isolation/rollback path before binding/runtime cases; do not turn a retained snapshot into current-source evidence.
 
