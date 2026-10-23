@@ -4,16 +4,19 @@ let
     Source = SharePoint.Tables(SiteUrl, [Implementation = "2.0", ViewMode = "All"]),
     Registry = Source{[Title = "Grants Registry"]}[Items],
     Selected = Table.SelectColumns(Registry, {
-        "OpportunityKey", "Title", "Funder", "Source", "SourceID", "RoundID", "URL",
+        "OpportunityKey", "Title", "Funder", "Source", "SourceID", "RoundID", "URL", "SourceRowURL",
         "Description", "Eligibility", "Geography", "Amount", "Deadline", "DeadlineRaw",
-        "DeadlinePrecision", "Status", "Contact", "CHHHSRelevance", "ReviewStatus",
+        "DeadlineTimezone", "DeadlineLocalTime", "DeadlineUTCInstant", "DeadlineBrisbaneDate",
+        "DeadlineBrisbaneTime", "DeadlineTemporalStatus", "DeadlinePrecision", "Status", "Contact", "CHHHSRelevance", "ReviewStatus",
         "ReviewNotes", "RetrievedUTC", "RetrievedTimestampStatus", "EvidenceHash"
     }, MissingField.UseNull),
     Typed = Table.TransformColumnTypes(Selected, {
         {"OpportunityKey", type text}, {"Title", type text}, {"Funder", type text},
-        {"Source", type text}, {"SourceID", type text}, {"RoundID", type text}, {"URL", type text},
+        {"Source", type text}, {"SourceID", type text}, {"RoundID", type text}, {"URL", type text}, {"SourceRowURL", type text},
         {"Description", type text}, {"Eligibility", type text}, {"Geography", type text},
         {"Amount", type text}, {"Deadline", type text}, {"DeadlineRaw", type text},
+        {"DeadlineTimezone", type text}, {"DeadlineLocalTime", type text}, {"DeadlineUTCInstant", type text},
+        {"DeadlineBrisbaneDate", type text}, {"DeadlineBrisbaneTime", type text}, {"DeadlineTemporalStatus", type text},
         {"DeadlinePrecision", type text}, {"Status", type text}, {"Contact", type text},
         {"CHHHSRelevance", type text}, {"ReviewStatus", type text}, {"ReviewNotes", type text},
         {"RetrievedUTC", type text}, {"RetrievedTimestampStatus", type text}, {"EvidenceHash", type text}

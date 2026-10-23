@@ -1,5 +1,5 @@
 table GrantsRegistry
-	description: "Canonical opportunity registry projection. Empty or unaccepted source batches remain empty; deadlines retain raw text and precision."
+	description: "Canonical opportunity registry projection. Empty or unaccepted source batches remain empty; deadlines retain raw text, source timezone, precision and a separate Brisbane view when resolvable."
 	lineageTag: a35cda23-2e25-5941-86e7-7bc061a708a6
 
 	column OpportunityKey
@@ -88,6 +88,42 @@ table GrantsRegistry
 		summarizeBy: none
 		sourceColumn: DeadlineRaw
 
+	column DeadlineTimezone
+		dataType: string
+		lineageTag: a7e2a029-6742-537d-89e3-95f4e4cf4633
+		summarizeBy: none
+		sourceColumn: DeadlineTimezone
+
+	column DeadlineLocalTime
+		dataType: string
+		lineageTag: 7b536a08-91f8-570d-8a87-c896ba3b06d7
+		summarizeBy: none
+		sourceColumn: DeadlineLocalTime
+
+	column DeadlineUTCInstant
+		dataType: string
+		lineageTag: 0fd07213-1def-539c-8e3c-05c56d7f53b0
+		summarizeBy: none
+		sourceColumn: DeadlineUTCInstant
+
+	column DeadlineBrisbaneDate
+		dataType: string
+		lineageTag: 0390d4d6-4d87-52c8-80b6-6298718ce0bb
+		summarizeBy: none
+		sourceColumn: DeadlineBrisbaneDate
+
+	column DeadlineBrisbaneTime
+		dataType: string
+		lineageTag: 82dd23fd-cbc0-5d2a-b22c-b0870bb15e50
+		summarizeBy: none
+		sourceColumn: DeadlineBrisbaneTime
+
+	column DeadlineTemporalStatus
+		dataType: string
+		lineageTag: 0bfe7b82-4cce-5bdd-92e2-713865bb0499
+		summarizeBy: none
+		sourceColumn: DeadlineTemporalStatus
+
 	column DeadlinePrecision
 		dataType: string
 		lineageTag: b9a2f5c7-e0c8-5edc-a7e5-42e59b53e70b
@@ -150,7 +186,7 @@ table GrantsRegistry
 		formatString: #,0
 		lineageTag: 7a0f3cee-b104-5b0b-829d-bf27bd9bc629
 
-	measure 'Grant Opportunities Needing Review' = CALCULATE([Grant Opportunities], KEEPFILTERS(GrantsRegistry[ReviewStatus] <> "accepted"))
+	measure 'Grant Opportunities Needing Review' = CALCULATE([Grant Opportunities], KEEPFILTERS(GrantsRegistry[ReviewStatus] = "Needs Review"))
 		formatString: #,0
 		lineageTag: 9c51d23f-d82a-5466-b5f0-3f6e7f86e971
 

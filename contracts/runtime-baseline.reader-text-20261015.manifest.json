@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0",
+  "kind": "reviewed_runtime_text_changes",
+  "base_manifest_sha256": "05e3d656210f1075a11df05dc2a7fd0f74874c539809dad0b3aa39c50b04bc66",
+  "reviewed_revision": "publications-reader-text-20261015",
+  "native_verified": false,
+  "review": {
+    "scope": "Two existing report text labels only; no bindings/layout/filter/resource/model change. Both report generators aligned.",
+    "changes": {
+      "Annual publication trajectory (2014\u20132026)": "Annual publication trajectory",
+      "Identifier conflicts and title/year candidates remain separate for review. DORA coverage is an observed collection snapshot; durable history and native count acceptance remain pending.": "Identifier conflicts and title/year candidates remain separate for review. Counts reconcile to the retained source snapshot; institutional attribution remains provisional."
+    },
+    "native_receipt_ref": "private/ops/2026-10-15-publications-closeout-reader/text-acceptance-private.json",
+    "historical_base_preserved": true
+  },
+  "changes": {
+    "powerbi/CHHHS Research Publications.Report/definition/pages/PublicationRegister/visuals/annual-trajectory/visual.json": {
+      "before_sha256": "5ef4945b79b5cca0c9f07ec77bd07284f95fe8d43632bc4c8c5f27cd00a0312f",
+      "after_sha256": "1a21895362284d6e0c40ef2d0bdedd7bbd86a608816367122c80b0ae79bb1cff"
+    },
+    "powerbi/CHHHS Research Publications.Report/definition/pages/SourceReconciliation/visuals/footer/visual.json": {
+      "before_sha256": "edf1b2b5856ec8920cc4e096a094aba835e47504626add39034cbde0f2aef03e",
+      "after_sha256": "a8c1083a4aca716894fdeb103e7b1bc8068498660379ccb12330ee00685d5b73"
+    }
+  }
+}

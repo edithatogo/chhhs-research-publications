@@ -3,11 +3,11 @@
   "name": "footer",
   "position": {
     "x": 32,
-    "y": 1016,
-    "z": 7,
+    "y": 1008,
+    "z": 6,
     "width": 1856,
-    "height": 32,
-    "tabOrder": 7
+    "height": 48,
+    "tabOrder": 6
   },
   "visual": {
     "visualType": "textbox",
@@ -20,7 +20,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Categories and individual-opportunity watches are explicit list-backed preferences; reminder/calendar delivery remains separately controlled.",
+                    "value": "Personal subscriptions, categories, individual-grant watches and reminder/calendar delivery require an authenticated list-backed preference surface.",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
                       "fontSize": "16px"

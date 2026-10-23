@@ -23,7 +23,7 @@
                     "value": "Select one publication month; clear the selection for the previous complete Brisbane month. Publication dates determine inclusion.",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
-                      "fontSize": "16px"
+                      "fontSize": "14px"
                     }
                   }
                 ]

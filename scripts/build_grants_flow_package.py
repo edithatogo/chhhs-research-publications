@@ -2,12 +2,13 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
+from urllib.parse import urlsplit
 import zipfile
 from pathlib import Path
 from typing import Any
 from uuid import UUID
-from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_DEFINITION = ROOT / "config/flows/grants-registry-reviewed-import.definition.json"
@@ -28,46 +29,58 @@ def _replace(value: Any, replacements: dict[str, str]) -> Any:
 def build_package(
     output: Path,
     *,
+    intent: str,
     site_url: str,
     list_id: str,
     flow_id: str,
     connection_display_name: str,
+    expected_definition_sha256: str,
     definition_path: Path = DEFAULT_DEFINITION,
-    description: str | None = None,
-    creation_type: str = "New",
 ) -> Path:
+    if intent not in {"create", "update"}:
+        raise ValueError("explicit package intent must be 'create' or 'update'")
     if not output.resolve().is_relative_to((ROOT / "private").resolve()):
         raise ValueError("tenant-specific package must be written under ignored private/")
-    if not isinstance(site_url, str) or not isinstance(list_id, str) or not isinstance(flow_id, str):
-        raise ValueError("site_url, list_id and flow_id must be strings")
-    if not isinstance(connection_display_name, str):
-        raise ValueError("connection display name must be a string")
-    parsed_site = urlsplit(site_url.strip())
-    if parsed_site.scheme != "https" or not parsed_site.netloc or "{{" in site_url:
+    if output.exists():
+        raise FileExistsError("refusing to overwrite an existing package; choose a distinct output path")
+    parsed_site_url = urlsplit(site_url)
+    if (
+        parsed_site_url.scheme.lower() != "https"
+        or not parsed_site_url.hostname
+        or parsed_site_url.username is not None
+        or parsed_site_url.password is not None
+        or parsed_site_url.query
+        or parsed_site_url.fragment
+        or "{{" in site_url
+        or site_url != site_url.strip()
+    ):
         raise ValueError("a concrete HTTPS SharePoint site URL is required")
     for value, label in ((list_id, "list_id"), (flow_id, "flow_id")):
         try:
             UUID(value)
-        except (TypeError, ValueError) as exc:
+        except ValueError as exc:
             raise ValueError(f"{label} must be a GUID") from exc
-    if not connection_display_name.strip():
-        raise ValueError("connection display name is required")
-    if creation_type not in {"New", "Update"}:
-        raise ValueError("creation_type must be New or Update")
+    if (not connection_display_name.strip() or "{{" in connection_display_name
+            or "}}" in connection_display_name):
+        raise ValueError("a concrete connection display name is required")
 
-    document = json.loads(definition_path.read_text(encoding="utf-8"))
+    source_bytes = definition_path.read_bytes()
+    actual_definition_sha256 = hashlib.sha256(source_bytes).hexdigest()
+    if (not isinstance(expected_definition_sha256, str)
+            or expected_definition_sha256 != actual_definition_sha256):
+        raise ValueError("source definition fingerprint mismatch")
+    document = json.loads(source_bytes)
     document = _replace(document, {
         "{{FLOW_ID}}": flow_id,
         "{{SHAREPOINT_SITE_URL}}": site_url,
         "{{SHAREPOINT_LIST_ID}}": list_id,
     })
-    if "{{" in json.dumps(document):
-        raise ValueError("flow definition contains unresolved package placeholders")
+    creation_type = "New" if intent == "create" else "Update"
     manifest = {
         "schema": "1.0",
         "details": {
             "displayName": document["properties"]["displayName"],
-            "description": description or "Isolated DEV reviewed grants import; remains disabled until native test approval.",
+            "description": "Isolated DEV reviewed grants import; remains disabled until native test approval.",
             "createdTime": "2026-09-20T00:00:00Z",
             "creator": "N/A",
             "sourceEnvironment": "",
@@ -115,7 +128,7 @@ def build_package(
         }, indent=2).encode(),
     }
     output.parent.mkdir(parents=True, exist_ok=True)
-    with zipfile.ZipFile(output, "w", zipfile.ZIP_DEFLATED) as archive:
+    with zipfile.ZipFile(output, "x", zipfile.ZIP_DEFLATED) as archive:
         for name, content in files.items():
             archive.writestr(name, content)
     return output
@@ -123,11 +136,14 @@ def build_package(
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
+    parser.add_argument("--intent", choices=("create", "update"), required=True)
     parser.add_argument("--site-url", required=True)
     parser.add_argument("--list-id", required=True)
     parser.add_argument("--flow-id", required=True)
     parser.add_argument("--connection-display-name", required=True)
+    parser.add_argument("--expected-definition-sha256", required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
-    print(build_package(args.output, site_url=args.site_url, list_id=args.list_id,
-                        flow_id=args.flow_id, connection_display_name=args.connection_display_name))
+    print(build_package(args.output, intent=args.intent, site_url=args.site_url, list_id=args.list_id,
+                        flow_id=args.flow_id, connection_display_name=args.connection_display_name,
+                        expected_definition_sha256=args.expected_definition_sha256))

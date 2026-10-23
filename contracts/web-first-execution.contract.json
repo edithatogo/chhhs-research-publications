@@ -4,8 +4,7 @@
   "route_priority": [
     "powerbi_plugin",
     "powerbi_service_webui",
-    "assisted_powerbi_webui",
-    "utm_windows_desktop_conditional"
+    "assisted_powerbi_webui"
   ],
   "not_required": [
     "Fabric Git integration",
@@ -56,11 +55,7 @@
     "legacy_metadata_scan",
     "fixture_exclusion"
   ],
-  "fallback_eligible_reasons": [
-    "unsupported_web_model_type",
-    "unsupported_web_power_query_operation",
-    "unsupported_required_web_authoring_operation"
-  ],
+  "fallback_eligible_reasons": [],
   "fallback_ineligible_reasons": [
     "plugin_not_exposed_in_this_chat",
     "missing_device",
@@ -93,5 +88,7 @@
   "production_publish_requires_approval": true,
   "activate_schedule_requires_approval": true,
   "fallback_requires_approval": true,
-  "local_validation_is_native_acceptance": false
+  "local_validation_is_native_acceptance": false,
+  "desktop_fallback_allowed": false,
+  "delivery_mode": "cross_platform_web_only"
 }

@@ -3,11 +3,11 @@
   "name": "footer",
   "position": {
     "x": 32,
-    "y": 1016,
-    "z": 10,
+    "y": 1008,
+    "z": 13,
     "width": 1856,
-    "height": 32,
-    "tabOrder": 10
+    "height": 48,
+    "tabOrder": 13
   },
   "visual": {
     "visualType": "textbox",

@@ -3,10 +3,10 @@
   "name": "footer",
   "position": {
     "x": 32,
-    "y": 960,
+    "y": 952,
     "z": 14,
     "width": 1856,
-    "height": 40,
+    "height": 48,
     "tabOrder": 14
   },
   "visual": {

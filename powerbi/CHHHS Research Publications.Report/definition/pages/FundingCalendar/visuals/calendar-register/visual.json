@@ -21,59 +21,179 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "FundingCalendar"
+                      "Entity": "GrantsRegistry"
                     }
                   },
-                  "Property": "CalculatedDate"
+                  "Property": "DeadlineBrisbaneDate"
                 }
               },
-              "queryRef": "FundingCalendar.CalculatedDate",
-              "nativeQueryRef": "CalculatedDate",
-              "displayName": "Calculated date"
+              "queryRef": "GrantsRegistry.DeadlineBrisbaneDate",
+              "nativeQueryRef": "DeadlineBrisbaneDate",
+              "displayName": "Brisbane date"
             },
             {
               "field": {
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "FundingCalendar"
+                      "Entity": "GrantsRegistry"
                     }
                   },
-                  "Property": "DeadlineKey"
+                  "Property": "DeadlineBrisbaneTime"
                 }
               },
-              "queryRef": "FundingCalendar.DeadlineKey",
-              "nativeQueryRef": "DeadlineKey",
-              "displayName": "Deadline key"
+              "queryRef": "GrantsRegistry.DeadlineBrisbaneTime",
+              "nativeQueryRef": "DeadlineBrisbaneTime",
+              "displayName": "Brisbane time"
             },
             {
               "field": {
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "FundingCalendar"
+                      "Entity": "GrantsRegistry"
                     }
                   },
-                  "Property": "ReviewStatus"
+                  "Property": "DeadlineTimezone"
                 }
               },
-              "queryRef": "FundingCalendar.ReviewStatus",
-              "nativeQueryRef": "ReviewStatus",
-              "displayName": "Review status"
+              "queryRef": "GrantsRegistry.DeadlineTimezone",
+              "nativeQueryRef": "DeadlineTimezone",
+              "displayName": "Source timezone"
             },
             {
               "field": {
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "FundingCalendar"
+                      "Entity": "GrantsRegistry"
                     }
                   },
-                  "Property": "SourceURL"
+                  "Property": "DeadlineTemporalStatus"
                 }
               },
-              "queryRef": "FundingCalendar.SourceURL",
-              "nativeQueryRef": "SourceURL",
+              "queryRef": "GrantsRegistry.DeadlineTemporalStatus",
+              "nativeQueryRef": "DeadlineTemporalStatus",
+              "displayName": "Time resolution"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "GrantsRegistry"
+                    }
+                  },
+                  "Property": "Deadline"
+                }
+              },
+              "queryRef": "GrantsRegistry.Deadline",
+              "nativeQueryRef": "Deadline",
+              "displayName": "Source deadline"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "GrantsRegistry"
+                    }
+                  },
+                  "Property": "DeadlinePrecision"
+                }
+              },
+              "queryRef": "GrantsRegistry.DeadlinePrecision",
+              "nativeQueryRef": "DeadlinePrecision",
+              "displayName": "Precision"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "GrantsRegistry"
+                    }
+                  },
+                  "Property": "Title"
+                }
+              },
+              "queryRef": "GrantsRegistry.Title",
+              "nativeQueryRef": "Title",
+              "displayName": "Opportunity"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "GrantsRegistry"
+                    }
+                  },
+                  "Property": "Funder"
+                }
+              },
+              "queryRef": "GrantsRegistry.Funder",
+              "nativeQueryRef": "Funder",
+              "displayName": "Funder"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "GrantsRegistry"
+                    }
+                  },
+                  "Property": "RoundID"
+                }
+              },
+              "queryRef": "GrantsRegistry.RoundID",
+              "nativeQueryRef": "RoundID",
+              "displayName": "Round"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "GrantsRegistry"
+                    }
+                  },
+                  "Property": "Status"
+                }
+              },
+              "queryRef": "GrantsRegistry.Status",
+              "nativeQueryRef": "Status",
+              "displayName": "Status"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "GrantsRegistry"
+                    }
+                  },
+                  "Property": "CHHHSRelevance"
+                }
+              },
+              "queryRef": "GrantsRegistry.CHHHSRelevance",
+              "nativeQueryRef": "CHHHSRelevance",
+              "displayName": "CHHHS relevance"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "GrantsRegistry"
+                    }
+                  },
+                  "Property": "URL"
+                }
+              },
+              "queryRef": "GrantsRegistry.URL",
+              "nativeQueryRef": "URL",
               "displayName": "Source link"
             }
           ]

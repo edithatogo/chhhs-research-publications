@@ -3,11 +3,11 @@
   "name": "grant-register",
   "position": {
     "x": 32,
-    "y": 328,
-    "z": 9,
+    "y": 408,
+    "z": 12,
     "width": 1856,
-    "height": 560,
-    "tabOrder": 9
+    "height": 480,
+    "tabOrder": 12
   },
   "visual": {
     "visualType": "tableEx",
@@ -60,6 +60,21 @@
               "queryRef": "GrantsRegistry.Source",
               "nativeQueryRef": "Source",
               "displayName": "Source"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "GrantsRegistry"
+                    }
+                  },
+                  "Property": "Eligibility"
+                }
+              },
+              "queryRef": "GrantsRegistry.Eligibility",
+              "nativeQueryRef": "Eligibility",
+              "displayName": "Eligibility"
             },
             {
               "field": {

@@ -1,0 +1,111 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "release-provenance",
+  "position": {
+    "x": 32,
+    "y": 960,
+    "z": 14,
+    "width": 1856,
+    "height": 80,
+    "tabOrder": 14
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ReleaseMetadata"
+                    }
+                  },
+                  "Property": "SoftwareVersion"
+                }
+              },
+              "queryRef": "ReleaseMetadata.SoftwareVersion",
+              "nativeQueryRef": "SoftwareVersion",
+              "displayName": "Software version"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ReleaseMetadata"
+                    }
+                  },
+                  "Property": "AcceptedBatchID"
+                }
+              },
+              "queryRef": "ReleaseMetadata.AcceptedBatchID",
+              "nativeQueryRef": "AcceptedBatchID",
+              "displayName": "Accepted batch identity"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Release provenance'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "15D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "objects": {
+      "columnHeaders": [
+        {
+          "properties": {
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "values": [
+        {
+          "properties": {
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -20,10 +20,10 @@
               {
                 "textRuns": [
                   {
-                    "value": "External deadlines are distinct from institutional dates. Cancellation and review state remain explicit.",
+                    "value": "External deadlines are distinct from future institutional dates. Partial and uncertain dates remain visible for review.",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
-                      "fontSize": "16px"
+                      "fontSize": "14px"
                     }
                   }
                 ]

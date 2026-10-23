@@ -92,7 +92,8 @@ def build() -> None:
         exprs.append(expression(name,(ROOT/f'powerquery/{name}.m').read_text()))
     exprs.append(expression('GrantsRegistry',(ROOT/'config/GrantsRegistry.m').read_text()))
     types={name:'string' for name in ['CanonicalKey','PMID','Title','Journal','Authors','DOI','PubMedURL','DORAURL','CHHHSAffiliatedAuthors','Abstract','SourceSet','DedupMethod','PublicationDateRaw','PublicationDatePrecision','PublicationMonth','OnlineDateRaw','MatchedFacilities','AttributionStatus','AttributionEvidence','PublicationNotice',
-        'PMCID','AuthorORCIDs','FundingType','IsInternalFunding','FunderNames','GrantIDs','ClinicalTrialID','IndigenousHealthFocus','FieldOfResearch','StudyDesign','EuropePMC_OpenAccess','EuropePMC_FullTextURL','OpenAccessStatus','OAUrl','PDFDownloadStatus','LocalPDFPath','PDFDownloadedUTC']}
+        'PMCID','AuthorORCIDs','FundingType','IsInternalFunding','FunderNames','GrantIDs','ClinicalTrialID','IndigenousHealthFocus','FieldOfResearch','StudyDesign','EuropePMC_OpenAccess','EuropePMC_FullTextURL','OpenAccessStatus','OAUrl','PDFDownloadStatus','LocalPDFPath','PDFDownloadedUTC','PublicationTypes','PublicationClass']}
+    types.update({n:'boolean' for n in ['IsClinicalTrial','IsEvidenceSynthesis']})
     types.update({n:'dateTime' for n in ['PublicationDate','OnlineDate','RefreshedAtUTC']})
     types.update({n:'int64' for n in ['PublicationYear','AuthorCount','FacilityMatchCount','EuropePMC_CitedByCount','CitationCount_Crossref','CitationCount_OpenAlex','PDFFileSize']})
     web_url_cols = {'PubMedURL', 'EuropePMC_FullTextURL', 'OAUrl'}
@@ -162,7 +163,9 @@ in #table(type table [ReportMonthStart=date,ReportMonthEndExclusive=date,Refresh
         ('OpportunityKey','string'),('Title','string'),('Funder','string'),('Source','string'),
         ('SourceID','string'),('RoundID','string'),('URL','string'),('SourceRowURL','string'),('Description','string'),
         ('Eligibility','string'),('Geography','string'),('Amount','string'),('Deadline','string'),
-        ('DeadlineRaw','string'),('DeadlinePrecision','string'),('Status','string'),('Contact','string'),
+        ('DeadlineRaw','string'),('DeadlineTimezone','string'),('DeadlineLocalTime','string'),
+        ('DeadlineUTCInstant','string'),('DeadlineBrisbaneDate','string'),('DeadlineBrisbaneTime','string'),
+        ('DeadlineTemporalStatus','string'),('DeadlinePrecision','string'),('Status','string'),('Contact','string'),
         ('CHHHSRelevance','string'),('ReviewStatus','string'),('ReviewNotes','string'),
         ('RetrievedUTC','string'),('RetrievedTimestampStatus','string'),('EvidenceHash','string'),
     ]
@@ -171,7 +174,7 @@ in #table(type table [ReportMonthStart=date,ReportMonthEndExclusive=date,Refresh
     grants['measures']=[
         measure('Grant Opportunities','COUNTROWS(GrantsRegistry)'),
         measure('Open Grant Opportunities','CALCULATE([Grant Opportunities], KEEPFILTERS(GrantsRegistry[Status] = "open"))'),
-        measure('Grant Opportunities Needing Review','CALCULATE([Grant Opportunities], KEEPFILTERS(GrantsRegistry[ReviewStatus] <> "accepted"))'),
+        measure('Grant Opportunities Needing Review','CALCULATE([Grant Opportunities], KEEPFILTERS(GrantsRegistry[ReviewStatus] = "Needs Review"))'),
     ]
     # Keep opportunity identity separate from the current-user preference and
     # delivery surfaces. These are additive SharePoint projections, not a

@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0",
+  "kind": "reviewed_runtime_additions",
+  "base_manifest": "contracts/runtime-baseline.manifest.json",
+  "base_manifest_sha256": "05e3d656210f1075a11df05dc2a7fd0f74874c539809dad0b3aa39c50b04bc66",
+  "reviewed_revision": "openalex-arc-funding-h02-reviewed-source-additions-2026-10-23",
+  "native_verified": false,
+  "purpose": "Add-only local drift baseline reconciliation for explicitly reviewed source functions; not native or release certification. Historical pin remains immutable.",
+  "review": {
+    "declared_impact": "Optional OpenAlex capture/envelope/projection/context functions; no historical runtime file changed or removed. Canonical bibliography retained.",
+    "source_comparison": "Each of the five authored M functions equals its expression in the accepted final model after only indentation and blank-line normalization.",
+    "native_receipt_refs": [
+      "private/ops/2026-10-15-openalex-next-final-acceptance-private.json",
+      "private/ops/2026-10-15-openalex-pending-repair-native-acceptance-private.json"
+    ],
+    "coverage_reference": "docs/OPENALEX_FIELD_ALIGNMENT.md#current-operator-release-coverage--15-october-2026",
+    "preservation": "Accepted native bridge preserved prior consumer values, canonical keys, raw/schema/UTC and human registry values. No native operation performed for this local reconciliation.",
+    "arc_award_context_addition": {
+      "source_commit": "d6ca37b",
+      "file": "powerquery/fnReadArcAwardExport.m",
+      "sha256": "81022b91476e092c0fa7e3ef94dc61cf2b3b4f7da18e74b1db64c1da2be409a7",
+      "scope": "Retained immutable ARC award export only; no provider requests, opportunity admission or relationships",
+      "review": "Exact run/source-run/34977 count, inventory, pages/fields and unique keys guarded; all historical runtime hashes and five prior additions unchanged",
+      "native_verified": true,
+      "required_native": "Same-ID saved52part readback, targeted table refresh and complete native/source parity",
+      "native_receipt_refs": [
+        "private/ops/2026-10-16-arc-model-binding/native-binding-acceptance-private.json",
+        "private/ops/2026-10-16-arc-model-binding/core-binding-review-private.json"
+      ],
+      "native_source_match": "Native reader/partition exact;49unrelated parts byteexact;34977x12nativefieldvalues exact;existing40230publicationvalues preserved"
+    },
+    "funding_relationship_context_addition": {
+      "source_commit": "8181f6de5e5ce263f121aa7ffa4eb7e401d4073d",
+      "file": "powerquery/fnReadFundingRelationshipContext.m",
+      "sha256": "93e5d96f4163a113678bcd5dd82ccadf65660083498377feedab4bd99ef7d915",
+      "scope": "Current native relationship rows at targeted refresh; identity-only registration; raw review/unknown preservation; candidates never confirmed funding",
+      "review": "Only one additive file; all historical runtime files and six earlier additions unchanged. Exact native helper source comparison after TMDL indentation removal. Existing drift equality and unexpected-file rejection unchanged.",
+      "native_verified": true,
+      "native_receipt_refs": [
+        "private/ops/2026-10-18-funding-consumer/native-bridge-acceptance-private.json",
+        "private/ops/2026-10-18-funding-consumer/independent-native-bridge-final-review-private.json",
+        "private/ops/2026-10-18-funding-consumer/independent-final-model-definition-review-private.json"
+      ],
+      "coverage_reference": "docs/FUNDING_RELATIONSHIP_CONSUMER.md",
+      "preservation": "53 saved parts exact; 1341x30 publication values and 34977 award keys preserved; two current candidates, zero confirmed; current raw state authoritative. This local registration performs no native effect."
+    },
+    "registered_publication_analytics_addition": {
+      "file": "powerquery/fnReadRegisteredPublicationAnalytics.m",
+      "sha256": "2e7e4cfa4f9d80f5f5edae0d67b09c841f01b5accc79705bddd73fd1f4547add",
+      "scope": "Read-only registered assertions/provenance projected onto existing exact canonical key set; no admission, classifier fabrication or OA replacement.",
+      "review": "Exact typed-key one-to-one match and duplicate/schema/ambiguity guards; preserved raw assertions; six focused compiler tests pass, Microsoft M parser Parse/Ok. All historical runtime files and prior additions unchanged.",
+      "native_verified": false,
+      "required_native": "Saved H02 candidate verified; existing targeted processing run pending. Runtime and report acceptance remain open.",
+      "evidence_reference": "conductor/tracks/E04_fluent_visual_polish/native-report-reconciliation-20261023.md"
+    }
+  },
+  "files": {
+    "powerquery/fnAcquireOpenAlexRaw.m": "a644e9255c9b9f26f14c529ebc363d27139dee0d8f8f546100e8607e9069ec57",
+    "powerquery/fnMergeOpenAlexPublicationContext.m": "8b76ce295429efd4115cbd7eb723f45f57f84482d34eac65b84946c80962d95e",
+    "powerquery/fnPrepareOpenAlexCapturedEnvelope.m": "fd33f31fab528055b9c4d2a64de7c990c55c8db225bafeb17bff2377a0b7d659",
+    "powerquery/fnProjectRetainedOpenAlex.m": "d81cb55ab1e8887b25e88e4144c82587af47b88b4f8ec4d90b191d36c4196d09",
+    "powerquery/fnProjectRetainedOpenAlexAligned.m": "3c03047e76a81f47fc8382a3cdc322d06b24cb46c839a3cc0ebf9f66bf8575c0",
+    "powerquery/fnReadArcAwardExport.m": "81022b91476e092c0fa7e3ef94dc61cf2b3b4f7da18e74b1db64c1da2be409a7",
+    "powerquery/fnReadFundingRelationshipContext.m": "93e5d96f4163a113678bcd5dd82ccadf65660083498377feedab4bd99ef7d915",
+    "powerquery/fnReadRegisteredPublicationAnalytics.m": "2e7e4cfa4f9d80f5f5edae0d67b09c841f01b5accc79705bddd73fd1f4547add"
+  }
+}
