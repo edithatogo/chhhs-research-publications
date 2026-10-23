@@ -1,5 +1,18 @@
 # Python3.15 dependency qualification
 
+## Shared security caller — 24 October 2026
+
+The source-security caller now selects the qualified main merge
+`5cf006bce6c37c0c15db5d35055e302701a500ad` for both the called workflow and
+`policy-revision`. This supersedes the earlier unavailable-runtime workaround
+below. The called workflow selects3.15.1, verifies a fresh repository-local helper
+environment, rejects stale exact tool declarations, scans full history and runs
+the immutable workflow-pin, actionlint and zizmor guards. It refuses existing
+helper destinations/symlinks and validates its own immutable policy identity.
+RIMS artifact dependency consistency and source/contract tests remain in the
+unchanged local-quality workflow. Actual caller execution, rather than a missing
+or skipped check, is required before promotion. No upstream trial is repeated.
+
 ## Attached Fabric MCP candidate — 24 October 2026
 
 The isolated Python3.15.1 candidate for existing MCP package0.8.7 passes

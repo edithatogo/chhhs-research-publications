@@ -66,6 +66,13 @@ do not repeat dependency resolution or passing tenant-free checks. Guide:
 
 ## Completion receipts
 
+24October shared-security caller update: both workflow and policy revision use
+qualified CareOps main merge5cf006bce6c37c0c15db5d35055e302701a500ad. The prior
+PR-only revision is not adopted. Existing RIMS artifact checks are preserved;
+actual current-head shared-security execution is required before source promotion.
+This caller maintenance does not activate or complete the pending helper-host
+handover above, change native operations, or contact another owner.
+
 - Canonical qualification: `audit/dependencies/python315-20261023.json`.
 - Current working runtime/main proof: `private/ops/2026-10-23-runtime-upgrade/completion.json`.
 - Registration/goal state: `private/ops/2026-10-23-runtime-upgrade/track-registration.json`.
