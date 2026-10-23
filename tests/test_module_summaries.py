@@ -35,6 +35,15 @@ class ModuleSummaryDocumentationTests(unittest.TestCase):
                 self.assertRegex(blocks[0], r"(?m)^flowchart (LR|TD|RL|BT)\s*$")
                 self.assertGreaterEqual(len(re.findall(r"(?m)^\s*\S+.*-->.*$", blocks[0])), 2)
 
+        self.assertIn("## Horizontal and vertical schema", text)
+
+        blocks = re.findall(r"```mermaid\n(.*?)\n```", text, flags=re.DOTALL)
+        self.assertEqual(len(blocks), len(expected) + 1)
+        for block in blocks:
+            self.assertRegex(block, r"(?m)^flowchart (LR|TD|RL|BT)\s*$")
+            self.assertGreaterEqual(len(re.findall(r"(?m)^\s*\S+.*-->.*$", block)), 2)
+
+        self.assertEqual(text.count("\n```"), (len(expected) + 1) * 2)
 
 
 if __name__ == "__main__":
