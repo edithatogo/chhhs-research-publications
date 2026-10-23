@@ -2,5 +2,36 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "local>edithatogo/renovate-config"
-  ]
+  ],
+  "packageRules": [
+    {
+      "description": "Qualify exact candidates before explicit source promotion",
+      "matchPackageNames": [
+        "*"
+      ],
+      "automerge": false,
+      "platformAutomerge": false
+    },
+    {
+      "matchManagers": [
+        "github-actions"
+      ],
+      "pinDigests": true
+    },
+    {
+      "description": "Retain the intentional Python3.11 compatibility lane",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "matchPackageNames": [
+        "actions/python-versions"
+      ],
+      "matchFileNames": [
+        ".github/workflows/local-quality.yml"
+      ],
+      "matchCurrentVersion": "/^3\\.11(?:\\.|$)/",
+      "enabled": false
+    }
+  ],
+  "ignoreUnstable": false
 }

@@ -1,0 +1,7 @@
+# Reviewed exact historical findings only; new occurrences remain scanned.
+# Historical SharePoint OpportunityKey is a record identity, not an authentication credential.
+b075f4f2ac233e686c631c0f31e488b78aa4bfe0:conductor/tracks/G04_grants_ingestion/review.md:generic-api-key:105
+# Synthetic export canonical-key SHA256 checksum; data_kind is synthetic.
+e48e54bd73f97c7145436e24bba034ade55a3a7c:examples/webfirst-synthetic-export/manifest.json:generic-api-key:9
+# Synthetic test fixture expected-key SHA256 checksum; data_kind is synthetic.
+e48e54bd73f97c7145436e24bba034ade55a3a7c:tests/fixtures/webfirst-export-synthetic.json:generic-api-key:10

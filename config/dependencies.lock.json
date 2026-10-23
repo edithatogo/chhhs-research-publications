@@ -1,14 +1,16 @@
 {
   "conductor": {
     "url": "https://github.com/gemini-cli-extensions/conductor.git",
-    "commit": "f06add33b598f4262a190f234828dda551db70d7",
+    "commit": "6e8f9a860bcdd6a2c423473c12e745200688c633",
     "path": ".agents/plugins/conductor",
-    "checkout_status": "blocked_container_dns",
-    "verified_remote_ref": true
+    "checkout_status": "not-established-by-lockfile",
+    "verified_remote_ref": true,
+    "previous_recorded_commit": "f06add33b598f4262a190f234828dda551db70d7"
   },
   "python": {
     "minimum": "3.11",
-    "tested": "3.13.5",
-    "third_party_runtime_dependencies": []
+    "tested": "3.15.0",
+    "third_party_runtime_dependencies": [],
+    "previous_tested": "3.13.5"
   }
 }
