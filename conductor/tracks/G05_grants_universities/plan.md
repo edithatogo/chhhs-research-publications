@@ -47,3 +47,7 @@ is assumed.
 - [x] Task: Reject surrounding whitespace in university `authority_url` values instead of stripping a source identity before validation (`1f5c25f`).
 - [x] Verification: focused university tests (9), full local suite, project checks (460), web-first contracts, Conductor validation and diff validation pass locally.
 - [~] Permitted institutional feed/export or authenticated portal acceptance remains open; authority-page probes remain read-only evidence only.
+
+## Organisation identity evidence — 24 October 2026
+
+Verified all four maintained institution identities against individual official ROR v2 API records: exact catalogue name, institutional website host, Australian location and active status. The catalogue retains the canonical ROR URL, observation date and original-response SHA256. Original responses are retained privately under `private/ops/2026-10-24-g05-ror/`. Existing local institution keys and manual-review intake are unchanged. These identities do not qualify feed/export entitlement, CHHHS eligibility or any opportunity relationship; those acceptance tasks remain open.
