@@ -1,0 +1,134 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "e09-feed-preparation.schema.json",
+  "title": "E09 first-discovery feed preparation (local contract)",
+  "description": "Draft-2020-12 contract for the E09 Phase 2/4 local preparation record families that lack native persistence: advisory suggestions and advisory failures from the bounded advisory consumer, no-send post bodies, and first-discovery editions. Everything here is no-send preparation: outputs stay non-authoritative, editions carry no_send intent with null delivery authority, and the Research channel rule is enforced structurally by the caller-side field allowlists in scripts/e09_advisory_consumer.py, scripts/e09_post_content.py and scripts/e09_subscription_editions.py (unknown or missing fields fail closed at runtime).",
+  "$defs": {
+    "advisory_suggestion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "advisory_id",
+        "publication_key",
+        "thread_id",
+        "advisory_kind",
+        "prompt_revision",
+        "source_revision",
+        "generated_on",
+        "evidence_urls",
+        "suggested_keywords",
+        "authoritative"
+      ],
+      "properties": {
+        "advisory_id": {"type": "string", "minLength": 1},
+        "publication_key": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]{1,31}:[^|\\s][^|]*$"},
+        "thread_id": {"type": "string", "minLength": 1, "pattern": "^thread:[a-z0-9][a-z0-9-]{1,31}:[^|\\s][^|]*$"},
+        "advisory_kind": {"const": "evidence_linked_suggestion"},
+        "prompt_revision": {"type": "integer", "minimum": 1},
+        "source_revision": {"type": "integer", "minimum": 1},
+        "generated_on": {"type": "string", "format": "date"},
+        "evidence_urls": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 20,
+          "items": {"type": "string", "pattern": "^https://\\S+$"}
+        },
+        "suggested_keywords": {
+          "type": "array",
+          "maxItems": 20,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "authoritative": {"const": false}
+      }
+    },
+    "advisory_failure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "advisory_id",
+        "publication_key",
+        "thread_id",
+        "advisory_kind",
+        "prompt_revision",
+        "source_revision",
+        "failure_on",
+        "failure_reason",
+        "failure_detail",
+        "manual_operation_required",
+        "authoritative"
+      ],
+      "properties": {
+        "advisory_id": {"type": "string", "minLength": 1},
+        "publication_key": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]{1,31}:[^|\\s][^|]*$"},
+        "thread_id": {"type": "string", "minLength": 1, "pattern": "^thread:[a-z0-9][a-z0-9-]{1,31}:[^|\\s][^|]*$"},
+        "advisory_kind": {"const": "evidence_linked_suggestion"},
+        "prompt_revision": {"type": ["integer", "null"], "minimum": 1},
+        "source_revision": {"type": ["integer", "null"], "minimum": 1},
+        "failure_on": {"type": "string", "format": "date"},
+        "failure_reason": {"enum": ["invalid_output", "ai_outage", "stale_advisory", "source_unavailable"]},
+        "failure_detail": {"type": "string", "minLength": 1},
+        "manual_operation_required": {"const": true},
+        "authoritative": {"const": false}
+      }
+    },
+    "no_send_post_body": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["thread_id", "subject", "body", "plain_text"],
+      "properties": {
+        "thread_id": {"type": "string", "minLength": 1, "pattern": "^thread:[a-z0-9][a-z0-9-]{1,31}:[^|\\s][^|]*$"},
+        "subject": {"type": "string", "minLength": 1},
+        "body": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["contentType", "content"],
+          "properties": {
+            "contentType": {"const": "html"},
+            "content": {"type": "string", "minLength": 1}
+          }
+        },
+        "plain_text": {"type": "string", "minLength": 1}
+      }
+    },
+    "first_discovery_edition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "edition_kind",
+        "subscription_id",
+        "subscriber_urn",
+        "cadence",
+        "window_start",
+        "window_end",
+        "publications",
+        "publication_count",
+        "intended_outcome",
+        "delivery_authority_reference"
+      ],
+      "properties": {
+        "edition_kind": {"const": "first_discovery_feed"},
+        "subscription_id": {"type": "string", "minLength": 1},
+        "subscriber_urn": {"type": "string", "minLength": 1},
+        "cadence": {"enum": ["weekly", "daily"]},
+        "window_start": {"type": "string", "format": "date"},
+        "window_end": {"type": "string", "format": "date"},
+        "publications": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["publication_key", "tier"],
+            "properties": {
+              "publication_key": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]{1,31}:[^|\\s][^|]*$"},
+              "tier": {"enum": ["confirmed", "possible"]}
+            }
+          }
+        },
+        "publication_count": {"type": "integer", "minimum": 1},
+        "intended_outcome": {"const": "no_send"},
+        "delivery_authority_reference": {"type": "null"}
+      }
+    }
+  }
+}

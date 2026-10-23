@@ -21,16 +21,15 @@ class ModuleSummaryDocumentationTests(unittest.TestCase):
             self.assertIn("## ", text)
             self.assertRegex(text, rf"## \d+\. {re.escape(heading)}")
 
-        # The document also has a top-level horizontal/vertical overview diagram.
-        # Count the six numbered module diagrams below, not that overview.
-        module_summaries = text.split("## 1. Publications registry", 1)[1]
-        blocks = re.findall(r"```mermaid\n(.*?)\n```", module_summaries, flags=re.DOTALL)
-        self.assertEqual(len(blocks), len(expected))
+        self.assertIn("## Horizontal and vertical schema", text)
+
+        blocks = re.findall(r"```mermaid\n(.*?)\n```", text, flags=re.DOTALL)
+        self.assertEqual(len(blocks), len(expected) + 1)
         for block in blocks:
             self.assertRegex(block, r"(?m)^flowchart (LR|TD|RL|BT)\s*$")
             self.assertGreaterEqual(len(re.findall(r"(?m)^\s*\S+.*-->.*$", block)), 2)
 
-        self.assertEqual(module_summaries.count("\n```"), len(expected) * 2)
+        self.assertEqual(text.count("\n```"), (len(expected) + 1) * 2)
 
 
 if __name__ == "__main__":
