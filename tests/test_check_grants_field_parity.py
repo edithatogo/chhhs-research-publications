@@ -124,6 +124,7 @@ class GrantsFieldParityTests(unittest.TestCase):
 
     def test_configured_scope_requires_expected_list_id_on_cli(self):
         root = Path(__file__).resolve().parents[1]
+        (root / "private" / "ops").mkdir(parents=True, exist_ok=True)
         with tempfile.TemporaryDirectory(dir=root / "private" / "ops") as directory:
             folder = Path(directory)
             schema, model, native, output = [folder / name for name in
@@ -148,6 +149,7 @@ class GrantsFieldParityTests(unittest.TestCase):
 
     def test_cli_requires_complete_exact_native_readback_and_private_output(self):
         root = Path(__file__).resolve().parent.parent
+        (root / "private" / "ops").mkdir(parents=True, exist_ok=True)
         with tempfile.TemporaryDirectory(dir=root / "private" / "ops") as directory:
             folder = Path(directory)
             schema, model, native, output = [folder / name for name in
