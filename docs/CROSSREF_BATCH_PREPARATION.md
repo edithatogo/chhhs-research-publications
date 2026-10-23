@@ -95,3 +95,44 @@ fresh file/checkpoint drift checks, exact supported native save/readback, actual
 continuation verification and restoration of the normal graph/settings. Do not
 combine a frozen recovery generation with a changed monthly plan or infer that
 local preparation satisfies any of those native gates.
+
+## Authorised parallel qualification — 24 October 2026
+
+The user explicitly authorised proceeding with a separate bounded qualification
+alongside the retained original run. This supersedes the earlier blanket wait
+for terminal state **only for this isolated qualification**. Editing the original
+flow, deploying the production pair, and original-generation recovery still
+require the retained run's genuine terminal reconciliation.
+
+Qualification must use a separate manual-only flow, initially Stopped, the
+existing SharePoint reference/connection, distinct qualification archive and
+progress paths, concurrency one, and an explicit provider-request cap. Remove
+accepted-checkpoint/DOI finalisation actions physically from its definition.
+Require exact native definition/binding/state readback before execution. Preserve
+original archives, run handle, normal settings and the current last-good selector
+before and after. A small batch proves only its measured behaviour; it cannot
+establish full coverage, sustained capacity, two-batch recovery or E01 completion.
+
+Execution status: bounded local candidate prepared; native deployment pending. PAC target authentication failed
+with AADSTS70043; one existing qualified interactive recovery is pending. No
+native qualification flow creation/save/run is claimed. Keep the pending recovery
+handle rather than launching another authentication challenge. Exact identifiers,
+challenge details and runtime evidence belong in ignored private receipts.
+
+- [x] Record the user's parallel qualification exception and safety boundaries.
+- [x] Prepare and inspect a fingerprint-gated bounded qualification definition.
+- [ ] Restore qualified native authentication and reconcile existing components.
+- [ ] Save one canonical isolated component; read back its exact native definition.
+- [ ] Run one bounded batch; verify raw bytes, request count and last-good preservation.
+- [ ] Restore Stopped and record measured results and remaining acceptance gates.
+
+Use `scripts.prepare_crossref_qualification` for the separate local-only
+qualification packet. It fingerprint-checks the paired input, selects one query,
+limits acquisition to two requests without retries, retains archive byte guards,
+and removes accepted finalisation. Native creation/readback/runtime are separate
+pending gates. The private E01 receipt records the exact authentication boundary.
+
+The selected qualification packet now includes an explicit pre-request cap guard
+and a storage-writer allowlist. The earlier local packets are superseded and
+retained as history. Native authentication remains at the same account picker;
+no native deployment or runtime claim follows from local preparation.
