@@ -130,6 +130,24 @@ table GrantsRegistry
 		summarizeBy: none
 		sourceColumn: DeadlinePrecision
 
+	column DeadlineScheduleJSON
+		dataType: string
+		lineageTag: 6e4d4d8a-69f5-5a27-9787-71ac130023ff
+		summarizeBy: none
+		sourceColumn: DeadlineScheduleJSON
+
+	column SourceDateFactsJSON
+		dataType: string
+		lineageTag: 19fb2c3b-062f-5478-860b-3e56a50e6d9b
+		summarizeBy: none
+		sourceColumn: SourceDateFactsJSON
+
+	column SourceAttribution
+		dataType: string
+		lineageTag: bcc4403f-1f90-507d-a236-4ddbd45a31b4
+		summarizeBy: none
+		sourceColumn: SourceAttribution
+
 	column Status
 		dataType: string
 		lineageTag: cc8340dd-294b-5295-95a8-42a4cafa59d6

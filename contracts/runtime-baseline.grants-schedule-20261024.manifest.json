@@ -1,0 +1,16 @@
+{
+  "kind": "reviewed_grants_schedule_projection",
+  "base_manifest_sha256": "05e3d656210f1075a11df05dc2a7fd0f74874c539809dad0b3aa39c50b04bc66",
+  "native_verified": false,
+  "review": "conductor/tracks/G04_grants_ingestion/recovery-20261024.md",
+  "changes": {
+    "powerbi/CHHHS Research Publications.SemanticModel/definition/model.tmdl": {
+      "before_sha256": "c99c0843d5d7de0dc6b9c92ed8658d33f12fc448426f1d3ea0c3f24294008b86",
+      "after_sha256": "363a97b20134b00dad5c7f895db60fe311428732c572c59d3a9089ccea0ddf22"
+    },
+    "powerbi/CHHHS Research Publications.SemanticModel/definition/tables/GrantsRegistry.tmdl": {
+      "before_sha256": "128603fa77258d5f49c4e73a43c534648573e15b552f034936b3f7b59ae62cfb",
+      "after_sha256": "225832da546e52bfb6619e4ff25482b65434c31b0258a9bebfba648f6ecd4085"
+    }
+  }
+}

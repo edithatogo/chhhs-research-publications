@@ -1,5 +1,5 @@
 {
-  "schema_version": "grants-registry-v2",
+  "schema_version": "grants-registry-v3",
   "list_name": "Grants Registry",
   "identity_field": "OpportunityKey",
   "source_observation_archive": "approved_private_archive",
@@ -25,6 +25,9 @@
     {"display_name":"DeadlineBrisbaneTime","type":"text"},
     {"display_name":"DeadlineTemporalStatus","type":"choice","choices":["unknown","date_only","partial_date","offset_only","zone_resolved","missing_timezone","invalid_timezone","timezone_conflict","zone_offset_mismatch","ambiguous_local_time","nonexistent_local_time","invalid"]},
     {"display_name":"DeadlinePrecision","type":"choice"},
+    {"display_name":"DeadlineScheduleJSON","type":"multiline_text"},
+    {"display_name":"SourceDateFactsJSON","type":"multiline_text"},
+    {"display_name":"SourceAttribution","type":"multiline_text"},
     {"display_name":"Status","type":"choice"},
     {"display_name":"Contact","type":"text"},
     {"display_name":"CHHHSRelevance","type":"choice"},

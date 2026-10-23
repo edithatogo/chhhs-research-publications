@@ -527,6 +527,28 @@ class LiveEvidenceTests(unittest.TestCase):
 
 
 class LocalManifestTests(unittest.TestCase):
+    def test_grants_projection_rejects_unreviewed_scope_preimage_and_native_claim(self):
+        frozen = json.loads((ROOT/'contracts/runtime-baseline.manifest.json').read_text())
+        path = ROOT/'contracts/runtime-baseline.grants-schedule-20261024.manifest.json'
+        original = json.loads(path.read_text())
+        for case in ('scope', 'preimage', 'native', 'fingerprint'):
+            with self.subTest(case=case):
+                altered = copy.deepcopy(original)
+                first = next(iter(altered['changes']))
+                if case == 'scope':
+                    altered['changes']['powerquery/unreviewed.m'] = altered['changes'][first]
+                elif case == 'preimage':
+                    altered['changes'][first]['before_sha256'] = '0' * 64
+                elif case == 'native':
+                    altered['native_verified'] = True
+                else:
+                    altered['changes'][first]['after_sha256'] = 'not-a-hash'
+                def read(candidate):
+                    return altered if candidate == path else json.loads(candidate.read_text())
+                with patch('webfirst_contracts.load', side_effect=read):
+                    with self.assertRaises(ValueError):
+                        reviewed_runtime_files(ROOT, frozen)
+
     def test_reviewed_additions_cannot_replace_historical_files(self):
         frozen=json.loads((ROOT/'contracts/runtime-baseline.manifest.json').read_text())
         supplement=json.loads((ROOT/'contracts/runtime-baseline.openalex-20261015.manifest.json').read_text())

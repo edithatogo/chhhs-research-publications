@@ -4,6 +4,8 @@ from datetime import datetime, timezone
 
 from scripts.preflight_grants_flow_activation import preflight
 from scripts.grants_registry import stable_key
+from scripts.grants_ingestion import ingest_batches
+from scripts.grants_sources import OPPORTUNITY_QUALIFICATION_FIELDS
 
 
 LIST = "11111111-1111-4111-8111-111111111111"
@@ -111,6 +113,83 @@ class GrantsActivationPreflightTests(unittest.TestCase):
         inputs = fixtures()
         inputs["batch"]["observed_at_utc"] = "2026-09-26T01:00:01Z"
         self.assertIn("stale_or_future_readback", check(inputs)["errors"])
+
+
+class MachineInputPreflightTests(unittest.TestCase):
+    """Synthetic qualification never establishes admission of a real source."""
+
+    def setUp(self):
+        self.inputs = fixtures()
+        t = self.inputs["batch"]["observed_at_utc"]
+        self.catalogue = [{
+            "source_id": "synthetic-api", "enabled": True, "intake": "api",
+            "official_row_hosts": ["example.gov"],
+            "reconciliation": {"admission": "opportunity", "entity": "opportunity",
+                               "source_id_path": "data[].id"},
+            "qualification": {"observed_at": t, **{
+                field: {"status": "verified", "evidence_refs": ["https://example.gov/evidence"]}
+                for field in OPPORTUNITY_QUALIFICATION_FIELDS}}}]
+        self.catalogue[0]["qualification"]["access"]["decision"] = "public"
+        self.catalogue[0]["qualification"]["reuse_terms"]["decision"] = "permitted"
+        self.envelopes = [{"source": "synthetic-api", "retrieved_at": t,
+                           "pagination": {"total_pages": 1, "pages_received": [1], "complete": True},
+                           "records": [{"SourceID": "1", "Title": "Synthetic API opportunity",
+                                        "URL": "https://example.gov/opportunity/1"}]}]
+        self.inputs["snapshot"].update(rows=[], count=0)
+        self.inputs["batch"]["rows"] = ingest_batches(
+            self.envelopes, catalogue=self.catalogue)["records"]
+
+    def run_preflight(self):
+        return preflight(**self.inputs, input_mode="machine", machine_catalogue=self.catalogue,
+                         machine_batches=self.envelopes,
+                         checked_at=datetime(2026, 9, 26, 1, tzinfo=timezone.utc))
+
+    def test_admitted_machine_facts_do_not_need_or_create_review_decision(self):
+        result = self.run_preflight()
+        self.assertTrue(result["accepted"], result)
+        self.assertEqual(result["input_mode"], "machine")
+        self.assertEqual(self.inputs["batch"]["rows"][0]["ReviewStatus"], "Needs Review")
+        self.assertEqual(self.inputs["batch"]["rows"][0]["ReviewNotes"], "")
+
+    def test_unqualified_or_disabled_source_cannot_bypass_review(self):
+        for mutation in (lambda: self.catalogue[0].update(enabled=False),
+                         lambda: self.catalogue[0]["qualification"]["stable_identity"].update(status="partial")):
+            with self.subTest(mutation=mutation):
+                self.setUp()
+                mutation()
+                self.assertIn("machine_source_admission_failed", self.run_preflight()["errors"])
+
+    def test_prepared_row_must_match_entire_admitted_projection(self):
+        for field, value in [("Title", "altered"), ("EvidenceHash", "altered"),
+                             ("ReviewStatus", "Reviewed"), ("ReviewNotes", "invented review")]:
+            with self.subTest(field=field):
+                self.setUp()
+                self.inputs["batch"]["rows"][0][field] = value
+                self.assertIn("machine_projection_mismatch", self.run_preflight()["errors"])
+
+    def test_partial_or_extra_failed_source_is_not_accepted(self):
+        self.envelopes[0]["pagination"]["complete"] = False
+        self.assertIn("machine_source_admission_failed", self.run_preflight()["errors"])
+        self.setUp()
+        extra = copy.deepcopy(self.envelopes[0])
+        extra["source"] = "unknown"
+        self.envelopes.append(extra)
+        self.assertIn("machine_source_admission_failed", self.run_preflight()["errors"])
+
+    def test_shared_binding_and_native_uniqueness_guards_remain_required(self):
+        self.inputs["flow"]["actions"]["SharePoint_Update_item"]["list_id"] = FLOW
+        self.inputs["target"]["key_unique"] = False
+        result = self.run_preflight()
+        self.assertIn("SharePoint_Update_item_target_mismatch", result["errors"])
+        self.assertIn("missing_native_unique_key_proof", result["errors"])
+
+    def test_mode_and_proof_inputs_cannot_be_omitted_or_mixed(self):
+        result = preflight(**self.inputs, input_mode="machine")
+        self.assertIn("machine_admission_inputs_missing", result["errors"])
+        result = preflight(**self.inputs, machine_catalogue=self.catalogue,
+                           machine_batches=self.envelopes)
+        self.assertIn("machine_inputs_require_machine_mode", result["errors"])
+        self.assertIn("batch_review_unproved", result["errors"])
 
 
 if __name__ == "__main__":

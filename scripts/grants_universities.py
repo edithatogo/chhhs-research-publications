@@ -477,6 +477,65 @@ def reconcile_receipted_institution_fact(
             "receipt_id": validated["receipt_id"], "records": records}
 
 
+def prepare_reviewed_institution_import(
+    rows: Iterable[dict[str, Any]],
+    receipts: Iterable[dict[str, Any]],
+    catalogue: Iterable[dict[str, Any]],
+    *,
+    expected_source: str,
+    official_hosts: Iterable[str],
+    verify_evidence: Callable[[dict[str, Any]], bool] | None = None,
+    verify_reviewer: Callable[[dict[str, Any]], bool] | None = None,
+) -> dict[str, Any]:
+    """Prepare canonical funder rows and separate reviewed institutional facts.
+
+    This manual, local boundary reuses G04 normalization; it cannot establish
+    feed/export rights or persist records. Evidence adapters must verify the
+    exact artifact and entitlement as well as its binding to the reviewed fact.
+    Unknown eligibility remains unresolved and rejects the entire preparation.
+    """
+    try:
+        from .grants_reviewed_import import import_reviewed_rows
+    except ImportError:
+        from grants_reviewed_import import import_reviewed_rows
+
+    source = _required_identifier(expected_source, "expected_source")
+    hosts = tuple(official_hosts)
+    if not hosts or any(not isinstance(host, str) or not host.strip() for host in hosts):
+        raise ValueError("reviewed institution import needs explicit official funder hosts")
+    opportunities = import_reviewed_rows(rows, expected_source=source, official_hosts=hosts)
+    materialized = list(receipts)
+    institutions = list(catalogue)
+    if not materialized:
+        raise ValueError("reviewed institution import needs fact receipts")
+    facts = []
+    validated = []
+    seen_receipts = set()
+    for receipt in materialized:
+        binding = validate_reviewed_fact_receipt(
+            receipt, verify_evidence=verify_evidence, verify_reviewer=verify_reviewer,
+        )
+        if receipt["fact"]["format"] not in {"html", "csv", "xlsx"}:
+            raise ValueError("manual reviewed import cannot establish machine feed rights")
+        if binding["receipt_id"] in seen_receipts:
+            raise ValueError("duplicate reviewed fact receipt identity")
+        seen_receipts.add(binding["receipt_id"])
+        facts.append(receipt["fact"])
+        validated.append(binding)
+    # Reconcile as one batch so duplicate institution/fact identities fail closed.
+    records = reconcile_institution_facts(opportunities, facts, institutions)
+    bindings = {":".join((item["institution_id"], item["OpportunityKey"], item["fact_id"])): item
+                for item in validated}
+    for row in records:
+        binding = bindings[row["InstitutionFactKey"]]
+        row["ReviewReceiptID"] = binding["receipt_id"]
+        row["ReviewReceiptFactSHA256"] = binding["fact_sha256"]
+    return {"status": "prepared_local_only", "imported": False,
+            "intake": "manual_review", "feed_rights": "unverified",
+            "opportunities": sorted(opportunities, key=lambda row: row["OpportunityKey"]),
+            "institution_facts": records}
+
+
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser()

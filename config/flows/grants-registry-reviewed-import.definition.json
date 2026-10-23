@@ -294,7 +294,10 @@
                                 "item/RetrievedTimestampStatus": {
                                   "Value": "@{item()?['RetrievedTimestampStatus']}"
                                 },
-                                "item/EvidenceHash": "@{item()?['EvidenceHash']}"
+                                "item/EvidenceHash": "@{item()?['EvidenceHash']}",
+                                "item/DeadlineScheduleJSON": "@{item()?['DeadlineScheduleJSON']}",
+                                "item/SourceDateFactsJSON": "@{item()?['SourceDateFactsJSON']}",
+                                "item/SourceAttribution": "@{item()?['SourceAttribution']}"
                               },
                               "authentication": {
                                 "type": "Raw",
@@ -545,6 +548,24 @@
                                                   "@string(coalesce(item()?['Contact'], ''))",
                                                   "@string(coalesce(first(body('SharePoint_Get_items')?['value'])?['Contact'], ''))"
                                                 ]
+                                              },
+                                              {
+                                                "equals": [
+                                                  "@string(coalesce(item()?['DeadlineScheduleJSON'], ''))",
+                                                  "@string(coalesce(first(body('SharePoint_Get_items')?['value'])?['DeadlineScheduleJSON'], ''))"
+                                                ]
+                                              },
+                                              {
+                                                "equals": [
+                                                  "@string(coalesce(item()?['SourceDateFactsJSON'], ''))",
+                                                  "@string(coalesce(first(body('SharePoint_Get_items')?['value'])?['SourceDateFactsJSON'], ''))"
+                                                ]
+                                              },
+                                              {
+                                                "equals": [
+                                                  "@string(coalesce(item()?['SourceAttribution'], ''))",
+                                                  "@string(coalesce(first(body('SharePoint_Get_items')?['value'])?['SourceAttribution'], ''))"
+                                                ]
                                               }
                                             ]
                                           }
@@ -599,7 +620,10 @@
                                               "item/RetrievedTimestampStatus": {
                                                 "Value": "@{item()?['RetrievedTimestampStatus']}"
                                               },
-                                              "item/EvidenceHash": "@{item()?['EvidenceHash']}"
+                                              "item/EvidenceHash": "@{item()?['EvidenceHash']}",
+                                              "item/DeadlineScheduleJSON": "@{item()?['DeadlineScheduleJSON']}",
+                                              "item/SourceDateFactsJSON": "@{item()?['SourceDateFactsJSON']}",
+                                              "item/SourceAttribution": "@{item()?['SourceAttribution']}"
                                             },
                                             "authentication": {
                                               "type": "Raw",

@@ -9,10 +9,12 @@ try:
     from .grants_source_identity import feed_source_ids, validate_source_id_path
     from .grants_registry import normalize_opportunity, parse_offset_instant, valid_official_url
     from .grants_sources import qualification_error, required_source_class_matches
+    from .grants_deadline_schedule import require_source_schedule
 except ImportError:  # direct script execution with scripts/ on sys.path
     from grants_source_identity import feed_source_ids, validate_source_id_path
     from grants_registry import normalize_opportunity, parse_offset_instant, valid_official_url
     from grants_sources import qualification_error, required_source_class_matches
+    from grants_deadline_schedule import require_source_schedule
 
 
 MAX_XML_BYTES = 2_000_000
@@ -38,7 +40,7 @@ _MACHINE_SOURCE_FIELDS = {
     "Eligibility", "Geography", "Amount", "Deadline", "ClosingDate", "deadline",
     "DeadlineTimezone", "deadlineTimezone", "deadline_timezone",
     "SourceTimezone", "sourceTimezone", "source_timezone", "Timezone", "timezone", "time_zone",
-    "Status", "Contact", "RoundID",
+    "Status", "Contact", "RoundID", "DeadlineScheduleJSON", "SourceDateFactsJSON", "SourceAttribution",
 }
 
 
@@ -56,6 +58,7 @@ def _machine_source_record(record: Any, *, source: str, retrieved_at: str) -> di
     values = {key: value for key, value in record.items() if key in _MACHINE_SOURCE_FIELDS}
     values["Source"] = source
     values["RetrievedUTC"] = retrieved_at
+    require_source_schedule(values)
     # ReviewStatus, ReviewNotes and CHHHSRelevance are deliberately absent.
     # Only grants_reviewed_import admits human review assertions.
     return values
