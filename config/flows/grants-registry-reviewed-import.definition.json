@@ -4,13 +4,19 @@
   "type": "Microsoft.Flow/flows",
   "properties": {
     "apiId": "/providers/Microsoft.PowerApps/apis/shared_logicflows",
-    "displayName": "CHHHS Research Grants - Reviewed Import Upsert",
+    "displayName": "CHHHS RIMS | Grants | Reviewed import upsert",
     "definition": {
       "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
       "contentVersion": "1.0.0.0",
       "parameters": {
-        "$authentication": {"defaultValue": {}, "type": "SecureObject"},
-        "$connections": {"defaultValue": {}, "type": "Object"}
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
       },
       "triggers": {
         "manual": {
@@ -19,9 +25,14 @@
           "inputs": {
             "schema": {
               "type": "object",
-              "required": ["ReviewedRowsJson"],
+              "required": [
+                "ReviewedRowsJson"
+              ],
               "properties": {
-                "ReviewedRowsJson": {"type": "string", "description": "JSON array admitted by the local reviewed-import contract."}
+                "ReviewedRowsJson": {
+                  "type": "string",
+                  "description": "JSON array admitted by the local reviewed-import contract."
+                }
               }
             }
           }
@@ -34,134 +45,718 @@
           "inputs": "@json(triggerBody()?['ReviewedRowsJson'])"
         },
         "Apply_to_each_Reviewed_Row": {
-          "runAfter": {"Parse_Reviewed_Rows": ["Succeeded"]},
+          "runAfter": {
+            "Initialize_Row_Failure_Count": [
+              "Succeeded"
+            ]
+          },
           "type": "Foreach",
           "foreach": "@coalesce(outputs('Parse_Reviewed_Rows'), createArray())",
-          "runtimeConfiguration": {"concurrency": {"repetitions": 1}},
+          "runtimeConfiguration": {
+            "concurrency": {
+              "repetitions": 1
+            }
+          },
           "actions": {
-            "SharePoint_Get_items": {
+            "Condition_OpportunityKey_Present": {
               "runAfter": {},
-              "type": "OpenApiConnection",
-              "inputs": {
-                "host": {
-                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
-                  "connectionName": "shared_sharepointonline",
-                  "operationId": "GetItems"
-                },
-                "parameters": {
-                  "dataset": "{{SHAREPOINT_SITE_URL}}",
-                  "table": "{{SHAREPOINT_LIST_ID}}",
-                  "$filter": "OpportunityKey eq '@{replace(string(item()?['OpportunityKey']),'''','''''')}'",
-                  "$top": 2
-                },
-                "authentication": {"type": "Raw", "value": "@parameters('$authentication')"}
-              }
-            },
-            "Condition_Duplicate_OpportunityKey": {
-              "runAfter": {"SharePoint_Get_items": ["Succeeded"]},
               "type": "If",
-              "expression": {"greater": ["@length(body('SharePoint_Get_items')?['value'])", 1]},
-              "actions": {
-                "Compose_Duplicate_OpportunityKey_Failure": {
-                  "type": "Compose",
-                  "inputs": "@concat('DUPLICATE_OPPORTUNITY_KEY: ', string(item()?['OpportunityKey']))"
-                }
+              "expression": {
+                "and": [
+                  {
+                    "not": {
+                      "equals": [
+                        "@trim(string(coalesce(item()?['OpportunityKey'], '')))",
+                        ""
+                      ]
+                    }
+                  },
+                  {
+                    "not": {
+                      "equals": [
+                        "@trim(string(coalesce(item()?['Source'], '')))",
+                        ""
+                      ]
+                    }
+                  },
+                  {
+                    "or": [
+                      {
+                        "not": {
+                          "equals": [
+                            "@trim(string(coalesce(item()?['SourceID'], '')))",
+                            ""
+                          ]
+                        }
+                      },
+                      {
+                        "not": {
+                          "equals": [
+                            "@trim(string(coalesce(item()?['RoundID'], '')))",
+                            ""
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "not": {
+                      "equals": [
+                        "@trim(string(coalesce(item()?['EvidenceHash'], '')))",
+                        ""
+                      ]
+                    }
+                  }
+                ]
               },
-              "else": {"actions": {}}
-            },
-            "Condition_Is_New_Opportunity": {
-              "runAfter": {"Condition_Duplicate_OpportunityKey": ["Succeeded"]},
-              "type": "If",
-              "expression": {"equals": ["@length(body('SharePoint_Get_items')?['value'])", 0]},
               "actions": {
-                "SharePoint_Create_item": {
+                "SharePoint_Get_items": {
+                  "runAfter": {},
                   "type": "OpenApiConnection",
                   "inputs": {
                     "host": {
                       "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
                       "connectionName": "shared_sharepointonline",
-                      "operationId": "PostItem"
+                      "operationId": "GetItems"
                     },
                     "parameters": {
                       "dataset": "{{SHAREPOINT_SITE_URL}}",
                       "table": "{{SHAREPOINT_LIST_ID}}",
-                      "item/Title": "@{item()?['Title']}",
-                      "item/OpportunityKey": "@{item()?['OpportunityKey']}",
-                      "item/Funder": "@{item()?['Funder']}",
-                      "item/Source": "@{item()?['Source']}",
-                      "item/SourceID": "@{item()?['SourceID']}",
-                      "item/RoundID": "@{item()?['RoundID']}",
-                      "item/URL": "@{item()?['URL']}",
-                      "item/SourceRowURL": "@{item()?['SourceRowURL']}",
-                      "item/Description": "@{item()?['Description']}",
-                      "item/Eligibility": "@{item()?['Eligibility']}",
-                      "item/Geography": "@{item()?['Geography']}",
-                      "item/Amount": "@{item()?['Amount']}",
-                      "item/Deadline": "@{item()?['Deadline']}",
-                      "item/DeadlineRaw": "@{item()?['DeadlineRaw']}",
-                      "item/DeadlinePrecision": {"Value": "@{item()?['DeadlinePrecision']}"},
-                      "item/Status": {"Value": "@{item()?['Status']}"},
-                      "item/Contact": "@{item()?['Contact']}",
-                      "item/CHHHSRelevance": {"Value": "@{item()?['CHHHSRelevance']}"},
-                      "item/ReviewStatus": {"Value": "Needs Review"},
-                      "item/ReviewNotes": "",
-                      "item/RetrievedUTC": "@{item()?['RetrievedUTC']}",
-                      "item/RetrievedTimestampStatus": {"Value": "@{item()?['RetrievedTimestampStatus']}"},
-                      "item/EvidenceHash": "@{item()?['EvidenceHash']}"
+                      "$filter": "OpportunityKey eq '@{replace(string(item()?['OpportunityKey']),'''','''''')}'",
+                      "$top": 2
                     },
-                    "authentication": {"type": "Raw", "value": "@parameters('$authentication')"}
+                    "authentication": {
+                      "type": "Raw",
+                      "value": "@parameters('$authentication')"
+                    }
+                  }
+                },
+                "SharePoint_Get_source_identity": {
+                  "runAfter": {
+                    "SharePoint_Get_items": [
+                      "Succeeded"
+                    ]
+                  },
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "host": {
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                      "connectionName": "shared_sharepointonline",
+                      "operationId": "GetItems"
+                    },
+                    "parameters": {
+                      "dataset": "{{SHAREPOINT_SITE_URL}}",
+                      "table": "{{SHAREPOINT_LIST_ID}}",
+                      "$filter": "@concat(concat('Source eq ''', replace(string(item()?['Source']), '''', ''''''), ''''), ' and ', if(empty(item()?['SourceID']), '(SourceID eq null or SourceID eq '''')', concat('SourceID eq ''', replace(string(item()?['SourceID']), '''', ''''''), '''')), ' and ', if(empty(item()?['RoundID']), '(RoundID eq null or RoundID eq '''')', concat('RoundID eq ''', replace(string(item()?['RoundID']), '''', ''''''), '''')), ' and ', concat('EvidenceHash eq ''', replace(string(item()?['EvidenceHash']), '''', ''''''), ''''), ' and OpportunityKey ne ''', replace(string(item()?['OpportunityKey']), '''', ''''''), '''')",
+                      "$top": 1
+                    },
+                    "authentication": {
+                      "type": "Raw",
+                      "value": "@parameters('$authentication')"
+                    }
+                  }
+                },
+                "Condition_Conflicting_Source_Identity": {
+                  "runAfter": {
+                    "SharePoint_Get_source_identity": [
+                      "Succeeded"
+                    ]
+                  },
+                  "type": "If",
+                  "expression": {
+                    "greater": [
+                      "@length(body('SharePoint_Get_source_identity')?['value'])",
+                      0
+                    ]
+                  },
+                  "actions": {
+                    "Compose_Conflicting_Source_Identity_Failure": {
+                      "type": "Compose",
+                      "inputs": "CONFLICTING_OPPORTUNITY_KEY_FOR_SOURCE_EVIDENCE"
+                    },
+                    "Increment_Conflicting_Identity_Failure_Count": {
+                      "runAfter": {
+                        "Compose_Conflicting_Source_Identity_Failure": [
+                          "Succeeded"
+                        ]
+                      },
+                      "type": "IncrementVariable",
+                      "inputs": {
+                        "name": "RowFailureCount",
+                        "value": 1
+                      }
+                    }
+                  },
+                  "else": {
+                    "actions": {
+                      "Condition_Duplicate_OpportunityKey": {
+                        "type": "If",
+                        "expression": {
+                          "greater": [
+                            "@length(body('SharePoint_Get_items')?['value'])",
+                            1
+                          ]
+                        },
+                        "actions": {
+                          "Compose_Duplicate_OpportunityKey_Failure": {
+                            "type": "Compose",
+                            "inputs": "@concat('DUPLICATE_OPPORTUNITY_KEY: ', string(item()?['OpportunityKey']))"
+                          },
+                          "Increment_Duplicate_Key_Failure_Count": {
+                            "runAfter": {
+                              "Compose_Duplicate_OpportunityKey_Failure": [
+                                "Succeeded"
+                              ]
+                            },
+                            "type": "IncrementVariable",
+                            "inputs": {
+                              "name": "RowFailureCount",
+                              "value": 1
+                            }
+                          }
+                        },
+                        "else": {
+                          "actions": {}
+                        }
+                      },
+                      "Condition_Is_New_Opportunity": {
+                        "runAfter": {
+                          "Condition_Duplicate_OpportunityKey": [
+                            "Succeeded"
+                          ]
+                        },
+                        "type": "If",
+                        "expression": {
+                          "and": [
+                            {
+                              "equals": [
+                                "@length(body('SharePoint_Get_items')?['value'])",
+                                0
+                              ]
+                            },
+                            {
+                              "equals": [
+                                "@length(body('SharePoint_Get_source_identity')?['value'])",
+                                0
+                              ]
+                            }
+                          ]
+                        },
+                        "actions": {
+                          "SharePoint_Create_item": {
+                            "type": "OpenApiConnection",
+                            "inputs": {
+                              "host": {
+                                "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                                "connectionName": "shared_sharepointonline",
+                                "operationId": "PostItem"
+                              },
+                              "parameters": {
+                                "dataset": "{{SHAREPOINT_SITE_URL}}",
+                                "table": "{{SHAREPOINT_LIST_ID}}",
+                                "item/Title": "@{item()?['Title']}",
+                                "item/OpportunityKey": "@{item()?['OpportunityKey']}",
+                                "item/Funder": "@{item()?['Funder']}",
+                                "item/Source": "@{item()?['Source']}",
+                                "item/SourceID": "@{item()?['SourceID']}",
+                                "item/RoundID": "@{item()?['RoundID']}",
+                                "item/URL": "@{item()?['URL']}",
+                                "item/SourceRowURL": "@{item()?['SourceRowURL']}",
+                                "item/Description": "@{item()?['Description']}",
+                                "item/Eligibility": "@{item()?['Eligibility']}",
+                                "item/Geography": "@{item()?['Geography']}",
+                                "item/Amount": "@{item()?['Amount']}",
+                                "item/Deadline": "@{item()?['Deadline']}",
+                                "item/DeadlineRaw": "@{item()?['DeadlineRaw']}",
+                                "item/DeadlineTimezone": "@{item()?['DeadlineTimezone']}",
+                                "item/DeadlineLocalTime": "@{item()?['DeadlineLocalTime']}",
+                                "item/DeadlineUTCInstant": "@{item()?['DeadlineUTCInstant']}",
+                                "item/DeadlineBrisbaneDate": "@{item()?['DeadlineBrisbaneDate']}",
+                                "item/DeadlineBrisbaneTime": "@{item()?['DeadlineBrisbaneTime']}",
+                                "item/DeadlineTemporalStatus": {
+                                  "Value": "@{item()?['DeadlineTemporalStatus']}"
+                                },
+                                "item/DeadlinePrecision": {
+                                  "Value": "@{item()?['DeadlinePrecision']}"
+                                },
+                                "item/Status": {
+                                  "Value": "@{item()?['Status']}"
+                                },
+                                "item/Contact": "@{item()?['Contact']}",
+                                "item/CHHHSRelevance": {
+                                  "Value": "@{item()?['CHHHSRelevance']}"
+                                },
+                                "item/ReviewStatus": {
+                                  "Value": "Needs Review"
+                                },
+                                "item/ReviewNotes": "",
+                                "item/RetrievedUTC": "@{item()?['RetrievedUTC']}",
+                                "item/RetrievedTimestampStatus": {
+                                  "Value": "@{item()?['RetrievedTimestampStatus']}"
+                                },
+                                "item/EvidenceHash": "@{item()?['EvidenceHash']}"
+                              },
+                              "authentication": {
+                                "type": "Raw",
+                                "value": "@parameters('$authentication')"
+                              }
+                            }
+                          },
+                          "SharePoint_Create_item_Preserve_ISO_Text": {
+                            "type": "OpenApiConnection",
+                            "inputs": {
+                              "host": {
+                                "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                                "connectionName": "shared_sharepointonline",
+                                "operationId": "HttpRequest"
+                              },
+                              "parameters": {
+                                "dataset": "{{SHAREPOINT_SITE_URL}}",
+                                "parameters/method": "POST",
+                                "parameters/uri": "_api/web/lists(guid'{{SHAREPOINT_LIST_ID}}')/items(@{body('SharePoint_Create_item')?['ID']})",
+                                "parameters/headers": {
+                                  "Accept": "application/json;odata=nometadata",
+                                  "Content-Type": "application/json;odata=nometadata",
+                                  "IF-MATCH": "*",
+                                  "X-HTTP-Method": "MERGE"
+                                },
+                                "parameters/body": "@string(setProperty(setProperty(json('{}'), 'RetrievedUTC', string(coalesce(item()?['RetrievedUTC'], ''))), 'DeadlineUTCInstant', string(coalesce(item()?['DeadlineUTCInstant'], ''))))"
+                              }
+                            },
+                            "runAfter": {
+                              "SharePoint_Create_item": [
+                                "Succeeded"
+                              ]
+                            }
+                          }
+                        },
+                        "else": {
+                          "actions": {
+                            "Condition_Exactly_One_Opportunity": {
+                              "type": "If",
+                              "expression": {
+                                "and": [
+                                  {
+                                    "equals": [
+                                      "@length(body('SharePoint_Get_items')?['value'])",
+                                      1
+                                    ]
+                                  },
+                                  {
+                                    "equals": [
+                                      "@length(body('SharePoint_Get_source_identity')?['value'])",
+                                      0
+                                    ]
+                                  }
+                                ]
+                              },
+                              "actions": {
+                                "Condition_Observation_Time_Known": {
+                                  "type": "If",
+                                  "expression": {
+                                    "and": [
+                                      {
+                                        "equals": [
+                                          "@item()?['RetrievedTimestampStatus']",
+                                          "valid"
+                                        ]
+                                      },
+                                      {
+                                        "or": [
+                                          {
+                                            "equals": [
+                                              "@endsWith(string(coalesce(item()?['RetrievedUTC'], '')), 'Z')",
+                                              true
+                                            ]
+                                          },
+                                          {
+                                            "equals": [
+                                              "@endsWith(string(coalesce(item()?['RetrievedUTC'], '')), '+00:00')",
+                                              true
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "or": [
+                                          {
+                                            "equals": [
+                                              "@endsWith(string(coalesce(first(body('SharePoint_Get_items')?['value'])?['RetrievedUTC'], '')), 'Z')",
+                                              true
+                                            ]
+                                          },
+                                          {
+                                            "equals": [
+                                              "@endsWith(string(coalesce(first(body('SharePoint_Get_items')?['value'])?['RetrievedUTC'], '')), '+00:00')",
+                                              true
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  "actions": {
+                                    "Condition_Observation_Not_Older": {
+                                      "type": "If",
+                                      "expression": {
+                                        "or": [
+                                          {
+                                            "greater": [
+                                              "@ticks(item()?['RetrievedUTC'])",
+                                              "@ticks(first(body('SharePoint_Get_items')?['value'])?['RetrievedUTC'])"
+                                            ]
+                                          },
+                                          {
+                                            "and": [
+                                              {
+                                                "equals": [
+                                                  "@ticks(item()?['RetrievedUTC'])",
+                                                  "@ticks(first(body('SharePoint_Get_items')?['value'])?['RetrievedUTC'])"
+                                                ]
+                                              },
+                                              {
+                                                "equals": [
+                                                  "@string(coalesce(item()?['Title'], ''))",
+                                                  "@string(coalesce(first(body('SharePoint_Get_items')?['value'])?['Title'], ''))"
+                                                ]
+                                              },
+                                              {
+                                                "equals": [
+                                                  "@string(coalesce(item()?['Funder'], ''))",
+                                                  "@string(coalesce(first(body('SharePoint_Get_items')?['value'])?['Funder'], ''))"
+                                                ]
+                                              },
+                                              {
+                                                "equals": [
+                                                  "@string(coalesce(item()?['Source'], ''))",
+                                                  "@string(coalesce(first(body('SharePoint_Get_items')?['value'])?['Source'], ''))"
+                                                ]
+                                              },
+                                              {
+                                                "equals": [
+                                                  "@string(coalesce(item()?['SourceID'], ''))",
+                                                  "@string(coalesce(first(body('SharePoint_Get_items')?['value'])?['SourceID'], ''))"
+                                                ]
+                                              },
+                                              {
+                                                "equals": [
+                                                  "@string(coalesce(item()?['RoundID'], ''))",
+                                                  "@string(coalesce(first(body('SharePoint_Get_items')?['value'])?['RoundID'], ''))"
+                                                ]
+                                              },
+                                              {
+                                                "equals": [
+                                                  "@string(coalesce(item()?['URL'], ''))",
+                                                  "@string(coalesce(first(body('SharePoint_Get_items')?['value'])?['URL'], ''))"
+                                                ]
+                                              },
+                                              {
+                                                "equals": [
+                                                  "@string(coalesce(item()?['SourceRowURL'], ''))",
+                                                  "@string(coalesce(first(body('SharePoint_Get_items')?['value'])?['SourceRowURL'], ''))"
+                                                ]
+                                              },
+                                              {
+                                                "equals": [
+                                                  "@string(coalesce(item()?['Description'], ''))",
+                                                  "@string(coalesce(first(body('SharePoint_Get_items')?['value'])?['Description'], ''))"
+                                                ]
+                                              },
+                                              {
+                                                "equals": [
+                                                  "@string(coalesce(item()?['Eligibility'], ''))",
+                                                  "@string(coalesce(first(body('SharePoint_Get_items')?['value'])?['Eligibility'], ''))"
+                                                ]
+                                              },
+                                              {
+                                                "equals": [
+                                                  "@string(coalesce(item()?['Geography'], ''))",
+                                                  "@string(coalesce(first(body('SharePoint_Get_items')?['value'])?['Geography'], ''))"
+                                                ]
+                                              },
+                                              {
+                                                "equals": [
+                                                  "@string(coalesce(item()?['Amount'], ''))",
+                                                  "@string(coalesce(first(body('SharePoint_Get_items')?['value'])?['Amount'], ''))"
+                                                ]
+                                              },
+                                              {
+                                                "equals": [
+                                                  "@string(coalesce(item()?['Deadline'], ''))",
+                                                  "@substring(string(coalesce(first(body('SharePoint_Get_items')?['value'])?['Deadline'], '')), 0, min(10, length(string(coalesce(first(body('SharePoint_Get_items')?['value'])?['Deadline'], '')))))"
+                                                ]
+                                              },
+                                              {
+                                                "equals": [
+                                                  "@string(coalesce(item()?['DeadlineRaw'], ''))",
+                                                  "@string(coalesce(first(body('SharePoint_Get_items')?['value'])?['DeadlineRaw'], ''))"
+                                                ]
+                                              },
+                                              {
+                                                "equals": [
+                                                  "@string(coalesce(item()?['DeadlinePrecision'], ''))",
+                                                  "@string(coalesce(first(body('SharePoint_Get_items')?['value'])?['DeadlinePrecision']?['Value'], ''))"
+                                                ]
+                                              },
+                                              {
+                                                "equals": [
+                                                  "@string(coalesce(item()?['DeadlineTimezone'], ''))",
+                                                  "@string(coalesce(first(body('SharePoint_Get_items')?['value'])?['DeadlineTimezone'], ''))"
+                                                ]
+                                              },
+                                              {
+                                                "equals": [
+                                                  "@string(coalesce(item()?['DeadlineLocalTime'], ''))",
+                                                  "@string(coalesce(first(body('SharePoint_Get_items')?['value'])?['DeadlineLocalTime'], ''))"
+                                                ]
+                                              },
+                                              {
+                                                "equals": [
+                                                  "@string(coalesce(item()?['DeadlineUTCInstant'], ''))",
+                                                  "@string(coalesce(first(body('SharePoint_Get_items')?['value'])?['DeadlineUTCInstant'], ''))"
+                                                ]
+                                              },
+                                              {
+                                                "equals": [
+                                                  "@string(coalesce(item()?['DeadlineBrisbaneDate'], ''))",
+                                                  "@string(coalesce(first(body('SharePoint_Get_items')?['value'])?['DeadlineBrisbaneDate'], ''))"
+                                                ]
+                                              },
+                                              {
+                                                "equals": [
+                                                  "@string(coalesce(item()?['DeadlineBrisbaneTime'], ''))",
+                                                  "@string(coalesce(first(body('SharePoint_Get_items')?['value'])?['DeadlineBrisbaneTime'], ''))"
+                                                ]
+                                              },
+                                              {
+                                                "equals": [
+                                                  "@string(coalesce(item()?['DeadlineTemporalStatus'], ''))",
+                                                  "@string(coalesce(first(body('SharePoint_Get_items')?['value'])?['DeadlineTemporalStatus']?['Value'], ''))"
+                                                ]
+                                              },
+                                              {
+                                                "equals": [
+                                                  "@string(coalesce(item()?['Status'], ''))",
+                                                  "@string(coalesce(first(body('SharePoint_Get_items')?['value'])?['Status']?['Value'], ''))"
+                                                ]
+                                              },
+                                              {
+                                                "equals": [
+                                                  "@string(coalesce(item()?['Contact'], ''))",
+                                                  "@string(coalesce(first(body('SharePoint_Get_items')?['value'])?['Contact'], ''))"
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      "actions": {
+                                        "SharePoint_Update_item": {
+                                          "type": "OpenApiConnection",
+                                          "inputs": {
+                                            "host": {
+                                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                                              "connectionName": "shared_sharepointonline",
+                                              "operationId": "PatchItem"
+                                            },
+                                            "parameters": {
+                                              "dataset": "{{SHAREPOINT_SITE_URL}}",
+                                              "table": "{{SHAREPOINT_LIST_ID}}",
+                                              "id": "@first(body('SharePoint_Get_items')?['value'])?['Id']",
+                                              "item/Title": "@{item()?['Title']}",
+                                              "item/OpportunityKey": "@{item()?['OpportunityKey']}",
+                                              "item/Funder": "@{item()?['Funder']}",
+                                              "item/Source": "@{item()?['Source']}",
+                                              "item/SourceID": "@{item()?['SourceID']}",
+                                              "item/RoundID": "@{item()?['RoundID']}",
+                                              "item/URL": "@{item()?['URL']}",
+                                              "item/SourceRowURL": "@{item()?['SourceRowURL']}",
+                                              "item/Description": "@{item()?['Description']}",
+                                              "item/Eligibility": "@{item()?['Eligibility']}",
+                                              "item/Geography": "@{item()?['Geography']}",
+                                              "item/Amount": "@{item()?['Amount']}",
+                                              "item/Deadline": "@{item()?['Deadline']}",
+                                              "item/DeadlineRaw": "@{item()?['DeadlineRaw']}",
+                                              "item/DeadlineTimezone": "@{item()?['DeadlineTimezone']}",
+                                              "item/DeadlineLocalTime": "@{item()?['DeadlineLocalTime']}",
+                                              "item/DeadlineUTCInstant": "@{item()?['DeadlineUTCInstant']}",
+                                              "item/DeadlineBrisbaneDate": "@{item()?['DeadlineBrisbaneDate']}",
+                                              "item/DeadlineBrisbaneTime": "@{item()?['DeadlineBrisbaneTime']}",
+                                              "item/DeadlineTemporalStatus": {
+                                                "Value": "@{item()?['DeadlineTemporalStatus']}"
+                                              },
+                                              "item/DeadlinePrecision": {
+                                                "Value": "@{item()?['DeadlinePrecision']}"
+                                              },
+                                              "item/Status": {
+                                                "Value": "@{item()?['Status']}"
+                                              },
+                                              "item/Contact": "@{item()?['Contact']}",
+                                              "item/CHHHSRelevance": {
+                                                "Value": "@{item()?['CHHHSRelevance']}"
+                                              },
+                                              "item/RetrievedUTC": "@{item()?['RetrievedUTC']}",
+                                              "item/RetrievedTimestampStatus": {
+                                                "Value": "@{item()?['RetrievedTimestampStatus']}"
+                                              },
+                                              "item/EvidenceHash": "@{item()?['EvidenceHash']}"
+                                            },
+                                            "authentication": {
+                                              "type": "Raw",
+                                              "value": "@parameters('$authentication')"
+                                            }
+                                          }
+                                        },
+                                        "SharePoint_Update_item_Preserve_ISO_Text": {
+                                          "type": "OpenApiConnection",
+                                          "inputs": {
+                                            "host": {
+                                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                                              "connectionName": "shared_sharepointonline",
+                                              "operationId": "HttpRequest"
+                                            },
+                                            "parameters": {
+                                              "dataset": "{{SHAREPOINT_SITE_URL}}",
+                                              "parameters/method": "POST",
+                                              "parameters/uri": "_api/web/lists(guid'{{SHAREPOINT_LIST_ID}}')/items(@{first(body('SharePoint_Get_items')?['value'])?['ID']})",
+                                              "parameters/headers": {
+                                                "Accept": "application/json;odata=nometadata",
+                                                "Content-Type": "application/json;odata=nometadata",
+                                                "IF-MATCH": "*",
+                                                "X-HTTP-Method": "MERGE"
+                                              },
+                                              "parameters/body": "@string(setProperty(setProperty(json('{}'), 'RetrievedUTC', string(coalesce(item()?['RetrievedUTC'], ''))), 'DeadlineUTCInstant', string(coalesce(item()?['DeadlineUTCInstant'], ''))))"
+                                            }
+                                          },
+                                          "runAfter": {
+                                            "SharePoint_Update_item": [
+                                              "Succeeded"
+                                            ]
+                                          }
+                                        }
+                                      },
+                                      "else": {
+                                        "actions": {
+                                          "Compose_Older_Observation_Failure": {
+                                            "type": "Compose",
+                                            "inputs": "@if(equals(ticks(item()?['RetrievedUTC']), ticks(first(body('SharePoint_Get_items')?['value'])?['RetrievedUTC'])), 'CONFLICTING_SAME_TIME_GRANTS_OBSERVATION', 'OLDER_GRANTS_OBSERVATION')"
+                                          },
+                                          "Increment_Older_Observation_Failure": {
+                                            "type": "IncrementVariable",
+                                            "inputs": {
+                                              "name": "RowFailureCount",
+                                              "value": 1
+                                            },
+                                            "runAfter": {
+                                              "Compose_Older_Observation_Failure": [
+                                                "Succeeded"
+                                              ]
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "else": {
+                                    "actions": {
+                                      "Compose_Uncertain_Observation_Failure": {
+                                        "type": "Compose",
+                                        "inputs": "UNCERTAIN_GRANTS_OBSERVATION_TIME"
+                                      },
+                                      "Increment_Uncertain_Observation_Failure": {
+                                        "type": "IncrementVariable",
+                                        "inputs": {
+                                          "name": "RowFailureCount",
+                                          "value": 1
+                                        },
+                                        "runAfter": {
+                                          "Compose_Uncertain_Observation_Failure": [
+                                            "Succeeded"
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              "else": {
+                                "actions": {}
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               },
               "else": {
                 "actions": {
-                  "Condition_Exactly_One_Opportunity": {
-                    "type": "If",
-                    "expression": {"equals": ["@length(body('SharePoint_Get_items')?['value'])", 1]},
-                    "actions": {
-                      "SharePoint_Update_item": {
-                        "type": "OpenApiConnection",
-                        "inputs": {
-                          "host": {
-                            "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
-                            "connectionName": "shared_sharepointonline",
-                            "operationId": "PatchItem"
-                          },
-                          "parameters": {
-                            "dataset": "{{SHAREPOINT_SITE_URL}}",
-                            "table": "{{SHAREPOINT_LIST_ID}}",
-                            "id": "@first(body('SharePoint_Get_items')?['value'])?['Id']",
-                            "item/Title": "@{item()?['Title']}",
-                            "item/OpportunityKey": "@{item()?['OpportunityKey']}",
-                            "item/Funder": "@{item()?['Funder']}",
-                            "item/Source": "@{item()?['Source']}",
-                            "item/SourceID": "@{item()?['SourceID']}",
-                            "item/RoundID": "@{item()?['RoundID']}",
-                            "item/URL": "@{item()?['URL']}",
-                            "item/SourceRowURL": "@{item()?['SourceRowURL']}",
-                            "item/Description": "@{item()?['Description']}",
-                            "item/Eligibility": "@{item()?['Eligibility']}",
-                            "item/Geography": "@{item()?['Geography']}",
-                            "item/Amount": "@{item()?['Amount']}",
-                            "item/Deadline": "@{item()?['Deadline']}",
-                            "item/DeadlineRaw": "@{item()?['DeadlineRaw']}",
-                            "item/DeadlinePrecision": {"Value": "@{item()?['DeadlinePrecision']}"},
-                            "item/Status": {"Value": "@{item()?['Status']}"},
-                            "item/Contact": "@{item()?['Contact']}",
-                            "item/CHHHSRelevance": {"Value": "@{item()?['CHHHSRelevance']}"},
-                            "item/RetrievedUTC": "@{item()?['RetrievedUTC']}",
-                            "item/RetrievedTimestampStatus": {"Value": "@{item()?['RetrievedTimestampStatus']}"},
-                            "item/EvidenceHash": "@{item()?['EvidenceHash']}"
-                          },
-                          "authentication": {"type": "Raw", "value": "@parameters('$authentication')"}
-                        }
-                      }
+                  "Compose_Invalid_Source_Identity_Failure": {
+                    "type": "Compose",
+                    "inputs": "INVALID_GRANTS_SOURCE_IDENTITY"
+                  },
+                  "Increment_Invalid_Identity_Failure_Count": {
+                    "runAfter": {
+                      "Compose_Invalid_Source_Identity_Failure": [
+                        "Succeeded"
+                      ]
                     },
-                    "else": {"actions": {}}
+                    "type": "IncrementVariable",
+                    "inputs": {
+                      "name": "RowFailureCount",
+                      "value": 1
+                    }
                   }
                 }
               }
             }
+          }
+        },
+        "Initialize_Row_Failure_Count": {
+          "runAfter": {
+            "Parse_Reviewed_Rows": [
+              "Succeeded"
+            ]
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "RowFailureCount",
+                "type": "integer",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "Condition_Any_Row_Failures": {
+          "runAfter": {
+            "Apply_to_each_Reviewed_Row": [
+              "Succeeded"
+            ]
+          },
+          "type": "If",
+          "expression": {
+            "greater": [
+              "@variables('RowFailureCount')",
+              0
+            ]
+          },
+          "actions": {
+            "Terminate_Row_Failures": {
+              "type": "Terminate",
+              "inputs": {
+                "runStatus": "Failed",
+                "runError": {
+                  "code": "GRANTS_REVIEWED_IMPORT_ROW_FAILURE",
+                  "message": "One or more reviewed rows failed identity or duplicate validation; inspect row diagnostics and reconcile any earlier writes before replay."
+                }
+              }
+            }
+          },
+          "else": {
+            "actions": {}
           }
         }
       }

@@ -1,56 +1,225 @@
 # G04 review
 
-## Conductor review — HTML calendar evidence boundary — 2026-09-22
+## Review fixes saved natively — 23 October 2026
 
-- **Finding:** the review-only HTML calendar parser stripped row `href` values and accepted padded source/authority URLs, allowing malformed evidence to appear actionable.
-- **Fix:** source identity and HTTPS authority URLs now require canonical values; padded row links are preserved as non-actionable raw candidates and withheld from `SourceLinks`/`SourceRowURL`.
-- **Verification:** focused HTML-calendar tests pass (8); project checks pass 460; web-first, Conductor and diff validation pass locally.
-- **Residual gate:** native feed permissions, source-change/archive reconciliation, recurrence, monitoring, unattended operation and production acceptance remain open.
+Both H02 review findings below are fixed in the local and saved native
+definition. The identity guard accepts SourceID or RoundID; the escaped
+source-evidence lookup includes source, record and round identity and handles
+SharePoint null text. Equal-time replay now compares all 22 source-fact fields
+used by local reviewed-batch reconciliation, normalizing SharePoint choice
+objects and date-only values. Newer observations remain eligible, older or
+equal-time conflicting facts reach the failure diagnostic, and reviewer fields
+remain excluded from Update.
 
-## Conductor review — ingestion identity boundary — 2026-09-22
+The existing Azure CLI/Dataverse route patched only clientdata with the exact
+preimage ETag. The PATCH response timed out; no write was resubmitted. Fresh
+FlowAgent readback and direct Dataverse readback independently matched the exact
+candidate. Workflow identity, display name, connection references and Stopped
+state are preserved. Saved definition SHA256:
+`a06397b1b7c76703f0b3378f4bb595f06f2ac459743fd78da21a0d88e012551b`.
 
-- **Finding:** API-shaped `SourceID`, `ExternalID`, `RoundID` and URL fields were passed to the canonical normaliser, which strips surrounding whitespace before deriving keys and evidence URLs.
-- **Fix:** those identity and URL fields now reject surrounding whitespace at the source-input boundary; human-readable title/description fields remain normalisable. Regression coverage covers each strict field class.
-- **Verification:** focused ingestion tests pass (27); project checks pass 460; web-first, Conductor and diff validation pass locally.
-- **Residual gate:** native feed permissions, source-change/archive reconciliation, recurrence, monitoring, unattended operation and production acceptance remain open.
+The initial grants harness exposed two existing assertions tied to the old
+required-SourceID/formatting contract. Those checks were updated while retaining
+blank-key protection and escaped lookup fields, including RoundID. The final
+grants harness passes 411 tests with 2 optional JSON Schema skips; the first
+failed run remains retained. Focused regression cases cover round-only local
+inputs, every equal-time source-fact conflict, unchanged replay, reviewer-only
+changes, newer and older observations. No native runtime fixture or source batch
+was submitted. H02 remains partial until runtime evidence covers the fixes;
+H03/H04 and G02 source admission remain open.
 
-## Summary
+Private receipts: `private/ops/2026-10-23-g04-fixes-native-parity.json`,
+`2026-10-23-g04-fixes-dataverse-preimage.json` (exact rollback clientdata),
+`2026-10-23-g04-fixes-dataverse-postimage.json`,
+`2026-10-23-g04-fixes-timeout-flow-readback.json`, and
+`2026-10-23-g04-fixes-grants-recheck.log`, all under `private/ops/`.
+**Documentation pending:** this task owns reconciliation of the changed predicates
+into the existing grants module's maintained native documentation after the
+bounded runtime fixes are accepted. Existing source and generated-document
+identities remain in place; no publication or schedule change occurred.
+
+## G04-H02 native adapter review — 23 October 2026
+
+**Original review result: changes required; H02 reopened.** At that baseline the read-only native definition
+matches the retained H02 definition and connection references exactly; its
+canonical definition hash was
+`9568a122a1134e120aba76e3988db96bd0bebea61c8a5c33e67432187867e209`
+and state is Stopped. Local action semantics match after the documented exact
+target and authentication-expression normalization. Mapping resolution, the
+excluded stale offline package and the retained same-ID rollback preimage remain
+valid evidence. Matching intended and native graphs does not establish that the
+shared graph implements every reviewed-import rule.
+
+**High — equal-time conflicting facts can overwrite persisted facts.**
+`config/flows/grants-registry-reviewed-import.definition.json:387-393` permits
+`greaterOrEquals` observation times without comparing source facts on equality.
+Two separately valid reviewed batches can carry the same key and timestamp but
+different Title/EvidenceHash. The source-identity lookup excludes that same key,
+and the native branch proceeds to Update. In contrast,
+`reconcile_reviewed_batches` rejects `conflicting_same_time_observation` when
+given the prior row; CLI prior comparison is optional. Add a native equality
+guard that permits unchanged source facts/replay and rejects conflicting facts
+before either update action. Verify unchanged replay and equal-time changed
+facts against the exact stopped flow with retained row/version preimages.
+
+**Medium — round-only reviewed identities are rejected by the native adapter.**
+`config/flows/grants-registry-reviewed-import.definition.json:80-88` requires
+nonblank SourceID. The established local contract accepts SourceID **or** RoundID
+and generates a canonical key for a round-only row. An offline accepted row with
+blank SourceID and an evidenced RoundID therefore reaches the native invalid
+identity branch. Align the native guard and source-identity lookup with the
+declared source/round identity contract, then verify create/replay and conflicting
+identity behavior without weakening key uniqueness.
+
+Focused review checks: `python3 -m unittest tests.test_grants_flow_contract
+tests.test_grants_reviewed_import tests.test_grants_sources_ingestion -q` passed
+84 tests. The existing tests do not exercise either native contract gap above;
+passing checks do not close the findings. Offline reproductions used disposable
+inputs only and submitted no fixture or native run. No definition, connection,
+list row, schedule or model was changed. H03/H04 and overall G04 remain open.
+This review corrects the completion record; native implementation and runtime
+acceptance of both fixes remain required.
+
+Private evidence: `private/ops/2026-10-23-g04-h02-review-native.json` (fresh
+native readback), `private/ops/2026-10-23-g04-h02-review-findings-private.json`
+(reproductions/check results), and the unchanged H02 pre/post and rollback
+receipts in `private/ops/2026-10-23-g04-h02-native-adapter-private/`.
+
+## 2026-09-28 shared source-time parsing
+
+Canonical grants observation timestamps and G04 RSS/Atom/API snapshot
+timestamps now share one strict RFC3339 parser requiring seconds and an
+explicit UTC offset. The parser retains the distinct `missing_timezone`
+classification for naive local instants and rejects permissive forms such as
+space separators, omitted seconds, compact offsets and malformed offsets.
+Snapshot ordering applies the same parser to both the current and prior
+observation before comparing UTC instants. Focused registry, ingestion and
+institution suites pass 12, 30 and 30 tests. This is local validation only;
+no opportunity feed has been admitted and G04-H02/H03 native intake remains
+open.
+
+The G01 canonical normalizer now rejects non-object rows and non-text source
+facts instead of coercing them. This extends the source intake guard to direct
+normalizer and merge callers, including falsey malformed values otherwise
+masked by alias fallback. Registry, planning, machine-ingestion and
+reviewed-import suites all pass; no source is newly admitted and native
+ingestion remains open.
+
+## Source fact type integrity before G03 import — 2026-09-26
+
+Both the reviewed-import and machine-API boundaries now reject recognized
+source facts supplied as numbers, lists or objects where the canonical Grants
+Registry schema stores text. Previously optional values such as `Status`,
+`Amount` and `Eligibility` could be stringified by the shared normalizer and
+appear as authority facts in a G03 row. A real API adapter must explicitly
+map its documented structured values to text before intake; this guard does
+not admit a feed or authenticate a reviewer. The grants-focused suite passes
+208 tests, including the new malformed-optional-field cases. No tenant row or
+flow was changed.
+
+## Reviewed identity type and reconciliation guard — 2026-09-26
+
+The reviewed-import boundary now rejects a non-text `SourceID` or `RoundID`
+even when the other identifier is valid. This prevents a JSON number or object
+from being silently stringified into a canonical opportunity key. The batch
+comparator also verifies that pre-normalized reviewed rows carry a key matching
+their text source identity, so a caller cannot reconcile a changed ID under an
+old key. The focused reviewed-import suite passes 20 tests. This is local
+contract evidence only; it does not authenticate a reviewer, admit GrantConnect
+as a machine feed, or prove native list execution.
+
+## GO8568 bounded reviewed-import packet — 2026-09-26
+
+The official GrantConnect row read through the authenticated BrowserOS session
+confirms public GO ID `GO8568`, its direct opportunity URL, and a displayed
+close of 11 November 2026 at 5:00 pm ACT local time. The existing canonical
+key is `GRANT:0d13beb2f4175dc25720be58`, derived from
+`grantconnect:go8568`; no separate RoundID is evidenced. The generic
+date parser now projects the source-stated offset timestamp to 2026-11-11
+with day precision while retaining `2026-11-11T17:00:00+11:00` as
+`DeadlineRaw`. The NHMRC calendar dates remain planning information until
+checked against the latest Guidelines and Addenda.
+
+The GrantConnect documents route redirected to login, so the latest
+Guidelines/Addenda, current eligibility and final deadline were not verified.
+The candidate remains `Pending`, with empty reviewer notes; it would be
+rejected by `scripts/grants_reviewed_import.py`. No HTML collector, tenant
+import, list write or review decision occurred. The complete private review
+packet and guarded DEV replay/rollback sequence are in
+`private/ops/2026-09-26-go8568-reviewed-import-packet-private.json`; the
+official row receipt and normalized preview remain separate evidence. Next,
+an authenticated human reviewer must verify the latest documents and current
+row, determine eligibility/relevance, and bind the decision to trusted review
+evidence before preparing a Reviewed batch. G04-H03 remains open.
 
 Review status: in progress; local ingestion is implemented and tested, while live source and platform execution remain open.
 
-## Synchronized verification — 2026-09-22
+## 2026-09-26 reviewed-batch observation ordering
 
-The canonical checkout passes 456 tests (8 skipped), 460 project checks,
-Conductor validation and source-only CI run `35660297803`. Live feed access,
-SharePoint writes, native flow execution and unattended operation remain open.
+The same-key comparison also rejects conflicting authority facts at the same
+observation instant; reviewer-note changes at that instant remain possible.
+This avoids order-dependent factual replacement when neither observation is
+newer. The focused reviewed-import suite passes 18 tests. No new source or
+native opportunity was admitted by this local guard.
+
+The existing reviewed-import batch comparison now rejects a same-key current
+observation older than the prior reviewed observation, comparing timezone-aware
+instants rather than timestamp strings. It also rejects malformed timestamps
+in pre-normalized comparison inputs. Missing keys in a partial current batch
+still do not imply withdrawal. The focused reviewed-import suite passes 16/16;
+this local guard does not admit a GrantConnect export or prove native upsert.
+
+## 2026-09-25 bounded official API readback
+
+The bounded machine endpoint probe was rerun against the two existing official
+catalogue entries; both returned HTTP 200 and one configured reconciliation ID
+each. The ARC response reconciled `FT260100001` as award context; the Queensland
+CKAN response reconciled package ID
+`1d72cbb9-5f99-4ad7-ae92-ddd87884527b` as source metadata. Private receipt:
+`private/ops/2026-09-25-grants-source-api-readback.json`. Catalogue verification
+dates were refreshed. These samples confirm endpoint reachability and metadata
+identity only; they do not establish an open-opportunity feed or admit either
+source into the opportunity registry. G04-H01 native upsert/history and
+source/list/model reconciliation remain open.
+
+## 2026-09-24 official machine-source admission check
+
+No additional opportunity feed was admitted. The [Queensland Grants Finder dataset](https://www.data.qld.gov.au/dataset/grants-finder) describes its API/CSV resource as a Grants Finder *checklist contribution* resource, with non-regular updates; it is machine-readable catalogue data, not a verified list of current opportunity rounds or stable round identifiers. Its existing `metadata_only` classification remains appropriate. The [official MRFF calendar](https://www.health.gov.au/our-work/mrff/grant-opportunities-calendar) is an HTML table and points applicants to GrantConnect. The [MRFF researcher guidance](https://www.health.gov.au/our-work/mrff/research-themes/researchers) describes registered GrantConnect keyword notifications, which supply neither a verified API/RSS/Atom response nor a replayable row key in this review. Read-only GETs to the GrantConnect home page and two exploratory `/Rss/` paths returned HTTP 403; those responses establish only that this client could not inspect those routes, not that an official feed does not exist.
+
+[Health Translation Queensland's funding page](https://healthtranslationqld.org.au/resources/funding-opportunities) links to administering authorities. Its [CCI Microgrants programme page](https://healthtranslationqld.org.au/our-work/our-consumer-and-community-involvement-program/microgrants-program-3) provides round information in HTML, with 2026 quarterly rounds, but no official machine endpoint or stable round identity was verified. Read-only GETs to exploratory `/feed` and `/rss` paths returned HTTP 404. The page may support a human-reviewed opportunity with provenance; it cannot yet support unattended reconciliation. Next admission evidence must include an official endpoint or export, response schema and terms, stable round key, update/pagination behavior, and a repeated readback that distinguishes changed and closed rounds. No source configuration or tenant object was changed for this research pass.
+
+## 2026-09-24 bounded G04-H01 local hardening
+
+The automated batch boundary now requires an explicit catalogue row admitted as an
+opportunity, a machine intake type, an official row-host allowlist and complete
+ordered page accounting. Each source batch fails without emitted records for
+blank/duplicate identities, invalid authority URLs, timezone-less observations,
+invalid supplied deadlines and observations older than a prior watermark. Other
+source batches remain isolated. The reviewed importer requires a caller-provided
+official host allowlist and rejects invalid deadlines and duplicate keys while
+retaining its explicit review evidence requirements. Focused local suites pass
+(8 ingestion, 6 reviewed import, 5 registry). These are synthetic contract
+fixtures; the current catalogue still admits no open-opportunity machine feed.
+G04-H01 remains open pending a real admitted source contract and native history/
+write reconciliation; no tenant object or schedule was changed by this patch.
 
 Conductor review fix applied: calendar candidate identity now hashes the full
 source row and duplicate identities fail closed before any candidate rows are
 emitted. The focused adapter tests cover this failure path.
 
-Additional review fix applied: duplicate non-empty RSS/Atom source identities
-now fail closed in `parse_feed` rather than being silently deferred to a later
-merge. The ingestion test suite covers this boundary.
+## 2026-09-25 catalogue identity guard
 
-Additional review fix applied: RSS/Atom entries without a title now fail closed
-before normalization, matching the required SharePoint registry field.
-
-Additional review fix applied: entries without either a source identifier or URL
-now fail closed, preventing weak title/funder fallback identities from entering
-the registry path.
-
-Review fix applied: API-shaped records now use the same required title, URL,
-stable-key and timezone-aware retrieval contract as RSS/Atom records before a
-source batch can be accepted.
-
-Additional review fix applied in `8817e21`: entries that lacked explicit
-source IDs could still normalise to the same URL-based `OpportunityKey` within
-one source batch. RSS/Atom and API-shaped batches now fail closed before
-records are emitted; cross-source observation merging is unchanged.
-
-Additional review fix applied on 2026-09-21: a non-object batch now fails
-closed with an explicit `ValueError` before source-health processing, rather
-than leaking an incidental attribute error.
+The local ingestion boundary now fails closed when its supplied source
+catalogue contains duplicate `source_id` values. Previously, direct callers
+could bypass `load_catalogue` validation and Python's last-wins mapping could
+let a later conflicting row shadow a metadata-only identity as an approved
+opportunity source. The matching batch now emits no records and reports
+`duplicate_catalogue_source_id`. The focused ingestion suite passed all 10
+tests with `python3 -m unittest discover -s tests -p
+'test_grants_sources_ingestion.py' -v`; `git diff --check` was clean. This is
+local synthetic regression evidence only. Native upsert acceptance and
+source/list/model key and row reconciliation remain open; no tenant data was
+written.
 
 ## Changes
 
@@ -62,11 +231,7 @@ than leaking an incidental attribute error.
   emits `RecordKind=Award` without an `OpportunityKey`, preventing award rows
   from entering the open-opportunity upsert path. `tests/test_grants_arc_api.py`
   covers page bounds, metadata preservation and fail-closed malformed input.
-- Added `scripts/grants_html_calendar.py` for review-only extraction from
-  official NHMRC and MRFF calendar tables. A live bounded probe produced 13 and
-  179 candidate rows after suppressing a repeated MRFF header row, all with raw
-  deadline text and `Needs Review`; no row was
-  admitted to the accepted registry.
+- Native BrowserOS implementation now has an isolated instant flow that makes only the official ARC and Queensland CKAN HTTPS API GET requests. Its controlled run succeeded, after which it was returned Off. It creates no candidate row and has no list, model, report, delivery or schedule write. Receipt: ignored `private/ops/2026-09-22-browseros-funding-machine-endpoint-reconciliation-readback.json`.
 
 ## Evidence
 
@@ -75,135 +240,198 @@ than leaking an incidental attribute error.
   The HTML probe was read-only and its private receipt is
   `private/ops/2026-09-20-grants-html-calendar-readback.json`.
 
-## Current bounded source exercise — 2026-09-21
-
-The review-only adapter was run against fresh bounded HTTPS responses from the
-official NHMRC and MRFF calendar pages. It returned `candidate_rows` with 13
-NHMRC rows and 179 MRFF rows, preserving the source headers and raw deadline
-text. The first NHMRC candidate was the published MRFF clinical-trial
-collaboration row, demonstrating that the NHMRC calendar is a combined view;
-source identity is therefore retained rather than inferred from page title.
-No candidate was admitted to the accepted registry, and no SharePoint or flow
-write was performed. This strengthens local/source evidence only; the live
-source/list/flow acceptance gate remains open.
-
 ## Remaining gate
 
 Run a controlled live cycle only after G02 endpoint/access verification and G03 isolated list readback. Then reconcile source keys, changed deadlines and archived rounds before operational acceptance.
 
-## Verification Checks
+BrowserOS readback on 2026-09-22 separately confirms that the existing
+isolated reviewed-import flow can retain a single official-source candidate as
+`Needs Review` through the native Create branch. It is not evidence of a
+permitted unattended source or an accepted batch. Receipt:
+`private/ops/2026-09-22-browseros-grants-reviewed-import-readback.json`.
 
-- [x] **Plan Compliance**: Partial - RSS/Atom/API-shaped adapters, source isolation, calendar candidate handling and duplicate-identity fail-closed behaviour are implemented; live source/list/flow acceptance remains open.
-- [x] **Style Compliance**: Pass - raw source values and uncertainty are retained; no source is promoted solely from page reachability.
-- [x] **New Tests**: Yes - the ingestion suite now covers duplicate RSS/Atom source identity, titleless-entry, unbound-entry, incomplete API-record and non-coercible identity rejection.
-- [x] **Test Coverage**: Partial - local parser and batch contracts are covered; live feed permissions, source changes and platform writes are not.
-- [x] **Test Results**: Passed - focused ingestion tests (18) and canonical-clone full suite (374 tests, 8 skipped).
+### Automated review-field trust boundary — 2026-09-25
 
-## Findings
+API-shaped machine records now pass through a source-owned-field allowlist before canonical normalization. Forged or source-supplied `ReviewStatus`, `ReviewNotes` and `CHHHSRelevance` values cannot enter the registry as internal judgements; defaults remain `Needs Review`, empty notes and `Unknown` relevance. The explicit reviewed-import path remains unchanged and its existing positive admission test passes. No native flow or registry was changed.
 
-### Medium - live ingestion acceptance remains open
+The API review-field regression and reviewed-import suite pass (12 ingestion tests and 8 reviewed-import tests). The complete local harness passes 486 unit tests and 446 project checks; Conductor/web-first/tooling pass remain local-only evidence. Native flow and accepted-opportunity intake are still open.
+The integrated harness now passes 504 tests and 446 project checks after the separate hardening slices; this remains local-only evidence.
 
-- **File**: `conductor/tracks/G04_grants_ingestion/plan.md`
-- **Context**: Local adapters do not prove a permitted source feed/API, SharePoint write, Power Automate execution, schedule or reconciliation against live rows.
-- **Suggestion**: Keep G04 active until G02 source evidence and G03 target/binding gates are satisfied, then run a controlled source-to-list cycle and reconcile keys, deadline changes and archived rounds.
+### Reviewed-import envelope hardening — 2026-09-25
 
-## Conductor review recheck — native reviewed-row cycle — 2026-09-22
+The local reviewed importer rejects rows that self-assert reviewer identity or
+platform provenance and rejects non-text review evidence. A non-iterable batch
+returns a contract error; duplicate canonical keys and any single bad row
+reject the whole batch. The focused suite passes 12/12. The importer does not
+authenticate the reviewer; reviewer identity must come from a trusted review
+surface, and no native flow or accepted batch is claimed.
 
-### Summary
+### Pagination counter type hardening — 2026-09-25
 
-The official Metro South Health 2027 INNOVATE page was exercised through the
-existing reviewed-import flow as a bounded current-user test. The canonical
-row key was admitted, read back and removed; the flow was restored Off.
+The automated ingestion boundary now requires each `pages_received` value to
+be an exact integer. This rejects booleans and floats that Python otherwise
+compares equal to page number `1`, as well as string counters. The focused G04
+suite passed 19 tests with `python3 -m unittest discover -s tests -p
+'test_grants_sources_ingestion.py' -v`; scoped `git diff --check` was clean.
+This is local validation only; native intake and acceptance gates remain open.
 
-### Verification checks
+### RSS/Atom payload bound — 2026-09-25
 
-- [x] Source and distinct row URLs are retained; eligibility, amount and date
-  window were supplied as reviewed values.
-- [x] Canonical flow run succeeded:
-  `08584115872127113780695944024CU04`.
-- [x] SharePoint readback returned one item with
-  `OpportunityKey=metro-south-innovate-grants-2027` and ID 8.
-- [x] Cleanup returned HTTP 200; final registry readback was an empty Atom
-  feed and final flow status was Off.
-- [ ] Unattended feed/API intake, source-change reconciliation, recurrence,
-  monitoring, delivery and production acceptance.
+The official-feed intake now rejects XML payloads above 2,000,000 UTF-8 bytes
+before parsing, using the same bounded-response policy as the ARC and QGIP API
+collectors. An oversized source yields `feed_xml_payload_too_large`, leaves
+other source records inspectable, and rejects the combined batch. Focused
+tests cover ASCII and multibyte excess; 20 G04 ingestion tests passed. The
+full local harness passed 702 tests and 450 project checks. This is a local
+resource-safety contract, not a native accepted feed or DEV registry replay.
 
-### Findings
+### Intake identity type guard — 2026-09-28
 
-This closes the bounded reviewed-row-to-list execution gap for the isolated
-manual route. It does not promote the official HTML page to an unattended
-source and G04 remains active pending source change/reconciliation and
-operational evidence.
+The public batch/adapter boundary now rejects non-text batch source IDs,
+observation timestamps and prior watermarks instead of coercing them. Direct
+catalogue input is validated for text source identity/intake, official host
+strings, and reconciliation shape before admission, so it cannot bypass the
+stricter catalogue loader or shadow identity through string conversion. Direct
+RSS/Atom parsing enforces the same source/timestamp type contract. The focused
+G04 ingestion suite passes 26 tests; reviewed-import suite passes 23 tests.
+No tenant flow or row was changed. This closes only a local malformed-input
+subcheck; an admitted current opportunity source and native history/key
+reconciliation remain open.
 
-Receipt:
-`private/ops/2026-09-22-powerautomate-g02-g04-metro-south-reviewed-row.json`.
+### RSS/Atom envelope validation — 2026-09-25
 
-## Conductor review — malformed batch hardening — 2026-09-21
+The parser now accepts items only from an RSS channel, an Atom feed or an RSS 1.0 RDF document. Incidental nested `<item>` nodes in unrelated XML fail before opportunity intake. A malformed-envelope/RDF regression passed with the 21 focused G04 ingestion tests. This remains local validation; no feed was newly admitted or run in the DEV flow.
 
-- **Verification:** focused G04 ingestion tests passed (15); full suite passed (374 tests, 8 skipped); project validation passed (438 checks); web-first contracts passed locally.
-- **Finding/fix:** `ingest_batches` previously called `.get()` on a malformed non-object batch before it could fail through the contract. Commit `9d09f30ed154609515474d34ec0087d0a9b4649d` adds an explicit object check and regression coverage.
-- **Residual gate:** permitted live source access, SharePoint/flow execution, reconciliation and unattended operation remain open.
 
-## Conductor review — shared normalizer typing — 2026-09-21
+### 2026-09-28 source-row URL reconciliation
 
-- **Finding:** direct callers of `normalize_opportunity` could bypass adapter-level checks and have identity or display fields stringified implicitly.
-- **Fix:** commit `f6e33e4` adds a shared typed-input boundary and regression coverage for malformed identity/display fields.
-- **Verification:** focused registry tests pass (8); the full suite passes 388 tests with 8 skips; project validation passes 438 checks; web-first, Conductor, Power Platform tooling and visual standards checks pass locally.
-- **Residual gate:** permitted live source access, SharePoint/flow execution, reconciliation and unattended operation remain open.
+Historical native receipts confirm the optional custom `SourceRowURL` is distinct from canonical `URL` and can retain a row/anchor fragment. The canonical grants normalizer, observation snapshots, reviewed import, machine API allowlist, SharePoint field projection, schema, and source M query now preserve it separately. A supplied source-row URL is required to use an admitted official HTTPS host; the field does not affect `OpportunityKey`. Focused tests cover fragment preservation, missing optional values, host rejection, and history conflicts. The native flow binding and semantic-model table remain later flow/Power BI gates.
 
-## Conductor review — pre-normalization source typing — 2026-09-21
+### Iterator-exhaustion failure boundary — 2026-09-28
 
-- **Finding:** API-shaped records were normalized before raw field types were checked, allowing malformed title or identity values to be stringified when the URL was valid.
-- **Fix:** commit `5fa0467` validates declared source fields before normalization and adds an adversarial regression case.
-- **Verification:** focused ingestion tests pass (19); the full suite passes 385 tests with 8 skips; project validation passes 438 checks; web-first, Conductor, Power Platform tooling and visual standards checks pass locally.
-- **Residual gate:** permitted live source access, SharePoint/flow execution, reconciliation and unattended operation remain open.
+The adapter now catches exceptions raised while enumerating the catalogue or
+batch source. Catalogue failure returns a bounded failed diagnostic. If the
+batch iterator fails after yielding rows, the partial snapshot is cleared and
+the intake is rejected with `batch_iteration_failed`; it cannot be mistaken
+for a complete observation. The focused suites pass 28 ingestion, 23 reviewed-
+import and 11 registry tests. No native write or source admission occurred.
 
-## Conductor review — ingestion identity type hardening — 2026-09-21
+The reviewed importer also converts an interrupted row iterator into a stable
+contract error and discards any partially materialized rows; underlying
+exception text is not exposed. Its focused suite now passes 24 tests. This
+remains local validation only.
 
-- **Verification:** commit `213a704` passes the focused ingestion suite (18 tests), the full local suite (374 tests, 8 skips), project validation (438 checks), web-first contracts and Conductor validation.
-- **Boundary:** source, URL, title and opportunity-key admission is now type-safe and fail-closed; live feed permissions, source changes, SharePoint writes and unattended operation remain open.
+### G04-H01 local contract acceptance — 2026-09-28
 
-## Conductor review — source identity whitespace boundary — 2026-09-21
+Closed the local adapter-hardening task after matching its planned cases to the
+implementation and running all four scoped suites: ingestion 28, reviewed
+import 24, native flow definition contract 7, and registry/history 11 (70
+tests total). Coverage includes catalogue/entity admission, unsafe and
+unapproved URLs, invalid/duplicate identities, timezone and deadline handling,
+pagination completeness/order, stale observations, review-field isolation,
+retained source observations, exact zero/one/multiple-match flow branches, and
+partial iterator failure. This does not admit an opportunity source, prove
+official API lifecycle semantics, or accept a native flow/list/model cycle;
+those gates remain G02-H02, G04-H02–H04 and G03-H02 onward.
 
-- **Finding:** the source catalogue could pass an untrimmed source identity to
-  ingestion after using its trimmed form only for duplicate detection.
-- **Fix:** commit `232025adbfcb3a19ff7834a26ccfe7c59d91750c` rejects surrounding
-  whitespace before a catalogue identity can reach source-health or registry
-  processing.
-- **Verification:** focused ingestion tests pass (21); the full suite passes
-  415 tests with 8 skips, 438 project checks pass, and web-first, Conductor,
-  Power Platform, visual and canonical flow validators pass locally.
-- **Residual gate:** controlled live source-to-list execution, reconciliation
-  and unattended operation remain open.
+### Reviewed-import CLI output boundary — 2026-10-03
 
-## Conductor review — amount scalar boundary — 2026-09-21
+The reviewed-import CLI now emits a summary with counts only;
+contact values, reviewer notes, titles, exact identities and source paths are
+not printed, and no content fingerprints are exposed. A full validated receipt is optional, restricted to ignored
+`private/ops/`, and cannot overwrite an existing file. Focused regressions
+confirm the summary is sanitized and a full receipt remains private. This is
+not native intake or tenant admission; G04-H02–H04 remain open.
 
-- **Finding:** the shared grants normalizer validated many display and identity
-  fields but could stringify structured or boolean `Amount` values into the
-  canonical registry, weakening source evidence and downstream list typing.
-- **Fix:** commit `b10810d` accepts scalar text/numeric amounts, rejects
-  objects, arrays and booleans, and adds regression coverage.
-- **Verification:** focused registry tests pass (9); the full suite passes 423
-  tests with 8 skips; 438 project checks, Conductor, web-first, Power
-  Platform, visual and canonical flow validators pass locally.
-- **Residual gate:** permitted live opportunity intake, controlled
-  source-to-list reconciliation, native acceptance and unattended operation
-remain open.
 
-## Conductor review — source identity canonicalisation — 2026-09-22
+## Funding-source integration review — 16 October 2026
 
-- **Finding:** `parse_feed` and `ingest_batches` previously accepted source
-  identities with surrounding whitespace and silently collapsed them to a
-  trimmed value. This could conceal source-catalogue drift and make source
-  health attribution ambiguous.
-- **Fix:** the shared `_validate_source_identity` boundary now requires a
-  non-empty string with no surrounding whitespace. `ingest_batches` records a
-  malformed source identity as a failed source-health row without discarding
-  successful batches; malformed batch objects retain the explicit fail-closed
-  error contract. Commit is recorded with the implementation checkpoint.
-- **Verification:** focused ingestion tests pass (24); the full suite passes
-  448 tests with 8 skips; project validation passes 460 checks; web-first,
-  Conductor and diff validation pass locally.
-- **Residual gate:** live feed/API permissions, source-change reconciliation,
-  SharePoint writes, recurrence, monitoring and unattended operation remain
-  open. Local evidence does not certify native tenant acceptance.
+Scope: source commits `3da46ed`, `7e074ef`, `4330dbe`; QGIP reference
+adapter, manual native collector builder and downloaded-commit consumer, with
+their six source/test files. This is a selected G02/G04 implementation review,
+not closure of the whole grants track. All foundational Conductor files and the
+existing code style guide were checked. Shared native objects were not changed.
+
+Focused verification: `python3 -m unittest discover -s tests -p
+"test_*qgip*.py" -q` passed 60 tests. Source preserves full native envelopes,
+closed rows and unknown fields before candidate projection, checks complete
+coverage and repeated-read metadata/content, and retains candidate-only/no-
+canonical-admission boundaries. The archive consumer performs no network or
+service writes. No embedded credential was identified in the reviewed changes.
+
+**Medium / P2 — raw source CLI output bypasses private receipt storage.**
+`scripts/grants_qld_qgip_api.py:551-553` prints the complete fetched payload.
+The newly retained `raw_source.http_responses` now includes complete API bodies
+(base64), and the snapshot also includes unfiltered source rows. A synthetic
+fetcher containing a raw-response marker reproduced its appearance in stdout.
+This conflicts with the repository rule to keep raw API snapshots in ignored
+private paths and can copy them into terminal/CI logs. These are public-source
+responses, not a demonstrated credential leak. Suggested fix: emit counts and
+status only; add an explicit exclusive-create private receipt output, enforcing
+`private/ops` before source acquisition and testing rejection/no-overwrite and
+absence of raw rows/body content from stdout. No fix was applied by this review.
+
+Native evidence: saved graph/binding readback is recorded as PASS, Stopped,
+with only 21 standard service authentication injections. The latest scoped
+receipt says no run submitted and native solution membership not yet qualified
+(`private/ops/2026-10-16-funding-intake/collector-saved-parity-private.json`).
+Therefore complete native source retention/readback, downstream candidate
+reconciliation and exact canonical solution membership/export remain open with
+core. Local tests or a saved definition do not close G04-H03/H04 or G02 source
+identity/lifecycle gates. Do not archive or mark G04 complete.
+
+Recommendation: fix the CLI output boundary; retain the existing core-owned
+native operation and finish its bounded run/archive readback and solution
+integration. Product/technology/branding documents need no strategic change.
+
+
+### Review-fix reconciliation — 16 October 2026
+
+- [x] Close the raw-source stdout finding using existing core commit `06943b8`
+  (`scripts/grants_qld_qgip_api.py` and its tests). No duplicate code change was
+  needed: stdout contains only counts/status, `--output` is restricted to
+  `private/ops`, existing/invalid destinations are rejected before fetching,
+  and the receipt is exclusively reserved with mode 0600 before source calls.
+  Regression tests check no raw stdout, outside-private rejection before fetch,
+  full private receipt preservation and no overwrite. The focused QGIP suite
+  now passes **67 tests**. The P2 finding above is resolved.
+
+The native-status paragraph above was accurate at the initial review and is now
+superseded by later core receipts: `native-collector-acceptance-private.json`
+records 17 stored files, 400 complete rows/42 fields, two reads and 394 excluded
+rows retained, with the collector restored Stopped.
+`candidate-export-acceptance-private.json` records six candidates/17 fields,
+exact JSON/CSV values and unchanged 17 raw source files, with state restoration.
+Both receipts remain under `private/ops/2026-10-16-funding-intake/`. This review
+checked their consistency locally; it did not submit a run or independently
+repeat native reads. Exact source acquisition and candidate export acceptance
+do not establish canonical opportunity admission, authoritative lifecycle or
+whole-platform/production acceptance. Existing broader G02/G04 tasks stay open.
+
+Core retains ARC's current native run/readback, package, model and checkpoint.
+No native effect, source acquisition, schedule, connection or public push was
+performed by this fix reconciliation. No further code defect remains from the
+selected QGIP review.
+
+
+### Retained-data replay follow-through — 16 October 2026
+
+The downloaded committed source consumers were each executed twice offline:
+QGIP reproduced all 400 source-row hashes and the same six candidate records;
+ARC reproduced identical 34,977 award records and source-row hashes. All 17 QGIP
+and 141 ARC downloaded file hashes matched before/after. This uses actual
+retained source data, not synthetic coverage, and submits no acquisition or
+native effect. Private receipt:
+`private/ops/2026-10-16-funding-intake/independent-replay-reconciliation-private.json`.
+Native output replay/recovery and the next canonical bundle/operator handover
+remain integration-owned; within-run repeated acquisition is not substituted
+for replay of the existing committed generation.
+
+Public-repository Renovate PR #2 was reviewed at exact head
+`0ffe66d8628ed991fe15a643ca97b40bff059365`: a single workflow line upgrades
+checkout to an upstream-verified v7 commit. Read-only token permissions, complete
+history and disabled credential persistence remain unchanged; no privileged
+PR event or unsafe override was introduced. Both exact-head CI checks passed.
+Recommendation: merge; no issue identified. This was review only, without
+posting an approval or merging. Its private receipt is
+`private/ops/public-github-careops-rims/renovate-pr2-review-private.json`.

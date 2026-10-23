@@ -1,7 +1,9 @@
 # RIMS grant pages, dates and subscriptions
 
-Extend the existing RIMS report with Funding Opportunities, Funding Calendar and My Funding Watchlist.
+Complete the three requested funding experiences in the existing report with meaningful outcomes, useful filters and concise guidance. The current registry-bound candidate view is not a personal watchlist. Preserve all publication pages, canonical identities and totals while reconciling combined native versus three-page local layouts explicitly.
 
-Acceptance: Implement versioned institutional date policies, subscription persistence and UI, personal access tests, reminder ledger and calendar change/cancellation behaviour.
+Reuse existing Funding Calendar, My Funding Watchlist and Funding Delivery Ledger lists/flows after fresh inventory; create supporting persistence only where a demonstrated gap requires it. Deliver versioned institutional policies, evidence-backed deadline precision/timezones, authenticated preference persistence, backing-service access control, deduplicated event/reminder ledger and revocable calendar behaviour. A slicer is not persistence; a report filter is not security; a one-time ICS file is not a live subscription.
 
-Follow [RIMS grants experience](../../../docs/RIMS_GRANTS_EXPERIENCE.md) and [delivery review](../../../docs/GRANTS_DELIVERY_REVIEW.md). Reuse existing canonical objects and keep source evidence private. Local completion does not establish platform acceptance.
+Acceptance covers native saved/reloaded pages/model bindings with real reviewed data, two-user access isolation, date-change/override/DST/holiday rules, overlapping subscriptions, retry idempotency, pause/unsubscribe immediately before delivery, and calendar revision/cancellation. Optional Power Apps/AI/preview features may not block these baseline outcomes. Sharing, actual sends and schedule activation retain explicit gates.
+
+Follow the [hardened completion contract](../../../docs/PLATFORM_COMPLETION_PLAN.md#hardened-completion-contract), [RIMS grants experience](../../../docs/RIMS_GRANTS_EXPERIENCE.md) and [delivery review](../../../docs/GRANTS_DELIVERY_REVIEW.md). The task IDs, dependency gates, exact inputs and expected evidence are in [the implementation plan](plan.md). Reuse existing resources and keep actual tenant/account identities, payloads, credentials and run evidence in ignored private storage. No local test closes a native gate.

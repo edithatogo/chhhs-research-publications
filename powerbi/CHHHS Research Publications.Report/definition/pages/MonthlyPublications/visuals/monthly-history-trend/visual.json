@@ -43,11 +43,11 @@
                       "Entity": "Publication"
                     }
                   },
-                  "Property": "Selected Month Publications"
+                  "Property": "Publications Last 24 Complete Months"
                 }
               },
-              "queryRef": "Publication.Selected Month Publications",
-              "nativeQueryRef": "Selected Month Publications",
+              "queryRef": "Publication.Publications Last 24 Complete Months",
+              "nativeQueryRef": "Publications Last 24 Complete Months",
               "displayName": "Publications"
             }
           ]

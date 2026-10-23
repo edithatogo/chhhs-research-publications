@@ -3,6 +3,8 @@ from __future__ import annotations
 
 import argparse
 import csv
+import ctypes
+import errno
 import hashlib
 from html import escape
 from html.parser import HTMLParser
@@ -10,6 +12,7 @@ import json
 import os
 from pathlib import Path
 import re
+import sys
 import tempfile
 from typing import Any
 from urllib.parse import urlparse
@@ -30,10 +33,24 @@ SOURCE_HOSTS = {
 MONTH = re.compile(r'^\d{4}-(0[1-9]|1[0-2])$')
 
 
+def canonical_export_key(value: Any) -> bool:
+    """Require stable export identities to arrive already canonical."""
+    return (isinstance(value, str) and bool(value.strip()) and value == value.strip()
+            and all(character.isprintable() for character in value))
+
+
 def key_hash(rows: list[dict[str, Any]]) -> str:
     """Order-independent fingerprint; duplicate keys remain significant."""
     keys = sorted(str(row.get('CanonicalKey', '')) for row in rows)
     return hashlib.sha256(json.dumps(keys, ensure_ascii=False, separators=(',', ':')).encode()).hexdigest()
+
+
+def key_set_difference(actual: list[str], expected: list[str]) -> dict[str, list[str]]:
+    """Return deterministic key-set differences for export reconciliation receipts."""
+    return {
+        'missing': sorted(set(expected) - set(actual)),
+        'unexpected': sorted(set(actual) - set(expected)),
+    }
 
 
 def safe_cell(value: Any) -> str:
@@ -58,6 +75,14 @@ def safe_link(value: Any) -> str | None:
     except ValueError:
         return None
     return value.strip()
+
+
+def html_text_with_linebreaks(value: Any) -> str:
+    """Escape citation text while preserving source line boundaries in HTML."""
+    if value is None:
+        return ''
+    lines = str(value).replace('\r\n', '\n').replace('\r', '\n').split('\n')
+    return '<br>'.join(escape(line) for line in lines)
 
 
 class _MetadataReader(HTMLParser):
@@ -108,6 +133,45 @@ def verify_written_exports(rows: list[dict[str, Any]], output: Path) -> None:
         raise ValueError('HTML content differs from complete supplied records')
 
 
+def publish_path_no_replace(source: Path, destination: Path) -> None:
+    """Atomically publish a staged file/directory if the destination is absent.
+
+    A check followed by ``os.rename`` has a race: on POSIX, rename can replace
+    an empty directory created by another process after the check. Use the
+    platform's exclusive rename operation so concurrent exports fail closed.
+    """
+    if sys.platform == 'darwin':
+        rename = ctypes.CDLL(None, use_errno=True).renameatx_np
+        rename.argtypes = [ctypes.c_int, ctypes.c_char_p, ctypes.c_int, ctypes.c_char_p, ctypes.c_uint]
+        rename.restype = ctypes.c_int
+        result = rename(-2, os.fsencode(source), -2, os.fsencode(destination), 0x00000004)  # AT_FDCWD, RENAME_EXCL
+    elif sys.platform.startswith('linux'):
+        libc = ctypes.CDLL(None, use_errno=True)
+        rename = getattr(libc, 'renameat2', None)
+        if rename is None:
+            raise OSError(errno.ENOTSUP, 'atomic no-replace rename is unavailable', str(destination))
+        rename.argtypes = [ctypes.c_int, ctypes.c_char_p, ctypes.c_int, ctypes.c_char_p, ctypes.c_uint]
+        rename.restype = ctypes.c_int
+        result = rename(-100, os.fsencode(source), -100, os.fsencode(destination), 1)  # AT_FDCWD, RENAME_NOREPLACE
+    elif sys.platform == 'win32':
+        move = ctypes.WinDLL('kernel32', use_last_error=True).MoveFileW
+        move.argtypes = [ctypes.c_wchar_p, ctypes.c_wchar_p]
+        move.restype = ctypes.c_int
+        if not move(str(source), str(destination)):
+            raise ctypes.WinError(ctypes.get_last_error())
+        return
+    else:
+        raise OSError(errno.ENOTSUP, 'atomic no-replace rename is unsupported', str(destination))
+    if result != 0:
+        error = ctypes.get_errno()
+        raise OSError(error, os.strerror(error), str(destination))
+
+
+def _rename_directory_no_replace(source: Path, destination: Path) -> None:
+    """Preserve the existing directory-export API and publication semantics."""
+    publish_path_no_replace(source, destination)
+
+
 def export_errors(envelope: dict[str, Any]) -> list[str]:
     """Check declared native expectations. This cannot establish their authenticity."""
     errors: list[str] = []
@@ -143,6 +207,8 @@ def export_errors(envelope: dict[str, Any]) -> list[str]:
         key = row.get('CanonicalKey')
         if not isinstance(key, str) or not key.strip():
             errors.append(prefix + 'missing canonical key')
+        elif not canonical_export_key(key):
+            errors.append(prefix + 'canonical key must be unpadded printable text')
         else:
             keys.append(key)
         if not isinstance(row.get('Title'), str) or not row['Title'].strip():
@@ -176,6 +242,62 @@ def export_errors(envelope: dict[str, Any]) -> list[str]:
     return errors
 
 
+def assemble_paginated_export(envelope: dict[str, Any]) -> dict[str, Any]:
+    """Flatten a complete, correlated page chain against a separate key query.
+
+    Page metadata is an assertion from the extraction route, not native proof on
+    its own. A missing terminal page or a missing independent key fails closed.
+    """
+    pages = envelope.get('pages')
+    expected_keys = envelope.get('expected_canonical_keys')
+    generation = envelope.get('generation_id')
+    if not isinstance(generation, str) or not generation.strip():
+        raise ValueError('A nonempty extraction generation_id is required')
+    if envelope.get('expected_keys_generation_id') != generation:
+        raise ValueError('Independent canonical key query must belong to the extraction generation')
+    if not isinstance(pages, list) or not pages:
+        raise ValueError('At least one extraction page is required')
+    if not isinstance(expected_keys, list) or not all(canonical_export_key(key) for key in expected_keys):
+        raise ValueError('Independent expected_canonical_keys must be a list of canonical unpadded keys')
+    if len(expected_keys) != len(set(expected_keys)):
+        raise ValueError('Independent canonical key query contains duplicates')
+    rows: list[dict[str, Any]] = []
+    for index, page in enumerate(pages):
+        if not isinstance(page, dict) or page.get('page_number') != index + 1 or type(page.get('page_number')) is not int:
+            raise ValueError('Extraction pages must be consecutively numbered from 1')
+        if page.get('generation_id') != generation:
+            raise ValueError('Extraction page belongs to a different generation')
+        if type(page.get('has_more')) is not bool or page['has_more'] != (index < len(pages) - 1):
+            raise ValueError('Extraction page chain lacks one unambiguous terminal page')
+        records = page.get('records')
+        if not isinstance(records, list) or not all(isinstance(row, dict) for row in records):
+            raise ValueError('Extraction page records must be objects')
+        rows.extend(records)
+    actual_keys = [row.get('CanonicalKey') for row in rows]
+    if not all(canonical_export_key(key) for key in actual_keys):
+        raise ValueError('Paginated records contain a missing or noncanonical key')
+    if len(actual_keys) != len(set(actual_keys)):
+        raise ValueError('Paginated records contain duplicate canonical keys')
+    differences = key_set_difference(actual_keys, expected_keys)
+    if differences['missing'] or differences['unexpected']:
+        missing = ', '.join(differences['missing'][:5]) or '(none)'
+        unexpected = ', '.join(differences['unexpected'][:5]) or '(none)'
+        raise ValueError(
+            'Paginated records differ from independent canonical key set: '
+            f"missing={len(differences['missing'])} [{missing}]; "
+            f"unexpected={len(differences['unexpected'])} [{unexpected}]"
+        )
+    result = {key: value for key, value in envelope.items()
+              if key not in {'pages', 'expected_canonical_keys', 'generation_id', 'expected_keys_generation_id'}}
+    result['records'] = rows
+    expected_count = result.get('expected_canonical_count')
+    if type(expected_count) is not int or expected_count < 0 or expected_count != len(expected_keys):
+        raise ValueError('Independent expected count differs from canonical key query')
+    if result.get('expected_key_sha256') != key_hash([{'CanonicalKey': key} for key in expected_keys]):
+        raise ValueError('Independent expected key hash differs from canonical key query')
+    return result
+
+
 def render_exports(envelope: dict[str, Any], output: Path) -> dict[str, Any]:
     """Write new atomic CSV/HTML output; existing destinations are never overwritten."""
     errors = export_errors(envelope)
@@ -202,10 +324,10 @@ def render_exports(envelope: dict[str, Any], output: Path) -> dict[str, Any]:
                 links.append(f'<a href="{escape(url, quote=True)}" rel="noreferrer">{escape(url)}</a>')
         fragments.append(
             '<article data-key="' + escape(row['CanonicalKey'], quote=True) + '">'
-            '<h2>' + escape(row['Title']) + '</h2>'
-            '<p>' + escape(str(row.get('Authors') or 'Authors not supplied')) + '</p>'
-            '<p>' + escape(str(row.get('Journal') or 'Journal not supplied')) + '. '
-            + escape(str(row.get('PublicationDateRaw') or 'Publication date not supplied'))
+            '<h2>' + html_text_with_linebreaks(row['Title']) + '</h2>'
+            '<p>' + html_text_with_linebreaks(row.get('Authors') or 'Authors not supplied') + '</p>'
+            '<p>' + html_text_with_linebreaks(row.get('Journal') or 'Journal not supplied') + '. '
+            + html_text_with_linebreaks(row.get('PublicationDateRaw') or 'Publication date not supplied')
             + ' <small>[' + escape(str(row['PublicationDatePrecision'])) + ']</small></p>'
             '<p><strong>CHHHS attribution:</strong> ' + escape(str(row.get('CHHHSAffiliatedAuthors') or 'Not author-resolved'))
             + '<br>' + escape(str(row.get('AttributionEvidence') or row.get('AttributionStatus') or 'Not supplied')) + '</p>'
@@ -246,7 +368,7 @@ def render_exports(envelope: dict[str, Any], output: Path) -> dict[str, Any]:
         (staged/'manifest.json').write_text(json.dumps(receipt, indent=2)+'\n', encoding='utf-8')
         if output.exists():
             raise FileExistsError(f'Refusing to overwrite {output}')
-        os.rename(staged, output)
+        _rename_directory_no_replace(staged, output)
     return receipt
 
 
@@ -259,6 +381,8 @@ def main() -> None:
         envelope = json.loads(args.input.read_text(encoding='utf-8'))
         if not isinstance(envelope, dict):
             raise ValueError('The input must be an object')
+        if 'pages' in envelope:
+            envelope = assemble_paginated_export(envelope)
         receipt = render_exports(envelope, args.output)
     except (OSError, ValueError, TypeError) as error:
         parser.exit(2, f'Export failed: {error}\n')

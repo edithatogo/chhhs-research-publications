@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:chhhs:rims:g05-reviewed-fact-receipt:v1",
+  "title": "G05 reviewed institutional fact receipt",
+  "description": "Validation-only local envelope. Injected verifier callbacks are untrusted caller/test seams unless implemented by an approved independent evidence and identity authority. This schema is not an import or tenant acceptance certificate.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "receipt_id", "fact", "fact_sha256", "evidence", "reviewer"],
+  "properties": {
+    "schema_version": {"const": "g05-reviewed-fact-receipt/v1"},
+    "receipt_id": {"type": "string", "pattern": "^G05R-[A-Za-z0-9-]{8,80}$"},
+    "fact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fact_id", "institution_id", "OpportunityKey", "entitlement_status", "format", "evidence_url", "observed_at", "review_status", "eligibility", "policy_provenance", "internal_deadlines"],
+      "properties": {
+        "fact_id": {"type": "string", "minLength": 1, "pattern": "^\\S(?:.*\\S)?$"},
+        "institution_id": {"enum": ["jcu", "uq", "qut", "griffith"]},
+        "OpportunityKey": {"type": "string", "pattern": "^(?:GRANT|GRANTX):[0-9a-f]{24}$"},
+        "entitlement_status": {"enum": ["public", "verified_active"]},
+        "evidence_url": {"type": "string", "format": "uri", "pattern": "^https://"},
+        "format": {"enum": ["rss", "atom", "api", "csv", "xlsx", "html"]},
+        "observed_at": {"type": "string", "format": "date-time"},
+        "review_status": {"const": "Reviewed"},
+        "eligibility": {
+          "type": "object", "additionalProperties": false,
+          "required": ["status", "restrictions"],
+          "properties": {
+            "status": {"enum": ["supported", "restricted"]},
+            "restrictions": {"type": "array", "items": {"type": "string", "minLength": 1}}
+          }
+        },
+        "policy_provenance": {
+          "type": "object", "additionalProperties": false,
+          "required": ["status", "version", "effective_from", "timezone"],
+          "properties": {
+            "status": {"enum": ["public_summary_unversioned", "verified_versioned"]},
+            "version": {"type": ["string", "null"]},
+            "effective_from": {"type": ["string", "null"], "format": "date"},
+            "timezone": {"type": ["string", "null"]}
+          }
+        },
+        "internal_deadlines": {
+          "type": "array",
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["deadline_id", "kind", "date"],
+            "properties": {
+              "deadline_id": {"type": "string", "minLength": 1, "pattern": "^\\S(?:.*\\S)?$"},
+              "kind": {"enum": ["internal_close", "internal_submission", "internal_approval"]},
+              "date": {"type": "string", "format": "date"},
+              "time": {"type": ["string", "null"], "pattern": "^(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d)?$"},
+              "timezone": {"type": ["string", "null"]},
+              "label": {"type": "string"}
+            }
+          }
+        }
+      }
+    },
+    "fact_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["url", "format", "observed_at", "private_ref", "sha256"],
+      "properties": {
+        "url": {"type": "string", "format": "uri", "pattern": "^https://"},
+        "format": {"enum": ["rss", "atom", "api", "csv", "xlsx", "html"]},
+        "observed_at": {"type": "string", "format": "date-time"},
+        "private_ref": {"type": "string", "pattern": "^private/ops/(?!/)(?!\\.{1,2}(?:/|$))(?!.*\\/\\.{1,2}(?:/|$))(?!.*\\\\)(?!.*//)(?!.*\\/$).+$"},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "reviewer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reviewer_id", "reviewed_at", "decision", "notes", "verification_ref"],
+      "properties": {
+        "reviewer_id": {"type": "string", "minLength": 1, "pattern": "^\\S(?:.*\\S)?$"},
+        "reviewed_at": {"type": "string", "format": "date-time"},
+        "decision": {"const": "Reviewed"},
+        "notes": {"type": "string", "minLength": 1},
+        "verification_ref": {"type": "string", "pattern": "^private/ops/(?!/)(?!\\.{1,2}(?:/|$))(?!.*\\/\\.{1,2}(?:/|$))(?!.*\\\\)(?!.*//)(?!.*\\/$).+$"}
+      }
+    }
+  }
+}

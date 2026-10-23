@@ -2,10 +2,10 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
   "name": "grant-relevance-filter",
   "position": {
-    "x": 504,
+    "x": 344,
     "y": 224,
     "z": 6,
-    "width": 440,
+    "width": 296,
     "height": 72,
     "tabOrder": 6
   },

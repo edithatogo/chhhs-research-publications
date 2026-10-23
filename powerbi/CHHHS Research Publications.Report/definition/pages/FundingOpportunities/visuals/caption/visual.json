@@ -20,10 +20,10 @@
               {
                 "textRuns": [
                   {
-                    "value": "Canonical grant opportunities from reviewed federal, Queensland and institutional sources. Live list ingestion remains pending native acceptance.",
+                    "value": "Filter the registry by opportunity status, CHHHS relevance, review state, source, eligibility, deadline and funder. Registry ingestion and review state are pending native acceptance.",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
-                      "fontSize": "16px"
+                      "fontSize": "14px"
                     }
                   }
                 ]

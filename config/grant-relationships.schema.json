@@ -4,13 +4,13 @@
   "identity_field": "RelationshipKey",
   "source_observation_archive": "approved_private_archive",
   "fields": [
-    {"display_name":"RelationshipKey","type":"text","required":true,"indexed":true,"unique":true},
-    {"display_name":"RelationshipType","type":"choice","required":true},
+    {"display_name":"RelationshipKey","type":"text","required":true,"indexed":true},
+    {"display_name":"RelationshipType","type":"choice","required":true,"choices":["funded_by_award","candidate_award_match","relevant_to_opportunity","investigator_affiliation"]},
     {"display_name":"FromKey","type":"text","required":true},
     {"display_name":"ToKey","type":"text","required":true},
     {"display_name":"AwardID","type":"text"},
     {"display_name":"EvidenceURL","type":"url","required":true},
-    {"display_name":"Confidence","type":"choice","required":true},
-    {"display_name":"ReviewStatus","type":"choice","required":true}
+    {"display_name":"Confidence","type":"choice","required":true,"choices":["confirmed","review","candidate"]},
+    {"display_name":"ReviewStatus","type":"text","required":true}
   ]
 }

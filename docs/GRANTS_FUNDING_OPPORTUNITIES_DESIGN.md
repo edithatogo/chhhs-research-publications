@@ -2,9 +2,11 @@
 
 Scope extension: [RIMS funding pages, institutional dates and subscriptions](RIMS_GRANTS_EXPERIENCE.md) is the current integration design. G01–G08 are now registered in Conductor. The original E06 local MVP remains the foundation; its completion does not cover the new tracks.
 
-Status: **Local MVP implemented; platform deployment not yet authorised or performed**
+Status: **Historical E06 local prototype implemented. Current G01–G08 tracks contain dated isolated native evidence and remaining release/operation gates; neither the local prototype nor old status wording overrides existing user authorisation.**
 
-## MoSCoW requirements
+## MoSCoW requirements — selected module release
+
+Timebox: this module's eventual selected release, not the current publication-foundation MVP. Priority is separate from implementation/native acceptance and tenant authority. See [the canonical MVP and roadmap matrices](../conductor/post-mvp-sequence.md). Existing approved module features remain in scope; new post-MVP expansion/pilots require both MVPs' native and user operational acceptance.
 
 ### Must have
 
@@ -40,7 +42,9 @@ Status: **Local MVP implemented; platform deployment not yet authorised or perfo
 
 The local implementation is `scripts/grants_registry.py`. Its canonical fields are:
 
-`OpportunityKey`, `Title`, `Funder`, `Source`, `SourceID`, `RoundID`, `URL`, `SourceRowURL`, `Description`, `Eligibility`, `Geography`, `Amount`, `Deadline`, `DeadlineRaw`, `DeadlinePrecision`, `Status`, `Contact`, `CHHHSRelevance`, `ReviewStatus`, `ReviewNotes`, `RetrievedUTC`, `RetrievedTimestampStatus`, `EvidenceHash`, and `SourceObservations`. Observation timestamps without an explicit timezone remain `Needs Review`; source deadlines retain raw values and precision. Reviewed imports require a distinct actionable `SourceRowURL` and an explicit eligibility statement; neither is inferred from the source page title.
+`OpportunityKey`, `Title`, `Funder`, `Source`, `SourceID`, `RoundID`, `URL`, optional `SourceRowURL`, `Description`, `Eligibility`, `Geography`, `Amount`, `Deadline`, `DeadlineRaw`, `DeadlineTimezone`, `DeadlineLocalTime`, `DeadlineUTCInstant`, `DeadlineBrisbaneDate`, `DeadlineBrisbaneTime`, `DeadlineTemporalStatus`, `DeadlinePrecision`, `Status`, `Contact`, `CHHHSRelevance`, `ReviewStatus`, `ReviewNotes`, `RetrievedUTC`, `RetrievedTimestampStatus`, `EvidenceHash`, and `SourceObservations`. `URL` is the canonical opportunity destination; `SourceRowURL` preserves a distinct source listing row/anchor when supplied and does not participate in identity. Observation timestamps without an explicit timezone remain `Needs Review`; deadlines preserve the source value, resolve only documented timezones, and expose a separate Brisbane view only when an instant is determinable. Conflicting timezone aliases are flagged rather than resolved by precedence. Naive local date/time text is retained for review without a fabricated instant. Date-only and partial values do not gain invented times.
+
+`OpportunityKey` preserves the existing `GRANT:` hash for delimiter-free source identities. If `Source`, `SourceID` or `RoundID` contains `:` or `|`, the normalizer uses a JSON-encoded identity tuple under the distinct `GRANTX:` prefix so separator characters cannot make different source records alias. Before any native reviewed import, reconcile existing rows containing those characters against the new key; never silently rekey a tenant record.
 
 ## Mermaid architecture
 

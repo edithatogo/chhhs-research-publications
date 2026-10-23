@@ -9,5 +9,34 @@
     ,{"name":"MyFundingWatchlist","purpose":"personal watchlist preview pending private subscription persistence"}
   ],
   "page_count":7,
-  "forbidden_pages":["Employment","ClinicalTrialsEvidence","Demographics","Hiring"]
+  "forbidden_pages":["Employment","ClinicalTrialsEvidence","Demographics","Hiring"],
+  "native_reconciliation": {
+    "last_observed_at": "2026-09-25",
+    "target": "CHHHS Research Publications - RIMS DEV recovery",
+    "target_receipt": "private/ops/2026-09-25-browseros-powerbi-report-readback.json",
+    "current_export_receipt": "private/ops/2026-09-25-current-report-artifact-reconciliation.json",
+    "native_page_names": [
+      "CHHHS Publications",
+      "Monthly Publications",
+      "Source Reconciliation",
+      "Clinical Analytics",
+      "Funding Opportunities",
+      "Funding Calendar & Watchlist"
+    ],
+    "local_only_pages": ["FundingCalendar", "MyFundingWatchlist"],
+    "native_combined_page": "Funding Calendar & Watchlist",
+    "current_funding_readback": {
+      "funding_opportunities_visible_slicers": 0,
+      "funding_opportunities_visible_rows": 0,
+      "calendar_watchlist_visible_filter_cards": 0,
+      "calendar_watchlist_visible_rows": 0,
+      "native_query_entity": "Grants Registry",
+      "local_model_entity": "GrantsRegistry",
+      "model_entity_identity_reconciled": false,
+      "current_visual_queries_reconciled": false
+    },
+    "state": "delta_open",
+    "native_acceptance": false,
+    "update_candidate_blocked_until_disposition": true
+  }
 }

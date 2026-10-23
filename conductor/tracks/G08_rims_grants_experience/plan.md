@@ -1,182 +1,238 @@
 # Implementation plan
 
-**Access scope:** the existing user's isolated RIMS/Power Platform route and
-personal watchlist only. Shared subscriptions, cross-user notifications and
-unattended delivery are future extensions.
+## Execution choice and fallback — planning amendment, 23 October 2026
+
+**G08 default:** Existing Invoker-bound flows/Lists web forms → semantic measures → PBIR Service reader.
+
+**Skills:** Power Automate; semantic-model-authoring; powerbi-report-cli. Read the selected skill and installed help/schema at execution;
+capability inventory is not authentication, permission or target qualification.
+
+**Fallback / stopping boundary:** Optional app skills apply only to a demonstrated interaction gap; do not migrate platform or enable delivery to complete setup.
+
+**Workflow and agent allocation:** Primary agent by default. Optional explicitly
+scoped explorer, worker or independent review must retain disjoint ownership;
+no delegation, installation or native effect is performed by this amendment.
+Record preparation → saved readback → runtime → web acceptance separately in
+existing receipts, with same-ID preimage, drift guard and scoped recovery.
+Use the [shared capability guide](../../cli-implementation-routes-20261022.md)
+for conditional hosted MCP/Fabric IQ/ALM choices and current tool inventory.
+Existing task markers, accepted evidence and ownership remain authoritative.
+
+
+
+## CLI route selection gate — 23 October 2026
+
+**G08 operation family:** Existing Invoker-bound flows and Lists forms; semantic-model-authoring; PBIR CLI.
+
+**First bounded decision:** Qualify caller-specific persistence and access through the existing web journey before proposing any optional app tooling.
+
+At execution, record the installed help/exposed schema and exact supported
+operation in the existing private receipt before selecting a writer. The
+[shared tool and evidence contract](../../cli-implementation-routes-20261022.md#tool-selection-and-evidence-record--23-october-2026)
+applies: available does not mean connected or target-qualified. Primary-agent
+execution is the default; optional local delegation needs explicit scope and
+existing authority. This is a plan amendment only; no implementation or status
+change is made here.
+
+
+## Execution dispatch contract — planning only, 23 October 2026
+
+**Track G08; start:** `python3 scripts/agent_harness.py context --task grants`;
+use `python3 scripts/agent_harness.py resume` instead for an in-flight operation.
+This is a later execution instruction, not an implementation performed here.
+
+**Selected path:** Existing Invoker-bound watchlist/calendar/ledger graphs + Lists persistence/security → semantic model/PBIR web reader.
+
+**Dispatch:** Read this plan's track-specific CLI refinement and the
+[capability selection contract](../../cli-implementation-routes-20261022.md#tool-selection-and-evidence-record--23-october-2026).
+Resolve exact private bindings and the current native owner before preparing the
+smallest change. Use CLI help/MCP schemas to bind the operation; do not turn a
+logical sequence into a guessed command or endpoint. Record tool/version/pin,
+skill module, client/resource, input hash, same-object operation handle, saved
+readback, representative web/runtime result and recovery pointer in existing
+private evidence. A successful invocation alone does not complete this track.
+
+**Capability choice at execution:** Prefer a useful supported newer capability only
+when its exact version/schema, qualified client and target are recorded. If it
+fails a required behaviour, retain the working route and name the precise gap;
+do not add a tooling experiment as a completion prerequisite. The primary agent
+implements or reviews by default; optional delegation requires explicit authority
+and disjoint ownership. Record local preparation, native save/readback, runtime
+outcome and web verification separately. This planning refresh starts none of them.
+
+**Agents and verification:** Primary agent retains semantic and native decisions;
+optional explorer/worker/reviewer assignments must have disjoint files and an
+explicit handoff. No new chat or native writer is implied. Reuse accepted proof,
+run affected checks and Conductor review, and return actual technical defects to
+this track. Later due observations go to E08; adoption/cutover stay outside current
+technical completion. All existing task statuses and object ownership are retained.
+
+
+## CLI execution refinement — 23 October 2026
+
+Planning update only; existing accepted increments, unfinished task markers and
+native/file ownership remain authoritative. This section refines the 22 October
+route; it does not authorise implementation in this planning turn.
+
+**G08 mechanism:** Inspect current watchlist/calendar/subscription bindings → verify per-caller persistence and isolation → complete existing flow/list path → bind canonical semantic measures → PBIR web reader and edit/retry qualification.
+
+**Selected tools and skills:** Existing Invoker-bound cloud flows and Lists web forms; semantic-model-authoring; powerbi-report-cli; optional Canvas/model/code-app skills only for a measured unmet need.
+
+**Required proof / limits:** Opportunity dates and institutional dates stay distinct; protect subscriptions and private selections. No app-platform migration or delivery activation by default.
+
+**Execution exit and cross-track handoff:** Use existing Lists/forms and Invoker-bound flow objects before proposing an app. Prove caller-specific edit/read/retry and privacy, authoritative date semantics and canonical model bindings, then the actual web watchlist/calendar journey. Notifications remain separately authorised.
+
+**Workflow and agents:** Follow the [current capability guide](../../cli-implementation-routes-20261022.md#planning-refresh--23-october-2026).
+The primary agent owns semantics and native effects. A narrowly scoped explorer,
+disjoint local worker or independent reviewer is optional only when delegation
+is authorised and useful; specify exact files and never add a second native writer.
+Read installed skill/help and exposed schema at execution time; pin any selected
+new capability, preserve preimages, check exit code plus receipt before effects,
+then reconcile the same run/LRO and complete saved readback. Unsupported optional
+tooling uses the established supported route or a precise documented deferral.
+
+
+## Current CLI/API implementation mechanism — 22 October 2026
+
+**Planning only; implementation remains under the existing task statuses.**
+This section takes precedence over conflicting historical tool/route wording;
+accepted increments and current implementation receipts remain authoritative.
+Follow the [shared capability, workflow and preview contract](../../cli-implementation-routes-20261022.md).
+
+**Owner / agents:** Existing grants list/flow/model/report owners by exact object. A disjoint local explorer/worker may prepare
+source and a separate reviewer may inspect it; no second native writer.
+
+**Tools / skills:** M365 CLI/REST Lists and Graph only if qualified; Power Automate build/debug; semantic-model-authoring; powerbi-report-cli; native Lists web forms first.
+
+**Reuse:** scripts/prepare_watchlist_lifecycle.py; scripts/prepare_funding_calendar_lifecycle.py; scripts/prepare_funding_ledger_lifecycle.py; scripts/grants_calendar.py.
+
+### Executable handoff contract — planning only, 22 October 2026
+
+**Next implementation unit:** Prepare the existing Invoker-bound watchlist/calendar/ledger lifecycle graphs and Lists web interaction first; bind model and PBIR only after native persistence and user identity are proved.
+
+**Start and discovery:** `python3 scripts/agent_harness.py context --task grants`
+(or `resume` for an existing operation), then read the selected skill and installed
+CLI help. Resolve targets from existing private S02 manifests. Obtain exact M365
+syntax through `m365_search_commands` → `m365_get_command_docs`; inspect exposed
+FlowAgent/Fabric schemas rather than inventing calls. The [shared capability guide](../../cli-implementation-routes-20261022.md)
+records available versus conditional tools and the common gated command sequence.
+These are instructions for a later implementation run, not commands executed here.
+
+**Evidence to retain:** Create/edit/remove, stale/concurrent and unauthorised actions, calendar update/cancel, pause/unsubscribe and replay; usable cross-platform web reader rather than empty page headers. Require both successful process exit and structured
+receipt before any dependent effect. Preserve the same operation handle, capture
+preimages, refuse drift and retain the smallest supported rollback. Run relevant
+existing checks, then Conductor review; do not substitute local tests for native proof.
+
+**Agent/workflow choice:** The primary agent owns semantics and the native action.
+An explorer may answer one code question; a worker may prepare exact disjoint local
+files; an independent reviewer may assess the resulting diff/evidence. Delegate
+only when useful and authorised, with explicit ownership and no second native writer.
+No agent or connector installation, authentication change, native implementation,
+send, schedule, sharing or task completion is performed by this planning update.
+### Tool selection decision — planning refinement, 22 October 2026
+
+Lists web forms and existing Invoker-bound flows first; semantic-model-authoring and PBIR follow proven persistence/security. Canvas/code/model-app skills are conditional only for a demonstrated unmet interaction requirement.
+
+Use the [capability qualification and agent rules](../../cli-implementation-routes-20261022.md#execution-time-capability-qualification) before selecting a newer transport. Record the exact tool/version, operation schema, target scope, prepared input revision, owner and rollback in the existing private receipt. An unavailable optional tool does not block the established supported route. No additional installation or native action is part of this planning update.
+
+<!-- execution-route-end -->
+
+**Execution sequence for the next authorised implementation:**
+
+1. Read fresh exact schemas/report parts and the existing prepared same-ID Invoker-bound lifecycle graphs. Do not use historical six/seven-page inventory as current state or a visible page as persistence proof.
+2. Implement preference/watchlist/date/change/delivery-receipt persistence using server-derived caller identity and server-side per-user access enforcement; preserve ETag/revision, effective dates and policy provenance. Evaluate native Lists forms first, but require backing-service ownership plus revision/field enforcement. Hidden/read-only controls or an editable UserKey are not access enforcement; qualify actual two-user direct-read/write isolation and role-scoped curator access, including attempts that bypass the form. Retain a form only if it meets those requirements; no new app framework solely for styling.
+3. Qualify create/edit/remove, stale/concurrent/unauthorised access, calendar update/cancel, pause/unsubscribe and ambiguous-attempt recovery. Bind the existing model/PBIR reader only after real persistence; use the bound model workspace for preview and verify the supported web journey.
+
+**Acceptance / limits:** Existing page presence/local logic does not complete subscriptions or access control. Sending invitations/reminders or enabling recurrence needs its existing separate authority; do not change sharing.
+
+
+## CLI delivery — 13 October 2026
+
+Follow [the shared execution contract](../../workflow.md#cli-first-execution--13-october-2026).
+G08-H01/H02/H04/H06 use qualified API/CLI additive persistence, date-policy and delivery-ledger/flow updates with exact saved schema/binding/access readback. Preserve approved personal access, subscription/cancellation and duplicate suppression semantics. G08-H03 report pages remain last with Power BI presentation. Complete backend prerequisites first; do not enable delivery or expand access from package import alone.
+
+
+## Historical local implementation and dated native evidence
+
+The checked items below retain prior work; they are not a current completion certificate. Later active tasks supersede contradictory status or fixture-cleanup claims. No unverified native gate is closed by this history.
 
 - [x] Record scope and acceptance requirements.
-- [x] Inspect current inputs, dependencies and relevant platform objects. Existing RIMS page design, planning helper and subscription scopes were inspected; native page inventory remains open.
-- [x] Review fix: escape carriage returns as well as line feeds in calendar display fields (`a573598`).
-- [x] Apply review fix: reject non-string opportunity/category/funder identities and malformed subscription rule objects before watchlist matching (`53d2419`).
+- [x] Inspect current inputs, dependencies and relevant platform objects. BrowserOS readback confirms the native Funding Opportunities and Funding Calendar & Watchlist pages; their semantic-model binding remains pending.
 - [x] Implement: Add local versioned policy validation and stable delivery-event idempotency keys for the future list-backed pages.
-- [x] Verify: Local policy/subscription tests and isolated current-user list persistence pass. On 2026-09-21 the authenticated personal DEV SharePoint route created exactly one `My Funding Watchlist` list and exactly one `Funding Calendar` list after inventory confirmed neither existed. Read-only REST readback confirms the watchlist fields (`OpportunityKey` required/unique, `Scope`, `TargetKey`, `Active` default false) and calendar fields (`DeadlineKey` required/unique, `OpportunityKey`, `CalculatedDate`, `SourceURL`, `Cancelled` default false, `PolicyKey`, `ReviewStatus` default `Needs Review`); native synthetic calendar, watchlist and delivery-ledger rows were created/read back and subsequently removed through exact SharePoint delete confirmations on 2026-09-22, with each list returning zero data rows.
-- [~] Complete the reminder ledger, calendar change/cancellation execution, native report refresh/reconciliation and delivery gates; keep cross-user delivery and unattended notifications disabled.
+- [~] Verify: Local policy/subscription tests pass; native page persistence, per-user access, reminder ledger and calendar change/cancellation remain open.
 - [x] Record local and live evidence separately before closure; no report page, subscription, notification or calendar was created.
-- [x] Harden future delivery idempotency keys to reject coercible identities and out-of-range offsets without creating ambiguous keys.
-- [x] Make institutional policy and holiday validation reject non-object and non-string inputs without incidental type errors.
-- [x] Review fix: require an explicit current-user key and return only that user's matching subscription (`a6e1602`, `db96224`).
-- [x] Review fix: bind delivery-event idempotency keys to the explicit current user (`0b5c920`).
-- [x] Review fix: constrain the watchlist `Scope` choice to `opportunity`,
-  `category` or `funder`, preventing an untyped native subscription target
-  (`6e1b43a`).
 
 ## Local review extension — 2026-09-20
 
 - [x] Add deterministic iCalendar projection with versioned institutional dates, stable event IDs, tentative review state and explicit cancellation semantics; cover unknown/partial dates and duplicate-safe revisions with tests (f8d0262).
 
-## Phase: Review fixes
+## Hardened completion tasks — 2026-09-24
 
-- [x] Task: Reject duplicate projected calendar event UIDs before iCalendar emission (ecf3d43).
-- [x] Task: Reject reversed policy ranges, malformed holiday dates and duplicate holidays (efd3abd).
-- [x] Task: Require an authoritative HTTP(S) URL and stable opportunity key for exact-date calendar events (ba4f5b4).
-- [x] Task: Reject malformed subscription rules and missing opportunity identity before candidate matching (b45b4e1).
-- [x] Task: Reject non-string calendar opportunity identities, URLs and display fields without coercion (e03f17d).
-- [x] Task: Reject non-string funder identities, including boolean false, before subscription matching (`cfc57b4`).
-- [x] Task: Reject duplicate holiday dates during institutional-date projection (`d7019e0`).
-- [x] Task: Require typed policy identity/version and effective-date fields before validation (`09adbe2`).
+Apply the [hardened completion contract](../../../docs/PLATFORM_COMPLETION_PLAN.md#hardened-completion-contract). Dependencies below are execution gates, not evidence of completion. Keep raw/native receipts and actual identities in ignored `private/ops/`; reuse current evidence before rerunning a case. Partial/declined scope must be labelled explicitly.
 
-## Phase: Conductor review fix — identity isolation — 2026-09-22
+- [ ] **G08-H01 — Reconcile persistence and date policy.** Depends: G03-H01 and archived G01 date contract. Inputs: `docs/RIMS_GRANTS_EXPERIENCE.md`, `scripts/grants_planning.py`, `tests/test_grants_planning.py`, existing native Calendar/Watchlist/Delivery Ledger receipts. Inventory existing lists/flows/internal names and data; record gap-only additive schema, identity mappings, permissions and rollback. Implement version/effective date/holiday-calendar policy plus override history and stale flags. Test unknown/quarter/month/date-only, DST, nonbusiness days, expired policy and changed source anchor; no invented precise deadline. Output: private schema/date readback and sanitised contract reconciliation; approved institutional policy required before presenting derived dates as institutionally accepted.
+  Local validator correction (2026-09-28): required policy identity/version fields must be nonblank text without outer whitespace; explicit `EffectiveTo` values must be valid dates rather than silently treated as absent. Eleven planning and 12 calendar tests pass. Native policy persistence, override history, timezone/DST handling and approval remain open.
+  Local holiday-calendar guard (2026-09-29): a business-day policy now requires explicit `HolidayDates` containing unique real ISO dates; malformed, duplicated, absent or non-list values fail closed, and direct business-day calculation requires the calendar argument. Calendar-day policies do not require an unused holiday list. All generated local ICS dates are explicitly provisional until authoritative policy/calendar acceptance. Seventeen planning and 15 calendar tests pass, including holiday shifting and provisional labelling. This establishes input shape only; it does not establish authoritative holiday coverage, approved policy persistence, timezone/DST behaviour or G08-H01 acceptance.
+  Coverage/provenance guard (2026-09-30): business-day policies now also require verified coverage metadata bound to `HolidayCalendarVersion`, a captured HTTPS source, observation time, interval and evidence hash. Reject version mismatches and omit calculated events outside coverage. Synthetic regression fixtures prove unknown/incomplete evidence cannot produce a business-day projection; real policy remains provisional until its authoritative source capture is reconciled.
+  2026-10-03 local implementation: the canonical grants data contract now carries `DeadlineTimezone`, `DeadlineLocalTime`, `DeadlineUTCInstant`, `DeadlineBrisbaneDate`, `DeadlineBrisbaneTime`, and `DeadlineTemporalStatus`. Explicit IANA zones and offsets are reconciled; lowercase machine-source timezone aliases are preserved; conflicting timezone aliases do not resolve by precedence; ambiguous/nonexistent DST wall times produce no UTC instant; date-only/partial values gain no time; a naive local datetime preserves its stated day/time without a fabricated timezone or instant. SharePoint schema, ingestion/review adapters, single-registry M projection, model snapshot/TMDL and reviewed-import flow definition include the fields. Funding Calendar now shows the Brisbane view and source/resolution context. Registry (23), planning (17), calendar (18), schema/page/flow contracts pass their targeted checks (296 grants tests total). The six SharePoint fields were subsequently saved/read back on isolated DEV; see the 2026-10-03 G03 postwrite receipt. Flow save/run, source timezone authority, policy approval and isolated model/report native readback remain open.
+  2026-10-03 policy validation hardening: reject unknown/misspelled policy and holiday-coverage fields, malformed HTTPS ports and port zero so typos cannot be silently ignored as verified coverage metadata. Calendar subtraction now returns unknown rather than raising if a valid boundary date would underflow. Focused policy/calendar tests pass (37); the full grants suite passes 298 tests. Synthetic coverage remains structural evidence only; no authoritative holiday calendar or policy approval is implied.
+  2026-10-03 evaluation-date guard: calendar projection now requires an explicit valid evaluation date and suppresses events when the policy is future-effective or expired; ICS generation evaluates against its UTC generation date. Calendar/planning focused tests pass (20/19), and the full harness passes (1,259 tests, 446 project checks, Conductor, web-first and tooling preflight). This closes only the local stale-policy projection path; policy approval, override history, native persistence and H01 acceptance remain open.
+  2026-10-03 append-only override reconciliation: added `reconcile_institutional_override_history` in `scripts/grants_planning.py`. It requires an exact, complete contiguous revision history with stable typed keys and UTC recorded timestamps; compares stored anchor key/date/precision and policy/version/calculation against current inputs; and marks changed, cancelled, uncertain, future or expired cases stale while preserving every prior value. It reports review status separately and never applies an override or changes the official deadline. Eight focused synthetic cases are covered in the planning suite. This closes the local revision/staleness logic slice only; authorised policy/override decisions, holiday authority, persistence, native readback and H01 acceptance remain open.
+  2026-10-03 machine-readable contracts: added `contracts/g08-institutional-date-policy.schema.json` and `contracts/g08-institutional-deadline-override.schema.json`, with schema-validation regressions against the runtime policy/history reconciler. Runtime validation now also rejects malformed optional holiday-coverage metadata on calendar-day policies. The 26-test planning suite and full local harness pass. Schemas describe storage records only; contiguous revisions, derived identity, authoritative review and native persistence remain guarded by runtime/operational checks.
+  2026-10-07 current access recheck: a read-only BrowserOS REST GET to the existing isolated `My Funding Watchlist` list returned `System.UnauthorizedAccessException`; no write was attempted. This route-specific denial does not rewrite the 2026-10-05 field/item inventory, which remains a dated observation, and does not establish current persistence or acceptance. Receipt: `private/ops/2026-10-07-g08-watchlist-browseros-rest-readcheck-private.json`. Do not repeat the same GET or change identities to bypass access; resume through the documented authorized route after VS Code access is available. The focused grants harness then passed 358 tests (`PASS_LOCAL_ONLY`); native acceptance remains open.
+- [ ] **G08-H02 — Implement secure preference persistence.** Depends: G08-H01. First inventory the existing `My Funding Watchlist` and `Funding Delivery Ledger` objects and any supported embedded/linked form; do not assume a distinct preferences list already exists. Reuse `My Funding Watchlist` only if its verified schema and backing-service access can support server-derived UserKey and isolated per-user reads/writes; otherwise prepare only the smallest justified additive store after exact target/rollback review. Persist scope (opportunity/category/funder), event types, reminder offsets, cadence, channel, timezone, pause and unsubscribe. Reject caller-forged UserKey/recipient values and stale-session writes. Prove two authorized test users cannot read/write each other’s preferences through the actual UI and backing service; report filters or metadata/RLS alone are insufficient. Output: private schema/access/save-reload receipts plus sanitized regressions. Current exact-list read is HTTP 403; see `private/ops/2026-10-03-g08-watchlist-sharepoint-readback-failure-private.json`. No preference store or schema change is authorized until a fresh exact native inventory is available.
+  Local matching guard (2026-09-28): candidate matching now rejects malformed category collections, opportunity identities and active preference rows rather than iterating/coercing malformed JSON; overlapping valid matches still deduplicate. The canonical grants normalizer currently exposes neither `CategoryKeys` nor `FunderKey`, so those scopes remain unavailable until an evidence-backed key contract exists. This is not preference persistence, user isolation or delivery acceptance.
+- [ ] **G08-H03 — Accept report and model experience.** Depends: G04-H03 and G08-H01; G08-H02 required before claiming personal watchlist. Inputs: `docs/FUNDING_REPORT_BINDING_READINESS.md`, `powerbi/CHHHS Research Publications.SemanticModel/definition/tables/GrantsRegistry.tmdl`, local report `definition/pages/FundingOpportunities`, `FundingCalendar`, `MyFundingWatchlist`, `tests/test_grants_pages.py`. The current isolated report readback has six pages; local PBIP requires seven. The on-disk recovery PBIX is the Sep22 import source and predates Sep24 browser-side report repairs; use it only as the known rollback/import baseline. Before preparing a deployment candidate:
+  1. Re-read exact isolated report/model IDs and workspace; prove they remain distinct from the original pair and retain the matching private PBIX checksum/rollback copy.
+  2. Obtain the latest isolated report definition through supported Download/Export or authenticated authoring readback. On 2026-09-25 the BrowserOS download waiter timed out after 60 seconds, but the Power BI dialog reported the PBIX ready; the file was recovered from Downloads and its checksum/ZIP integrity verified. The post-slicer service export is `private/ops/2026-09-25-post-edit-isolated-rims-report.pbix`, SHA-256 `fcc4a7c7b134b3ec6f7e656e569ac48313a343627540a3682eb0a2837cc511cc`; offline layout and field reconciliation are in `private/ops/2026-09-25-post-edit-report-artifact-reconciliation.json`. The export records 6 pages/66 visuals versus local 7/85; it is a preserved recovery input, and re-import/restore is untested. The Sep22 PBIX remains historical only. Do not treat its visual queries as current after later browser edits.
+  3. Reconcile every page by stable name, and every visual by type, semantic query entities/properties, filter, and purpose. Record which native visuals are unnamed/opaque and inspect their actual query or render; never infer purpose from a hash or container count.
+  4. Retain three distinct local experiences: Funding Opportunities, Funding Calendar, and a watchlist preview. Map the native combined Calendar & Watchlist page into the two intended local scopes; establish the personal list/table and registry bindings separately. A combined page is not proof of preference isolation.
+  5. Compare publication-page counts, metrics, filters, and bindings as well as funding pages; reject candidate drift in publication scope or the CanonicalKey totals.
+  6. Build a local candidate from the current verified base, run PBIP/TMDL and offline binding contracts, fingerprint the exact package, and preserve the latest service export as a recovery input. Re-import/restore has not been tested, so do not call the export a proven rollback checkpoint. The Sep22 PBIX remains a historical recovery baseline. If a future latest report state cannot be exported or read back, stop at a documented candidate gap rather than overwriting from a stale PBIX.
+  7. In the isolated target only, apply minimal deltas; save, reload, and verify seven-page scope, useful empty states, reviewed-only semantics, filters, authoritative links, and model bindings. Then prove a terminal refresh and full opportunity-key/publication-total reconciliation using controlled official-source rows. Remove synthetic or unused tables only with scoped model backup and native readback; preserve original report isolation.
+  8. Reconcile saved page/visual filter definitions separately from slicer bindings. The post-edit export has a ReviewStatus slicer but no filter definitions on Funding Opportunities; `review_status_saved_reviewed_only` is false. Keep the static reviewed-only claim blocked until an explicit Reviewed predicate is read back or the claim is removed. The parser fails closed for unknown filter shapes; local coverage does not pass the native gate.
 
-- [x] Task: Reject surrounding whitespace in current-user, opportunity, subscription and delivery identity fields instead of silently collapsing access keys (`0f1fa21`).
-- [x] Verification: focused planning/operations tests (35), full local suite (452 tests, 8 skipped), project checks (460), web-first contracts, Conductor validation and diff validation pass locally.
-- [~] Native preference persistence, access isolation, calendar revision handling, refresh/reconciliation and delivery remain open.
+Evidence: ignored `private/ops/2026-09-25-post-edit-report-artifact-reconciliation.json` records the verified 6/66 native layout, binding matrix and absent Reviewed filter; `private/ops/2026-09-25-tmdl-view-route-readback.json` records the unresolved model source read. `private/ops/2026-09-25-browseros-powerbi-report-readback.json` records the rendered inventory and `NativeAcceptance=false`; `private/ops/2026-09-22-isolated-pbix-recovery-preflight.json` identifies the historical import baseline. `contracts/dashboard.contract.json` and grants-page/web-first tests keep the seven-page local scope explicit and mark the native page delta update-blocking. Local validation alone does not pass this task.
+- [ ] **G08-H04 — Implement event ledger and dry-run matching.** Depends: G08-H02 and G08-H03. Reuse existing ledger and `scripts/grants_planning.py` event keys. Persist event/revision/channel/user identity, pending/succeeded/failed status and provider ID where supported. Dry-run overlapping category/funder/individual follows, deadline changes/cancellation, duplicate triggers, retries after ambiguous provider response, pause/unsubscribe between match and send, and permission loss. Re-read current preferences/access before the delivery boundary; reconcile one eligible event per intended recipient. Output: private dry-run ledger/action receipts; no unapproved send. Recover interrupted attempts without falsely claiming exactly-once delivery unsupported by provider.
+- [ ] **G08-H05 — Accept calendars.** Depends: G08-H01, G08-H02, G08-H04. Inputs: `scripts/grants_calendar.py`, `tests/test_grants_calendar.py`. Verify Reviewed-only events, stable UID/revision, date-only all-day encoding, no precise reminder for approximate dates, changed/cancelled deadlines and stale override handling. Choose supported authenticated/revocable personal feed or clearly label one-time ICS export; public feeds contain public reviewed data only. Test unsubscribe token revocation/access denial and client update/cancellation if subscription route is selected. Output: private client/service readback and sanitized calendar fixtures. No credentials or private feed URLs tracked; rollback revokes only scoped test feeds/events.
 
-## Phase: Conductor review fix — calendar change identity boundary — 2026-09-22
+  2026-09-28 local standards corrections: generated `DTSTAMP` now appears once inside each `VEVENT`, not at `VCALENDAR` level; content lines longer than 75 UTF-8 octets are folded at code-point boundaries; calendar UIDs hash a typed JSON tuple to prevent delimiter aliases. The UID derivation changed before any accepted native feed/client deployment, so no external event IDs were migrated. Multi-event, Unicode fold-length, exact-unfold and UID-collision tests pass. This does not prove calendar-client revision, cancellation propagation, feed security or subscription behavior.
+- [ ] **G08-H06 — Activate delivery only after dry-run acceptance.** Depends: G08-H04, G08-H05 and G07-H03. Prepare exact recipients/channel/cadence, content, ledger behaviour and rollback. Perform delivery/sharing/schedule actions only where existing authority covers the exact action; otherwise keep them disabled and deferred, without contacting anyone. For an already-authorized acceptance route, send bounded acceptance events, verify recipient outcome plus ledger reconciliation, prove pause/unsubscribe and cancellation, and restore test preferences/flow state. Closure: every claimed personal/subscription/delivery capability has native evidence and retained rollback; deferred activation leaves that feature inactive and labelled, not complete. G07-H04 owns recurring operational maturity.
 
-- [x] Task: Reject surrounding whitespace in calendar-change identities and source URLs instead of silently normalising them (`37ddc3d`).
-- [x] Verification: focused calendar-change tests (4), full local suite (453 tests, 8 skipped), project checks (460), web-first contracts, Conductor validation and diff validation pass locally.
-- [~] Native null-date import/readback, refresh/reconciliation and delivery remain open.
+Track closure requires all applicable acceptance tasks above, the shared completion contract, and a review recording any explicitly approved exclusions. Local pass, source availability and import success are separate from native and operational acceptance.
 
-## Phase: Conductor review fix — calendar projection identity boundary — 2026-09-22
+## Post-MVP navigation refinement (planning only)
 
-- [x] Task: Reject surrounding whitespace in exact-date `OpportunityKey` and `URL` values before event UID/evidence projection (`a9603ff`).
-- [x] Verification: focused calendar tests (11), full local suite, project checks (460), web-first contracts, Conductor validation and diff validation pass locally.
-- [~] Native null-date import/readback, refresh/reconciliation and delivery remain open.
+After both MVPs and included data/access gates, [R5.5/R5.6](../../post-mvp-sequence.md) refine G08-H03 with one project/researcher/funding drill-through and reverse lookup. Reuse existing identities/bridges; display evidence, freshness, link uncertainty and role/time. Reader acceptance requires reconciled entity totals, no count/award-amount multiplication and correct opportunity/application/award labels. Optional R6 discovery/conversational search must prove benefit and caller permissions separately. No added report/native implementation is authorised before the gate.
 
-## Phase: Conductor review fix — policy identity boundary — 2026-09-22
+R5.5 quality/coverage refinement displays actionable reconciliation, freshness and explicit unknown-versus-zero alongside reconciled totals. R5.7 supplies evidence-linked researcher discovery before optional R6 search; R5.8 period snapshots extend T14/T15 only after their acceptance. Optional R6.6 suggestions remain separate from accepted data/identity/merge decisions, evaluated before enablement with a usable AI-off path. No performance ranking or automatic AI write is authorised.
 
-- [x] Task: Reject surrounding whitespace in institutional policy identities, effective dates and holiday dates before calendar UID/date projection (`3aa8999`).
-- [x] Verification: focused planning tests (14), full local suite, project checks (460), web-first contracts, Conductor validation and diff validation pass locally.
-- [~] Native null-date import/readback, refresh/reconciliation and delivery remain open.
 
-## Phase: Calendar omission-boundary review — 2026-09-21
+## Selected owner-only ARC award-context reader — 17 October 2026
 
-- [x] Task: Validate optional calendar display fields before omitting uncertain
-  dates, so malformed typed data cannot disappear silently (`29d97cf`).
-- [ ] Native pages, personal access, calendar change ledger and delivery remain
-  open; local omission semantics do not certify tenant acceptance.
+Human-authorised three-lane allocation selects one bounded native reader in the
+existing RIMS report over the accepted ARCAwardContext model table. Core owns
+`scripts/prepare_arc_award_report_page.py`, `tests/test_arc_award_report_page.py`
+and private `2026-10-17-arc-award-reader` evidence, report native writer and final
+package integration. Dataset lane owns hosting/permission/prerequisite blockers;
+flow lane owns monitoring. No flow helper or hosting/profile changes here.
 
-## Phase: Exact-date validation review — 2026-09-21
+- [x] Prepare one clearly labelled additive award-context page; preserve all eight
+  existing pages, IDs/bindings, accepted model/data/connections/schedule. Awards
+  are not opportunities/applications, institutional attribution or performance.
+- [x] Native save/reload;34977source-record count;source/status filters and reset;
+  representative source link;source/saved-definition reconciliation and rollback.
 
-- [x] Task: Reject impossible ISO dates when a grant deadline is explicitly
-  marked day-precision (`01231b6`).
-- [ ] Native pages, personal access, calendar change ledger and delivery remain
-  open.
+Use the existing qualified Legacy report route: CLI modern-PBIR pack/unpack does
+not support this accepted PBIR-Legacy report. Validate the equivalent added-page
+PBIR projection and inspect the actual native render. No format migration or new
+report/model is implied. R13c remains immutable until selected lanes settle.
 
-## Phase: Holiday collection boundary review — 2026-09-21
-
-- [x] Task: Reject malformed holiday collections explicitly in institutional
-  deadline projection (`6ca91b0`).
-- [ ] Native policy persistence, calendar delivery and notification acceptance
-  remain open.
-
-## Phase: Subscription container boundary review — 2026-09-21
-
-- [x] Task: Reject malformed subscription containers before rule iteration
-  (`a0c8d06`).
-- [ ] Native preference persistence, access isolation and delivery remain open.
-
-## Phase: Native current-user list bootstrap — 2026-09-21
-
-- [x] Task: Inventory the personal DEV site and create the sole `My Funding Watchlist` and `Funding Calendar` lists only when absent; persist the minimal user-scoped schemas with inactive/cancelled defaults and read back the fields through the authenticated SharePoint API.
-- [x] Task: Add current-user flow/page binding and controlled readback for the isolated lists, flows and saved report visuals; no cross-user delivery or unattended notifications were enabled.
-- [~] Task: Complete the calendar revision ledger, refresh/reconciliation and delivery gates; keep cross-user delivery and unattended notifications disabled.
-
-### Native persistence evidence — 2026-09-21
-
-- [x] Controlled current-user calendar round-trip: created one synthetic deadline with an exact calculated date, authoritative HTTPS source URL, policy key and `Needs Review` state; read back all visible fields; edited the policy key and read it back; deleted the synthetic item and confirmed the list returned to zero rows.
-- [~] Native page/report binding is evidenced for the isolated saved visuals and flow paths; revision ledger, refresh/reconciliation, reminder/change execution and delivery remain open.
-
-The authenticated Power Automate designer was also checked for the next
-current-user flow. It can expose the personal site as a custom SharePoint
-address and resolve the `Funding Calendar` fields, but the manual-trigger
-dynamic-content binding did not resolve reliably in the new designer. The
-incomplete draft was discarded; no duplicate flow, invalid flow, schedule or
-notification was saved.
-
-### Native watchlist-flow bootstrap boundary — 2026-09-21
-
-The existing reviewed-grants flow was cloned temporarily as a bootstrap
-candidate for `My Funding Watchlist`. The designer resolved the personal
-SharePoint list and its `OpportunityKey`, `Scope`, `TargetKey` and `Active`
-fields, but the cloned trigger/parser still accepted the grants-opportunity
-payload and could not supply a dedicated subscription scope/target contract.
-The incomplete copy was discarded. The live flow inventory was read back at
-three flows: the canonical publications flow, the reviewed grants flow and the
-reviewed DoRA flow. No temporary watchlist flow remains. A dedicated local
-watchlist input contract is required before another native copy is created.
-
-- [x] Add the dedicated `funding-watchlist-v1` local schema and regression
-  coverage for the current-user personal list. Native flow binding remains
-  open until the trigger/parser uses this contract directly.
-### Native dedicated watchlist flow — 2026-09-21
-
-- [x] Add and validate a dedicated SharePoint-only `funding-watchlist-v1` manual upsert contract and target-injected package locally.
-- [x] Import exactly one `CHHHS RIMS - Funding Watchlist - Reviewed Upsert` flow into the authenticated current-user DEV context; Flow Checker read 0 errors.
-- [x] Run controlled synthetic create and same-key update cases. SharePoint readback showed the expected opportunity-to-category scope/target and Active changes; the flow was restored Off.
-- [x] Delete the synthetic watchlist row through the SharePoint UI and confirm zero rows. Native report/page binding is evidenced for the saved visuals; refresh/reconciliation, calendar ledger and delivery remain open.
-
-### Native dedicated calendar flow — 2026-09-21
-
-- [x] Add and validate a dedicated `funding-calendar-v1` SharePoint-only manual upsert contract and target-injected package locally.
-- [x] Import exactly one current-user DEV flow: `CHHHS RIMS - Funding Calendar - Reviewed Upsert`, flow ID `f18e3fad-7ee5-47d7-b166-d9bb41f93a3e`, using the existing SharePoint connection and the personal `Funding Calendar` list.
-- [x] Native Flow Checker readback: 0 errors and 0 warnings while enabled; the only inactive-flow warning appeared after the flow was restored Off.
-- [x] Controlled native create run `08584116266950718806813049204CU16` succeeded; SharePoint readback showed `synthetic-calendar-20260921`, `2026-10-15`, the authoritative source URL, `Cancelled=No`, the initial policy key and `Needs Review`.
-- [x] Controlled same-key update run `08584116266295302685959687164CU15` succeeded; SharePoint readback showed `2026-10-20`, `Cancelled=Yes`, policy key `synthetic-policy-20260921-v2` and `Confirmed` without creating a duplicate.
-- [x] Restore the isolated flow Off. The synthetic calendar row was subsequently removed through the native SharePoint delete confirmation and the list returned to zero data rows.
-- [~] Native report/page binding is evidenced for the isolated saved visuals; institutional-date and reminder/change ledger, subscription isolation and calendar/notification delivery remain open.
-
-### Native delivery-ledger flow — 2026-09-21
-
-- [x] Add and validate the SharePoint-only `funding-delivery-ledger-v1` schema, flow definition and package builder locally; optional date/error fields are null-safe.
-- [x] Create exactly one personal DEV `Funding Delivery Ledger` list. Native field readback confirms the twelve visible ledger fields, `Status` default `Pending`, versioning enabled with a 50-major-version limit, and zero rows before testing.
-- [x] Import exactly one `CHHHS RIMS - Funding Delivery Ledger - Reviewed Upsert` flow and update that same flow in place after the first controlled run exposed an empty optional `SentAt` conversion defect. Flow Checker read 0 errors and 0 warnings after the null-safe repair.
-- [x] Controlled native create run `08584116256446744665855863737CU13` exposed the expected optional-date defect; no row was written by that failed run. The corrected same-key run `08584116253756053128213151733CU27` succeeded after the update package was imported. SharePoint readback showed one row with `Revision=v2`, `Channel=email`, `Status=Sent`, `ScheduledFor=2026-10-02` and `SentAt=2026-09-21`; the flow was restored Off.
-- [x] Remove the synthetic ledger row through the SharePoint UI and confirm zero rows. Native report/page binding is evidenced for the saved visuals; true subscription isolation and actual calendar/reminder delivery remain open.
-
-### Native report page shells and model binding — 2026-09-21
-
-- [x] In the existing current-user My workspace report, add and save `Funding Opportunities` and `Funding Calendar & Watchlist` pages through the Power BI web editor; switch back to Reading view and read back both page names and their scope/status text.
-- [x] In the existing current-user My workspace semantic model, use the Power Query SharePoint Online List connector and the existing organisational-account connection to add read-only native queries for `My Funding Watchlist`, `Funding Calendar`, `Funding Delivery Ledger` and `Grants Registry`. Model readback now shows tables 22–25 with 26, 29, 32 and 44 columns respectively; the Grants Registry preview evaluated with zero rows and the other three previews evaluated with one controlled synthetic row each.
-- [x] Add and save a native table visual on `Funding Opportunities` bound to `Grants Registry.Funder`, `Deadline`, `Eligibility` and `OpportunityKey`; Reading-view readback shows those headers. The native Grants Registry preview currently has zero rows, so no opportunity row is claimed.
-- [x] Add and save native table visuals on `Funding Calendar & Watchlist`: the calendar visual is bound to `Funding Calendar.CalculatedDate`, `DeadlineKey`, `ReviewStatus` and `SourceURL`, and the watchlist visual is bound to `My Funding Watchlist.Active`, `OpportunityKey`, `Scope` and `TargetKey`. Reading-view readback shows all eight headers, the synthetic calendar row and the synthetic watchlist row.
-- [ ] Refresh/row reconciliation remains a separate gate. Native table bindings are evidenced, but the page status text still contains the older phrase that semantic-model binding is pending; a bounded current-user text-box correction was discarded because the rich-text editor did not select the complete content. Receipt: `private/ops/2026-09-22-powerbi-g08-status-text-edit-reverted.json`.
-- [~] Complete subscription isolation, calendar revision ledger and actual reminder/change delivery after the semantic-model refresh route is available; current-user flow/page binding is already evidenced above.
-
-### Native synthetic-row cleanup — 2026-09-22
-
-- [x] Re-read the authenticated QLD Health flow inventory filtered by
-  `Funding`: exactly one disabled flow was visible for each of the four
-  canonical grant-flow identities. Receipt:
-  `private/ops/2026-09-22-powerautomate-g08-flow-inventory.json`.
-
-- [x] Through the authenticated SharePoint UI, select only the exact synthetic delivery-ledger, calendar and watchlist rows and confirm each native `Delete?` dialog. Each item was sent to the recycle bin; subsequent list readback showed only the list header row and no synthetic item.
-- [~] Refresh the saved report cache and re-read the bound visuals after cleanup. A native model refresh and a bounded retry both remained at `Processing queries and validating semantic model` and were cancelled through the native confirmation dialog; no refresh success is claimed. This must not be confused with unattended refresh or notification acceptance.
-- [~] Retry the native `Schema and data` refresh after all three grant test lists read zero rows. The second bounded observation reproduced `Processing queries and validating semantic model` and was cancelled through the native confirmation; no refresh success or row reconciliation is claimed.
-
-### Local PBIP/native grant-surface parity — 2026-09-22
-
-- [x] Add canonical local Power Query/model projections for `FundingCalendar`, `MyFundingWatchlist` and `FundingDeliveryLedger`, keeping them separate from `GrantsRegistry` opportunity identity.
-- [x] Rebind the local Funding Calendar and My Funding Watchlist pages to their dedicated current-user tables, matching the native visual field contract; local visual bindings and geometry validate.
-- [x] Replace the frozen source-only runtime baseline with an explicit reviewed parity baseline. This changes local authored definitions only and does not certify the native semantic model or refresh.
-- [x] Add the local source-preserving `FundingCalendarChanges` projection and fail-closed revision-diff helper. It records explicit date/cancellation revisions without creating events or sending notifications; native list creation and delivery remain open.
-- [ ] Reconcile the local PBIP against a successful native model refresh and row readback; a 2026-09-22 retry remained at `Processing queries and validating semantic model` for 100 seconds and was cancelled. Receipt: `private/ops/2026-09-22-powerbi-native-refresh-retry.json`.
-- [x] After confirming the target list was absent from the authenticated personal DEV workspace, create the isolated `Funding Calendar Changes` SharePoint list and read back all 13 canonical fields. `ChangeKey` is required, unique and indexed; `ReviewStatus` defaults to `Needs Review`; both cancellation fields default to false; the list has zero items and no synthetic row was written.
-- [x] Create one native current-user copy of the existing calendar upsert flow after three bounded legacy imports were rejected as `MalformedFlowAssetFlowDefinition`; rebind the copy to `Funding Calendar Changes`, correct the quoted field expressions, and save it with native Flow Checker `Errors (0)` and `Warnings (0)`. The flow remains Off and no synthetic row was written.
-- [x] Execute controlled create/update change-ledger cases and read back exact SharePoint rows, then restore the flow Off. Create run `08584115988253175752159968677CU24` and same-key update run `08584115987296857629538066289CU13` succeeded; REST readback showed one item, stable `Id=1`, the expected revision/date/cancellation/URL/review changes and no duplicate. The exact synthetic row was deleted through the native SharePoint `Delete?` confirmation and the REST endpoint returned zero items.
-- [x] Implement the local null-preserving design for the optional `PreviousDate` edge: create and update now branch explicitly, omitting the SharePoint date property when null and mapping it only when present. The flow validator and package builder require both branches; local tests and all gates pass.
-- [ ] Import the revised branch design into the existing native flow identity and prove null-date create/update/readback. The prior native run `08584115961596220678423119580CU22` failed at `Create item` because the connector received an empty string for `PreviousDate`; keep this native limitation open until the revised flow is accepted. Reconcile the saved report/model and prove actual calendar/reminder delivery separately.
-- [~] Retry native update through the authenticated Power Automate import route. On 2026-09-22 the null-preserving package uploaded and was recognised as an `Update` for the canonical flow; the QLD Health SharePoint connection was selected, but the wizard kept `Import` disabled. No import was submitted and the flow remained Off. Receipt: ignored `private/ops/2026-09-22-powerautomate-g08-null-package-attempt.json`.
-- [~] Recheck the native code view for the null-preserving branch. The QLD Health designer exposed the canonical loop and tenant list identifiers but reported `Cannot edit in read-only editor`; the staged local definition was rejected, no Save was enabled, and reload restored the unchanged flow. No second flow or partial draft was created.
-- [~] Recheck the normal designer insertion route. A temporary nested `PreviousDate` condition was staged, but the existing downstream SharePoint action was not exposed reliably for complete branch verification; reload discarded the draft. No save or tenant mutation occurred. Receipt: `private/ops/2026-09-22-powerautomate-g08-designer-insertion-reverted.json`.
-- [x] Read back the current-user Power Automate inventory: exactly one publications flow is enabled/scheduled and exactly one disabled copy exists for each grant/DoRA upsert flow; no duplicate flow identity was created.
+Native acceptance: existing report now has nine pages; original eight sections
+and four other parts exact, binding/users/subscriptions preserved. All34977,
+Active6774, source/status intersection/reset and award-code1/source-link checks
+passed. Six focused tests and local1868/eight skips passed. The source URL
+conditional-format projection required MIN at URL-inclusive row grain; source
+amounts remain text/unknown and are not summed. See
+[reader and lessons](../../../docs/ARC_AWARD_READER.md). Broader G08 tasks and
+hosting/reader/production gates remain open;R13c immutable,successor pending.

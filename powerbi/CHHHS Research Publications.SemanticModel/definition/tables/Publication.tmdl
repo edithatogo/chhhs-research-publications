@@ -366,7 +366,8 @@ table Publication
 	measure 'Publications Last 24 Complete Months' =
 		VAR StartDate = EDATE(MAX(ReportingWindow[ReportMonthEndExclusive]),-24)
 		VAR EndDate = MAX(ReportingWindow[ReportMonthEndExclusive])
-		RETURN CALCULATE([Publications], KEEPFILTERS(DATESBETWEEN('Date'[Date],StartDate,EndDate-1)))
+		VAR DatesInWindow = CALCULATE(COUNTROWS('Date'), KEEPFILTERS(DATESBETWEEN('Date'[Date],StartDate,EndDate-1)))
+		RETURN IF(COALESCE(DatesInWindow,0)=0, BLANK(), CALCULATE([Publications], KEEPFILTERS(DATESBETWEEN('Date'[Date],StartDate,EndDate-1))))
 		formatString: #,0
 		lineageTag: 8eb94c27-cead-595d-983d-ae6d0ec58458
 
@@ -405,6 +406,30 @@ table Publication
 	measure 'Monthly Register Row Count' = VAR N = [Selected Month Publications] RETURN IF(N > 0, N, BLANK())
 		formatString: #,0
 		lineageTag: 318edbdb-ffb9-555c-9f9e-5776ffc4dd92
+
+	column PublicationTypes
+		dataType: string
+		lineageTag: 7a56bb3e-f6da-4fce-9a78-26e64f3b5141
+		summarizeBy: none
+		sourceColumn: PublicationTypes
+
+	column PublicationClass
+		dataType: string
+		lineageTag: 52f33e02-cf8e-4a9f-9ce0-87371af5e4da
+		summarizeBy: none
+		sourceColumn: PublicationClass
+
+	column IsClinicalTrial
+		dataType: boolean
+		lineageTag: c29f2ee1-5531-4c1c-a86e-91c578f850d0
+		summarizeBy: none
+		sourceColumn: IsClinicalTrial
+
+	column IsEvidenceSynthesis
+		dataType: boolean
+		lineageTag: 6b253e17-cb6b-4b4a-b32e-a3dd8b0ca724
+		summarizeBy: none
+		sourceColumn: IsEvidenceSynthesis
 
 	partition Publication = m
 		mode: import

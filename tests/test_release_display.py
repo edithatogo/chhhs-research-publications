@@ -17,8 +17,9 @@ class ReleaseDisplayTests(unittest.TestCase):
     def test_report_builder_exposes_release_metadata_columns(self):
         source = (ROOT / 'scripts/build_report.py').read_text()
         self.assertIn("ReleaseMetadata", source)
-        self.assertIn("release-version", source)
-        self.assertIn("release-batch", source)
+        self.assertIn("release-provenance", source)
+        self.assertIn("release_col('SoftwareVersion'", source)
+        self.assertIn("release_col('AcceptedBatchID'", source)
 
 
 if __name__ == '__main__':

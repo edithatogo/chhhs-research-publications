@@ -14,7 +14,13 @@ let
     New = Require(List.Sort(Table.ColumnNames(Incoming))=List.Sort(IncomingColumns),
         "Incoming observation schema mismatch", Incoming),
     TextValid = (v as any) as logical => if not Value.Is(v,type text) then false else Text.Trim(v)<>"",
-    JSONValid = (v as any) as logical => if not TextValid(v) then false else not (try Json.Document(v))[HasError],
+    // Match reconstruction's accepted contract: one record or a list of records only.
+    JSONValid = (v as any) as logical => if not TextValid(v) then false else
+        let Parsed=try Json.Document(v)
+        in if Parsed[HasError] then false else
+            let Payload=Parsed[Value]
+            in Value.Is(Payload,type record) or
+                (Value.Is(Payload,type list) and List.AllTrue(List.Transform(Payload,each Value.Is(_,type record)))),
     OldValid = List.AllTrue(List.Transform(Table.ToRecords(Old), each
         TextValid([Source]) and TextValid([SourceID]) and TextValid([LastBatchID]) and JSONValid([MetadataJSON]) and
         Value.Is([FirstObservedAtUTC],type datetimezone) and Value.Is([LastObservedAtUTC],type datetimezone) and

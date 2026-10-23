@@ -11,6 +11,10 @@ let
         DORAURL = nullable text,
         CHHHSAffiliatedAuthors = nullable text,
         Abstract = nullable text,
+        PublicationTypes = nullable text,
+        PublicationClass = nullable text,
+        IsClinicalTrial = nullable logical,
+        IsEvidenceSynthesis = nullable logical,
         SourceSet = nullable text,
         DedupMethod = nullable text,
         PublicationDateRaw = nullable text,
@@ -99,6 +103,10 @@ let
             CanonicalKey=p[CanonicalKey],PMID=p[PMID],Title=p[Title],Journal=p[Journal],Authors=p[Authors],DOI=p[DOI],PubMedURL=p[PubMedURL],DORAURL=urls,
             PublicationDate=p[PublicationDate],PublicationDateRaw=p[PublicationDateRaw],PublicationDatePrecision=p[PublicationDatePrecision],PublicationMonth=p[PublicationMonth],PublicationYear=p[PublicationYear],
             OnlineDate=p[OnlineDate],OnlineDateRaw=p[OnlineDateRaw],AuthorCount=p[AuthorCount],
+            PublicationTypes=Record.FieldOrDefault(p,"PublicationTypes",null),
+            PublicationClass=Record.FieldOrDefault(p,"PublicationClass",null),
+            IsClinicalTrial=Record.FieldOrDefault(p,"IsClinicalTrial",null),
+            IsEvidenceSynthesis=Record.FieldOrDefault(p,"IsEvidenceSynthesis",null),
             MatchedFacilities=p[MatchedFacilities],CHHHSAffiliatedAuthors=chhhs,Abstract=abstract,SourceSet=if has then "PubMed; DORA" else "PubMed",DedupMethod=if has then Text.Combine(List.Distinct(d[DedupMethod]),"; ") else "PMID",
             AttributionEvidence=evidence,
             AttributionStatus=if has then p[AttributionStatus] & "; DORA identifier match" else p[AttributionStatus],PublicationNotice=p[PublicationNotice],FacilityMatchCount=p[FacilityMatchCount],RefreshedAtUTC=p[RefreshedAtUTC]
@@ -109,15 +117,16 @@ let
     DoraOnly = Table.AddColumn(DoraOnly0,"Canonical",(d as record) => [
         CanonicalKey=d[DORAKey],PMID=Record.FieldOrDefault(d,"PMID",null),Title=d[Title],Journal=Record.FieldOrDefault(d,"Journal",null),Authors=d[Authors],DOI=Record.FieldOrDefault(d,"DOI",null),PubMedURL=null,DORAURL=d[DORAURL],
         PublicationDate=d[PublicationDate],PublicationDateRaw=d[PublicationDateRaw],PublicationDatePrecision=d[PublicationDatePrecision],PublicationMonth=if d[PublicationDate]<>null and List.Contains({"day","month"},d[PublicationDatePrecision]) then Date.ToText(d[PublicationDate],"yyyy-MM","en-AU") else null,PublicationYear=d[PublicationYear],
-        OnlineDate=null,OnlineDateRaw="",AuthorCount=if d[Authors]=null or d[Authors]="" then null else List.Count(Text.Split(d[Authors],";")),
+        OnlineDate=null,OnlineDateRaw=null,AuthorCount=if d[Authors]=null or d[Authors]="" then null else List.Count(Text.Split(d[Authors],";")),
         MatchedFacilities=if d[CHHHSAffiliatedAuthors] <> null and Text.Trim(d[CHHHSAffiliatedAuthors]) <> "" then "Cairns and Hinterland HHS" else "",CHHHSAffiliatedAuthors=d[CHHHSAffiliatedAuthors],Abstract=d[Abstract],SourceSet="DORA",DedupMethod=d[DedupMethod],
         AttributionEvidence=d[AttributionEvidence],
         AttributionStatus=(if d[CHHHSAffiliatedAuthors] <> null and Text.Trim(d[CHHHSAffiliatedAuthors]) <> "" then "DORA author affiliation statement" else "DORA attribution needs review") & (if d[DedupMethod] <> "DORA-only" then "; identity needs review" else ""),PublicationNotice="DORA full metadata; observed public collection snapshot; institutional scope remains reviewable",FacilityMatchCount=if d[CHHHSAffiliatedAuthors] <> null and Text.Trim(d[CHHHSAffiliatedAuthors]) <> "" then 1 else 0,RefreshedAtUTC=DateTimeZone.RemoveZone(DateTimeZone.FixedUtcNow())
     ],type record),
     DoraCanonicalOnly = Table.SelectColumns(DoraOnly,{"Canonical"}),
     ExpandedDora = Table.FromRecords(Table.Column(DoraCanonicalOnly,"Canonical"), PublicationType, MissingField.UseNull),
-    PubMedSelected = Table.SelectColumns(ExpandedPubMed,Table.ColumnNames(ExpandedDora),MissingField.UseNull),
-    Combined = Table.Combine({PubMedSelected,ExpandedDora}, PublicationType),
+    // Both source rows have already been aligned to PublicationType. Combining
+    // them directly preserves PubMed-only columns and fills DORA gaps with null.
+    Combined = Table.Combine({ExpandedPubMed,ExpandedDora}, PublicationType),
     Verified = if Table.RowCount(Combined) <> List.Count(List.Distinct(Combined[CanonicalKey])) then error "Canonical publication key is not unique" else Combined,
     PubMedMatches0 = PubMedHarvest[Matches],
     PubMedMatches = Table.AddColumn(PubMedMatches0,"CanonicalKey",each "PMID:" & [PMID],type text),

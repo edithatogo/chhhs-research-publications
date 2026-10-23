@@ -13,8 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 CAPABILITIES = ('read_report', 'read_model', 'edit_report', 'edit_model', 'edit_power_query', 'refresh', 'export_rows')
 LIVE_CHECKS = ('native_m', 'native_dax', 'live_refresh', 'report_readback', 'model_readback', 'rendered_pages',
                'full_export_reconciliation', 'monthly_export_reconciliation', 'legacy_metadata_scan', 'fixture_exclusion')
-FALLBACK_REASONS = {'unsupported_web_model_type', 'unsupported_web_power_query_operation',
-                    'unsupported_required_web_authoring_operation'}
+FALLBACK_REASONS: set[str] = set()  # Desktop routes cancelled by user, 21 October 2026.
 
 
 def load(path: Path) -> Any:
@@ -23,32 +22,58 @@ def load(path: Path) -> Any:
 
 def choose_route(manifest: dict[str, Any]) -> dict[str, Any]:
     """Route on recorded capabilities; a route is not proof of native execution."""
-    selected, unverified, missing = {}, [], []
+    selected, unverified, missing, blocked = {}, [], [], []
     candidates = manifest.get('capabilities', [])
     if not isinstance(candidates, list):
         candidates = []
+    target_ref = manifest.get('target_ref')
     for operation in CAPABILITIES:
-        matches = [c for c in candidates if isinstance(c, dict) and c.get('operation') == operation
-                   and c.get('provider') in {'plugin', 'webui', 'assisted_webui'}
+        observations = [c for c in candidates if isinstance(c, dict)
+                        and c.get('operation') == operation
+                        and (not target_ref or not c.get('target_ref')
+                             or c['target_ref'] == target_ref)]
+        denied = [c for c in observations if c.get('status') == 'denied']
+        def same_route(a, b):
+            # Missing scope cannot distinguish two routes safely. A denial is
+            # retained even if an older positive receipt remains in the array.
+            return (a.get('provider') == b.get('provider')
+                    and (not a.get('client') or not b.get('client')
+                         or a['client'] == b['client'])
+                    and (not a.get('target_ref') or not b.get('target_ref')
+                         or a['target_ref'] == b['target_ref']))
+        matches = [c for c in observations
+                   if c.get('provider') in {'cli', 'api', 'plugin', 'webui', 'assisted_webui'}
                    and c.get('status') in {'verified', 'available'}
-                   and isinstance(c.get('evidence_ref'), str) and c['evidence_ref'].strip()]
+                   and isinstance(c.get('evidence_ref'), str) and c['evidence_ref'].strip()
+                   and (not target_ref or c.get('target_ref') == target_ref)
+                   and not any(same_route(c, d) for d in denied)
+                   and (not denied or (c.get('status') == 'verified'
+                                       and c.get('target_ref')
+                                       and all(c['target_ref'] == d.get('target_ref') for d in denied)))]
         if not matches:
             missing.append(operation)
+            if denied:
+                blocked.append(operation)
             continue
-        matches.sort(key=lambda c: (c['status'] != 'verified', c['provider'] != 'plugin'))
+        priority = {'cli': 0, 'api': 1, 'plugin': 2, 'webui': 3, 'assisted_webui': 4}
+        matches.sort(key=lambda c: (c['status'] != 'verified', priority[c['provider']]))
         chosen = matches[0]; selected[operation] = chosen['provider']
         if chosen['status'] != 'verified':
             unverified.append(operation)
-    route = ('blocked_permissions' if manifest.get('permission_denied') is True
-             else 'needs_capability_verification' if missing else 'web_first')
+    route = ('blocked_permissions' if manifest.get('permission_denied') is True or blocked
+             else 'needs_capability_verification' if missing
+             else 'cli_first' if any(p in {'cli', 'api'} for p in selected.values())
+             else 'web_first')
     return {'route': route, 'operation_routes': selected, 'missing_operations': missing,
-            'unverified_operations': unverified, 'live_acceptance': False, 'fallback_authorised': False}
+            'blocked_operations': blocked, 'unverified_operations': unverified,
+            'live_acceptance': False, 'fallback_authorised': False}
 
 
 def isolation_errors(state: dict[str, Any]) -> list[str]:
     errors = []
     names = ['tenant_id', 'workspace_id', 'original_report_id', 'original_model_id',
-             'development_report_id', 'development_model_id']
+             'original_report_model_id', 'development_report_id', 'development_model_id',
+             'development_report_model_id']
     for name in names:
         try:
             UUID(state.get(name, ''))
@@ -58,6 +83,10 @@ def isolation_errors(state: dict[str, Any]) -> list[str]:
         errors.append('The development report still shares the original semantic model')
     if state.get('original_report_id') == state.get('development_report_id'):
         errors.append('The original report is not an isolated development report')
+    if state.get('original_report_model_id') != state.get('original_model_id'):
+        errors.append('The original report binding does not match the recorded original model')
+    if state.get('development_report_model_id') != state.get('development_model_id'):
+        errors.append('The development report is not bound to the recorded development model')
     for name in ['dependency_inventory_complete', 'recovery_verified', 'baseline_unchanged', 'canary_roundtrip_verified']:
         if state.get(name) is not True:
             errors.append('Evidence required: ' + name)
@@ -65,16 +94,9 @@ def isolation_errors(state: dict[str, Any]) -> list[str]:
 
 
 def fallback_errors(decision: dict[str, Any]) -> list[str]:
-    errors = []
-    if decision.get('reason') not in FALLBACK_REASONS:
-        errors.append('Not a verified web-authoring incompatibility eligible for VM fallback')
-    for name in ['webui_attempted', 'blocker_confirmed', 'permissions_ok', 'owner_approved']:
-        if decision.get(name) is not True:
-            errors.append('Fallback gate not satisfied: ' + name)
-    refs = decision.get('evidence_refs')
-    if not isinstance(refs, list) or not refs or not all(isinstance(s, str) and s.strip() for s in refs):
-        errors.append('Recorded blocker evidence references are required')
-    return errors
+    # Retain the command for old callers, but no legacy flags or approval receipt
+    # can enable a route that the user has explicitly removed from scope.
+    return ['Desktop/VM fallback is out of scope: cross-platform web-only delivery']
 
 
 def runtime_hashes(root: Path) -> dict[str, str]:
@@ -85,6 +107,61 @@ def runtime_hashes(root: Path) -> dict[str, str]:
             if path.is_file():
                 output[path.relative_to(root).as_posix()] = hashlib.sha256(path.read_bytes()).hexdigest()
     return output
+
+
+def reviewed_runtime_files(root: Path, frozen: dict[str, Any]) -> dict[str, str]:
+    """Apply one explicitly reviewed add-only revision to the immutable old pin.
+
+    Never discover manifests dynamically or allow a supplement to replace a
+    historical file. Exact combined-map equality still detects all runtime drift.
+    """
+    revision = load(root/'contracts/runtime-baseline.openalex-20261015.manifest.json')
+    baseline = root/'contracts/runtime-baseline.manifest.json'
+    if (revision.get('kind') != 'reviewed_runtime_additions'
+            or revision.get('base_manifest') != 'contracts/runtime-baseline.manifest.json'
+            or revision.get('base_manifest_sha256') != hashlib.sha256(baseline.read_bytes()).hexdigest()):
+        raise ValueError('Reviewed additions require exact historical baseline fingerprint')
+    if revision.get('native_verified') is not False or not revision.get('reviewed_revision') or not revision.get('review'):
+        raise ValueError('Reviewed additions require local-only review provenance')
+    additions = revision['files']
+    if not isinstance(additions, dict) or not additions:
+        raise ValueError('Explicit reviewed runtime additions required')
+    if set(additions) & set(frozen['files']):
+        raise ValueError('Reviewed additions cannot replace historical runtime files')
+    for name, digest in additions.items():
+        relative = Path(name)
+        if (relative.is_absolute() or '..' in relative.parts or relative.as_posix() != name
+                or not relative.parts or relative.parts[0] not in {'powerbi', 'powerquery'}
+                or not isinstance(digest, str) or len(digest) != 64
+                or any(c not in '0123456789abcdef' for c in digest)):
+            raise ValueError('Invalid reviewed runtime addition path or hash')
+    expected = {**frozen['files'], **additions}
+    # This separate, explicit revision changes only two reviewed display strings.
+    # Preserve the historical pin and require each exact old/new fingerprint;
+    # neither this revision nor the add-only supplement discovers files.
+    text_revision = load(root/'contracts/runtime-baseline.reader-text-20261015.manifest.json')
+    if (text_revision.get('kind') != 'reviewed_runtime_text_changes'
+            or text_revision.get('base_manifest_sha256') != hashlib.sha256(baseline.read_bytes()).hexdigest()
+            or text_revision.get('native_verified') is not False
+            or not text_revision.get('reviewed_revision') or not text_revision.get('review')):
+        raise ValueError('Reviewed text changes require exact historical baseline and local review')
+    text_changes = text_revision.get('changes')
+    allowed = {
+        'powerbi/CHHHS Research Publications.Report/definition/pages/PublicationRegister/visuals/annual-trajectory/visual.json',
+        'powerbi/CHHHS Research Publications.Report/definition/pages/SourceReconciliation/visuals/footer/visual.json',
+    }
+    if not isinstance(text_changes, dict) or set(text_changes) != allowed:
+        raise ValueError('Reviewed text changes require exactly the two reviewed visual paths')
+    for name, change in text_changes.items():
+        if not isinstance(change, dict) or change.get('before_sha256') != frozen['files'].get(name):
+            raise ValueError('Reviewed text change preimage differs from historical baseline')
+        digest = change.get('after_sha256')
+        if (not isinstance(digest, str) or len(digest) != 64
+                or any(c not in '0123456789abcdef' for c in digest)
+                or digest == change['before_sha256']):
+            raise ValueError('Reviewed text change needs a distinct exact after fingerprint')
+        expected[name] = digest
+    return expected
 
 
 def live_evidence_errors(evidence: dict[str, Any], evidence_root: Path) -> list[str]:
@@ -173,14 +250,28 @@ def local_validate(root: Path = ROOT) -> dict[str, Any]:
             'CHHHS Publications', 'Monthly Publications',
             'Source Reconciliation', 'Clinical Analytics', 'Funding Opportunities',
             'Funding Calendar', 'My Funding Watchlist'])
+        dashboard = load(root/'contracts/dashboard.contract.json')
+        native_delta = dashboard.get('native_reconciliation', {})
+        check('native report page delta remains explicit and update-blocking',
+              native_delta.get('state') == 'delta_open'
+              and native_delta.get('update_candidate_blocked_until_disposition') is True
+              and native_delta.get('native_acceptance') is False
+              and set(native_delta.get('local_only_pages', [])) == {'FundingCalendar', 'MyFundingWatchlist'}
+              and native_delta.get('current_funding_readback', {}).get('funding_opportunities_visible_slicers') == 0
+              and native_delta.get('current_funding_readback', {}).get('current_visual_queries_reconciled') is False
+              and native_delta.get('current_funding_readback', {}).get('model_entity_identity_reconciled') is False
+              and 'Funding Calendar & Watchlist' in native_delta.get('native_page_names', []))
         check('canonical-key headline', contract['headline_identity'] == 'CanonicalKey')
         check('both source contracts', contract['sources'] == ['PubMed', 'DORA'])
         check('local tests are not native acceptance', contract['local_validation_is_native_acceptance'] is False)
         check('capability policy matches contract', list(CAPABILITIES) == contract['required_capabilities'])
         check('live-check policy matches contract', list(LIVE_CHECKS) == contract['live_evidence_required'])
         check('fallback policy matches contract', FALLBACK_REASONS == set(contract['fallback_eligible_reasons']))
+        check('cross-platform web-only delivery', contract.get('delivery_mode') == 'cross_platform_web_only'
+              and contract.get('desktop_fallback_allowed') is False
+              and not any('desktop' in route or 'utm' in route for route in contract['route_priority']))
         frozen = load(root/'contracts/runtime-baseline.manifest.json')
-        check('runtime definitions match frozen reviewed baseline', runtime_hashes(root) == frozen['files'])
+        check('runtime definitions match frozen reviewed baseline', runtime_hashes(root) == reviewed_runtime_files(root, frozen))
         check('baseline is explicitly not a native certificate', frozen['native_verified'] is False and type(frozen['known_defects_open']) is bool)
         states = []
         # Dependencies span publication, extension, grant and stabilisation tracks.
@@ -191,21 +282,25 @@ def local_validate(root: Path = ROOT) -> dict[str, Any]:
                 for path in sorted(collection.glob('*/metadata.json')):
                     metadata = load(path)
                     graph[metadata.get('id', metadata.get('track_id'))] = metadata.get('depends_on', [])
-        # Archived tracks remain part of the canonical T08-T17 asset set.
-        for collection_name in ('conductor/tracks', 'conductor/archive'):
-            for path in sorted((root/collection_name).glob('T*/metadata.json')):
-                metadata = load(path); tid = metadata['id']
-                number = int(tid.split('_')[0][1:])
-                if number < 8 or number > 17:
-                    continue
-                states.append(metadata); graph[tid] = metadata['depends_on']
-                for filename in ['index.md', 'spec.md', 'plan.md', 'prompt.md', 'review.md']:
-                    check(tid + ': ' + filename, (path.parent/filename).is_file())
-                check(tid + ': recognised status', metadata['status'] in {'pending','in_progress','blocked','gated','complete'})
-                if metadata['status'] == 'complete' and metadata['requires_live_evidence']:
-                    check(tid + ': live completion has references', bool(metadata.get('completion_evidence')))
-                if number in (16, 17):
-                    check(tid + ': fallback is conditional', metadata['scope'] == 'conditional_desktop')
+        numbered_paths = sorted(path for collection in ('tracks', 'archive')
+                                for path in (root/'conductor'/collection).glob('T*/metadata.json'))
+        seen_tracks = set()
+        for path in numbered_paths:
+            metadata = load(path); tid = metadata['id']
+            number = int(tid.split('_')[0][1:])
+            if number < 8 or number > 17:
+                continue
+            check(tid + ': unique active or archived location', tid not in seen_tracks)
+            seen_tracks.add(tid)
+            states.append(metadata); graph[tid] = metadata['depends_on']
+            for filename in ['index.md', 'spec.md', 'plan.md', 'prompt.md', 'review.md']:
+                check(tid + ': ' + filename, (path.parent/filename).is_file())
+            check(tid + ': recognised status', metadata['status'] in {'pending','in_progress','blocked','gated','complete','completed','cancelled'})
+            if metadata['status'] == 'complete' and metadata['requires_live_evidence']:
+                check(tid + ': live completion has references', bool(metadata.get('completion_evidence')))
+            if number in (16, 17):
+                check(tid + ': desktop route cancelled', metadata['status'] == 'cancelled'
+                      and metadata['scope'] == 'out_of_scope_desktop')
         check('exactly ten new tracks', len(states) == 10)
         for tid, dependencies in graph.items():
             check(tid + ': dependency references exist', all(d in graph for d in dependencies))
@@ -228,8 +323,7 @@ def local_validate(root: Path = ROOT) -> dict[str, Any]:
         check('acyclic dependency graph', True)
         for tid in ['T05_native_acceptance','T07_fabric_live_acceptance']:
             check(tid + ': superseded not deployed', load(root/f'conductor/tracks/{tid}/metadata.json')['status'] == 'superseded')
-        for rel in ['handoff/POWERBI_PLUGIN_START_HERE.md', 'handoff/UTM_FALLBACK.md',
-                    'scripts/Inspect-UTM-Host.sh', 'scripts/Inspect-PowerBI-Guest.ps1',
+        for rel in ['handoff/POWERBI_PLUGIN_START_HERE.md',
                     'contracts/publication-export.contract.json', 'config/live-evidence.template.json']:
             check('required handoff asset: ' + rel, (root/rel).is_file())
         from export_publication_register import EXPORT_FIELDS, export_errors

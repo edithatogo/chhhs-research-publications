@@ -17,3 +17,13 @@ Review status: complete for the local contract scope; no live platform write was
 ## Limitations
 
 The local `OpportunityKey` migration impact still requires a reviewed mapping before any future backfill. Live storage and ingestion acceptance belong to G03/G04/G07 and remain open.
+
+## 2026-09-28 canonical source-value boundary extension
+
+The shared `normalize_opportunity` boundary now rejects non-object records and
+non-text values for canonical source, identity, title, URL, deadline, review
+and observation fields instead of stringifying them. This also catches
+falsey malformed identities that could previously disappear through
+truthiness-based alias fallback. Focused registry tests pass 13 cases; grants
+planning, machine ingestion and reviewed-import suites pass. This extends the
+local G01 normalizer contract only; no migration or tenant backfill occurred.

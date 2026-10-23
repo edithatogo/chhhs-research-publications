@@ -1,7 +1,9 @@
 // Retained reporting projection; do not deploy until native parity checks pass.
 let
     Summary0=fnReadRetainedPublicationRows(RetainedArchiveFiles,RetainedSourceObservations,"PubMed"),
-    Summary=if Table.IsEmpty(Summary0) then #table({"PMID","Title","Journal","Authors","DOI","PubMedURL","PublicationDate","PublicationDateRaw","PublicationDatePrecision","PublicationMonth","PublicationYear","OnlineDate","OnlineDateRaw","AuthorCount","PublicationTypes","PublicationClass","IsClinicalTrial","IsEvidenceSynthesis","MatchedFacilities","AttributionStatus","AttributionEvidence","PublicationNotice","FacilityMatchCount","RefreshedAtUTC","Abstract"}, {}) else Summary0,
+    Summary=if Table.HasColumns(Summary0,{"PMID"}) then
+        Table.SelectColumns(Summary0,{"PMID","Title","Journal","Authors","DOI","PubMedURL","PublicationDate","PublicationDateRaw","PublicationDatePrecision","PublicationMonth","PublicationYear","OnlineDate","OnlineDateRaw","AuthorCount","PublicationTypes","PublicationClass","IsClinicalTrial","IsEvidenceSynthesis","MatchedFacilities","AttributionStatus","AttributionEvidence","PublicationNotice","FacilityMatchCount","RefreshedAtUTC","Abstract"},MissingField.UseNull)
+        else error "Retained PubMed summary is missing PMID",
     Joined=Table.NestedJoin(Summary,{"PMID"},RetainedPubMedFullMetadata,{"PMID"},"Full",JoinKind.LeftOuter),
     Verified=if List.AnyTrue(List.Transform(Joined[Full],each Table.RowCount(_)<>1)) then error "PubMed summary/full metadata join is not one-to-one" else Joined,
     Records=List.Transform(Table.ToRecords(Verified),(r)=>let

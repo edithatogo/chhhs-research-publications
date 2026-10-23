@@ -98,14 +98,14 @@ def validate(root: Path=ROOT) -> dict:
         fullmodel=load(root/'audit/model.snapshot.json');model=fullmodel['model']
         tmdl=modeldir/'definition'
         expected_tmdl={'database.tmdl','model.tmdl','relationships.tmdl'}
-        table_tmdl={f'{name}.tmdl' for name in ['Publication','PublicationFacility','Facility','Date','SearchAudit','ReportingWindow','ReleaseMetadata','GrantsRegistry','FundingCalendar','MyFundingWatchlist','FundingDeliveryLedger','FundingCalendarChanges','DoraActivityRegistry','GrantRelationships']}
+        table_tmdl={f'{name}.tmdl' for name in ['Publication','PublicationFacility','Facility','Date','SearchAudit','ReportingWindow','ReleaseMetadata','GrantsRegistry']}
         tmdl_ok=tmdl.is_dir() and expected_tmdl <= {p.name for p in tmdl.glob('*.tmdl')} and table_tmdl == {p.name for p in (tmdl/'tables').glob('*.tmdl')} and not (modeldir/'model.bim').exists()
         check('PBIP points directly to Fabric TMDL report and model',root.resolve() in modeldir.parents and definition['version']=='5.0' and tmdl_ok)
     except (OSError,ValueError,KeyError,TypeError) as exc:
         check('Project entry points',False,str(exc));return {'status':'FAIL','checks':checks}
     tables={t['name']:t for t in model['tables']}
-    expected={'Publication','PublicationFacility','Facility','Date','SearchAudit','ReportingWindow','ReleaseMetadata','GrantsRegistry','FundingCalendar','MyFundingWatchlist','FundingDeliveryLedger','FundingCalendarChanges','DoraActivityRegistry','GrantRelationships'}
-    check('Canonical research and current-user grant tables only',set(tables)==expected and len(model['tables'])==len(expected),list(tables))
+    expected={'Publication','PublicationFacility','Facility','Date','SearchAudit','ReportingWindow','ReleaseMetadata','GrantsRegistry'}
+    check('Native research tables only',set(tables)==expected and len(model['tables'])==len(expected),list(tables))
     tmdl_text='\n'.join(p.read_text(encoding='utf-8') for p in sorted((modeldir/'definition').rglob('*.tmdl')))
     check('Fabric TMDL contains canonical model objects',all(token in tmdl_text for token in ['table Publication','expression DoraHarvest','expression CanonicalPublications','relationship']) and 'table Employee' not in tmdl_text)
     for t in model['tables']:
@@ -180,7 +180,7 @@ def validate(root: Path=ROOT) -> dict:
             forbidden={'filter','filterConfig','filters','bookmarks','syncGroup'}
             check('No inherited filter/bookmark state '+n,not any(isinstance(o,dict) and forbidden.intersection(o) for o in walk(obj)))
     check('All visuals within canvas with no overlapping containers',not geometry,geometry)
-    check('Expected complete visual count',visual_count==83,visual_count)
+    check('Expected complete visual count',visual_count==84,visual_count)
     defs=load(root/'config/facilities.json')['rows'];keys=[d['FacilityKey'] for d in defs]
     check('28 unique facility/service search definitions',len(defs)==28 and len(keys)==len(set(keys)))
     check('No bare locality-only Yarrabah attribution',all('Yarrabah[Affiliation]' not in d['PubMedQuery'] and '"Yarrabah"[Affiliation]' not in d['PubMedQuery'] for d in defs))

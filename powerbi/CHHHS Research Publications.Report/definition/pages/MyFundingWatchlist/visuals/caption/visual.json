@@ -20,10 +20,10 @@
               {
                 "textRuns": [
                   {
-                    "value": "A current-user view over explicit category or individual-opportunity subscriptions; delivery remains a separate gate.",
+                    "value": "A personal view is designed as a private subscription surface; persistence and delivery remain pending native SharePoint/Power Apps acceptance.",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
-                      "fontSize": "16px"
+                      "fontSize": "14px"
                     }
                   }
                 ]

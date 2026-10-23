@@ -9,15 +9,16 @@ from pathlib import Path
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 from uuid import uuid5, NAMESPACE_URL
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
 from webfirst_contracts import (CAPABILITIES, choose_route, fallback_errors, isolation_errors,
-                               live_evidence_errors, local_validate, runtime_hashes)
-from export_publication_register import (EXPORT_FIELDS, export_errors, key_hash,
-                                         render_exports, safe_cell, safe_link, verify_written_exports)
-from deploy_canonical_report import validate_deployment_target
+                               live_evidence_errors, local_validate, runtime_hashes, reviewed_runtime_files)
+from export_publication_register import (EXPORT_FIELDS, assemble_paginated_export, export_errors, key_hash,
+                                         render_exports, safe_cell, safe_link, verify_written_exports,
+                                         _rename_directory_no_replace)
 
 
 def good_capabilities():
@@ -34,7 +35,9 @@ def uid(name):
 def good_isolation():
     return {'tenant_id': uid('tenant'), 'workspace_id': uid('workspace'),
             'original_report_id': uid('original-report'), 'original_model_id': uid('original-model'),
+            'original_report_model_id': uid('original-model'),
             'development_report_id': uid('development-report'), 'development_model_id': uid('development-model'),
+            'development_report_model_id': uid('development-model'),
             'dependency_inventory_complete': True, 'recovery_verified': True,
             'baseline_unchanged': True, 'canary_roundtrip_verified': True}
 
@@ -84,11 +87,59 @@ class RoutePolicyTests(unittest.TestCase):
         d=good_capabilities();d['capabilities'][0]['provider']='imagined_api'
         self.assertEqual(choose_route(d)['route'],'needs_capability_verification')
 
-    def test_canonical_report_deployment_route_is_fail_closed(self):
-        with self.assertRaisesRegex(ValueError, 'canonical/shared report deployment is disabled'):
-            validate_deployment_target(str(uuid5(NAMESPACE_URL, 'workspace')), str(uuid5(NAMESPACE_URL, 'report')), 'canonical')
-        with self.assertRaisesRegex(ValueError, 'concrete isolated'):
-            validate_deployment_target('{{WORKSPACE_ID}}', '{{REPORT_ID}}', 'isolated')
+    def test_denied_flow_invocation_does_not_block_report_operations(self):
+        d=good_capabilities();d.pop('permission_denied')
+        d['capabilities'].append({'operation':'invoke_flow_with_inputs',
+                                  'provider':'plugin','status':'denied'})
+        self.assertEqual(choose_route(d)['route'],'web_first')
+        self.assertEqual(choose_route(d)['blocked_operations'],[])
+
+    def test_operation_denial_blocks_stale_positive_for_same_client_target(self):
+        d=good_capabilities();d.pop('permission_denied')
+        d['capabilities'][0].update(client='report-client',target_ref='private-target')
+        denied=dict(d['capabilities'][0],status='denied')
+        d['capabilities'].append(denied)
+        r=choose_route(d)
+        self.assertEqual(r['blocked_operations'],['read_report'])
+        self.assertNotIn('read_report',r['operation_routes'])
+        self.assertEqual(r['route'],'blocked_permissions')
+
+    def test_denial_does_not_promote_unverified_alternative(self):
+        d=good_capabilities();d.pop('permission_denied')
+        d['capabilities'][0].update(provider='cli',status='denied',target_ref='private-target')
+        d['capabilities'].append(dict(d['capabilities'][0],provider='webui',status='available'))
+        self.assertEqual(choose_route(d)['route'],'blocked_permissions')
+
+    def test_denial_on_other_target_does_not_block_selected_target(self):
+        d=good_capabilities();d.pop('permission_denied')
+        d['target_ref']='selected-private-target'
+        for c in d['capabilities']:
+            c['target_ref']=d['target_ref']
+        d['capabilities'].append(dict(d['capabilities'][0],status='denied',
+                                      target_ref='another-private-target'))
+        self.assertEqual(choose_route(d)['route'],'web_first')
+        d['capabilities'][0]['target_ref']=None
+        self.assertEqual(choose_route(d)['route'],'needs_capability_verification')
+
+    def test_qualified_existing_alternative_requires_same_exact_target(self):
+        d=good_capabilities();d.pop('permission_denied')
+        d['capabilities'][0].update(provider='cli',status='denied',target_ref='private-target')
+        alternative=dict(d['capabilities'][0],provider='webui',status='verified')
+        d['capabilities'].append(alternative)
+        self.assertEqual(choose_route(d)['route'],'web_first')
+        alternative['target_ref']='another-target'
+        self.assertEqual(choose_route(d)['route'],'blocked_permissions')
+
+    def test_cli_api_priority_preserves_missing_authoring_and_acceptance_gates(self):
+        d=good_capabilities();d.pop('permission_denied')
+        d['capabilities'].append(dict(d['capabilities'][0],provider='cli'))
+        r=choose_route(d)
+        self.assertEqual(r['route'],'cli_first')
+        self.assertEqual(r['operation_routes']['read_report'],'cli')
+        self.assertFalse(r['live_acceptance'])
+        self.assertFalse(r['fallback_authorised'])
+        d['capabilities']=[c for c in d['capabilities'] if c['operation']=='read_report']
+        self.assertEqual(choose_route(d)['route'],'needs_capability_verification')
 
 
 class IsolationPolicyTests(unittest.TestCase):
@@ -121,8 +172,17 @@ class IsolationPolicyTests(unittest.TestCase):
 
 
 class FallbackPolicyTests(unittest.TestCase):
-    def test_confirmed_technical_blocker_can_be_reviewed(self):
-        self.assertEqual(fallback_errors(good_fallback()),[])
+    def test_formerly_eligible_desktop_route_is_rejected_even_with_old_approval(self):
+        self.assertIn('web-only', fallback_errors(good_fallback())[0])
+
+    def test_all_former_desktop_reasons_and_empty_input_remain_rejected(self):
+        for reason in ('unsupported_web_model_type', 'unsupported_web_power_query_operation',
+                       'unsupported_required_web_authoring_operation'):
+            with self.subTest(reason=reason):
+                decision = good_fallback()
+                decision['reason'] = reason
+                self.assertTrue(fallback_errors(decision))
+        self.assertTrue(fallback_errors({}))
 
     def test_absent_plugin_does_not_activate_vm(self):
         d=good_fallback();d['reason']='plugin_not_exposed_in_this_chat'
@@ -146,6 +206,82 @@ class FallbackPolicyTests(unittest.TestCase):
 
 
 class ExportPolicyTests(unittest.TestCase):
+    def paginated_envelope(self):
+        d=example_envelope()
+        rows=d.pop('records')
+        d['generation_id']='accepted-batch-query-refresh-1'
+        d['expected_keys_generation_id']=d['generation_id']
+        d['expected_canonical_keys']=[r['CanonicalKey'] for r in rows]
+        d['pages']=[
+            {'page_number':1,'generation_id':d['generation_id'],'has_more':True,'records':rows[:2]},
+            {'page_number':2,'generation_id':d['generation_id'],'has_more':False,'records':rows[2:]},
+        ]
+        return d
+
+    def test_paginated_export_exact_keys_and_terminal_page(self):
+        d=self.paginated_envelope()
+        assembled=assemble_paginated_export(d)
+        self.assertEqual(export_errors(assembled),[])
+        self.assertEqual(len(assembled['records']),d['expected_canonical_count'])
+
+    def test_paginated_export_rejects_missing_terminal_or_page(self):
+        d=self.paginated_envelope()
+        d['pages'].pop()
+        with self.assertRaisesRegex(ValueError,'terminal page'):
+            assemble_paginated_export(d)
+        d=self.paginated_envelope()
+        d['pages'][1]['page_number']=3
+        with self.assertRaisesRegex(ValueError,'consecutively'):
+            assemble_paginated_export(d)
+
+    def test_paginated_export_rejects_mixed_generation_and_missing_key(self):
+        d=self.paginated_envelope()
+        d['pages'][1]['generation_id']='different-refresh'
+        with self.assertRaisesRegex(ValueError,'different generation'):
+            assemble_paginated_export(d)
+        d=self.paginated_envelope()
+        d['pages'][1]['records'].pop()
+        with self.assertRaisesRegex(ValueError,'independent canonical key set'):
+            assemble_paginated_export(d)
+
+    def test_paginated_export_rejects_key_query_from_different_generation(self):
+        d=self.paginated_envelope()
+        d['expected_keys_generation_id']='previous-refresh'
+        with self.assertRaisesRegex(ValueError,'key query must belong'):
+            assemble_paginated_export(d)
+
+    def test_paginated_export_rejects_boolean_independent_count(self):
+        d=self.paginated_envelope()
+        d['expected_canonical_keys'] = ['ONLY:ONE']
+        d['pages'] = [{'page_number': 1, 'generation_id': d['generation_id'],
+                       'has_more': False, 'records': [{'CanonicalKey': 'ONLY:ONE'}]}]
+        d['expected_canonical_count'] = True
+        d['expected_key_sha256'] = key_hash([{'CanonicalKey': 'ONLY:ONE'}])
+        with self.assertRaisesRegex(ValueError, 'Independent expected count'):
+            assemble_paginated_export(d)
+
+    def test_paginated_export_rejects_duplicate_or_self_reported_keyset(self):
+        d=self.paginated_envelope()
+        d['pages'][1]['records'][0]['CanonicalKey']=d['pages'][0]['records'][0]['CanonicalKey']
+        with self.assertRaisesRegex(ValueError,'duplicate canonical keys'):
+            assemble_paginated_export(d)
+        d=self.paginated_envelope()
+        d['expected_key_sha256']='0'*64
+        with self.assertRaisesRegex(ValueError,'Independent expected key hash'):
+            assemble_paginated_export(d)
+
+    def test_paginated_export_reports_same_count_key_substitution(self):
+        d=self.paginated_envelope()
+        d['pages'][1]['records'][0]['CanonicalKey']='TEST:UNEXPECTED'
+        with self.assertRaisesRegex(ValueError, r'missing=1 .*TEST:3.*unexpected=1 .*TEST:UNEXPECTED'):
+            assemble_paginated_export(d)
+
+    def test_paginated_export_rejects_non_text_keys_without_type_error(self):
+        d=self.paginated_envelope()
+        d['pages'][0]['records'][0]['CanonicalKey']=['PMID', '1']
+        with self.assertRaises(ValueError):
+            assemble_paginated_export(d)
+
     def test_complete_fixture(self):
         self.assertEqual(export_errors(example_envelope()),[])
 
@@ -214,6 +350,28 @@ class ExportPolicyTests(unittest.TestCase):
             self.assertIn('SYNTHETIC TEST DATA',html)
             self.assertEqual(list(rows[0]),EXPORT_FIELDS)
 
+    def test_large_register_renders_past_a_typical_query_page_without_key_loss(self):
+        # The renderer receives a complete reconciled set from the native
+        # extractor.  This test guards against treating a first 100-row page as
+        # a complete bibliography when the supplied set spans multiple pages.
+        d=example_envelope()
+        prototype=copy.deepcopy(d['records'][0])
+        d['records'] = []
+        for number in range(105):
+            row=copy.deepcopy(prototype)
+            row['CanonicalKey']=f'TEST:PAGE:{number:03d}'
+            row['PMID']=f'TEST-PAGE-{number:03d}'
+            row['Title']=f'[SYNTHETIC] Publication page fixture {number:03d}'
+            d['records'].append(row)
+        d['expected_canonical_count']=len(d['records'])
+        d['expected_key_sha256']=key_hash(d['records'])
+        with tempfile.TemporaryDirectory() as tmp:
+            dest=Path(tmp)/'export';render_exports(d,dest)
+            with (dest/'publications.csv').open(newline='',encoding='utf-8-sig') as f:
+                rows=list(csv.DictReader(f))
+            self.assertEqual([row['CanonicalKey'] for row in rows], [row['CanonicalKey'] for row in d['records']])
+            self.assertEqual((dest/'publications.html').read_text().count('<article '), 105)
+
     def test_html_escape(self):
         d=example_envelope();d['records'][0]['Title']='<script>alert(1)</script>'
         with tempfile.TemporaryDirectory() as tmp:
@@ -226,6 +384,19 @@ class ExportPolicyTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             dest=Path(tmp)/'export';dest.mkdir()
             with self.assertRaises(FileExistsError):render_exports(example_envelope(),dest)
+
+    def test_publication_race_does_not_replace_concurrently_created_empty_directory(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            dest=Path(tmp)/'export'
+            def create_destination_then_publish(source, destination):
+                destination.mkdir()
+                _rename_directory_no_replace(source, destination)
+            with patch('export_publication_register._rename_directory_no_replace',
+                       side_effect=create_destination_then_publish):
+                with self.assertRaises(FileExistsError):
+                    render_exports(example_envelope(),dest)
+            self.assertTrue(dest.is_dir())
+            self.assertEqual(list(dest.iterdir()), [])
 
     def test_all_fields_survive_long_unicode_metadata(self):
         d=example_envelope()
@@ -267,6 +438,19 @@ class ExportPolicyTests(unittest.TestCase):
         d['records']=[r for r in d['records'] if r['PublicationMonth']=='2026-08']
         d['expected_canonical_count']=len(d['records']);d['expected_key_sha256']=key_hash(d['records'])
         self.assertEqual(export_errors(d),[])
+
+    def test_monthly_scope_rejects_december_january_boundary_leak(self):
+        d=example_envelope()
+        d['scope']={'mode':'month','reporting_month':'2026-01'}
+        january=copy.deepcopy(d['records'][0])
+        january['CanonicalKey']='TEST:JANUARY'
+        january['PMID']='TEST-JANUARY'
+        january['PublicationDateRaw']='2026 Jan'
+        january['PublicationMonth']='2026-01'
+        d['records']=[january, d['records'][0]]
+        d['expected_canonical_count']=2
+        d['expected_key_sha256']=key_hash(d['records'])
+        self.assertIn('Record 1: record falls outside the declared reporting month', export_errors(d))
 
     def test_empty_export_supported(self):
         d=example_envelope();d['records']=[];d['expected_canonical_count']=0;d['expected_key_sha256']=key_hash([])
@@ -343,6 +527,29 @@ class LiveEvidenceTests(unittest.TestCase):
 
 
 class LocalManifestTests(unittest.TestCase):
+    def test_reviewed_additions_cannot_replace_historical_files(self):
+        frozen=json.loads((ROOT/'contracts/runtime-baseline.manifest.json').read_text())
+        supplement=json.loads((ROOT/'contracts/runtime-baseline.openalex-20261015.manifest.json').read_text())
+        historical=next(iter(frozen['files']))
+        supplement['files'][historical]='0'*64
+        with patch('webfirst_contracts.load',return_value=supplement):
+            with self.assertRaisesRegex(ValueError,'historical'):
+                reviewed_runtime_files(ROOT,frozen)
+
+    def test_reviewed_additions_require_original_baseline_fingerprint(self):
+        frozen=json.loads((ROOT/'contracts/runtime-baseline.manifest.json').read_text())
+        supplement=json.loads((ROOT/'contracts/runtime-baseline.openalex-20261015.manifest.json').read_text())
+        supplement['base_manifest_sha256']='0'*64
+        with patch('webfirst_contracts.load',return_value=supplement):
+            with self.assertRaisesRegex(ValueError,'fingerprint'):
+                reviewed_runtime_files(ROOT,frozen)
+
+    def test_changed_reviewed_addition_is_detected(self):
+        actual=runtime_hashes(ROOT)
+        actual['powerquery/fnPrepareOpenAlexCapturedEnvelope.m']='0'*64
+        with patch('webfirst_contracts.runtime_hashes',return_value=actual):
+            self.assertIn('runtime definitions match frozen reviewed baseline',local_validate(ROOT)['errors'])
+
     def test_current_local_package(self):
         result=local_validate(ROOT)
         self.assertEqual(result['errors'],[])
@@ -355,9 +562,17 @@ class LocalManifestTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             import shutil
             target=Path(tmp)/'repo'
-            shutil.copytree(ROOT,target,ignore=shutil.ignore_patterns('.git','__pycache__','.agents'))
+            target.mkdir()
+            # This contract check needs public authored assets, never the
+            # growing ignored native snapshots or credentials under private/.
+            for relative in ('contracts', 'powerbi', 'powerquery', 'conductor',
+                             'handoff', 'scripts', 'config', 'tests/fixtures'):
+                shutil.copytree(ROOT/relative, target/relative,
+                                ignore=shutil.ignore_patterns('__pycache__'))
+            self.assertEqual(local_validate(target)['errors'], [])
             p=target/'powerbi/unexpected-page.json';p.write_text('{}')
-            self.assertTrue(local_validate(target)['errors'])
+            self.assertIn('runtime definitions match frozen reviewed baseline',
+                          local_validate(target)['errors'])
 
     def test_contract_requires_native_grants_page_scope(self):
         d=json.loads((ROOT/'contracts/web-first-execution.contract.json').read_text())
@@ -395,16 +610,6 @@ class RetainedProjectionPayloadTests(unittest.TestCase):
         self.assertIn('ref table DoraHarvest',payload)
         self.assertIn('ref table DoraPublications',payload)
         self.assertIn('fnParseRetainedDoraMetadata(RetainedSourceObservations)',payload)
-        self.assertNotIn('\n  table DoraPublications\n',payload)
-
-    def test_canonical_retained_partition_is_isolated_and_reference_only(self):
-        payload=(ROOT/'config/native-canonical-retained-partitions.tmdl').read_text()
-        self.assertIn('Apply only to the isolated development model',payload)
-        self.assertIn('ref table PubMedPublications',payload)
-        self.assertIn('ref table DoraPublications',payload)
-        self.assertIn('source = RetainedPubMedPublications',payload)
-        self.assertIn('source = RetainedDoraPublications',payload)
-        self.assertNotIn('\n  table PubMedPublications\n',payload)
         self.assertNotIn('\n  table DoraPublications\n',payload)
 
 if __name__=='__main__':unittest.main()

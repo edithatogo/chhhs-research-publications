@@ -345,6 +345,34 @@
             "sourceColumn": "PDFFileSize",
             "summarizeBy": "none",
             "lineageTag": "76cd3da1-c681-5bc5-a719-aac7670c9390"
+          },
+          {
+            "name": "PublicationTypes",
+            "dataType": "string",
+            "sourceColumn": "PublicationTypes",
+            "summarizeBy": "none",
+            "lineageTag": "7a56bb3e-f6da-4fce-9a78-26e64f3b5141"
+          },
+          {
+            "name": "PublicationClass",
+            "dataType": "string",
+            "sourceColumn": "PublicationClass",
+            "summarizeBy": "none",
+            "lineageTag": "52f33e02-cf8e-4a9f-9ce0-87371af5e4da"
+          },
+          {
+            "name": "IsClinicalTrial",
+            "dataType": "boolean",
+            "sourceColumn": "IsClinicalTrial",
+            "summarizeBy": "none",
+            "lineageTag": "c29f2ee1-5531-4c1c-a86e-91c578f850d0"
+          },
+          {
+            "name": "IsEvidenceSynthesis",
+            "dataType": "boolean",
+            "sourceColumn": "IsEvidenceSynthesis",
+            "summarizeBy": "none",
+            "lineageTag": "6b253e17-cb6b-4b4a-b32e-a3dd8b0ca724"
           }
         ],
         "partitions": [
@@ -459,7 +487,7 @@
           },
           {
             "name": "Publications Last 24 Complete Months",
-            "expression": "VAR StartDate = EDATE(MAX(ReportingWindow[ReportMonthEndExclusive]),-24)\nVAR EndDate = MAX(ReportingWindow[ReportMonthEndExclusive])\nRETURN CALCULATE([Publications], KEEPFILTERS(DATESBETWEEN('Date'[Date],StartDate,EndDate-1)))",
+            "expression": "VAR StartDate = EDATE(MAX(ReportingWindow[ReportMonthEndExclusive]),-24)\nVAR EndDate = MAX(ReportingWindow[ReportMonthEndExclusive])\nVAR DatesInWindow = CALCULATE(COUNTROWS('Date'), KEEPFILTERS(DATESBETWEEN('Date'[Date],StartDate,EndDate-1)))\nRETURN IF(COALESCE(DatesInWindow,0)=0, BLANK(), CALCULATE([Publications], KEEPFILTERS(DATESBETWEEN('Date'[Date],StartDate,EndDate-1))))",
             "formatString": "#,0",
             "lineageTag": "8eb94c27-cead-595d-983d-ae6d0ec58458"
           },
@@ -936,6 +964,48 @@
             "lineageTag": "dd112e72-de29-5356-9bbb-4b0d8c9cbbb0"
           },
           {
+            "name": "DeadlineTimezone",
+            "dataType": "string",
+            "sourceColumn": "DeadlineTimezone",
+            "summarizeBy": "none",
+            "lineageTag": "a7e2a029-6742-537d-89e3-95f4e4cf4633"
+          },
+          {
+            "name": "DeadlineLocalTime",
+            "dataType": "string",
+            "sourceColumn": "DeadlineLocalTime",
+            "summarizeBy": "none",
+            "lineageTag": "7b536a08-91f8-570d-8a87-c896ba3b06d7"
+          },
+          {
+            "name": "DeadlineUTCInstant",
+            "dataType": "string",
+            "sourceColumn": "DeadlineUTCInstant",
+            "summarizeBy": "none",
+            "lineageTag": "0fd07213-1def-539c-8e3c-05c56d7f53b0"
+          },
+          {
+            "name": "DeadlineBrisbaneDate",
+            "dataType": "string",
+            "sourceColumn": "DeadlineBrisbaneDate",
+            "summarizeBy": "none",
+            "lineageTag": "0390d4d6-4d87-52c8-80b6-6298718ce0bb"
+          },
+          {
+            "name": "DeadlineBrisbaneTime",
+            "dataType": "string",
+            "sourceColumn": "DeadlineBrisbaneTime",
+            "summarizeBy": "none",
+            "lineageTag": "82dd23fd-cbc0-5d2a-b22c-b0870bb15e50"
+          },
+          {
+            "name": "DeadlineTemporalStatus",
+            "dataType": "string",
+            "sourceColumn": "DeadlineTemporalStatus",
+            "summarizeBy": "none",
+            "lineageTag": "0bfe7b82-4cce-5bdd-92e2-713865bb0499"
+          },
+          {
             "name": "DeadlinePrecision",
             "dataType": "string",
             "sourceColumn": "DeadlinePrecision",
@@ -1011,7 +1081,7 @@
             }
           }
         ],
-        "description": "Canonical opportunity registry projection. Empty or unaccepted source batches remain empty; deadlines retain raw text and precision.",
+        "description": "Canonical opportunity registry projection. Empty or unaccepted source batches remain empty; deadlines retain raw text, source timezone, precision and a separate Brisbane view when resolvable.",
         "measures": [
           {
             "name": "Grant Opportunities",
@@ -1027,744 +1097,11 @@
           },
           {
             "name": "Grant Opportunities Needing Review",
-            "expression": "CALCULATE([Grant Opportunities], KEEPFILTERS(GrantsRegistry[ReviewStatus] <> \"accepted\"))",
+            "expression": "CALCULATE([Grant Opportunities], KEEPFILTERS(GrantsRegistry[ReviewStatus] = \"Needs Review\"))",
             "formatString": "#,0",
             "lineageTag": "9c51d23f-d82a-5466-b5f0-3f6e7f86e971"
           }
         ]
-      },
-      {
-        "name": "FundingCalendar",
-        "isHidden": false,
-        "lineageTag": "82c23666-292d-55ca-a1f2-ae3d972b18d9",
-        "columns": [
-          {
-            "name": "DeadlineKey",
-            "dataType": "string",
-            "sourceColumn": "DeadlineKey",
-            "summarizeBy": "none",
-            "lineageTag": "bb6565dd-bc3b-5574-bdb0-d81e928af541"
-          },
-          {
-            "name": "OpportunityKey",
-            "dataType": "string",
-            "sourceColumn": "OpportunityKey",
-            "summarizeBy": "none",
-            "lineageTag": "dac3d9f7-06b6-52e3-a679-520a647f264c"
-          },
-          {
-            "name": "CalculatedDate",
-            "dataType": "dateTime",
-            "sourceColumn": "CalculatedDate",
-            "summarizeBy": "none",
-            "lineageTag": "466d3046-e4ed-5636-a450-eee1d3ec8650",
-            "formatString": "dd MMM yyyy"
-          },
-          {
-            "name": "SourceURL",
-            "dataType": "string",
-            "sourceColumn": "SourceURL",
-            "summarizeBy": "none",
-            "lineageTag": "fa190149-eb73-5409-9f30-ed5a17c3cd8b",
-            "dataCategory": "WebUrl"
-          },
-          {
-            "name": "Cancelled",
-            "dataType": "boolean",
-            "sourceColumn": "Cancelled",
-            "summarizeBy": "none",
-            "lineageTag": "8dbe3f0e-0bdc-5942-8833-f6c983472257"
-          },
-          {
-            "name": "PolicyKey",
-            "dataType": "string",
-            "sourceColumn": "PolicyKey",
-            "summarizeBy": "none",
-            "lineageTag": "54d4db2b-bfd2-589e-986b-24bc2c0d4a4f"
-          },
-          {
-            "name": "ReviewStatus",
-            "dataType": "string",
-            "sourceColumn": "ReviewStatus",
-            "summarizeBy": "none",
-            "lineageTag": "6a2d9a6f-d1e8-56c7-a5ca-ffd8b2b5198c"
-          }
-        ],
-        "partitions": [
-          {
-            "name": "FundingCalendar",
-            "mode": "import",
-            "source": {
-              "type": "m",
-              "expression": [
-                "// Power Query M: read the personal Funding Calendar SharePoint list.",
-                "let",
-                "    SiteUrl = \"https://<tenant>.sharepoint.com/sites/<site>\",",
-                "    Source = SharePoint.Tables(SiteUrl, [Implementation = \"2.0\", ViewMode = \"All\"]),",
-                "    Calendar = Source{[Title = \"Funding Calendar\"]}[Items],",
-                "    Selected = Table.SelectColumns(Calendar, {",
-                "        \"DeadlineKey\", \"OpportunityKey\", \"CalculatedDate\", \"SourceURL\", \"Cancelled\", \"PolicyKey\", \"ReviewStatus\"",
-                "    }, MissingField.UseNull),",
-                "    Typed = Table.TransformColumnTypes(Selected, {",
-                "        {\"DeadlineKey\", type text}, {\"OpportunityKey\", type text}, {\"CalculatedDate\", type datetime},",
-                "        {\"SourceURL\", type text}, {\"Cancelled\", type logical}, {\"PolicyKey\", type text}, {\"ReviewStatus\", type text}",
-                "    })",
-                "in",
-                "    Typed"
-              ]
-            }
-          }
-        ],
-        "description": "Current-user institutional-date projection. Source dates and cancellation/review state remain explicit."
-      },
-      {
-        "name": "MyFundingWatchlist",
-        "isHidden": false,
-        "lineageTag": "47f2bbad-de53-5c7a-a71a-c55c993df85e",
-        "columns": [
-          {
-            "name": "OpportunityKey",
-            "dataType": "string",
-            "sourceColumn": "OpportunityKey",
-            "summarizeBy": "none",
-            "lineageTag": "8631e1f0-18d0-540f-9fc9-b4fc3f4f2b59"
-          },
-          {
-            "name": "Scope",
-            "dataType": "string",
-            "sourceColumn": "Scope",
-            "summarizeBy": "none",
-            "lineageTag": "3581c664-0168-546d-b06a-24deee85c3d9"
-          },
-          {
-            "name": "TargetKey",
-            "dataType": "string",
-            "sourceColumn": "TargetKey",
-            "summarizeBy": "none",
-            "lineageTag": "6b38e2b6-1fbc-5aa5-8a4e-60cda168f0b1"
-          },
-          {
-            "name": "Active",
-            "dataType": "boolean",
-            "sourceColumn": "Active",
-            "summarizeBy": "none",
-            "lineageTag": "96924ad1-4fe2-5694-9882-3def89984235"
-          }
-        ],
-        "partitions": [
-          {
-            "name": "MyFundingWatchlist",
-            "mode": "import",
-            "source": {
-              "type": "m",
-              "expression": [
-                "// Power Query M: read the current user's personal funding watchlist.",
-                "let",
-                "    SiteUrl = \"https://<tenant>.sharepoint.com/sites/<site>\",",
-                "    Source = SharePoint.Tables(SiteUrl, [Implementation = \"2.0\", ViewMode = \"All\"]),",
-                "    Watchlist = Source{[Title = \"My Funding Watchlist\"]}[Items],",
-                "    Selected = Table.SelectColumns(Watchlist, {\"OpportunityKey\", \"Scope\", \"TargetKey\", \"Active\"}, MissingField.UseNull),",
-                "    Typed = Table.TransformColumnTypes(Selected, {",
-                "        {\"OpportunityKey\", type text}, {\"Scope\", type text}, {\"TargetKey\", type text}, {\"Active\", type logical}",
-                "    })",
-                "in",
-                "    Typed"
-              ]
-            }
-          }
-        ],
-        "description": "Current-user personal subscription scope. Active state is explicit and does not imply notification delivery."
-      },
-      {
-        "name": "FundingDeliveryLedger",
-        "isHidden": false,
-        "lineageTag": "d960aa32-95ad-5bd7-9234-dc588ec9f8aa",
-        "columns": [
-          {
-            "name": "DeliveryEventKey",
-            "dataType": "string",
-            "sourceColumn": "DeliveryEventKey",
-            "summarizeBy": "none",
-            "lineageTag": "8bdfbe08-c633-57a8-8a3f-9f919dc51074"
-          },
-          {
-            "name": "UserKey",
-            "dataType": "string",
-            "sourceColumn": "UserKey",
-            "summarizeBy": "none",
-            "lineageTag": "19b7cc75-4953-5e7d-a229-21f8ec74cbcd"
-          },
-          {
-            "name": "OpportunityKey",
-            "dataType": "string",
-            "sourceColumn": "OpportunityKey",
-            "summarizeBy": "none",
-            "lineageTag": "e4a5f2ea-ed8c-5760-931d-5c1e224be148"
-          },
-          {
-            "name": "EventType",
-            "dataType": "string",
-            "sourceColumn": "EventType",
-            "summarizeBy": "none",
-            "lineageTag": "3cce3449-1cc1-5be9-a151-96728779ddc3"
-          },
-          {
-            "name": "Revision",
-            "dataType": "string",
-            "sourceColumn": "Revision",
-            "summarizeBy": "none",
-            "lineageTag": "4f0552d1-93fd-5db9-b6a4-6a2d9fd86d05"
-          },
-          {
-            "name": "OffsetDays",
-            "dataType": "int64",
-            "sourceColumn": "OffsetDays",
-            "summarizeBy": "none",
-            "lineageTag": "4d35f461-f572-5e26-a94f-597a0ba2c66d"
-          },
-          {
-            "name": "Channel",
-            "dataType": "string",
-            "sourceColumn": "Channel",
-            "summarizeBy": "none",
-            "lineageTag": "5923da01-e171-5353-b8ea-d3750819df9d"
-          },
-          {
-            "name": "Status",
-            "dataType": "string",
-            "sourceColumn": "Status",
-            "summarizeBy": "none",
-            "lineageTag": "13d79848-a4e6-56c4-ac01-baac5375eb6d"
-          },
-          {
-            "name": "ScheduledFor",
-            "dataType": "dateTime",
-            "sourceColumn": "ScheduledFor",
-            "summarizeBy": "none",
-            "lineageTag": "2af7a511-459a-5118-895f-d61c89a9c262",
-            "formatString": "dd MMM yyyy"
-          },
-          {
-            "name": "SentAt",
-            "dataType": "dateTime",
-            "sourceColumn": "SentAt",
-            "summarizeBy": "none",
-            "lineageTag": "7d7cb571-6be7-5361-b4d7-9493fb9f1498",
-            "formatString": "dd MMM yyyy"
-          },
-          {
-            "name": "ErrorMessage",
-            "dataType": "string",
-            "sourceColumn": "ErrorMessage",
-            "summarizeBy": "none",
-            "lineageTag": "1ff05e18-8527-5368-9cfe-c05264be7758"
-          }
-        ],
-        "partitions": [
-          {
-            "name": "FundingDeliveryLedger",
-            "mode": "import",
-            "source": {
-              "type": "m",
-              "expression": [
-                "// Power Query M: read the current user's personal funding delivery ledger.",
-                "let",
-                "    SiteUrl = \"https://<tenant>.sharepoint.com/sites/<site>\",",
-                "    Source = SharePoint.Tables(SiteUrl, [Implementation = \"2.0\", ViewMode = \"All\"]),",
-                "    Ledger = Source{[Title = \"Funding Delivery Ledger\"]}[Items],",
-                "    Selected = Table.SelectColumns(Ledger, {",
-                "        \"DeliveryEventKey\", \"UserKey\", \"OpportunityKey\", \"EventType\", \"Revision\", \"OffsetDays\",",
-                "        \"Channel\", \"Status\", \"ScheduledFor\", \"SentAt\", \"ErrorMessage\"",
-                "    }, MissingField.UseNull),",
-                "    Typed = Table.TransformColumnTypes(Selected, {",
-                "        {\"DeliveryEventKey\", type text}, {\"UserKey\", type text}, {\"OpportunityKey\", type text},",
-                "        {\"EventType\", type text}, {\"Revision\", type text}, {\"OffsetDays\", Int64.Type},",
-                "        {\"Channel\", type text}, {\"Status\", type text}, {\"ScheduledFor\", type datetime},",
-                "        {\"SentAt\", type datetime}, {\"ErrorMessage\", type text}",
-                "    })",
-                "in",
-                "    Typed"
-              ]
-            }
-          }
-        ],
-        "description": "Current-user delivery revision ledger. Persistence does not prove an actual email or calendar delivery."
-      },
-      {
-        "name": "FundingCalendarChanges",
-        "isHidden": false,
-        "lineageTag": "93756d18-0abe-5b5f-ad7f-f3bbc2761e2e",
-        "columns": [
-          {
-            "name": "ChangeKey",
-            "dataType": "string",
-            "sourceColumn": "ChangeKey",
-            "summarizeBy": "none",
-            "lineageTag": "dcac4eab-4dc2-5604-b0eb-182f5c698cb5"
-          },
-          {
-            "name": "DeadlineKey",
-            "dataType": "string",
-            "sourceColumn": "DeadlineKey",
-            "summarizeBy": "none",
-            "lineageTag": "976a284d-76e9-5e0f-a651-90d08c6fdc16"
-          },
-          {
-            "name": "OpportunityKey",
-            "dataType": "string",
-            "sourceColumn": "OpportunityKey",
-            "summarizeBy": "none",
-            "lineageTag": "36595473-ab04-5327-8396-28093a416b88"
-          },
-          {
-            "name": "ChangeType",
-            "dataType": "string",
-            "sourceColumn": "ChangeType",
-            "summarizeBy": "none",
-            "lineageTag": "aa915726-68cd-5744-9f2d-7bccf6a5b28a"
-          },
-          {
-            "name": "PreviousRevision",
-            "dataType": "string",
-            "sourceColumn": "PreviousRevision",
-            "summarizeBy": "none",
-            "lineageTag": "252a4791-b82e-55af-9dbf-15569eebbfe0"
-          },
-          {
-            "name": "Revision",
-            "dataType": "string",
-            "sourceColumn": "Revision",
-            "summarizeBy": "none",
-            "lineageTag": "6182e20d-8e6a-5353-9581-c7455374ed70"
-          },
-          {
-            "name": "PreviousDate",
-            "dataType": "date",
-            "sourceColumn": "PreviousDate",
-            "summarizeBy": "none",
-            "lineageTag": "1f0c4a61-3aed-57b4-b44b-7b5653f94ae3"
-          },
-          {
-            "name": "CalculatedDate",
-            "dataType": "date",
-            "sourceColumn": "CalculatedDate",
-            "summarizeBy": "none",
-            "lineageTag": "10509b5e-12e5-5ad3-88de-b53c8c6922f0"
-          },
-          {
-            "name": "PreviousCancelled",
-            "dataType": "boolean",
-            "sourceColumn": "PreviousCancelled",
-            "summarizeBy": "none",
-            "lineageTag": "398128da-9382-5c0a-ac23-8333f151d8f8"
-          },
-          {
-            "name": "Cancelled",
-            "dataType": "boolean",
-            "sourceColumn": "Cancelled",
-            "summarizeBy": "none",
-            "lineageTag": "0f36d631-7ac7-5f2d-be69-30e564c71194"
-          },
-          {
-            "name": "SourceURL",
-            "dataType": "string",
-            "sourceColumn": "SourceURL",
-            "summarizeBy": "none",
-            "lineageTag": "06612e3a-9a95-5ad2-8402-99e910b1e4ac",
-            "dataCategory": "WebUrl"
-          },
-          {
-            "name": "ObservedUTC",
-            "dataType": "dateTime",
-            "sourceColumn": "ObservedUTC",
-            "summarizeBy": "none",
-            "lineageTag": "8a131842-ef44-58c0-830c-4c90a6000e2d",
-            "formatString": "dd MMM yyyy"
-          },
-          {
-            "name": "ReviewStatus",
-            "dataType": "string",
-            "sourceColumn": "ReviewStatus",
-            "summarizeBy": "none",
-            "lineageTag": "15e3cfe2-b02a-5197-bd0f-4525e60f294a"
-          }
-        ],
-        "partitions": [
-          {
-            "name": "FundingCalendarChanges",
-            "mode": "import",
-            "source": {
-              "type": "m",
-              "expression": [
-                "// Power Query M: read source-preserving current-user calendar changes.",
-                "let",
-                "    SiteUrl = try pSharePointSiteUrl otherwise error \"pSharePointSiteUrl is required; no tenant default is embedded.\",",
-                "    Source = SharePoint.Tables(SiteUrl, [Implementation = \"2.0\", ApiVersion = 15]),",
-                "    Changes = Source{[Title = \"Funding Calendar Changes\"]}[Items],",
-                "    Selected = Table.SelectColumns(Changes, {",
-                "        \"ChangeKey\", \"DeadlineKey\", \"OpportunityKey\", \"ChangeType\", \"PreviousRevision\",",
-                "        \"Revision\", \"PreviousDate\", \"CalculatedDate\", \"PreviousCancelled\", \"Cancelled\",",
-                "        \"SourceURL\", \"ObservedUTC\", \"ReviewStatus\"",
-                "    }, MissingField.UseNull),",
-                "    Typed = Table.TransformColumnTypes(Selected, {",
-                "        {\"ChangeKey\", type text}, {\"DeadlineKey\", type text}, {\"OpportunityKey\", type text},",
-                "        {\"ChangeType\", type text}, {\"PreviousRevision\", type text}, {\"Revision\", type text},",
-                "        {\"PreviousDate\", type date}, {\"CalculatedDate\", type date},",
-                "        {\"PreviousCancelled\", type logical}, {\"Cancelled\", type logical},",
-                "        {\"SourceURL\", type text}, {\"ObservedUTC\", type datetimezone}, {\"ReviewStatus\", type text}",
-                "    }),",
-                "    ValidRows = Table.SelectRows(Typed, each",
-                "        [ChangeKey] <> null and [ChangeKey] <> \"\" and",
-                "        [DeadlineKey] <> null and [DeadlineKey] <> \"\" and",
-                "        [OpportunityKey] <> null and [OpportunityKey] <> \"\" and",
-                "        [ChangeType] <> null and [ChangeType] <> \"\" and",
-                "        [Revision] <> null and [Revision] <> \"\" and",
-                "        [ObservedUTC] <> null and [ReviewStatus] <> null and [ReviewStatus] <> \"\"",
-                "    )",
-                "in",
-                "    ValidRows"
-              ]
-            }
-          }
-        ],
-        "description": "Current-user source-preserving calendar revision ledger. It records explicit date/cancellation changes; persistence does not prove reminder or calendar delivery."
-      },
-      {
-        "name": "DoraActivityRegistry",
-        "isHidden": false,
-        "lineageTag": "329951c3-7732-51ca-b26f-19abdeca2232",
-        "columns": [
-          {
-            "name": "DORAActivityKey",
-            "dataType": "string",
-            "sourceColumn": "DORAActivityKey",
-            "summarizeBy": "none",
-            "lineageTag": "718ba6ff-cc8f-55a9-b786-1625f291d823"
-          },
-          {
-            "name": "DORARecordID",
-            "dataType": "int64",
-            "sourceColumn": "DORARecordID",
-            "summarizeBy": "none",
-            "lineageTag": "caa89dbd-cd53-5f58-b72b-baae6882ba64"
-          },
-          {
-            "name": "DORAResourceID",
-            "dataType": "string",
-            "sourceColumn": "DORAResourceID",
-            "summarizeBy": "none",
-            "lineageTag": "c3ece78c-17e7-5a39-80f5-006455c3404c"
-          },
-          {
-            "name": "DORAResourceName",
-            "dataType": "string",
-            "sourceColumn": "DORAResourceName",
-            "summarizeBy": "none",
-            "lineageTag": "8c966bce-44cd-594e-8bd3-6d3ce03d8f61"
-          },
-          {
-            "name": "DORAResourceLastModified",
-            "dataType": "string",
-            "sourceColumn": "DORAResourceLastModified",
-            "summarizeBy": "none",
-            "lineageTag": "5c9b550a-e70a-5685-a63c-7db6d740dbce"
-          },
-          {
-            "name": "DORAObservedUTC",
-            "dataType": "dateTime",
-            "sourceColumn": "DORAObservedUTC",
-            "summarizeBy": "none",
-            "lineageTag": "a4578712-c48d-5d4f-bd7c-699984ff6803",
-            "formatString": "dd MMM yyyy"
-          },
-          {
-            "name": "DORASourceURL",
-            "dataType": "string",
-            "sourceColumn": "DORASourceURL",
-            "summarizeBy": "none",
-            "lineageTag": "b2c4a5f3-6969-5090-9584-6f9f66313067",
-            "dataCategory": "WebUrl"
-          },
-          {
-            "name": "Project ID",
-            "dataType": "string",
-            "sourceColumn": "Project ID",
-            "summarizeBy": "none",
-            "lineageTag": "c5698f59-84c0-52a2-800e-fe328a956320"
-          },
-          {
-            "name": "Review Reference",
-            "dataType": "string",
-            "sourceColumn": "Review Reference",
-            "summarizeBy": "none",
-            "lineageTag": "f1ca5f09-66b3-5048-8fca-cf144581e12a"
-          },
-          {
-            "name": "HREC (Ethics) Reference Number",
-            "dataType": "string",
-            "sourceColumn": "HREC (Ethics) Reference Number",
-            "summarizeBy": "none",
-            "lineageTag": "c0bfdb9c-fc75-5bbc-8682-2f0d375f26cc"
-          },
-          {
-            "name": "Full Project Title",
-            "dataType": "string",
-            "sourceColumn": "Full Project Title",
-            "summarizeBy": "none",
-            "lineageTag": "5ed18475-3cbf-5d32-8376-cf3549982981"
-          },
-          {
-            "name": "Short Project Title",
-            "dataType": "string",
-            "sourceColumn": "Short Project Title",
-            "summarizeBy": "none",
-            "lineageTag": "6bac8211-3752-5ed1-95e5-d0c9c3bd7a74"
-          },
-          {
-            "name": "Project Description",
-            "dataType": "string",
-            "sourceColumn": "Project Description",
-            "summarizeBy": "none",
-            "lineageTag": "958c38df-e532-533b-9440-fae2114ead6d"
-          },
-          {
-            "name": "Clinical Trial (Yes/No)",
-            "dataType": "string",
-            "sourceColumn": "Clinical Trial (Yes/No)",
-            "summarizeBy": "none",
-            "lineageTag": "a911fe7a-b408-54f4-9352-c439ac8e83f9"
-          },
-          {
-            "name": "PI Name",
-            "dataType": "string",
-            "sourceColumn": "PI Name",
-            "summarizeBy": "none",
-            "lineageTag": "fff7a1b7-12b7-55b5-b024-7e417d8a4111"
-          },
-          {
-            "name": "PI Email",
-            "dataType": "string",
-            "sourceColumn": "PI Email",
-            "summarizeBy": "none",
-            "lineageTag": "72a8e299-1fa2-537d-b2a2-424f4db41dec"
-          },
-          {
-            "name": "Contact Person Name",
-            "dataType": "string",
-            "sourceColumn": "Contact Person Name",
-            "summarizeBy": "none",
-            "lineageTag": "0f85f8b7-1d88-55af-9e6b-0318303ad8d7"
-          },
-          {
-            "name": "Contact Person Email",
-            "dataType": "string",
-            "sourceColumn": "Contact Person Email",
-            "summarizeBy": "none",
-            "lineageTag": "7759b444-516a-503a-844e-1b8b81994051"
-          },
-          {
-            "name": "Site Name",
-            "dataType": "string",
-            "sourceColumn": "Site Name",
-            "summarizeBy": "none",
-            "lineageTag": "30f79956-f37b-5208-847f-0e34ab83f0a0"
-          },
-          {
-            "name": "Sponsor Name",
-            "dataType": "string",
-            "sourceColumn": "Sponsor Name",
-            "summarizeBy": "none",
-            "lineageTag": "db8bf015-6917-52f2-a454-f06bbc40f92a"
-          },
-          {
-            "name": "Start Date",
-            "dataType": "string",
-            "sourceColumn": "Start Date",
-            "summarizeBy": "none",
-            "lineageTag": "c3a99e91-94e7-5102-86f3-bc89611fb3f1"
-          },
-          {
-            "name": "Finish Date",
-            "dataType": "string",
-            "sourceColumn": "Finish Date",
-            "summarizeBy": "none",
-            "lineageTag": "01fae4a2-6557-5821-b006-cf898b4b003d"
-          },
-          {
-            "name": "Disease Category",
-            "dataType": "string",
-            "sourceColumn": "Disease Category",
-            "summarizeBy": "none",
-            "lineageTag": "eb223a74-b30e-5ca9-831c-5d78f646d207"
-          },
-          {
-            "name": "Multi/Single site",
-            "dataType": "string",
-            "sourceColumn": "Multi/Single site",
-            "summarizeBy": "none",
-            "lineageTag": "eeb46a26-f846-552e-82cb-3601183842a7"
-          },
-          {
-            "name": "DORA Authority (Yes/No)",
-            "dataType": "string",
-            "sourceColumn": "DORA Authority (Yes/No)",
-            "summarizeBy": "none",
-            "lineageTag": "c171bc70-25be-547d-b9cb-8159dc7ce3a3"
-          },
-          {
-            "name": "DORA Consent (Yes/No)",
-            "dataType": "string",
-            "sourceColumn": "DORA Consent (Yes/No)",
-            "summarizeBy": "none",
-            "lineageTag": "73e8aa1a-872c-5c67-a51f-4414db77b0c5"
-          }
-        ],
-        "partitions": [
-          {
-            "name": "DoraActivityRegistry",
-            "mode": "import",
-            "source": {
-              "type": "m",
-              "expression": [
-                "// Power Query M: read the source-preserving DORA Activity Registry list.",
-                "// This is an additive query for the existing RIMS report; it is not a",
-                "// publication table and must not be joined on Project ID without review.",
-                "let",
-                "    SiteUrl = try pSharePointSiteUrl otherwise error \"pSharePointSiteUrl is required; no tenant default is embedded.\",",
-                "    Source = SharePoint.Tables(SiteUrl, [Implementation = \"2.0\", ApiVersion = 15]),",
-                "    Registry = Source{[Title = \"DORA Activity Registry\"]}[Data],",
-                "    Selected = Table.SelectColumns(Registry, {",
-                "        \"DORAActivityKey\", \"DORARecordID\", \"DORAResourceID\", \"DORAResourceName\",",
-                "        \"DORAResourceLastModified\", \"DORAObservedUTC\", \"DORASourceURL\",",
-                "        \"Project ID\", \"Review Reference\", \"HREC (Ethics) Reference Number\",",
-                "        \"Full Project Title\", \"Short Project Title\", \"Project Description\",",
-                "        \"Clinical Trial (Yes/No)\", \"PI Name\", \"PI Email\", \"Contact Person Name\",",
-                "        \"Contact Person Email\", \"Site Name\", \"Sponsor Name\", \"Start Date\",",
-                "        \"Finish Date\", \"Disease Category\", \"Multi/Single site\",",
-                "        \"DORA Authority (Yes/No)\", \"DORA Consent (Yes/No)\"",
-                "    }, MissingField.Error),",
-                "    Typed = Table.TransformColumnTypes(Selected, {",
-                "        {\"DORAActivityKey\", type text}, {\"DORARecordID\", Int64.Type},",
-                "        {\"DORAResourceID\", type text}, {\"DORAResourceName\", type text},",
-                "        {\"DORAResourceLastModified\", type text}, {\"DORAObservedUTC\", type datetimezone},",
-                "        {\"DORASourceURL\", type text}, {\"Project ID\", type text},",
-                "        {\"Review Reference\", type text}, {\"HREC (Ethics) Reference Number\", type text},",
-                "        {\"Full Project Title\", type text}, {\"Short Project Title\", type text},",
-                "        {\"Project Description\", type text}, {\"Clinical Trial (Yes/No)\", type text},",
-                "        {\"PI Name\", type text}, {\"PI Email\", type text},",
-                "        {\"Contact Person Name\", type text}, {\"Contact Person Email\", type text},",
-                "        {\"Site Name\", type text}, {\"Sponsor Name\", type text},",
-                "        {\"Start Date\", type text}, {\"Finish Date\", type text},",
-                "        {\"Disease Category\", type text}, {\"Multi/Single site\", type text},",
-                "        {\"DORA Authority (Yes/No)\", type text}, {\"DORA Consent (Yes/No)\", type text}",
-                "    }),",
-                "    ValidKeys = Table.SelectRows(Typed, each [DORAActivityKey] <> null and [DORAActivityKey] <> \"\"),",
-                "    Keys = Table.Column(ValidKeys, \"DORAActivityKey\"),",
-                "    Unique = if List.Count(Keys) <> List.Count(List.Distinct(Keys)) then error \"DORAActivityKey values are not unique\" else ValidKeys",
-                "in",
-                "    Unique"
-              ]
-            }
-          }
-        ],
-        "description": "Source-preserving Queensland DoRA activity projection. Project ID is retained as a non-unique source field; DORAActivityKey is the registry identity."
-      },
-      {
-        "name": "GrantRelationships",
-        "isHidden": false,
-        "lineageTag": "95e90e3f-6051-56fd-8308-575bbe2b2ef3",
-        "columns": [
-          {
-            "name": "RelationshipKey",
-            "dataType": "string",
-            "sourceColumn": "RelationshipKey",
-            "summarizeBy": "none",
-            "lineageTag": "8f46cec6-f8ae-5287-9ed1-292e2370ee4b"
-          },
-          {
-            "name": "RelationshipType",
-            "dataType": "string",
-            "sourceColumn": "RelationshipType",
-            "summarizeBy": "none",
-            "lineageTag": "dc796e92-7dd5-5cfa-a9c7-4b5f075a07e6"
-          },
-          {
-            "name": "FromKey",
-            "dataType": "string",
-            "sourceColumn": "FromKey",
-            "summarizeBy": "none",
-            "lineageTag": "67d16267-2765-51db-b09e-2ab0a132e866"
-          },
-          {
-            "name": "ToKey",
-            "dataType": "string",
-            "sourceColumn": "ToKey",
-            "summarizeBy": "none",
-            "lineageTag": "d62a9d29-1a33-5ab1-a76d-5725d0a176aa"
-          },
-          {
-            "name": "AwardID",
-            "dataType": "string",
-            "sourceColumn": "AwardID",
-            "summarizeBy": "none",
-            "lineageTag": "91127154-34db-5e4f-95c9-8e4c2fe8536f"
-          },
-          {
-            "name": "EvidenceURL",
-            "dataType": "string",
-            "sourceColumn": "EvidenceURL",
-            "summarizeBy": "none",
-            "lineageTag": "b8b1cd9c-0375-5cb3-8400-4ba15c789919",
-            "dataCategory": "WebUrl"
-          },
-          {
-            "name": "Confidence",
-            "dataType": "string",
-            "sourceColumn": "Confidence",
-            "summarizeBy": "none",
-            "lineageTag": "18cc39fa-6156-5fef-83f2-96400b40c2da"
-          },
-          {
-            "name": "ReviewStatus",
-            "dataType": "string",
-            "sourceColumn": "ReviewStatus",
-            "summarizeBy": "none",
-            "lineageTag": "1bd50fb2-9abe-5151-a85f-ef83e123e174"
-          }
-        ],
-        "partitions": [
-          {
-            "name": "GrantRelationships",
-            "mode": "import",
-            "source": {
-              "type": "m",
-              "expression": [
-                "// Power Query M: read the typed grant/publication relationship bridge.",
-                "let",
-                "    SiteUrl = try pSharePointSiteUrl otherwise error \"pSharePointSiteUrl is required; no tenant default is embedded.\",",
-                "    Source = SharePoint.Tables(SiteUrl, [Implementation = \"2.0\", ApiVersion = 15]),",
-                "    RelationshipTable = Source{[Title = \"Grant Relationships\"]}[Data],",
-                "    Selected = Table.SelectColumns(RelationshipTable, {",
-                "        \"RelationshipKey\", \"RelationshipType\", \"FromKey\", \"ToKey\", \"AwardID\",",
-                "        \"EvidenceURL\", \"Confidence\", \"ReviewStatus\"",
-                "    }, MissingField.UseNull),",
-                "    Typed = Table.TransformColumnTypes(Selected, {",
-                "        {\"RelationshipKey\", type text}, {\"RelationshipType\", type text},",
-                "        {\"FromKey\", type text}, {\"ToKey\", type text}, {\"AwardID\", type text},",
-                "        {\"EvidenceURL\", type text}, {\"Confidence\", type text}, {\"ReviewStatus\", type text}",
-                "    }),",
-                "    ValidRows = Table.SelectRows(Typed, each",
-                "        [RelationshipKey] <> null and [RelationshipKey] <> \"\" and",
-                "        [RelationshipType] <> null and [FromKey] <> null and [FromKey] <> \"\" and",
-                "        [ToKey] <> null and [ToKey] <> \"\" and [EvidenceURL] <> null and [EvidenceURL] <> \"\"",
-                "    )",
-                "in",
-                "    ValidRows"
-              ]
-            }
-          }
-        ],
-        "description": "Typed, evidence-required relationship bridge. FromKey and ToKey preserve separate grant, award and publication identities; no implicit join is performed."
       }
     ],
     "relationships": [
@@ -2338,6 +1675,10 @@
           "        DORAURL = nullable text,",
           "        CHHHSAffiliatedAuthors = nullable text,",
           "        Abstract = nullable text,",
+          "        PublicationTypes = nullable text,",
+          "        PublicationClass = nullable text,",
+          "        IsClinicalTrial = nullable logical,",
+          "        IsEvidenceSynthesis = nullable logical,",
           "        SourceSet = nullable text,",
           "        DedupMethod = nullable text,",
           "        PublicationDateRaw = nullable text,",
@@ -2426,6 +1767,10 @@
           "            CanonicalKey=p[CanonicalKey],PMID=p[PMID],Title=p[Title],Journal=p[Journal],Authors=p[Authors],DOI=p[DOI],PubMedURL=p[PubMedURL],DORAURL=urls,",
           "            PublicationDate=p[PublicationDate],PublicationDateRaw=p[PublicationDateRaw],PublicationDatePrecision=p[PublicationDatePrecision],PublicationMonth=p[PublicationMonth],PublicationYear=p[PublicationYear],",
           "            OnlineDate=p[OnlineDate],OnlineDateRaw=p[OnlineDateRaw],AuthorCount=p[AuthorCount],",
+          "            PublicationTypes=Record.FieldOrDefault(p,\"PublicationTypes\",null),",
+          "            PublicationClass=Record.FieldOrDefault(p,\"PublicationClass\",null),",
+          "            IsClinicalTrial=Record.FieldOrDefault(p,\"IsClinicalTrial\",null),",
+          "            IsEvidenceSynthesis=Record.FieldOrDefault(p,\"IsEvidenceSynthesis\",null),",
           "            MatchedFacilities=p[MatchedFacilities],CHHHSAffiliatedAuthors=chhhs,Abstract=abstract,SourceSet=if has then \"PubMed; DORA\" else \"PubMed\",DedupMethod=if has then Text.Combine(List.Distinct(d[DedupMethod]),\"; \") else \"PMID\",",
           "            AttributionEvidence=evidence,",
           "            AttributionStatus=if has then p[AttributionStatus] & \"; DORA identifier match\" else p[AttributionStatus],PublicationNotice=p[PublicationNotice],FacilityMatchCount=p[FacilityMatchCount],RefreshedAtUTC=p[RefreshedAtUTC]",
@@ -2436,15 +1781,16 @@
           "    DoraOnly = Table.AddColumn(DoraOnly0,\"Canonical\",(d as record) => [",
           "        CanonicalKey=d[DORAKey],PMID=Record.FieldOrDefault(d,\"PMID\",null),Title=d[Title],Journal=Record.FieldOrDefault(d,\"Journal\",null),Authors=d[Authors],DOI=Record.FieldOrDefault(d,\"DOI\",null),PubMedURL=null,DORAURL=d[DORAURL],",
           "        PublicationDate=d[PublicationDate],PublicationDateRaw=d[PublicationDateRaw],PublicationDatePrecision=d[PublicationDatePrecision],PublicationMonth=if d[PublicationDate]<>null and List.Contains({\"day\",\"month\"},d[PublicationDatePrecision]) then Date.ToText(d[PublicationDate],\"yyyy-MM\",\"en-AU\") else null,PublicationYear=d[PublicationYear],",
-          "        OnlineDate=null,OnlineDateRaw=\"\",AuthorCount=if d[Authors]=null or d[Authors]=\"\" then null else List.Count(Text.Split(d[Authors],\";\")),",
+          "        OnlineDate=null,OnlineDateRaw=null,AuthorCount=if d[Authors]=null or d[Authors]=\"\" then null else List.Count(Text.Split(d[Authors],\";\")),",
           "        MatchedFacilities=if d[CHHHSAffiliatedAuthors] <> null and Text.Trim(d[CHHHSAffiliatedAuthors]) <> \"\" then \"Cairns and Hinterland HHS\" else \"\",CHHHSAffiliatedAuthors=d[CHHHSAffiliatedAuthors],Abstract=d[Abstract],SourceSet=\"DORA\",DedupMethod=d[DedupMethod],",
           "        AttributionEvidence=d[AttributionEvidence],",
           "        AttributionStatus=(if d[CHHHSAffiliatedAuthors] <> null and Text.Trim(d[CHHHSAffiliatedAuthors]) <> \"\" then \"DORA author affiliation statement\" else \"DORA attribution needs review\") & (if d[DedupMethod] <> \"DORA-only\" then \"; identity needs review\" else \"\"),PublicationNotice=\"DORA full metadata; observed public collection snapshot; institutional scope remains reviewable\",FacilityMatchCount=if d[CHHHSAffiliatedAuthors] <> null and Text.Trim(d[CHHHSAffiliatedAuthors]) <> \"\" then 1 else 0,RefreshedAtUTC=DateTimeZone.RemoveZone(DateTimeZone.FixedUtcNow())",
           "    ],type record),",
           "    DoraCanonicalOnly = Table.SelectColumns(DoraOnly,{\"Canonical\"}),",
           "    ExpandedDora = Table.FromRecords(Table.Column(DoraCanonicalOnly,\"Canonical\"), PublicationType, MissingField.UseNull),",
-          "    PubMedSelected = Table.SelectColumns(ExpandedPubMed,Table.ColumnNames(ExpandedDora),MissingField.UseNull),",
-          "    Combined = Table.Combine({PubMedSelected,ExpandedDora}, PublicationType),",
+          "    // Both source rows have already been aligned to PublicationType. Combining",
+          "    // them directly preserves PubMed-only columns and fills DORA gaps with null.",
+          "    Combined = Table.Combine({ExpandedPubMed,ExpandedDora}, PublicationType),",
           "    Verified = if Table.RowCount(Combined) <> List.Count(List.Distinct(Combined[CanonicalKey])) then error \"Canonical publication key is not unique\" else Combined,",
           "    PubMedMatches0 = PubMedHarvest[Matches],",
           "    PubMedMatches = Table.AddColumn(PubMedMatches0,\"CanonicalKey\",each \"PMID:\" & [PMID],type text),",
@@ -2481,16 +1827,19 @@
           "    Source = SharePoint.Tables(SiteUrl, [Implementation = \"2.0\", ViewMode = \"All\"]),",
           "    Registry = Source{[Title = \"Grants Registry\"]}[Items],",
           "    Selected = Table.SelectColumns(Registry, {",
-          "        \"OpportunityKey\", \"Title\", \"Funder\", \"Source\", \"SourceID\", \"RoundID\", \"URL\",",
+          "        \"OpportunityKey\", \"Title\", \"Funder\", \"Source\", \"SourceID\", \"RoundID\", \"URL\", \"SourceRowURL\",",
           "        \"Description\", \"Eligibility\", \"Geography\", \"Amount\", \"Deadline\", \"DeadlineRaw\",",
-          "        \"DeadlinePrecision\", \"Status\", \"Contact\", \"CHHHSRelevance\", \"ReviewStatus\",",
+          "        \"DeadlineTimezone\", \"DeadlineLocalTime\", \"DeadlineUTCInstant\", \"DeadlineBrisbaneDate\",",
+          "        \"DeadlineBrisbaneTime\", \"DeadlineTemporalStatus\", \"DeadlinePrecision\", \"Status\", \"Contact\", \"CHHHSRelevance\", \"ReviewStatus\",",
           "        \"ReviewNotes\", \"RetrievedUTC\", \"RetrievedTimestampStatus\", \"EvidenceHash\"",
           "    }, MissingField.UseNull),",
           "    Typed = Table.TransformColumnTypes(Selected, {",
           "        {\"OpportunityKey\", type text}, {\"Title\", type text}, {\"Funder\", type text},",
-          "        {\"Source\", type text}, {\"SourceID\", type text}, {\"RoundID\", type text}, {\"URL\", type text},",
+          "        {\"Source\", type text}, {\"SourceID\", type text}, {\"RoundID\", type text}, {\"URL\", type text}, {\"SourceRowURL\", type text},",
           "        {\"Description\", type text}, {\"Eligibility\", type text}, {\"Geography\", type text},",
           "        {\"Amount\", type text}, {\"Deadline\", type text}, {\"DeadlineRaw\", type text},",
+          "        {\"DeadlineTimezone\", type text}, {\"DeadlineLocalTime\", type text}, {\"DeadlineUTCInstant\", type text},",
+          "        {\"DeadlineBrisbaneDate\", type text}, {\"DeadlineBrisbaneTime\", type text}, {\"DeadlineTemporalStatus\", type text},",
           "        {\"DeadlinePrecision\", type text}, {\"Status\", type text}, {\"Contact\", type text},",
           "        {\"CHHHSRelevance\", type text}, {\"ReviewStatus\", type text}, {\"ReviewNotes\", type text},",
           "        {\"RetrievedUTC\", type text}, {\"RetrievedTimestampStatus\", type text}, {\"EvidenceHash\", type text}",
@@ -2499,181 +1848,12 @@
           "    Typed"
         ],
         "lineageTag": "2ab9e000-c002-5f7b-b03f-998ab2cf7d60"
-      },
-      {
-        "name": "FundingCalendar",
-        "kind": "m",
-        "expression": [
-          "// Power Query M: read the personal Funding Calendar SharePoint list.",
-          "let",
-          "    SiteUrl = \"https://<tenant>.sharepoint.com/sites/<site>\",",
-          "    Source = SharePoint.Tables(SiteUrl, [Implementation = \"2.0\", ViewMode = \"All\"]),",
-          "    Calendar = Source{[Title = \"Funding Calendar\"]}[Items],",
-          "    Selected = Table.SelectColumns(Calendar, {",
-          "        \"DeadlineKey\", \"OpportunityKey\", \"CalculatedDate\", \"SourceURL\", \"Cancelled\", \"PolicyKey\", \"ReviewStatus\"",
-          "    }, MissingField.UseNull),",
-          "    Typed = Table.TransformColumnTypes(Selected, {",
-          "        {\"DeadlineKey\", type text}, {\"OpportunityKey\", type text}, {\"CalculatedDate\", type datetime},",
-          "        {\"SourceURL\", type text}, {\"Cancelled\", type logical}, {\"PolicyKey\", type text}, {\"ReviewStatus\", type text}",
-          "    })",
-          "in",
-          "    Typed"
-        ],
-        "lineageTag": "5884fbe5-75dc-50b7-b1e7-d22b9822556f"
-      },
-      {
-        "name": "MyFundingWatchlist",
-        "kind": "m",
-        "expression": [
-          "// Power Query M: read the current user's personal funding watchlist.",
-          "let",
-          "    SiteUrl = \"https://<tenant>.sharepoint.com/sites/<site>\",",
-          "    Source = SharePoint.Tables(SiteUrl, [Implementation = \"2.0\", ViewMode = \"All\"]),",
-          "    Watchlist = Source{[Title = \"My Funding Watchlist\"]}[Items],",
-          "    Selected = Table.SelectColumns(Watchlist, {\"OpportunityKey\", \"Scope\", \"TargetKey\", \"Active\"}, MissingField.UseNull),",
-          "    Typed = Table.TransformColumnTypes(Selected, {",
-          "        {\"OpportunityKey\", type text}, {\"Scope\", type text}, {\"TargetKey\", type text}, {\"Active\", type logical}",
-          "    })",
-          "in",
-          "    Typed"
-        ],
-        "lineageTag": "5339c492-cfbb-5b6a-bc20-19152c40a6a7"
-      },
-      {
-        "name": "FundingDeliveryLedger",
-        "kind": "m",
-        "expression": [
-          "// Power Query M: read the current user's personal funding delivery ledger.",
-          "let",
-          "    SiteUrl = \"https://<tenant>.sharepoint.com/sites/<site>\",",
-          "    Source = SharePoint.Tables(SiteUrl, [Implementation = \"2.0\", ViewMode = \"All\"]),",
-          "    Ledger = Source{[Title = \"Funding Delivery Ledger\"]}[Items],",
-          "    Selected = Table.SelectColumns(Ledger, {",
-          "        \"DeliveryEventKey\", \"UserKey\", \"OpportunityKey\", \"EventType\", \"Revision\", \"OffsetDays\",",
-          "        \"Channel\", \"Status\", \"ScheduledFor\", \"SentAt\", \"ErrorMessage\"",
-          "    }, MissingField.UseNull),",
-          "    Typed = Table.TransformColumnTypes(Selected, {",
-          "        {\"DeliveryEventKey\", type text}, {\"UserKey\", type text}, {\"OpportunityKey\", type text},",
-          "        {\"EventType\", type text}, {\"Revision\", type text}, {\"OffsetDays\", Int64.Type},",
-          "        {\"Channel\", type text}, {\"Status\", type text}, {\"ScheduledFor\", type datetime},",
-          "        {\"SentAt\", type datetime}, {\"ErrorMessage\", type text}",
-          "    })",
-          "in",
-          "    Typed"
-        ],
-        "lineageTag": "65539f1e-b002-5310-badc-e8b5e2092a2a"
-      },
-      {
-        "name": "FundingCalendarChanges",
-        "kind": "m",
-        "expression": [
-          "// Power Query M: read source-preserving current-user calendar changes.",
-          "let",
-          "    SiteUrl = try pSharePointSiteUrl otherwise error \"pSharePointSiteUrl is required; no tenant default is embedded.\",",
-          "    Source = SharePoint.Tables(SiteUrl, [Implementation = \"2.0\", ApiVersion = 15]),",
-          "    Changes = Source{[Title = \"Funding Calendar Changes\"]}[Items],",
-          "    Selected = Table.SelectColumns(Changes, {",
-          "        \"ChangeKey\", \"DeadlineKey\", \"OpportunityKey\", \"ChangeType\", \"PreviousRevision\",",
-          "        \"Revision\", \"PreviousDate\", \"CalculatedDate\", \"PreviousCancelled\", \"Cancelled\",",
-          "        \"SourceURL\", \"ObservedUTC\", \"ReviewStatus\"",
-          "    }, MissingField.UseNull),",
-          "    Typed = Table.TransformColumnTypes(Selected, {",
-          "        {\"ChangeKey\", type text}, {\"DeadlineKey\", type text}, {\"OpportunityKey\", type text},",
-          "        {\"ChangeType\", type text}, {\"PreviousRevision\", type text}, {\"Revision\", type text},",
-          "        {\"PreviousDate\", type date}, {\"CalculatedDate\", type date},",
-          "        {\"PreviousCancelled\", type logical}, {\"Cancelled\", type logical},",
-          "        {\"SourceURL\", type text}, {\"ObservedUTC\", type datetimezone}, {\"ReviewStatus\", type text}",
-          "    }),",
-          "    ValidRows = Table.SelectRows(Typed, each",
-          "        [ChangeKey] <> null and [ChangeKey] <> \"\" and",
-          "        [DeadlineKey] <> null and [DeadlineKey] <> \"\" and",
-          "        [OpportunityKey] <> null and [OpportunityKey] <> \"\" and",
-          "        [ChangeType] <> null and [ChangeType] <> \"\" and",
-          "        [Revision] <> null and [Revision] <> \"\" and",
-          "        [ObservedUTC] <> null and [ReviewStatus] <> null and [ReviewStatus] <> \"\"",
-          "    )",
-          "in",
-          "    ValidRows"
-        ],
-        "lineageTag": "0a18b3c6-0b38-5b6a-b088-2123822e4bdc"
-      },
-      {
-        "name": "DoraActivityRegistry",
-        "kind": "m",
-        "expression": [
-          "// Power Query M: read the source-preserving DORA Activity Registry list.",
-          "// This is an additive query for the existing RIMS report; it is not a",
-          "// publication table and must not be joined on Project ID without review.",
-          "let",
-          "    SiteUrl = try pSharePointSiteUrl otherwise error \"pSharePointSiteUrl is required; no tenant default is embedded.\",",
-          "    Source = SharePoint.Tables(SiteUrl, [Implementation = \"2.0\", ApiVersion = 15]),",
-          "    Registry = Source{[Title = \"DORA Activity Registry\"]}[Data],",
-          "    Selected = Table.SelectColumns(Registry, {",
-          "        \"DORAActivityKey\", \"DORARecordID\", \"DORAResourceID\", \"DORAResourceName\",",
-          "        \"DORAResourceLastModified\", \"DORAObservedUTC\", \"DORASourceURL\",",
-          "        \"Project ID\", \"Review Reference\", \"HREC (Ethics) Reference Number\",",
-          "        \"Full Project Title\", \"Short Project Title\", \"Project Description\",",
-          "        \"Clinical Trial (Yes/No)\", \"PI Name\", \"PI Email\", \"Contact Person Name\",",
-          "        \"Contact Person Email\", \"Site Name\", \"Sponsor Name\", \"Start Date\",",
-          "        \"Finish Date\", \"Disease Category\", \"Multi/Single site\",",
-          "        \"DORA Authority (Yes/No)\", \"DORA Consent (Yes/No)\"",
-          "    }, MissingField.Error),",
-          "    Typed = Table.TransformColumnTypes(Selected, {",
-          "        {\"DORAActivityKey\", type text}, {\"DORARecordID\", Int64.Type},",
-          "        {\"DORAResourceID\", type text}, {\"DORAResourceName\", type text},",
-          "        {\"DORAResourceLastModified\", type text}, {\"DORAObservedUTC\", type datetimezone},",
-          "        {\"DORASourceURL\", type text}, {\"Project ID\", type text},",
-          "        {\"Review Reference\", type text}, {\"HREC (Ethics) Reference Number\", type text},",
-          "        {\"Full Project Title\", type text}, {\"Short Project Title\", type text},",
-          "        {\"Project Description\", type text}, {\"Clinical Trial (Yes/No)\", type text},",
-          "        {\"PI Name\", type text}, {\"PI Email\", type text},",
-          "        {\"Contact Person Name\", type text}, {\"Contact Person Email\", type text},",
-          "        {\"Site Name\", type text}, {\"Sponsor Name\", type text},",
-          "        {\"Start Date\", type text}, {\"Finish Date\", type text},",
-          "        {\"Disease Category\", type text}, {\"Multi/Single site\", type text},",
-          "        {\"DORA Authority (Yes/No)\", type text}, {\"DORA Consent (Yes/No)\", type text}",
-          "    }),",
-          "    ValidKeys = Table.SelectRows(Typed, each [DORAActivityKey] <> null and [DORAActivityKey] <> \"\"),",
-          "    Keys = Table.Column(ValidKeys, \"DORAActivityKey\"),",
-          "    Unique = if List.Count(Keys) <> List.Count(List.Distinct(Keys)) then error \"DORAActivityKey values are not unique\" else ValidKeys",
-          "in",
-          "    Unique"
-        ],
-        "lineageTag": "82d4d05d-ecab-58ef-b173-c512127a0ac7"
-      },
-      {
-        "name": "GrantRelationships",
-        "kind": "m",
-        "expression": [
-          "// Power Query M: read the typed grant/publication relationship bridge.",
-          "let",
-          "    SiteUrl = try pSharePointSiteUrl otherwise error \"pSharePointSiteUrl is required; no tenant default is embedded.\",",
-          "    Source = SharePoint.Tables(SiteUrl, [Implementation = \"2.0\", ApiVersion = 15]),",
-          "    RelationshipTable = Source{[Title = \"Grant Relationships\"]}[Data],",
-          "    Selected = Table.SelectColumns(RelationshipTable, {",
-          "        \"RelationshipKey\", \"RelationshipType\", \"FromKey\", \"ToKey\", \"AwardID\",",
-          "        \"EvidenceURL\", \"Confidence\", \"ReviewStatus\"",
-          "    }, MissingField.UseNull),",
-          "    Typed = Table.TransformColumnTypes(Selected, {",
-          "        {\"RelationshipKey\", type text}, {\"RelationshipType\", type text},",
-          "        {\"FromKey\", type text}, {\"ToKey\", type text}, {\"AwardID\", type text},",
-          "        {\"EvidenceURL\", type text}, {\"Confidence\", type text}, {\"ReviewStatus\", type text}",
-          "    }),",
-          "    ValidRows = Table.SelectRows(Typed, each",
-          "        [RelationshipKey] <> null and [RelationshipKey] <> \"\" and",
-          "        [RelationshipType] <> null and [FromKey] <> null and [FromKey] <> \"\" and",
-          "        [ToKey] <> null and [ToKey] <> \"\" and [EvidenceURL] <> null and [EvidenceURL] <> \"\"",
-          "    )",
-          "in",
-          "    ValidRows"
-        ],
-        "lineageTag": "f3e9c1d1-3621-51e6-bac1-fe9f660f29cc"
       }
     ],
     "annotations": [
       {
         "name": "PBI_QueryOrder",
-        "value": "[\"pNCBIEmail\", \"FacilityDefinitions\", \"fnParsePubDate\", \"fnNCBIJson\", \"fnPubMedXML\", \"PubMedHarvest\", \"PubMedFullMetadata\", \"PubMedPublications\", \"PubMedAuthorEvidence\", \"PubMedMetadataChunks\", \"PubMedIngestionAudit\", \"DoraSourceObservations\", \"DoraHistoricalMetadata\", \"DoraMetadataChunks\", \"DoraIngestionAudit\", \"DoraHarvest\", \"CanonicalPublications\", \"GrantsRegistry\", \"FundingCalendar\", \"MyFundingWatchlist\", \"FundingDeliveryLedger\", \"FundingCalendarChanges\", \"DoraActivityRegistry\", \"GrantRelationships\", \"Publication\", \"Facility\", \"PublicationFacility\", \"Date\", \"SearchAudit\", \"ReportingWindow\", \"ReleaseMetadata\"]"
+        "value": "[\"pNCBIEmail\", \"FacilityDefinitions\", \"fnParsePubDate\", \"fnNCBIJson\", \"fnPubMedXML\", \"PubMedHarvest\", \"PubMedFullMetadata\", \"PubMedPublications\", \"PubMedAuthorEvidence\", \"PubMedMetadataChunks\", \"PubMedIngestionAudit\", \"DoraSourceObservations\", \"DoraHistoricalMetadata\", \"DoraMetadataChunks\", \"DoraIngestionAudit\", \"DoraHarvest\", \"CanonicalPublications\", \"GrantsRegistry\", \"Publication\", \"Facility\", \"PublicationFacility\", \"Date\", \"SearchAudit\", \"ReportingWindow\", \"ReleaseMetadata\"]"
       },
       {
         "name": "PBI_TimeIntelligenceEnabled",

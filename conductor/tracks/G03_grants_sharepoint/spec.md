@@ -1,0 +1,9 @@
+# Canonical grants storage
+
+Reuse the existing Grants Registry, its stable OpportunityKey and destination-specific connections. Apply additive schema changes with explicit internal-name mappings; avoid duplicate flow/list creation. Existing isolated DEV schema, uniqueness and synthetic upsert evidence is historical, not organisation-wide or unattended acceptance.
+
+Acceptance uses an existing exact-identity target with a retained rollback baseline, schema/versioning readback, exact-key create/replay/update/concurrency evidence, review preservation, failure safety and fixture cleanup. Do not request target approval, permission or contact; if the exact target or existing write authority cannot be verified, defer that native effect and record the boundary. The optional alternate-account CLI pilot evaluates the whole source-to-Queensland-Health cycle. Development accounts receive synthetic data and sanitised definitions only. SharePoint schema, non-solution flow ZIP, Dataverse solution ZIP and PBIX/PBIP are distinct artefacts; tooling availability must be proved per artefact.
+
+A pilot decline is a valid route decision, not a successful CLI deployment. It cannot close native storage acceptance. Publishing, sharing, schedules, messages, capacity and cross-boundary real-data movement retain their specific approval gates.
+
+Follow the [hardened completion contract](../../../docs/PLATFORM_COMPLETION_PLAN.md#hardened-completion-contract), [RIMS grants experience](../../../docs/RIMS_GRANTS_EXPERIENCE.md) and [delivery review](../../../docs/GRANTS_DELIVERY_REVIEW.md). The task IDs, dependency gates, exact inputs and expected evidence are in [the implementation plan](plan.md). Reuse existing resources and keep actual tenant/account identities, payloads, credentials and run evidence in ignored private storage. No local test closes a native gate.
