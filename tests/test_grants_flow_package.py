@@ -55,7 +55,7 @@ class GrantsFlowPackageTests(unittest.TestCase):
                 conflict = valid_key["Condition_Conflicting_Source_Identity"]
                 self.assertEqual(
                     list(conflict["else"]["actions"]),
-                    ["Condition_Duplicate_OpportunityKey", "Condition_Is_New_Opportunity"],
+                    ["Condition_Duplicate_OpportunityKey", "Condition_Is_New_Opportunity", "Archive_NIH_Update"],
                 )
                 self.assertNotIn("SharePoint_Create_item", json.dumps(conflict["actions"]))
                 self.assertNotIn("SharePoint_Update_item", json.dumps(conflict["actions"]))

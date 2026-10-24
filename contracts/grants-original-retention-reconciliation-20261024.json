@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "status": "PASS_EXPORT_SOURCE_PARITY",
+  "solution_unique_name": "CHHHSRIMSPlatform",
+  "solution_version": "1.0.0.0",
+  "managed": false,
+  "connection_runtime_source": "invoker",
+  "workflow_count": 35,
+  "connection_reference_count": 6,
+  "workflow_membership_sha256": "32a2ceed7e788c502025a7308cef35c460ca30c8205790f925706fddf68e8fe8",
+  "archive_sha256": "5042241dce0b1431513b6e17128ea6fd0b9225a7f9a5dca79a5922db6231121e",
+  "portable_grants_definition_sha256": "a37e256a9f3369b34b939eac4ac17d1bbe8ab7ddc8fe4a597a9f6982bea532f3",
+  "normalization": [
+    "exact SharePoint site/list bindings",
+    "generated manual trigger operationMetadataId"
+  ],
+  "native_acceptance": false,
+  "boundary": "Export/source comparison only; runtime and isolated-model acceptance have separate receipts."
+}
