@@ -1,5 +1,19 @@
 # Implementation Plan: E01 Power Automate Ingestion Canonicalization and Recurrence Scheduling
 
+## Ingestion efficiency increment — 24 October 2026
+
+- [x] Review fresh definitions for 14 collectors plus register ingestion actions;
+  retain source-specific consistency checks and distinguish static findings from
+  runtime evidence. See [review](../../../docs/INGESTION_EFFICIENCY_REVIEW.md).
+- [x] Remove PubMed XML/DoRA publication HTML response-copy aliases through guarded
+  same-ID PAC updates; full native clientdata exact and original Started daily
+  settings, references and connections preserved. No new collection run.
+- [ ] Inspect the next natural affected occurrences for performance/integrity;
+  publish the two saved graph changes in versioned native documentation.
+- [ ] Profile DoRA detail retrieval and coordinated OpenCitations pointer-manifest
+  migration before further changes. Do not alter other owners or enable incomplete
+  inputs. Existing Crossref terminal/deployment/continuation gates still apply.
+
 > Status reconciliation, 24 October 2026: consult
 > [current missing outcomes](../../../docs/CURRENT_MISSING_OUTCOMES.md) before
 > executing dated next steps or unchecked tasks below. Accepted scoped evidence
