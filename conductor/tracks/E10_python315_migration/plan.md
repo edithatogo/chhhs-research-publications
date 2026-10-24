@@ -1,5 +1,11 @@
 # E10 numbered implementation plan
 
+> Status reconciliation, 24 October 2026: consult
+> [current missing outcomes](../../../docs/CURRENT_MISSING_OUTCOMES.md) before
+> executing dated next steps or unchecked tasks below. Accepted scoped evidence
+> supersedes only mapped outcomes; preserve historical detail and current owners.
+
+
 Status: in progress. Source/CI qualification is accepted; host handover and final
 full-scope audit remain. Reuse accepted evidence, no status-only commits or
 routine second review. Each step has an explicit implementation/evidence boundary.

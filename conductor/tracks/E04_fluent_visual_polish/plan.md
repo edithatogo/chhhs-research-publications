@@ -1,5 +1,11 @@
 # Implementation Plan: E04 Microsoft Fluent 2 Visual Polishing and IBCS Standards Alignment
 
+> Status reconciliation, 24 October 2026: consult
+> [current missing outcomes](../../../docs/CURRENT_MISSING_OUTCOMES.md) before
+> executing dated next steps or unchecked tasks below. Accepted scoped evidence
+> supersedes only mapped outcomes; preserve historical detail and current owners.
+
+
 **Access scope:** current-user isolated report authoring and visual readback
 only. Do not broaden sharing or alter production bindings in this tranche.
 

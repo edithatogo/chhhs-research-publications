@@ -1,5 +1,11 @@
 # Plan: Verify the live web implementation and hand over
 
+> Status reconciliation, 24 October 2026: consult
+> [current missing outcomes](../../../docs/CURRENT_MISSING_OUTCOMES.md) before
+> executing dated next steps or unchecked tasks below. Accepted scoped evidence
+> supersedes only mapped outcomes; preserve historical detail and current owners.
+
+
 **Access scope:** current-user isolated report/model acceptance and manual
 readback, matching the publications development route. Reader sharing,
 production rebinding and unattended delivery remain future extensions.

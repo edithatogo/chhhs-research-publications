@@ -1,5 +1,11 @@
 # Reproducible source and deployment versioning: executable plan
 
+> Status reconciliation, 24 October 2026: consult
+> [current missing outcomes](../../../docs/CURRENT_MISSING_OUTCOMES.md) before
+> executing dated next steps or unchecked tasks below. Accepted scoped evidence
+> supersedes only mapped outcomes; preserve historical detail and current owners.
+
+
 **Access scope:** current-user isolated report/model version readback and
 manual rollback evidence only. No shared release pipeline or unattended
 deployment is part of this tranche.

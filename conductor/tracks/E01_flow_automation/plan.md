@@ -1,5 +1,11 @@
 # Implementation Plan: E01 Power Automate Ingestion Canonicalization and Recurrence Scheduling
 
+> Status reconciliation, 24 October 2026: consult
+> [current missing outcomes](../../../docs/CURRENT_MISSING_OUTCOMES.md) before
+> executing dated next steps or unchecked tasks below. Accepted scoped evidence
+> supersedes only mapped outcomes; preserve historical detail and current owners.
+
+
 Current efficiency direction: [accelerated delivery, 24 October](accelerated-delivery-20261024.md).
 Reuse accepted bootstraps and native objects; apply only missing diffs through
 qualified PAC/FlowAgent routes and avoid repeated unchanged tests/provider runs.
