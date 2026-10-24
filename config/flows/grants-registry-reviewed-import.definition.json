@@ -133,10 +133,6 @@
                       "table": "{{SHAREPOINT_LIST_ID}}",
                       "$filter": "OpportunityKey eq '@{replace(string(item()?['OpportunityKey']),'''','''''')}'",
                       "$top": 2
-                    },
-                    "authentication": {
-                      "type": "Raw",
-                      "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
                     }
                   }
                 },
@@ -158,10 +154,6 @@
                       "table": "{{SHAREPOINT_LIST_ID}}",
                       "$filter": "@concat(concat('Source eq ''', replace(string(item()?['Source']), '''', ''''''), ''''), ' and ', if(empty(item()?['SourceID']), '(SourceID eq null or SourceID eq '''')', concat('SourceID eq ''', replace(string(item()?['SourceID']), '''', ''''''), '''')), ' and ', if(empty(item()?['RoundID']), '(RoundID eq null or RoundID eq '''')', concat('RoundID eq ''', replace(string(item()?['RoundID']), '''', ''''''), '''')), ' and ', concat('EvidenceHash eq ''', replace(string(item()?['EvidenceHash']), '''', ''''''), ''''), ' and OpportunityKey ne ''', replace(string(item()?['OpportunityKey']), '''', ''''''), '''')",
                       "$top": 1
-                    },
-                    "authentication": {
-                      "type": "Raw",
-                      "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
                     }
                   }
                 },
@@ -307,11 +299,12 @@
                                 "item/DeadlineScheduleJSON": "@{item()?['DeadlineScheduleJSON']}",
                                 "item/SourceDateFactsJSON": "@{item()?['SourceDateFactsJSON']}",
                                 "item/SourceAttribution": "@{item()?['SourceAttribution']}"
-                              },
-                              "authentication": {
-                                "type": "Raw",
-                                "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
                               }
+                            },
+                            "runAfter": {
+                              "Guard_NIH_Parent_Already_Admitted": [
+                                "Succeeded"
+                              ]
                             }
                           },
                           "SharePoint_Create_item_Preserve_ISO_Text": {
@@ -336,204 +329,15 @@
                               }
                             },
                             "runAfter": {
-                              "Archive_NIH_Create": [
+                              "SharePoint_Create_item": [
                                 "Succeeded"
                               ]
                             }
                           },
-                          "Archive_NIH_Create": {
-                            "type": "If",
-                            "expression": "@equals(items('Apply_to_each_Reviewed_Row')?['Source'],'us-grants-gov-nih-pa-25-301')",
-                            "runAfter": {
-                              "SharePoint_Create_item": [
-                                "Succeeded"
-                              ]
-                            },
-                            "actions": {
-                              "Original_Create_List": {
-                                "type": "OpenApiConnection",
-                                "runAfter": {},
-                                "inputs": {
-                                  "host": {
-                                    "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
-                                    "connectionName": "shared_sharepointonline",
-                                    "operationId": "GetItemAttachments"
-                                  },
-                                  "parameters": {
-                                    "dataset": "{{SHAREPOINT_SITE_URL}}",
-                                    "table": "{{SHAREPOINT_LIST_ID}}",
-                                    "itemId": "@string(body('SharePoint_Create_item')?['ID'])"
-                                  },
-                                  "retryPolicy": {
-                                    "type": "none"
-                                  },
-                                  "authentication": {
-                                    "type": "Raw",
-                                    "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
-                                  }
-                                }
-                              },
-                              "Original_Create_Files": {
-                                "type": "Foreach",
-                                "foreach": "@body('Parse_Originals_Envelope')?['files']",
-                                "runAfter": {
-                                  "Original_Create_List": [
-                                    "Succeeded"
-                                  ]
-                                },
-                                "runtimeConfiguration": {
-                                  "concurrency": {
-                                    "repetitions": 1
-                                  }
-                                },
-                                "actions": {
-                                  "Original_Create_Name": {
-                                    "type": "Compose",
-                                    "runAfter": {},
-                                    "inputs": "@concat('original-',body('Parse_Originals_Envelope')?['EvidenceHash'],'-',item()?['role'],if(startsWith(item()?['role'],'attachment-folder-'),'.zip','.json'))"
-                                  },
-                                  "Original_Create_Found": {
-                                    "type": "Query",
-                                    "runAfter": {
-                                      "Original_Create_Name": [
-                                        "Succeeded"
-                                      ]
-                                    },
-                                    "inputs": {
-                                      "from": "@body('Original_Create_List')",
-                                      "where": "@equals(item()?['DisplayName'],outputs('Original_Create_Name'))"
-                                    }
-                                  },
-                                  "Original_Create_Add_If_Missing": {
-                                    "type": "If",
-                                    "expression": "@equals(length(body('Original_Create_Found')),0)",
-                                    "runAfter": {
-                                      "Original_Create_Found": [
-                                        "Succeeded"
-                                      ]
-                                    },
-                                    "actions": {
-                                      "Original_Create_Create": {
-                                        "type": "OpenApiConnection",
-                                        "runAfter": {},
-                                        "inputs": {
-                                          "host": {
-                                            "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
-                                            "connectionName": "shared_sharepointonline",
-                                            "operationId": "CreateAttachment"
-                                          },
-                                          "parameters": {
-                                            "dataset": "{{SHAREPOINT_SITE_URL}}",
-                                            "table": "{{SHAREPOINT_LIST_ID}}",
-                                            "itemId": "@body('SharePoint_Create_item')?['ID']",
-                                            "displayName": "@outputs('Original_Create_Name')",
-                                            "body": "@base64ToBinary(item()?['content_base64'])"
-                                          },
-                                          "retryPolicy": {
-                                            "type": "none"
-                                          },
-                                          "authentication": {
-                                            "type": "Raw",
-                                            "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
-                                          }
-                                        }
-                                      }
-                                    },
-                                    "else": {
-                                      "actions": {}
-                                    }
-                                  },
-                                  "Original_Create_Readback_List": {
-                                    "type": "OpenApiConnection",
-                                    "runAfter": {
-                                      "Original_Create_Add_If_Missing": [
-                                        "Succeeded"
-                                      ]
-                                    },
-                                    "inputs": {
-                                      "host": {
-                                        "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
-                                        "connectionName": "shared_sharepointonline",
-                                        "operationId": "GetItemAttachments"
-                                      },
-                                      "parameters": {
-                                        "dataset": "{{SHAREPOINT_SITE_URL}}",
-                                        "table": "{{SHAREPOINT_LIST_ID}}",
-                                        "itemId": "@string(body('SharePoint_Create_item')?['ID'])"
-                                      },
-                                      "retryPolicy": {
-                                        "type": "none"
-                                      },
-                                      "authentication": {
-                                        "type": "Raw",
-                                        "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
-                                      }
-                                    }
-                                  },
-                                  "Original_Create_Readback_File": {
-                                    "type": "Query",
-                                    "runAfter": {
-                                      "Original_Create_Readback_List": [
-                                        "Succeeded"
-                                      ]
-                                    },
-                                    "inputs": {
-                                      "from": "@body('Original_Create_Readback_List')",
-                                      "where": "@equals(item()?['DisplayName'],outputs('Original_Create_Name'))"
-                                    }
-                                  },
-                                  "Original_Create_Require_One": {
-                                    "type": "Compose",
-                                    "runAfter": {
-                                      "Original_Create_Readback_File": [
-                                        "Succeeded"
-                                      ]
-                                    },
-                                    "inputs": "@if(equals(length(body('Original_Create_Readback_File')),1),true,json('GRANTS_ORIGINALS_REJECTED'))"
-                                  },
-                                  "Original_Create_Read_Content": {
-                                    "type": "OpenApiConnection",
-                                    "runAfter": {
-                                      "Original_Create_Require_One": [
-                                        "Succeeded"
-                                      ]
-                                    },
-                                    "inputs": {
-                                      "host": {
-                                        "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
-                                        "connectionName": "shared_sharepointonline",
-                                        "operationId": "GetAttachmentContent"
-                                      },
-                                      "parameters": {
-                                        "dataset": "{{SHAREPOINT_SITE_URL}}",
-                                        "table": "{{SHAREPOINT_LIST_ID}}",
-                                        "itemId": "@body('SharePoint_Create_item')?['ID']",
-                                        "attachmentId": "@first(body('Original_Create_Readback_File'))?['Id']"
-                                      },
-                                      "retryPolicy": {
-                                        "type": "none"
-                                      },
-                                      "authentication": {
-                                        "type": "Raw",
-                                        "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
-                                      }
-                                    }
-                                  },
-                                  "Original_Create_Verify_Bytes": {
-                                    "type": "Compose",
-                                    "runAfter": {
-                                      "Original_Create_Read_Content": [
-                                        "Succeeded"
-                                      ]
-                                    },
-                                    "inputs": "@if(equals(body('Original_Create_Read_Content')?['$content'],item()?['content_base64']),true,json('GRANTS_ORIGINALS_REJECTED'))"
-                                  }
-                                }
-                              }
-                            },
-                            "else": {
-                              "actions": {}
-                            }
+                          "Guard_NIH_Parent_Already_Admitted": {
+                            "type": "Compose",
+                            "runAfter": {},
+                            "inputs": "@if(equals(item()?['Source'],'us-grants-gov-nih-pa-25-301'),json('NIH_PARENT_NOT_ADMITTED'),true)"
                           }
                         },
                         "else": {
@@ -827,10 +631,6 @@
                                               "item/DeadlineScheduleJSON": "@{item()?['DeadlineScheduleJSON']}",
                                               "item/SourceDateFactsJSON": "@{item()?['SourceDateFactsJSON']}",
                                               "item/SourceAttribution": "@{item()?['SourceAttribution']}"
-                                            },
-                                            "authentication": {
-                                              "type": "Raw",
-                                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
                                             }
                                           }
                                         },
@@ -938,10 +738,6 @@
                               },
                               "retryPolicy": {
                                 "type": "none"
-                              },
-                              "authentication": {
-                                "type": "Raw",
-                                "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
                               }
                             }
                           },
@@ -962,7 +758,7 @@
                               "Original_Update_Name": {
                                 "type": "Compose",
                                 "runAfter": {},
-                                "inputs": "@concat('original-',body('Parse_Originals_Envelope')?['EvidenceHash'],'-',item()?['role'],if(startsWith(item()?['role'],'attachment-folder-'),'.zip','.json'))"
+                                "inputs": "@concat(if(startsWith(item()?['role'],'attachment-folder-'),'original-','raw-original-'),body('Parse_Originals_Envelope')?['EvidenceHash'],'-',item()?['role'],if(startsWith(item()?['role'],'attachment-folder-'),'.zip','.json'))"
                               },
                               "Original_Update_Found": {
                                 "type": "Query",
@@ -978,7 +774,7 @@
                               },
                               "Original_Update_Add_If_Missing": {
                                 "type": "If",
-                                "expression": "@equals(length(body('Original_Update_Found')),0)",
+                                "expression": "@and(equals(length(body('Original_Update_Found')),0),startsWith(item()?['role'],'attachment-folder-'))",
                                 "runAfter": {
                                   "Original_Update_Found": [
                                     "Succeeded"
@@ -1003,10 +799,44 @@
                                       },
                                       "retryPolicy": {
                                         "type": "none"
+                                      }
+                                    }
+                                  }
+                                },
+                                "else": {
+                                  "actions": {}
+                                }
+                              },
+                              "Original_Update_Add_JSON_If_Missing": {
+                                "type": "If",
+                                "expression": "@and(equals(length(body('Original_Update_Found')),0),not(startsWith(item()?['role'],'attachment-folder-')))",
+                                "runAfter": {
+                                  "Original_Update_Found": [
+                                    "Succeeded"
+                                  ]
+                                },
+                                "actions": {
+                                  "Original_Update_Create_JSON": {
+                                    "type": "OpenApiConnection",
+                                    "runAfter": {},
+                                    "inputs": {
+                                      "host": {
+                                        "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                                        "connectionName": "shared_sharepointonline",
+                                        "operationId": "HttpRequest"
                                       },
-                                      "authentication": {
-                                        "type": "Raw",
-                                        "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                                      "parameters": {
+                                        "dataset": "{{SHAREPOINT_SITE_URL}}",
+                                        "parameters/method": "POST",
+                                        "parameters/uri": "_api/web/lists(guid'{{SHAREPOINT_LIST_ID}}')/items(@{first(body('SharePoint_Get_items')?['value'])?['ID']})/AttachmentFiles/add(FileName='@{outputs('Original_Update_Name')}')",
+                                        "parameters/headers": {
+                                          "Content-Type": "application/octet-stream; charset=utf-8",
+                                          "Accept": "application/json;odata=nometadata"
+                                        },
+                                        "parameters/body": "@base64ToString(item()?['content_base64'])"
+                                      },
+                                      "retryPolicy": {
+                                        "type": "none"
                                       }
                                     }
                                   }
@@ -1019,6 +849,9 @@
                                 "type": "OpenApiConnection",
                                 "runAfter": {
                                   "Original_Update_Add_If_Missing": [
+                                    "Succeeded"
+                                  ],
+                                  "Original_Update_Add_JSON_If_Missing": [
                                     "Succeeded"
                                   ]
                                 },
@@ -1035,10 +868,6 @@
                                   },
                                   "retryPolicy": {
                                     "type": "none"
-                                  },
-                                  "authentication": {
-                                    "type": "Raw",
-                                    "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
                                   }
                                 }
                               },
@@ -1074,20 +903,15 @@
                                   "host": {
                                     "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
                                     "connectionName": "shared_sharepointonline",
-                                    "operationId": "GetAttachmentContent"
+                                    "operationId": "GetFileContent"
                                   },
                                   "parameters": {
                                     "dataset": "{{SHAREPOINT_SITE_URL}}",
-                                    "table": "{{SHAREPOINT_LIST_ID}}",
-                                    "itemId": "@first(body('SharePoint_Get_items')?['value'])?['ID']",
-                                    "attachmentId": "@first(body('Original_Update_Readback_File'))?['Id']"
+                                    "id": "@first(body('Original_Update_Readback_File'))?['Id']",
+                                    "inferContentType": false
                                   },
                                   "retryPolicy": {
                                     "type": "none"
-                                  },
-                                  "authentication": {
-                                    "type": "Raw",
-                                    "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
                                   }
                                 }
                               },
@@ -1248,7 +1072,8 @@
                     },
                     "EvidenceHash": {
                       "type": "string",
-                      "pattern": "^[0-9a-f]{64}$"
+                      "minLength": 64,
+                      "maxLength": 64
                     },
                     "files": {
                       "type": "array",
@@ -1270,7 +1095,8 @@
                           },
                           "sha256": {
                             "type": "string",
-                            "pattern": "^[0-9a-f]{64}$"
+                            "minLength": 64,
+                            "maxLength": 64
                           },
                           "byte_length": {
                             "type": "integer",
@@ -1279,8 +1105,7 @@
                           },
                           "content_base64": {
                             "type": "string",
-                            "minLength": 4,
-                            "pattern": "^[A-Za-z0-9+/]*={0,2}$"
+                            "minLength": 4
                           }
                         }
                       }

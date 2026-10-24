@@ -1,6 +1,31 @@
 # Grants solution and documentation reconciliation — 24 October 2026
 
-## Export and portable source
+## Original-retention increment — 24 October 2026
+
+The new [original-retention qualification](https://github.com/edithatogo/research-publications/blob/main/docs/GRANTS_ORIGINAL_RETENTION.md) retains
+four complete JSON bodies and the declared ZIP through the existing manual
+reviewed importer, with exact saved-byte readback and no direct operator
+attachment upload. Replay, incomplete/byte-conflict rejection, missing-parent
+fail-closed behavior and recovery are qualified for the selected admitted NIH
+parent. First-time NIH admission remains separate.
+
+A successor canonical export retains all **35 workflows and six references**,
+with version **1.0.0.0** unchanged. The grants definition and connection references
+match direct native readback exactly; the exporter adds only a null outer
+`templateName` property. The portable source comparator passes, and the original
+Invoker credential map is restored exactly. Temporary Embedded testing is not
+misrepresented as unchanged credential semantics or other-caller acceptance.
+See the [new reconciliation manifest](https://github.com/edithatogo/research-publications/blob/main/contracts/grants-original-retention-reconciliation-20261024.json).
+The earlier manifest/export below remain historical evidence.
+
+Both grants flows are Off and both native owner failure-email subscriptions are
+false. No model/report refresh or replacement occurred. The inherited subscription
+was enabled in the preimage; this records its current suppression, not historical
+mail-delivery proof. The existing grants acceptance document receives a new native
+version in place, preserving its identity, prior bytes and inherited access.
+Shared documentation objects and other lanes' solution components are preserved.
+
+## Earlier export and portable source
 
 A fresh PAC export of the canonical unmanaged CHHHS RIMS Platform solution is retained privately, with CRC and duplicate-entry checks. Its native solution version remains **1.0.0.0**. This version is distinct from the repository software version, source schema version and SharePoint document version; none was silently incremented to imply a new overall release.
 
@@ -25,4 +50,8 @@ This maintained source is mirrored as `RIMS-Grants-Acceptance-20261024.md` in th
 
 The shared marker describes an older captured documentation generation; its grants diagram is explicitly labelled a historical R17b snapshot. This addendum records current grants evidence without relabelling every shared diagram as a fresh live readback. The field-guide source advanced from recorded version 15.0 to observed 16.0 with identical accepted bytes; that version-only drift is retained, not overwritten. Other lanes retain their documentation objects.
 
-This reconciliation does not close unattended source acquisition/archival, recurring refresh or delivery, multirow source-write transaction recovery, concurrent-writer acceptance, main-report replacement or overall release/business acceptance. Existing release history and global acceptance flags are preserved.
+The original snapshot did not close recurring operation. Later source/archive
+schedule and original-retention proofs are linked above; unattended register/model
+orchestration, delivered alerts, first-time NIH admission, external-writer atomicity,
+main-report replacement and overall release/business acceptance remain separate.
+Existing release history and global acceptance flags are preserved.

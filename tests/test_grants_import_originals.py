@@ -83,3 +83,11 @@ class ImportOriginalsTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "evidence hash"):
             prepare(row, self.responses, {})
         self.assertEqual(prepare(row, self.responses, {}, source_observed_at=observed)["EvidenceHash"], row["EvidenceHash"])
+
+    def test_semantic_replay_does_not_erase_raw_byte_differences(self):
+        original = prepare(self.row, self.responses, {})
+        self.responses["detail-current"] += b"\n"
+        changed = prepare(self.row, self.responses, {})
+        self.assertEqual(changed["EvidenceHash"], original["EvidenceHash"])
+        self.assertNotEqual(changed["files"][1]["content_base64"], original["files"][1]["content_base64"])
+        self.assertNotEqual(changed["files"][1]["sha256"], original["files"][1]["sha256"])

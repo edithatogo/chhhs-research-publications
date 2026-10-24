@@ -153,10 +153,10 @@ class GrantsFlowContractTests(unittest.TestCase):
         lookup_count = "@length(body('SharePoint_Get_items')?['value'])"
         self.assertEqual(is_new["expression"]["and"][0], {"equals": [lookup_count, 0]})
         self.assertEqual(list(is_new["actions"]), [
-            "SharePoint_Create_item", "SharePoint_Create_item_Preserve_ISO_Text", "Archive_NIH_Create"])
+            "SharePoint_Create_item", "SharePoint_Create_item_Preserve_ISO_Text", "Guard_NIH_Parent_Already_Admitted"])
         literal_write = is_new["actions"]["SharePoint_Create_item_Preserve_ISO_Text"]
-        self.assertEqual(literal_write["runAfter"], {"Archive_NIH_Create": ["Succeeded"]})
-        self.assertEqual(is_new["actions"]["Archive_NIH_Create"]["runAfter"], {"SharePoint_Create_item": ["Succeeded"]})
+        self.assertEqual(literal_write["runAfter"], {"SharePoint_Create_item": ["Succeeded"]})
+        self.assertEqual(is_new["actions"]["SharePoint_Create_item"]["runAfter"], {"Guard_NIH_Parent_Already_Admitted": ["Succeeded"]})
         self.assertEqual(is_new["runAfter"], {"Archive_NIH_Update": ["Succeeded"]})
         self.assertEqual(literal_write["inputs"]["host"]["operationId"], "HttpRequest")
         self.assertIn("'RetrievedUTC'", literal_write["inputs"]["parameters"]["parameters/body"])

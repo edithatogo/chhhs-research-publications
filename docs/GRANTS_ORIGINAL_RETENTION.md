@@ -1,73 +1,108 @@
-# Reviewed-import original retention candidate
+# Automated original retention for the admitted NIH opportunity
 
-Status: locally implemented; native qualification pending. The existing importer
-remains manual-only and Off. The scheduled acquisition/archive proof is recorded
-separately in [NIH recurring qualification](NIH_RECURRING_QUALIFICATION.md).
+The existing Power Automate reviewed-import flow now retains and reopens the
+complete source files before updating the already-admitted NIH parent. Direct
+operator attachment uploads are no longer required. The separate acquisition
+flow's scheduled full-response/ZIP archival proof remains in
+[NIH recurring qualification](NIH_RECURRING_QUALIFICATION.md).
 
-The candidate extends the existing importer, preserving its identity, connection
-reference, source mappings and exclusion of human review fields. It accepts an
-additional `OriginalResponsesJson` envelope for the selected NIH opportunity.
-`grants_import_originals.py` prepares this envelope from all four admitted raw
-responses, every declared attachment-folder ZIP and the reviewed projection.
-Preparation checks projection/hash provenance, semantic replay, date facts,
-attachment metadata, ZIP coverage, CRC and members. `--source-observed-at` retains
-the original producer timestamp spelling when it differs from normalized UTC;
-the helper does not guess a different lexical value to force a hash match.
+Qualification is owner-run and limited to the selected admitted opportunity.
+Reviewed rows and a validated `OriginalResponsesJson` envelope remain producer
+inputs. Unattended projection/admission/register/model orchestration is separate;
+this increment does not activate it or admit another source opportunity.
 
-The flow candidate binds the envelope to the reviewed source identity and
-observation, checks roles and decoded source content, and serializes its own runs.
-It saves deterministic original attachments only when absent, reopens each file
-and requires exact base64 byte equality. It never overwrites or deletes an
-existing attachment. Native connector output shapes and actual byte comparisons
-still require runtime verification; local graph checks are not that proof.
+## Retention and admission contract
 
-Existing-item originals are retained before source observation ordering checks.
-A rejected older observation can therefore leave additional evidence attachments
-while accepted typed fields remain unchanged. For a new item, SharePoint must
-create the parent before attaching files; an attachment failure can leave a
-partially created parent. Same-key replay is the recovery path, not transactional
-rollback. Trigger concurrency controls this flow's writers; it does not provide
-atomic protection against external edits or replace the existing non-atomic
-source update behavior. Producer SHA declarations are checked locally; the native
-flow independently compares saved bytes but does not recompute SHA256.
+`grants_import_originals.py` prepares `grants-originals-v1` from all four complete
+current/replay responses, every declared attachment-folder ZIP and the reviewed
+projection. It checks all projection fields and evidence-hash provenance,
+semantic replay, source date facts, folder metadata, complete ZIP coverage, CRC
+and members. It preserves exact input bytes and calculates file SHA256/lengths.
+`--source-observed-at` retains original producer timestamp spelling when it differs
+from normalized UTC; the helper does not guess a spelling to force a hash match.
 
-## Native checkpoint — 24 October 2026
+The flow requires the envelope for NIH rows, binds it to source identity and
+observation, validates decoded source content and expected roles, and serializes
+its own runs. JSON is retained through SharePoint's REST `AttachmentFiles/add`
+operation, with the original UTF-8 text and explicit octet-stream content type.
+ZIPs use the qualified binary attachment operation. Reads use `GetFileContent`
+with `inferContentType=false`; every saved base64 payload must equal its input.
 
-The management API acknowledged a save, but fresh published-definition readback
-retained the original graph. No candidate run was triggered. The manual flow was
-returned Off and that state was read back. PAC confirmed the existing environment,
-workflow and logical SharePoint reference. A clientdata-only Dataverse update,
-guarded by exact name, Draft state and complete preimage, was then rejected:
-`ActiveUnpublished` / a published update cannot proceed while an unpublished
-active row exists. The pre-read guard is not an atomic ETag condition.
+Names are deterministic: `raw-original-<EvidenceHash>-<role>.json` for the four
+JSON files and `original-<EvidenceHash>-attachment-folder-<id>.zip` for ZIPs.
+Only missing names are created; existing files are reopened and compared. A
+same-name byte conflict fails without overwriting it. Explicit retry policies
+are disabled on the new connector operations. Native SHA256 recomputation and
+complete projection admission remain producer responsibilities; the native gate
+independently verifies identity/roles and saved-byte equality.
 
-The existing unpublished version has not yet been retrieved or discarded.
-The cached-only read adapter refused an expired Dataverse credential without
-renewing or switching profiles. Browser entry points timed out twice. The existing
-lane owner was contacted about the supported same-client renewal/draft route;
-no authentication reset, new consent or grants-object handoff occurred.
+Missing NIH parents fail at `Guard_NIH_Parent_Already_Admitted` before `PostItem`.
+First-time NIH parent admission is unqualified and is not silently performed by
+this retention flow. Other sources retain their existing create behavior.
+Existing-item originals are retained before observation-order checks, so a
+rejected older observation may retain additional evidence files while accepted
+typed values remain unchanged. This is not a multi-record transaction or atomic
+protection against external writers.
 
-Microsoft documents [separate draft and published flow versions](https://learn.microsoft.com/en-us/power-automate/drafts-versioning)
-and a [bound RetrieveUnpublished function](https://learn.microsoft.com/en-us/power-apps/developer/data-platform/webapi/reference/retrieveunpublished?view=dataverse-latest).
-The recorded native metadata exposes that function for workflow records. These
-contracts establish the next inspection route, not successful draft retrieval or
-publication. Preserve the draft until its content and ownership are reconciled.
+## Native findings and qualified route
 
-## Remaining qualification
+The existing flow/workflow identities and original logical SharePoint reference
+were retained. Its original `runtimeSource=invoker` connection-reference map was
+restored exactly and read back. A temporary Embedded mode used during format
+qualification was removed; it is not treated as an equivalent credential
+boundary. Fresh native owner runs used the original valid caller connection,
+without account switching. Other callers and run-only permission trimming are
+not qualified by these owner-only tests.
 
-1. Retrieve the exact unpublished version, compare it with the saved candidate
-   and preimage, then reconcile through a supported same-object save/publish route.
-2. Read back the complete published graph, original logical binding and manual
-   trigger before running. Keep a verified restoration preimage.
-3. Run one original-backed NIH replay: reopen all five saved originals, preserve
-   the four existing attachments, all source fields and human review fields.
-4. Repeat: prove zero duplicate items/files and stable existing attachment bytes.
-5. Reject an incomplete envelope and conflicting existing-name bytes; prove
-   last-good typed values and prior attachments survive, then recover by valid replay.
-6. Return Off. Reconcile the final canonical solution export, source and versioned
-   native documentation. No scheduled register/model chain or delivered alert is
-   implied by this candidate.
+The installed FlowAgent Dataverse update path preserved stored references but
+ignored supplied reference repairs. A stale unpublished draft also blocked a
+published update. The supported native designer removed only the qualification
+draft after candidate/preimage preservation; a complete, same-record PAC
+clientdata update then restored the original map. The exact target/name and Off state were checked; stopped-state/clientdata
+preconditions were used for saved updates. This Power Fx pre-read is not atomic ETag protection.
+Native save/readback remained separate from runtime proof.
 
-Local validation on the qualified Python 3.15.1 interpreter: 848 tests passed
-with 25 skips; 446 project checks and web-first contracts passed. Private fixtures
-and native acceptance are separate from this public clone's test results.
+Native publishing rejected legacy connector authentication annotations and regex
+`pattern` properties in Parse JSON schemas. Known rejected annotations were
+removed; source hashing remains validated by the producer and supported schema
+bounds remain native. Unknown authentication annotations are rejected locally.
+
+`CreateAttachment` reformatted JSON despite byte-exact octet-stream inputs and
+`.bin` names. A semantic JSON comparison would have missed that defect. Raw REST
+JSON creation plus binary readback passed instead. Eight reformatted diagnostic
+attachments remain preserved and are not counted as byte-exact originals.
+[Microsoft documents the attachment REST route](https://learn.microsoft.com/en-us/sharepoint/dev/sp-add-ins/working-with-folders-and-files-with-rest)
+and [connector operations](https://learn.microsoft.com/en-us/connectors/sharepointonline/).
+
+## Actual outcomes — 24 October 2026
+
+| Check | Result |
+| --- | --- |
+| Full original retention | Four JSON bodies and the declared ZIP independently downloaded and matched exact bytes, SHA256 and lengths; ZIP CRC/member checks pass |
+| Earlier operator originals | All four remain byte-exact |
+| Same-input replay | No new parent or attachment; existing accepted-field update/ISO actions still execute and can advance the parent version |
+| Incomplete envelope | Fails before row processing; full parent/version/attachment frame unchanged |
+| Whitespace-only byte conflict | Producer semantic admission passes, native byte gate fails; no attachment/source update; full parent version unchanged |
+| Fictional missing-parent input | Explicitly not an admitted projection; fails at the intended parent guard with no parent/attachment creation; registry stays one accepted parent |
+| Valid recovery | Succeeds after negative cases with all five byte gates passing |
+| Final Invoker mode | Fresh owner success, incomplete/conflict/missing-parent negatives and recovery pass |
+| Preservation | All accepted fields/review fields remain unchanged; all 17 file identities, ETags, lengths and modification times remain stable across replay/negative/recovery checks |
+| Delivery and state | Both grants flows Off; both native owner failure-email subscriptions read back false; no email/delivery actions in this importer |
+
+The 17 files comprise four earlier operator originals, five qualified automated
+originals and eight preserved diagnostic files. Initial raw REST creation was
+qualified using the same owner's existing physical connection in temporary
+Embedded mode; the final owner replay/recovery and preservation checks use the
+restored original Invoker map. No other caller's access is inferred.
+
+The canonical export/source reconciliation is recorded in
+[the sanitized manifest](../contracts/grants-original-retention-reconciliation-20261024.json).
+The existing grants acceptance document is updated in place through the existing
+versioned publisher; raw receipts, native bindings and source payloads remain
+private. The shared guide, diagrams, Loop and marker retain their owners.
+
+The inherited failure-email subscription was enabled in the preimage and was
+explicitly disabled before the remaining fault tests. Absence of delivery actions
+is separate from that subscription readback; no historical mail-delivery claim is
+made. Daily operation, recurring register/model refresh and delivered failure
+alerts remain separate unqualified gates.

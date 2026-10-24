@@ -132,3 +132,15 @@ reliability, missed-trigger detection, sustained freshness, alert delivery or fu
 source-to-model acceptance. Those existing gates remain open. Private native HTTP
 receipts, full downloaded generations, freshness proofs and preservation evidence
 are under `private/ops/2026-10-24-nih-scheduled-observation/`.
+
+
+## Reviewed-import original retention — 24 October 2026
+
+The separate [original-retention increment](GRANTS_ORIGINAL_RETENTION.md) now
+retains four complete JSON bodies and the declared ZIP without direct operator
+attachment uploads, and verifies exact saved bytes. It preserves the existing
+Invoker reference map, accepted parent/review fields and prior attachments;
+incomplete/conflicting inputs and a missing parent fail closed. Both grants
+flows remain Off with native owner failure-email subscriptions false. Producer
+admission/envelope inputs remain separate from unattended orchestration; this
+increment does not close the remaining recurring register/model or delivery gates.

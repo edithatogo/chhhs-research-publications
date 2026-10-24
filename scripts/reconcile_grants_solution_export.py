@@ -53,6 +53,10 @@ def portable(definition, site, list_id):
 
 
 def reconcile(archive: Path, template: Path = TEMPLATE):
+    source_document = json.loads(template.read_text())
+    expected_runtime = 'invoker'
+    if source_document['properties']['connectionReferences']['shared_sharepointonline']['source'] != 'Invoker':
+        raise ValueError('Original Invoker credential boundary must remain preserved')
     with ZipFile(archive) as zipped:
         names = zipped.namelist()
         if len(names) != len(set(names)) or any(
@@ -74,10 +78,10 @@ def reconcile(archive: Path, template: Path = TEMPLATE):
         references = {node.get('connectionreferencelogicalname')
                       for node in customizations.findall('.//connectionreference')}
         reference = exported['properties']['connectionReferences']['shared_sharepointonline']
-        if (reference.get('runtimeSource') != 'invoker'
+        if (reference.get('runtimeSource') != expected_runtime
                 or reference.get('api', {}).get('name') != 'shared_sharepointonline'
                 or reference.get('connection', {}).get('connectionReferenceLogicalName') not in references):
-            raise ValueError('Grants invoker connection reference is absent or changed')
+            raise ValueError('Grants connection reference is absent or changed')
         definition = exported['properties']['definition']
         graph = dict(actions(definition['actions']))
         lookup = graph['SharePoint_Get_items']['inputs']['parameters']
@@ -91,7 +95,7 @@ def reconcile(archive: Path, template: Path = TEMPLATE):
             parameters = graph[name]['inputs']['parameters']
             if parameters['dataset'] != site or parameters['table'] != list_id:
                 raise ValueError('Grants action target differs')
-        source = json.loads(template.read_text())['properties']['definition']
+        source = source_document['properties']['definition']
         native = portable(definition, site, list_id)
         source = portable(source, site, list_id)
         if native != source:
@@ -100,6 +104,7 @@ def reconcile(archive: Path, template: Path = TEMPLATE):
             'schema': 1, 'status': 'PASS_EXPORT_SOURCE_PARITY',
             'solution_unique_name': manifest.findtext('UniqueName'),
             'solution_version': manifest.findtext('Version'), 'managed': False,
+            'connection_runtime_source': expected_runtime,
             'workflow_count': len(workflows), 'connection_reference_count': len(references),
             'workflow_membership_sha256': digest(workflows),
             'archive_sha256': hashlib.sha256(archive.read_bytes()).hexdigest(),

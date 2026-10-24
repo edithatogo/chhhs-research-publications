@@ -6,6 +6,32 @@ from __future__ import annotations
 
 import copy
 
+def remove_rejected_auth_annotations(definition: dict) -> dict:
+    """Native solution-flow publishing rejects connector auth annotations.
+
+    Preserve host aliases and logical references; those select the original
+    Invoker binding. Refuse unknown annotations rather than silently discarding.
+    """
+    result = copy.deepcopy(definition)
+    allowed = [
+        {"type": "Raw", "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"},
+        {"type": "Raw", "value": "@parameters('$authentication')"},
+    ]
+    def visit(actions):
+        for action in actions.values():
+            if action.get("type") == "OpenApiConnection":
+                inputs = action.get("inputs", {})
+                auth = inputs.get("authentication")
+                if auth is not None:
+                    if auth not in allowed:
+                        raise ValueError("unqualified connector authentication annotation")
+                    del inputs["authentication"]
+            visit(action.get("actions", {}))
+            visit(action.get("else", {}).get("actions", {}))
+    visit(result.get("actions", {}))
+    return result
+
+
 SOURCE = "us-grants-gov-nih-pa-25-301"
 ROLES = ["search-current", "detail-current", "search-replay", "detail-replay"]
 
@@ -31,15 +57,14 @@ def patch(definition: dict) -> dict:
         "required": ["schema_version", *fields, "files"], "properties": {
             "schema_version": {"type": "string", "enum": ["grants-originals-v1"]},
             **{f: {"type": "string", "minLength": 1} for f in fields},
-            "EvidenceHash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+            "EvidenceHash": {"type": "string", "minLength": 64, "maxLength": 64},
             "files": {"type": "array", "minItems": 4, "maxItems": 14, "items": {
                 "type": "object", "additionalProperties": False,
                 "required": ["role", "sha256", "byte_length", "content_base64"], "properties": {
                     "role": {"type": "string", "maxLength": 80},
-                    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+                    "sha256": {"type": "string", "minLength": 64, "maxLength": 64},
                     "byte_length": {"type": "integer", "minimum": 1, "maximum": 52428800},
-                    "content_base64": {"type": "string", "minLength": 4,
-                                       "pattern": "^[A-Za-z0-9+/]*={0,2}$"}}}}}}
+                    "content_base64": {"type": "string", "minLength": 4}}}}}}
     envelope = "body('Parse_Originals_Envelope')"
     first_row = "first(outputs('Parse_Reviewed_Rows'))"
     detail = f"json(base64ToString({envelope}?['files'][1]?['content_base64']))?['data']"
@@ -86,6 +111,8 @@ def patch(definition: dict) -> dict:
                 "parameters": {"dataset": base_inputs["parameters"]["dataset"],
                                "table": base_inputs["parameters"]["table"], **params},
                 "retryPolicy": {"type": "none"}}
+            if op in ("GetFileContent", "HttpRequest"):
+                del inputs["parameters"]["table"]
             if "authentication" in base_inputs:
                 inputs["authentication"] = copy.deepcopy(base_inputs["authentication"])
             return node("OpenApiConnection", inputs, after)
@@ -93,24 +120,32 @@ def patch(definition: dict) -> dict:
         name = prefix + "_Name"
         found = prefix + "_Found"
         add = prefix + "_Add_If_Missing"
+        add_json = prefix + "_Add_JSON_If_Missing"
         listing = prefix + "_List"
         reread = prefix + "_Readback_List"
         selected = prefix + "_Readback_File"
         unique = prefix + "_Require_One"
         content = prefix + "_Read_Content"
         file_actions = {
-            name: node("Compose", "@concat('original-'," + envelope + "?['EvidenceHash'],'-',item()?['role'],if(startsWith(item()?['role'],'attachment-folder-'),'.zip','.json'))"),
+            name: node("Compose", "@concat(if(startsWith(item()?['role'],'attachment-folder-'),'original-','raw-original-')," + envelope + "?['EvidenceHash'],'-',item()?['role'],if(startsWith(item()?['role'],'attachment-folder-'),'.zip','.json'))"),
             found: node("Query", {"from": "@body('" + listing + "')", "where": f"@equals(item()?['DisplayName'],outputs('{name}'))"}, name),
-            add: {"type": "If", "expression": f"@equals(length(body('{found}')),0)", "runAfter": {found: ["Succeeded"]},
+            add: {"type": "If", "expression": f"@and(equals(length(body('{found}')),0),startsWith(item()?['role'],'attachment-folder-'))", "runAfter": {found: ["Succeeded"]},
                 "actions": {prefix + "_Create": sp("CreateAttachment", {"itemId": "@" + record_id,
                     "displayName": f"@outputs('{name}')", "body": "@base64ToBinary(item()?['content_base64'])"})}, "else": {"actions": {}}},
+            add_json: {"type": "If", "expression": f"@and(equals(length(body('{found}')),0),not(startsWith(item()?['role'],'attachment-folder-')))",
+                "runAfter": {found: ["Succeeded"]}, "actions": {prefix + "_Create_JSON": sp("HttpRequest", {
+                    "parameters/method": "POST",
+                    "parameters/uri": f"_api/web/lists(guid'{base_inputs['parameters']['table']}')/items(@{{{record_id}}})/AttachmentFiles/add(FileName='@{{outputs('{name}')}}')",
+                    "parameters/headers": {"Content-Type": "application/octet-stream; charset=utf-8", "Accept": "application/json;odata=nometadata"},
+                    "parameters/body": "@base64ToString(item()?['content_base64'])"})}, "else": {"actions": {}}},
             reread: sp("GetItemAttachments", {"itemId": "@string(" + record_id + ")"}, add),
             selected: node("Query", {"from": f"@body('{reread}')", "where": f"@equals(item()?['DisplayName'],outputs('{name}'))"}, reread),
             unique: guard(f"equals(length(body('{selected}')),1)", selected),
-            content: sp("GetAttachmentContent", {"itemId": "@" + record_id,
-                "attachmentId": f"@first(body('{selected}'))?['Id']"}, unique),
+            content: sp("GetFileContent", {"id": f"@first(body('{selected}'))?['Id']",
+                "inferContentType": False}, unique),
             prefix + "_Verify_Bytes": guard(f"equals(body('{content}')?['$content'],item()?['content_base64'])", content),
         }
+        file_actions[reread]["runAfter"][add_json] = ["Succeeded"]
         return {"type": "If", "expression": f"@equals(items('Apply_to_each_Reviewed_Row')?['Source'],'{SOURCE}')",
             "runAfter": {after: ["Succeeded"]} if after else {}, "actions": {
                 listing: sp("GetItemAttachments", {"itemId": "@string(" + record_id + ")"}),
@@ -118,10 +153,13 @@ def patch(definition: dict) -> dict:
                     "runAfter": {listing: ["Succeeded"]}, "runtimeConfiguration": {"concurrency": {"repetitions": 1}},
                     "actions": file_actions}}, "else": {"actions": {}}}
 
-    new["actions"]["Archive_NIH_Create"] = archive("Original_Create", "body('SharePoint_Create_item')?['ID']", "SharePoint_Create_item")
-    new["actions"]["SharePoint_Create_item_Preserve_ISO_Text"]["runAfter"] = {"Archive_NIH_Create": ["Succeeded"]}
+    # Only the already-admitted selected NIH parent is qualified. A missing
+    # parent must not acquire accepted fields before original-byte proof.
+    new["actions"]["Guard_NIH_Parent_Already_Admitted"] = node("Compose",
+        f"@if(equals(item()?['Source'],'{SOURCE}'),json('NIH_PARENT_NOT_ADMITTED'),true)")
+    new["actions"]["SharePoint_Create_item"]["runAfter"] = {"Guard_NIH_Parent_Already_Admitted": ["Succeeded"]}
     existing_archive = archive("Original_Update", "first(body('SharePoint_Get_items')?['value'])?['ID']", "Condition_Duplicate_OpportunityKey")
     existing_archive["expression"] = f"@and(equals(items('Apply_to_each_Reviewed_Row')?['Source'],'{SOURCE}'),equals(length(body('SharePoint_Get_items')?['value']),1))"
     conflict_else["Archive_NIH_Update"] = existing_archive
     new["runAfter"] = {"Archive_NIH_Update": ["Succeeded"]}
-    return result
+    return remove_rejected_auth_annotations(result)

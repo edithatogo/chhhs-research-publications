@@ -20,10 +20,10 @@ class GrantsExportReconciliationTests(unittest.TestCase):
         self.definition['triggers']['manual']['metadata'] = {
             'operationMetadataId': '00000000-0000-4000-8000-000000000002'}
 
-    def archive(self, definition=None, managed='0', references=True):
+    def archive(self, definition=None, managed='0', references=True, runtime_source='invoker'):
         document = {'properties': {'definition': definition or self.definition,
             'connectionReferences': {'shared_sharepointonline': {
-                'runtimeSource': 'invoker', 'api': {'name': 'shared_sharepointonline'},
+                'runtimeSource': runtime_source, 'api': {'name': 'shared_sharepointonline'},
                 'connection': {'connectionReferenceLogicalName': 'test_sharepoint_reference'}}}}}
         path = self.folder / 'fixture.zip'
         with ZipFile(path, 'w') as zipped:
@@ -45,7 +45,7 @@ class GrantsExportReconciliationTests(unittest.TestCase):
     def test_old_authentication_is_not_normalized_away(self):
         changed = copy.deepcopy(self.definition)
         graph = dict(actions(changed['actions']))
-        graph['SharePoint_Create_item']['inputs']['authentication']['value'] = "@parameters('$authentication')"
+        graph['SharePoint_Create_item']['inputs']['authentication'] = {"type": "Raw", "value": "@parameters('$authentication')"}
         with self.assertRaisesRegex(ValueError, 'differs'):
             reconcile(self.archive(changed))
 
@@ -72,6 +72,10 @@ class GrantsExportReconciliationTests(unittest.TestCase):
     def test_missing_connection_reference_is_rejected(self):
         with self.assertRaisesRegex(ValueError, 'reference'):
             reconcile(self.archive(references=False))
+
+    def test_runtime_source_drift_is_rejected(self):
+        with self.assertRaisesRegex(ValueError, 'reference'):
+            reconcile(self.archive(runtime_source='embedded'))
 
     def test_managed_package_is_rejected(self):
         with self.assertRaisesRegex(ValueError, 'managed'):
