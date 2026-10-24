@@ -338,3 +338,5 @@ See [recovery and validation](recovery-20261024.md). Existing task statuses rema
 ## NIH bounded native intake — 24 October 2026
 
 See [bounded import evidence](../../../docs/NIH_BOUNDED_IMPORT.md). One real opportunity now exists in SharePoint: 32 registry fields, seven nominal occurrences and four byte-verified complete source response attachments. An empty optional URI defect was repaired and verified natively. The flow is Off. Attachment retention was an operator step; unattended collection, replay/recovery and model refresh are not closed by this unit.
+
+Native same-input replay is now verified for this one NIH record: create skipped, update succeeded, one item before/after with the same ID, temporary multiline review note preserved exactly, original note restored with ETag protection, and review status/source fields/schedule/attachments unchanged. An empty-date substring guard defect was repaired and verified natively. This closes the bounded same-input replay check only; changed-source failure recovery, unattended archival and model refresh remain open. See the replay section of the same evidence document.
