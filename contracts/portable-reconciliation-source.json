@@ -1,0 +1,106 @@
+{
+  "kind": "portable_reconciliation_source_closure_v1",
+  "scope": "source-only; no private native data or records",
+  "files": [
+    "scripts/reconcile_model_registry_identity.py",
+    "tests/test_reconcile_model_registry_identity.py",
+    "scripts/reconcile_registry_model_provenance.py",
+    "tests/test_reconcile_registry_model_provenance.py",
+    "scripts/reconcile_full_month_exports.py",
+    "tests/test_reconcile_full_month_exports.py",
+    "scripts/reconcile_publication_sources.py",
+    "tests/test_reconcile_publication_sources.py",
+    "scripts/reconcile_pubmed_registry_keys.py",
+    "tests/test_reconcile_pubmed_registry_keys.py"
+  ],
+  "existing_byte_identical_dependencies": [
+    "scripts/canonical_reference.py",
+    "scripts/export_publication_register.py",
+    "tests/fixtures/webfirst-export-synthetic.json"
+  ],
+  "adjustments": [
+    "Extract unchanged load_policy/validate_policy into publication_policy_contract to avoid enrichment-only dependency",
+    "Comparator imports policy contract; test temp directories create empty ignored private parent"
+  ],
+  "entrypoints": [
+    "scripts/reconcile_model_registry_identity.py",
+    "scripts/reconcile_registry_model_provenance.py",
+    "scripts/reconcile_full_month_exports.py",
+    "scripts/reconcile_publication_sources.py",
+    "scripts/reconcile_pubmed_registry_keys.py"
+  ],
+  "source_dependencies": [
+    "scripts/canonical_reference.py",
+    "scripts/export_publication_register.py",
+    "scripts/publication_policy_contract.py",
+    "scripts/reconcile_pubmed_registry_keys.py",
+    "config/publication-policy.json"
+  ],
+  "synthetic_fixture_dependencies": [
+    "tests/fixtures/webfirst-export-synthetic.json"
+  ],
+  "runtime": "Qualified repo-local Python3.15.1; standard library only for these comparators",
+  "network_required": false,
+  "unchanged_policy_function_ast_sha256": {
+    "load_policy": "e23beb9bff8bf96b97c47d73e332fc64eb43aa0fe703de8b6ea7c7a51179c618",
+    "validate_policy": "c594e9bd93ae89129d174768c80c7864f01d32027be295597730360dd70df87a"
+  },
+  "original_sources": [
+    {
+      "path": "scripts/reconcile_model_registry_identity.py",
+      "sha256": "d1c52f55289ad0dec8d60fd9bbd784cdec4511201270eab371c16632a0a9b74d"
+    },
+    {
+      "path": "tests/test_reconcile_model_registry_identity.py",
+      "sha256": "a5965a3c5e4228d6b37de54a11ef2436c55b2a7ce1856594577fefcabf47a53c"
+    },
+    {
+      "path": "scripts/reconcile_registry_model_provenance.py",
+      "sha256": "dac2f59ef787412b7e9aea8a067a021a2bfcb3dcdd6fcea310f2e3e6347d2105"
+    },
+    {
+      "path": "tests/test_reconcile_registry_model_provenance.py",
+      "sha256": "8887146735cc038f3937d23ab998011eee7aa6ce03c6e49a3c97800d2b2a8b10"
+    },
+    {
+      "path": "scripts/reconcile_full_month_exports.py",
+      "sha256": "e9dca9e89eebd6a804cd037dc0e2c3013edfab69f97afb61bbeba04f37daa08e"
+    },
+    {
+      "path": "tests/test_reconcile_full_month_exports.py",
+      "sha256": "d5c3bf9c1616e9c1577b6a70cadaac4895e5ac4c3fd89fc077cc278684319834"
+    },
+    {
+      "path": "scripts/reconcile_publication_sources.py",
+      "sha256": "2b661ab796e241b798f90ee97571b7a5defb9c877e06fc7d65c3b85995af3242"
+    },
+    {
+      "path": "tests/test_reconcile_publication_sources.py",
+      "sha256": "e88aa22b1ed964143dc02776570b120b66eb9ce8e6d236aa07eecc8b5a211357"
+    },
+    {
+      "path": "scripts/reconcile_pubmed_registry_keys.py",
+      "sha256": "1adc621a8bbf1b6d06ea8e525e28cf6df8030c48c113338c40b6c5880e528a02"
+    },
+    {
+      "path": "tests/test_reconcile_pubmed_registry_keys.py",
+      "sha256": "d8b7d43c07b77ed6f4763190bbfb38f2b44a9354e8013584bdf0d1eea781cacf"
+    },
+    {
+      "path": "config/publication-policy.json",
+      "sha256": "0c2a5f9fd85794ba28e5f9d1d4bf827fae7255b3edfab0d777a34ad6e55cf107"
+    },
+    {
+      "path": "scripts/canonical_reference.py",
+      "sha256": "d7b51a948b23d67f1b9d05f15c78c7546e0d92d76070b73541d0d14162d6e34d"
+    },
+    {
+      "path": "scripts/export_publication_register.py",
+      "sha256": "491d99636a5613ace1c4a87f6400b28750bd64a2948407f94cfd0c4a52abcbea"
+    },
+    {
+      "path": "tests/fixtures/webfirst-export-synthetic.json",
+      "sha256": "ef10cd2cd0adf13b04af2d79c0bc936b6f2b3296d97ab7c0681bb4e6126f17bf"
+    }
+  ]
+}
