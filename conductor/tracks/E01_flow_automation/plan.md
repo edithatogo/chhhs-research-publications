@@ -8,8 +8,14 @@
 - [x] Remove PubMed XML/DoRA publication HTML response-copy aliases through guarded
   same-ID PAC updates; full native clientdata exact and original Started daily
   settings, references and connections preserved. No new collection run.
-- [ ] Inspect the next natural affected occurrences for performance/integrity;
-  publish the two saved graph changes in versioned native documentation.
+- [x] Publish the PubMed/DoRA copy-reduction graph changes in versioned native
+  documentation, with exact saved bytes/history and reopened source proof.
+- [ ] Inspect the next natural affected occurrences for performance/integrity.
+- [x] Qualify bounded DoRA conditional requests, standard bulk endpoints and
+  published sitemap coverage; save provider-compliant serial pacing/failure latch.
+  See [retrieval evidence and remaining work](../../../docs/DORA_RETRIEVAL_EFFICIENCY.md).
+- [ ] Qualify sitemap version-change/freshness semantics and migrate verified raw
+  reference reuse with consumers before any native unchanged-record skipping.
 - [ ] Profile DoRA detail retrieval and coordinated OpenCitations pointer-manifest
   migration before further changes. Do not alter other owners or enable incomplete
   inputs. Existing Crossref terminal/deployment/continuation gates still apply.
