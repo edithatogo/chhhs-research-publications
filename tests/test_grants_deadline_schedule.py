@@ -88,6 +88,10 @@ class ScheduleTests(unittest.TestCase):
         self.assertIn(b"source = existing", result)
         self.assertIn(b"measure 'Funding Source Attribution'", result)
         self.assertIn(b"table 'Grants Deadline Occurrences'", result)
+        # Native TMDL rejected description properties on these objects.
+        self.assertNotIn(b"description:", result)
+        self.assertIn(b"/// Grants.gov API attribution", result)
+        self.assertIn(b"/// Published application schedule", result)
         with self.assertRaisesRegex(ValueError, "fingerprint"):
             model_candidate(raw, "", expected_sha256="wrong")
 
