@@ -137,7 +137,7 @@ class GrantsFlowContractTests(unittest.TestCase):
             set(conflict["actions"]),
             {"Compose_Conflicting_Source_Identity_Failure", "Increment_Conflicting_Identity_Failure_Count"},
         )
-        self.assertEqual(list(conflict["else"]["actions"]), ["Condition_Duplicate_OpportunityKey", "Condition_Is_New_Opportunity"])
+        self.assertEqual(list(conflict["else"]["actions"]), ["Condition_Duplicate_OpportunityKey", "Condition_Is_New_Opportunity", "Archive_NIH_Update"])
         upsert = conflict["else"]["actions"]
         self.assertEqual(upsert["Condition_Is_New_Opportunity"]["runAfter"], {"Condition_Duplicate_OpportunityKey": ["Succeeded"]})
         duplicate = upsert["Condition_Duplicate_OpportunityKey"]
@@ -152,9 +152,11 @@ class GrantsFlowContractTests(unittest.TestCase):
         lookup_count = "@length(body('SharePoint_Get_items')?['value'])"
         self.assertEqual(is_new["expression"]["and"][0], {"equals": [lookup_count, 0]})
         self.assertEqual(list(is_new["actions"]), [
-            "SharePoint_Create_item", "SharePoint_Create_item_Preserve_ISO_Text"])
+            "SharePoint_Create_item", "SharePoint_Create_item_Preserve_ISO_Text", "Archive_NIH_Create"])
         literal_write = is_new["actions"]["SharePoint_Create_item_Preserve_ISO_Text"]
-        self.assertEqual(literal_write["runAfter"], {"SharePoint_Create_item": ["Succeeded"]})
+        self.assertEqual(literal_write["runAfter"], {"Archive_NIH_Create": ["Succeeded"]})
+        self.assertEqual(is_new["actions"]["Archive_NIH_Create"]["runAfter"], {"SharePoint_Create_item": ["Succeeded"]})
+        self.assertEqual(is_new["runAfter"], {"Archive_NIH_Update": ["Succeeded"]})
         self.assertEqual(literal_write["inputs"]["host"]["operationId"], "HttpRequest")
         self.assertIn("'RetrievedUTC'", literal_write["inputs"]["parameters"]["parameters/body"])
         self.assertIn("'DeadlineUTCInstant'", literal_write["inputs"]["parameters"]["parameters/body"])
