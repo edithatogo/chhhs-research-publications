@@ -1,5 +1,8 @@
 # OpenCitations bibliographic metadata enrichment
 
+Native documentation was completed24October after the historical pending notes
+below: [current publication and field guide](OPENCITATIONS_NATIVE_DOCUMENTATION.md).
+
 Selected 24 October 2026 as the next independent enrichment capability. This
 reuses the48 accepted OpenAlex DOI identities and the established native archive
 pattern; it does not fetch the completed OpenCitations citation counts again.

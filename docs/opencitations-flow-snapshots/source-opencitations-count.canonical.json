@@ -1,0 +1,805 @@
+{
+  "schema": 1,
+  "slug": "source-opencitations-count",
+  "provenance": {
+    "sha256": "76ba5a3ac0817090755fe730972aa16f9e8a9f0c0df13e43c3dcd090418d4192",
+    "status": "Native Stopped manual snapshot24October2026; accepted selected48DOI archive/runtime evidence; source observations only; no canonical publication or relationship adjudication."
+  },
+  "semantics": "Documentary control-dependency abstraction. Not executable: conditions, retries, timeouts, token scheduling and connector effects remain authoritative in the Power Automate definition.",
+  "scopes": [
+    {
+      "path": "root",
+      "triggers": [
+        {
+          "label": "manual",
+          "type": "Request"
+        }
+      ],
+      "nodes": [
+        {
+          "id": "n0",
+          "label": "Find_completed",
+          "type": "OpenApiConnection",
+          "children": [],
+          "run_after": {
+            "Initialize_provider_failure": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n1",
+          "label": "Guard_single_marker",
+          "type": "Compose",
+          "children": [],
+          "run_after": {
+            "Find_completed": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n2",
+          "label": "Initialize_entries",
+          "type": "InitializeVariable",
+          "children": [],
+          "run_after": {
+            "Scope": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n3",
+          "label": "Initialize_provider_failure",
+          "type": "InitializeVariable",
+          "children": [],
+          "run_after": {
+            "Initialize_entries": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n4",
+          "label": "Scope",
+          "type": "Compose",
+          "children": [],
+          "run_after": {}
+        },
+        {
+          "id": "n5",
+          "label": "Use_cached_snapshot",
+          "type": "If",
+          "children": [
+            "root/Use_cached_snapshot/body",
+            "root/Use_cached_snapshot/else"
+          ],
+          "run_after": {
+            "Guard_single_marker": [
+              "Succeeded"
+            ]
+          }
+        }
+      ],
+      "edges": [
+        {
+          "source": "n3",
+          "target": "n0",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n0",
+          "target": "n1",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n4",
+          "target": "n2",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n2",
+          "target": "n3",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n1",
+          "target": "n5",
+          "statuses": [
+            "Succeeded"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "root/Use_cached_snapshot/body",
+      "triggers": [],
+      "nodes": [
+        {
+          "id": "n0",
+          "label": "Cached_keys",
+          "type": "Select",
+          "children": [],
+          "run_after": {
+            "Verify_cached_raw": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n1",
+          "label": "Cached_manifest",
+          "type": "ParseJson",
+          "children": [],
+          "run_after": {
+            "Read_cached_manifest": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n2",
+          "label": "Guard_cached_keys",
+          "type": "Compose",
+          "children": [],
+          "run_after": {
+            "Cached_keys": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n3",
+          "label": "Guard_cached_scope",
+          "type": "Compose",
+          "children": [],
+          "run_after": {
+            "Cached_manifest": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n4",
+          "label": "Read_cached_manifest",
+          "type": "OpenApiConnection",
+          "children": [],
+          "run_after": {}
+        },
+        {
+          "id": "n5",
+          "label": "Replay_complete",
+          "type": "Compose",
+          "children": [],
+          "run_after": {
+            "Guard_cached_keys": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n6",
+          "label": "Verify_cached_raw",
+          "type": "Foreach",
+          "children": [
+            "root/Use_cached_snapshot/body/Verify_cached_raw/body"
+          ],
+          "run_after": {
+            "Guard_cached_scope": [
+              "Succeeded"
+            ]
+          }
+        }
+      ],
+      "edges": [
+        {
+          "source": "n6",
+          "target": "n0",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n4",
+          "target": "n1",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n0",
+          "target": "n2",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n1",
+          "target": "n3",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n2",
+          "target": "n5",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n3",
+          "target": "n6",
+          "statuses": [
+            "Succeeded"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "root/Use_cached_snapshot/body/Verify_cached_raw/body",
+      "triggers": [],
+      "nodes": [
+        {
+          "id": "n0",
+          "label": "Guard_cached_bytes",
+          "type": "Compose",
+          "children": [],
+          "run_after": {
+            "Read_cached_raw": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n1",
+          "label": "Guard_cached_path",
+          "type": "Compose",
+          "children": [],
+          "run_after": {}
+        },
+        {
+          "id": "n2",
+          "label": "Read_cached_raw",
+          "type": "OpenApiConnection",
+          "children": [],
+          "run_after": {
+            "Guard_cached_path": [
+              "Succeeded"
+            ]
+          }
+        }
+      ],
+      "edges": [
+        {
+          "source": "n2",
+          "target": "n0",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n1",
+          "target": "n2",
+          "statuses": [
+            "Succeeded"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "root/Use_cached_snapshot/else",
+      "triggers": [],
+      "nodes": [
+        {
+          "id": "n0",
+          "label": "Acquire_counts",
+          "type": "Foreach",
+          "children": [
+            "root/Use_cached_snapshot/else/Acquire_counts/body"
+          ],
+          "run_after": {}
+        },
+        {
+          "id": "n1",
+          "label": "Guard_batch_complete",
+          "type": "Compose",
+          "children": [],
+          "run_after": {
+            "Acquire_counts": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n2",
+          "label": "Guard_saved_manifest",
+          "type": "Compose",
+          "children": [],
+          "run_after": {
+            "Read_saved_manifest": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n3",
+          "label": "Manifest",
+          "type": "Compose",
+          "children": [],
+          "run_after": {
+            "Guard_batch_complete": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n4",
+          "label": "Read_saved_manifest",
+          "type": "OpenApiConnection",
+          "children": [],
+          "run_after": {
+            "Save_manifest": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n5",
+          "label": "Save_manifest",
+          "type": "OpenApiConnection",
+          "children": [],
+          "run_after": {
+            "Manifest": [
+              "Succeeded"
+            ]
+          }
+        }
+      ],
+      "edges": [
+        {
+          "source": "n0",
+          "target": "n1",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n4",
+          "target": "n2",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n1",
+          "target": "n3",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n5",
+          "target": "n4",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n3",
+          "target": "n5",
+          "statuses": [
+            "Succeeded"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "root/Use_cached_snapshot/else/Acquire_counts/body",
+      "triggers": [],
+      "nodes": [
+        {
+          "id": "n0",
+          "label": "Find_retained_entry",
+          "type": "Query",
+          "children": [],
+          "run_after": {}
+        },
+        {
+          "id": "n1",
+          "label": "Guard_retained_unique",
+          "type": "Compose",
+          "children": [],
+          "run_after": {
+            "Find_retained_entry": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n2",
+          "label": "Use_retained_entry",
+          "type": "If",
+          "children": [
+            "root/Use_cached_snapshot/else/Acquire_counts/body/Use_retained_entry/body",
+            "root/Use_cached_snapshot/else/Acquire_counts/body/Use_retained_entry/else"
+          ],
+          "run_after": {
+            "Guard_retained_unique": [
+              "Succeeded"
+            ]
+          }
+        }
+      ],
+      "edges": [
+        {
+          "source": "n0",
+          "target": "n1",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n1",
+          "target": "n2",
+          "statuses": [
+            "Succeeded"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "root/Use_cached_snapshot/else/Acquire_counts/body/Use_retained_entry/body",
+      "triggers": [],
+      "nodes": [
+        {
+          "id": "n0",
+          "label": "Guard_retained_bytes",
+          "type": "Compose",
+          "children": [],
+          "run_after": {
+            "Read_retained_raw": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n1",
+          "label": "Read_retained_raw",
+          "type": "OpenApiConnection",
+          "children": [],
+          "run_after": {}
+        },
+        {
+          "id": "n2",
+          "label": "Remember_retained_entry",
+          "type": "AppendToArrayVariable",
+          "children": [],
+          "run_after": {
+            "Guard_retained_bytes": [
+              "Succeeded"
+            ]
+          }
+        }
+      ],
+      "edges": [
+        {
+          "source": "n1",
+          "target": "n0",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n0",
+          "target": "n2",
+          "statuses": [
+            "Succeeded"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "root/Use_cached_snapshot/else/Acquire_counts/body/Use_retained_entry/else",
+      "triggers": [],
+      "nodes": [
+        {
+          "id": "n0",
+          "label": "Envelope",
+          "type": "Compose",
+          "children": [],
+          "run_after": {
+            "Guard_count": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n1",
+          "label": "Guard_count",
+          "type": "Compose",
+          "children": [],
+          "run_after": {
+            "Parse_count": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n2",
+          "label": "Guard_previous_provider",
+          "type": "Compose",
+          "children": [],
+          "run_after": {}
+        },
+        {
+          "id": "n3",
+          "label": "Guard_recovery_match",
+          "type": "Compose",
+          "children": [],
+          "run_after": {
+            "Recovered_match": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n4",
+          "label": "Guard_saved_raw",
+          "type": "Compose",
+          "children": [],
+          "run_after": {
+            "Read_raw": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n5",
+          "label": "Pace",
+          "type": "Wait",
+          "children": [],
+          "run_after": {
+            "Remember_entry": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n6",
+          "label": "Parse_count",
+          "type": "ParseJson",
+          "children": [],
+          "run_after": {
+            "Selected_response": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n7",
+          "label": "Provider_request",
+          "type": "If",
+          "children": [
+            "root/Use_cached_snapshot/else/Acquire_counts/body/Use_retained_entry/else/Provider_request/body",
+            "root/Use_cached_snapshot/else/Acquire_counts/body/Use_retained_entry/else/Provider_request/else"
+          ],
+          "run_after": {
+            "Guard_recovery_match": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n8",
+          "label": "Raw_name",
+          "type": "Compose",
+          "children": [],
+          "run_after": {
+            "Envelope": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n9",
+          "label": "Read_raw",
+          "type": "OpenApiConnection",
+          "children": [],
+          "run_after": {
+            "Save_raw": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n10",
+          "label": "Recovered_match",
+          "type": "Query",
+          "children": [],
+          "run_after": {
+            "Guard_previous_provider": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n11",
+          "label": "Remember_entry",
+          "type": "AppendToArrayVariable",
+          "children": [],
+          "run_after": {
+            "Guard_saved_raw": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n12",
+          "label": "Save_raw",
+          "type": "OpenApiConnection",
+          "children": [],
+          "run_after": {
+            "Raw_name": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n13",
+          "label": "Selected_response",
+          "type": "Compose",
+          "children": [],
+          "run_after": {
+            "Provider_request": [
+              "Succeeded"
+            ]
+          }
+        }
+      ],
+      "edges": [
+        {
+          "source": "n1",
+          "target": "n0",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n6",
+          "target": "n1",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n10",
+          "target": "n3",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n9",
+          "target": "n4",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n11",
+          "target": "n5",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n13",
+          "target": "n6",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n3",
+          "target": "n7",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n0",
+          "target": "n8",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n12",
+          "target": "n9",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n2",
+          "target": "n10",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n4",
+          "target": "n11",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n8",
+          "target": "n12",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n7",
+          "target": "n13",
+          "statuses": [
+            "Succeeded"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "root/Use_cached_snapshot/else/Acquire_counts/body/Use_retained_entry/else/Provider_request/body",
+      "triggers": [],
+      "nodes": [
+        {
+          "id": "n0",
+          "label": "Fetch_count",
+          "type": "Http",
+          "children": [],
+          "run_after": {}
+        },
+        {
+          "id": "n1",
+          "label": "Remember_provider_failure",
+          "type": "SetVariable",
+          "children": [],
+          "run_after": {
+            "Fetch_count": [
+              "Failed",
+              "TimedOut"
+            ]
+          }
+        }
+      ],
+      "edges": [
+        {
+          "source": "n0",
+          "target": "n1",
+          "statuses": [
+            "Failed",
+            "TimedOut"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "root/Use_cached_snapshot/else/Acquire_counts/body/Use_retained_entry/else/Provider_request/else",
+      "triggers": [],
+      "nodes": [],
+      "edges": []
+    }
+  ]
+}

@@ -1,0 +1,533 @@
+{
+  "schema": 1,
+  "slug": "source-assertion-consumer",
+  "provenance": {
+    "sha256": "2fecf7fbc9c5c636f69fcbd7e401ad25307b71682b4b8c8be9c47eebf5191a79",
+    "status": "Native Stopped manual snapshot24October2026; accepted selected48DOI archive/runtime evidence; source observations only; no canonical publication or relationship adjudication."
+  },
+  "semantics": "Documentary control-dependency abstraction. Not executable: conditions, retries, timeouts, token scheduling and connector effects remain authoritative in the Power Automate definition.",
+  "scopes": [
+    {
+      "path": "root",
+      "triggers": [
+        {
+          "label": "manual",
+          "type": "Request"
+        }
+      ],
+      "nodes": [
+        {
+          "id": "n0",
+          "label": "Guard_manifest",
+          "type": "Compose",
+          "children": [],
+          "run_after": {
+            "Manifest": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n1",
+          "label": "Guard_packet",
+          "type": "Compose",
+          "children": [],
+          "run_after": {
+            "Packet": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n2",
+          "label": "Guard_packet_path",
+          "type": "Compose",
+          "children": [],
+          "run_after": {}
+        },
+        {
+          "id": "n3",
+          "label": "Guard_projection",
+          "type": "Compose",
+          "children": [],
+          "run_after": {
+            "Projection": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n4",
+          "label": "Guard_rows",
+          "type": "Compose",
+          "children": [],
+          "run_after": {
+            "Invalid_rows": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n5",
+          "label": "Guard_unique_keys",
+          "type": "Compose",
+          "children": [],
+          "run_after": {
+            "Source_keys": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n6",
+          "label": "Invalid_rows",
+          "type": "Query",
+          "children": [],
+          "run_after": {
+            "Verify_raw_files": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n7",
+          "label": "Manifest",
+          "type": "Compose",
+          "children": [],
+          "run_after": {
+            "Read_manifest": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n8",
+          "label": "Packet",
+          "type": "Compose",
+          "children": [],
+          "run_after": {
+            "Read_packet": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n9",
+          "label": "Projection",
+          "type": "Compose",
+          "children": [],
+          "run_after": {
+            "Read_projection": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n10",
+          "label": "Read_manifest",
+          "type": "OpenApiConnection",
+          "children": [],
+          "run_after": {
+            "Guard_packet": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n11",
+          "label": "Read_packet",
+          "type": "OpenApiConnection",
+          "children": [],
+          "run_after": {
+            "Guard_packet_path": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n12",
+          "label": "Read_projection",
+          "type": "OpenApiConnection",
+          "children": [],
+          "run_after": {
+            "Guard_manifest": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n13",
+          "label": "Records",
+          "type": "Select",
+          "children": [],
+          "run_after": {
+            "Stage_fields": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n14",
+          "label": "Refresh_complete",
+          "type": "Compose",
+          "children": [],
+          "run_after": {
+            "Refresh_records": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n15",
+          "label": "Refresh_records",
+          "type": "Foreach",
+          "children": [
+            "root/Refresh_records/body"
+          ],
+          "run_after": {
+            "Guard_unique_keys": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n16",
+          "label": "Source_keys",
+          "type": "Select",
+          "children": [],
+          "run_after": {
+            "Records": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n17",
+          "label": "Stage_fields",
+          "type": "Select",
+          "children": [],
+          "run_after": {
+            "Guard_rows": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n18",
+          "label": "Verify_raw_files",
+          "type": "Foreach",
+          "children": [
+            "root/Verify_raw_files/body"
+          ],
+          "run_after": {
+            "Guard_projection": [
+              "Succeeded"
+            ]
+          }
+        }
+      ],
+      "edges": [
+        {
+          "source": "n7",
+          "target": "n0",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n8",
+          "target": "n1",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n9",
+          "target": "n3",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n6",
+          "target": "n4",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n16",
+          "target": "n5",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n18",
+          "target": "n6",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n10",
+          "target": "n7",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n11",
+          "target": "n8",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n12",
+          "target": "n9",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n1",
+          "target": "n10",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n2",
+          "target": "n11",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n0",
+          "target": "n12",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n17",
+          "target": "n13",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n15",
+          "target": "n14",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n5",
+          "target": "n15",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n13",
+          "target": "n16",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n4",
+          "target": "n17",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n3",
+          "target": "n18",
+          "statuses": [
+            "Succeeded"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "root/Refresh_records/body",
+      "triggers": [],
+      "nodes": [
+        {
+          "id": "n0",
+          "label": "Find_existing",
+          "type": "OpenApiConnection",
+          "children": [],
+          "run_after": {}
+        },
+        {
+          "id": "n1",
+          "label": "Guard_unique",
+          "type": "Compose",
+          "children": [],
+          "run_after": {
+            "Find_existing": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n2",
+          "label": "Read_saved",
+          "type": "OpenApiConnection",
+          "children": [],
+          "run_after": {
+            "Upsert": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n3",
+          "label": "Upsert",
+          "type": "If",
+          "children": [
+            "root/Refresh_records/body/Upsert/body",
+            "root/Refresh_records/body/Upsert/else"
+          ],
+          "run_after": {
+            "Guard_unique": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n4",
+          "label": "Verify_saved",
+          "type": "Compose",
+          "children": [],
+          "run_after": {
+            "Read_saved": [
+              "Succeeded"
+            ]
+          }
+        }
+      ],
+      "edges": [
+        {
+          "source": "n0",
+          "target": "n1",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n3",
+          "target": "n2",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n1",
+          "target": "n3",
+          "statuses": [
+            "Succeeded"
+          ]
+        },
+        {
+          "source": "n2",
+          "target": "n4",
+          "statuses": [
+            "Succeeded"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "root/Refresh_records/body/Upsert/body",
+      "triggers": [],
+      "nodes": [
+        {
+          "id": "n0",
+          "label": "Create_record",
+          "type": "OpenApiConnection",
+          "children": [],
+          "run_after": {}
+        }
+      ],
+      "edges": []
+    },
+    {
+      "path": "root/Refresh_records/body/Upsert/else",
+      "triggers": [],
+      "nodes": [
+        {
+          "id": "n0",
+          "label": "Changed",
+          "type": "If",
+          "children": [
+            "root/Refresh_records/body/Upsert/else/Changed/body",
+            "root/Refresh_records/body/Upsert/else/Changed/else"
+          ],
+          "run_after": {}
+        }
+      ],
+      "edges": []
+    },
+    {
+      "path": "root/Refresh_records/body/Upsert/else/Changed/body",
+      "triggers": [],
+      "nodes": [
+        {
+          "id": "n0",
+          "label": "Update_record",
+          "type": "OpenApiConnection",
+          "children": [],
+          "run_after": {}
+        }
+      ],
+      "edges": []
+    },
+    {
+      "path": "root/Refresh_records/body/Upsert/else/Changed/else",
+      "triggers": [],
+      "nodes": [],
+      "edges": []
+    },
+    {
+      "path": "root/Verify_raw_files/body",
+      "triggers": [],
+      "nodes": [
+        {
+          "id": "n0",
+          "label": "Guard_raw_bytes",
+          "type": "Compose",
+          "children": [],
+          "run_after": {
+            "Read_raw": [
+              "Succeeded"
+            ]
+          }
+        },
+        {
+          "id": "n1",
+          "label": "Read_raw",
+          "type": "OpenApiConnection",
+          "children": [],
+          "run_after": {}
+        }
+      ],
+      "edges": [
+        {
+          "source": "n1",
+          "target": "n0",
+          "statuses": [
+            "Succeeded"
+          ]
+        }
+      ]
+    }
+  ]
+}

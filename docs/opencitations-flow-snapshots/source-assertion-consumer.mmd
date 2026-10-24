@@ -1,0 +1,75 @@
+flowchart TB
+  subgraph s0["root"]
+    s0t0(["manual / Request"])
+    s0n0["Guard_manifest / Compose"]
+    s0n1["Guard_packet / Compose"]
+    s0n2["Guard_packet_path / Compose"]
+    s0t0 --> s0n2
+    s0n3["Guard_projection / Compose"]
+    s0n4["Guard_rows / Compose"]
+    s0n5["Guard_unique_keys / Compose"]
+    s0n6["Invalid_rows / Query"]
+    s0n7["Manifest / Compose"]
+    s0n8["Packet / Compose"]
+    s0n9["Projection / Compose"]
+    s0n10["Read_manifest / OpenApiConnection"]
+    s0n11["Read_packet / OpenApiConnection"]
+    s0n12["Read_projection / OpenApiConnection"]
+    s0n13["Records / Select"]
+    s0n14["Refresh_complete / Compose"]
+    s0n15["Refresh_records / Foreach"]
+    s0n16["Source_keys / Select"]
+    s0n17["Stage_fields / Select"]
+    s0n18["Verify_raw_files / Foreach"]
+    s0n7 -->|"Succeeded"| s0n0
+    s0n8 -->|"Succeeded"| s0n1
+    s0n9 -->|"Succeeded"| s0n3
+    s0n6 -->|"Succeeded"| s0n4
+    s0n16 -->|"Succeeded"| s0n5
+    s0n18 -->|"Succeeded"| s0n6
+    s0n10 -->|"Succeeded"| s0n7
+    s0n11 -->|"Succeeded"| s0n8
+    s0n12 -->|"Succeeded"| s0n9
+    s0n1 -->|"Succeeded"| s0n10
+    s0n2 -->|"Succeeded"| s0n11
+    s0n0 -->|"Succeeded"| s0n12
+    s0n17 -->|"Succeeded"| s0n13
+    s0n15 -->|"Succeeded"| s0n14
+    s0n5 -->|"Succeeded"| s0n15
+    s0n13 -->|"Succeeded"| s0n16
+    s0n4 -->|"Succeeded"| s0n17
+    s0n3 -->|"Succeeded"| s0n18
+  end
+  subgraph s1["root/Refresh_records/body"]
+    s1n0["Find_existing / OpenApiConnection"]
+    s1n1["Guard_unique / Compose"]
+    s1n2["Read_saved / OpenApiConnection"]
+    s1n3["Upsert / If"]
+    s1n4["Verify_saved / Compose"]
+    s1n0 -->|"Succeeded"| s1n1
+    s1n3 -->|"Succeeded"| s1n2
+    s1n1 -->|"Succeeded"| s1n3
+    s1n2 -->|"Succeeded"| s1n4
+  end
+  subgraph s2["root/Refresh_records/body/Upsert/body"]
+    s2n0["Create_record / OpenApiConnection"]
+  end
+  subgraph s3["root/Refresh_records/body/Upsert/else"]
+    s3n0["Changed / If"]
+  end
+  subgraph s4["root/Refresh_records/body/Upsert/else/Changed/body"]
+    s4n0["Update_record / OpenApiConnection"]
+  end
+  subgraph s5["root/Refresh_records/body/Upsert/else/Changed/else"]
+  end
+  subgraph s6["root/Verify_raw_files/body"]
+    s6n0["Guard_raw_bytes / Compose"]
+    s6n1["Read_raw / OpenApiConnection"]
+    s6n1 -->|"Succeeded"| s6n0
+  end
+  s0n15 -. "nested scope" .-> s1
+  s0n18 -. "nested scope" .-> s6
+  s1n3 -. "nested scope" .-> s2
+  s1n3 -. "nested scope" .-> s3
+  s3n0 -. "nested scope" .-> s4
+  s3n0 -. "nested scope" .-> s5

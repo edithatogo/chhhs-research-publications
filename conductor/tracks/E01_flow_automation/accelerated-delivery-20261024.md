@@ -87,6 +87,11 @@ accepted sources merely because a historical checklist remains unchecked.
 
 ### Archived OpenCitations assertion admission — 24 October
 
+Native documentation is now complete for the three OpenCitations flow snapshots:
+[versioned publication and field guide](../../../docs/OPENCITATIONS_NATIVE_DOCUMENTATION.md).
+This supersedes the pending documentation notes below. Canonical solution admission
+of the two standalone collectors remains separate.
+
 The existing manual Archived source assertions consumer now supports the accepted
 count/metadata packet. One bounded import added48 exact source assertions with
 zero provider requests. All46 prior records and99 earlier archive files remain

@@ -1,5 +1,8 @@
 # OpenCitations archived source assertions
 
+Native documentation was completed24October after the historical pending notes
+below: [current publication and field guide](OPENCITATIONS_NATIVE_DOCUMENTATION.md).
+
 This increment joins the accepted48-DOI citation-count and bibliographic metadata
 snapshots into the existing Archived source assertions consumer. It makes no
 provider requests and retains the original observation times, complete responses,
