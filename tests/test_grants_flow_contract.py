@@ -290,8 +290,8 @@ class GrantsFlowContractTests(unittest.TestCase):
         update_fields = {name.removeprefix("item/") for name in update if name.startswith("item/")}
         self.assertEqual(create_fields, expected)
         self.assertEqual(update_fields, expected - {"ReviewStatus", "ReviewNotes"})
-        self.assertEqual(create["item/SourceRowURL"], "@{item()?['SourceRowURL']}")
-        self.assertEqual(update["item/SourceRowURL"], "@{item()?['SourceRowURL']}")
+        self.assertEqual(create["item/SourceRowURL"], "@if(empty(item()?['SourceRowURL']), null, item()?['SourceRowURL'])")
+        self.assertEqual(update["item/SourceRowURL"], "@if(empty(item()?['SourceRowURL']), null, item()?['SourceRowURL'])")
         lookup = self.reviewed_row_actions()["SharePoint_Get_items"]
         self.assertTrue(lookup["inputs"]["parameters"]["$filter"].startswith("OpportunityKey eq "))
 

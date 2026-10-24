@@ -334,3 +334,7 @@ Evidence: `private/ops/2026-10-18-source-expansion/progress-receipt.json`.
 ## Isolated implementation recovery — 24 October 2026
 
 See [recovery and validation](recovery-20261024.md). Existing task statuses remain unchanged; local recovered implementation is not native acceptance.
+
+## NIH bounded native intake — 24 October 2026
+
+See [bounded import evidence](../../../docs/NIH_BOUNDED_IMPORT.md). One real opportunity now exists in SharePoint: 32 registry fields, seven nominal occurrences and four byte-verified complete source response attachments. An empty optional URI defect was repaired and verified natively. The flow is Off. Attachment retention was an operator step; unattended collection, replay/recovery and model refresh are not closed by this unit.
