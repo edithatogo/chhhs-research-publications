@@ -1,5 +1,9 @@
 # Current missing outcomes — 24 October 2026
 
+See the [flow operations view](FLOW_OPERATIONS.md) for configured state, saved
+schedules and accepted runtime evidence by flow.
+
+
 This is an evidence reconciliation, not new native acceptance. It supersedes dated
 “current priority”, “next” and unchecked-task implications only for the outcomes
 mapped below. Historical plans and receipts remain intact. A checkbox alone is

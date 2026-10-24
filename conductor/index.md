@@ -1,5 +1,12 @@
 # CHHHS research publications: current Conductor context
 
+## Flow operations snapshot — 24 October 2026
+
+[What is configured and running?](../docs/FLOW_OPERATIONS.md) lists all41 observed
+RIMS flows, their implementation lane, fresh configured state, saved cadence,
+selected accepted runtime evidence and remaining limit. Enabled configuration is
+separate from actual execution and scheduled success.
+
 ## Current outstanding-outcome reconciliation — 24 October 2026
 
 Read [current missing outcomes](../docs/CURRENT_MISSING_OUTCOMES.md) before
