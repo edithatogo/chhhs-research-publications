@@ -1,6 +1,6 @@
 # NIH recurring pipeline qualification — 24 October 2026
 
-**End-to-end qualification is incomplete.** Recurring native acquisition and
+**Historical acquisition-only checkpoint; superseded for the selected admitted parent by [the integrated chain qualification](GRANTS_UNATTENDED_CHAIN.md).** Recurring native acquisition and
 archive retention are verified. Recurring register projection, scoped model
 refresh integration and delivered failure alerts remain open. The standalone
 qualification flow is Stopped; the existing reviewed-import flow is unchanged

@@ -1,5 +1,55 @@
 # Grants solution and documentation reconciliation — 24 October 2026
 
+
+## Unattended-chain increment — 24 October 2026
+
+The selected admitted NIH parent now has six successful actual scheduled
+acquisition/archive/cloud-projection/conditional-commit/grants-only-refresh cycles,
+including two recovery ticks and two after canonical solution conversion. See
+[the qualification and explicit limits](GRANTS_UNATTENDED_CHAIN.md) and the
+[sanitized reconciliation manifest](../contracts/grants-unattended-reconciliation-20261024.json).
+
+The existing acquisition flow was added through native Maker **Add existing →
+Automation → Cloud flow → Outside Dataverse**. The final unmanaged export has
+**36 workflows and the same six connection references**, version **1.0.0.0**.
+All 35 preceding workflow files remain byte-exact. The added definition matches
+fresh direct native readback exactly. Its three Embedded logical references
+resolve to the same pre-conversion physical SharePoint, Excel and Power BI
+connections. The original reviewed import remains unchanged with its Invoker
+map. No broad publish, component removal, shared version bump or report rebind
+was performed.
+
+The pure builder reproduces the final native acquisition definition from its
+private preimage, admitted context, baseline and exact bindings. Comparison
+removes only the known service-added authentication annotation and a redundant
+evaluatedRecurrence that must equal the declared recurrence; it does not ignore
+expressions, array order, connector hosts or credential modes. Native export and
+direct definition match without normalization.
+
+The owner-only Office Script body is versioned in the repo and exactly matches
+saved native bytes. A separate grants-only semantic model reuses the two accepted
+table definitions and explicit relationship in the existing workspace; no original
+model definition was changed. The worker script, workbook and model are external
+companions, not fictitious solution components. Their native identities, model
+parts, credential reuse and no-report-binding inventory are retained privately.
+
+Final native reconciliation covers all 32 parent fields and 11 fields for each
+of seven occurrences, including semantic equality of occurrence JSON. Actual
+refresh request IDs correlate with Completed native jobs. The flow itself polls
+current-data visibility, not REST job terminal status. Only observation/hash and
+item bookkeeping changed; human review/classification fields and all 17 existing
+original attachment identities/metadata are preserved. Real HTTP 412 leaves the
+whole item/version untouched. Controlled post-commit failure preserves a valid
+commit and last-good model; scheduled recovery subsequently succeeds.
+
+Both grants flows and the worker qualification flow finish Off. The acquisition
+candidate is daily 06:00 Brisbane; the separate model schedule is disabled.
+Failure receipts and visible Failed states are qualified, **push delivery is not**.
+Permanent activation, daily operational observation, first-time NIH admission,
+changed schedule/attachment readmission and backend failed-refresh qualification
+remain distinct. Existing historical acceptance and release boundaries below
+are preserved, not retroactively relabelled.
+
 ## Original-retention increment — 24 October 2026
 
 The new [original-retention qualification](https://github.com/edithatogo/research-publications/blob/main/docs/GRANTS_ORIGINAL_RETENTION.md) retains
