@@ -2,12 +2,15 @@
 from __future__ import annotations
 
 import argparse
+import base64
 import hashlib
 import json
+import re
 from pathlib import Path
 
 
-def prepare(seed: list[dict], site: str, folder: str, recovered: list[dict] | None = None) -> dict:
+def prepare(seed: list[dict], site: str, folder: str, recovered: list[dict] | None = None,
+            reuse_manifest: dict | None = None) -> dict:
     if not 1 <= len(seed) <= 50:
         raise ValueError("Select 1..50 archived DOI identities")
     dois = [row["doi"] for row in seed]
@@ -23,6 +26,24 @@ def prepare(seed: list[dict], site: str, folder: str, recovered: list[dict] | No
                              or int(r["response"][0]["count"]) < 0 for r in recovered)):
         raise ValueError("Recovered responses must match this exact seed and successful provider scope")
     marker = f"opencitations-complete-{digest}.json"
+    reused = []
+    if reuse_manifest is not None:
+        if reuse_manifest.get("source") != "opencitations" or reuse_manifest.get("complete") is not True:
+            raise ValueError("Reuse requires an accepted complete OpenCitations manifest")
+        reused = reuse_manifest.get("entries", [])
+        if not isinstance(reused, list) or not reused or len(reused) > len(seed):
+            raise ValueError("Reuse must be a nonempty subset of this DOI selection")
+        reused_dois = []
+        for entry in reused:
+            payload = json.loads(base64.b64decode(entry["content_base64"], validate=True))
+            if (entry["doi"] not in dois or not re.fullmatch(r"opencitations-[A-Za-z0-9-]+\.json", entry["name"])
+                    or payload.get("source") != "opencitations" or payload.get("doi") != entry["doi"]
+                    or payload.get("http_status") != 200 or payload.get("count") != entry["count"]
+                    or not isinstance(entry["count"], int) or isinstance(entry["count"], bool) or entry["count"] < 0):
+                raise ValueError("Retained envelope identity/count/path mismatch")
+            reused_dois.append(entry["doi"])
+        if len(set(reused_dois)) != len(reused_dois):
+            raise ValueError("Retained DOI entries must be unique")
 
     def action(kind, inputs, after=None, **extra):
         result = {"type": kind, "runAfter": {after: ["Succeeded"]} if after else {}, "inputs": inputs}
@@ -87,15 +108,22 @@ def prepare(seed: list[dict], site: str, folder: str, recovered: list[dict] | No
     envelope["http_status"] = "@if(empty(body('Recovered_match')),outputs('Fetch_count')?['statusCode'],first(body('Recovered_match'))?['http_status'])"
     envelope["response_headers"] = "@if(empty(body('Recovered_match')),outputs('Fetch_count')?['headers'],first(body('Recovered_match'))?['response_headers'])"
     envelope["response"] = "@outputs('Selected_response')"
+    retained_actions = {
+        "Find_retained_entry": action("Query", {"from": "@outputs('Scope')?['retained_entries']", "where": "@equals(item()?['doi'],items('Acquire_counts'))"}),
+        "Guard_retained_unique": guard("lessOrEquals(length(body('Find_retained_entry')),1)", "Find_retained_entry"),
+        "Use_retained_entry": {"type": "If", "expression": "@equals(length(body('Find_retained_entry')),1)", "runAfter": {"Guard_retained_unique": ["Succeeded"]}, "actions": {
+            "Read_retained_raw": read("@concat(outputs('Scope')?['folder'],'/',first(body('Find_retained_entry'))?['name'])"),
+            "Guard_retained_bytes": guard("equals(body('Read_retained_raw')?['$content'],first(body('Find_retained_entry'))?['content_base64'])", "Read_retained_raw"),
+            "Remember_retained_entry": action("AppendToArrayVariable", {"name": "Entries", "value": "@first(body('Find_retained_entry'))"}, "Guard_retained_bytes")}, "else": {"actions": per_doi}}}
     acquire = {
-        "Acquire_counts": {"type": "Foreach", "foreach": "@outputs('Scope')?['dois']", "runAfter": {}, "runtimeConfiguration": {"concurrency": {"repetitions": 1}}, "actions": per_doi},
+        "Acquire_counts": {"type": "Foreach", "foreach": "@outputs('Scope')?['dois']", "runAfter": {}, "runtimeConfiguration": {"concurrency": {"repetitions": 1}}, "actions": retained_actions},
         "Guard_batch_complete": guard(f"equals(length(variables('Entries')),{len(seed)})", "Acquire_counts"),
         "Manifest": action("Compose", {"source": "opencitations", "scope_sha256": digest, "seed": seed, "complete": True, "run": "@workflow()?['run']?['name']", "entries": "@variables('Entries')", "scope": "frozen DOI citation-count observations; not citation-edge or corpus coverage"}, "Guard_batch_complete"),
         "Save_manifest": sp("CreateFile", {"folderPath": folder, "name": marker, "body": "@string(outputs('Manifest'))"}, "Manifest"),
         "Read_saved_manifest": read(folder + "/" + marker, "Save_manifest"),
         "Guard_saved_manifest": guard("equals(body('Read_saved_manifest')?['$content'],base64(string(outputs('Manifest'))))", "Read_saved_manifest")}
     root = {
-        "Scope": action("Compose", {"source": "opencitations", "scope_sha256": digest, "seed": seed, "dois": dois, "folder": folder, "recovered": recovered}),
+        "Scope": action("Compose", {"source": "opencitations", "scope_sha256": digest, "seed": seed, "dois": dois, "folder": folder, "recovered": recovered, "retained_entries": reused}),
         "Initialize_entries": action("InitializeVariable", {"variables": [{"name": "Entries", "type": "array", "value": []}]}, "Scope"),
         "Initialize_provider_failure": action("InitializeVariable", {"variables": [{"name": "ProviderFailed", "type": "boolean", "value": False}]}, "Initialize_entries"),
         "Find_completed": sp("HttpRequest", {"parameters/method": "GET", "parameters/uri": "_api/web/GetFolderByServerRelativePath(decodedurl='" + "/personal/" + site.split("/personal/")[1] + folder + "')/Files?$select=Name&$filter=Name%20eq%20'" + marker + "'&$top=2", "parameters/headers": {"Accept": "application/json;odata=nometadata"}}, "Initialize_provider_failure"),
@@ -111,9 +139,11 @@ if __name__ == "__main__":
     parser.add_argument("--folder", required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--recovered", type=Path)
+    parser.add_argument("--reuse-manifest", type=Path)
     args = parser.parse_args()
     result = prepare(json.loads(args.seed.read_text()), args.site, args.folder,
-                     json.loads(args.recovered.read_text()) if args.recovered else None)
+                     json.loads(args.recovered.read_text()) if args.recovered else None,
+                     json.loads(args.reuse_manifest.read_text()) if args.reuse_manifest else None)
     with args.output.open("x") as stream:
         json.dump(result, stream, indent=2)
     print(json.dumps({"scope_sha256": result["scope_sha256"], "marker": result["marker"]}))

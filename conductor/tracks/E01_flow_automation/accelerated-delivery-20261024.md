@@ -63,6 +63,13 @@ Crossref remains untouched and its existing monitor stays Active. No canonical
 model/register field writes, recurring refresh or full citation-graph coverage
 are claimed. Canonical solution admission/native documentation remain pending.
 
+The retained-selection expansion now covers48 archived DOI identities: one native
+run made45successful new provider calls and reused three existing raw observations.
+The original four archive identities/ETags/lengths/times remain exact. Independent
+new raw reads and complete manifest verification pass; same flow restoredStopped.
+Reuse prior replay evidence rather than adding a48-record diagnostic invocation.
+See the same implementation leaf and private48-DOI acceptance receipt for limits.
+
 Execution order: reconcile existing objects and accepted receipts first; implement
 only an evidenced missing diff, then one relevant runtime proof. Do not reopen
 accepted sources merely because a historical checklist remains unchecked.
