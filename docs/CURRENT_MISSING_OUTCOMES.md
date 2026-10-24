@@ -1,0 +1,76 @@
+# Current missing outcomes — 24 October 2026
+
+This is an evidence reconciliation, not new native acceptance. It supersedes dated
+“current priority”, “next” and unchecked-task implications only for the outcomes
+mapped below. Historical plans and receipts remain intact. A checkbox alone is
+neither evidence of completion nor a reason to rerun an accepted test. Current
+operation handles, tenant identifiers and raw evidence remain private.
+
+Snapshot basis: canonical main through PR40, later primary-checkout accepted
+receipts, and the two existing flow owners' current handovers. Canonical main and
+the private authoring checkout have different documentation histories; do not
+bulk-copy the dirty checkout or treat all its later text as integrated source.
+Missing proof below means not established by the selected evidence, not a claim
+that every tenant object has been freshly inspected.
+
+## Confirmed outstanding selected outcomes
+
+| Outcome | Current evidence and exact remaining exit | Owner / dependency |
+| --- | --- | --- |
+| Crossref retained-generation completion | E01 checkpoint records the original run still Running, with 267 completed-window markers and 364 pages. This is metadata progress; byte-verified recovery remains a smaller accepted prefix. Reconcile actual terminal coverage, retained bytes/key sets, manifest/checkpoint/replay and last-good. Never restart for elapsed time. | Existing E01 owner; retained terminal checklist controls. |
+| Optimised Crossref continuation | Candidate and bounded qualifier exist; they do not prove permanent worker deployment or real multi-batch continuation. After original terminal reconciliation, qualify same-identity primary preservation, separate worker, daily/baseline watermark isolation, two bounded continuation batches and final completion. | E01; blocked on the retained original operation. |
+| Grants original-retention final handover | Owner reports final Invoker-mode recovery and incomplete/conflicting/missing-parent preservation checks passed, and export retains 35 workflows/six references. Final wrapper comparison, updated receipt, versioned documentation and PR handoff are still in progress. Close those artifacts; do not repeat runtime cases. | Existing grants owner; do not edit its native objects or acceptance files. |
+| Unattended grants processing and register commit | Actual short-cadence acquisition/recovery is accepted, but its manifest explicitly does not claim automatic register/model promotion. Qualify native projection/provenance and protected conditional commit after retention; accepted manual importer execution is not an unattended chain. | Grants owner after current handover; existing runtime/source-authority boundaries. |
+| Durable scoped grants refresh orchestration | A completed two-partition transactional isolated refresh is accepted. Durable cloud authentication, automatic request correlation, polling and terminal field/key parity for recurring generations remain missing. | Grants; preserve unrelated publication partitions and existing model isolation. |
+| Full scheduled grants chain and failure delivery | No accepted automatically correlated acquisition → register → model cycle or delivered failure alert exists in the selected receipts. After dependencies, prove scheduled correlated cycles, failure/recovery, preserved last-good/reviews and approved alert duplicate handling. Daily reliability is separate from one-minute observations. | Grants; exact delivery authority remains required. Do not send or activate to reconcile this list. |
+| Fabric helper-host terminal handover | E10 local candidate/dependency qualification is complete; its plan explicitly retains host/profile handover and native-handle reconciliation. Apply only at an actual supported terminal boundary, then verify selected runtime. | Existing runtime/auth owner; no replacement beneath an active session. |
+
+No other task is declared a new unblocked implementation assignment by this
+reconciliation. In particular, optional enrichment and bulk publication cleanup
+must not displace these selected exits.
+
+## Accepted work: remove from repeat execution
+
+| Historical implication | Accepted evidence / disposition | Remaining limit |
+| --- | --- | --- |
+| E01 count/metadata/assertion documentation still pending | `private/ops/2026-10-24-opencitations-documentation/acceptance.json`: scoped native files/readers, exact reopened diagram sources and preservation accepted; source PR37 merged. | Does not qualify Visio application rendering or standalone collector solution admission. |
+| Next OpenCitations incoming-citation acquisition | `private/ops/2026-10-24-opencitations-citations/acceptance.json` and `documentation/acceptance.json`: 48 responses, 344 distinct citation identities, saved-byte and prior-file preservation; source PR38 merged. | Selected tranche complete. No automatic replay, recollection or optional expansion. |
+| NIH acquisition has never run on a schedule | [Scheduled observation](NIH_RECURRING_QUALIFICATION.md#further-scheduled-freshness-and-partial-archive-recovery-observation) and `private/ops/2026-10-24-nih-scheduled-observation/acceptance.json`: actual success/failure/recovery ticks; original state restored Off. | Bounded one-minute observation only; daily operation, full chain and alert delivery remain unqualified. |
+| Grants multirow recovery entirely unproved | [Last-good acceptance](GRANTS_LAST_GOOD_ACCEPTANCE.md) and `private/ops/2026-10-24-grants-multirow-recovery/acceptance.json`: partial first-row success, rejected second row, corrected full-batch replay, stable identities and preserved review/real data. | No automatic rollback or general concurrent/external-writer guarantee. |
+| Grants isolated-model refresh remains unexecuted | [Model refresh acceptance](GRANTS_MODEL_REFRESH_ACCEPTANCE.md): completed transactional refresh, parent/child field/key parity and preserved definition/unrelated counts. | No bound report, recurring orchestration or main-report replacement acceptance. |
+| Grants canonical export/documentation never reconciled | [Solution reconciliation](GRANTS_SOLUTION_RECONCILIATION.md), `private/ops/2026-10-24-grants-solution-final/acceptance.json` and documentation receipt accept the earlier 35-workflow/six-reference export and scoped document. | Historical accepted snapshot; the subsequent original-retention change still needs its own final handover above. Do not reuse the earlier export as proof of that later graph. |
+| E10 Python dependency resolution still needed | E10 plan and `audit/dependencies/python315-20261023.json` record qualification; helper-host boundary remains explicit. | Reuse local qualification; do not resolve dependencies again solely to close a stale box. |
+| Desktop/Windows fallback remains required | T16/T17 current plans explicitly cancel these routes by user direction. | Cancelled scope, not native deployment success. |
+| Efficiency implementation PR checks still running | PR39 and PR40 merged; their three hosted checks all passed at reconciliation. | Owner adoption is separate; E01 checkpoint exists, grants checkpoint is due at terminal handover. |
+
+## Historical gaps requiring evidence disposition before execution
+
+The following are not newly commissioned tests. Their dated open wording conflicts
+with newer private handovers or is not closed by the scoped evidence above.
+First reconcile existing receipts; run only the genuinely missing delta.
+
+| Historical task family | Required disposition |
+| --- | --- |
+| E07-H01–H05, T11/T14 key-set/export cycles | Map accepted source generation, canonical membership, registry keys, model and full/monthly output to one correlated lineage. Later grants refresh does not close publication reconciliation. Preserve explicit unknowns; counts alone do not close it. |
+| E07-H02/H03 blank stubs and identity enforcement | Determine current item-specific provenance, retention and restorable selection from retained evidence before any cleanup. Old cohort counts are not a current deletion list; no cleanup is authorised here. |
+| E07-H06 source/organisation/author fidelity | Reconcile later correction/preservation receipts with the generic uncertainty policy. Do not call historical differences current without verification, overwrite curated fields or create a per-publication approval queue. |
+| E04/T15 report rendering/accessibility and report/model recovery | Later primary-checkout acceptance leaves exist, while main retains older plans. Integrate their exact source/target/render/restore references before selecting a missing check. Do not recreate a report or reopen accepted visual work from old page counts. |
+| S02 release and documentation generations | Preserve accepted historical packages separately from later native inventories and additions. Reconcile source integration and selected release scope; no automatic rebuild or promotion is required by a newer workflow count. |
+| Source reader/resume edge cases | E01 notes DataCite nonempty-prefix/page-ETag and PubMed cross-run-resume limitations. These remain capability limits unless selected current acceptance requires them; full-restart recovery is already accepted. |
+
+## Conditional/deferred outcomes
+
+Broader reader sharing, production rebinding, permanent capacity, scheduled email
+or digest delivery, optional standalone collector solution admission, broader
+source entitlements and main-report grants replacement retain their existing
+scope/authority gates. They are not prerequisites for repeating accepted bounded
+technical outcomes. No new approval workflow or external communication is implied.
+
+## Maintenance
+
+Owners update their compact private lane checkpoint after a meaningful terminal
+result. Update this list through a coherent source handover when a remaining
+outcome closes. Retain receipt pointers and the precise boundary: source-only,
+saved native definition, runtime, scheduled observation, delivery and business
+acceptance are different claims. Do not globally tick old plans or refresh old
+receipts merely to make them look current.

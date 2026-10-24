@@ -1,5 +1,11 @@
 # Plan: Export every citation and stage the monthly workflow
 
+> Status reconciliation, 24 October 2026: consult
+> [current missing outcomes](../../../docs/CURRENT_MISSING_OUTCOMES.md) before
+> executing dated next steps or unchecked tasks below. Accepted scoped evidence
+> supersedes only mapped outcomes; preserve historical detail and current owners.
+
+
 **Access scope:** current-user manual export and private staging only, using
 the existing publications route. No recipient sharing, mail/calendar delivery
 or unattended schedule is part of the current implementation.

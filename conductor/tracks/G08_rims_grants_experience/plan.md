@@ -1,5 +1,11 @@
 # Implementation plan
 
+> Status reconciliation, 24 October 2026: consult
+> [current missing outcomes](../../../docs/CURRENT_MISSING_OUTCOMES.md) before
+> executing dated next steps or unchecked tasks below. Accepted scoped evidence
+> supersedes only mapped outcomes; preserve historical detail and current owners.
+
+
 ## Execution choice and fallback — planning amendment, 23 October 2026
 
 **G08 default:** Existing Invoker-bound flows/Lists web forms → semantic measures → PBIR Service reader.

@@ -1,5 +1,14 @@
 # CHHHS research publications: current Conductor context
 
+## Current outstanding-outcome reconciliation — 24 October 2026
+
+Read [current missing outcomes](../docs/CURRENT_MISSING_OUTCOMES.md) before
+selecting work from dated priority paragraphs or unchecked historical plans.
+It maps accepted receipts, genuinely missing selected exits, evidence-disposition
+items and deferred scope. Preserve current lane ownership and retained operations;
+do not repeat completed tests to reconcile a checkbox.
+
+
 ## Separate-chat scope — 13 October 2026
 
 Use the [parallel assignments](../docs/PLATFORM_COMPLETION_PLAN.md#parallel-delivery-assignments--13-october-2026)
@@ -15,7 +24,7 @@ paid/unknown access. Current-source acceptance stays ahead of optional expansion
 Follow the [shared-data delivery contract](../docs/PLATFORM_COMPLETION_PLAN.md#shared-data-delivery-contract--13-october-2026): CLI/API-first on qualified exact targets, existing archive bootstrap, complete raw payload/schema retention before vertical filtering, and one writer per file/object. Historical browser-first/no-CLI statements and dated completion claims do not override this direction. Preserve current source scope, permissions, isolation, rollback and explicit activation/delivery gates. The publications chat retains its current objects and checkpoint; shared-data work requires disjoint scope or explicit handoff.
 
 
-Current priority: [publication stabilisation handoff](PUBLICATION_STABILISATION.md). Execute S01 first, prepare S03 privacy remediation independently, then complete versioning and existing native acceptance tracks before grants implementation. Detailed plans are prepared; their tasks are not yet executed.
+Historical priority (superseded by the reconciliation above): [publication stabilisation handoff](PUBLICATION_STABILISATION.md). Execute S01 first, prepare S03 privacy remediation independently, then complete versioning and existing native acceptance tracks before grants implementation. Detailed plans are prepared; their tasks are not yet executed.
 
 Resume with [current state](../handoff/CURRENT_STATE.md) and [solo harness commands](../docs/SOLO_AGENT_WORKFLOW.md). The dated observations below are historical context; use current readback for tenant claims. Track plans remain the work backlog.
 

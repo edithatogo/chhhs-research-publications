@@ -1,5 +1,11 @@
 # Implementation plan
 
+> Status reconciliation, 24 October 2026: consult
+> [current missing outcomes](../../../docs/CURRENT_MISSING_OUTCOMES.md) before
+> executing dated next steps or unchecked tasks below. Accepted scoped evidence
+> supersedes only mapped outcomes; preserve historical detail and current owners.
+
+
 **Access scope:** current-user isolated publication list/flow/report route and
 manual readback, matching the publications development pattern. Organisation-
 wide sharing and unattended recurrence are future extensions.
