@@ -1,5 +1,111 @@
 # Unattended grants chain qualification — 24 October 2026
 
+The selected, already-admitted NIH opportunity now has a native scheduled
+**acquisition → archive → cloud projection → conditional register commit →
+grants-only model refresh** path. Six complete scheduled cycles succeeded,
+including two after a controlled post-commit failure and two after solution conversion. This is bounded technical
+qualification, not production activation or whole-source admission.
+
+## Simplest supported implementation
+
+The existing acquisition qualifier retains its identity. An owner-only Office
+Script through the existing Excel connection performs the maintained semantic
+replay, complete-input validation, normalization and SHA256 calculation. Its
+native result matches the Python producer across all 32 fields, including the
+EvidenceHash; it does not read or write workbook data. No copied bearer token,
+new consent or unattended desktop is required.
+
+The standard Power BI connector refreshes a separate grants-only model in the
+existing workspace. Its two table definitions and explicit parent/occurrence
+relationship come from the hash-pinned accepted isolated model. The original
+mixed model and reports are preserved. This avoids refreshing unrelated
+publication tables and avoids requiring enhanced-refresh HTTP authentication.
+The new model uses the existing SharePoint datasource credentials.
+
+The collector updates only the existing admitted parent. It requires one exact
+stable key/native item, checks the current source projection against the last
+verified commit receipt, captures the current ETag, and sends one conditional
+MERGE containing the 29 source fields and ISO text together. ReviewNotes,
+ReviewStatus and CHHHSRelevance are excluded. There is no create path and no
+wildcard ETag or automatic mutation retry. Source-field drift fails closed;
+review-only changes are preserved. A concurrent edit causes HTTP 412.
+
+A commit receipt is saved, read back and byte-verified before refresh. The flow
+then requests refresh, retains its request ID, and polls for the current parent
+EvidenceHash plus exact one-parent/seven-occurrence counts. Native refresh
+history independently confirmed each tested request Completed. The flow itself
+**does not poll the REST refresh job to terminal status**; current-data visibility
+and external terminal-job verification remain distinct claims.
+
+## Native acceptance evidence
+
+| Case | Result and preservation |
+| --- | --- |
+| Two complete scheduled cycles | New four-response/ZIP archive each time; independent saved-byte, semantic replay and ZIP checks pass; 32 parent fields and all seven occurrence records reconcile |
+| Stale conditional write | Real HTTP 412; entire register item/version unchanged; no model refresh; retained failure receipt |
+| Failure after verified commit, before refresh | Two bounded failed ticks retain valid source commits and immutable receipts; only observation/hash/version advance; accepted source facts and human fields preserved; model refresh history unchanged |
+| Scheduled recovery | Two subsequent ticks succeed and expose the current EvidenceHash in the model; failed generations and receipts remain retained |
+| Canonical solution conversion | Two subsequent scheduled cycles succeed with the same physical connections; final daily candidate Off |
+| Native archive/worker shape mismatch | Initial integrated runs fail before register/model effects; explicit attachment-shape adapter fixes the boundary; regression check added |
+
+There is one accepted parent, seven distinct related occurrences and no duplicate
+parent. All 17 existing original attachments retain their identities, versions,
+lengths and timestamps. Complete field reconciliation treats only the existing
+model's documented null-to-empty-text representation as equivalent; it does not
+invent dates or rewrite evidence JSON.
+
+Raw acquisition manifests remain stage-specific and retain their original false
+downstream flags. Separate verified commit/success/failure receipts carry the
+later results. A successful archive alone is never promoted to full-chain proof.
+
+## Failure signals, recovery and remaining boundaries
+
+A failed processing scope writes and reads back a source/run/stage/action-status
+receipt and terminates visibly Failed. If receipt storage itself fails, native
+failed-run history is the fallback; no claim of guaranteed receipt persistence
+or alert delivery is made. Before replay, reconcile whether the conditional
+commit happened and whether a verified commit receipt exists. Preserve valid
+commits, failed generations and the last-good model. Resolve an uncertain commit
+against native item/version history; do not blindly reset the baseline or retry.
+
+Push notifications are **not delivered or qualified**. Existing owner flow
+failure-email subscriptions are off. The prepared minimal alert contains only
+source, run link, stage/error, receipt link and commit/refresh state. Exact
+recipient/content/scope authority and one delivered, deduplicated failure remain
+needed for push delivery. Receipt persistence is the usable current failure signal.
+
+The flow finishes Off with a daily 06:00 Brisbane candidate; the qualification
+worker flow and the model's independent refresh schedule are also disabled.
+Later real daily freshness/operating-window observations belong to E08. Bounded
+minute ticks do not count as operational days.
+
+The NIH schedule remains the previously qualified structured transcription with
+its original evidence vintage. It is not a fresh full NOFO capture. Changed API
+date facts or attachment scope/bytes fail closed for readmission. First-time NIH
+admission, other opportunities/sources, a backend failed-refresh/recovery test,
+whole-service failure/concurrency matrix and production activation remain open.
+There was no report rebind or global release/acceptance change.
+
+## Reproducible source and private evidence
+
+- `scripts/office/nih_grants_worker.ts`: saved owner-only native script body.
+- `scripts/prepare_nih_unattended_flow.py`: pure builder from the original owned
+  acquisition preimage, admitted context, exact accepted baseline and private
+  resource bindings; default has no fault injection.
+- `scripts/prepare_grants_only_model.py`: pure two-table extraction from the exact
+  hash-pinned accepted model definition; excludes service-owned `.platform`.
+- Focused worker, chain and model tests distinguish synthetic/local proof from
+  native saved readback, scheduled runtime and operational acceptance.
+
+Exact identities, raw archives, run/action payloads, model parts, connections,
+preimages and successor solution export remain ignored under
+`private/ops/grants-cloud-worker/`. The sanitized reconciliation manifest records
+fingerprints and outcomes without tenant bindings.
+
+---
+
+# Earlier preparation checkpoint — retained history
+
 **Not qualified end to end.** The existing acquisition qualifier and reviewed
 import remain Off. Accepted records, attachments, review fields and the isolated
 model have not been changed by this increment. No notification was sent or

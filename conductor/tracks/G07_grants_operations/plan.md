@@ -198,3 +198,18 @@ Apply the [hardened completion contract](../../../docs/PLATFORM_COMPLETION_PLAN.
 - [ ] **G07-H04 — Activation boundary and technical handover.** Depends: G07-H03 and G08-H06 if delivery is included. Record the concrete artefact/state, permissions, recipients/channel, cadence, rollback and acceptance receipts in existing evidence. Do not seek approval or contact an operational owner. Keep schedules/delivery inactive unless existing explicit authority covers the exact action; hand over the technically verified setup with that boundary recorded. Later natural execution and operating-window observations remain owned once by E08-F05/F04 and pending until their evidence exists. The two controlled cycles in G07-H01 precede any activation and do not replace the [E08 follow-up](#e08-operational-followups). Calendar waiting does not block technical handover; operational maturity remains a separate claim. Revocation disables only an already authorized feature and preserves evidence.
 
 Track closure requires all applicable acceptance tasks above, the shared completion contract, and a review recording any explicitly approved exclusions. Local pass, source availability and import success are separate from native and operational acceptance.
+
+
+## Selected NIH unattended chain — 24 October 2026
+
+This scoped increment does not close the broader G07-H01/H02/H03 matrices or
+activation. See [native qualification](../../../docs/GRANTS_UNATTENDED_CHAIN.md).
+
+- [x] Qualify owner-connected cloud projection with exact Python field/hash parity.
+- [x] Isolate the two grants tables in the existing workspace and prove renewable standard-connector refresh without refreshing unrelated tables.
+- [x] Prove two complete scheduled source/archive/register/model cycles and full parent/occurrence reconciliation.
+- [x] Prove real stale-ETag rejection, retained failure signals, post-commit failure and subsequent scheduled recovery with human fields and last-good model preserved.
+- [x] Add the existing acquisition flow to the canonical solution through native Add existing, preserving identity and existing references.
+- [x] Complete final post-conversion runtime/export/source/document reconciliation and technical handover. The final export has 36 workflows/six existing references, all 35 prior workflow bytes preserved; the existing grants documentation file advances to version 3.0 with prior bytes and identity retained.
+- [ ] Qualify push alert delivery when exact delivery authority exists; retain actionable receipts and visible failures meanwhile.
+- [ ] Observe later natural daily execution/freshness in E08; keep activation distinct from bounded technical qualification.
