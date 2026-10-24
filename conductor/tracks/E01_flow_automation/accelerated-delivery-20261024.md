@@ -50,6 +50,19 @@ Fresh PAC metadata inventory is retained privately as
 | Semantic Scholar | Optional enrichment: reuse DOI/PMID bootstrap and archive contracts; endpoint/terms/native implementation still needs qualification |
 | Lens | Conditional existing institutional entitlement; no speculative deployment |
 
+### Next independent increment delivered — 24 October
+
+Semantic Scholar remains deferred after current provider licence review; no
+request or contact was made. OpenCitations DOI count enrichment was selected and
+implemented through FlowAgent using three byte-verified accepted DOI originals.
+Native save/readback, interrupted archive recovery without repeated provider
+requests, independent saved-byte verification and normal no-write replay pass.
+The manual standalone flow is restored Stopped. See
+[implementation and evidence limits](../../../docs/OPENCITATIONS_ENRICHMENT.md).
+Crossref remains untouched and its existing monitor stays Active. No canonical
+model/register field writes, recurring refresh or full citation-graph coverage
+are claimed. Canonical solution admission/native documentation remain pending.
+
 Execution order: reconcile existing objects and accepted receipts first; implement
 only an evidenced missing diff, then one relevant runtime proof. Do not reopen
 accepted sources merely because a historical checklist remains unchecked.
