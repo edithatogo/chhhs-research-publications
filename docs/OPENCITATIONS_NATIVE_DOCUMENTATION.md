@@ -1,5 +1,16 @@
 # OpenCitations native documentation and field guide
 
+## Incoming citation-link follow-on
+
+The separate [incoming citation collector](OPENCITATIONS_CITATION_LINKS.md) is also
+documented natively: eight additional files and a43rd exact reopened Mermaid
+source, with all42 previous source hashes unchanged. All50 logical elements render.
+The latest guide/catalogue versions are17.0/18.0 and Loop74.0. All84 earlier page
+controls and343 preceding documentation files remain unchanged; the scoped release
+receipt is versioned separately. Earlier3-flow figures below describe that first
+accepted increment and retain their history. The new collector is manual/Stopped;
+its48-response/344-OCI acceptance does not alter the old count/metadata snapshots.
+
 ## Current accepted scope — 24 October 2026
 
 The count collector, bibliographic metadata collector and existing archived-source

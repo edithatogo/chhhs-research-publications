@@ -1,0 +1,119 @@
+flowchart TB
+  subgraph s0["root"]
+    s0t0(["manual / Request"])
+    s0n0["Find_completed / OpenApiConnection"]
+    s0n1["Guard_single_marker / Compose"]
+    s0n2["Initialize_entries / InitializeVariable"]
+    s0n3["Initialize_provider_failure / InitializeVariable"]
+    s0n4["Scope / Compose"]
+    s0t0 --> s0n4
+    s0n5["Use_cached_snapshot / If"]
+    s0n3 -->|"Succeeded"| s0n0
+    s0n0 -->|"Succeeded"| s0n1
+    s0n4 -->|"Succeeded"| s0n2
+    s0n2 -->|"Succeeded"| s0n3
+    s0n1 -->|"Succeeded"| s0n5
+  end
+  subgraph s1["root/Use_cached_snapshot/body"]
+    s1n0["Cached_keys / Select"]
+    s1n1["Cached_manifest / ParseJson"]
+    s1n2["Guard_cached_keys / Compose"]
+    s1n3["Guard_cached_scope / Compose"]
+    s1n4["Read_cached_manifest / OpenApiConnection"]
+    s1n5["Replay_complete / Compose"]
+    s1n6["Verify_cached_raw / Foreach"]
+    s1n6 -->|"Succeeded"| s1n0
+    s1n4 -->|"Succeeded"| s1n1
+    s1n0 -->|"Succeeded"| s1n2
+    s1n1 -->|"Succeeded"| s1n3
+    s1n2 -->|"Succeeded"| s1n5
+    s1n3 -->|"Succeeded"| s1n6
+  end
+  subgraph s2["root/Use_cached_snapshot/body/Verify_cached_raw/body"]
+    s2n0["Guard_cached_bytes / Compose"]
+    s2n1["Guard_cached_path / Compose"]
+    s2n2["Read_cached_raw / OpenApiConnection"]
+    s2n2 -->|"Succeeded"| s2n0
+    s2n1 -->|"Succeeded"| s2n2
+  end
+  subgraph s3["root/Use_cached_snapshot/else"]
+    s3n0["Acquire_citations / Foreach"]
+    s3n1["Guard_batch_complete / Compose"]
+    s3n2["Guard_saved_manifest / Compose"]
+    s3n3["Manifest / Compose"]
+    s3n4["Read_saved_manifest / OpenApiConnection"]
+    s3n5["Save_manifest / OpenApiConnection"]
+    s3n0 -->|"Succeeded"| s3n1
+    s3n4 -->|"Succeeded"| s3n2
+    s3n1 -->|"Succeeded"| s3n3
+    s3n5 -->|"Succeeded"| s3n4
+    s3n3 -->|"Succeeded"| s3n5
+  end
+  subgraph s4["root/Use_cached_snapshot/else/Acquire_citations/body"]
+    s4n0["Find_retained_entry / Query"]
+    s4n1["Guard_retained_unique / Compose"]
+    s4n2["Remember_citation_failure / SetVariable"]
+    s4n3["Use_retained_entry / If"]
+    s4n0 -->|"Succeeded"| s4n1
+    s4n3 -->|"Failed / TimedOut"| s4n2
+    s4n1 -->|"Succeeded"| s4n3
+  end
+  subgraph s5["root/Use_cached_snapshot/else/Acquire_citations/body/Use_retained_entry/body"]
+    s5n0["Guard_retained_bytes / Compose"]
+    s5n1["Read_retained_raw / OpenApiConnection"]
+    s5n2["Remember_retained_entry / AppendToArrayVariable"]
+    s5n1 -->|"Succeeded"| s5n0
+    s5n0 -->|"Succeeded"| s5n2
+  end
+  subgraph s6["root/Use_cached_snapshot/else/Acquire_citations/body/Use_retained_entry/else"]
+    s6n0["Citation_keys / Select"]
+    s6n1["Envelope / Compose"]
+    s6n2["Guard_citation_ids / Compose"]
+    s6n3["Guard_citation_keys / Compose"]
+    s6n4["Guard_citation_response / Compose"]
+    s6n5["Guard_previous_provider / Compose"]
+    s6n6["Guard_recovery_match / Compose"]
+    s6n7["Guard_saved_raw / Compose"]
+    s6n8["Invalid_citation_ids / Query"]
+    s6n9["Pace / Wait"]
+    s6n10["Parse_citations / ParseJson"]
+    s6n11["Provider_request / If"]
+    s6n12["Raw_name / Compose"]
+    s6n13["Read_raw / OpenApiConnection"]
+    s6n14["Recovered_match / Query"]
+    s6n15["Remember_entry / AppendToArrayVariable"]
+    s6n16["Save_raw / OpenApiConnection"]
+    s6n17["Selected_response / Compose"]
+    s6n2 -->|"Succeeded"| s6n0
+    s6n3 -->|"Succeeded"| s6n1
+    s6n8 -->|"Succeeded"| s6n2
+    s6n0 -->|"Succeeded"| s6n3
+    s6n10 -->|"Succeeded"| s6n4
+    s6n14 -->|"Succeeded"| s6n6
+    s6n13 -->|"Succeeded"| s6n7
+    s6n4 -->|"Succeeded"| s6n8
+    s6n15 -->|"Succeeded"| s6n9
+    s6n17 -->|"Succeeded"| s6n10
+    s6n6 -->|"Succeeded"| s6n11
+    s6n1 -->|"Succeeded"| s6n12
+    s6n16 -->|"Succeeded"| s6n13
+    s6n5 -->|"Succeeded"| s6n14
+    s6n7 -->|"Succeeded"| s6n15
+    s6n12 -->|"Succeeded"| s6n16
+    s6n11 -->|"Succeeded"| s6n17
+  end
+  subgraph s7["root/Use_cached_snapshot/else/Acquire_citations/body/Use_retained_entry/else/Provider_request/body"]
+    s7n0["Fetch_citations / Http"]
+    s7n1["Remember_provider_failure / SetVariable"]
+    s7n0 -->|"Failed / TimedOut"| s7n1
+  end
+  subgraph s8["root/Use_cached_snapshot/else/Acquire_citations/body/Use_retained_entry/else/Provider_request/else"]
+  end
+  s0n5 -. "nested scope" .-> s1
+  s0n5 -. "nested scope" .-> s3
+  s1n6 -. "nested scope" .-> s2
+  s3n0 -. "nested scope" .-> s4
+  s4n3 -. "nested scope" .-> s5
+  s4n3 -. "nested scope" .-> s6
+  s6n11 -. "nested scope" .-> s7
+  s6n11 -. "nested scope" .-> s8

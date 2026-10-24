@@ -128,6 +128,17 @@ is `e01-consolidated-handover-20261024.json`; this handover leaves E01 incomplet
 
 ## Independent enrichment admission — 24 October
 
+The next incoming-citation increment is also accepted:48 native responses,
+344 distinct OCI relationships, all102 earlier OpenCitations files unchanged,
+manual/Stopped and exact native definition/reference readback. Its native
+documentation is complete (guide17/catalogue18/Loop74;43 exact native sources,
+prior42 unchanged). Reuse
+`private/ops/2026-10-24-opencitations-citations/acceptance.json` and
+[the implementation leaf](../docs/OPENCITATIONS_CITATION_LINKS.md); do not repeat
+acquisition automatically. This supersedes the earlier documentation versions
+below while retaining their accepted scope. Crossref was still Running at final
+read; its retained handle, archives and monitor remain preserved.
+
 The pending native documentation for this increment is now complete. Current
 guide16.0/catalogue17.0,42 reopened native Mermaid sources,24 downloadable graph
 files and the scoped field-guide source are accepted. Prior39 native source
