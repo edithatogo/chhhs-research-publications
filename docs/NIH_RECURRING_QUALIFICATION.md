@@ -92,3 +92,43 @@ register_updated=false, model_refreshed=false and end_to_end_qualified=false.
 Exact native identity, definitions, runs/actions, fault receipts, archived files,
 hashes, settings and preservation evidence remain ignored under
 `private/ops/2026-10-24-nih-recurring/`.
+
+## Further scheduled freshness and partial-archive recovery observation
+
+Three additional **actual one-minute Recurrence ticks** were observed on 24 October
+2026. Native trigger receipts include scheduledTime and originHistoryName matching
+each current run. No manual invocation or resubmission counted as a scheduled tick.
+
+| Brisbane start | Outcome | Verified behavior |
+| --- | --- | --- |
+| 12:31:33 | Succeeded in 13.6 seconds | Four new HTTP actions, complete response/ZIP archive, manifest and independent source/ZIP parity |
+| 12:32:33 | Controlled failure in 8.8 seconds | Deliberate guard failure before attachment acquisition; scope and four responses retained, no ZIP or complete manifest; failure receipt retained |
+| 12:33:33 | Succeeded in 12.6 seconds | Next scheduled tick after fault removal reacquired all responses and ZIP into a different complete generation; independent parity passed |
+
+For both successes, all four provider HTTP Date headers fell inside the native run
+window with a 30-second clock tolerance, and each actual HTTP body matched its
+archived response object. Observed UTC lay inside its correlated run. At independent
+verification the observation ages were **103.84 seconds** and **54.22 seconds**,
+within the selected five-minute test bound. This is point-in-time source-observation
+freshness, not an agreed production SLA or a claim that the source record changed.
+The provider's separate last-updated text remains **Jun 02, 2026 10:48:02 AM EDT**;
+it was not replaced with acquisition time or silently converted to another zone.
+
+The new read-only helper `scripts/verify_nih_observation_freshness.py` checks the
+native scheduled trigger, correlated manifest, four non-truncated action receipts,
+provider clocks and exact HTTP-body/archive parity. Tests reject stale/future
+observations, resubmissions, incomplete receipts, stale/missing provider dates and
+changed archived bodies. It makes no register/model freshness claim.
+
+Earlier complete and failed-partial generations retain their exact file IDs,
+ETags, lengths and modification times after recovery. Complete register reads and
+isolated-model refresh history match their pre-test baselines. The flow's exact
+pre-test definition, connection references, disabled daily candidate and Off state
+were restored and read back; the deliberate fault is absent. No new source scope,
+accepted register record, model refresh or outgoing alert was introduced.
+
+This bounded short-cadence test does not establish daily or multi-day operational
+reliability, missed-trigger detection, sustained freshness, alert delivery or full
+source-to-model acceptance. Those existing gates remain open. Private native HTTP
+receipts, full downloaded generations, freshness proofs and preservation evidence
+are under `private/ops/2026-10-24-nih-scheduled-observation/`.
