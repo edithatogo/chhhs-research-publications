@@ -71,3 +71,12 @@ owner-qualified refresh updates them. [Whole-system reconciliation](WHOLE_SYSTEM
 should preserve these explicit differences rather than manufacture metadata equality.
 Any future correction must bring its exact provenance and a fresh preimage before
 an owner-controlled change; no automatic overwrite follows from this report.
+
+## Subsequent reader exposure — 24 October 2026
+
+The existing SharePoint difference reader now exposes **144 uncertain semantic
+pairs and 3 explained title differences**, with complete versioned disposition
+CSV/JSON and preserved historical links. This later presentation update does not
+change the earlier receipt or any curated values. Native field/model/export labels
+and semantic adjudication remain separate. See the
+[reader implementation and acceptance](PUBLICATION_DISPOSITION_READER.md).
