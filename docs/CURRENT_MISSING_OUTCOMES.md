@@ -47,6 +47,10 @@ must not displace these selected exits.
 | Desktop/Windows fallback remains required | T16/T17 current plans explicitly cancel these routes by user direction. | Cancelled scope, not native deployment success. |
 | Efficiency implementation PR checks still running | PR39 and PR40 merged; their three hosted checks all passed at reconciliation. | Owner adoption is separate; E01 checkpoint exists, grants checkpoint is due at terminal handover. |
 
+The [whole-system reconciliation preparation](WHOLE_SYSTEM_RECONCILIATION.md)
+provides the six-stage capture contract and an offline key-set oracle for E07-H05.
+Preparation is complete; native correlated-generation acceptance remains open.
+
 ## Historical gaps requiring evidence disposition before execution
 
 The following are not newly commissioned tests. Their dated open wording conflicts
