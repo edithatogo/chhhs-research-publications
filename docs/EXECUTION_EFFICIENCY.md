@@ -68,3 +68,18 @@ A newly diagnosed defect with a discriminating check is progress, not a loop.
 Recommend further changes only from concrete repeated friction. Observe existing
 chats without triggering them; notify owners only for a completed improvement,
 changed blocker or actionable conflict. Stay quiet on unchanged monitoring ticks.
+
+## Separate code and evidence worktrees
+
+When qualified helper code and owner evidence live in separate checkouts, use
+`<qualified-python> <code-checkout>/scripts/lane_resume.py --lane e01
+--checkpoint-root <owner-evidence-checkout>` (one command). This reads only the
+explicit owner's checkpoint. It neither copies evidence nor changes the default
+root. Do not silently search other worktrees for a missing checkpoint.
+
+Keep recurring prompts short: identify the owner checkpoint and exact terminal
+checklist, preserve retained operation and cadence, and read detailed history only
+when the selected next action requires it. Do not append every successful receipt
+to the recurring prompt. Preserve the previous prompt privately before shortening
+it; retained safety/authority/terminal gates remain controlling. Notify a waiting
+lane once on a genuine terminal result, not repeatedly while unchanged.

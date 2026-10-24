@@ -43,9 +43,11 @@ def read_checkpoint(root, lane):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--lane', required=True)
+    parser.add_argument('--checkpoint-root', type=Path, default=ROOT,
+                        help='Explicit owner evidence checkout; defaults to this code checkout')
     args = parser.parse_args(argv)
     try:
-        data = read_checkpoint(ROOT, args.lane)
+        data = read_checkpoint(args.checkpoint_root.resolve(), args.lane)
     except (OSError, ValueError) as exc:
         parser.exit(1, f'FAIL: {exc}\n')
     print('OWNER REPORT ONLY — verify changed native facts before dependent actions.')

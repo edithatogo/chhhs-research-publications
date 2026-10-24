@@ -1,8 +1,10 @@
+import contextlib
+import io
 import json
 from pathlib import Path
 import tempfile
 import unittest
-from scripts.lane_resume import read_checkpoint, REQUIRED
+from scripts.lane_resume import read_checkpoint, REQUIRED, main
 
 
 class LaneResumeTests(unittest.TestCase):
@@ -32,3 +34,19 @@ class LaneResumeTests(unittest.TestCase):
             (root / 'private/ops/execution-lanes/e01.json').symlink_to(Path(outside) / 'state.json')
             with self.assertRaises(ValueError):
                 read_checkpoint(root, 'e01')
+
+    def test_explicit_owner_root_selects_evidence_without_copying(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            folder = root / 'private/ops/execution-lanes'
+            folder.mkdir(parents=True)
+            data = dict.fromkeys(REQUIRED, 'none')
+            data.update(schema_version=1, owner='separate owner', failures=[], completion=[])
+            path = folder / 'e01.json'
+            path.write_text(json.dumps(data))
+            before = path.read_bytes()
+            output = io.StringIO()
+            with contextlib.redirect_stdout(output):
+                self.assertEqual(main(['--lane', 'e01', '--checkpoint-root', str(root)]), 0)
+            self.assertIn('separate owner', output.getvalue())
+            self.assertEqual(path.read_bytes(), before)
