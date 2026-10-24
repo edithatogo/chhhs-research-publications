@@ -1,0 +1,54 @@
+{
+  "headerJSONFormatter": {
+    "elmType": "div",
+    "style": {
+      "padding": "12px 0",
+      "border-bottom": "1px solid #8a8886",
+      "display": "flex",
+      "flex-direction": "column",
+      "align-items": "flex-start",
+      "width": "100%"
+    },
+    "children": [
+      {
+        "elmType": "div",
+        "style": {
+          "font-size": "20px",
+          "font-weight": "600"
+        },
+        "txtContent": "Grant details"
+      },
+      {
+        "elmType": "div",
+        "style": {
+          "font-size": "14px",
+          "font-weight": "600",
+          "margin-top": "12px"
+        },
+        "txtContent": "US Grants.gov source attribution"
+      },
+      {
+        "elmType": "div",
+        "style": {
+          "font-size": "14px",
+          "white-space": "normal",
+          "margin-top": "4px"
+        },
+        "txtContent": "This product uses the Grants.gov API but is not endorsed or certified by the U.S. Department of Health and Human Services."
+      },
+      {
+        "elmType": "a",
+        "attributes": {
+          "href": "https://www.grants.gov/api/terms-conditions",
+          "target": "_blank",
+          "rel": "noopener noreferrer"
+        },
+        "txtContent": "Source terms",
+        "style": {
+          "display": "inline-block",
+          "margin-top": "8px"
+        }
+      }
+    ]
+  }
+}

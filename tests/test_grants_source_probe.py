@@ -42,6 +42,14 @@ class _Response:
 class GrantsSourceProbeTests(unittest.TestCase):
     def test_machine_endpoint_readback_requires_configured_ids(self):
         def opener(request, timeout):
+            if request.full_url == "https://api.grants.gov/v1/api/search2":
+                self.assertEqual(request.get_method(), "POST")
+                self.assertEqual(json.loads(request.data)["oppNum"], "PA-25-301")
+                return _Response(json.dumps({"errorcode": 0, "data": {
+                    "searchParams": json.loads(request.data), "hitCount": 1, "startRecord": 0,
+                    "oppHits": [{"id": "357812", "number": "PA-25-301", "oppStatus": "posted"}]
+                }}).encode(),
+                                 url=request.full_url)
             if "dataportal.arc.gov.au" in request.full_url:
                 return _Response(json.dumps({"data": [{"id": "FT260100001"}]}).encode(),
                                  url=request.full_url)
