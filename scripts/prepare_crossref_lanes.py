@@ -109,7 +109,10 @@ def _lane(template, lane):
     a['Lane_failed_initialize'] = {'type': 'InitializeVariable', 'runAfter': {},
         'inputs': {'variables': [{'name': 'LaneFailed', 'type': 'boolean', 'value': False}]}}
     a['Scope']['runAfter'] = {'Lane_failed_initialize': ['Succeeded']}
-    for _, card in _cards(a):
+    for action_name, card in _cards(a):
+        if action_name == 'Bootstrap_doi_cache_index':
+            # Immutable donor pointers must retain their original namespace.
+            continue
         # Storage identities, not action keys or source scope, distinguish lanes.
         def paths(v):
             if isinstance(v, str):
@@ -211,15 +214,27 @@ def _standalone(actions, prefix):
     return root
 
 
-def prepare(document, *, expected_definition_sha256, baseline_monthly_keys=('tropical', 'cairns'), **budgets):
+def prepare(document, *, expected_definition_sha256, baseline_monthly_keys=('tropical', 'cairns'), frozen_scope=None, page_level=False, discovery_records=(), doi_cache_entries=(), **budgets):
     candidate = batches(document, expected_definition_sha256=expected_definition_sha256, **budgets)
+    if frozen_scope is not None:
+        candidate['properties']['definition']['actions']['Scope']['inputs'] = copy.deepcopy(frozen_scope)
+        manifest = candidate['properties']['definition']['actions']['Manifest']['inputs']
+        manifest['scope_sha256'] = frozen_scope['scope_sha256']
+        manifest['created_date_partition'] = copy.deepcopy(frozen_scope['hedge']['created_date_partition'])
+    if page_level:
+        from scripts.crossref_page_batches import install
+        install(candidate, max_archive_bytes=budgets.get('max_archive_bytes', 32_000_000),
+                max_minutes=budgets.get('max_minutes', 20))
+    if frozen_scope is not None:
+        from scripts.crossref_doi_reuse import install as install_doi_reuse
+        install_doi_reuse(candidate, discovery_records=discovery_records, cache_entries=doi_cache_entries)
     template = candidate['properties']['definition']['actions']
     delta = _lane(template, 'incremental')
     baseline_template = copy.deepcopy(template)
     scope = baseline_template['Scope']['inputs']
     hedge = scope['hedge']
     by_key = {q['key']: q for q in hedge['queries']}
-    if (not baseline_monthly_keys or len(set(baseline_monthly_keys)) != len(baseline_monthly_keys)
+    if ((not baseline_monthly_keys and frozen_scope is None) or len(set(baseline_monthly_keys)) != len(baseline_monthly_keys)
             or not set(baseline_monthly_keys) <= set(by_key)
             or not set(hedge['created_date_partition']['query_keys']) <= set(baseline_monthly_keys)):
         raise ValueError('Existing monthly partitions and exact frozen query keys required')
@@ -228,11 +243,13 @@ def prepare(document, *, expected_definition_sha256, baseline_monthly_keys=('tro
     for key in baseline_monthly_keys:
         by_key[key]['created_date_window_months'] = 1
     hedge['created_date_partition']['query_keys'] = list(baseline_monthly_keys)
-    hedge['batch_page_pacing'] = {
+    pacing = {
         'minimum_seconds': 5, 'seconds_per_archive_megabyte': 20,
         'projected_history_multiplier': 4,
         'projected_history_megabytes_per_five_minutes': 60,
         'qualification': 'historical-volume-derived projection; native metering unverified'}
+    if frozen_scope is None:
+        hedge['batch_page_pacing'] = pacing
     scope['scope_sha256'] = hashlib.sha256(json.dumps(
         {'policy': scope['policy'], 'hedge': hedge}, sort_keys=True,
         separators=(',', ':')).encode()).hexdigest()
