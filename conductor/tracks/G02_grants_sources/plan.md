@@ -352,3 +352,24 @@ check --task grants` passed 404 tests with 2 optional JSON Schema skips; report
 builder returned `PASS_LOCAL_ONLY`. No new source admission or native claim.
 G02-H02/H03 remain open pending source qualification and G04-H03 opportunity
 route acceptance.
+
+## Selected NIH source admission — 24 October 2026
+
+Completed the requested admission checks for the exact official NIH PA-25-301 /
+Grants.gov ID 357812 source. The maintained catalogue now records the ten verified
+qualification fields, permitted reuse, public access and the pinned read-only
+POST scope. Fresh complete two-pass raw API responses, semantic replay and all
+seven future nominal dates reconcile. All 32 native contract fields match the
+saved model and storage; review-preserving flow mappings remain saved Off.
+The required attribution and official terms link are visibly verified in the
+existing Grants Registry form header, with exact native configuration readback.
+See [the admission decision](../../../docs/NIH_SOURCE_ADMISSION.md).
+
+The bounded probe cannot issue arbitrary POSTs or broaden the selected FON. A
+full-catalogue intake defect was repaired: legitimate context-only sources no
+longer invalidate an independent opportunity merely because they lack opportunity
+row hosts; context records remain excluded from opportunity ingestion. Targeted
+regressions cover both boundaries. Native items were not written, and flow state,
+recurrence and permissions remain unchanged. G04-H03 real intake/replay/refresh
+and nonempty last-good preservation, plus G02-H03 coverage acceptance, remain open.
+This increment does not mark the complete G02 track or Australian-source gaps done.

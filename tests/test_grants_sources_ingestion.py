@@ -52,6 +52,7 @@ class GrantsSourceTests(unittest.TestCase):
             "arc-awards-api", "queensland-grants-finder-catalogue-api",
             "queensland-health-qgip-review-candidates-api",
             "arc-rgs-awards-api",
+            "us-grants-gov-nih-pa-25-301",
         })
         self.assertTrue(all(row["intake"] in {"rss", "atom", "api"} for row in rows))
         self.assertTrue(all(row["health_status"] == "verified_sample" for row in rows))

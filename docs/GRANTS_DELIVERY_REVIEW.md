@@ -1,5 +1,7 @@
 # Grants delivery review and source map
 
+Current selected-source update — 24 October 2026: [NIH PA-25-301 admission](NIH_SOURCE_ADMISSION.md) is qualified for the bounded announcement. Older dated no-admission statements describe their historical captures. G04 real intake/replay and G02 coverage acceptance remain open.
+
 Baseline research date: 2026-09-20. Official-route checks are dated inline through 2026-10-23. This is a researched implementation proposal, not a deployment receipt. E06 exists; the previously discussed E06-P1–P7 tracks have not been created as individual Conductor tracks. Sources below were identified through official pages; an identified page is not a tested RSS/Atom/API endpoint. Coverage is non-exhaustive.
 
 ## Simpler implementation and reuse
@@ -203,7 +205,7 @@ Unless specifically stated, RSS/Atom/API availability is unverified. Automated a
 | UQ | https://research-support.uq.edu.au/node/4696 | Funding table separates internal/external closing dates; deduplicate against funder records. |
 | QUT | https://www.qut.edu.au/?a=691532 | Partnership funding discovery; research-office access/exports to investigate. |
 | Griffith | https://www.griffith.edu.au/research/research-services/research-grants | Research grants hub; internal opportunities require affiliation review. |
-| US Grants.gov, optional | https://www.grants.gov/connect/rss-feeds and https://www.grants.gov/api/terms-conditions | Its official RSS page documents new and modified opportunity feeds by agency/category. The API terms permit search/display/analysis/retrieval, require attribution, prohibit modifying or misrepresenting API content, and state that API access/use constitutes acceptance. No API request was made. This route remains non-selected: the reviewed public material does not establish full feed pagination/replay, lifecycle/deletion coverage, RSS reuse terms, Australian applicant eligibility, or reconciliation to this grants model. No source admission. |
+| US Grants.gov / NIH PA-25-301, selected bounded scope | https://www.grants.gov/api/common/search2 and https://grants.nih.gov/grants/guide/pa-files/PA-25-301.html | Admitted on 24 October 2026 for the exact FON / ID357812 only, following complete two-pass search/detail capture, documented identity/lifecycle, 32-field native parity and visibly verified attribution in the existing grants form. All seven nominal future application dates are preserved; no CHHHS eligibility, effective deadline, wider NIH coverage or native intake acceptance is inferred. See [source admission](NIH_SOURCE_ADMISSION.md). Existing cloud flow remains Off. |
 
 University coverage is now recorded separately in `config/grants-universities.json` for JCU, UQ, QUT and Griffith. These pages describe research-office support and/or internal deadlines, not automatically permitted feeds. Next discovery backlog, not verified endpoints: UniSC, UniSQ, CQUniversity, Bond, Health Translation Queensland, Tropical Australian Academic Health Centre, relevant hospital foundations, Heart Foundation, Diabetes Australia, MS Australia, Dementia Australia Research Foundation, philanthropic trusts, professional colleges and international schemes accepting Australian applicants. University subscription aggregators may supply permitted exports through existing entitlements; do not assume those entitlements exist.
 

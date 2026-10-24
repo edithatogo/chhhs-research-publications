@@ -8,12 +8,12 @@ from datetime import timezone
 try:
     from .grants_source_identity import feed_source_ids, validate_source_id_path
     from .grants_registry import normalize_opportunity, parse_offset_instant, valid_official_url
-    from .grants_sources import qualification_error, required_source_class_matches
+    from .grants_sources import qualification_error, required_source_class_matches, source_request_contract
     from .grants_deadline_schedule import require_source_schedule
 except ImportError:  # direct script execution with scripts/ on sys.path
     from grants_source_identity import feed_source_ids, validate_source_id_path
     from grants_registry import normalize_opportunity, parse_offset_instant, valid_official_url
-    from grants_sources import qualification_error, required_source_class_matches
+    from grants_sources import qualification_error, required_source_class_matches, source_request_contract
     from grants_deadline_schedule import require_source_schedule
 
 
@@ -77,13 +77,17 @@ def _catalogue_row_error(row: dict[str, Any]) -> str | None:
     reconciliation = row.get("reconciliation")
     if not isinstance(source_id, str) or not source_id or source_id != source_id.strip():
         return "catalogue_source_id_invalid"
+    try:
+        source_request_contract(row)
+    except ValueError:
+        return "catalogue_source_request_invalid"
     if not required_source_class_matches(row):
         return "immutable_non_opportunity_entity_class"
     if not isinstance(intake, str):
         return "catalogue_intake_invalid"
-    if (not isinstance(hosts, list) or not hosts
+    if (hosts is not None and (not isinstance(hosts, list) or not hosts
             or any(not isinstance(host, str) or not host
-                   or host != host.strip() for host in hosts)):
+                   or host != host.strip() for host in hosts))):
         return "catalogue_official_row_hosts_invalid"
     if not isinstance(reconciliation, dict):
         return "catalogue_reconciliation_invalid"
@@ -95,6 +99,8 @@ def _catalogue_row_error(row: dict[str, Any]) -> str | None:
     except ValueError:
         return "catalogue_reconciliation_invalid"
     if reconciliation.get("admission") == "opportunity":
+        if not hosts:
+            return "catalogue_official_row_hosts_invalid"
         if reconciliation.get("entity") != "opportunity":
             return "catalogue_opportunity_entity_invalid"
         source_qualification_error = qualification_error(row, require_opportunity=True)

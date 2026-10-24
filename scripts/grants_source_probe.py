@@ -19,10 +19,10 @@ from urllib.parse import urlsplit
 
 try:
     from scripts.grants_source_identity import feed_source_ids, json_source_ids
-    from scripts.grants_sources import load_catalogue
+    from scripts.grants_sources import load_catalogue, source_request_contract, NIH_SELECTED_SOURCE
 except ImportError:
     from grants_source_identity import feed_source_ids, json_source_ids
-    from grants_sources import load_catalogue
+    from grants_sources import load_catalogue, source_request_contract, NIH_SELECTED_SOURCE
 
 # Match the existing QGIP adapter's bounded CKAN page limit. The configured
 # page contains up to 100 records and can exceed 128 KiB; keep a hard ceiling
@@ -53,9 +53,15 @@ def _is_json_media_type(value: str) -> bool:
 
 def _probe_row(row: dict[str, Any], opener: Callable[..., Any]) -> dict[str, Any]:
     url = _endpoint(row)
-    request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, "Accept": "application/json, application/rss+xml, application/atom+xml"}, method="GET")
+    method, request_body = source_request_contract(row)
+    headers = {"User-Agent": USER_AGENT, "Accept": "application/json, application/rss+xml, application/atom+xml"}
+    body = None
+    if request_body is not None:
+        headers["Content-Type"] = "application/json"
+        body = json.dumps(request_body).encode("utf-8")
+    request = urllib.request.Request(url, headers=headers, data=body, method=method)
     observed_at = dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat()
-    result: dict[str, Any] = {"source_id": row["source_id"], "endpoint_url": url, "observed_at": observed_at, "probe_kind": "machine_endpoint_bounded_get"}
+    result: dict[str, Any] = {"source_id": row["source_id"], "endpoint_url": url, "observed_at": observed_at, "probe_kind": "machine_endpoint_bounded_" + method.lower()}
     try:
         with opener(request, timeout=15) as response:
             final_url = response.geturl()
@@ -90,6 +96,21 @@ def _probe_row(row: dict[str, Any], opener: Callable[..., Any]) -> dict[str, Any
             if row["intake"] == "api":
                 payload = json.loads(body)
                 identifiers = json_source_ids(payload, row["reconciliation"]["source_id_path"])
+                if row["source_id"] == NIH_SELECTED_SOURCE:
+                    data = payload.get("data") if isinstance(payload, dict) else None
+                    params = data.get("searchParams") if isinstance(data, dict) else None
+                    hits = data.get("oppHits") if isinstance(data, dict) else None
+                    if (not isinstance(payload, dict)
+                            or type(payload.get("errorcode")) is not int or payload["errorcode"] != 0
+                            or not isinstance(params, dict) or params.get("oppNum") != "PA-25-301"
+                            or set(str(params.get("oppStatuses", "")).split("|"))
+                            != {"forecasted", "posted", "closed", "archived"}
+                            or type(data.get("hitCount")) is not int or data["hitCount"] != 1
+                            or type(data.get("startRecord")) is not int or data["startRecord"] != 0
+                            or identifiers != ["357812"] or not isinstance(hits, list)
+                            or len(hits) != 1 or hits[0].get("number") != "PA-25-301"
+                            or hits[0].get("oppStatus") != "posted"):
+                        raise ValueError("selected_nih_query_or_lifecycle_drift")
             else:
                 identifiers = feed_source_ids(body, row["reconciliation"]["source_id_path"], intake=row["intake"])
             if not identifiers:

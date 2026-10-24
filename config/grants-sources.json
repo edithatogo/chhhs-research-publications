@@ -401,5 +401,113 @@
         ]
       }
     }
+  },
+  {
+    "source_id": "us-grants-gov-nih-pa-25-301",
+    "enabled": true,
+    "title": "NIH PA-25-301 — exact Grants.gov opportunity",
+    "authority_url": "https://grants.nih.gov/grants/guide/pa-files/PA-25-301.html",
+    "api_url": "https://api.grants.gov/v1/api/search2",
+    "request_method": "POST",
+    "request_body": {
+      "oppNum": "PA-25-301",
+      "rows": 10,
+      "oppStatuses": "forecasted|posted|closed|archived"
+    },
+    "intake": "api",
+    "health_status": "verified_sample",
+    "authority_type": "US Department of Health and Human Services / National Institutes of Health",
+    "format": "grants_gov_json",
+    "record_kind": "funding_opportunity",
+    "access": "Public documented read-only search and detail API; no account, API key or new consent used",
+    "coverage": "Only FON PA-25-301 / Grants.gov ID357812; all four search statuses; one complete exact-query result. Not general NIH or US funding coverage.",
+    "eligibility_scope": "Source applicant text retained; no CHHHS eligibility or relevance decision. Applicant-local time and effective due dates remain unresolved.",
+    "official_row_hosts": [
+      "grants.nih.gov"
+    ],
+    "reconciliation": {
+      "source_id_path": "data.oppHits[].id",
+      "stable_key_prefix": "GRANT:",
+      "entity": "opportunity",
+      "admission": "opportunity"
+    },
+    "last_verified": "2026-10-24",
+    "sample_fixture": null,
+    "qualification": {
+      "observed_at": "2026-10-24T00:28:30.794897+00:00",
+      "access": {
+        "status": "verified",
+        "evidence_refs": [
+          "https://www.grants.gov/api/api-guide",
+          "docs/NIH_SOURCE_ADMISSION.md"
+        ],
+        "decision": "public"
+      },
+      "response_schema": {
+        "status": "verified",
+        "evidence_refs": [
+          "https://www.grants.gov/api/common/fetchopportunity",
+          "docs/NIH_SOURCE_ADMISSION.md"
+        ]
+      },
+      "bounded_sample": {
+        "status": "verified",
+        "evidence_refs": [
+          "https://www.grants.gov/api/common/search2",
+          "docs/NIH_SOURCE_ADMISSION.md"
+        ]
+      },
+      "complete_pagination": {
+        "status": "verified",
+        "evidence_refs": [
+          "https://www.grants.gov/api/common/search2",
+          "docs/NIH_SOURCE_ADMISSION.md"
+        ]
+      },
+      "replay_keyset": {
+        "status": "verified",
+        "evidence_refs": [
+          "docs/NIH_SOURCE_ADMISSION.md"
+        ]
+      },
+      "stable_identity": {
+        "status": "verified",
+        "evidence_refs": [
+          "https://www.grants.gov/system-to-system/grantor-system-to-system/web-services/create-opportunity-package",
+          "docs/NIH_SOURCE_ADMISSION.md"
+        ]
+      },
+      "round_semantics": {
+        "status": "verified",
+        "evidence_refs": [
+          "https://grants.nih.gov/grants/guide/pa-files/PA-25-301.html",
+          "docs/NIH_SOURCE_ADMISSION.md"
+        ]
+      },
+      "lifecycle_semantics": {
+        "status": "verified",
+        "evidence_refs": [
+          "https://grants.gov/help/search-grants/search-grants-tab",
+          "docs/NIH_SOURCE_ADMISSION.md"
+        ]
+      },
+      "reuse_terms": {
+        "status": "verified",
+        "evidence_refs": [
+          "https://www.grants.gov/api/terms-conditions",
+          "docs/NIH_SOURCE_ADMISSION.md"
+        ],
+        "decision": "permitted"
+      },
+      "entity_reconciliation": {
+        "status": "verified",
+        "evidence_refs": [
+          "docs/NIH_SOURCE_ADMISSION.md"
+        ]
+      }
+    },
+    "lifecycle_policy": "Reacquire exact search and detail twice before each operator intake. Reject missing/extra hits, changed identity, unpublished/non-posted status, malformed or changed replay, or incomplete schedule. Preserve last-good; investigate/requalify status changes, never infer deletion from absence. No automatic tombstones.",
+    "freshness_policy": "Refresh before each operator intake and on a source notice; recurrence remains outside admission acceptance. Do not present stale observations as current.",
+    "attribution_formatter": "config/grants-source-attribution.form.json"
   }
 ]

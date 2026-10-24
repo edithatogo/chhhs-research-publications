@@ -46,6 +46,30 @@ ACCESS_DECISIONS = {
     "public", "existing_authorized", "restricted", "unavailable", "unresolved", "not_applicable"
 }
 
+NIH_SELECTED_SOURCE = "us-grants-gov-nih-pa-25-301"
+NIH_SEARCH_URL = "https://api.grants.gov/v1/api/search2"
+NIH_SEARCH_BODY = {
+    "oppNum": "PA-25-301", "rows": 10,
+    "oppStatuses": "forecasted|posted|closed|archived",
+}
+
+
+def source_request_contract(row: dict[str, Any]) -> tuple[str, dict | None]:
+    """Allow only the selected documented read-only POST, never generic POSTs."""
+    method = row.get("request_method", "GET")
+    if row.get("source_id") == NIH_SELECTED_SOURCE:
+        reconciliation = row.get("reconciliation")
+        if (method != "POST" or row.get("intake") != "api"
+                or row.get("api_url") != NIH_SEARCH_URL
+                or row.get("request_body") != NIH_SEARCH_BODY
+                or not isinstance(reconciliation, dict)
+                or reconciliation.get("source_id_path") != "data.oppHits[].id"):
+            raise ValueError("selected NIH request scope must remain exact")
+        return method, dict(NIH_SEARCH_BODY)
+    if method != "GET" or "request_body" in row:
+        raise ValueError("unsupported source request; only selected NIH read-only POST is qualified")
+    return method, None
+
 
 def qualification_error(row: dict[str, Any], *, require_opportunity: bool = False) -> str | None:
     """Validate the recorded evidence state for one source catalogue row."""
@@ -178,6 +202,7 @@ def load_catalogue(path: str | Path) -> list[dict[str, Any]]:
         endpoint_field = "api_url" if intake == "api" else "feed_url"
         if not _https_url(row.get(endpoint_field)):
             raise ValueError(f"source {source_id!r} with {intake} intake needs HTTPS {endpoint_field}")
+        source_request_contract(row)
         if row.get("health_status") not in ALLOWED_HEALTH:
             raise ValueError(f"source {source_id!r} is not verified for machine reconciliation")
         reconciliation = row.get("reconciliation")

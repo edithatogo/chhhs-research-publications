@@ -58,7 +58,7 @@ class GrantsSourceCatalogueValidationTests(unittest.TestCase):
 
     def test_official_catalogue_urls_still_validate(self):
         rows = load_catalogue(ROOT / "config/grants-sources.json")
-        self.assertEqual(len(rows), 4)
+        self.assertEqual(len(rows), 5)
         rgs = next(row for row in rows if row["source_id"] == "arc-rgs-awards-api")
         self.assertFalse(rgs["enabled"])
         self.assertEqual(rgs["reconciliation"]["admission"], "context_only")

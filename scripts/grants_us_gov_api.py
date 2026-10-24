@@ -107,8 +107,8 @@ def prepare_snapshot(search: Any, detail: Any, replay_search: Any,
     # Grants.gov exposes one search closeDate and detail responseDate for this
     # announcement. NIH's official NOFO shows multiple application due dates
     # within the FON's active period; do not project the announcement boundary
-    # into the calendar Deadline. Retain it separately and leave the actionable
-    # deadline unknown until the model can represent the schedule without loss.
+    # into the calendar Deadline. Retain nominal occurrences separately from
+    # effective deadlines, which still need an applicant timezone and policy.
     if not isinstance(closing, str) or len(closing) != 19 or closing[10:] != "-00-00-00":
         raise ValueError("unsupported_source_closing_date")
     response_date = date.fromisoformat(closing[:10]).isoformat()
@@ -138,7 +138,7 @@ def prepare_snapshot(search: Any, detail: Any, replay_search: Any,
                 "response_date": response_date,
                 "archiveDateStr": synopsis.get("archiveDateStr"),
                 "mapped_to_actionable_deadline": False,
-                "reason": "Grants.gov search closeDate and detail responseDate identify one announcement boundary, while the official NIH NOFO lists multiple application due dates under this FON. The one-row model cannot represent that schedule; the announcement boundary is retained as source metadata, not shown as the next application deadline.",
+                "reason": "Grants.gov search closeDate and detail responseDate identify one announcement boundary, while the official NIH NOFO lists multiple application due dates under this FON. Retain the announcement boundary as source metadata and nominal application occurrences separately; do not show it as the next application deadline.",
                 "schedule_source_url": OFFICIAL_NOFO,
             },
             "source_detail_sha256": hashlib.sha256(json.dumps(
