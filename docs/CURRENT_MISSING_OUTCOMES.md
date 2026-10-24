@@ -51,6 +51,11 @@ The [whole-system reconciliation preparation](WHOLE_SYSTEM_RECONCILIATION.md)
 provides the six-stage capture contract and an offline key-set oracle for E07-H05.
 Preparation is complete; native correlated-generation acceptance remains open.
 
+The [147-pair publication source disposition](PUBLICATION_SOURCE_DISPOSITION.md)
+now verifies all current curated values and accounts for2presentation-equivalent
+titles,1bounded/full-source title and144explicit uncertainties. This closes that
+retained-pair accounting, not native label propagation or all E07-H06 outcomes.
+
 ## Historical gaps requiring evidence disposition before execution
 
 The following are not newly commissioned tests. Their dated open wording conflicts

@@ -20,3 +20,12 @@ wide sharing and unattended recurrence are future extensions.
 - [ ] Phase 8: Read back additive organisational columns in SharePoint and run a controlled backfill
 - [x] Review fix: require SharePoint connector and lookup-target parity for create/update writes (9001654).
 - [x] Review fix: require explicit `GetItems`, `PostItem` and `PatchItem` operation IDs plus connector authentication metadata (6230e1e).
+
+
+## Retained semantic-difference disposition — 24 October 2026
+
+[Verified accounting](../../../docs/PUBLICATION_SOURCE_DISPOSITION.md) supersedes
+the historical147-unexplained implication:2title presentation equivalents,
+1bounded display/full-source pair and144explicit source/curation uncertainties.
+Current147curated fields are preserved; no overwrite, correction adjudication or
+native uncertainty-label deployment. E07-H06 broader native parity remains open.

@@ -1,0 +1,26 @@
+{
+  "kind": "publication_source_disposition_readonly_v1",
+  "observed_at": "2026-10-24T05:19:21.017041+00:00",
+  "difference_count": 147,
+  "record_count": 140,
+  "disposition_counts": {
+    "uncertain_source_difference_preserved": 144,
+    "title_presentation_equivalent_preserved": 2,
+    "bounded_display_full_source_retained": 1
+  },
+  "uncertain_field_counts": {
+    "CHHHSAffiliatedAuthors": 101,
+    "PublicationDateRaw": 34,
+    "PublicationMonth": 3,
+    "PublicationDatePrecision": 3,
+    "Authors": 2,
+    "MatchedFacilities": 1
+  },
+  "all_current_curated_values_preserved": true,
+  "native_write_performed": false,
+  "native_uncertainty_labels_deployed": false,
+  "semantic_values_adjudicated": false,
+  "current_registry_rows": 1651,
+  "private_receipt": "private/ops/2026-10-24-source-difference-disposition/disposition-result.json",
+  "source_scope": "Retained15October named generation; current24October registry verified; no fresh source acquisition"
+}
