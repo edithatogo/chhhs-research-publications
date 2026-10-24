@@ -20,6 +20,8 @@ def _graph_errors(actions: dict[str, Any], scope: str = "root") -> list[str]:
     errors: list[str] = []
     names = set(actions)
     for name, action in actions.items():
+        if action.get("type") == "OpenApiConnection" and "authentication" in action.get("inputs", {}):
+            errors.append(f"{scope}.{name} must use connection references without rejected authentication annotations")
         unknown = set(action.get("runAfter", {})) - names
         if unknown:
             errors.append(f"{scope}.{name} has unknown runAfter action(s): {sorted(unknown)}")
@@ -150,8 +152,8 @@ def validate(definition: dict[str, Any]) -> list[str]:
         lookup_parameters = lookup.get("inputs", {}).get("parameters", {})
         if parameters.get("dataset") != lookup_parameters.get("dataset") or parameters.get("table") != lookup_parameters.get("table"):
             errors.append(f"{label} action must target the same SharePoint site and list as lookup")
-        if not action.get("inputs", {}).get("authentication"):
-            errors.append(f"{label} action must declare connector authentication")
+        if not host.get("connectionName") or host.get("connectionName") != lookup_host.get("connectionName"):
+            errors.append(f"{label} action must preserve the lookup connection reference alias")
         if "item/SourceRowURL" not in parameters:
             errors.append(f"{label} action must persist SourceRowURL evidence")
 
