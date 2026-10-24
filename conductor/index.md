@@ -7,6 +7,12 @@ RIMS flows, their implementation lane, fresh configured state, saved cadence,
 selected accepted runtime evidence and remaining limit. Enabled configuration is
 separate from actual execution and scheduled success.
 
+## Portable reconciliation tools — 24 October 2026
+
+[Offline source closure and clean-clone commands](../docs/PORTABLE_RECONCILIATION.md)
+cover five identity/source/provenance/export comparators and their synthetic tests.
+Private native evidence and missing-generation acceptance remain separate.
+
 ## Current outstanding-outcome reconciliation — 24 October 2026
 
 Read [current missing outcomes](../docs/CURRENT_MISSING_OUTCOMES.md) before

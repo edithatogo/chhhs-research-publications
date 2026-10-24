@@ -71,11 +71,11 @@ byte hashes even when their extraction contract is shared.
 | Registry/model provenance | `reconcile_registry_model_provenance.py` distinguishes primary registry source from derived model membership | Terminal selected-model refresh/query and source-set lineage parity; extra derived membership is not automatic source admission. |
 | Full/monthly exports | `reconcile_full_month_exports.py` and extraction-contract/manifest receipts | Native complete exports tied to the same selected refresh and month, exact bytes and all metadata. |
 
-Several of these tools remain in the private authoring checkout, absent from
-canonical main. Reuse the owner's exact versions and receipts there; do not copy
-untracked dependencies or assume a fresh main clone can import them. The new
-six-stage checker is dependency-free and complements them; it does not replace
-their richer source/provenance/metadata checks.
+The richer comparators now have a [portable source closure](PORTABLE_RECONCILIATION.md)
+in canonical main, with their synthetic tests and policy dependency. Existing
+private native receipts remain private; a clean clone can reproduce the offline
+checks without them. The six-stage checker complements the richer comparators;
+it does not replace their source/provenance/metadata checks.
 
 ## Run preparation and interpret the result
 
