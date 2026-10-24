@@ -40,7 +40,7 @@ dependencies. It rejects altered preimages, structured envelopes, status consume
 non-success dependencies and tracking metadata. Archive serialization, provider
 requests, scopes, verification, checkpoint logic and triggers remain unchanged.
 
-The native PubMed graph now has 57 cards and DoRA publications 108 cards. Each
+The initial copy-reduction graphs have 57 PubMed cards and 108 DoRA cards. Each
 executed batch/record avoids one response-copy action and its input/output history;
 this is structural evidence, not a measured speedup. PAC stored clientdata matched
 the complete supplied candidate exactly for both. Independent Flow API readback
@@ -53,7 +53,13 @@ No provider acquisition or new full collection run was started for this change.
 Use the next existing natural schedules for affected-path evidence, then compare
 records, bytes, runtime and action/history usage before any tuning claim. Keep
 preimages and exact guarded rollback inputs in private evidence. Native versioned
-field-guide/diagram publication for these two small graph changes remains pending.
+field-guide/diagram publication for these two small graph changes is complete.
+The later [DoRA retrieval increment](DORA_RETRIEVAL_EFFICIENCY.md) adds a provider
+failure latch and respects the published ten-second crawl delay: its current
+graph has110actions. Conditional retrieval supplied no measured saving, while the
+published sitemap contains all709accepted handles. Version-based cache reuse
+remains local and gated; neither source timestamps nor unchanged URLs alone prove
+fresh complete metadata.
 
 ## Next measured decisions
 
