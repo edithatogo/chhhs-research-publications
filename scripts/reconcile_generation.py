@@ -91,6 +91,24 @@ def reconcile(packet):
         for field in ('query_version', 'extraction_contract_sha256', 'model_refresh_correlation'):
             if usable['full_export'][0].get(field) != usable['monthly_export'][0].get(field):
                 blockers.append('full/monthly export: different ' + field)
+    # Compare available downstream stages even when independent source/canonical
+    # membership captures are missing. Never manufacture those missing stages.
+    if 'model' in usable and 'full_export' in usable:
+        compare('model_to_full_export', usable['model'][1], usable['full_export'][1])
+        dates = {r['key']: r.get('publication_month') for r in usable['model'][0]['rows']}
+        bad = [r['key'] for r in usable['full_export'][0]['rows']
+               if r['key'] in dates and r.get('publication_month') != dates[r['key']]]
+        if bad:
+            differences['model_to_full_export_months'] = {'mismatched': sorted(bad)}
+            blockers.append('model_to_full_export: date metadata differs')
+    if 'full_export' in usable and 'monthly_export' in usable:
+        expected = {r['key'] for r in usable['full_export'][0]['rows'] if r.get('publication_month') == period}
+        compare('full_export_month_to_monthly_export', expected, usable['monthly_export'][1])
+        full_dates = {r['key']: r.get('publication_month') for r in usable['full_export'][0]['rows']}
+        if any(r['key'] in full_dates and r.get('publication_month') != full_dates[r['key']] for r in usable['monthly_export'][0]['rows']):
+            blockers.append('full_to_monthly_export: date metadata differs')
+        if usable['monthly_export'][0].get('reporting_month') != period:
+            blockers.append('monthly_export: wrong reporting month')
     canonical = usable.get('canonical')
     if canonical:
         mappings = {}
@@ -132,7 +150,8 @@ def reconcile(packet):
                     differences[stage+'_month_metadata'] = {'mismatched': sorted(bad)}
                     blockers.append(stage + ': date metadata differs')
     else:
-        unknown = []
+        fallback = usable.get('full_export') or usable.get('model')
+        unknown = [r['key'] for r in fallback[0]['rows'] if r.get('publication_month') in (None, '')] if fallback else []
     return {'schema_version': 1, 'status': 'BLOCKED' if blockers else 'PASS_SUPPLIED_KEY_PARITY_ONLY',
             'generation_id': packet['generation_id'], 'reporting_month': period,
             'stage_fingerprints': fingerprints, 'counts': {k: len(v[1]) for k,v in usable.items()},

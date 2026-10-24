@@ -61,3 +61,17 @@ class GenerationReconciliationTests(unittest.TestCase):
     def test_exports_cannot_reference_a_different_model_refresh(self):
         self.packet['stages']['full_export']['model_refresh_correlation']='unrelated-refresh'
         self.assertIn('full_export: wrong model refresh correlation',reconcile(self.packet)['blockers'])
+
+    def test_partial_real_packet_compares_downstream_without_inventing_source(self):
+        del self.packet['stages']['source'];del self.packet['stages']['canonical']
+        result=reconcile(self.packet)
+        self.assertEqual(result['status'],'BLOCKED')
+        self.assertEqual(result['differences']['model_to_full_export'],{'missing':[],'unexpected':[]})
+        self.assertEqual(result['differences']['full_export_month_to_monthly_export'],{'missing':[],'unexpected':[]})
+        self.packet['stages']['full_export']['rows'][0]['key']='PMID:other'
+        self.assertTrue(reconcile(self.packet)['differences']['model_to_full_export']['missing'])
+
+    def test_partial_month_dates_must_match_full_without_canonical(self):
+        del self.packet['stages']['canonical']
+        self.packet['stages']['monthly_export']['rows'][0]['publication_month']='2026-08'
+        self.assertIn('full_to_monthly_export: date metadata differs',reconcile(self.packet)['blockers'])
