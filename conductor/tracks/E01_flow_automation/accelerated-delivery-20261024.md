@@ -85,6 +85,20 @@ Execution order: reconcile existing objects and accepted receipts first; impleme
 only an evidenced missing diff, then one relevant runtime proof. Do not reopen
 accepted sources merely because a historical checklist remains unchecked.
 
+### Incoming citation-link increment — 24 October
+
+One native acquisition retained48 complete OpenCitations incoming-citation
+responses for the accepted48 DOI identities:344 citation observations/344 distinct
+OCI identifiers,141,790 raw bytes independently read back. All102 earlier archive
+files remain unchanged; count/metadata sources were not called again. The new
+standalone flow is restoredStopped with exact definition/reference readback.
+Native documentation is complete: eight downloads,43 reopened Loop sources with
+the prior42 hashes exact, guide17.0/catalogue18.0/Loop74.0. No extra replay or
+failure-fixture run was added; common archive logic evidence is reused. See
+[implementation and limits](../../../docs/OPENCITATIONS_CITATION_LINKS.md).
+Standalone canonical solution admission remains separate. Crossref and its active
+three-hour monitor are preserved; E01 remains incomplete.
+
 ### Archived OpenCitations assertion admission — 24 October
 
 Native documentation is now complete for the three OpenCitations flow snapshots:
