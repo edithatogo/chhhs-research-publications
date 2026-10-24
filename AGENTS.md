@@ -33,3 +33,13 @@ No shared/original model writes without an approved isolation/rollback path. No 
 Validation cadence: use changed-behavior tests and affected structural checks. Documentation-only changes need structural/link checks, not new mirror tests. Run `.venv/bin/python scripts/agent_harness.py check --task all` at integration/release milestones or broad shared-contract changes. Native M/DAX, report rendering, live refresh and scheduled delivery remain separate gates.
 
 Keep actual tenant IDs, screenshots, auth tokens, raw API snapshots and caches in ignored private paths. Do not copy old workforce row data to this repository or an unapproved third-party plugin. Do not change sharing, publish, enable schedules, purchase capacity or change an existing VM without the specific approval gate.
+
+## Concurrent execution checkpoints
+
+Use [bounded implementation and lane resume](docs/EXECUTION_EFFICIENCY.md) for
+concurrent chats. Each owner keeps its own ignored compact checkpoint and explicit
+finish line; `scripts/lane_resume.py --lane <lane>` reads it without executing
+prose. Preserve in-flight operations. Reuse unchanged verification, distinguish
+deployment/runtime/activation/scheduled proof, and record a changed hypothesis
+before retrying a failed native operation. Consolidate qualified deployment helpers
+at terminal handover rather than replacing an active owner's route.
