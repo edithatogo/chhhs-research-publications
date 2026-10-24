@@ -33,19 +33,23 @@ def _unique(pairs):
     return result
 
 
-def prepare(row: dict, responses: dict[str, bytes], attachments: dict[int, bytes]) -> dict:
+def prepare(row: dict, responses: dict[str, bytes], attachments: dict[int, bytes],
+            *, source_observed_at: str | None = None) -> dict:
     if row.get("Source") != SOURCE or set(responses) != set(ROLES):
         raise ValueError("one exact NIH row and four complete response files required")
     if any(not isinstance(b, bytes) or not 0 < len(b) <= 10485760 for b in responses.values()):
         raise ValueError("invalid original response bytes/size")
     payloads = [json.loads(responses[role], object_pairs_hook=_unique) for role in ROLES]
-    prepared = prepare_snapshot(*payloads, retrieved_at=row["RetrievedUTC"])
+    # EvidenceHash covers the pre-normalization producer record. Its original
+    # observation spelling (for example Z versus +00:00) must not be guessed.
+    observed_at = source_observed_at or row["RetrievedUTC"]
+    prepared = prepare_snapshot(*payloads, retrieved_at=observed_at)
     require_source_schedule(row)
     if json.loads(row["SourceDateFactsJSON"]) != prepared["source_date_facts"]:
         raise ValueError("source date facts mismatch")
     raw_row = prepared["batch"]["records"][0]
     raw_row.update({key: row[key] for key in ["DeadlineScheduleJSON", "SourceDateFactsJSON", "SourceAttribution"]})
-    if normalize_opportunity(raw_row, retrieved_at=row["RetrievedUTC"]) != row:
+    if normalize_opportunity(raw_row, retrieved_at=observed_at) != row:
         raise ValueError("row or evidence hash does not match the complete original source projection")
     folders = payloads[1]["data"].get("synopsisAttachmentFolders")
     if (not isinstance(folders, list) or len(folders) > 10
@@ -86,6 +90,7 @@ def main():
     parser.add_argument("--projection", type=Path, required=True)
     parser.add_argument("--originals", type=Path, required=True)
     parser.add_argument("--attachments", type=Path, required=True)
+    parser.add_argument("--source-observed-at", help="Original producer observation text, if normalized projection changed its spelling")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     projection = json.loads(args.projection.read_bytes())
@@ -96,7 +101,7 @@ def main():
     detail = json.loads(responses["detail-current"])
     attachments = {f["id"]: (args.attachments / f"attachment-folder-{f['id']}.zip").read_bytes()
                    for f in detail["data"]["synopsisAttachmentFolders"]}
-    result = prepare(rows[0], responses, attachments)
+    result = prepare(rows[0], responses, attachments, source_observed_at=args.source_observed_at)
     args.output.write_text(json.dumps(result, separators=(",", ":")) + "\n")
 
 

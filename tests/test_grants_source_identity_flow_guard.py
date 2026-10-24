@@ -28,9 +28,10 @@ class GrantsSourceIdentityFlowGuardTests(unittest.TestCase):
         self.assertEqual(conflict["actions"]["Compose_Conflicting_Source_Identity_Failure"]["inputs"],
                          "CONFLICTING_OPPORTUNITY_KEY_FOR_SOURCE_EVIDENCE")
         upsert = conflict["else"]["actions"]
-        self.assertEqual(list(upsert), ["Condition_Duplicate_OpportunityKey", "Condition_Is_New_Opportunity"])
+        self.assertEqual(set(upsert), {"Condition_Duplicate_OpportunityKey", "Condition_Is_New_Opportunity", "Archive_NIH_Update"})
+        self.assertEqual(upsert["Archive_NIH_Update"]["runAfter"], {"Condition_Duplicate_OpportunityKey": ["Succeeded"]})
         new = upsert["Condition_Is_New_Opportunity"]
-        self.assertEqual(new["runAfter"], {"Condition_Duplicate_OpportunityKey": ["Succeeded"]})
+        self.assertEqual(new["runAfter"], {"Archive_NIH_Update": ["Succeeded"]})
         self.assertIn({"equals": [source_count, 0]}, new["expression"]["and"])
         exact_one = new["else"]["actions"]["Condition_Exactly_One_Opportunity"]
         self.assertIn({"equals": [source_count, 0]}, exact_one["expression"]["and"])

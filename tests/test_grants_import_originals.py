@@ -19,7 +19,7 @@ class ImportOriginalsTests(unittest.TestCase):
         fixture.detail["data"]["synopsisAttachmentFolders"] = []
         self.responses = {r: json.dumps(x, indent=2).encode() + b"\n" for r, x in
                           zip(ROLES, [fixture.search, fixture.detail, fixture.search, fixture.detail])}
-        packet = prepare_snapshot(*[json.loads(self.responses[r]) for r in ROLES], retrieved_at="2026-10-24T01:00:00Z")
+        packet = prepare_snapshot(*[json.loads(self.responses[r]) for r in ROLES], retrieved_at="2026-10-24T01:00:00+00:00")
         row = packet["batch"]["records"][0]
         occurrence = {"occurrence_candidate_id": "synthetic-occurrence", "parent_source_id": SOURCE,
             "parent_source_record_id": "357812", "parent_funding_opportunity_number": "PA-25-301",
@@ -73,3 +73,13 @@ class ImportOriginalsTests(unittest.TestCase):
         row["SourceDateFactsJSON"] = json.dumps(facts)
         with self.assertRaisesRegex(ValueError, "date facts"):
             prepare(row, self.responses, {})
+
+    def test_original_observation_spelling_is_preserved_for_hash_binding(self):
+        observed = "2026-10-24T01:00:00Z"
+        packet = prepare_snapshot(*[json.loads(self.responses[r]) for r in ROLES], retrieved_at=observed)
+        raw = packet["batch"]["records"][0]
+        raw.update({k: self.row[k] for k in ["DeadlineScheduleJSON", "SourceDateFactsJSON", "SourceAttribution"]})
+        row = normalize_opportunity(raw, retrieved_at=observed)
+        with self.assertRaisesRegex(ValueError, "evidence hash"):
+            prepare(row, self.responses, {})
+        self.assertEqual(prepare(row, self.responses, {}, source_observed_at=observed)["EvidenceHash"], row["EvidenceHash"])

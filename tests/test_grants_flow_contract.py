@@ -139,7 +139,8 @@ class GrantsFlowContractTests(unittest.TestCase):
         )
         self.assertEqual(list(conflict["else"]["actions"]), ["Condition_Duplicate_OpportunityKey", "Condition_Is_New_Opportunity", "Archive_NIH_Update"])
         upsert = conflict["else"]["actions"]
-        self.assertEqual(upsert["Condition_Is_New_Opportunity"]["runAfter"], {"Condition_Duplicate_OpportunityKey": ["Succeeded"]})
+        self.assertEqual(upsert["Condition_Is_New_Opportunity"]["runAfter"], {"Archive_NIH_Update": ["Succeeded"]})
+        self.assertEqual(upsert["Archive_NIH_Update"]["runAfter"], {"Condition_Duplicate_OpportunityKey": ["Succeeded"]})
         duplicate = upsert["Condition_Duplicate_OpportunityKey"]
         self.assertNotIn("SharePoint_Create_item", conflict["actions"])
         self.assertNotIn("SharePoint_Update_item", conflict["actions"])
