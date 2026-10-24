@@ -83,3 +83,7 @@ when the selected next action requires it. Do not append every successful receip
 to the recurring prompt. Preserve the previous prompt privately before shortening
 it; retained safety/authority/terminal gates remain controlling. Notify a waiting
 lane once on a genuine terminal result, not repeatedly while unchanged.
+
+The consolidated [same-record deployment helper](FLOW_DEPLOYMENT_HELPER.md)
+prepares guarded PAC updates and verifies saved clientdata. Use it at the next
+required owner change; do not redeploy accepted graphs solely to test adoption.
