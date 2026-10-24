@@ -72,14 +72,14 @@ def model_candidate(parent: bytes, occurrence_m: str, *, expected_sha256: str) -
         fields += nl.join([f"\t\tcolumn {name}", "\t\t\tdataType: string",
             f"\t\t\tlineageTag: {column_tag}", "\t\t\tsummarizeBy: none",
             f"\t\t\tsourceColumn: {name}", "", ""])
-    fields += nl.join(["\t\tmeasure 'Funding Source Attribution' = " + json.dumps(NIH_ATTRIBUTION),
-                      "\t\t\tdescription: Grants.gov API attribution and non-endorsement notice.",
+    fields += nl.join(["\t\t/// Grants.gov API attribution and non-endorsement notice.",
+                      "\t\tmeasure 'Funding Source Attribution' = " + json.dumps(NIH_ATTRIBUTION),
                       "\t\t\tformatString: @",
                       f"\t\t\tlineageTag: {tag('attribution-measure')}", "", ""])
     text = text.replace(anchor, fields + anchor)
     # A separate import partition derives rows from the existing parent query.
-    table = ["", "\ttable 'Grants Deadline Occurrences'",
-             "\t\tdescription: Published application schedule; one local occurrence per parent opportunity and application date. Effective deadlines remain unresolved.",
+    table = ["", "\t/// Published application schedule; one local occurrence per parent opportunity and application date. Effective deadlines remain unresolved.",
+             "\ttable 'Grants Deadline Occurrences'",
              f"\t\tlineageTag: {tag('occurrence-table')}", ""]
     names = ("OpportunityKey", "OccurrenceKey", "ApplicationType", "NominalDueDate",
              "EffectiveDueDate", "SourceLocalTime", "SourceTimezoneRule", "SourceURL",
