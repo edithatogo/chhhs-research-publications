@@ -1,6 +1,9 @@
 # Populated saved-generation reconciliation — 24 October 2026
 
-**Packet populated; overall result BLOCKED.** Existing saved native evidence
+**Initial packet populated; original result BLOCKED.** The subsequent
+[recovered links packet](RECOVERED_GENERATION_LINKS.md) closes all three missing
+lineage links and passes supplied six-stage key parity. This original account
+and its private packet remain historical evidence. Existing saved native evidence
 identifies one genuinely correlated historical model/export generation for
 September2026. No new collection, registry write, refresh, export or delivery ran.
 This is not a current24October whole-system snapshot.

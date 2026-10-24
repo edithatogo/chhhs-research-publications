@@ -1,0 +1,25 @@
+{
+  "kind": "recovered_saved_generation_links_v1",
+  "status": "ALL_THREE_LINKS_RECOVERED_KEY_PARITY_VERIFIED",
+  "counts": {
+    "source": 1983,
+    "canonical": 1341,
+    "registry": 1341,
+    "model": 1341,
+    "full_export": 1341,
+    "monthly_export": 14
+  },
+  "canonical_values_preserved": 40230,
+  "registry_original_rows": 1648,
+  "registry_keyed_rows": 1345,
+  "registry_blank_stubs": 303,
+  "registry_secondary_representations": 4,
+  "DORA_metadata_display_normalizations": 69,
+  "semantic_source_curated_pairs_still_uncertain": 144,
+  "explained_title_pairs": 3,
+  "new_native_runs": 0,
+  "native_writes": 0,
+  "native_acceptance": false,
+  "operational_acceptance": false,
+  "scope": "Recovered historical source membership, existing source-to-canonical map and registry preservation chain. No current snapshot, semantic corrections, whole-system metadata acceptance or scheduled operation is asserted."
+}
