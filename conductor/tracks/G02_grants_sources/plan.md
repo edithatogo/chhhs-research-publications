@@ -356,10 +356,10 @@ route acceptance.
 ## Selected NIH source admission — 24 October 2026
 
 Completed the requested admission checks for the exact official NIH PA-25-301 /
-Grants.gov ID357812 source. The maintained catalogue now records the ten verified
+Grants.gov ID 357812 source. The maintained catalogue now records the ten verified
 qualification fields, permitted reuse, public access and the pinned read-only
 POST scope. Fresh complete two-pass raw API responses, semantic replay and all
-seven future nominal dates reconcile. All32native contract fields match the
+seven future nominal dates reconcile. All 32 native contract fields match the
 saved model and storage; review-preserving flow mappings remain saved Off.
 The required attribution and official terms link are visibly verified in the
 existing Grants Registry form header, with exact native configuration readback.
