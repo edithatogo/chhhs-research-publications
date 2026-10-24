@@ -47,7 +47,11 @@ qualification. No PUB/PMID/DoRA key migration or title/DOI/person inference is u
 The model's derived source memberships are not presented as independent raw-source
 captures or fabricated canonical admission evidence.
 
-## Exact missing captures and disposition
+## Initial missing captures and disposition
+
+All three links below were subsequently recovered in the
+[new packet](RECOVERED_GENERATION_LINKS.md). The original limitations and packet
+are retained as history rather than overwritten.
 
 | Missing outcome | Evidence needed to close it | Existing material / restriction |
 | --- | --- | --- |

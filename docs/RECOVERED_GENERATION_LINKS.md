@@ -41,9 +41,12 @@ representations, rather than a count copied from the submitted projection.
 All seven available key comparisons pass. All 189 unknown-month publications stay
 in the full bibliography. Existing model/export receipts are reused unchanged.
 The historical initial blocked packet remains intact; the recovered packet is a
-new version under `private/ops/2026-10-24-reconciliation-links/accepted/` in the
+new version under `private/ops/2026-10-24-reconciliation-links/accepted-v2/` in the
 primary evidence checkout. It includes source membership, the complete map,
 registry crosswalk/preservation proof, input fingerprints, packet and oracle result.
+The new identity-comparison contract records the recovered native-link basis and
+retains the original exact-key contract digest as its parent; the old missing-map
+basis is not carried forward as a current claim.
 Only [aggregate counts and boundaries](../config/recovered-generation-links-summary.json)
 are committed to Git.
 

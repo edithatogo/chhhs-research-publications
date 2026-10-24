@@ -17,11 +17,10 @@ reporting month. Preserve source acquisition/cutoff time, source/query/schema
 versions and accepted completion marker in the retained receipt. Later observation
 or refresh times cannot substitute for source acquisition lineage.
 
-The retained Crossref operation is still behind its terminal gate in the selected
-checkpoint. The accepted grants refresh is a different domain/generation; it must
-not fill a missing publication-model stage. Current operation state can change;
-resolve the retained handle before dependent effects. Missing evidence does not
-commission a repeat of an already accepted run.
+The recovered historical publication lineage is independent of current Crossref
+and grants operations. Do not substitute a pending source operation or a grants
+refresh for publication-stage evidence. Existing owners retain their handles;
+this saved-evidence comparison commissions no repeat of an accepted run.
 
 [Preparation template](../config/generation-reconciliation.template.json) is
 intentionally incomplete: UNSELECTED IDs, a placeholder digest, an illustrative
@@ -65,7 +64,11 @@ Full and monthly exports also require the same `extraction_contract_sha256`,
 selected model stage operation reference. Different export artifacts have distinct
 byte hashes even when their extraction contract is shared.
 
-## Existing evidence and outstanding captures
+## Original preparation gaps — subsequently recovered
+
+This table records the initial preparation gaps, not the current missing-work
+list. The [recovered packet](RECOVERED_GENERATION_LINKS.md) now joins all six
+historical stages; metadata and operational acceptance remain separate.
 
 | Boundary | Reusable material | Missing correlated proof |
 | --- | --- | --- |

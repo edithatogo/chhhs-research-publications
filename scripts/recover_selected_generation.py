@@ -156,6 +156,11 @@ assert canonical_receipt['substantive_mismatches']==0 and canonical_receipt['can
 packet=read('2026-10-24-whole-system-reconciliation/packet.json')
 old_result=read('2026-10-24-whole-system-reconciliation/result.json')
 assert old_result['status']=='BLOCKED' and packet['stages']['model']['independent_expected_count']==len(c)
+original_identity_contract=packet['identity_contract_sha256']
+identity_contract={'kind':'preserved_native_source_membership_comparison_v1','field':'CanonicalKey','rule':'Compare unchanged existing canonical keys and exact stored native PMID/DORAURL source links; preserve original source and registry identities and secondary representations; no new identity inference','basis':'Recovered accepted source inventories, same-model native query/definition and full-value preservation chain','parent_exact_key_comparison_sha256':original_identity_contract}
+packet['identity_contract_basis']=identity_contract
+packet['identity_contract_sha256']=hashlib.sha256(json.dumps(identity_contract,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+for supplied in packet['stages'].values():supplied['identity_contract_sha256']=packet['identity_contract_sha256']
 lineage={k:packet[k] for k in ['generation_id','source_snapshot_id','identity_contract_sha256']}
 # Receipt references keep actual original runs; projection lineage is justified by the exact preservation chain.
 source_rows=[{'key':k} for k in sorted(source_map)]
@@ -187,7 +192,7 @@ uncertain=sum(r['disposition']=='uncertain_source_difference_preserved' for r in
 assert uncertain==144 and len(disposition['items'])-uncertain==3
 report={'kind':'recovered_saved_generation_links_v1','status':'ALL_THREE_LINKS_RECOVERED_KEY_PARITY_VERIFIED','counts':result['counts'],'canonical_values_preserved':40230,'registry_original_rows':len(rows),'registry_keyed_rows':reg['row_count'],'registry_blank_stubs':registry_proof['blank_stubs'],'registry_secondary_representations':4,'DORA_metadata_display_normalizations':check['engine_text_normalizations'],'semantic_source_curated_pairs_still_uncertain':144,'explained_title_pairs':3,'new_native_runs':0,'native_writes':0,'native_acceptance':False,'operational_acceptance':False,'scope':'Recovered historical source membership, existing source-to-canonical map and registry preservation chain. No current snapshot, semantic corrections, whole-system metadata acceptance or scheduled operation is asserted.'}
 OUT.mkdir()
-for name,value in [('recovery-result.json',report),('source-membership.json',source_membership),('source-to-canonical.json',source_map),('registry-crosswalk.json',bridged),('registry-preservation-bridge.json',registry_proof),('input-hashes.json',inputs),('packet.json',packet),('result.json',result)]:
+for name,value in [('identity-comparison-contract.json',identity_contract),('recovery-result.json',report),('source-membership.json',source_membership),('source-to-canonical.json',source_map),('registry-crosswalk.json',bridged),('registry-preservation-bridge.json',registry_proof),('input-hashes.json',inputs),('packet.json',packet),('result.json',result)]:
  path=OUT/name
  with path.open('x') as f:json.dump(value,f,ensure_ascii=False,indent=2);f.write('\n')
  path.chmod(0o600)
