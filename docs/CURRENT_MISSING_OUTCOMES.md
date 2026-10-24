@@ -97,3 +97,12 @@ membership, the existing canonical map and registry preservation chain were
 subsequently recovered in the [six-stage packet](RECOVERED_GENERATION_LINKS.md).
 All three lineage gaps are closed; supplied key parity passes. No new native run
 or whole-system metadata/operational acceptance is asserted.
+
+## Saved whole-system metadata reconciliation closed
+
+The [whole-system closeout](WHOLE_SYSTEM_CLOSEOUT.md) completes the selected
+historical key, metadata, provenance, export and preservation accounting. All
+14 shared registry fields and 18 exported fields are covered; the 144 semantic
+pairs remain uncertain. Do not reopen these completed comparisons. A current
+source cycle, native uncertainty-column propagation, rendering, schedules and
+operational/business acceptance retain their own scope and evidence gates.

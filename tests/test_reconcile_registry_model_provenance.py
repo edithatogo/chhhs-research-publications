@@ -37,6 +37,20 @@ class ProvenanceTests(unittest.TestCase):
         self.assertEqual(receipt["counts"]["registry_invalid"], 1)
         self.assertEqual(detail["model_only"], ["PMID:123"])
 
+    def test_dora_missing_pmid_is_preserved_without_inventing_one(self):
+        row=registry('DORA','dora:example','DORA:example',None)
+        native={'[CanonicalKey]':'DORA:example','[PMID]':None,
+                '[SourceSet]':'DORA','[DORAURL]':'https://example.org/dora'}
+        receipt,_=compare([row],[native])
+        self.assertEqual(receipt['status'],'PASS_KEYED_PRIMARY_COVERAGE')
+        self.assertIsNone(row['PMID'])
+        self.assertIsNone(native['[PMID]'])
+
+    def test_pubmed_still_requires_its_pmid(self):
+        native=model();native['[PMID]']=None
+        receipt,_=compare([registry()],[native])
+        self.assertEqual(receipt['status'],'REVIEW_REQUIRED')
+
     def test_incomplete_or_projected_inputs_rejected(self):
         payload = {"complete": False, "total_rows": 2, "keyed_total": 1, "keyed_rows": [registry()]}
         with self.assertRaisesRegex(ValueError, "complete registry"):
