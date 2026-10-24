@@ -1,13 +1,13 @@
 {
-  "schema_version": 1,
-  "revision": "2026-10-18-crossref-institutional-hedge-v1",
-  "intent": "Candidate superset of the maintained PubMed affiliation hedge, using Crossref query.affiliation semantics; retain all raw pages before precise affiliation selection.",
+  "schema_version": 2,
+  "revision": "2026-10-24-crossref-targeted-discovery-v2",
+  "intent": "Targeted institutional discovery plus accepted-source DOI reuse; incomplete independent discovery is explicit.",
   "pubmed_hedge_reference": "config/collector.json",
   "rows_per_page": 500,
   "overlap_days": 7,
   "full_reconciliation_days": 28,
   "snapshot_lag_minutes": 10,
-  "query_semantics": "Each distinctive anchor is queried separately. Crossref phrase words broaden rather than enforce an exact phrase; no global hospital/health query. Every maintained affiliation alias must contain its configured anchor. Geographic false positives remain in raw retention.",
+  "query_semantics": "Crossref affiliation queries are relevance searches, not exact institutional filters. Only enabled query anchors enter acquisition. Membership requires retained affiliation evidence; DOI routes are not exhaustive discovery.",
   "queries": [
     {
       "key": "cairns",
@@ -33,20 +33,6 @@
       "anchor": "CHHHS",
       "covers_affiliation_aliases": [
         "CHHHS"
-      ]
-    },
-    {
-      "key": "liz",
-      "anchor": "Liz",
-      "covers_affiliation_aliases": [
-        "Liz Plummer Cancer Care Centre"
-      ]
-    },
-    {
-      "key": "tropical",
-      "anchor": "Tropical",
-      "covers_affiliation_aliases": [
-        "Tropical Public Health Services"
       ]
     },
     {
@@ -123,20 +109,6 @@
       ]
     },
     {
-      "key": "cow",
-      "anchor": "Cow",
-      "covers_affiliation_aliases": [
-        "Cow Bay Primary Health Centre"
-      ]
-    },
-    {
-      "key": "croydon",
-      "anchor": "Croydon",
-      "covers_affiliation_aliases": [
-        "Croydon Primary Health Centre"
-      ]
-    },
-    {
       "key": "dimbulah",
       "anchor": "Dimbulah",
       "covers_affiliation_aliases": [
@@ -144,24 +116,10 @@
       ]
     },
     {
-      "key": "edmonton",
-      "anchor": "Edmonton",
-      "covers_affiliation_aliases": [
-        "Edmonton Community Health Centre"
-      ]
-    },
-    {
       "key": "forsayth",
       "anchor": "Forsayth",
       "covers_affiliation_aliases": [
         "Forsayth Primary Health Centre"
-      ]
-    },
-    {
-      "key": "georgetown",
-      "anchor": "Georgetown",
-      "covers_affiliation_aliases": [
-        "Georgetown Primary Health Centre"
       ]
     },
     {
@@ -186,13 +144,6 @@
       ]
     },
     {
-      "key": "mission",
-      "anchor": "Mission",
-      "covers_affiliation_aliases": [
-        "Mission Beach Community Health Centre"
-      ]
-    },
-    {
       "key": "garnet",
       "anchor": "Garnet",
       "covers_affiliation_aliases": [
@@ -206,18 +157,391 @@
       "covers_affiliation_aliases": [
         "Ravenshoe Primary Health Centre"
       ]
+    }
+  ],
+  "limitations": [
+    "Crossref affiliation metadata is optional/incomplete; query completion is not an institutional census.",
+    "DOI evidence routes retain an explicit Crossref-only discovery gap.",
+    "Unmatched records are unresolved, not automatically irrelevant; no score cutoff."
+  ],
+  "disabled_queries": [
+    {
+      "key": "liz",
+      "anchor": "Liz",
+      "covers_affiliation_aliases": [
+        "Liz Plummer Cancer Care Centre"
+      ],
+      "reason": "Broad standalone word disabled by revised acquisition policy; institutional alias retained."
+    },
+    {
+      "key": "tropical",
+      "anchor": "Tropical",
+      "covers_affiliation_aliases": [
+        "Tropical Public Health Services"
+      ],
+      "reason": "Broad standalone word disabled by revised acquisition policy; institutional alias retained."
+    },
+    {
+      "key": "cow",
+      "anchor": "Cow",
+      "covers_affiliation_aliases": [
+        "Cow Bay Primary Health Centre"
+      ],
+      "reason": "Broad standalone word disabled by revised acquisition policy; institutional alias retained."
+    },
+    {
+      "key": "croydon",
+      "anchor": "Croydon",
+      "covers_affiliation_aliases": [
+        "Croydon Primary Health Centre"
+      ],
+      "reason": "Broad standalone word disabled by revised acquisition policy; institutional alias retained."
+    },
+    {
+      "key": "edmonton",
+      "anchor": "Edmonton",
+      "covers_affiliation_aliases": [
+        "Edmonton Community Health Centre"
+      ],
+      "reason": "Broad standalone word disabled by revised acquisition policy; institutional alias retained."
+    },
+    {
+      "key": "georgetown",
+      "anchor": "Georgetown",
+      "covers_affiliation_aliases": [
+        "Georgetown Primary Health Centre"
+      ],
+      "reason": "Broad standalone word disabled by revised acquisition policy; institutional alias retained."
+    },
+    {
+      "key": "mission",
+      "anchor": "Mission",
+      "covers_affiliation_aliases": [
+        "Mission Beach Community Health Centre"
+      ],
+      "reason": "Broad standalone word disabled by revised acquisition policy; institutional alias retained."
     },
     {
       "key": "smithfield",
       "anchor": "Smithfield",
       "covers_affiliation_aliases": [
         "Smithfield Community Health Centre"
-      ]
+      ],
+      "reason": "Broad standalone word disabled by revised acquisition policy; institutional alias retained."
     }
   ],
-  "limitations": [
-    "Crossref affiliation metadata is optional/incomplete. Complete query results do not establish all institutional publications.",
-    "Broad anchors such as Edmonton, Georgetown and Tropical intentionally acquire false positives; precise selection follows raw retention.",
-    "DOI reconciliation complements discovery for records with absent affiliation metadata."
-  ]
+  "alias_routes": [
+    {
+      "alias": "Cairns and Hinterland Hospital and Health Service",
+      "route": "discovery",
+      "query_key": "cairns",
+      "reason": "Targeted candidate search; archived precision assessment required.",
+      "independent_discovery_gap": false
+    },
+    {
+      "alias": "Cairns & Hinterland Hospital and Health Service",
+      "route": "discovery",
+      "query_key": "cairns",
+      "reason": "Targeted candidate search; archived precision assessment required.",
+      "independent_discovery_gap": false
+    },
+    {
+      "alias": "Cairns and Hinterland Hospital & Health Service",
+      "route": "discovery",
+      "query_key": "cairns",
+      "reason": "Targeted candidate search; archived precision assessment required.",
+      "independent_discovery_gap": false
+    },
+    {
+      "alias": "Cairns & Hinterland Hospital & Health Service",
+      "route": "discovery",
+      "query_key": "cairns",
+      "reason": "Targeted candidate search; archived precision assessment required.",
+      "independent_discovery_gap": false
+    },
+    {
+      "alias": "Cairns and Hinterland Health Service",
+      "route": "discovery",
+      "query_key": "cairns",
+      "reason": "Targeted candidate search; archived precision assessment required.",
+      "independent_discovery_gap": false
+    },
+    {
+      "alias": "Cairns Health Service District",
+      "route": "discovery",
+      "query_key": "cairns",
+      "reason": "Targeted candidate search; archived precision assessment required.",
+      "independent_discovery_gap": false
+    },
+    {
+      "alias": "Cairns Sexual Health Service",
+      "route": "discovery",
+      "query_key": "cairns",
+      "reason": "Targeted candidate search; archived precision assessment required.",
+      "independent_discovery_gap": false
+    },
+    {
+      "alias": "Cairns Hospital",
+      "route": "discovery",
+      "query_key": "cairns",
+      "reason": "Targeted candidate search; archived precision assessment required.",
+      "independent_discovery_gap": false
+    },
+    {
+      "alias": "Cairns Base Hospital",
+      "route": "discovery",
+      "query_key": "cairns",
+      "reason": "Targeted candidate search; archived precision assessment required.",
+      "independent_discovery_gap": false
+    },
+    {
+      "alias": "Cairns North Community Health",
+      "route": "discovery",
+      "query_key": "cairns",
+      "reason": "Targeted candidate search; archived precision assessment required.",
+      "independent_discovery_gap": false
+    },
+    {
+      "alias": "Cairns South Health Facility",
+      "route": "discovery",
+      "query_key": "cairns",
+      "reason": "Targeted candidate search; archived precision assessment required.",
+      "independent_discovery_gap": false
+    },
+    {
+      "alias": "Cairns Sub-Acute Care Unit",
+      "route": "discovery",
+      "query_key": "cairns",
+      "reason": "Targeted candidate search; archived precision assessment required.",
+      "independent_discovery_gap": false
+    },
+    {
+      "alias": "Cairns Public Health Unit",
+      "route": "discovery",
+      "query_key": "cairns",
+      "reason": "Targeted candidate search; archived precision assessment required.",
+      "independent_discovery_gap": false
+    },
+    {
+      "alias": "CHHHS",
+      "route": "discovery",
+      "query_key": "chhhs",
+      "reason": "Targeted candidate search; archived precision assessment required.",
+      "independent_discovery_gap": false
+    },
+    {
+      "alias": "Atherton Hospital",
+      "route": "discovery",
+      "query_key": "atherton",
+      "reason": "Targeted candidate search; archived precision assessment required.",
+      "independent_discovery_gap": false
+    },
+    {
+      "alias": "Babinda Hospital",
+      "route": "discovery",
+      "query_key": "babinda",
+      "reason": "Targeted candidate search; archived precision assessment required.",
+      "independent_discovery_gap": false
+    },
+    {
+      "alias": "Babinda Multi-Purpose Health Centre",
+      "route": "discovery",
+      "query_key": "babinda",
+      "reason": "Targeted candidate search; archived precision assessment required.",
+      "independent_discovery_gap": false
+    },
+    {
+      "alias": "Gordonvale Hospital",
+      "route": "discovery",
+      "query_key": "gordonvale",
+      "reason": "Targeted candidate search; archived precision assessment required.",
+      "independent_discovery_gap": false
+    },
+    {
+      "alias": "Herberton Hospital",
+      "route": "discovery",
+      "query_key": "herberton",
+      "reason": "Targeted candidate search; archived precision assessment required.",
+      "independent_discovery_gap": false
+    },
+    {
+      "alias": "Innisfail Hospital",
+      "route": "discovery",
+      "query_key": "innisfail",
+      "reason": "Targeted candidate search; archived precision assessment required.",
+      "independent_discovery_gap": false
+    },
+    {
+      "alias": "Mareeba Hospital",
+      "route": "discovery",
+      "query_key": "mareeba",
+      "reason": "Targeted candidate search; archived precision assessment required.",
+      "independent_discovery_gap": false
+    },
+    {
+      "alias": "Mossman Hospital",
+      "route": "discovery",
+      "query_key": "mossman",
+      "reason": "Targeted candidate search; archived precision assessment required.",
+      "independent_discovery_gap": false
+    },
+    {
+      "alias": "Mossman Multi-Purpose Health Service",
+      "route": "discovery",
+      "query_key": "mossman",
+      "reason": "Targeted candidate search; archived precision assessment required.",
+      "independent_discovery_gap": false
+    },
+    {
+      "alias": "Tully Hospital",
+      "route": "discovery",
+      "query_key": "tully",
+      "reason": "Targeted candidate search; archived precision assessment required.",
+      "independent_discovery_gap": false
+    },
+    {
+      "alias": "Yarrabah Emergency Service",
+      "route": "discovery",
+      "query_key": "yarrabah",
+      "reason": "Targeted candidate search; archived precision assessment required.",
+      "independent_discovery_gap": false
+    },
+    {
+      "alias": "Chillagoe Primary Health Centre",
+      "route": "discovery",
+      "query_key": "chillagoe",
+      "reason": "Targeted candidate search; archived precision assessment required.",
+      "independent_discovery_gap": false
+    },
+    {
+      "alias": "Chillagoe Hospital",
+      "route": "discovery",
+      "query_key": "chillagoe",
+      "reason": "Targeted candidate search; archived precision assessment required.",
+      "independent_discovery_gap": false
+    },
+    {
+      "alias": "Dimbulah Primary Health Centre",
+      "route": "discovery",
+      "query_key": "dimbulah",
+      "reason": "Targeted candidate search; archived precision assessment required.",
+      "independent_discovery_gap": false
+    },
+    {
+      "alias": "Forsayth Primary Health Centre",
+      "route": "discovery",
+      "query_key": "forsayth",
+      "reason": "Targeted candidate search; archived precision assessment required.",
+      "independent_discovery_gap": false
+    },
+    {
+      "alias": "Jumbun Community Health Centre",
+      "route": "discovery",
+      "query_key": "jumbun",
+      "reason": "Targeted candidate search; archived precision assessment required.",
+      "independent_discovery_gap": false
+    },
+    {
+      "alias": "Malanda Primary Health Centre",
+      "route": "discovery",
+      "query_key": "malanda",
+      "reason": "Targeted candidate search; archived precision assessment required.",
+      "independent_discovery_gap": false
+    },
+    {
+      "alias": "Millaa Millaa Primary Health Centre",
+      "route": "discovery",
+      "query_key": "millaa",
+      "reason": "Targeted candidate search; archived precision assessment required.",
+      "independent_discovery_gap": false
+    },
+    {
+      "alias": "Mount Garnet Primary Health Centre",
+      "route": "discovery",
+      "query_key": "garnet",
+      "reason": "Targeted candidate search; archived precision assessment required.",
+      "independent_discovery_gap": false
+    },
+    {
+      "alias": "Mt Garnet Primary Health Centre",
+      "route": "discovery",
+      "query_key": "garnet",
+      "reason": "Targeted candidate search; archived precision assessment required.",
+      "independent_discovery_gap": false
+    },
+    {
+      "alias": "Ravenshoe Primary Health Centre",
+      "route": "discovery",
+      "query_key": "ravenshoe",
+      "reason": "Targeted candidate search; archived precision assessment required.",
+      "independent_discovery_gap": false
+    },
+    {
+      "alias": "Liz Plummer Cancer Care Centre",
+      "route": "doi_evidence",
+      "query_key": null,
+      "reason": "Accepted PubMed/DoRA/register DOI evidence; independent Crossref-only discovery gap remains.",
+      "independent_discovery_gap": true
+    },
+    {
+      "alias": "Tropical Public Health Services",
+      "route": "doi_evidence",
+      "query_key": null,
+      "reason": "Accepted PubMed/DoRA/register DOI evidence; independent Crossref-only discovery gap remains.",
+      "independent_discovery_gap": true
+    },
+    {
+      "alias": "Cow Bay Primary Health Centre",
+      "route": "doi_evidence",
+      "query_key": null,
+      "reason": "Accepted PubMed/DoRA/register DOI evidence; independent Crossref-only discovery gap remains.",
+      "independent_discovery_gap": true
+    },
+    {
+      "alias": "Croydon Primary Health Centre",
+      "route": "doi_evidence",
+      "query_key": null,
+      "reason": "Accepted PubMed/DoRA/register DOI evidence; independent Crossref-only discovery gap remains.",
+      "independent_discovery_gap": true
+    },
+    {
+      "alias": "Edmonton Community Health Centre",
+      "route": "doi_evidence",
+      "query_key": null,
+      "reason": "Accepted PubMed/DoRA/register DOI evidence; independent Crossref-only discovery gap remains.",
+      "independent_discovery_gap": true
+    },
+    {
+      "alias": "Georgetown Primary Health Centre",
+      "route": "doi_evidence",
+      "query_key": null,
+      "reason": "Accepted PubMed/DoRA/register DOI evidence; independent Crossref-only discovery gap remains.",
+      "independent_discovery_gap": true
+    },
+    {
+      "alias": "Mission Beach Community Health Centre",
+      "route": "doi_evidence",
+      "query_key": null,
+      "reason": "Accepted PubMed/DoRA/register DOI evidence; independent Crossref-only discovery gap remains.",
+      "independent_discovery_gap": true
+    },
+    {
+      "alias": "Smithfield Community Health Centre",
+      "route": "doi_evidence",
+      "query_key": null,
+      "reason": "Accepted PubMed/DoRA/register DOI evidence; independent Crossref-only discovery gap remains.",
+      "independent_discovery_gap": true
+    }
+  ],
+  "candidate_queries": [
+    {
+      "key": "plummer",
+      "anchor": "Plummer",
+      "alias": "Liz Plummer Cancer Care Centre",
+      "state": "not_enabled_after_bounded_sample",
+      "qualification": "204totalhits; first20had0maintainedinstitutionalaliasmatches; relevance/recall not established"
+    }
+  ],
+  "cursor_policy": "Preserve cursor and exact request parameters; actual provider rejection requires evidenced unfinished-window recovery; no elapsed-time reset.",
+  "doi_cache_freshness_days": 28
 }

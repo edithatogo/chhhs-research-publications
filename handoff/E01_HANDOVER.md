@@ -159,3 +159,20 @@ original reference and Stopped/manual/concurrency-one state pass. Reuse
 accepted acquisitions or this import automatically. Native versioned documentation
 publication remains pending. Crossref was still Running at the latest native
 read during this work; its retained handle, archives and monitor are preserved.
+
+## Revised Crossref search policy — 24 October 2026
+
+The user authorised [targeted discovery plus DOI reuse](../docs/CROSSREF_TARGETED_DISCOVERY.md).
+New local policy/compilers supersede the former broad-search candidate.19enabled
+queries omit Tropical/Liz and6other broad tokens, with all maintained aliases
+mapped and discovery gaps explicit. Independently hashed330-page analysis retains
+all archives and builds1,501provenance-linked DOIs, including every1,283prior DOI.
+The saved original generation remains a separate frozen scope and was freshly
+Running at implementation entry. Keep its monitor and terminal gate.
+
+Page-level yield/resume and accepted native-version DOI reuse are compiled local
+behavior, not saved/runtime proof. New-scope primary bootstrap, exact native
+save/readback, two actual batches, final reconciliation/replay and native diagrams
+remain pending. Read private/ops/2026-10-24-crossref-targeted/implementation.json
+and the owned E01 checkpoint before effectful work. Do not deploy the old599-window
+candidate or reset the retained handle to apply the new scope.

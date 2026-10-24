@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "revision": "2026-10-18-broad-source-scopes-v2",
+  "revision": "2026-10-24-targeted-crossref-v3",
   "runtime": "PowerAutomate",
   "raw_retention": "before_local_filtering",
   "downstream_priority": false,
@@ -30,14 +30,14 @@
     },
     {
       "source": "crossref",
-      "scope_kind": "maintained_hedge",
-      "definition": "Broad institutional discovery equivalent in intent to PubMed, plus DOI reconciliation; not notice-only or a fixed DOI sample.",
-      "hedge_reference": "config/collector.json",
+      "scope_kind": "targeted_institutional_discovery_and_doi_reuse",
+      "definition": "Enabled targeted affiliation searches plus accepted PubMed/DoRA/register DOI evidence and verified relevant discoveries; independent institutional discovery gaps are explicit.",
+      "hedge_reference": "config/crossref-acquisition-hedge.json",
       "cadence": "daily",
       "timezone": "Australia/Brisbane",
       "initial_capture": "complete_scope",
       "updates": "source_changes_with_overlap_and_periodic_scope_reconciliation",
-      "native_status": "requires_scope_expansion_and_update_qualification",
+      "native_status": "revised_policy_local_native_migration_pending",
       "requirements": [
         "raw_originals",
         "scope_revision",

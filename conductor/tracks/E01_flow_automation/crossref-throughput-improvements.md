@@ -383,3 +383,29 @@ Yarrabah result is not a large-load speedup or quota claim. Private receipts:
 `qualification-runtime-archive-proof.json`, `qualification-lastgood-postrun.json`
 and `qualification-runtime-acceptance.json`. PR18 is merged and both post-merge
 quality/security workflows passed. Versioned native documentation remains pending.
+
+## Targeted discovery supersedes broad-word acquisition — 24 October 2026
+
+The user selected targeted discovery plus DOI reuse. The new
+[targeted implementation](../../../docs/CROSSREF_TARGETED_DISCOVERY.md) supersedes
+the old599-window worker for future deployment. It disables8broad anchors,
+maintains explicit alias routes/gaps, prepares19enabled searches and preserves
+all1,283previous DOI identities within a1,501-DOI queue. Verified-prefix precision
+shows Tropical49explicit matches among80,698records and zero useful unique DOIs
+after other archived searches and accepted source evidence. Its raw bytes remain.
+
+- [x] Version targeted policy and alias routes; preserve historical runtime scope.
+- [x] Independent330-page byte/hash analysis and provenance DOI queue.
+- [x] Bounded Plummer sample (not enabled) and17count-only volume checks.
+- [x] Compile page-level admission/partial progress, native-version DOI reuse and
+  incremental change invalidation, preserving original identity/settings.
+- [ ] Native deployment/readback after original terminal reconciliation.
+- [ ] Qualify new-scope primary-owned bootstrap; never equate baseline physical
+  hash or original checkpoint with new daily scope acceptance.
+- [ ] Two real batches, continuation/reuse/coverage/manifest/checkpoint/replay,
+  independent daily advancement and measured throughput acceptance.
+- [ ] Update saved native diagrams and field guide after actual adoption.
+
+Exact candidates, evidence and blockers remain private; local source is not native
+acceptance. Cursor resumption preserves request parameters rather than inferring
+expiry from elapsed time; actual rejection requires evidenced recovery.

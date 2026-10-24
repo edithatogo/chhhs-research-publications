@@ -11,6 +11,13 @@ from urllib.parse import urlsplit
 
 
 def freeze_hedge(hedge, collector, scope):
+    if hedge.get('schema_version') == 2:
+        from scripts.crossref_targeted_policy import validate
+        validate(hedge, collector)
+        payload = {'policy': scope, 'hedge': hedge}
+        payload['scope_sha256'] = hashlib.sha256(json.dumps(payload, sort_keys=True,
+            separators=(',', ':')).encode()).hexdigest()
+        return payload
     if hedge.get('schema_version') != 1 or not hedge.get('revision'):
         raise ValueError('Versioned Crossref hedge required')
     aliases = set(re.findall(r'"([^"\n]+)"\[Affiliation\]', collector['pubmed']['query']))
