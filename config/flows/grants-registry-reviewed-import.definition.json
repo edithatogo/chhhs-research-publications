@@ -486,7 +486,7 @@
                                               {
                                                 "equals": [
                                                   "@string(coalesce(item()?['Deadline'], ''))",
-                                                  "@substring(string(coalesce(first(body('SharePoint_Get_items')?['value'])?['Deadline'], '')), 0, min(10, length(string(coalesce(first(body('SharePoint_Get_items')?['value'])?['Deadline'], '')))))"
+                                                  "@take(string(coalesce(first(body('SharePoint_Get_items')?['value'])?['Deadline'], '')), 10)"
                                                 ]
                                               },
                                               {

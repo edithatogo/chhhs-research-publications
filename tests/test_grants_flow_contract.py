@@ -34,6 +34,10 @@ class GrantsFlowContractTests(unittest.TestCase):
             if expression.startswith("@trim("):
                 return value.strip()
             if expression.startswith("@substring("):
+                if not value:
+                    raise ValueError("WDL substring rejects start index zero on an empty string")
+                return value[:10]
+            if expression.startswith("@take("):
                 return value[:10]
             self.assertTrue(expression.startswith("@string(coalesce("))
             return value
@@ -87,6 +91,11 @@ class GrantsFlowContractTests(unittest.TestCase):
             stored[field] = {"Value": incoming[field]}
         stored["Deadline"] = "2026-12-01T00:00:00Z"
         self.assertTrue(self.evaluate_guard(branch["expression"], incoming, stored))
+        # Native WDL substring(empty, 0, 0) fails; take must accept unknown dates.
+        self.assertTrue(self.evaluate_guard(branch["expression"],
+                        {**incoming, "Deadline": None}, {**stored, "Deadline": None}))
+        self.assertTrue(self.evaluate_guard(branch["expression"],
+                        {**incoming, "Deadline": ""}, {**stored, "Deadline": ""}))
         for field in fields:
             changed = {**stored, field: {"Value": "Changed"} if field in choices else "Changed"}
             with self.subTest(field=field):
