@@ -125,3 +125,17 @@ complete-window prefix and excluded. Use the251-window complete manifest through
 CROSSREF_RECOVERY_READY; old210/218packages remain history. Recovery still requires
 genuine terminal failure and fresh drift checks. The updated consolidated receipt
 is `e01-consolidated-handover-20261024.json`; this handover leaves E01 incomplete.
+
+## Independent enrichment admission — 24 October
+
+The48 accepted OpenCitations count/metadata observations are admitted through the
+existing Archived source assertions manual consumer, using the original archives
+and zero provider requests. Independent readback verifies48 exact new assertions,
+46 unchanged earlier records and99 unchanged earlier OpenCitations archive files.
+The temporary bounded packet path is restored; full native candidate readback,
+original reference and Stopped/manual/concurrency-one state pass. Reuse
+`private/ops/2026-10-24-opencitations-consumer/acceptance.json` and the
+[implementation leaf](../docs/OPENCITATIONS_SOURCE_ASSERTIONS.md); do not repeat
+accepted acquisitions or this import automatically. Native versioned documentation
+publication remains pending. Crossref was still Running at the latest native
+read during this work; its retained handle, archives and monitor are preserved.
