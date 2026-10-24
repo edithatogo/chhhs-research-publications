@@ -1,0 +1,72 @@
+{
+  "kind": "whole_system_saved_metadata_accounting_v1",
+  "status": "PASS_ACCOUNTED_WITH_EXPLICIT_UNCERTAINTY",
+  "historical_generation_only": true,
+  "canonical_publications": 1341,
+  "shared_registry_fields": 14,
+  "shared_field_cells": 18774,
+  "shared_field_accounting": {
+    "exact": 12791,
+    "numeric_year_representation": 1334,
+    "disposition_accounted": 4638,
+    "null_empty_representation": 11
+  },
+  "original_exception_pairs": 4638,
+  "exception_dispositions": {
+    "exact_date_facet_representation_equivalent": 1227,
+    "source_unknown_existing_retained": 623,
+    "raw_affiliation_statements_vs_source_method_evidence_preserved": 1268,
+    "native_missing_link_now_filled": 709,
+    "literal_segments_equal_not_person_identity": 258,
+    "exact_decoded_text_representation_equivalent": 117,
+    "doi_case_equivalent": 193,
+    "uncertain_source_difference_preserved": 144,
+    "title_presentation_equivalent_preserved": 2,
+    "case_only_representation_equivalent": 3,
+    "native_exact_stored_range_recovered": 14,
+    "bounded_display_full_source_retained": 1,
+    "native_missing_destination_filled": 78,
+    "display_case_equivalent": 1
+  },
+  "registry_primary_rows": 1341,
+  "preserved_secondary_rows": 4,
+  "preserved_placeholder_rows": 303,
+  "later_keyed_additions_outside_selected_generation": 3,
+  "registry_human_reviews_first_observed_and_durable_keys_preserved": true,
+  "later_shared_field_changes_all_match_accepted_fills_or_range_recovery": {
+    "field_13": 709,
+    "field_5": 7,
+    "field_8": 7,
+    "field_14": 2,
+    "field_15": 63,
+    "field_12": 13
+  },
+  "provenance": {
+    "kind": "publication_registry_model_provenance_comparison_v1",
+    "status": "PASS_KEYED_PRIMARY_COVERAGE",
+    "counts": {
+      "registry_keyed_rows": 1341,
+      "model_rows": 1341,
+      "registry_invalid": 0,
+      "model_invalid": 0,
+      "matched_typed": 1341,
+      "registry_only": 0,
+      "model_only": 0,
+      "matched_primary_missing_from_model": 0,
+      "matched_exact_source_classification": 699,
+      "matched_model_additional_membership": 642
+    },
+    "interpretation": "Registry SourceSet is primary classification; model SourceSet may be derived co-membership. Additional model membership is review evidence, not registry admission or refresh acceptance."
+  },
+  "export_records": 1355,
+  "export_fields_per_record": 18,
+  "export_cells_per_format": 24390,
+  "csv_and_html_all_fields_verified": true,
+  "unknown_months_preserved": 189,
+  "semantic_pairs_uncertain": 144,
+  "explained_title_pairs": 3,
+  "native_mutations": 0,
+  "new_native_runs": 0,
+  "operational_acceptance": false,
+  "boundary": "Historical saved-generation accounting with a separately dated later registry checkpoint; no new source harvest, semantic adjudication, person matching, native uncertainty-field propagation, schedule or delivery acceptance."
+}

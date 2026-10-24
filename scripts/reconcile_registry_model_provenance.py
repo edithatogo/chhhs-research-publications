@@ -24,7 +24,8 @@ def _identity(row: dict, *, model: bool) -> str | None:
     canonical_value = row.get("[CanonicalKey]" if model else "CanonicalKey")
     pmid_value = row.get("[PMID]" if model else "PMID")
     source_value = row.get("SourceKey") if not model else ""
-    if not all(isinstance(value, str) for value in (canonical_value, pmid_value, source_value)):
+    if (not all(isinstance(value, str) for value in (canonical_value, source_value))
+            or not isinstance(pmid_value, (str, type(None)))):
         return None
     canonical, pmid, source = _text(canonical_value), _text(pmid_value), _text(source_value)
     if model:

@@ -112,3 +112,12 @@ comparators remain required where they cover these fields. Do not promote local
 key parity into full metadata, report-rendering, scheduling, delivery, licensing,
 clinical or business acceptance. No refresh, cleanup or reharvesting is authorised
 merely by an empty stage in this preparation packet.
+
+## Subsequent metadata and preservation closeout
+
+The [saved whole-system closeout](WHOLE_SYSTEM_CLOSEOUT.md) accounts for all 18,774
+shared field pairs, source provenance and all 18 CSV/HTML export fields. It also
+verifies the later registry preservation checkpoint while keeping its three new
+keyed rows separate. The 144 semantic pairs remain uncertain; operational and
+business acceptance remain separate. Earlier missing-metadata wording describes
+the historical preparation boundary, not a requirement to repeat accepted runs.
