@@ -85,6 +85,21 @@ Execution order: reconcile existing objects and accepted receipts first; impleme
 only an evidenced missing diff, then one relevant runtime proof. Do not reopen
 accepted sources merely because a historical checklist remains unchecked.
 
+### Archived OpenCitations assertion admission — 24 October
+
+The existing manual Archived source assertions consumer now supports the accepted
+count/metadata packet. One bounded import added48 exact source assertions with
+zero provider requests. All46 prior records and99 earlier archive files remain
+unchanged. Three create-only support files reference the existing98 raw/manifest
+files. The temporary packet pin was restored; exact full native clientdata and
+Stopped/manual/concurrency-one/original-reference readback pass. Two earlier
+inputless invocations replayed the default DataCite packet without row changes;
+the connector invocation failed before creating a run. These are recorded, not
+counted as OpenCitations runtime proof. See
+[source assertions and invocation limits](../../../docs/OPENCITATIONS_SOURCE_ASSERTIONS.md).
+Native versioned documentation publication remains pending. Crossref's original
+handle and three-hour monitor are preserved; E01 remains incomplete.
+
 This inventory does not establish exact current recurrence, last-run success,
 checkpoint freshness or consumer/model admission. Read these only when the next
 selected effect depends on them, preserving disjoint object owners.
