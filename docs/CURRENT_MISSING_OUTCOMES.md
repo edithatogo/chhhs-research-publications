@@ -87,3 +87,11 @@ outcome closes. Retain receipt pointers and the precise boundary: source-only,
 saved native definition, runtime, scheduled observation, delivery and business
 acceptance are different claims. Do not globally tick old plans or refresh old
 receipts merely to make them look current.
+
+
+## Populated historical generation — 24 October 2026
+
+[Saved packet reconciliation](POPULATED_RECONCILIATION.md) compares1,341model/full
+keys and14September keys with no unexplained downstream key difference. Source
+membership, independent canonical mapping and selected-generation registry
+correlation remain missing. No new native run or whole-system acceptance.

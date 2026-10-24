@@ -1,6 +1,7 @@
 # Whole-system publication reconciliation preparation
 
-Status: **prepared; no correlated native generation accepted**. This joins source,
+Status: **prepared and populated for a saved model/export generation; whole-system acceptance blocked**.
+See the [populated packet result and exact missing captures](POPULATED_RECONCILIATION.md). This joins source,
 canonical publication, registry, model and full/monthly export key sets. It does
 not start collection, refresh a model, update a row, run an export or issue content.
 

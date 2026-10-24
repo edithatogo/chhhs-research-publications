@@ -1,0 +1,31 @@
+{
+  "kind": "saved_correlated_publication_generation_preparation_v1",
+  "reporting_month": "2026-09",
+  "selection": "Accepted historical T14 September2026 model/full-monthly export generation; frozen saved evidence only",
+  "usable_stage_counts": {
+    "model": 1341,
+    "full_export": 1341,
+    "monthly_export": 14
+  },
+  "compared_edges": {
+    "model_to_full_export": {
+      "missing": [],
+      "unexpected": []
+    },
+    "full_export_month_to_monthly_export": {
+      "missing": [],
+      "unexpected": []
+    }
+  },
+  "unknown_month_count": 189,
+  "candidate_registry_rows": 1345,
+  "blockers": [
+    "source: missing capture",
+    "canonical: missing capture",
+    "registry: mixed generation/identity lineage"
+  ],
+  "native_acceptance": false,
+  "native_runs_started": 0,
+  "private_packet": "private/ops/2026-10-24-whole-system-reconciliation/packet.json",
+  "private_result": "private/ops/2026-10-24-whole-system-reconciliation/result.json"
+}
