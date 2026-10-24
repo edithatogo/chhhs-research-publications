@@ -1,6 +1,9 @@
 # Populated saved-generation reconciliation — 24 October 2026
 
-**Packet populated; overall result BLOCKED.** Existing saved native evidence
+**Initial packet populated; original result BLOCKED.** The subsequent
+[recovered links packet](RECOVERED_GENERATION_LINKS.md) closes all three missing
+lineage links and passes supplied six-stage key parity. This original account
+and its private packet remain historical evidence. Existing saved native evidence
 identifies one genuinely correlated historical model/export generation for
 September2026. No new collection, registry write, refresh, export or delivery ran.
 This is not a current24October whole-system snapshot.
@@ -44,7 +47,11 @@ qualification. No PUB/PMID/DoRA key migration or title/DOI/person inference is u
 The model's derived source memberships are not presented as independent raw-source
 captures or fabricated canonical admission evidence.
 
-## Exact missing captures and disposition
+## Initial missing captures and disposition
+
+All three links below were subsequently recovered in the
+[new packet](RECOVERED_GENERATION_LINKS.md). The original limitations and packet
+are retained as history rather than overwritten.
 
 | Missing outcome | Evidence needed to close it | Existing material / restriction |
 | --- | --- | --- |

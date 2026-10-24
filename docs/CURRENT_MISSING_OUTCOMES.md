@@ -64,7 +64,7 @@ First reconcile existing receipts; run only the genuinely missing delta.
 
 | Historical task family | Required disposition |
 | --- | --- |
-| E07-H01–H05, T11/T14 key-set/export cycles | Map accepted source generation, canonical membership, registry keys, model and full/monthly output to one correlated lineage. Later grants refresh does not close publication reconciliation. Preserve explicit unknowns; counts alone do not close it. |
+| E07-H01–H05, T11/T14 key-set/export cycles | The [recovered historical packet](RECOVERED_GENERATION_LINKS.md) now joins all six stages with exact source membership, canonical links and registry preservation. Reuse this key/month evidence. Richer metadata/source-set/uncertainty and operational acceptance remain separate; later grants refresh does not supply publication evidence. |
 | E07-H02/H03 blank stubs and identity enforcement | Determine current item-specific provenance, retention and restorable selection from retained evidence before any cleanup. Old cohort counts are not a current deletion list; no cleanup is authorised here. |
 | E07-H06 source/organisation/author fidelity | Reconcile later correction/preservation receipts with the generic uncertainty policy. Do not call historical differences current without verification, overwrite curated fields or create a per-publication approval queue. |
 | E04/T15 report rendering/accessibility and report/model recovery | Later primary-checkout acceptance leaves exist, while main retains older plans. Integrate their exact source/target/render/restore references before selecting a missing check. Do not recreate a report or reopen accepted visual work from old page counts. |
@@ -93,5 +93,7 @@ receipts merely to make them look current.
 
 [Saved packet reconciliation](POPULATED_RECONCILIATION.md) compares1,341model/full
 keys and14September keys with no unexplained downstream key difference. Source
-membership, independent canonical mapping and selected-generation registry
-correlation remain missing. No new native run or whole-system acceptance.
+membership, the existing canonical map and registry preservation chain were
+subsequently recovered in the [six-stage packet](RECOVERED_GENERATION_LINKS.md).
+All three lineage gaps are closed; supplied key parity passes. No new native run
+or whole-system metadata/operational acceptance is asserted.
