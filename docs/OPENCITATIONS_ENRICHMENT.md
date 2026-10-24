@@ -1,5 +1,8 @@
 # OpenCitations DOI citation-count enrichment
 
+Native documentation was completed24October after the historical pending notes
+below: [current publication and field guide](OPENCITATIONS_NATIVE_DOCUMENTATION.md).
+
 Selected 24 October 2026 as the next independent enrichment task. Reuse verified
 DOI identities from accepted OpenAlex originals; their observations identify the
 input work, not the current OpenCitations count or a confirmed local affiliation.

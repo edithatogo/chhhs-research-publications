@@ -128,6 +128,15 @@ is `e01-consolidated-handover-20261024.json`; this handover leaves E01 incomplet
 
 ## Independent enrichment admission — 24 October
 
+The pending native documentation for this increment is now complete. Current
+guide16.0/catalogue17.0,42 reopened native Mermaid sources,24 downloadable graph
+files and the scoped field-guide source are accepted. Prior39 native source
+hashes and318 unrelated file identities/versions/content metadata are unchanged.
+See [native documentation](../docs/OPENCITATIONS_NATIVE_DOCUMENTATION.md) and
+`private/ops/2026-10-24-opencitations-documentation/acceptance.json`. This
+supersedes documentation-pending wording below, without closing solution admission
+or Crossref/E01.
+
 The48 accepted OpenCitations count/metadata observations are admitted through the
 existing Archived source assertions manual consumer, using the original archives
 and zero provider requests. Independent readback verifies48 exact new assertions,
