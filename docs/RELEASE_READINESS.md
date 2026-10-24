@@ -1,4 +1,15 @@
-# Release readiness — 2026-09-18
+# Release readiness
+
+## Current scoped grants reconciliation — 24 October 2026
+
+The [grants solution/documentation reconciliation](GRANTS_SOLUTION_RECONCILIATION.md)
+records the current private canonical export, portable-source comparison,
+bounded import/replay/failure evidence and isolated-model refresh. These
+selected grants gates are verified; unattended operation, broader source-write
+recovery, main report promotion and overall release/business acceptance remain
+separate. Preserve the global release flags and earlier release history.
+
+## Historical staged handover assessment — 18 September 2026
 
 Decision: READY FOR STAGED TENANT HANDOVER. Local implementation, enrichment pipeline, and packaging checks pass. Native deployment packages and exported artifacts are preserved in local repository.
 

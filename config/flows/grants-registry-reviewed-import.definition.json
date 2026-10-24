@@ -127,7 +127,7 @@
                     },
                     "authentication": {
                       "type": "Raw",
-                      "value": "@parameters('$authentication')"
+                      "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
                     }
                   }
                 },
@@ -152,7 +152,7 @@
                     },
                     "authentication": {
                       "type": "Raw",
-                      "value": "@parameters('$authentication')"
+                      "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
                     }
                   }
                 },
@@ -301,7 +301,7 @@
                               },
                               "authentication": {
                                 "type": "Raw",
-                                "value": "@parameters('$authentication')"
+                                "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
                               }
                             }
                           },
@@ -627,7 +627,7 @@
                                             },
                                             "authentication": {
                                               "type": "Raw",
-                                              "value": "@parameters('$authentication')"
+                                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
                                             }
                                           }
                                         },

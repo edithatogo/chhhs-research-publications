@@ -18,19 +18,21 @@ path. PAC-based tasks should be kept on one Build Tools major version within a
 pipeline. Use `pac solution pack`, `unpack`, `check`, `version` and the relevant
 Build Tools tasks for solution source, static analysis and controlled import.
 
-The current publication implementation is PBIP/TMDL plus SharePoint and Power
-BI artefacts, not a Dataverse solution. Therefore PAC/Build Tools are a
-preflight and conditional ALM route here; they do not prove SharePoint list
-writes, Power BI model/report authoring, refresh, rendering, flow execution or
-delivery. Those remain separate native readback gates. No service principal,
-connection, pipeline, environment, schedule or solution import is created by
-the local harness.
+The current canonical unmanaged CHHHS RIMS Platform solution contains the
+solution-aware flows. The 24 October export contains 35 workflows and six
+connection references; see the [scoped grants reconciliation](GRANTS_SOLUTION_RECONCILIATION.md).
+The PBIP/TMDL, SharePoint lists/forms/data and Power BI report/model remain
+separate artefacts, not contents proved by a solution ZIP. PAC export and
+source parity do not prove runtime writes, refresh, rendering or delivery.
 
-When a solution-aware grant/flow component is introduced, add an isolated
-solution project and use Build Tools 2.0 or the equivalent PAC-based GitHub
-action. Keep connection references and environment variables outside source
-history, validate the exact exported artefact, and require target readback
-after import.
+Portable parameterized flow definitions are versioned in `config/flows/`.
+Keep raw solution exports, exact connection references, environment variables
+and target bindings in ignored private evidence; do not copy the native
+unpacked project into this public repository. Validate the exported artefact
+against source and require fresh target readback after an authorized import.
+No service principal, connection, pipeline, environment, schedule or import
+is created by the local harness. PAC pack/unpack are local operations;
+`pac solution check` calls the online Checker service and is a separate gate.
 
 ## Microsoft action and test-engine decisions
 

@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "status": "PASS_EXPORT_SOURCE_PARITY",
+  "solution_unique_name": "CHHHSRIMSPlatform",
+  "solution_version": "1.0.0.0",
+  "managed": false,
+  "workflow_count": 35,
+  "connection_reference_count": 6,
+  "workflow_membership_sha256": "32a2ceed7e788c502025a7308cef35c460ca30c8205790f925706fddf68e8fe8",
+  "archive_sha256": "712de5a6bcae225f53e5c1c0e8add7c9eeca52c3b9eebbb602c407fbab4e6565",
+  "portable_grants_definition_sha256": "5710f035c3c8c21631dc0d3330c396810f2249ad2a929c53261bed301318fb4c",
+  "normalization": [
+    "exact SharePoint site/list bindings",
+    "generated manual trigger operationMetadataId"
+  ],
+  "native_acceptance": false,
+  "boundary": "Export/source comparison only; runtime and isolated-model acceptance have separate receipts.",
+  "scope": "Selected grants export/source and documentation reconciliation; not overall native release acceptance",
+  "fresh_native_definition_equals_export": true,
+  "previous_34_workflow_members_retained": true,
+  "added_workflow_scope": "Existing Crossref qualification flow; other lane ownership preserved",
+  "standalone_opencitations_included": false,
+  "grants_flow_state": "Off",
+  "solution_import_performed": false,
+  "software_version_changed": false,
+  "shared_documentation_generation_modified": false,
+  "documentation_source": "docs/GRANTS_SOLUTION_RECONCILIATION.md",
+  "native_documentation_status": "saved_bytes_verified",
+  "runtime_evidence": [
+    "docs/NIH_SOURCE_ADMISSION.md",
+    "docs/NIH_BOUNDED_IMPORT.md",
+    "docs/GRANTS_LAST_GOOD_ACCEPTANCE.md",
+    "docs/GRANTS_MODEL_REFRESH_ACCEPTANCE.md"
+  ],
+  "native_documentation_version": "1.0",
+  "native_documentation_sha256": "a37c651f84679dca2526fb7f1116e14edb007401671137106472740ce658e1f6",
+  "native_documentation_inherits_existing_access": true,
+  "existing_native_document_files_preserved": 325
+}
