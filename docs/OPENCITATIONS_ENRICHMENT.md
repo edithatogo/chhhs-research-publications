@@ -34,6 +34,20 @@ snapshot; it does not silently refresh counts. A later observation needs a new
 explicit provenance-bearing seed revision. Never relabel a cached observation as
 current or advance Crossref/DataCite checkpoints from this provider.
 
+### Extend an accepted DOI selection without recollection
+
+`--reuse-manifest` accepts an existing complete OpenCitations manifest whose DOI
+entries are a subset of the new, at-most50-DOI seed. Preparation checks unique
+DOIs, safe archive basenames, decoded source identity, successful HTTP status and
+exact count agreement. The native flow reads each retained raw file and requires
+exact base64 equality before reusing its unchanged entry/path. Only missing DOI
+entries execute provider requests and create new raw files. Final acceptance is
+a separate selection-specific marker; the previous marker remains last-good.
+
+Mixed observations retain their original per-record timestamps and provider
+scope hashes. The selection fingerprint describes membership and bootstrap
+provenance; it does not imply every observation was fetched at one common time.
+
 ## Native authoring route
 
 Inventory by exact purpose before creation. New standalone flow creation is
@@ -72,5 +86,26 @@ Private receipt: `private/ops/2026-10-24-opencitations/acceptance.json`. This is
 DOI count observations, not a citation graph or regular refresh. The flow is
 standalone; canonical solution admission and native versioned documentation are
 pending. The provider failure-stop branch is saved but was not deliberately
-fault-injected; the post-repair live-request branch has not been invoked with a
-fresh seed. No extra source reharvest or diagnostic is required for this handover.
+fault-injected. At that bootstrap handover the post-repair live-request branch
+had not been invoked with a fresh seed; the subsequent increment below proves it.
+
+### Accepted retained-selection expansion — 24 October
+
+The same manual flow now contains a48-DOI selection, derived from48 independently
+hash-verified accepted OpenAlex originals. One native run succeeded in206.8seconds:
+45provider requests succeeded and three retained observations were reused with
+zero provider recollection. All48 raw entries reconcile to the selected DOI set.
+
+Independent M365 GETs verify all45 new raw files; the three prior raw-file hashes
+are reused with exact unchanged native IDs/ETags/lengths/modification times.
+All48 raw envelopes total43,348bytes. The separate complete manifest is79,706bytes.
+The original three raw files and original accepted marker remain unchanged.
+Full native readback matches the selected candidate and physical connection;
+the flow is restored Stopped with no recurrence.
+
+Private receipt: `private/ops/2026-10-24-opencitations-48/acceptance.json`.
+The accepted three-DOI replay evidence is reused for the unchanged cached
+verification algorithm. A48-record replay was not separately invoked; that
+cardinality is not represented as fresh replay proof. No new test suite or
+diagnostic flow run was added. Canonical solution admission/versioned native
+documentation and deliberate provider-failure injection remain unproved.
