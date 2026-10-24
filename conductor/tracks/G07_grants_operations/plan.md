@@ -1,5 +1,18 @@
 # Implementation plan
 
+## Unattended NIH chain increment — 24 October 2026
+
+User-directed continuation; existing object ownership and accepted receipts remain
+unchanged. See [the current route, candidate and blockers](../../../docs/GRANTS_UNATTENDED_CHAIN.md).
+
+- [x] Inspect current native acquisition/import state and connector operations; preserve Off state, original Invoker references and accepted records.
+- [x] Prepare the offline conditional existing-row commit candidate, with post-retention source-drift checks, concrete ETag, single source/ISO MERGE and human-field exclusion. Local preparation only; no native save/runtime claim.
+- [ ] Qualify supported unattended projection, semantic replay, evidence hashing and pinned schedule admission.
+- [ ] Deploy and qualify the conditional commit on labelled fixtures; verify stale-version rejection, human edits and recovery; reconcile canonical solution and versioned documentation.
+- [ ] Qualify renewable scoped enhanced-refresh authentication on the existing isolated model, or an explicitly selected grants-only isolated alternative.
+- [ ] Run two correlated scheduled full-chain cycles and changed-source/failure/recovery cases; verify exact parent/occurrence fields and accepted totals.
+- [ ] Verify failure-alert delivery and duplicate suppression within exact authorized recipient/content/scope. Keep native failure-email subscriptions off meanwhile.
+
 > Status reconciliation, 24 October 2026: consult
 > [current missing outcomes](../../../docs/CURRENT_MISSING_OUTCOMES.md) before
 > executing dated next steps or unchecked tasks below. Accepted scoped evidence
