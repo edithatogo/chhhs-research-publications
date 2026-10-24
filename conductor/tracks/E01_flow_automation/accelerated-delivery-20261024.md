@@ -70,6 +70,17 @@ new raw reads and complete manifest verification pass; same flow restoredStopped
 Reuse prior replay evidence rather than adding a48-record diagnostic invocation.
 See the same implementation leaf and private48-DOI acceptance receipt for limits.
 
+### Bibliographic metadata increment delivered — 24 October
+
+The separate OpenCitations Meta manual flow reuses the same48 accepted DOI
+identities and common archive guards. One run acquired all48 responses; independent
+saved-byte checks pass.44single matches, three no-hits and one multiple match
+remain explicit. All50 prior count archive files are unchanged. The metadata flow
+is restoredStopped; count acquisition and Crossref were untouched. See
+[metadata implementation](../../../docs/OPENCITATIONS_METADATA.md). No fresh
+diagnostic/replay run or full suite was added; canonical admission/documentation
+and Meta-specific replay/fault injection remain separate evidence boundaries.
+
 Execution order: reconcile existing objects and accepted receipts first; implement
 only an evidenced missing diff, then one relevant runtime proof. Do not reopen
 accepted sources merely because a historical checklist remains unchecked.
